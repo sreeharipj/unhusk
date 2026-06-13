@@ -51,11 +51,18 @@ pub fn scan(
         None => return ScanResult { certain: HashSet::new(), calls: HashMap::new() },
     };
 
-    // Build ranges for USER-only Location structs.
-    // Only references to user Location structs identify a function as user code.
-    // Including dep/std locations would cause large library functions to be
-    // misclassified as "certain" user functions.
-    let loc_ranges: Vec<(u64, u64)> = locations
+    // Scan ALL Location struct ranges (user + dep + std).
+    // Rule: a function loading any user-path Location is certain-user; user wins
+    // all ties.  A function loading only dep/std Locations is NOT thereby library
+    // — std/dep panics inline into user code under LTO, so those loads are
+    // non-determinative and fall through to caller-side inference.
+    let all_loc_ranges: Vec<(u64, u64)> = locations
+        .iter()
+        .map(|l| (l.struct_vaddr, l.struct_vaddr + 24))
+        .collect();
+
+    // Separate user-only ranges for the "user wins" tie-break.
+    let user_loc_ranges: Vec<(u64, u64)> = locations
         .iter()
         .filter(|l| l.origin == crate::strings::Origin::User)
         .map(|l| (l.struct_vaddr, l.struct_vaddr + 24))
@@ -80,13 +87,20 @@ pub fn scan(
             None => continue,
         };
 
-        // ── Check all memory operands for RIP-relative references ────────────
+        // ── Check all memory operands for RIP-relative Location loads ────────
         for op_idx in 0..instr.op_count() {
             let kind = instr.op_kind(op_idx);
             if kind == OpKind::Memory {
                 let ea = effective_address(&instr);
-                if ea != 0 && addr_hits_location(ea, &loc_ranges) {
-                    certain.insert(fn_start);
+                if ea == 0 { continue; }
+                if addr_hits_location(ea, &all_loc_ranges) {
+                    // Loads a Location struct of SOME kind.
+                    if addr_hits_location(ea, &user_loc_ranges) {
+                        // User-path Location → certain-user (user wins all ties).
+                        certain.insert(fn_start);
+                    }
+                    // dep/std-only hit: non-determinative — do NOT mark as
+                    // library here; function falls through to call-graph inference.
                 }
             }
         }
