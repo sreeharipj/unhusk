@@ -231,9 +231,10 @@ pub fn print_validation_report(report: &ValidationReport) {
     fmt_recall("indeterminate    (shared/mixed callers)", report.dwarf_user_in_indeterminate);
     fmt_recall("library          (MISSED)", report.dwarf_user_in_library);
 
+    // Recall: only count functions in buckets we call "user-attributed" (certain+inferred).
+    // Indeterminate is a diagnostic bucket; DWARF confirms 0% precision there.
     let captured = report.dwarf_user_in_certain
-        + report.dwarf_user_in_inferred
-        + report.dwarf_user_in_indeterminate;
+        + report.dwarf_user_in_inferred;
     println!();
     println!("  total captured : {:>5}  ({:.1}% of {} DWARF-user fns)",
         captured, pct(captured, u), u);
@@ -249,7 +250,7 @@ pub fn print_validation_report(report: &ValidationReport) {
     println!("  Certain recall    : {:.1}%  ({}/{} DWARF-user fns reached by certain)",
         pct(report.dwarf_user_in_certain, u),
         report.dwarf_user_in_certain, u);
-    println!("  Overall recall    : {:.1}%  (certain+inferred+indeterminate)",
+    println!("  Overall recall    : {:.1}%  (certain+inferred)",
         pct(captured, u));
 
     println!();
