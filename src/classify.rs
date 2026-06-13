@@ -105,11 +105,13 @@ pub fn attribute(
                     continue;
                 }
                 visited_in_bfs.insert(callee);
-                tentative_inferred.insert(callee);
-                // HARD BARRIER: if callee is at a dep boundary, don't propagate further.
-                if !dep_boundary.contains(&callee) {
-                    frontier.push_back(callee);
+                // HARD BARRIER: functions with dep Location anchors are dependency boundaries.
+                // Do NOT mark as inferred; do NOT propagate. They block the inference wave.
+                if dep_boundary.contains(&callee) {
+                    continue;
                 }
+                tentative_inferred.insert(callee);
+                frontier.push_back(callee);
             }
         }
     }
