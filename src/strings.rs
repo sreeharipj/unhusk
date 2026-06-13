@@ -136,19 +136,6 @@ pub fn classify(elf: &ParsedElf) -> Vec<SourceString> {
 
 /// Classify a `.rs` source path by its prefix.
 pub fn classify_path(path: &str) -> Origin {
-    // ── User code: relative paths from the crate root ──
-    // These are the paths the compiler embeds when it compiled YOUR source.
-    // They're relative to the crate root, not the filesystem.
-    if path.starts_with("src/")
-        || path.starts_with("tests/")
-        || path.starts_with("examples/")
-        || path.starts_with("benches/")
-        || path == "build.rs"
-        || path.starts_with("build.rs/")
-    {
-        return Origin::User;
-    }
-
     // ── Standard library: paths from the rustc sysroot ──
     // Format: /rustc/<COMMIT_HASH>/library/...
     if path.starts_with("/rustc/") {
@@ -182,6 +169,14 @@ pub fn classify_path(path: &str) -> Origin {
                 return Origin::Dep { crate_name: name, version: ver };
             }
         }
+    }
+
+    // ── User code: relative paths (not under system/dep prefixes) ──
+    // Paths embedded by the compiler for the built crate itself.
+    // These are relative to the crate root (e.g., src/main.rs, crates/core/main.rs, etc).
+    // Don't start with a /, so they're relative paths.
+    if !path.starts_with('/') {
+        return Origin::User;
     }
 
     Origin::Unknown
