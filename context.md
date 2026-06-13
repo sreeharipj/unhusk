@@ -178,30 +178,35 @@ user panic sites) are those same containers. This represents a real case where
 unhusk's "ownership via panic sites" differs from DWARF's "where was the function
 defined".
 
+## What was done after initial DWARF validation
+
+**Excluded indeterminate from user-attributed output** (commit cd8b9fb):
+- DWARF confirmed 0% precision for indeterminate (0/36 TP, 36 FP)
+- `Score::user_total()` now returns certain + inferred only
+- Report lists only certain+inferred as "user-attributed"
+- Indeterminate still appears in the breakdown and DWARF validation metrics
+- Effect: cargo_stripped user output reduced 1699 → 831 (51% noise reduction)
+
 ## What remains
 
-1. **Indeterminate precision**: currently 0%. The dep-boundary barrier stops dep-crate
-   flooding but functions called from both user AND dep (indeterminate) are all std/dep
-   by DWARF. Consider dropping indeterminate and folding into library, or tightening the
-   classifier to only promote true ambiguous cases.
+1. **Inferred precision improvement** (currently 5%): every user function calls std glue
+   (Drop, alloc, Iterator). Hard to improve without DWARF at analysis time.
+   One tractable option: don't propagate inferred through functions whose SIZE is
+   consistent with compiler-generated stubs (< 20 bytes or similar). But this is
+   heuristic and not backed by data.
 
-2. **Recall for entry points**: `main` and functions with no panic sites that are not
-   transitively called from certain functions are always missed. No clear fix without
-   DWARF access at analysis time.
+2. **Recall for entry points**: `main` and functions with no panic sites not reachable
+   from certain are always missed. No clear fix without DWARF at strip time.
 
-3. **Mid-size real-world fixture with many user fns**: unhusk-on-unhusk has only 8
-   DWARF-user functions. Want a fixture with 50-100+ distinct user functions that
-   survive inlining. Requires a project with multiple large user functions and
-   `panic = 'unwind'` (not 'abort'). Ripgrep has 0 user panic sites (uses `?`
-   throughout). Custom fixture or a Rust CLI tool with explicit assertions would work.
-
-4. **Inferred precision improvement**: the root cause is that every user function calls
-   std/dep glue (Drop, alloc, Iterator). Post-pass that removes functions whose DWARF
-   (if available) says std/dep would be the right fix, but that requires having DWARF
-   at analysis time, which defeats the purpose of analyzing stripped binaries.
+3. **Better real-world fixture**: unhusk-on-unhusk has only 8 DWARF-user functions
+   (most are inlined away). A project with more non-inlined user functions with
+   explicit asserts would give clearer signal. The scored fixture gives clean numbers
+   but is synthetic.
 
 ## Commit history (this work)
 
+- `cd8b9fb` Exclude indeterminate from user-attributed output (DWARF-backed decision)
+- `ecc6132` context: add scored_debug validation results and summary table
 - `0e2ecaf` context: document DWARF ground truth findings and validation numbers
 - `de64b9e` Add DWARF ground-truth validation (--validate flag)
 - `4eb0e10` Fix classifier and apply dep-boundary barrier; validate on rustup
