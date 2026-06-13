@@ -2,6 +2,7 @@
 use std::collections::BTreeMap;
 
 use crate::classify::{AttributedFn, Attribution, Score};
+use crate::dwarf::ValidationReport;
 use crate::elf::ParsedElf;
 use crate::locate::PanicLocation;
 use crate::strings::{Origin, SourceString};
@@ -189,6 +190,67 @@ pub fn print_phase2_report(
 
     println!();
     println!("phase 2 complete.");
+}
+
+/// Print DWARF ground-truth validation results.
+pub fn print_validation_report(report: &ValidationReport) {
+    println!();
+    println!("=== unhusk — DWARF ground-truth validation ===");
+    println!();
+    println!("DWARF coverage : {} functions mapped ({} user-first-party)",
+        report.dwarf_total, report.dwarf_user_total);
+
+    println!();
+    println!("── Precision (of unhusk's user-attributed predictions) ─────────────────");
+
+    let fmt_bucket = |name: &str, b: &crate::dwarf::BucketMetrics| {
+        let prec = b.precision()
+            .map(|p| format!("{:.1}%", p * 100.0))
+            .unwrap_or_else(|| "n/a".into());
+        println!(
+            "  {:<14} {:>5} predicted   TP={:>5}  FP={:>4}  unknown={:>4}   precision={}",
+            name, b.predicted, b.true_positive, b.false_positive, b.dwarf_unknown, prec
+        );
+    };
+
+    fmt_bucket("certain",       &report.certain);
+    fmt_bucket("inferred",      &report.inferred);
+    fmt_bucket("indeterminate", &report.indeterminate);
+
+    println!();
+    println!("── Recall (where do DWARF-first-party functions land?) ─────────────────");
+    let u = report.dwarf_user_total;
+    let fmt_recall = |label: &str, n: usize| {
+        println!("  {:>5}  ({:5.1}%)  {}", n, pct(n, u), label);
+    };
+    fmt_recall("certain          (rock-solid signal)", report.dwarf_user_in_certain);
+    fmt_recall("inferred         (call-graph reach)", report.dwarf_user_in_inferred);
+    fmt_recall("indeterminate    (shared/mixed callers)", report.dwarf_user_in_indeterminate);
+    fmt_recall("library          (MISSED)", report.dwarf_user_in_library);
+
+    let captured = report.dwarf_user_in_certain
+        + report.dwarf_user_in_inferred
+        + report.dwarf_user_in_indeterminate;
+    println!();
+    println!("  total captured : {:>5}  ({:.1}% of {} DWARF-user fns)",
+        captured, pct(captured, u), u);
+    println!("  total missed   : {:>5}  ({:.1}%)",
+        report.dwarf_user_in_library, pct(report.dwarf_user_in_library, u));
+
+    println!();
+    println!("── Headline numbers ─────────────────────────────────────────────────────");
+    println!("  Certain precision : {}",
+        report.certain.precision()
+            .map(|p| format!("{:.1}%", p * 100.0))
+            .unwrap_or_else(|| "n/a (no certain predictions)".into()));
+    println!("  Certain recall    : {:.1}%  ({}/{} DWARF-user fns reached by certain)",
+        pct(report.dwarf_user_in_certain, u),
+        report.dwarf_user_in_certain, u);
+    println!("  Overall recall    : {:.1}%  (certain+inferred+indeterminate)",
+        pct(captured, u));
+
+    println!();
+    println!("validation complete.");
 }
 
 fn pct(n: usize, total: usize) -> f64 {
