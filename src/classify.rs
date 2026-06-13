@@ -50,10 +50,14 @@ pub struct AttributedFn {
 // ── Public API ────────────────────────────────────────────────────────────────
 
 /// Attribute every function in `fns` and return the full list.
+///
+/// The `dep_boundary` set contains functions anchored to dep Locations — these
+/// act as hard barriers in the BFS, stopping propagation of "inferred" attribution.
 pub fn attribute(
     fns: &FunctionMap,
     certain: &CertainSet,
     calls: &CallGraph,
+    dep_boundary: &crate::xref::DepBoundarySet,
 ) -> Vec<AttributedFn> {
     // ── Step 1: build reverse call graph (callee → set of callers) ───────────
     let mut callers: HashMap<u64, HashSet<u64>> = HashMap::new();
@@ -77,7 +81,8 @@ pub fn attribute(
     // ── Step 3: BFS — propagate "inferred" through callees ───────────────────
     // We follow CALL edges: if a user-attributed function calls F, and F has
     // not yet been attributed as certain, mark it as inferred (tentatively).
-    // We track a "library taint" to downgrade to Indeterminate later.
+    // HARD BARRIER: stop BFS propagation at dep_boundary functions (they are
+    // dependency boundaries — don't propagate user attribution through them).
     let mut tentative_inferred: HashSet<u64> = HashSet::new();
     let mut visited_in_bfs: HashSet<u64> = HashSet::new();
 
@@ -101,7 +106,10 @@ pub fn attribute(
                 }
                 visited_in_bfs.insert(callee);
                 tentative_inferred.insert(callee);
-                frontier.push_back(callee);
+                // HARD BARRIER: if callee is at a dep boundary, don't propagate further.
+                if !dep_boundary.contains(&callee) {
+                    frontier.push_back(callee);
+                }
             }
         }
     }
