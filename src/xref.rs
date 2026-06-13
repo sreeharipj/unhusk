@@ -29,10 +29,14 @@ pub type CertainSet = HashSet<u64>;
 /// Call graph: caller start_addr → set of callee start_addrs.
 pub type CallGraph = HashMap<u64, HashSet<u64>>;
 
+/// Functions anchored to a dep/vendored location — BFS propagation stops here.
+pub type DepBoundarySet = HashSet<u64>;
+
 /// Result of the single-pass scan.
 pub struct ScanResult {
     pub certain: CertainSet,
     pub calls: CallGraph,
+    pub dep_boundary: DepBoundarySet,
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -48,7 +52,7 @@ pub fn scan(
 ) -> ScanResult {
     let text = match elf.section(".text") {
         Some(s) => s,
-        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new() },
+        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new(), dep_boundary: HashSet::new() },
     };
 
     // Scan ALL Location struct ranges (user + dep + std).
@@ -68,6 +72,13 @@ pub fn scan(
         .map(|l| (l.struct_vaddr, l.struct_vaddr + 24))
         .collect();
 
+    // Separate dep ranges (cargo-registry or vendored paths).
+    let dep_loc_ranges: Vec<(u64, u64)> = locations
+        .iter()
+        .filter(|l| matches!(&l.origin, crate::strings::Origin::Dep { .. }))
+        .map(|l| (l.struct_vaddr, l.struct_vaddr + 24))
+        .collect();
+
     let text_base = text.vaddr;
     let mut decoder = Decoder::with_ip(
         64,
@@ -78,6 +89,7 @@ pub fn scan(
 
     let mut certain: CertainSet = HashSet::new();
     let mut calls: CallGraph = HashMap::new();
+    let mut dep_boundary: DepBoundarySet = HashSet::new();
     let mut instr = Instruction::default();
 
     while decoder.can_decode() {
@@ -98,9 +110,12 @@ pub fn scan(
                     if addr_hits_location(ea, &user_loc_ranges) {
                         // User-path Location → certain-user (user wins all ties).
                         certain.insert(fn_start);
+                    } else if addr_hits_location(ea, &dep_loc_ranges) {
+                        // Dep Location → this function is a dep boundary.
+                        // Do NOT mark as certain; BFS will stop here during propagation.
+                        dep_boundary.insert(fn_start);
                     }
-                    // dep/std-only hit: non-determinative — do NOT mark as
-                    // library here; function falls through to call-graph inference.
+                    // std-only hit: non-determinative — fall through to call-graph inference.
                 }
             }
         }
@@ -121,7 +136,7 @@ pub fn scan(
         }
     }
 
-    ScanResult { certain, calls }
+    ScanResult { certain, calls, dep_boundary }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

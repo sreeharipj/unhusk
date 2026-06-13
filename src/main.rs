@@ -27,7 +27,7 @@ fn main() -> Result<()> {
     let fn_map = unhusk::frame::parse_eh_frame(&elf)?;
     if !fn_map.is_empty() {
         let scan = unhusk::xref::scan(&elf, &fn_map, &locations);
-        let attributed = unhusk::classify::attribute(&fn_map, &scan.certain, &scan.calls);
+        let attributed = unhusk::classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary);
         let score = unhusk::classify::Score::from(&attributed);
         unhusk::report::print_phase2_report(&elf, &attributed, &score);
     }

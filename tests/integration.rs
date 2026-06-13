@@ -100,7 +100,7 @@ fn medium_finds_two_user_locations() {
     assert!(!scan.certain.is_empty(),
         "medium_dyn: expected ≥1 certain user function, got 0");
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls);
+    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary);
     let score = classify::Score::from(&attributed);
     assert!(score.certain >= 1,
         "medium_dyn Phase 2: expected ≥1 certain, got {}", score.certain);
@@ -173,7 +173,7 @@ fn rustup_user_source_files() {
     assert!(total_edges >= 5_000,
         "rustup Phase 2: expected ≥5K call edges, got {}", total_edges);
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls);
+    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary);
     let score = classify::Score::from(&attributed);
     assert!(score.certain >= 30,
         "rustup Phase 2: certain={}", score.certain);
@@ -271,7 +271,7 @@ fn scored_phase2_attribution() {
     eprintln!("call graph: {} total edges", total_call_edges);
 
     // Attribution: must attribute at least the certain + a few inferred
-    let attributed = unhusk::classify::attribute(&fn_map, &scan_result.certain, &scan_result.calls);
+    let attributed = unhusk::classify::attribute(&fn_map, &scan_result.certain, &scan_result.calls, &scan_result.dep_boundary);
     let score = unhusk::classify::Score::from(&attributed);
     eprintln!("score: certain={} inferred={} indeterminate={} library={}",
         score.certain, score.inferred, score.indeterminate, score.library);
