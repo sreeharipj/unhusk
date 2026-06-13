@@ -177,11 +177,13 @@ fn rustup_user_source_files() {
     let score = classify::Score::from(&attributed);
     assert!(score.certain >= 30,
         "rustup Phase 2: certain={}", score.certain);
-    assert!(score.inferred >= 1_000,
+    // Dep-boundary barrier stops propagation into dependency crates; 500 is a safe floor.
+    assert!(score.inferred >= 500,
         "rustup Phase 2: inferred={}", score.inferred);
-    // Total user-attributed (certain+inferred+indeterminate) should cover ≥10% of functions.
-    assert!(score.user_total() >= fn_map.len() / 10,
-        "rustup Phase 2: user_total={} < 10% of {} functions",
+    // Total user-attributed (certain+inferred+indeterminate) should cover ≥5% of functions.
+    // (Dep-boundary barrier reduces this vs older baselines.)
+    assert!(score.user_total() >= fn_map.len() / 20,
+        "rustup Phase 2: user_total={} < 5% of {} functions",
         score.user_total(), fn_map.len());
 }
 
