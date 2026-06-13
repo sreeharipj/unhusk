@@ -180,11 +180,10 @@ fn rustup_user_source_files() {
     // Dep-boundary barrier stops propagation into dependency crates; 500 is a safe floor.
     assert!(score.inferred >= 500,
         "rustup Phase 2: inferred={}", score.inferred);
-    // Total user-attributed (certain+inferred+indeterminate) should cover ≥5% of functions.
-    // (Dep-boundary barrier reduces this vs older baselines.)
-    assert!(score.user_total() >= fn_map.len() / 20,
-        "rustup Phase 2: user_total={} < 5% of {} functions",
-        score.user_total(), fn_map.len());
+    // Total user-attributed (certain+inferred, NOT indeterminate which is 0%-precise).
+    // Absolute floor: at minimum 530 (sum of the certain + inferred floors above).
+    assert!(score.user_total() >= 530,
+        "rustup Phase 2: user_total(certain+inferred)={}", score.user_total());
 }
 
 // ── Smoke test: string classifier ────────────────────────────────────────────

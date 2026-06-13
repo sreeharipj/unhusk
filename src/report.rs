@@ -168,10 +168,13 @@ pub fn print_phase2_report(
         score.library,
         pct(score.library, fn_count));
 
-    // User-code functions (certain + inferred + indeterminate)
+    // User-code functions: certain + inferred only.
+    // Indeterminate functions (called by both user and library code) are excluded
+    // because DWARF ground truth shows 0% precision for that bucket — they are
+    // std/dep shared utilities, not user-authored logic.
     let user_fns: Vec<&AttributedFn> = attributed
         .iter()
-        .filter(|f| f.attribution != Attribution::Library)
+        .filter(|f| matches!(f.attribution, Attribution::Certain | Attribution::Inferred))
         .collect();
 
     if !user_fns.is_empty() {
