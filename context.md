@@ -340,3 +340,58 @@ the cargo_stripped fixture has no matching unstripped companion.
 **Next most valuable step**: Rebuild miniserve with `debug=true` to validate
 the depth-limit improvement on a larger fixture (~27 certain, ~600 inferred).
 Alternatively: the tool is now fully characterized for the stated goals.
+
+---
+
+## Anchor-headroom diagnostic (2026-06-15) — `realval/ANCHOR_HEADROOM.md`
+
+**Question:** the binding constraint is recall (median certain-recall 15.8%). Would
+broadening the user anchor beyond panic `Location`s — to `module_path!`, `file!` (bare),
+`type_name::<UserType>()` — materially raise recall, and at what precision cost?
+
+**Tool:** `src/bin/anchor_headroom.rs` (diagnostic only; classifier UNCHANGED). Reuses
+unhusk's `elf`/`frame`/`locate`/`xref`/`dwarf` modules. Ran on the 13 rebuilt validation
+binaries (stripped + debug twin). Per-binary output in `realval/anchor/<name>.txt`.
+
+**What I now understand (the mechanism):**
+1. **User `module_path!`/`type_name` strings are slot-less.** Unlike panic `Location.file`
+   (a relocated fat pointer in `.data.rel.ro`, which is what unhusk scans), these are
+   materialized inline (`lea [rip+rodata]; mov len,imm`) — no reloc slot. So the literal
+   "same slot scan as Locations" finds ~none (ripgrep: 1 bare `.rs` slot, 0 ident slots vs
+   319 panic slots). The tool therefore **inverts** the scan: classify the bytes at every
+   RIP-relative `.rodata` reference in `.text`. User-crate set derived from the stripped
+   binary as `{snake_case "ident::" leading idents} \ {std} \ {seen deps}`.
+2. **Two ground truths.** DWARF `decl_file` undercounts (homes closures to core, fails to
+   map monomorphized generics at all → "unmapped"). Added a **symbol-name** ground truth
+   via `nm -C` on the debug twin (user iff leading crate ∉ std∪deps); it counts the
+   monomorphizations. Reported both. Symbol view raises user denom everywhere (ripgrep
+   3533→4013, just 181→478) — confirms the undercount; verdict holds under both.
+
+**What the numbers show:**
+- **Recall headroom B is ~zero.** Aggregate bare anchors reach **8/4855 (0.16%)** more user
+  fns by DWARF, **27/5744 (0.47%)** by symbol. Max single binary = ripgrep 19. Six binaries
+  B=0 under both.
+- **55% redundant.** Of 143 bare-anchor fns total, **79 are already `certain`** — the
+  functions that log/introspect are the same ones that panic.
+- **Precision bimodal:** ripgrep 92%, tokei 75%, bat 56%, but just/grex/sd/dust = 0%
+  (dep-submodule / noise idents) — same library-generic frontier as the panic anchor.
+- **just embeds zero `just::` strings** (the "logging-heavy" premise is false for it);
+  xsv/zoxide/pastel/hyperfine have **0** bare-anchor fns entirely.
+
+**Verdict (blunt):** small B → **recall ceiling is structural, not anchor coverage.** Not
+worth building. The missed user fns (closures, leaf helpers, trait-dispatched generic
+instances) carry no self-referential user string; they are *called*, not *logged*, and need
+**backward reachability** (callers of user code) or type-layout recovery — not more string
+anchors. Same conclusion the panic-Location recall analysis reached, now confirmed against a
+second independent anchor family.
+
+**What I just did:** built the diagnostic, ran the 13-binary sweep, investigated the large
+"unmapped" set (it is genuine user monomorphizations DWARF drops — drove the symbol GT
+addition), committed (`69b2121`). The 13 `.debug`/`.stripped` binaries were rebuilt this
+session (prior copies had been cleaned to save disk) and are gitignored.
+
+**What remains / next step:** the headroom question is closed — no classifier change warranted.
+If recall is to be pushed, the only levers left are backward-reachability (reverse call-graph
+from `certain` into their callers/trait-impl sites) or type-layout recovery; both are larger
+efforts and outside the string-anchor family. The miniserve-rebuild idea above is still open
+but lower value.
