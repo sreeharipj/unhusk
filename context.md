@@ -225,23 +225,46 @@ defined".
 - Useful to know: 27 certain, 600 inferred from panic sites alone — unhusk finds
   a lot of user code but cannot be verified
 
+## Depth-limit analysis (new: empirical, DWARF-backed)
+
+Added `--infer-depth N` flag that caps BFS at N hops from certain. Measured
+on all validated fixtures:
+
+| Fixture | Depth | Inferred | TP | FP | unk | Precision | Recall |
+|---------|-------|----------|----|----|-----|-----------|--------|
+| unhusk  | ∞     | 56       | 2  | 38 | 16  | 5.0%      | 62.5%  |
+| unhusk  | 2     | 36       | 2  | 19 | 15  | 9.5%      | 62.5%  |
+| unhusk  | 1     | 22       | 2  | 11 | 9   | **15.4%** | 62.5%  |
+| scored  | ∞     | 10       | 10 | 0  | 0   | 100%      | 84.2%  |
+| scored  | 2     | 8        | 8  | 0  | 0   | 100%      | 73.7%  |
+| scored  | 1     | 4        | 4  | 0  | 0   | 100%      | 52.6%  |
+| medium  | ∞     | 4        | 0  | 3  | 1   | 0%        | 100%   |
+| medium  | 1     | 3        | 0  | 3  | 0   | 0%        | 100%   |
+
+**Key findings:**
+- For real binaries (unhusk, medium): `--infer-depth 1` preserves ALL TP with
+  **zero recall loss**, while improving precision 3x (5% → 15.4%). Both TP in
+  the unhusk fixture are at depth 1 (direct callees of certain functions).
+- Recall only drops in the scored fixture (synthetic, #[inline(never)]), where
+  user functions form a chain deeper than depth 1. Scored has no std callees at
+  any depth — an artificial design that doesn't occur in real LTO-compiled code.
+- Default remains unlimited for backward compat; `--infer-depth 1` recommended
+  for production analysis of real Rust binaries.
+
 ## What remains
 
-1. **Inferred precision** (5% on real binaries): root cause confirmed — std functions
-   transitively reachable from user code via BFS are indistinguishable from user
-   functions on stripped binaries. No structural fix is possible without type
-   information or DWARF at analysis time. The iterative convergence and depth-1 limit
-   approaches were analyzed and found not to help: the cascade propagates through the
-   tentative_inferred set itself, which makes all transitively-reachable callers appear
-   to have "user" callers.
+1. **Inferred precision** partially addressed: `--infer-depth 1` removes 27/38 FP
+   on the unhusk fixture (5% → 15.4% precision, 0% recall loss). The remaining 11 FP
+   at depth-1 are std functions called DIRECTLY by certain functions — unfixable
+   without DWARF or type information.
 
-2. **Recall ceiling**: 3 categories of permanently-missed user functions identified
-   with concrete function names. No fix without DWARF. The limit is ~62.5% overall
-   recall (certain+inferred) for real binaries where user functions don't all panic.
+2. **Recall ceiling**: 3 categories of permanently-missed user functions (main,
+   dep-called trait impls, closures in non-panicking fns). No fix without DWARF.
+   Confirmed at 62.5% for the unhusk fixture.
 
-3. **Better fixtures**: the current validated set gives a clear picture. A more
-   interesting fixture would be a real-world project with many non-inlined panicking
-   functions (like miniserve but with .debug_info). Would require rebuilding the binary.
+3. **Better fixtures**: miniserve_unstripped has no .debug_info. A rebuild with
+   debug=true would give a large real-world fixture (~27 certain, ~600 inferred)
+   for validating the depth-limit improvement on a bigger sample.
 
 ## Before vs after barrier (DWARF-era measurement)
 
@@ -269,6 +292,11 @@ the cargo_stripped fixture has no matching unstripped companion.
 
 ## Commit history (this work)
 
+- `3f46fab` classify: add max_infer_depth parameter; CLI: --infer-depth flag
+- `6bbd2d4` report: cap speculative output at 20; add --show-all-inferred flag
+- `0378769` report: split output into high-confidence vs speculative sections
+- `2aa270e` Phase 2 report: annotate certain functions with their panic sites
+- `27a57ef` context: document confirmed function identities and structural limits
 - `1c13cb6` Validation: carry source paths through to report; show per-bucket lists
 - `bf20629` context: document rg/miniserve results and barrier before/after
 - `1a256b2` Fix validation report: overall recall uses certain+inferred only
@@ -278,24 +306,37 @@ the cargo_stripped fixture has no matching unstripped companion.
 - `0e2ecaf` context: document DWARF ground truth findings and validation numbers
 - `de64b9e` Add DWARF ground-truth validation (--validate flag)
 
+## Tool improvements made this session
+
+1. **Per-bucket function lists in validation** (`1c13cb6`): DwarfGroundTruth now carries
+   source paths; validation report shows address + source file for each DWARF-user function
+   in each bucket. Confirmed identities of 3 certain, 2 inferred TP, 3 missed functions.
+
+2. **Panic-site annotations on certain functions** (`2aa270e`): Phase 2 report shows
+   `panic @ src/file.rs:line:col` under each certain function — the xref scan now records
+   which Location struct_vaddrs each certain function loads.
+
+3. **High-confidence vs speculative split** (`0378769`): Output now separates
+   "high-confidence user functions (N)" (certain, 100% precision) from
+   "speculative (inferred, call-graph reach — low precision)" instead of mixing them.
+
+4. **Speculative section capped at 20** (`6bbd2d4`): `--show-all-inferred` reveals all.
+
+5. **Depth-limit inference** (`3f46fab`): `--infer-depth N` caps BFS at N hops.
+   `--infer-depth 1` gives 3x precision improvement on real binaries (5% → 15.4%)
+   with zero recall loss. See depth-limit analysis table above.
+
 ## Current state and next step
 
 **All prompt.md questions answered with DWARF evidence:**
 1. Certain precision: 100% across all three fixtures ✓
-2. Fraction of DWARF-user fns per bucket (unhusk fixture): certain=37.5%, inferred=25%, missed=37.5% ✓
+2. Fraction of DWARF-user fns per bucket measured and confirmed ✓
 
-**Structural limits now fully documented with concrete function names:**
-- Missed functions identified and their root causes confirmed
-- Inferred precision limit analyzed — no structural fix available on stripped binaries
+**Structural limits fully documented with concrete function names:**
+- Missed functions identified (main, dep-called trait impl, closure in non-panicking fn)
+- Inferred precision partially addressed via --infer-depth 1 (5% → 15.4%)
+- Remaining 11 FP at depth-1 are unfixable without DWARF at analysis time
 
-**Next most valuable step**: Rebuild miniserve with `debug=true` to get a validated
-fixture with ~27 certain and ~600 inferred, which would give a more complete picture
-of inferred precision on a large real-world codebase. This would require:
-```
-cargo build --release --profile release-with-debug  # or similar
-profile.release.debug = true
-```
-in miniserve's Cargo.toml. This is the only remaining open measurement gap.
-
-Alternatively: accept the current results as complete for the stated goals. The tool
-behavior is now fully characterized against DWARF ground truth.
+**Next most valuable step**: Rebuild miniserve with `debug=true` to validate
+the depth-limit improvement on a larger fixture (~27 certain, ~600 inferred).
+Alternatively: the tool is now fully characterized for the stated goals.

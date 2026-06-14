@@ -6,7 +6,7 @@ use clap::Parser;
 #[derive(Parser)]
 #[command(
     name = "unhusk",
-    about = "Recover user-authored logic from stripped Rust release binaries",
+    about = "Identify user-authored functions in stripped Rust release binaries via panic metadata",
     version,
 )]
 struct Args {
@@ -15,14 +15,15 @@ struct Args {
 
     /// Optional unstripped companion binary for DWARF ground-truth validation.
     ///
-    /// When provided, unhusk reads .debug_line from this binary and reports
+    /// When provided, unhusk reads .debug_info from this binary and reports
     /// precision/recall of each attribution bucket against the DWARF truth.
     #[arg(long, value_name = "UNSTRIPPED")]
     validate: Option<PathBuf>,
 
-    /// Show all speculative (inferred) functions instead of capping at 20.
+    /// Show the full call-closure list (inferred + indeterminate) instead of capping at 20.
+    /// These are functions reachable from user code — mostly dep/std glue, not user-authored.
     #[arg(long)]
-    show_all_inferred: bool,
+    show_call_closure: bool,
 
     /// Limit call-graph inference to N hops from certain functions (default: unlimited).
     /// Depth 1 = direct callees only. Lower values reduce noise at the cost of recall.
@@ -54,7 +55,7 @@ fn main() -> Result<()> {
         args.infer_depth,
     );
     let score = unhusk::classify::Score::from(&attributed);
-    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_all_inferred);
+    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_call_closure);
 
     // Optional DWARF validation.
     if let Some(ref unstripped_path) = args.validate {
