@@ -47,8 +47,8 @@ fn classify_path_for_dwarf(path: &str) -> Origin {
     }
 }
 
-/// Map from function start address to its DWARF-determined source origin.
-pub type DwarfGroundTruth = HashMap<u64, Origin>;
+/// Map from function start address to its DWARF-determined source origin and file path.
+pub type DwarfGroundTruth = HashMap<u64, (Origin, String)>;
 
 /// Extract function-to-source-file mapping from DWARF `.debug_info`.
 ///
@@ -135,7 +135,7 @@ pub fn read_function_sources(elf: &ParsedElf, fn_map: &FunctionMap) -> DwarfGrou
             };
 
             if let Some(path) = direct_file_path {
-                result.insert(low_pc, classify_path_for_dwarf(&path));
+                result.insert(low_pc, (classify_path_for_dwarf(&path), path));
                 continue;
             }
 
@@ -162,7 +162,7 @@ pub fn read_function_sources(elf: &ParsedElf, fn_map: &FunctionMap) -> DwarfGrou
             };
 
             if let Some(path) = ao_path {
-                result.insert(low_pc, classify_path_for_dwarf(&path));
+                result.insert(low_pc, (classify_path_for_dwarf(&path), path));
             }
         }
     }
@@ -318,6 +318,11 @@ pub struct ValidationReport {
     pub dwarf_user_in_inferred: usize,
     pub dwarf_user_in_indeterminate: usize,
     pub dwarf_user_in_library: usize,
+    /// DWARF-user functions that fell into each bucket: (addr, source_path).
+    pub dwarf_user_certain_list: Vec<(u64, String)>,
+    pub dwarf_user_inferred_list: Vec<(u64, String)>,
+    pub dwarf_user_indeterminate_list: Vec<(u64, String)>,
+    pub dwarf_user_library_list: Vec<(u64, String)>,
 }
 
 impl ValidationReport {
@@ -329,7 +334,7 @@ impl ValidationReport {
         use std::collections::HashSet;
 
         let dwarf_total = ground_truth.len();
-        let dwarf_user_total = ground_truth.values().filter(|o| **o == Origin::User).count();
+        let dwarf_user_total = ground_truth.values().filter(|(o, _)| *o == Origin::User).count();
 
         let mut certain = BucketMetrics::default();
         let mut inferred = BucketMetrics::default();
@@ -360,7 +365,7 @@ impl ValidationReport {
             };
             metrics.predicted += 1;
             match ground_truth.get(&f.start) {
-                Some(Origin::User) => metrics.true_positive += 1,
+                Some((Origin::User, _)) => metrics.true_positive += 1,
                 Some(_) => metrics.false_positive += 1,
                 None => metrics.dwarf_unknown += 1,
             }
@@ -370,21 +375,34 @@ impl ValidationReport {
         let mut dwarf_user_in_inferred = 0;
         let mut dwarf_user_in_indeterminate = 0;
         let mut dwarf_user_in_library = 0;
+        let mut dwarf_user_certain_list: Vec<(u64, String)> = Vec::new();
+        let mut dwarf_user_inferred_list: Vec<(u64, String)> = Vec::new();
+        let mut dwarf_user_indeterminate_list: Vec<(u64, String)> = Vec::new();
+        let mut dwarf_user_library_list: Vec<(u64, String)> = Vec::new();
 
-        for (addr, origin) in ground_truth {
+        for (addr, (origin, path)) in ground_truth {
             if *origin != Origin::User {
                 continue;
             }
             if certain_addrs.contains(addr) {
                 dwarf_user_in_certain += 1;
+                dwarf_user_certain_list.push((*addr, path.clone()));
             } else if inferred_addrs.contains(addr) {
                 dwarf_user_in_inferred += 1;
+                dwarf_user_inferred_list.push((*addr, path.clone()));
             } else if indeterminate_addrs.contains(addr) {
                 dwarf_user_in_indeterminate += 1;
+                dwarf_user_indeterminate_list.push((*addr, path.clone()));
             } else {
                 dwarf_user_in_library += 1;
+                dwarf_user_library_list.push((*addr, path.clone()));
             }
         }
+
+        dwarf_user_certain_list.sort_by_key(|(a, _)| *a);
+        dwarf_user_inferred_list.sort_by_key(|(a, _)| *a);
+        dwarf_user_indeterminate_list.sort_by_key(|(a, _)| *a);
+        dwarf_user_library_list.sort_by_key(|(a, _)| *a);
 
         ValidationReport {
             dwarf_total,
@@ -396,6 +414,10 @@ impl ValidationReport {
             dwarf_user_in_inferred,
             dwarf_user_in_indeterminate,
             dwarf_user_in_library,
+            dwarf_user_certain_list,
+            dwarf_user_inferred_list,
+            dwarf_user_indeterminate_list,
+            dwarf_user_library_list,
         }
     }
 }
@@ -418,7 +440,7 @@ mod tests {
         let fn_map = crate::frame::parse_eh_frame(&elf).unwrap();
         let gt = read_function_sources(&elf, &fn_map);
 
-        let user_fns: Vec<_> = gt.iter().filter(|(_, o)| **o == Origin::User).collect();
+        let user_fns: Vec<_> = gt.iter().filter(|(_, (o, _))| *o == Origin::User).collect();
         eprintln!("Total FDEs: {} | DWARF entries: {} | User by DWARF: {}",
             fn_map.len(), gt.len(), user_fns.len());
         let mut user_addrs: Vec<u64> = user_fns.iter().map(|(a, _)| **a).collect();

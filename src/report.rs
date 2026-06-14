@@ -231,6 +231,22 @@ pub fn print_validation_report(report: &ValidationReport) {
     fmt_recall("indeterminate    (shared/mixed callers)", report.dwarf_user_in_indeterminate);
     fmt_recall("library          (MISSED)", report.dwarf_user_in_library);
 
+    // Per-bucket DWARF-user function lists for diagnostic detail.
+    let print_fn_list = |label: &str, list: &[(u64, String)]| {
+        if list.is_empty() { return; }
+        println!("  {}:", label);
+        for (addr, path) in list {
+            println!("    0x{:08x}  {}", addr, path);
+        }
+    };
+    if u > 0 {
+        println!();
+        print_fn_list("DWARF-user in certain", &report.dwarf_user_certain_list);
+        print_fn_list("DWARF-user in inferred", &report.dwarf_user_inferred_list);
+        print_fn_list("DWARF-user in indeterminate", &report.dwarf_user_indeterminate_list);
+        print_fn_list("DWARF-user in library (missed)", &report.dwarf_user_library_list);
+    }
+
     // Recall: only count functions in buckets we call "user-attributed" (certain+inferred).
     // Indeterminate is a diagnostic bucket; DWARF confirms 0% precision there.
     let captured = report.dwarf_user_in_certain
