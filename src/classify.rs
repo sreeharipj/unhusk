@@ -200,12 +200,13 @@ impl Score {
         self.certain + self.inferred + self.indeterminate + self.library
     }
 
-    /// Count of functions confidently attributed to user code.
+    /// Count of functions validated as user-authored.
     ///
-    /// Indeterminate is intentionally excluded: DWARF ground truth shows 0%
-    /// precision for that bucket (all resolve to std/dep). It is a diagnostic
-    /// label for shared interface functions, not a user-code attribution.
+    /// Only `certain` qualifies: 100% precision confirmed by DWARF ground truth.
+    /// `inferred` is excluded — DWARF shows ~5% precision on real binaries (mostly
+    /// dep/std glue reachable from user call sites). It is a call-closure annotation,
+    /// not a user-code attribution.
     pub fn user_total(&self) -> usize {
-        self.certain + self.inferred
+        self.certain
     }
 }

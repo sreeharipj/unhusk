@@ -4,7 +4,7 @@
 /// Each test is skipped with an explanatory message if the fixture is missing.
 use std::path::Path;
 
-use unhusk::{classify, elf, frame, locate, strings, xref};
+use unhusk::{classify, dwarf, elf, frame, locate, strings, xref};
 use unhusk::strings::Origin;
 
 // ── Fixture paths ─────────────────────────────────────────────────────────────
@@ -100,13 +100,12 @@ fn medium_finds_two_user_locations() {
     assert!(!scan.certain.is_empty(),
         "medium_dyn: expected ≥1 certain user function, got 0");
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary);
+    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
     let score = classify::Score::from(&attributed);
     assert!(score.certain >= 1,
         "medium_dyn Phase 2: expected ≥1 certain, got {}", score.certain);
-    // The 2 user panic sites should generate at least 1 certain + ≥1 inferred callee.
     assert!(score.inferred >= 1,
-        "medium_dyn Phase 2: expected ≥1 inferred, got {}", score.inferred);
+        "medium_dyn Phase 2: expected ≥1 call-closure (inferred), got {}", score.inferred);
 }
 
 // ── Fixture 3: rustup (14 user source files, ~76+ user panic sites) ──────────
@@ -173,17 +172,15 @@ fn rustup_user_source_files() {
     assert!(total_edges >= 5_000,
         "rustup Phase 2: expected ≥5K call edges, got {}", total_edges);
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary);
+    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
     let score = classify::Score::from(&attributed);
+    // user_total() == certain only: the only bucket with 100% DWARF-validated precision.
     assert!(score.certain >= 30,
         "rustup Phase 2: certain={}", score.certain);
-    // Dep-boundary barrier stops propagation into dependency crates; 500 is a safe floor.
+    // Call closure (inferred + indeterminate): reachable from user code, mostly dep/std.
+    // 500 is a safe floor for the inferred bucket alone.
     assert!(score.inferred >= 500,
         "rustup Phase 2: inferred={}", score.inferred);
-    // Total user-attributed (certain+inferred, NOT indeterminate which is 0%-precise).
-    // Absolute floor: at minimum 530 (sum of the certain + inferred floors above).
-    assert!(score.user_total() >= 530,
-        "rustup Phase 2: user_total(certain+inferred)={}", score.user_total());
 }
 
 // ── Smoke test: string classifier ────────────────────────────────────────────
@@ -272,7 +269,7 @@ fn scored_phase2_attribution() {
     eprintln!("call graph: {} total edges", total_call_edges);
 
     // Attribution: must attribute at least the certain + a few inferred
-    let attributed = unhusk::classify::attribute(&fn_map, &scan_result.certain, &scan_result.calls, &scan_result.dep_boundary);
+    let attributed = unhusk::classify::attribute(&fn_map, &scan_result.certain, &scan_result.calls, &scan_result.dep_boundary, None);
     let score = unhusk::classify::Score::from(&attributed);
     eprintln!("score: certain={} inferred={} indeterminate={} library={}",
         score.certain, score.inferred, score.indeterminate, score.library);
@@ -301,4 +298,41 @@ fn scored_phase2_attribution() {
                 "dead fn 0x{:x} should be library, got {:?}", addr, f.attribution);
         }
     }
+}
+
+// ── CI regression: certain precision must never drop below 100% ───────────────
+
+/// DWARF-backed precision gate: if this asserts, a code change introduced a
+/// false positive in the certain bucket — i.e. the tool is now calling a
+/// dep/std function "user-authored." Fix the classifier, don't weaken this test.
+///
+/// Fixture: medium_debug (541 FDEs, 1 DWARF-user fn, measured 1 certain prediction).
+#[test]
+fn certain_precision_never_drops_below_100_pct() {
+    const STRIPPED:   &str = "/tmp/unhusk-research/medium_debug_stripped";
+    const UNSTRIPPED: &str = "/tmp/unhusk-research/medium_debug_unstripped";
+    if skip_if_missing(STRIPPED) || skip_if_missing(UNSTRIPPED) { return; }
+
+    let elf = elf::ParsedElf::load(Path::new(STRIPPED)).unwrap();
+    let strs = strings::classify(&elf);
+    let locs = locate::find_locations(&elf, &strs);
+    let fn_map = frame::parse_eh_frame(&elf).unwrap();
+    let scan = xref::scan(&elf, &fn_map, &locs);
+    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
+
+    let unstripped = elf::ParsedElf::load(Path::new(UNSTRIPPED)).unwrap();
+    let ground_truth = dwarf::read_function_sources(&unstripped, &fn_map);
+    let report = dwarf::ValidationReport::compute(&attributed, &ground_truth);
+
+    // If there are certain predictions, every one must be a true positive.
+    if let Some(prec) = report.certain.precision() {
+        assert_eq!(
+            prec, 1.0,
+            "certain precision={:.1}%  TP={}  FP={} — a false positive was introduced",
+            prec * 100.0,
+            report.certain.true_positive,
+            report.certain.false_positive,
+        );
+    }
+    // precision() == None means zero certain predictions — no false positives possible.
 }

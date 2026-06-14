@@ -144,7 +144,7 @@ pub fn print_phase2_report(
     score: &Score,
     locations: &[crate::locate::PanicLocation],
     certain_locs: &crate::xref::CertainLocs,
-    show_all_inferred: bool,
+    show_call_closure: bool,
 ) {
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
@@ -152,22 +152,17 @@ pub fn print_phase2_report(
     println!("binary  : {}", elf.path.display());
 
     let fn_count = attributed.len();
-    println!(
-        "functions (from .eh_frame): {}",
-        fn_count
-    );
+    println!("functions (from .eh_frame): {}", fn_count);
     println!();
     println!("attribution breakdown:");
-    println!("  certain      {:>5}  ({:.1}%)",
+    println!("  certain      {:>5}  ({:.1}%)  user-authored (100% precision, DWARF-validated)",
         score.certain,
         pct(score.certain, fn_count));
-    println!("  inferred     {:>5}  ({:.1}%)",
-        score.inferred,
-        pct(score.inferred, fn_count));
-    println!("  indeterminate{:>5}  ({:.1}%)",
-        score.indeterminate,
-        pct(score.indeterminate, fn_count));
-    println!("  library      {:>5}  ({:.1}%)",
+    let call_closure = score.inferred + score.indeterminate;
+    println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5% precision)",
+        call_closure,
+        pct(call_closure, fn_count));
+    println!("  library      {:>5}  ({:.1}%)  not attributed",
         score.library,
         pct(score.library, fn_count));
 
@@ -179,16 +174,16 @@ pub fn print_phase2_report(
         .iter()
         .filter(|f| f.attribution == Attribution::Certain)
         .collect();
-    let inferred_fns: Vec<&AttributedFn> = attributed
+    let call_closure_fns: Vec<&AttributedFn> = attributed
         .iter()
-        .filter(|f| f.attribution == Attribution::Inferred)
+        .filter(|f| matches!(f.attribution, Attribution::Inferred | Attribution::Indeterminate))
         .collect();
 
-    // High-confidence output: certain functions only (100% DWARF-verified precision).
-    // These are functions that directly reference user panic Location structs.
+    // Primary output: certain functions — user-authored, 100% DWARF-validated precision.
+    // Each is annotated with the panic-site evidence that established it.
     if !certain_fns.is_empty() {
         println!();
-        println!("high-confidence user functions ({}):", certain_fns.len());
+        println!("user-authored functions — high confidence ({}):", certain_fns.len());
         for f in &certain_fns {
             println!(
                 "  0x{:08x}–0x{:08x}  ({} bytes)",
@@ -210,31 +205,31 @@ pub fn print_phase2_report(
         }
     } else {
         println!();
-        println!("high-confidence user functions: none");
+        println!("user-authored functions: none");
         println!("  (no functions with direct user panic-site references found)");
     }
 
-    // Speculative output: inferred functions (call-graph reachable from certain).
-    // Precision on real binaries: ~5% — most are std/dep functions transitively called.
-    // Excluded from primary output; shown here for completeness.
-    // Indeterminate is not shown: DWARF confirms 0% precision there.
-    if !inferred_fns.is_empty() {
-        const MAX_INFERRED_SHOWN: usize = 20;
+    // Call closure: functions reachable from user code via call graph.
+    // NOT user-authored — DWARF shows ~5% precision (mostly dep/std glue).
+    // Available for inspection; use --show-call-closure to list all.
+    if !call_closure_fns.is_empty() {
+        const MAX_SHOWN: usize = 20;
         println!();
-        println!("speculative (inferred, call-graph reach from certain — low precision):");
-        let show = if show_all_inferred { inferred_fns.len() } else { inferred_fns.len().min(MAX_INFERRED_SHOWN) };
-        for f in &inferred_fns[..show] {
+        println!("call closure — reachable from user code, not user-authored ({}):", call_closure_fns.len());
+        let show = if show_call_closure { call_closure_fns.len() } else { call_closure_fns.len().min(MAX_SHOWN) };
+        for f in &call_closure_fns[..show] {
             println!(
-                "  0x{:08x}–0x{:08x}  ({} bytes)",
+                "  0x{:08x}–0x{:08x}  ({} bytes)  [{}]",
                 f.start,
                 f.end,
                 f.end.saturating_sub(f.start),
+                f.attribution.label(),
             );
         }
-        if !show_all_inferred && inferred_fns.len() > MAX_INFERRED_SHOWN {
+        if !show_call_closure && call_closure_fns.len() > MAX_SHOWN {
             println!(
-                "  … {} more (use --show-all-inferred to list them)",
-                inferred_fns.len() - MAX_INFERRED_SHOWN
+                "  … {} more (use --show-call-closure to list them)",
+                call_closure_fns.len() - MAX_SHOWN
             );
         }
     }

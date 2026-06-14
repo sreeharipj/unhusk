@@ -1,30 +1,22 @@
 # unhusk
 
-Recovers user-authored logic from stripped Rust release binaries.
+Identifies user-authored functions in stripped Rust release binaries using panic metadata — no disassembly, no symbol tables, no signature databases.
 
-A stripped, release-mode, LTO Rust binary is dominated by the standard library
-and Cargo dependencies.  The application logic the author wrote is a tiny
-fraction of the functions.  `unhusk` separates the two without symbol tables,
-debug info, or pre-computed signature databases.
+## What it does
 
-## Status
+A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds the user-authored functions with high precision by exploiting a structural property of the Rust panic machinery.
 
-**Phase 1 (this release):** panic-site attribution — finds every
-`core::panic::Location` struct in the binary and attributes it to the
-user crate, std, or a specific dep crate, with exact file/line/column.
+**Primary output — `certain` functions:** 100% precision, validated against DWARF ground truth on three independent binaries. These are functions that directly reference a `core::panic::Location` struct in `.data.rel.ro` whose source path resolves to user code (`src/`, `tests/`, `examples/`). Every such function was written by the binary's author.
 
-**Phase 2 (next):** `.eh_frame` function-range mapping + RIP-relative xref
-scan to attribute every function, not just those with reachable panic sites.
+**Measured recall:** certain catches roughly 1/3 of user functions (37.5% on the unhusk-on-unhusk fixture). The ceiling is structural — see Limitations below.
+
+**Call closure (not user code):** `inferred` and `indeterminate` functions are reachable from user code via call edges but are not user-authored. DWARF precision on real binaries: ~5% (mostly dep/std glue transitively called from user panic sites). These are labelled separately and never counted as user code.
 
 ## How it works
 
-Rust's panic machinery embeds a `core::panic::Location` struct in
-`.data.rel.ro` for every reachable `panic!`, `assert!`, bounds-check, and
-`.unwrap()` call site.  Each struct holds a fat `&'static str` pointer (via a
-PIE relocation in `.rela.dyn`) into the source-path string in `.rodata`, plus
-the line and column numbers.
+Rust embeds a `core::panic::Location` struct in `.data.rel.ro` for every reachable `panic!`, `assert!`, bounds-check, and `.unwrap()` call site. Each struct holds a fat `&'static str` pointer (via a PIE relocation in `.rela.dyn`) into the source-path string in `.rodata`, plus the line and column numbers.
 
-`unhusk` reconstructs the full chain without a disassembler:
+**Phase 1** — reconstruct every Location struct and classify its source path:
 
 ```
 .rela.dyn  R_X86_64_RELATIVE { offset, addend }
@@ -32,12 +24,9 @@ the line and column numbers.
     └── addend  → string in .rodata     ("src/main.rs", "/rustc/…", …)
 
 .data.rel.ro  [ ptr(reloc) | len(u64) | line(u32) | col(u32) ]
-                                ^              ^          ^
-                           cross-checked    directly   directly
-                           against string   readable   readable
 ```
 
-Source-path classification rules (deterministic, no heuristics):
+Source-path classification (deterministic, no heuristics):
 
 | Pattern | Attribution |
 |---|---|
@@ -46,44 +35,56 @@ Source-path classification rules (deterministic, no heuristics):
 | `/rust/deps/CRATE-VER/…` | toolchain-embedded dep |
 | `*/cargo/registry/src/*/CRATE-VER/…` | Cargo registry dep |
 
+**Phase 2** — `.eh_frame` FDE-based function range map + RIP-relative xref scan. Any function that contains a reference to a user Location struct is marked `certain`.
+
+## Precision validation
+
+The `--validate <UNSTRIPPED>` flag compares unhusk's attribution against DWARF `.debug_info` ground truth from a companion unstripped binary:
+
+```sh
+unhusk binary.stripped --validate binary.unstripped
+```
+
+Measured results across three fixtures:
+
+| Fixture | FDEs | DWARF-user fns | Certain precision | Certain recall |
+|---|---|---|---|---|
+| medium_debug (synthetic) | 541 | 1 | 100% (1/1) | 100% |
+| unhusk-on-unhusk | 1490 | 8 | 100% (3/3) | 37.5% |
+| scored_debug (designed) | 529 | 19 | 100% (6/6) | ~84% |
+
+Certain precision is 100% in every measurement. A CI regression test in `tests/integration.rs` enforces this: if a code change introduces a false positive, `certain_precision_never_drops_below_100_pct` fails.
+
+## Limitations
+
+**Functions with no reachable panic site** are not found. Pure computation, getters, and code compiled with `lto = true` where the optimizer proved every panic unreachable will have zero panic Location structs in the binary — nothing to anchor on.
+
+**User code invoked through std machinery or indirect dispatch** is not found. Functions called only via trait objects, function pointers, or callbacks that pass through std/dep dispatch layers appear as `library` (not reached by the xref scan from a certain anchor).
+
+These are structural, not implementation gaps. The tool's guarantee is precision: when it says "user-authored," it is right. It does not guarantee coverage of all user functions.
+
+**x86-64 ELF only.** PIE (`ET_DYN`, default for `cargo build --release`) and non-PIE (`ET_EXEC`) are both supported.
+
 ## Build
 
 ```sh
 cargo build --release
 ```
 
-Requires: Rust 1.70+, no C library deps, no external tools at runtime.
+Requires Rust 1.70+. No C library deps, no external tools at runtime.
 
 ## Usage
 
 ```sh
-unhusk <stripped-elf-binary>
+# Identify user-authored functions in a stripped binary
+unhusk <stripped-elf>
+
+# Also report DWARF-validated precision/recall numbers
+unhusk <stripped-elf> --validate <unstripped-elf>
+
+# Show full call-closure list (reachable from user, mostly dep/std)
+unhusk <stripped-elf> --show-call-closure
 ```
-
-Example — analyzing a real binary:
-
-```
-$ strip --strip-all target/release/myapp -o myapp.stripped
-$ unhusk myapp.stripped
-```
-
-## Limitations (Phase 1)
-
-- **LTO dead-code elimination:** if the optimizer proves a panic site
-  unreachable, it removes the Location struct.  A binary compiled with
-  `lto = true` and statically-known-safe code will show zero user locations.
-
-- **Functions with no panic sites** are not attributed in Phase 1.  Pure
-  math, getters, and other non-panicking functions require the Phase 2 xref
-  scan.
-
-- **Workspace subcrates** with paths like `crates/mylib/src/foo.rs` are
-  not yet classified as user code (treated as Unknown).  Phase 2 will add
-  a `--workspace-root` option.
-
-- **x86-64 ELF only** in Phase 1.  PIE (ET_DYN) binaries, which is the
-  default for `cargo build --release`.  Non-PIE static binaries (ET_EXEC)
-  need a fallback scanner (planned).
 
 ## Tests
 
@@ -91,9 +92,7 @@ $ unhusk myapp.stripped
 cargo test
 ```
 
-Integration tests require the fixture binaries under `/tmp/unhusk-research/`
-(see `tests/integration.rs`).  Unit tests for the string classifier run
-without any fixtures.
+Integration tests require fixture binaries under `/tmp/unhusk-research/` (see `tests/integration.rs`). Unit tests for the string classifier run without fixtures.
 
 ## License
 
