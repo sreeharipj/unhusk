@@ -1,0 +1,373 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/xsv.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000b5b70   1490595 bytes
+  .rodata               vaddr 0x0003e870    302888 bytes
+  .data.rel.ro          vaddr 0x00222ab0    143224 bytes
+  .rela.dyn             vaddr 0x00001470    182520 bytes
+  .eh_frame             vaddr 0x0008de40    159012 bytes
+  .rela.dyn entries     7512 R_X86_64_RELATIVE entries
+
+source-path strings: 167  (user=11, std=73, dep=83, unknown=0)
+  distinct dep crates visible: 28
+
+panic/assert sites:  1140  (user=56, std=336, dep=748, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/cmd/cat.rs  (1 sites)
+       59:9     Location struct @ 0x223e98
+  src/cmd/frequency.rs  (7 sites)
+      156:56    Location struct @ 0x222dd8
+      156:65    Location struct @ 0x222df0
+      157:51    Location struct @ 0x222e08
+      159:50    Location struct @ 0x222e20
+      163:38    Location struct @ 0x222e88
+      177:25    Location struct @ 0x222c80
+      180:29    Location struct @ 0x222c68
+  src/cmd/join.rs  (3 sites)
+      226:37    Location struct @ 0x223e08
+      366:59    Location struct @ 0x223e20
+      431:55    Location struct @ 0x222b28
+  src/cmd/partition.rs  (3 sites)
+      104:30    Location struct @ 0x223360
+      154:46    Location struct @ 0x223408
+      191:21    Location struct @ 0x2233f0
+  src/cmd/sample.rs  (3 sites)
+      100:48    Location struct @ 0x224f70
+      121:50    Location struct @ 0x224f40
+      134:22    Location struct @ 0x224f58
+  src/cmd/select.rs  (2 sites)
+       74:54    Location struct @ 0x225068
+       78:53    Location struct @ 0x225080
+  src/cmd/split.rs  (8 sites)
+      107:46    Location struct @ 0x224800
+      107:55    Location struct @ 0x224818
+      108:50    Location struct @ 0x224830
+      111:22    Location struct @ 0x224848
+      113:55    Location struct @ 0x224860
+      115:35    Location struct @ 0x224890
+      116:49    Location struct @ 0x2248a8
+      118:29    Location struct @ 0x224878
+  src/cmd/stats.rs  (14 sites)
+      146:56    Location struct @ 0x224080
+      146:65    Location struct @ 0x224098
+      147:51    Location struct @ 0x2240b0
+      149:50    Location struct @ 0x2240c8
+      168:20    Location struct @ 0x224150
+      168:38    Location struct @ 0x224138
+      179:22    Location struct @ 0x223f98
+      243:9     Location struct @ 0x2243c0
+      300:55    Location struct @ 0x224168
+      470:60    Location struct @ 0x2241b0
+      482:57    Location struct @ 0x2241c8
+      484:63    Location struct @ 0x2241e0
+      534:30    Location struct @ 0x224270
+      542:30    Location struct @ 0x224288
+  src/main.rs  (8 sites)
+      103:9     Location struct @ 0x2238e8
+      108:13    Location struct @ 0x223888
+      120:21    Location struct @ 0x2238a0
+      128:21    Location struct @ 0x2238b8
+      132:21    Location struct @ 0x2238d0
+      172:13    Location struct @ 0x223910
+      185:32    Location struct @ 0x223928
+      237:18    Location struct @ 0x223b08
+  src/select.rs  (4 sites)
+       22:23    Location struct @ 0x223320
+      362:22    Location struct @ 0x223420
+      378:38    Location struct @ 0x2233a8
+      380:16    Location struct @ 0x2233c0
+  src/util.rs  (3 sites)
+       70:9     Location struct @ 0x222e70
+       70:9     Location struct @ 0x224120
+      117:71    Location struct @ 0x223af0
+
+dep crates by panic site count  (748 sites across 29 crates):
+  regex@1.0.3                                     249
+  regex-syntax@0.6.2                              144
+  docopt@1.0.1                                    61
+  csv@1.0.1                                       59
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               38
+  crossbeam-channel@0.2.4                         25
+  aho-corasick@0.6.6                              20
+  rand@0.5.5                                      18
+  csv-core@0.1.4                                  13
+  … 19 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/xsv.stripped
+functions (from .eh_frame): 2767
+
+attribution breakdown:
+  certain         48  (1.7%)  user-authored (100% precision, DWARF-validated)
+  call closure   491  (17.7%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2228  (80.5%)  not attributed
+
+user-authored functions — high confidence (48):
+  0x000bc420–0x000bc673  (595 bytes)
+      panic @ src/cmd/join.rs:431:55
+  0x000c5f40–0x000c6d82  (3650 bytes)
+      panic @ src/main.rs:237:18
+  0x000c6d90–0x000c76a8  (2328 bytes)
+      panic @ src/main.rs:237:18
+  0x000c8240–0x000c890a  (1738 bytes)
+      panic @ src/main.rs:237:18
+  0x000ccb10–0x000cd271  (1889 bytes)
+      panic @ src/main.rs:237:18
+  0x000cd280–0x000cde05  (2949 bytes)
+      panic @ src/main.rs:237:18
+  0x000cde10–0x000d03c1  (9649 bytes)
+      panic @ src/cmd/frequency.rs:163:38
+      panic @ src/cmd/frequency.rs:177:25
+      panic @ src/cmd/frequency.rs:180:29
+      panic @ src/util.rs:70:9
+  0x000d0520–0x000d131a  (3578 bytes)
+      panic @ src/cmd/frequency.rs:156:56
+      panic @ src/cmd/frequency.rs:156:65
+      panic @ src/cmd/frequency.rs:157:51
+      panic @ src/cmd/frequency.rs:159:50
+      panic @ src/cmd/frequency.rs:177:25
+      panic @ src/cmd/frequency.rs:180:29
+      panic @ src/main.rs:237:18
+  0x000d55f0–0x000d5efb  (2315 bytes)
+      panic @ src/select.rs:22:23
+  0x000d76c0–0x000d7967  (679 bytes)
+      panic @ src/select.rs:378:38
+      panic @ src/select.rs:380:16
+  0x000d8390–0x000d9335  (4005 bytes)
+      panic @ src/main.rs:237:18
+  0x000d9340–0x000da4a9  (4457 bytes)
+      panic @ src/main.rs:237:18
+  0x000da4b0–0x000dc039  (7049 bytes)
+      panic @ src/cmd/partition.rs:104:30
+      panic @ src/cmd/partition.rs:154:46
+      panic @ src/cmd/partition.rs:191:21
+      panic @ src/main.rs:237:18
+  0x000dc040–0x000dc0af  (111 bytes)
+      panic @ src/select.rs:362:22
+  0x000e9860–0x000e9ee0  (1664 bytes)
+      panic @ src/main.rs:103:9
+      panic @ src/main.rs:108:13
+      panic @ src/main.rs:120:21
+      panic @ src/main.rs:128:21
+      panic @ src/main.rs:132:21
+  0x000e9ee0–0x000ea5aa  (1738 bytes)
+      panic @ src/main.rs:172:13
+      panic @ src/main.rs:185:32
+  0x000ebcf0–0x000ebe8d  (413 bytes)
+      panic @ src/util.rs:117:71
+  0x000ebe90–0x000ebf12  (130 bytes)
+      panic @ src/main.rs:237:18
+  0x000ed710–0x000edfc3  (2227 bytes)
+      panic @ src/main.rs:237:18
+  0x000edfd0–0x000eef3c  (3948 bytes)
+      panic @ src/main.rs:237:18
+  0x000eef40–0x000f03b1  (5233 bytes)
+      panic @ src/main.rs:237:18
+  0x000f03c0–0x000f06b4  (756 bytes)
+      panic @ src/main.rs:237:18
+  0x000f06c0–0x000f0bdf  (1311 bytes)
+      panic @ src/main.rs:237:18
+  0x000f0be0–0x000f1ed8  (4856 bytes)
+      panic @ src/cmd/join.rs:226:37
+      panic @ src/main.rs:237:18
+  0x000f1ee0–0x000f207d  (413 bytes)
+      panic @ src/main.rs:237:18
+  0x000f2080–0x000f22c7  (583 bytes)
+      panic @ src/main.rs:237:18
+  0x000f22d0–0x000f25c5  (757 bytes)
+      panic @ src/main.rs:237:18
+  0x000f25d0–0x000f32a6  (3286 bytes)
+      panic @ src/cmd/join.rs:366:59
+      panic @ src/main.rs:237:18
+  0x000f3890–0x000f4400  (2928 bytes)
+      panic @ src/main.rs:237:18
+  0x000f4400–0x000f55ae  (4526 bytes)
+      panic @ src/cmd/cat.rs:59:9
+  0x000f55b0–0x000f6a72  (5314 bytes)
+      panic @ src/main.rs:237:18
+  0x000f6c20–0x000f73df  (1983 bytes)
+      panic @ src/main.rs:237:18
+  0x000f8320–0x000f8899  (1401 bytes)
+      panic @ src/main.rs:237:18
+  0x000f9c70–0x000fa35a  (1770 bytes)
+      panic @ src/cmd/stats.rs:179:22
+      panic @ src/main.rs:237:18
+  0x000fa830–0x000fb358  (2856 bytes)
+      panic @ src/cmd/stats.rs:300:55
+      panic @ src/cmd/stats.rs:470:60
+      panic @ src/cmd/stats.rs:482:57
+      panic @ src/cmd/stats.rs:484:63
+      panic @ src/cmd/stats.rs:534:30
+      panic @ src/cmd/stats.rs:542:30
+  0x000fb5b0–0x000fd728  (8568 bytes)
+      panic @ src/cmd/stats.rs:168:20
+      panic @ src/cmd/stats.rs:168:38
+      panic @ src/main.rs:237:18
+      panic @ src/util.rs:70:9
+  0x000fd730–0x000fde97  (1895 bytes)
+      panic @ src/cmd/stats.rs:146:56
+      panic @ src/cmd/stats.rs:146:65
+      panic @ src/cmd/stats.rs:147:51
+      panic @ src/cmd/stats.rs:149:50
+      panic @ src/cmd/stats.rs:179:22
+      panic @ src/main.rs:237:18
+  0x000ff540–0x000ffa14  (1236 bytes)
+      panic @ src/cmd/stats.rs:243:9
+  0x0010adc0–0x0010b277  (1207 bytes)
+      panic @ src/main.rs:237:18
+  0x0010b600–0x0010be5b  (2139 bytes)
+      panic @ src/main.rs:237:18
+  0x0010be60–0x0010c48e  (1582 bytes)
+      panic @ src/main.rs:237:18
+  0x0010d7a0–0x0010e161  (2497 bytes)
+      panic @ src/cmd/split.rs:107:46
+      panic @ src/cmd/split.rs:107:55
+      panic @ src/cmd/split.rs:108:50
+      panic @ src/cmd/split.rs:111:22
+      panic @ src/cmd/split.rs:113:55
+      panic @ src/cmd/split.rs:115:35
+      panic @ src/cmd/split.rs:116:49
+      panic @ src/cmd/split.rs:118:29
+  0x00117900–0x00117aef  (495 bytes)
+      panic @ src/cmd/select.rs:74:54
+  0x00117af0–0x00117cdf  (495 bytes)
+      panic @ src/cmd/select.rs:78:53
+  0x00119500–0x00119d8e  (2190 bytes)
+      panic @ src/cmd/sample.rs:121:50
+      panic @ src/cmd/sample.rs:134:22
+      panic @ src/main.rs:237:18
+  0x00119d90–0x0011a469  (1753 bytes)
+      panic @ src/cmd/sample.rs:100:48
+      panic @ src/main.rs:237:18
+  0x0011b780–0x0011be94  (1812 bytes)
+      panic @ src/main.rs:237:18
+  0x0011c960–0x0011da85  (4389 bytes)
+      panic @ src/main.rs:237:18
+
+call closure — reachable from user code, not user-authored (491):
+  0x000b5d80–0x000b5f5b  (475 bytes)  [inferred]
+  0x000b5f60–0x000b5fdf  (127 bytes)  [inferred]
+  0x000b5fe0–0x000b6089  (169 bytes)  [inferred]
+  0x000b6090–0x000b60fe  (110 bytes)  [inferred]
+  0x000b6100–0x000b6182  (130 bytes)  [inferred]
+  0x000b6190–0x000b6212  (130 bytes)  [indeterminate]
+  0x000b6220–0x000b63a8  (392 bytes)  [indeterminate]
+  0x000b63b0–0x000b6461  (177 bytes)  [inferred]
+  0x000b6470–0x000b6536  (198 bytes)  [inferred]
+  0x000b6540–0x000b65a6  (102 bytes)  [inferred]
+  0x000b65b0–0x000b668c  (220 bytes)  [inferred]
+  0x000b6690–0x000b6740  (176 bytes)  [inferred]
+  0x000b6740–0x000b67a8  (104 bytes)  [indeterminate]
+  0x000b67b0–0x000b682e  (126 bytes)  [inferred]
+  0x000b6830–0x000b687c  (76 bytes)  [inferred]
+  0x000b6880–0x000b6929  (169 bytes)  [inferred]
+  0x000b6930–0x000b697c  (76 bytes)  [inferred]
+  0x000b6a40–0x000b6a94  (84 bytes)  [inferred]
+  0x000b6aa0–0x000b6bbc  (284 bytes)  [inferred]
+  0x000b6bc0–0x000b6beb  (43 bytes)  [inferred]
+  … 471 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 2117 functions mapped (65 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           48 predicted   TP=   25  FP=   4  unknown=  19   precision=86.2%
+  inferred         404 predicted   TP=   28  FP= 309  unknown=  67   precision=8.3%
+  indeterminate     87 predicted   TP=    3  FP=  63  unknown=  21   precision=4.5%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     25  ( 38.5%)  certain          (rock-solid signal)
+     28  ( 43.1%)  inferred         (call-graph reach)
+      3  (  4.6%)  indeterminate    (shared/mixed callers)
+      9  ( 13.8%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x000c5f40  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/slice.rs
+    0x000c6d90  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/reverse.rs
+    0x000ccb10  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/input.rs
+    0x000cd280  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/select.rs
+    0x000cde10  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/frequency.rs
+    0x000d55f0  /home/user/Videos/unhusk/realval/work/xsv/src/select.rs
+    0x000d8390  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sort.rs
+    0x000d9340  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/search.rs
+    0x000da4b0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/partition.rs
+    0x000dc040  /home/user/Videos/unhusk/realval/work/xsv/src/select.rs
+    0x000e9860  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x000ebcf0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000ebe90  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x000f3890  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/fixlengths.rs
+    0x000f4400  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/cat.rs
+    0x000f55b0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/join.rs
+    0x000f6c20  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/table.rs
+    0x000fb5b0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/stats.rs
+    0x000ff540  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/stats.rs
+    0x0010b600  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/fmt.rs
+    0x0010be60  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/count.rs
+    0x00119500  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sample.rs
+    0x00119d90  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sample.rs
+    0x0011b780  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/index.rs
+    0x0011c960  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/flatten.rs
+  DWARF-user in inferred:
+    0x000d03d0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/frequency.rs
+    0x000d52a0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sort.rs
+    0x000d53e0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sort.rs
+    0x000e36d0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e3a80  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e3e20  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e41c0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e4550  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e4910  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e4ca0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e5040  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e53f0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e5bb0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e5f60  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e6320  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e66d0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e6aa0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e6e60  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e75a0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e7950  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e7d20  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e8f70  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x000e9680  /home/user/Videos/unhusk/realval/work/xsv/src/config.rs
+    0x000eb8b0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000ebff0  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x000f6a80  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/join.rs
+    0x00100040  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/stats.rs
+    0x0011bea0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/sample.rs
+  DWARF-user in indeterminate:
+    0x000e9340  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000eb4a0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000eba90  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+  DWARF-user in library (missed):
+    0x000c97e0  /home/user/Videos/unhusk/realval/work/xsv/src/select.rs
+    0x000d2ae0  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x000d55b0  /home/user/Videos/unhusk/realval/work/xsv/src/select.rs
+    0x000e57d0  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000e7210  /home/user/Videos/unhusk/realval/work/xsv/src/util.rs
+    0x000f73e0  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/headers.rs
+    0x000ffda0  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+    0x0010c490  /home/user/Videos/unhusk/realval/work/xsv/src/cmd/split.rs
+    0x0010e970  /home/user/Videos/unhusk/realval/work/xsv/src/main.rs
+
+  total captured :    53  (81.5% of 65 DWARF-user fns)
+  total missed   :     9  (13.8%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 86.2%
+  Certain recall    : 38.5%  (25/65 DWARF-user fns reached by certain)
+  Overall recall    : 81.5%  (certain+inferred)
+
+validation complete.
