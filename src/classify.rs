@@ -56,11 +56,15 @@ pub struct AttributedFn {
 ///
 /// The `dep_boundary` set contains functions anchored to dep Locations — these
 /// act as hard barriers in the BFS, stopping propagation of "inferred" attribution.
+///
+/// `max_infer_depth`: if Some(n), the BFS stops after `n` hops from certain.
+/// Depth 1 = direct callees of certain only. None = unlimited (current default).
 pub fn attribute(
     fns: &FunctionMap,
     certain: &CertainSet,
     calls: &CallGraph,
     dep_boundary: &crate::xref::DepBoundarySet,
+    max_infer_depth: Option<usize>,
 ) -> Vec<AttributedFn> {
     // ── Step 1: build reverse call graph (callee → set of callers) ───────────
     let mut callers: HashMap<u64, HashSet<u64>> = HashMap::new();
@@ -86,19 +90,24 @@ pub fn attribute(
     // not yet been attributed as certain, mark it as inferred (tentatively).
     // HARD BARRIER: stop BFS propagation at dep_boundary functions (they are
     // dependency boundaries — don't propagate user attribution through them).
+    // DEPTH LIMIT: if max_infer_depth is Some(n), stop BFS after n hops from certain.
     let mut tentative_inferred: HashSet<u64> = HashSet::new();
     let mut visited_in_bfs: HashSet<u64> = HashSet::new();
 
-    // Seed BFS
-    let mut frontier: VecDeque<u64> = VecDeque::new();
+    // Seed BFS: (function_start, depth_from_certain)
+    let mut frontier: VecDeque<(u64, usize)> = VecDeque::new();
     for &start in certain {
         if fns.contains_key(&start) {
-            frontier.push_back(start);
+            frontier.push_back((start, 0));
             visited_in_bfs.insert(start);
         }
     }
 
-    while let Some(caller_start) = frontier.pop_front() {
+    while let Some((caller_start, depth)) = frontier.pop_front() {
+        // Honour depth limit: don't expand further if we've hit the cap.
+        if max_infer_depth.map_or(false, |max| depth >= max) {
+            continue;
+        }
         if let Some(callees) = calls.get(&caller_start) {
             for &callee in callees {
                 if !fns.contains_key(&callee) {
@@ -114,7 +123,7 @@ pub fn attribute(
                     continue;
                 }
                 tentative_inferred.insert(callee);
-                frontier.push_back(callee);
+                frontier.push_back((callee, depth + 1));
             }
         }
     }

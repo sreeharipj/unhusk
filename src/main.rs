@@ -23,6 +23,11 @@ struct Args {
     /// Show all speculative (inferred) functions instead of capping at 20.
     #[arg(long)]
     show_all_inferred: bool,
+
+    /// Limit call-graph inference to N hops from certain functions (default: unlimited).
+    /// Depth 1 = direct callees only. Lower values reduce noise at the cost of recall.
+    #[arg(long, value_name = "N")]
+    infer_depth: Option<usize>,
 }
 
 fn main() -> Result<()> {
@@ -46,6 +51,7 @@ fn main() -> Result<()> {
         &scan.certain,
         &scan.calls,
         &scan.dep_boundary,
+        args.infer_depth,
     );
     let score = unhusk::classify::Score::from(&attributed);
     unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_all_inferred);
