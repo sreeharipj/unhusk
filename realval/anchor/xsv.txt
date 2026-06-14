@@ -1,0 +1,10 @@
+==== xsv ====
+user-crates derived (6): bufferstd,fmt,lazy,process,thread,unreachable_unchecked
+panic-anchor slots (user Locations): 56   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=0  distinct-ident-strings=0  union=0
+ground-truth user fns:  DWARF decl_file=65   symbol-name(complement)=133
+RECALL HEADROOM [DWARF]:   A(certain)=25  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=40  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=45  B(bare-reachable)=0  C(residue)=88  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=0  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=0  unmapped=0  precision=0.0%
+SUMMARY	xsv	65	25	0	40	0.0	0	0	0	0	0.0	133	45	0	88	0.0	0	0	0	0.0	0	0

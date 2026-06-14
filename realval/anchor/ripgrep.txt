@@ -1,0 +1,13 @@
+==== ripgrep ====
+user-crates derived (26): acceleratedgrep_regex,bufferstd,circuitingrg,colorgrep_printer,contiguous,dense,dfa,filerg,flags,fmt,grep_cli,grep_printer,grep_regex,grep_searcher,ignore,mmapgrep_searcher,noncontiguous,notignore,process,rg,searcher,searchergrep_searcher,thompson,thread,valueignore,valuerg
+panic-anchor slots (user Locations): 319   bare .rs slots: 1
+bare-anchor fns:  file!(.rs)=79  module_path/type_name(ident)=90  distinct-ident-strings=29  union=91
+ground-truth user fns:  DWARF decl_file=3533   symbol-name(complement)=4013
+RECALL HEADROOM [DWARF]:   A(certain)=143  B(bare-reachable)=5 [rs=0, ident=5]  C(residue)=3385  B/(A+B+C)=0.1%
+RECALL HEADROOM [symbol]:  A(certain)=328  B(bare-reachable)=19  C(residue)=3666  B/(A+B+C)=0.5%
+BARE-ANCHOR PRECISION [DWARF]:  user=6  nonuser=6  unmapped=79  precision=50.0%
+BARE-ANCHOR PRECISION [symbol]: user=84  nonuser=7  unmapped=0  precision=92.3%
+  [DWARF] non-user decl_file breakdown:
+       5  dependency crate
+       1  Once/OnceLock/sync init shim
+SUMMARY	ripgrep	3533	143	5	3385	0.1	91	6	6	79	50.0	4013	328	19	3666	0.5	84	7	0	92.3	0	5
