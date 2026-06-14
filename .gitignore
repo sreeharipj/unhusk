@@ -1,1 +1,5 @@
 /target
+
+realval/out/*.debug
+realval/out/*.stripped
+claude_run.log

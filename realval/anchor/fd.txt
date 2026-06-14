@@ -1,0 +1,12 @@
+==== fd ====
+user-crates derived (11): bufferstd,civil,contiguous,crate,dfa,fmt,process,thompson,thread,time,tz
+panic-anchor slots (user Locations): 31   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=6  distinct-ident-strings=4  union=6
+ground-truth user fns:  DWARF decl_file=737   symbol-name(complement)=99
+RECALL HEADROOM [DWARF]:   A(certain)=3  B(bare-reachable)=1 [rs=0, ident=1]  C(residue)=733  B/(A+B+C)=0.1%
+RECALL HEADROOM [symbol]:  A(certain)=10  B(bare-reachable)=1  C(residue)=88  B/(A+B+C)=1.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=1  nonuser=5  unmapped=0  precision=16.7%
+BARE-ANCHOR PRECISION [symbol]: user=1  nonuser=5  unmapped=0  precision=16.7%
+  [DWARF] non-user decl_file breakdown:
+       5  dependency crate
+SUMMARY	fd	737	3	1	733	0.1	6	1	5	0	16.7	99	10	1	88	1.0	1	5	0	16.7	0	1
