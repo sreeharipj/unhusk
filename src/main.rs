@@ -19,6 +19,10 @@ struct Args {
     /// precision/recall of each attribution bucket against the DWARF truth.
     #[arg(long, value_name = "UNSTRIPPED")]
     validate: Option<PathBuf>,
+
+    /// Show all speculative (inferred) functions instead of capping at 20.
+    #[arg(long)]
+    show_all_inferred: bool,
 }
 
 fn main() -> Result<()> {
@@ -44,7 +48,7 @@ fn main() -> Result<()> {
         &scan.dep_boundary,
     );
     let score = unhusk::classify::Score::from(&attributed);
-    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs);
+    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_all_inferred);
 
     // Optional DWARF validation.
     if let Some(ref unstripped_path) = args.validate {

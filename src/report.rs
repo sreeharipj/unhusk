@@ -144,6 +144,7 @@ pub fn print_phase2_report(
     score: &Score,
     locations: &[crate::locate::PanicLocation],
     certain_locs: &crate::xref::CertainLocs,
+    show_all_inferred: bool,
 ) {
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
@@ -218,14 +219,22 @@ pub fn print_phase2_report(
     // Excluded from primary output; shown here for completeness.
     // Indeterminate is not shown: DWARF confirms 0% precision there.
     if !inferred_fns.is_empty() {
+        const MAX_INFERRED_SHOWN: usize = 20;
         println!();
         println!("speculative (inferred, call-graph reach from certain — low precision):");
-        for f in &inferred_fns {
+        let show = if show_all_inferred { inferred_fns.len() } else { inferred_fns.len().min(MAX_INFERRED_SHOWN) };
+        for f in &inferred_fns[..show] {
             println!(
                 "  0x{:08x}–0x{:08x}  ({} bytes)",
                 f.start,
                 f.end,
                 f.end.saturating_sub(f.start),
+            );
+        }
+        if !show_all_inferred && inferred_fns.len() > MAX_INFERRED_SHOWN {
+            println!(
+                "  … {} more (use --show-all-inferred to list them)",
+                inferred_fns.len() - MAX_INFERRED_SHOWN
             );
         }
     }
