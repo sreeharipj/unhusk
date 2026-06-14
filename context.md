@@ -203,6 +203,30 @@ defined".
    explicit asserts would give clearer signal. The scored fixture gives clean numbers
    but is synthetic.
 
+## Before vs after barrier (DWARF-era measurement)
+
+The dep-boundary barrier blocks BFS propagation at functions anchored to dep-crate
+panic Locations. This was added to stop "flooding" into dep code.
+
+**Unhusk binary** (computed by running attribute() with empty dep_boundary):
+```
+Without barrier: certain=3  inferred=71  indeterminate=38
+With barrier:    certain=3  inferred=56  indeterminate=41
+Barrier effect:  -15 inferred (dep functions blocked), +3 indeterminate
+```
+
+**Cargo binary** (from HARNESS_VALIDATION_FINDINGS.md, symbol-based ground truth):
+```
+Without barrier: certain=110  inferred=1439  indeterminate=642
+With barrier:    certain=110  inferred=1156  indeterminate=729
+Barrier effect:  -283 inferred (-19.6%), +87 indeterminate
+```
+
+The barrier effect is proportionally larger for cargo (complex dep call graph) than
+for unhusk (small, self-contained). In both cases, it correctly stops propagation at
+dep-anchored functions. We do NOT have DWARF-backed before/after for cargo because
+the cargo_stripped fixture has no matching unstripped companion.
+
 ## Commit history (this work)
 
 - `cd8b9fb` Exclude indeterminate from user-attributed output (DWARF-backed decision)
