@@ -44,7 +44,7 @@ fn main() -> Result<()> {
         &scan.dep_boundary,
     );
     let score = unhusk::classify::Score::from(&attributed);
-    unhusk::report::print_phase2_report(&elf, &attributed, &score);
+    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs);
 
     // Optional DWARF validation.
     if let Some(ref unstripped_path) = args.validate {

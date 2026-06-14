@@ -142,6 +142,8 @@ pub fn print_phase2_report(
     elf: &ParsedElf,
     attributed: &[AttributedFn],
     score: &Score,
+    locations: &[crate::locate::PanicLocation],
+    certain_locs: &crate::xref::CertainLocs,
 ) {
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
@@ -177,6 +179,10 @@ pub fn print_phase2_report(
         .filter(|f| matches!(f.attribution, Attribution::Certain | Attribution::Inferred))
         .collect();
 
+    // Index locations by struct_vaddr for annotation of certain functions.
+    let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
+        locations.iter().map(|l| (l.struct_vaddr, l)).collect();
+
     if !user_fns.is_empty() {
         println!();
         println!("user-attributed functions ({}):", user_fns.len());
@@ -188,6 +194,23 @@ pub fn print_phase2_report(
                 f.attribution.label(),
                 f.end.saturating_sub(f.start),
             );
+            // Annotate certain functions with the panic sites that established them.
+            if f.attribution == Attribution::Certain {
+                if let Some(struct_vaddrs) = certain_locs.get(&f.start) {
+                    let mut sites: Vec<_> = struct_vaddrs
+                        .iter()
+                        .filter_map(|sv| loc_by_struct.get(sv))
+                        .collect();
+                    sites.sort_by_key(|l| (l.file.as_str(), l.line, l.col));
+                    sites.dedup_by_key(|l| (l.file.as_str(), l.line, l.col));
+                    for loc in sites {
+                        println!(
+                            "      panic @ {}:{}:{}",
+                            loc.file, loc.line, loc.col
+                        );
+                    }
+                }
+            }
         }
     }
 

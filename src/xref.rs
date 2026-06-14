@@ -32,11 +32,17 @@ pub type CallGraph = HashMap<u64, HashSet<u64>>;
 /// Functions anchored to a dep/vendored location — BFS propagation stops here.
 pub type DepBoundarySet = HashSet<u64>;
 
+/// Map from a certain function's start address to the user Location struct_vaddrs
+/// it loads (the panic sites that established the "certain" attribution).
+pub type CertainLocs = HashMap<u64, Vec<u64>>;
+
 /// Result of the single-pass scan.
 pub struct ScanResult {
     pub certain: CertainSet,
     pub calls: CallGraph,
     pub dep_boundary: DepBoundarySet,
+    /// For each certain function: which Location struct_vaddrs it references.
+    pub certain_locs: CertainLocs,
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -52,7 +58,7 @@ pub fn scan(
 ) -> ScanResult {
     let text = match elf.section(".text") {
         Some(s) => s,
-        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new(), dep_boundary: HashSet::new() },
+        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new(), dep_boundary: HashSet::new(), certain_locs: HashMap::new() },
     };
 
     // Scan ALL Location struct ranges (user + dep + std).
@@ -90,6 +96,7 @@ pub fn scan(
     let mut certain: CertainSet = HashSet::new();
     let mut calls: CallGraph = HashMap::new();
     let mut dep_boundary: DepBoundarySet = HashSet::new();
+    let mut certain_locs: CertainLocs = HashMap::new();
     let mut instr = Instruction::default();
 
     while decoder.can_decode() {
@@ -110,6 +117,9 @@ pub fn scan(
                     if addr_hits_location(ea, &user_loc_ranges) {
                         // User-path Location → certain-user (user wins all ties).
                         certain.insert(fn_start);
+                        if let Some(sv) = location_struct_start(ea, &user_loc_ranges) {
+                            certain_locs.entry(fn_start).or_default().push(sv);
+                        }
                     } else if addr_hits_location(ea, &dep_loc_ranges) {
                         // Dep Location → this function is a dep boundary.
                         // Do NOT mark as certain; BFS will stop here during propagation.
@@ -136,7 +146,14 @@ pub fn scan(
         }
     }
 
-    ScanResult { certain, calls, dep_boundary }
+    // Deduplicate: multiple instructions in the same function may load the same
+    // Location struct (e.g. two branches both hitting the same panic site).
+    for locs in certain_locs.values_mut() {
+        locs.sort_unstable();
+        locs.dedup();
+    }
+
+    ScanResult { certain, calls, dep_boundary, certain_locs }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -154,7 +171,7 @@ fn effective_address(instr: &Instruction) -> u64 {
     }
 }
 
-/// Returns true if `addr` falls inside any user Location struct range.
+/// Returns true if `addr` falls inside any Location struct range.
 fn addr_hits_location(addr: u64, ranges: &[(u64, u64)]) -> bool {
     for &(start, end) in ranges {
         if addr >= start && addr < end {
@@ -162,6 +179,16 @@ fn addr_hits_location(addr: u64, ranges: &[(u64, u64)]) -> bool {
         }
     }
     false
+}
+
+/// Returns the struct_vaddr (range start) of the Location struct that `addr` hits, or None.
+fn location_struct_start(addr: u64, ranges: &[(u64, u64)]) -> Option<u64> {
+    for &(start, end) in ranges {
+        if addr >= start && addr < end {
+            return Some(start);
+        }
+    }
+    None
 }
 
 /// Extract the direct branch target from a CALL instruction (E8 rel32 encoding).
