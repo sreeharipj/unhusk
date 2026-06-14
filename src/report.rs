@@ -170,47 +170,63 @@ pub fn print_phase2_report(
         score.library,
         pct(score.library, fn_count));
 
-    // User-code functions: certain + inferred only.
-    // Indeterminate functions (called by both user and library code) are excluded
-    // because DWARF ground truth shows 0% precision for that bucket — they are
-    // std/dep shared utilities, not user-authored logic.
-    let user_fns: Vec<&AttributedFn> = attributed
-        .iter()
-        .filter(|f| matches!(f.attribution, Attribution::Certain | Attribution::Inferred))
-        .collect();
-
     // Index locations by struct_vaddr for annotation of certain functions.
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
         locations.iter().map(|l| (l.struct_vaddr, l)).collect();
 
-    if !user_fns.is_empty() {
+    let certain_fns: Vec<&AttributedFn> = attributed
+        .iter()
+        .filter(|f| f.attribution == Attribution::Certain)
+        .collect();
+    let inferred_fns: Vec<&AttributedFn> = attributed
+        .iter()
+        .filter(|f| f.attribution == Attribution::Inferred)
+        .collect();
+
+    // High-confidence output: certain functions only (100% DWARF-verified precision).
+    // These are functions that directly reference user panic Location structs.
+    if !certain_fns.is_empty() {
         println!();
-        println!("user-attributed functions ({}):", user_fns.len());
-        for f in &user_fns {
+        println!("high-confidence user functions ({}):", certain_fns.len());
+        for f in &certain_fns {
             println!(
-                "  0x{:08x}–0x{:08x}  {:>13}  ({} bytes)",
+                "  0x{:08x}–0x{:08x}  ({} bytes)",
                 f.start,
                 f.end,
-                f.attribution.label(),
                 f.end.saturating_sub(f.start),
             );
-            // Annotate certain functions with the panic sites that established them.
-            if f.attribution == Attribution::Certain {
-                if let Some(struct_vaddrs) = certain_locs.get(&f.start) {
-                    let mut sites: Vec<_> = struct_vaddrs
-                        .iter()
-                        .filter_map(|sv| loc_by_struct.get(sv))
-                        .collect();
-                    sites.sort_by_key(|l| (l.file.as_str(), l.line, l.col));
-                    sites.dedup_by_key(|l| (l.file.as_str(), l.line, l.col));
-                    for loc in sites {
-                        println!(
-                            "      panic @ {}:{}:{}",
-                            loc.file, loc.line, loc.col
-                        );
-                    }
+            if let Some(struct_vaddrs) = certain_locs.get(&f.start) {
+                let mut sites: Vec<_> = struct_vaddrs
+                    .iter()
+                    .filter_map(|sv| loc_by_struct.get(sv))
+                    .collect();
+                sites.sort_by_key(|l| (l.file.as_str(), l.line, l.col));
+                sites.dedup_by_key(|l| (l.file.as_str(), l.line, l.col));
+                for loc in sites {
+                    println!("      panic @ {}:{}:{}", loc.file, loc.line, loc.col);
                 }
             }
+        }
+    } else {
+        println!();
+        println!("high-confidence user functions: none");
+        println!("  (no functions with direct user panic-site references found)");
+    }
+
+    // Speculative output: inferred functions (call-graph reachable from certain).
+    // Precision on real binaries: ~5% — most are std/dep functions transitively called.
+    // Excluded from primary output; shown here for completeness.
+    // Indeterminate is not shown: DWARF confirms 0% precision there.
+    if !inferred_fns.is_empty() {
+        println!();
+        println!("speculative (inferred, call-graph reach from certain — low precision):");
+        for f in &inferred_fns {
+            println!(
+                "  0x{:08x}–0x{:08x}  ({} bytes)",
+                f.start,
+                f.end,
+                f.end.saturating_sub(f.start),
+            );
         }
     }
 
