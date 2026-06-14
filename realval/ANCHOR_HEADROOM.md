@@ -111,6 +111,18 @@ Bare anchors recover **8 / 4855** user functions (DWARF) or **27 / 5744** (symbo
 whole corpus. The single largest contributor is ripgrep at 19. Six binaries have a `B` of zero
 under both ground truths.
 
+**Caveat — fd's DWARF row is dep-contaminated, read the symbol column.** fd is the one binary
+where DWARF-user (737) exceeds symbol-user (99); everywhere else symbol ≥ DWARF (symbol rescues
+monomorphizations). Cause: fd's dep crates (`regex-automata`: `dfa`/`thompson`/`nfa`; `jiff`:
+`civil`/`tz`/`time`) carry **relative** `decl_file` paths (`src/util`, `dfa/mod.rs`) that, once
+comp_dir-prepended, match neither the `/rustc/` (std) nor the cargo-registry (dep) pattern — so
+`classify_path_for_dwarf` falls through Unknown→User and counts them as user. This is the known
+`classify_path` registry-pattern limitation (see README), not a measurement bug. It inflates fd's
+DWARF denominator (and seeds the garbage "user-crate" idents `dfa`/`thompson`/`civil`/`tz` in
+`anchor/fd.txt`). It does **not** move the verdict: the symbol view gives fd `B = 1/99 = 1.0%`,
+still negligible, and the ident contamination biases *toward* finding headroom — yet `B` is still
+~0. For fd, treat the symbol column as authoritative.
+
 ---
 
 ## RESULTS — bare-anchor precision (is the anchor clean?)
