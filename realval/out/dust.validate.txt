@@ -1,0 +1,231 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/dust.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000ca590   1957158 bytes
+  .rodata               vaddr 0x00040580    386568 bytes
+  .data.rel.ro          vaddr 0x002a9388    166232 bytes
+  .rela.dyn             vaddr 0x000013c0    202128 bytes
+  .eh_frame             vaddr 0x000a3fc0    153032 bytes
+  .rela.dyn entries     8327 R_X86_64_RELATIVE entries
+
+source-path strings: 214  (user=8, std=72, dep=134, unknown=0)
+  distinct dep crates visible: 29
+
+panic/assert sites:  1303  (user=35, std=239, dep=1029, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/config.rs  (4 sites)
+      199:10    Location struct @ 0x2aa318
+      212:41    Location struct @ 0x2aa2e8
+      215:38    Location struct @ 0x2aa2d0
+      226:43    Location struct @ 0x2aa2b8
+  src/dir_walker.rs  (3 sites)
+      269:52    Location struct @ 0x2aa2a0
+      287:54    Location struct @ 0x2aa270
+      307:17    Location struct @ 0x2aa288
+  src/display.rs  (7 sites)
+      113:30    Location struct @ 0x2aa258
+      142:5     Location struct @ 0x2aa3f0
+      295:5     Location struct @ 0x2aa390
+      308:5     Location struct @ 0x2aa378
+      388:67    Location struct @ 0x2aa3d8
+      447:29    Location struct @ 0x2aa3c0
+      453:24    Location struct @ 0x2aa3a8
+  src/display_node.rs  (1 sites)
+       51:78    Location struct @ 0x2a9938
+  src/filter.rs  (1 sites)
+       50:51    Location struct @ 0x2aa330
+  src/main.rs  (7 sites)
+      129:6     Location struct @ 0x2a9d08
+      184:14    Location struct @ 0x2a9d20
+      292:52    Location struct @ 0x2a99f8
+      323:25    Location struct @ 0x2a99e0
+      325:25    Location struct @ 0x2a99c8
+      328:53    Location struct @ 0x2a9cf0
+      467:13    Location struct @ 0x2a9cd8
+  src/platform.rs  (1 sites)
+       43:45    Location struct @ 0x2a96b0
+  src/progress.rs  (11 sites)
+       41:29    Location struct @ 0x2aa438
+       45:29    Location struct @ 0x2aa420
+      130:29    Location struct @ 0x2a9a68
+      131:43    Location struct @ 0x2a9a20
+      137:26    Location struct @ 0x2a9a50
+      140:43    Location struct @ 0x2a9a38
+      147:25    Location struct @ 0x2a9ab0
+      148:39    Location struct @ 0x2a9a80
+      149:34    Location struct @ 0x2a9a98
+      157:35    Location struct @ 0x2a9fb8
+      158:27    Location struct @ 0x2a9fd0
+
+dep crates by panic site count  (1029 sites across 29 crates):
+  regex-automata@0.4.13                           302
+  aho-corasick@1.1.4                              196
+  regex-syntax@0.8.8                              189
+  clap_builder@4.5.54                             56
+  chrono@0.4.42                                   50
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               36
+  toml@0.5.11                                     36
+  memchr@2.7.6                                    23
+  rayon-core@1.13.0                               22
+  … 19 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/dust.stripped
+functions (from .eh_frame): 2689
+
+attribution breakdown:
+  certain         17  (0.6%)  user-authored (100% precision, DWARF-validated)
+  call closure   504  (18.7%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2168  (80.6%)  not attributed
+
+user-authored functions — high confidence (17):
+  0x000d0a10–0x000d0bc6  (438 bytes)
+      panic @ src/platform.rs:43:45
+  0x000dda00–0x000de186  (1926 bytes)
+      panic @ src/progress.rs:130:29
+      panic @ src/progress.rs:131:43
+      panic @ src/progress.rs:137:26
+      panic @ src/progress.rs:140:43
+      panic @ src/progress.rs:147:25
+      panic @ src/progress.rs:148:39
+      panic @ src/progress.rs:149:34
+  0x000e6730–0x000e6bff  (1231 bytes)
+      panic @ src/display_node.rs:51:78
+  0x000ead70–0x000f11fd  (25741 bytes)
+      panic @ src/display.rs:142:5
+      panic @ src/filter.rs:50:51
+      panic @ src/main.rs:292:52
+      panic @ src/main.rs:323:25
+      panic @ src/main.rs:325:25
+      panic @ src/main.rs:328:53
+      panic @ src/progress.rs:157:35
+      panic @ src/progress.rs:158:27
+  0x000f6350–0x001022d2  (49026 bytes)
+      panic @ src/main.rs:129:6
+      panic @ src/main.rs:184:14
+      panic @ src/main.rs:467:13
+      panic @ src/platform.rs:43:45
+  0x00109980–0x00109e8e  (1294 bytes)
+      panic @ src/dir_walker.rs:287:54
+      panic @ src/dir_walker.rs:307:17
+  0x00109e90–0x0010a92c  (2716 bytes)
+      panic @ src/dir_walker.rs:269:52
+  0x0010ad20–0x0010b381  (1633 bytes)
+      panic @ src/platform.rs:43:45
+  0x0010b490–0x0010bfcb  (2875 bytes)
+      panic @ src/config.rs:226:43
+  0x0010bfd0–0x0010c212  (578 bytes)
+      panic @ src/config.rs:212:41
+      panic @ src/config.rs:215:38
+  0x0010c220–0x0010c7c0  (1440 bytes)
+      panic @ src/config.rs:199:10
+  0x0010d220–0x0010e69f  (5247 bytes)
+      panic @ src/display.rs:113:30
+  0x0010e6a0–0x00114e0a  (26474 bytes)
+      panic @ src/display.rs:308:5
+      panic @ src/display.rs:388:67
+  0x00114ff0–0x00115281  (657 bytes)
+      panic @ src/display.rs:295:5
+  0x001156c0–0x00115c62  (1442 bytes)
+      panic @ src/display.rs:447:29
+      panic @ src/display.rs:453:24
+  0x00115c70–0x00115dc4  (340 bytes)
+      panic @ src/progress.rs:45:29
+  0x00116400–0x00116858  (1112 bytes)
+      panic @ src/progress.rs:41:29
+
+call closure — reachable from user code, not user-authored (504):
+  0x000ca680–0x000ca8d2  (594 bytes)  [inferred]
+  0x000caab0–0x000cac18  (360 bytes)  [indeterminate]
+  0x000caf80–0x000cb6e2  (1890 bytes)  [inferred]
+  0x000cb6f0–0x000cbb57  (1127 bytes)  [inferred]
+  0x000cbb60–0x000cc030  (1232 bytes)  [inferred]
+  0x000cc030–0x000cc500  (1232 bytes)  [inferred]
+  0x000cc500–0x000cc9d0  (1232 bytes)  [inferred]
+  0x000cc9d0–0x000ccea8  (1240 bytes)  [inferred]
+  0x000cceb0–0x000cd27a  (970 bytes)  [inferred]
+  0x000cd280–0x000cd303  (131 bytes)  [inferred]
+  0x000cd760–0x000cd990  (560 bytes)  [inferred]
+  0x000cd990–0x000ce2c8  (2360 bytes)  [inferred]
+  0x000d0280–0x000d0343  (195 bytes)  [inferred]
+  0x000d06e0–0x000d08af  (463 bytes)  [inferred]
+  0x000d08b0–0x000d0a0c  (348 bytes)  [inferred]
+  0x000d0bd0–0x000d0c2b  (91 bytes)  [inferred]
+  0x000d0db0–0x000d0e1b  (107 bytes)  [indeterminate]
+  0x000d0e20–0x000d0ed4  (180 bytes)  [inferred]
+  0x000d0ee0–0x000d0fc8  (232 bytes)  [inferred]
+  0x000d0fd0–0x000d1027  (87 bytes)  [inferred]
+  … 484 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 2032 functions mapped (33 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           17 predicted   TP=   15  FP=   2  unknown=   0   precision=88.2%
+  inferred         305 predicted   TP=   14  FP= 233  unknown=  58   precision=5.7%
+  indeterminate    199 predicted   TP=    2  FP= 175  unknown=  22   precision=1.1%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     15  ( 45.5%)  certain          (rock-solid signal)
+     14  ( 42.4%)  inferred         (call-graph reach)
+      2  (  6.1%)  indeterminate    (shared/mixed callers)
+      2  (  6.1%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x000d0a10  /home/user/Videos/unhusk/realval/work/dust/src/platform.rs
+    0x000e6730  /home/user/Videos/unhusk/realval/work/dust/src/display_node.rs
+    0x000ead70  /home/user/Videos/unhusk/realval/work/dust/src/main.rs
+    0x000f6350  /home/user/Videos/unhusk/realval/work/dust/src/main.rs
+    0x00109980  /home/user/Videos/unhusk/realval/work/dust/src/dir_walker.rs
+    0x00109e90  /home/user/Videos/unhusk/realval/work/dust/src/dir_walker.rs
+    0x0010ad20  /home/user/Videos/unhusk/realval/work/dust/src/node.rs
+    0x0010b490  /home/user/Videos/unhusk/realval/work/dust/src/config.rs
+    0x0010bfd0  /home/user/Videos/unhusk/realval/work/dust/src/config.rs
+    0x0010c220  /home/user/Videos/unhusk/realval/work/dust/src/config.rs
+    0x0010d220  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x0010e6a0  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x00114ff0  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x001156c0  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x00115c70  /home/user/Videos/unhusk/realval/work/dust/src/progress.rs
+  DWARF-user in inferred:
+    0x000d08b0  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x000f3480  /home/user/Videos/unhusk/realval/work/dust/src/main.rs
+    0x000f3640  /home/user/Videos/unhusk/realval/work/dust/src/main.rs
+    0x000f4c30  /home/user/Videos/unhusk/realval/work/dust/src/main.rs
+    0x00109220  /home/user/Videos/unhusk/realval/work/dust/src/dir_walker.rs
+    0x0010a930  /home/user/Videos/unhusk/realval/work/dust/src/filter_type.rs
+    0x0010c7c0  /home/user/Videos/unhusk/realval/work/dust/src/filter.rs
+    0x0010cba0  /home/user/Videos/unhusk/realval/work/dust/src/filter.rs
+    0x0010cc70  /home/user/Videos/unhusk/realval/work/dust/src/filter.rs
+    0x0010cff0  /home/user/Videos/unhusk/realval/work/dust/src/filter.rs
+    0x00114e10  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x00115290  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x001155b0  /home/user/Videos/unhusk/realval/work/dust/src/display.rs
+    0x0012b150  /home/user/Videos/unhusk/realval/work/dust/src/display_node.rs
+  DWARF-user in indeterminate:
+    0x0010b390  /home/user/Videos/unhusk/realval/work/dust/src/utils.rs
+    0x00118040  /home/user/Videos/unhusk/realval/work/dust/src/cli.rs
+  DWARF-user in library (missed):
+    0x0012b260  /home/user/Videos/unhusk/realval/work/dust/src/cli.rs
+    0x0012d8c0  /home/user/Videos/unhusk/realval/work/dust/src/cli.rs
+
+  total captured :    29  (87.9% of 33 DWARF-user fns)
+  total missed   :     2  (6.1%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 88.2%
+  Certain recall    : 45.5%  (15/33 DWARF-user fns reached by certain)
+  Overall recall    : 87.9%  (certain+inferred)
+
+validation complete.

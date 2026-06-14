@@ -1,0 +1,9 @@
+unhusk
+work/
+*.log
+*.out
+*.debug
+*.stripped
+*.full.txt
+BATCH_DONE
+BATCH2_DONE
