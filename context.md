@@ -390,6 +390,17 @@ second independent anchor family.
 addition), committed (`69b2121`). The 13 `.debug`/`.stripped` binaries were rebuilt this
 session (prior copies had been cleaned to save disk) and are gitignored.
 
+**Follow-up investigation (`fe3d641`):** audited the per-binary table for wrong-looking numbers.
+fd is the lone binary where DWARF-user (737) > symbol-user (99) — everywhere else symbol ≥ DWARF.
+Root cause confirmed: fd's deps (`regex-automata` dfa/thompson/nfa, `jiff` civil/tz/time) carry
+*relative* `decl_file` paths that, after comp_dir prepending, match neither `/rustc/` nor the
+cargo-registry pattern, so `classify_path_for_dwarf` falls through Unknown→User and counts them as
+user. This is the known `classify_path` registry-pattern limitation, not a measurement bug; it
+also seeds the garbage "user-crate" idents (dfa/thompson/civil/tz) in `anchor/fd.txt`. Verdict
+unaffected — symbol view gives fd B=1/99=1.0%, and the contamination biases *toward* headroom yet
+B is still ~0. Added a caveat to ANCHOR_HEADROOM.md flagging the fd row; symbol column authoritative
+for fd.
+
 **What remains / next step:** the headroom question is closed — no classifier change warranted.
 If recall is to be pushed, the only levers left are backward-reachability (reverse call-graph
 from `certain` into their callers/trait-impl sites) or type-layout recovery; both are larger
