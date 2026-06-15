@@ -1,0 +1,12 @@
+==== tokei ====
+user-crates derived (17): bufferstd,ce,codetokei,contiguous,dfa,failtokei,fmt,javascripttokei,language,noncontiguous,process,thompson,thread,tokei,utils,valueignore,valuetokei
+panic-anchor slots (user Locations): 71   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=11  module_path/type_name(ident)=20  distinct-ident-strings=11  union=20
+ground-truth user fns:  DWARF decl_file=48   symbol-name(complement)=160
+RECALL HEADROOM [DWARF]:   A(certain)=10  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=38  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=34  B(bare-reachable)=5  C(residue)=121  B/(A+B+C)=3.1%
+BARE-ANCHOR PRECISION [DWARF]:  user=2  nonuser=5  unmapped=13  precision=28.6%
+BARE-ANCHOR PRECISION [symbol]: user=15  nonuser=5  unmapped=0  precision=75.0%
+  [DWARF] non-user decl_file breakdown:
+       5  dependency crate
+SUMMARY	tokei	48	10	0	38	0.0	20	2	5	13	28.6	160	34	5	121	3.1	15	5	0	75.0	0	0

@@ -1,0 +1,12 @@
+==== just ====
+user-crates derived (17): arg,bufferstd,clap,clippy,command,common,contiguous,crate,dfa,fmt,fs,io,process,run,super,thompson,thread
+panic-anchor slots (user Locations): 156   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=3  distinct-ident-strings=3  union=3
+ground-truth user fns:  DWARF decl_file=181   symbol-name(complement)=478
+RECALL HEADROOM [DWARF]:   A(certain)=25  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=156  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=119  B(bare-reachable)=0  C(residue)=359  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=3  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=3  unmapped=0  precision=0.0%
+  [DWARF] non-user decl_file breakdown:
+       3  dependency crate
+SUMMARY	just	181	25	0	156	0.0	3	0	3	0	0.0	478	119	0	359	0.0	0	3	0	0.0	0	0

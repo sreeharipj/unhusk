@@ -43,6 +43,12 @@ pub struct ScanResult {
     pub dep_boundary: DepBoundarySet,
     /// For each certain function: which Location struct_vaddrs it references.
     pub certain_locs: CertainLocs,
+    /// DIAGNOSTIC ONLY (does not affect attribution): for every function that
+    /// references any Location struct, the full set of struct_vaddrs it hits —
+    /// user, std AND dep.  Populated along the identical scan path the
+    /// classifier uses so the edges match the certain set exactly.  Consumed
+    /// only by the env-gated edge dump; never read by `classify`.
+    pub all_loc_hits: HashMap<u64, HashSet<u64>>,
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -58,7 +64,7 @@ pub fn scan(
 ) -> ScanResult {
     let text = match elf.section(".text") {
         Some(s) => s,
-        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new(), dep_boundary: HashSet::new(), certain_locs: HashMap::new() },
+        None => return ScanResult { certain: HashSet::new(), calls: HashMap::new(), dep_boundary: HashSet::new(), certain_locs: HashMap::new(), all_loc_hits: HashMap::new() },
     };
 
     // Scan ALL Location struct ranges (user + dep + std).
@@ -97,6 +103,7 @@ pub fn scan(
     let mut calls: CallGraph = HashMap::new();
     let mut dep_boundary: DepBoundarySet = HashSet::new();
     let mut certain_locs: CertainLocs = HashMap::new();
+    let mut all_loc_hits: HashMap<u64, HashSet<u64>> = HashMap::new();
     let mut instr = Instruction::default();
 
     while decoder.can_decode() {
@@ -113,6 +120,11 @@ pub fn scan(
                 let ea = effective_address(&instr);
                 if ea == 0 { continue; }
                 if addr_hits_location(ea, &all_loc_ranges) {
+                    // DIAGNOSTIC: record every Location hit (user/std/dep) for
+                    // this function.  Does not influence attribution below.
+                    if let Some(sv) = location_struct_start(ea, &all_loc_ranges) {
+                        all_loc_hits.entry(fn_start).or_default().insert(sv);
+                    }
                     // Loads a Location struct of SOME kind.
                     if addr_hits_location(ea, &user_loc_ranges) {
                         // User-path Location → certain-user (user wins all ties).
@@ -153,7 +165,7 @@ pub fn scan(
         locs.dedup();
     }
 
-    ScanResult { certain, calls, dep_boundary, certain_locs }
+    ScanResult { certain, calls, dep_boundary, certain_locs, all_loc_hits }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
