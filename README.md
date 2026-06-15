@@ -4,13 +4,22 @@ Identifies user-authored functions in stripped Rust release binaries using panic
 
 ## What it does
 
-A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds the user-authored functions with high precision by exploiting a structural property of the Rust panic machinery.
+A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds the user-authored functions by exploiting a structural property of the Rust panic machinery.
 
-**Primary output — `certain` functions:** 100% precision, validated against DWARF ground truth on three independent binaries. These are functions that directly reference a `core::panic::Location` struct in `.data.rel.ro` whose source path resolves to user code (`src/`, `tests/`, `examples/`). Every such function was written by the binary's author.
+**Primary output — `certain` functions:** functions that directly reference a `core::panic::Location` struct in `.data.rel.ro` whose source path resolves to user code (`src/`, `tests/`, `examples/`). Every such function contains user-path panic metadata.
 
-**Measured recall:** certain catches roughly 1/3 of user functions (37.5% on the unhusk-on-unhusk fixture). The ceiling is structural — see Limitations below.
+**Measured precision on 13 real-world Rust binaries (ripgrep, bat, fd, just, dust, …):**
 
-**Call closure (not user code):** `inferred` and `indeterminate` functions are reachable from user code via call edges but are not user-authored. DWARF precision on real binaries: ~5% (mostly dep/std glue transitively called from user panic sites). These are labelled separately and never counted as user code.
+| Ground-truth method | Median precision | Mean | Genuine FP rate |
+|---|---|---|---|
+| Symbol name (crate ownership) | **94.4%** | 88.7% | **5.2%** |
+| DWARF `decl_file` | 66.7% | 64.1% | — |
+
+The symbol-name figure (94.4%) is the more honest measurement. The DWARF figure is lower because DWARF attributes `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs` even when the closure body is entirely user code; these account for ~67% of DWARF-scored false positives. The irreducible 5.2% error comes from std/dep generic functions monomorphized with user types — unhusk cannot distinguish these from real user functions in a stripped binary.
+
+**Measured recall:** certain catches roughly 15% of user functions on real binaries (median 15.8%, range 0.4%–45.5%). The ceiling is structural — see Limitations below.
+
+**Call closure (not user code):** `inferred` functions are reachable from user code via call edges. DWARF precision ~5% on real binaries (mostly std/dep glue transitively called from user panic sites). Labelled separately.
 
 ## How it works
 
@@ -45,7 +54,7 @@ The `--validate <UNSTRIPPED>` flag compares unhusk's attribution against DWARF `
 unhusk binary.stripped --validate binary.unstripped
 ```
 
-Measured results across three fixtures:
+Measured results across three small/synthetic fixtures (where user functions are standalone, non-inlined):
 
 | Fixture | FDEs | DWARF-user fns | Certain precision | Certain recall |
 |---|---|---|---|---|
@@ -53,15 +62,15 @@ Measured results across three fixtures:
 | unhusk-on-unhusk | 1490 | 8 | 100% (3/3) | 37.5% |
 | scored_debug (designed) | 529 | 19 | 100% (6/6) | ~84% |
 
-Certain precision is 100% in every measurement. A CI regression test in `tests/integration.rs` enforces this: if a code change introduces a false positive, `certain_precision_never_drops_below_100_pct` fails.
+On real-world binaries, precision drops (median 66.7% by DWARF, 94.4% by symbol) because user code expressed as closures or library-generic instantiations is attributed by DWARF to its definition site in core/std. See `REAL_BINARY_VALIDATION.md` for full results on 13 binaries.
 
 ## Limitations
 
+**Closure shims and generic monomorphizations reduce precision.** When user code is a closure invoked through `Fn*`, or when user types are passed to std/dep generics (sort, iter adapters, lazy-init), the resulting monomorphized function may contain a user-path panic Location even though the bulk of the function body is library logic. unhusk marks these `certain`; they account for most false positives in real binaries.
+
 **Functions with no reachable panic site** are not found. Pure computation, getters, and code compiled with `lto = true` where the optimizer proved every panic unreachable will have zero panic Location structs in the binary — nothing to anchor on.
 
-**User code invoked through std machinery or indirect dispatch** is not found. Functions called only via trait objects, function pointers, or callbacks that pass through std/dep dispatch layers appear as `library` (not reached by the xref scan from a certain anchor).
-
-These are structural, not implementation gaps. The tool's guarantee is precision: when it says "user-authored," it is right. It does not guarantee coverage of all user functions.
+**User code invoked through std machinery or indirect dispatch** is not found. Functions called only via trait objects, function pointers, or callbacks that pass through std/dep dispatch layers appear as `library`.
 
 **x86-64 ELF only.** PIE (`ET_DYN`, default for `cargo build --release`) and non-PIE (`ET_EXEC`) are both supported.
 
@@ -84,6 +93,9 @@ unhusk <stripped-elf> --validate <unstripped-elf>
 
 # Show full call-closure list (reachable from user, mostly dep/std)
 unhusk <stripped-elf> --show-call-closure
+
+# Cap call-graph BFS at N hops (--infer-depth 1 improves inferred precision 3x)
+unhusk <stripped-elf> --infer-depth 1
 ```
 
 ## Tests
