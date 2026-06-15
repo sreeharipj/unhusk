@@ -1,0 +1,547 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/bat.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x0029d880   3647882 bytes
+  .rodata               vaddr 0x00055580   2059228 bytes
+  .data.rel.ro          vaddr 0x00619840    185992 bytes
+  .rela.dyn             vaddr 0x00002438    249552 bytes
+  .eh_frame             vaddr 0x002568d8    286620 bytes
+  .rela.dyn entries     10249 R_X86_64_RELATIVE entries
+
+source-path strings: 310  (user=15, std=84, dep=211, unknown=0)
+  distinct dep crates visible: 51
+
+panic/assert sites:  1769  (user=58, std=241, dep=1470, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/assets.rs  (2 sites)
+      211:22    Location struct @ 0x61c638
+      394:10    Location struct @ 0x61be98
+  src/assets/assets_metadata.rs  (1 sites)
+       69:45    Location struct @ 0x61c6e8
+  src/assets/build_assets/acknowledgements.rs  (3 sites)
+      137:10    Location struct @ 0x61cc20
+      153:53    Location struct @ 0x61cbf0
+      156:40    Location struct @ 0x61cc08
+  src/bin/bat/app.rs  (9 sites)
+      196:40    Location struct @ 0x619d80
+      253:40    Location struct @ 0x619ed0
+      322:18    Location struct @ 0x619d98
+      399:22    Location struct @ 0x619db0
+      404:22    Location struct @ 0x619dc8
+      427:30    Location struct @ 0x619de0
+      436:26    Location struct @ 0x619df8
+      469:22    Location struct @ 0x619e10
+      619:22    Location struct @ 0x619d68
+  src/bin/bat/directories.rs  (1 sites)
+       51:40    Location struct @ 0x619a70
+  src/bin/bat/main.rs  (3 sites)
+      164:13    Location struct @ 0x619ad0
+      264:26    Location struct @ 0x619ca0
+      391:18    Location struct @ 0x619cb8
+  src/controller.rs  (1 sites)
+      107:29    Location struct @ 0x61ba78
+  src/less.rs  (1 sites)
+       30:35    Location struct @ 0x61cbc0
+  src/line_range.rs  (5 sites)
+       48:38    Location struct @ 0x61ca08
+       51:38    Location struct @ 0x61ca20
+       58:38    Location struct @ 0x61ca38
+       79:54    Location struct @ 0x61ca68
+       85:39    Location struct @ 0x61ca50
+  src/output.rs  (1 sites)
+       36:14    Location struct @ 0x61c670
+  src/preprocessor.rs  (9 sites)
+       15:37    Location struct @ 0x61ca98
+       29:33    Location struct @ 0x61cab0
+       37:38    Location struct @ 0x61cac8
+       56:48    Location struct @ 0x61c190
+      145:34    Location struct @ 0x61ca80
+      191:26    Location struct @ 0x61cae0
+      194:30    Location struct @ 0x61caf8
+      198:39    Location struct @ 0x61cb10
+      200:35    Location struct @ 0x61cb28
+  src/printer.rs  (7 sites)
+      303:30    Location struct @ 0x61c8f0
+      451:29    Location struct @ 0x61c860
+      769:59    Location struct @ 0x61ce28
+      846:59    Location struct @ 0x61ce40
+      868:58    Location struct @ 0x61ce58
+      876:60    Location struct @ 0x61ce70
+      884:65    Location struct @ 0x61ce88
+  src/style.rs  (2 sites)
+      152:77    Location struct @ 0x61c830
+      153:74    Location struct @ 0x61c848
+  src/syntax_mapping/builtin.rs  (1 sites)
+       57:35    Location struct @ 0x61cbd8
+  src/vscreen.rs  (12 sites)
+      464:21    Location struct @ 0x61c908
+      579:73    Location struct @ 0x61c388
+      580:67    Location struct @ 0x61c370
+      586:41    Location struct @ 0x61c3a0
+      587:40    Location struct @ 0x61c3b8
+      595:41    Location struct @ 0x61c3d0
+      596:36    Location struct @ 0x61c3e8
+      597:39    Location struct @ 0x61c400
+      606:41    Location struct @ 0x61c418
+      607:39    Location struct @ 0x61c430
+      608:42    Location struct @ 0x61c448
+      609:39    Location struct @ 0x61c460
+
+dep crates by panic site count  (1470 sites across 51 crates):
+  regex-automata@0.4.13                           310
+  aho-corasick@1.1.3                              194
+  regex-syntax@0.8.5                              189
+  miniz_oxide@0.8.9                               122
+  minus@5.7.1                                     72
+  syntect@5.3.0                                   63
+  yaml-rust@0.4.5                                 63
+  clap_builder@4.6.0                              61
+  crossbeam-channel@0.5.15                        42
+  rustc-demangle@0.1.27                           40
+  … 41 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/bat.stripped
+functions (from .eh_frame): 5353
+
+attribution breakdown:
+  certain        133  (2.5%)  user-authored (100% precision, DWARF-validated)
+  call closure   782  (14.6%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       4438  (82.9%)  not attributed
+
+user-authored functions — high confidence (133):
+  0x002a99a0–0x002ab5b4  (7188 bytes)
+      panic @ src/bin/bat/main.rs:164:13
+  0x002ab5c0–0x002abc6b  (1707 bytes)
+      panic @ src/bin/bat/main.rs:264:26
+  0x002abfa0–0x002afef2  (16210 bytes)
+      panic @ src/bin/bat/main.rs:391:18
+  0x002b00d0–0x002b02c9  (505 bytes)
+      panic @ src/bin/bat/app.rs:196:40
+  0x002b0880–0x002b3ece  (13902 bytes)
+      panic @ src/bin/bat/app.rs:253:40
+  0x002b3ed0–0x002bb4f8  (30248 bytes)
+      panic @ src/bin/bat/app.rs:322:18
+      panic @ src/bin/bat/app.rs:399:22
+      panic @ src/bin/bat/app.rs:404:22
+      panic @ src/bin/bat/app.rs:427:30
+      panic @ src/bin/bat/app.rs:436:26
+      panic @ src/bin/bat/app.rs:469:22
+      panic @ src/bin/bat/app.rs:619:22
+  0x002be570–0x002bfbb3  (5699 bytes)
+      panic @ src/assets.rs:394:10
+      panic @ src/assets/assets_metadata.rs:69:45
+  0x002e8130–0x002e8608  (1240 bytes)
+      panic @ src/bin/bat/directories.rs:51:40
+  0x00315fc0–0x003160a7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003160b0–0x00316197  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003161a0–0x00316287  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316290–0x00316377  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316380–0x00316467  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316470–0x00316557  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316560–0x00316647  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316650–0x00316739  (233 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316740–0x00316827  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316830–0x00316917  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316920–0x00316a07  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316a10–0x00316af7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316b00–0x00316be7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316c30–0x00316d17  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316d20–0x00316e07  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316e10–0x00316ef7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316f00–0x00316fe7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00316ff0–0x003170d7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003170e0–0x003171c7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003171d0–0x003172b7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003172c0–0x003173a7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003173b0–0x00317497  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003174a0–0x00317587  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317590–0x00317677  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317680–0x00317767  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317770–0x00317857  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317860–0x00317947  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317950–0x00317a37  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317a40–0x00317b27  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317b30–0x00317c17  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317ce0–0x00317dc7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317dd0–0x00317eb7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317ec0–0x00317fa7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00317fb0–0x00318097  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x003180a0–0x00318187  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318190–0x00318277  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318280–0x00318367  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318370–0x00318457  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318460–0x00318547  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318550–0x00318637  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318640–0x00318727  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318730–0x00318817  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318820–0x00318907  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318910–0x003189f7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318a00–0x00318ae7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318af0–0x00318bd7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318be0–0x00318cc7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318cd0–0x00318db7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318dc0–0x00318ea7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318eb0–0x00318f97  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00318fa0–0x00319087  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319090–0x00319177  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319180–0x00319267  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319270–0x00319357  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319360–0x00319447  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319450–0x00319537  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319540–0x00319627  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319630–0x00319717  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319720–0x00319807  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319830–0x00319917  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319920–0x00319a07  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319a10–0x00319af7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319b00–0x00319be7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319bf0–0x00319cd7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319ce0–0x00319dc7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319dd0–0x00319eb7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319ec0–0x00319fa7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00319fb0–0x0031a097  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a0a0–0x0031a187  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a190–0x0031a277  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a280–0x0031a367  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a370–0x0031a457  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a460–0x0031a547  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a550–0x0031a637  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a640–0x0031a727  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a730–0x0031a817  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a820–0x0031a907  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031a910–0x0031a9f7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031aa00–0x0031aae7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031aaf0–0x0031abd7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031abe0–0x0031acc7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031acd0–0x0031adb7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031adc0–0x0031aea7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031aeb0–0x0031af97  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031afa0–0x0031b087  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b090–0x0031b177  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b180–0x0031b267  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b270–0x0031b357  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b360–0x0031b447  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b450–0x0031b537  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b540–0x0031b627  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b630–0x0031b717  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b720–0x0031b807  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b810–0x0031b8f7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b900–0x0031b9e7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031b9f0–0x0031bad7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bae0–0x0031bbc7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bbd0–0x0031bcb7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bcc0–0x0031bda7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bdb0–0x0031be97  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bea0–0x0031bf87  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031bf90–0x0031c077  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c080–0x0031c167  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c170–0x0031c257  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c260–0x0031c347  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c350–0x0031c437  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c440–0x0031c527  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c530–0x0031c617  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c620–0x0031c707  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x0031c710–0x0031c7f7  (231 bytes)
+      panic @ src/syntax_mapping/builtin.rs:57:35
+  0x00329a40–0x0032df90  (17744 bytes)
+      panic @ src/controller.rs:107:29
+  0x0032eb90–0x0033151d  (10637 bytes)
+      panic @ src/printer.rs:303:30
+  0x00332bf0–0x003335b2  (2498 bytes)
+      panic @ src/preprocessor.rs:56:48
+  0x003366c0–0x0033cfa8  (26856 bytes)
+      panic @ src/preprocessor.rs:145:34
+      panic @ src/preprocessor.rs:191:26
+      panic @ src/preprocessor.rs:194:30
+      panic @ src/preprocessor.rs:198:39
+      panic @ src/preprocessor.rs:200:35
+      panic @ src/printer.rs:451:29
+      panic @ src/printer.rs:769:59
+      panic @ src/printer.rs:846:59
+      panic @ src/printer.rs:868:58
+      panic @ src/printer.rs:876:60
+      panic @ src/printer.rs:884:65
+  0x0033d2b0–0x0033df80  (3280 bytes)
+      panic @ src/vscreen.rs:464:21
+  0x0033e070–0x0033e5ea  (1402 bytes)
+      panic @ src/vscreen.rs:579:73
+      panic @ src/vscreen.rs:580:67
+      panic @ src/vscreen.rs:586:41
+      panic @ src/vscreen.rs:587:40
+      panic @ src/vscreen.rs:595:41
+      panic @ src/vscreen.rs:596:36
+      panic @ src/vscreen.rs:597:39
+      panic @ src/vscreen.rs:606:41
+      panic @ src/vscreen.rs:607:39
+      panic @ src/vscreen.rs:608:42
+      panic @ src/vscreen.rs:609:39
+  0x0033e5f0–0x0033ed24  (1844 bytes)
+      panic @ src/preprocessor.rs:15:37
+      panic @ src/preprocessor.rs:29:33
+      panic @ src/preprocessor.rs:37:38
+  0x00342ef0–0x00343239  (841 bytes)
+      panic @ src/assets.rs:211:22
+  0x00343320–0x00343826  (1286 bytes)
+      panic @ src/assets.rs:394:10
+  0x0034f8d0–0x00351fc4  (9972 bytes)
+      panic @ src/less.rs:30:35
+      panic @ src/output.rs:36:14
+  0x003598b0–0x0035a668  (3512 bytes)
+      panic @ src/line_range.rs:48:38
+      panic @ src/line_range.rs:51:38
+      panic @ src/line_range.rs:58:38
+      panic @ src/line_range.rs:79:54
+      panic @ src/line_range.rs:85:39
+  0x0035c6c0–0x0035caa6  (998 bytes)
+      panic @ src/assets.rs:394:10
+  0x0035cab0–0x0036765a  (43946 bytes)
+      panic @ src/assets.rs:394:10
+      panic @ src/assets/build_assets/acknowledgements.rs:137:10
+  0x0036c110–0x0036c403  (755 bytes)
+      panic @ src/assets/build_assets/acknowledgements.rs:153:53
+      panic @ src/assets/build_assets/acknowledgements.rs:156:40
+  0x0037f3d0–0x0037f7e6  (1046 bytes)
+      panic @ src/style.rs:152:77
+      panic @ src/style.rs:153:74
+
+call closure — reachable from user code, not user-authored (782):
+  0x0029d970–0x0029da79  (265 bytes)  [inferred]
+  0x0029da80–0x0029dd17  (663 bytes)  [inferred]
+  0x0029dd20–0x0029de04  (228 bytes)  [inferred]
+  0x0029de10–0x0029e80a  (2554 bytes)  [inferred]
+  0x0029ee90–0x0029eed6  (70 bytes)  [inferred]
+  0x0029ef30–0x0029ef80  (80 bytes)  [inferred]
+  0x0029f5b0–0x0029fa5b  (1195 bytes)  [inferred]
+  0x002a0160–0x002a0360  (512 bytes)  [inferred]
+  0x002a0360–0x002a0388  (40 bytes)  [inferred]
+  0x002a0390–0x002a03da  (74 bytes)  [inferred]
+  0x002a03e0–0x002a0476  (150 bytes)  [inferred]
+  0x002a0480–0x002a04c7  (71 bytes)  [inferred]
+  0x002a04d0–0x002a055f  (143 bytes)  [inferred]
+  0x002a0560–0x002a0640  (224 bytes)  [inferred]
+  0x002a0640–0x002a0720  (224 bytes)  [inferred]
+  0x002a0720–0x002a07c3  (163 bytes)  [indeterminate]
+  0x002a07d0–0x002a0834  (100 bytes)  [inferred]
+  0x002a0990–0x002a0a36  (166 bytes)  [inferred]
+  0x002a0c70–0x002a0cdc  (108 bytes)  [inferred]
+  0x002a0ce0–0x002a0db7  (215 bytes)  [inferred]
+  … 762 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 4379 functions mapped (70 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain          133 predicted   TP=   11  FP= 112  unknown=  10   precision=8.9%
+  inferred         452 predicted   TP=   21  FP= 350  unknown=  81   precision=5.7%
+  indeterminate    330 predicted   TP=    6  FP= 270  unknown=  54   precision=2.2%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     11  ( 15.7%)  certain          (rock-solid signal)
+     21  ( 30.0%)  inferred         (call-graph reach)
+      6  (  8.6%)  indeterminate    (shared/mixed callers)
+     32  ( 45.7%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x002a99a0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002ab5c0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002abfa0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002be570  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/assets.rs
+    0x00332bf0  /home/user/Videos/unhusk/realval/work/bat/src/preprocessor.rs
+    0x003366c0  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x0033d2b0  /home/user/Videos/unhusk/realval/work/bat/src/vscreen.rs
+    0x0033e070  /home/user/Videos/unhusk/realval/work/bat/src/vscreen.rs
+    0x0035c6c0  /home/user/Videos/unhusk/realval/work/bat/src/assets.rs
+    0x0035cab0  /home/user/Videos/unhusk/realval/work/bat/src/assets/build_assets.rs
+    0x0036c110  /home/user/Videos/unhusk/realval/work/bat/src/assets/build_assets/acknowledgements.rs
+  DWARF-user in inferred:
+    0x002a6900  /home/user/Videos/unhusk/realval/work/bat/src/assets.rs
+    0x002bdcf0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/input.rs
+    0x002bfbc0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/config.rs
+    0x002bfc60  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/config.rs
+    0x002c0580  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/config.rs
+    0x002c0e80  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/config.rs
+    0x002e0d70  /home/user/Videos/unhusk/realval/work/bat/src/config.rs
+    0x0032e2d0  /home/user/Videos/unhusk/realval/work/bat/src/input.rs
+    0x003315d0  /home/user/Videos/unhusk/realval/work/bat/src/input.rs
+    0x0033ee20  /home/user/Videos/unhusk/realval/work/bat/src/terminal.rs
+    0x0033f000  /home/user/Videos/unhusk/realval/work/bat/src/terminal.rs
+    0x00340190  /home/user/Videos/unhusk/realval/work/bat/src/vscreen.rs
+    0x00344040  /home/user/Videos/unhusk/realval/work/bat/src/assets.rs
+    0x00344d40  /home/user/Videos/unhusk/realval/work/bat/src/assets.rs
+    0x0034baf0  /home/user/Videos/unhusk/realval/work/bat/src/input.rs
+    0x0034d5a0  /home/user/Videos/unhusk/realval/work/bat/src/input.rs
+    0x00351fd0  /home/user/Videos/unhusk/realval/work/bat/src/pager.rs
+    0x003545c0  /home/user/Videos/unhusk/realval/work/bat/src/assets.rs
+    0x0035a670  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+    0x0036c900  /home/user/Videos/unhusk/realval/work/bat/src/assets/build_assets.rs
+    0x0036cd60  /home/user/Videos/unhusk/realval/work/bat/src/assets/build_assets.rs
+  DWARF-user in indeterminate:
+    0x0032e510  /home/user/Videos/unhusk/realval/work/bat/src/preprocessor.rs
+    0x00331740  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+    0x00353f80  /home/user/Videos/unhusk/realval/work/bat/src/output.rs
+    0x0035ac10  /home/user/Videos/unhusk/realval/work/bat/src/theme.rs
+    0x0035c3b0  /home/user/Videos/unhusk/realval/work/bat/src/theme.rs
+    0x0037f160  /home/user/Videos/unhusk/realval/work/bat/src/style.rs
+  DWARF-user in library (missed):
+    0x002a7aa0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002abc70  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002aff00  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002bdf60  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/assets.rs
+    0x002c1040  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/clap_app.rs
+    0x002dc9c0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002dc9d0  /home/user/Videos/unhusk/realval/work/bat/src/bin/bat/main.rs
+    0x002e3fa0  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+    0x0031c800  /home/user/Videos/unhusk/realval/work/bat/src/syntax_mapping.rs
+    0x0031f700  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+    0x00322810  /home/user/Videos/unhusk/realval/work/bat/src/syntax_mapping/builtin.rs
+    0x00331f70  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+    0x00332880  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x00332890  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x003328a0  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x003328b0  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x003338f0  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x00335b10  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x00335c40  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x0033ed30  /home/user/Videos/unhusk/realval/work/bat/src/vscreen.rs
+    0x0033f9e0  /home/user/Videos/unhusk/realval/work/bat/src/printer.rs
+    0x003477d0  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x00347850  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x00347860  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x00347a30  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x00347a60  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x00347d00  /home/user/Videos/unhusk/realval/work/bat/src/decorations.rs
+    0x0034b2e0  /home/user/Videos/unhusk/realval/work/bat/src/diff.rs
+    0x0034b610  /home/user/Videos/unhusk/realval/work/bat/src/diff.rs
+    0x00353f50  /home/user/Videos/unhusk/realval/work/bat/src/output.rs
+    0x00373570  /home/user/Videos/unhusk/realval/work/bat/src/assets/build_assets/acknowledgements.rs
+    0x0037e240  /home/user/Videos/unhusk/realval/work/bat/src/error.rs
+
+  total captured :    32  (45.7% of 70 DWARF-user fns)
+  total missed   :    32  (45.7%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 8.9%
+  Certain recall    : 15.7%  (11/70 DWARF-user fns reached by certain)
+  Overall recall    : 45.7%  (certain+inferred)
+
+validation complete.

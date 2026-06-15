@@ -1,0 +1,10 @@
+==== pastel ====
+user-crates derived (4): bufferstd,fmt,process,thread
+panic-anchor slots (user Locations): 66   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=0  distinct-ident-strings=0  union=0
+ground-truth user fns:  DWARF decl_file=71   symbol-name(complement)=139
+RECALL HEADROOM [DWARF]:   A(certain)=19  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=52  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=26  B(bare-reachable)=0  C(residue)=113  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=0  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=0  unmapped=0  precision=0.0%
+SUMMARY	pastel	71	19	0	52	0.0	0	0	0	0	0.0	139	26	0	113	0.0	0	0	0	0.0	0	0
