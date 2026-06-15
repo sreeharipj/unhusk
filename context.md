@@ -271,8 +271,8 @@ grex and tokei are net losers at depth-1 (their TPs are at depth 2).
 
 **Revised guidance:**
 - `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits.
-- `--infer-depth 2`: ~1.5× precision gain, ~2pp recall loss. Better balance for most use cases.
-- Default (unlimited): highest recall (~46%), lowest precision (~5% inferred).
+- `--infer-depth 2`: 6.4% pooled precision (1.3× vs ∞), median recall 45.1% (−1.1pp). Best balance.
+- Default (unlimited): 5.1% precision, 46.2% median recall. No truncation.
 
 ## What remains
 
