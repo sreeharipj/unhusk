@@ -41,3 +41,7 @@ Depth 2 results:
 | tokei | 86 | 3.3% | 2 | 25.0% |
 | xsv | 281 | 10.9% | 24 | 75.4% |
 | zoxide | 133 | 8.4% | 9 | 63.2% |
+
+**Aggregate inferred precision (pooled): d=∞ 5.1%  →  d=2 6.4%  (1.3×)**
+Inferred count: d=2 2934 total, TP=187
+Median overall recall: d=2 45.1%  (−1.1pp vs unlimited)
