@@ -94,8 +94,10 @@ unhusk <stripped-elf> --validate <unstripped-elf>
 # Show full call-closure list (reachable from user, mostly dep/std)
 unhusk <stripped-elf> --show-call-closure
 
-# Cap call-graph BFS at N hops (depth 1: ~1.8x precision gain, ~4pp recall loss across 13 real binaries)
-unhusk <stripped-elf> --infer-depth 1
+# Cap call-graph BFS at N hops (measured on 13 real binaries):
+#   depth 1: 9.3% inferred precision (+1.8x), -3.9pp recall — high-precision audits
+#   depth 2: 6.4% inferred precision (+1.3x), -1.1pp recall — best balance
+unhusk <stripped-elf> --infer-depth 2
 ```
 
 ## Tests
