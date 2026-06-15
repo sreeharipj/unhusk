@@ -342,7 +342,7 @@ the cargo_stripped fixture has no matching unstripped companion.
    "high-confidence user functions (N)" (certain, 100% precision) from
    "speculative (inferred, call-graph reach — low precision)" instead of mixing them.
 
-4. **Speculative section capped at 20** (`6bbd2d4`): `--show-all-inferred` reveals all.
+4. **Speculative section capped at 20** (`6bbd2d4`): `--show-call-closure` reveals all (flag renamed from `--show-all-inferred` in `cadea6d`).
 
 5. **Depth-limit inference** (`3f46fab`): `--infer-depth N` caps BFS at N hops.
    `--infer-depth 1` gives 1.8x precision improvement pooled across 13 real binaries
@@ -589,5 +589,12 @@ context.md) for depth-2 numbers. Found two gaps:
    median recall 45.1% (−1.1pp)".
 
 All numbers are now consistent across all docs. Commit: 7174e24.
+
+## Stale flag reference fix (2026-06-16)
+
+Cross-checked context.md "Tool improvements" section against actual CLI. Found one
+stale reference: context.md line 345 said `--show-all-inferred` (the original flag
+name from commit `6bbd2d4`), but the flag was renamed to `--show-call-closure` in
+commit `cadea6d`. README and CLI help already used the correct name. Fixed context.md.
 
 No further open threads.
