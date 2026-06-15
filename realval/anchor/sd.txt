@@ -1,0 +1,13 @@
+==== sd ====
+user-crates derived (8): bufferstd,contiguous,dfa,fmt,onepass,process,thompson,thread
+panic-anchor slots (user Locations): 16   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=4  distinct-ident-strings=4  union=4
+ground-truth user fns:  DWARF decl_file=6   symbol-name(complement)=34
+RECALL HEADROOM [DWARF]:   A(certain)=2  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=4  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=5  B(bare-reachable)=0  C(residue)=29  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=4  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=4  unmapped=0  precision=0.0%
+  [DWARF] non-user decl_file breakdown:
+       3  dependency crate
+       1  core (other)
+SUMMARY	sd	6	2	0	4	0.0	4	0	4	0	0.0	34	5	0	29	0.0	0	4	0	0.0	0	0

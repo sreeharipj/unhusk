@@ -1,0 +1,859 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/just.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x0014e700   3611351 bytes
+  .rodata               vaddr 0x0006ad80    646224 bytes
+  .data.rel.ro          vaddr 0x004c1278    258040 bytes
+  .rela.dyn             vaddr 0x00001a90    331488 bytes
+  .eh_frame             vaddr 0x00110518    250340 bytes
+  .rela.dyn entries     13675 R_X86_64_RELATIVE entries
+
+source-path strings: 281  (user=31, std=75, dep=175, unknown=0)
+  distinct dep crates visible: 42
+
+panic/assert sites:  1999  (user=156, std=210, dep=1633, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/alias.rs  (1 sites)
+       17:5     Location struct @ 0x4c6eb8
+  src/analyzer.rs  (6 sites)
+       54:30    Location struct @ 0x4c72a8
+       82:47    Location struct @ 0x4c7320
+      237:41    Location struct @ 0x4c7308
+      280:67    Location struct @ 0x4c72d8
+      281:15    Location struct @ 0x4c72f0
+      358:32    Location struct @ 0x4c72c0
+  src/assignment_resolver.rs  (1 sites)
+       91:25    Location struct @ 0x4c6e70
+  src/attribute.rs  (8 sites)
+      148:43    Location struct @ 0x4c8880
+      149:45    Location struct @ 0x4c8898
+      153:62    Location struct @ 0x4c88b0
+      155:14    Location struct @ 0x4c88c8
+      173:48    Location struct @ 0x4c88e0
+      262:52    Location struct @ 0x4c8928
+      267:88    Location struct @ 0x4c88f8
+      269:80    Location struct @ 0x4c8910
+  src/compilation.rs  (1 sites)
+       13:31    Location struct @ 0x4c6d48
+  src/compiler.rs  (7 sites)
+       38:48    Location struct @ 0x4c73b0
+       68:16    Location struct @ 0x4c7398
+      150:35    Location struct @ 0x4c7380
+      183:56    Location struct @ 0x4c7338
+      183:74    Location struct @ 0x4c7368
+      192:45    Location struct @ 0x4c7350
+      204:51    Location struct @ 0x4c6320
+  src/config.rs  (2 sites)
+      158:38    Location struct @ 0x4c7068
+      172:25    Location struct @ 0x4c7050
+  src/error.rs  (1 sites)
+      913:67    Location struct @ 0x4c92c8
+  src/evaluator.rs  (32 sites)
+      241:31    Location struct @ 0x4c7540
+      311:33    Location struct @ 0x4c7558
+      312:38    Location struct @ 0x4c7570
+      314:39    Location struct @ 0x4c7588
+      315:11    Location struct @ 0x4c75a0
+      318:39    Location struct @ 0x4c7660
+      319:11    Location struct @ 0x4c7678
+      322:38    Location struct @ 0x4c75b8
+      323:11    Location struct @ 0x4c75d0
+      326:38    Location struct @ 0x4c75e8
+      329:28    Location struct @ 0x4c6350
+      333:39    Location struct @ 0x4c7600
+      339:11    Location struct @ 0x4c7618
+      342:39    Location struct @ 0x4c7630
+      347:11    Location struct @ 0x4c7648
+      350:38    Location struct @ 0x4c76d8
+      351:38    Location struct @ 0x4c76f0
+      352:11    Location struct @ 0x4c7708
+      355:39    Location struct @ 0x4c7690
+      356:39    Location struct @ 0x4c76a8
+      357:11    Location struct @ 0x4c76c0
+      360:39    Location struct @ 0x4c7768
+      361:39    Location struct @ 0x4c7780
+      362:11    Location struct @ 0x4c7798
+      365:39    Location struct @ 0x4c7720
+      366:39    Location struct @ 0x4c7738
+      371:11    Location struct @ 0x4c7750
+      374:39    Location struct @ 0x4c77b0
+      375:39    Location struct @ 0x4c77c8
+      376:39    Location struct @ 0x4c77e0
+      377:11    Location struct @ 0x4c77f8
+      438:11    Location struct @ 0x4c7528
+  src/executor.rs  (1 sites)
+      109:33    Location struct @ 0x4c4e38
+  src/function.rs  (5 sites)
+      273:43    Location struct @ 0x4c8a20
+      523:75    Location struct @ 0x4c89b8
+      669:6     Location struct @ 0x4c89d0
+      672:6     Location struct @ 0x4c89e8
+      689:6     Location struct @ 0x4c89a0
+  src/invocation_parser.rs  (7 sites)
+       72:7     Location struct @ 0x4c6d80
+      131:45    Location struct @ 0x4c6d98
+      146:65    Location struct @ 0x4c6db0
+      169:35    Location struct @ 0x4c6dc8
+      183:35    Location struct @ 0x4c6de0
+      185:30    Location struct @ 0x4c6df8
+      324:20    Location struct @ 0x4c6e10
+  src/justfile.rs  (12 sites)
+      269:70    Location struct @ 0x4c7470
+      312:53    Location struct @ 0x4c7488
+      315:46    Location struct @ 0x4c74a0
+      323:19    Location struct @ 0x4c74b8
+      350:12    Location struct @ 0x4c74d0
+      390:56    Location struct @ 0x4c7458
+      457:34    Location struct @ 0x4c73c8
+      465:8     Location struct @ 0x4c73e0
+      564:31    Location struct @ 0x4c7410
+      566:20    Location struct @ 0x4c7428
+      575:7     Location struct @ 0x4c7440
+      693:42    Location struct @ 0x4c73f8
+  src/lexer.rs  (11 sites)
+        3:89    Location struct @ 0x4c6440
+      110:14    Location struct @ 0x4c6fc0
+      157:14    Location struct @ 0x4c6fa8
+      182:29    Location struct @ 0x4c6f60
+      301:5     Location struct @ 0x4c6ff0
+      302:5     Location struct @ 0x4c7008
+      303:5     Location struct @ 0x4c7020
+      332:28    Location struct @ 0x4c6f78
+      334:34    Location struct @ 0x4c6f90
+      595:28    Location struct @ 0x4c6fd8
+      603:5     Location struct @ 0x4c6f48
+  src/loader.rs  (1 sites)
+       29:52    Location struct @ 0x4c7080
+  src/name.rs  (1 sites)
+       12:5     Location struct @ 0x4c6ea0
+  src/namepath.rs  (2 sites)
+       16:19    Location struct @ 0x4c7500
+       20:25    Location struct @ 0x4c74e8
+  src/numerator.rs  (3 sites)
+        7:39    Location struct @ 0x4c7810
+       17:5     Location struct @ 0x4c7828
+       18:25    Location struct @ 0x4c7840
+  src/parser.rs  (12 sites)
+      134:16    Location struct @ 0x4c7158
+      218:32    Location struct @ 0x4c7170
+      444:57    Location struct @ 0x4c70f8
+      445:22    Location struct @ 0x4c7110
+      447:9     Location struct @ 0x4c7128
+      464:50    Location struct @ 0x4c7188
+      936:23    Location struct @ 0x4c70b0
+     1060:30    Location struct @ 0x4c7140
+     1167:58    Location struct @ 0x4c7098
+     1282:64    Location struct @ 0x4c70c8
+     1298:54    Location struct @ 0x4c6308
+     1737:22    Location struct @ 0x4c70e0
+  src/pattern.rs  (1 sites)
+       34:25    Location struct @ 0x4c7278
+  src/ran.rs  (1 sites)
+       11:8     Location struct @ 0x4c6e88
+  src/recipe.rs  (4 sites)
+       75:31    Location struct @ 0x4c8820
+       79:31    Location struct @ 0x4c8838
+      341:25    Location struct @ 0x4c8868
+      643:23    Location struct @ 0x4c8850
+  src/search.rs  (1 sites)
+      272:47    Location struct @ 0x4c71c0
+  src/search_error.rs  (3 sites)
+       21:24    Location struct @ 0x4c97c0
+       21:42    Location struct @ 0x4c97d8
+       25:48    Location struct @ 0x4c6bc8
+  src/signals.rs  (3 sites)
+       33:11    Location struct @ 0x4c6458
+       57:21    Location struct @ 0x4c8988
+      102:7     Location struct @ 0x4c7290
+  src/source.rs  (2 sites)
+       21:40    Location struct @ 0x4c7248
+       63:40    Location struct @ 0x4c7260
+  src/subcommand.rs  (17 sites)
+       10:88    Location struct @ 0x4c6428
+      121:9     Location struct @ 0x4c87d8
+      175:61    Location struct @ 0x4c8708
+      199:56    Location struct @ 0x4c8720
+      200:18    Location struct @ 0x4c8738
+      204:51    Location struct @ 0x4c8750
+      304:38    Location struct @ 0x4c87a8
+      389:41    Location struct @ 0x4c87c0
+      477:8     Location struct @ 0x4c86f0
+      499:31    Location struct @ 0x4c87f0
+      501:38    Location struct @ 0x4c8808
+      553:9     Location struct @ 0x4c8ae0
+      557:72    Location struct @ 0x4c8a80
+      580:28    Location struct @ 0x4c8ab0
+      588:26    Location struct @ 0x4c8a98
+      758:46    Location struct @ 0x4c86a0
+      895:33    Location struct @ 0x4c86d8
+  src/tangle.rs  (1 sites)
+       12:35    Location struct @ 0x4c8970
+  src/token.rs  (3 sites)
+       16:14    Location struct @ 0x4c7038
+       29:48    Location struct @ 0x4c9638
+       84:5     Location struct @ 0x4c9650
+  src/unindent.rs  (3 sites)
+       23:29    Location struct @ 0x4c8a68
+       40:8     Location struct @ 0x4c8a38
+       56:5     Location struct @ 0x4c8a50
+  src/unresolved_recipe.rs  (3 sites)
+       14:5     Location struct @ 0x4c6e28
+       30:27    Location struct @ 0x4c6e58
+       95:7     Location struct @ 0x4c6e40
+
+dep crates by panic site count  (1633 sites across 42 crates):
+  pulldown-cmark@0.13.4                           392
+  regex-automata@0.4.14                           310
+  aho-corasick@1.1.4                              194
+  regex-syntax@0.8.10                             189
+  similar@3.1.1                                   156
+  clap_builder@4.6.0                              60
+  chrono@0.4.45                                   45
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               36
+  blake3@1.8.5                                    27
+  … 32 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/just.stripped
+functions (from .eh_frame): 3939
+
+attribution breakdown:
+  certain        130  (3.3%)  user-authored (100% precision, DWARF-validated)
+  call closure   920  (23.4%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2889  (73.3%)  not attributed
+
+user-authored functions — high confidence (130):
+  0x00153a20–0x0015b62d  (31757 bytes)
+      panic @ src/numerator.rs:7:39
+      panic @ src/signals.rs:102:7
+      panic @ src/subcommand.rs:121:9
+      panic @ src/subcommand.rs:389:41
+      panic @ src/subcommand.rs:477:8
+      panic @ src/subcommand.rs:499:31
+      panic @ src/subcommand.rs:501:38
+  0x001f0153–0x001f018a  (55 bytes)
+      panic @ src/unresolved_recipe.rs:95:7
+  0x00215482–0x002154bd  (59 bytes)
+      panic @ src/name.rs:12:5
+  0x002163d0–0x00218b2e  (10078 bytes)
+      panic @ src/error.rs:913:67
+      panic @ src/token.rs:16:14
+  0x00218b60–0x00218b9c  (60 bytes)
+      panic @ src/pattern.rs:34:25
+  0x0021aa20–0x0021aa85  (101 bytes)
+      panic @ src/token.rs:16:14
+  0x0021ab00–0x0021ae6f  (879 bytes)
+      panic @ src/search_error.rs:21:24
+      panic @ src/search_error.rs:21:42
+  0x0021ba50–0x0021baa5  (85 bytes)
+      panic @ src/token.rs:16:14
+  0x0021bab0–0x0021bb11  (97 bytes)
+      panic @ src/token.rs:16:14
+  0x0021c670–0x0021d42c  (3516 bytes)
+      panic @ src/token.rs:29:48
+      panic @ src/token.rs:84:5
+  0x0021e640–0x0021f098  (2648 bytes)
+      panic @ src/pattern.rs:34:25
+      panic @ src/token.rs:16:14
+  0x0021f0b0–0x0021f7f8  (1864 bytes)
+      panic @ src/token.rs:16:14
+  0x0021f850–0x0021f93f  (239 bytes)
+      panic @ src/token.rs:16:14
+  0x00220440–0x00220f6f  (2863 bytes)
+      panic @ src/search_error.rs:25:48
+  0x00223e50–0x002282f6  (17574 bytes)
+      panic @ src/justfile.rs:457:34
+      panic @ src/justfile.rs:465:8
+      panic @ src/ran.rs:11:8
+      panic @ src/recipe.rs:75:31
+      panic @ src/recipe.rs:79:31
+      panic @ src/recipe.rs:643:23
+      panic @ src/token.rs:16:14
+  0x00229130–0x0022b07e  (8014 bytes)
+      panic @ src/evaluator.rs:438:11
+      panic @ src/token.rs:16:14
+  0x0022b080–0x0022b380  (768 bytes)
+      panic @ src/token.rs:16:14
+  0x0022b380–0x0022ca89  (5897 bytes)
+      panic @ src/token.rs:16:14
+  0x0022e2b0–0x0022e312  (98 bytes)
+      panic @ src/token.rs:16:14
+  0x0022e5c0–0x00231487  (11975 bytes)
+      panic @ src/justfile.rs:564:31
+      panic @ src/justfile.rs:566:20
+      panic @ src/justfile.rs:575:7
+  0x00231490–0x00236932  (21666 bytes)
+      panic @ src/executor.rs:109:33
+      panic @ src/recipe.rs:79:31
+      panic @ src/recipe.rs:341:25
+      panic @ src/token.rs:16:14
+  0x00237570–0x00237eef  (2431 bytes)
+      panic @ src/token.rs:16:14
+  0x00237ef0–0x002384b0  (1472 bytes)
+      panic @ src/token.rs:16:14
+  0x0023bd60–0x0023bf2c  (460 bytes)
+      panic @ src/token.rs:16:14
+  0x0023ec00–0x0023f5ee  (2542 bytes)
+      panic @ src/token.rs:16:14
+  0x002463b0–0x002491db  (11819 bytes)
+      panic @ src/evaluator.rs:311:33
+      panic @ src/evaluator.rs:312:38
+      panic @ src/evaluator.rs:314:39
+      panic @ src/evaluator.rs:315:11
+      panic @ src/evaluator.rs:318:39
+      panic @ src/evaluator.rs:319:11
+      panic @ src/evaluator.rs:322:38
+      panic @ src/evaluator.rs:323:11
+      panic @ src/evaluator.rs:326:38
+      panic @ src/evaluator.rs:333:39
+      panic @ src/evaluator.rs:339:11
+      panic @ src/evaluator.rs:342:39
+      panic @ src/evaluator.rs:347:11
+      panic @ src/evaluator.rs:350:38
+      panic @ src/evaluator.rs:351:38
+      panic @ src/evaluator.rs:352:11
+      panic @ src/evaluator.rs:355:39
+      panic @ src/evaluator.rs:356:39
+      panic @ src/evaluator.rs:357:11
+      panic @ src/evaluator.rs:360:39
+      panic @ src/evaluator.rs:361:39
+      panic @ src/evaluator.rs:362:11
+      panic @ src/evaluator.rs:365:39
+      panic @ src/evaluator.rs:366:39
+      panic @ src/evaluator.rs:371:11
+      panic @ src/evaluator.rs:374:39
+      panic @ src/evaluator.rs:375:39
+      panic @ src/evaluator.rs:376:39
+      panic @ src/evaluator.rs:377:11
+  0x00249280–0x0024a013  (3475 bytes)
+      panic @ src/unindent.rs:23:29
+      panic @ src/unindent.rs:56:5
+  0x0024a110–0x0024a65b  (1355 bytes)
+      panic @ src/evaluator.rs:241:31
+      panic @ src/token.rs:16:14
+  0x0024a660–0x0024a81e  (446 bytes)
+      panic @ src/unindent.rs:40:8
+  0x0024a820–0x0024ab19  (761 bytes)
+      panic @ src/evaluator.rs:329:28
+  0x0025f4c0–0x0025f5a8  (232 bytes)
+      panic @ src/function.rs:273:43
+  0x00263b30–0x00263c6b  (315 bytes)
+      panic @ src/function.rs:523:75
+  0x00265300–0x00265428  (296 bytes)
+      panic @ src/token.rs:16:14
+  0x0026b7f0–0x0026ba09  (537 bytes)
+      panic @ src/function.rs:669:6
+      panic @ src/function.rs:672:6
+  0x0026ba10–0x0026bbd0  (448 bytes)
+      panic @ src/function.rs:689:6
+  0x002727a0–0x00272c99  (1273 bytes)
+      panic @ src/numerator.rs:17:5
+      panic @ src/numerator.rs:18:25
+  0x002875d0–0x00287671  (161 bytes)
+      panic @ src/signals.rs:57:21
+  0x00287680–0x00287739  (185 bytes)
+      panic @ src/signals.rs:33:11
+  0x00287810–0x0028a701  (12017 bytes)
+      panic @ src/config.rs:172:25
+  0x0028a710–0x0028a84a  (314 bytes)
+      panic @ src/config.rs:158:38
+  0x002ab180–0x002ab748  (1480 bytes)
+      panic @ src/loader.rs:29:52
+  0x002ab750–0x002ab9c6  (630 bytes)
+      panic @ src/source.rs:21:40
+  0x002ab9d0–0x002adcbe  (8942 bytes)
+      panic @ src/lexer.rs:157:14
+      panic @ src/lexer.rs:182:29
+      panic @ src/lexer.rs:301:5
+      panic @ src/lexer.rs:302:5
+      panic @ src/lexer.rs:303:5
+      panic @ src/lexer.rs:332:28
+      panic @ src/lexer.rs:334:34
+      panic @ src/lexer.rs:595:28
+  0x002b46c0–0x002b7686  (12230 bytes)
+      panic @ src/recipe.rs:79:31
+      panic @ src/subcommand.rs:304:38
+  0x002b7690–0x002bba9e  (17422 bytes)
+      panic @ src/justfile.rs:269:70
+      panic @ src/justfile.rs:312:53
+      panic @ src/justfile.rs:315:46
+      panic @ src/justfile.rs:323:19
+      panic @ src/justfile.rs:350:12
+      panic @ src/justfile.rs:390:56
+      panic @ src/token.rs:16:14
+  0x002bbaa0–0x002bbd0f  (623 bytes)
+      panic @ src/compilation.rs:13:31
+  0x002bc420–0x002bd780  (4960 bytes)
+      panic @ src/subcommand.rs:175:61
+      panic @ src/subcommand.rs:199:56
+      panic @ src/subcommand.rs:200:18
+      panic @ src/subcommand.rs:204:51
+  0x002bda50–0x002bde6a  (1050 bytes)
+      panic @ src/recipe.rs:79:31
+  0x002c10f0–0x002c163f  (1359 bytes)
+      panic @ src/subcommand.rs:895:33
+  0x002c1640–0x002c1747  (263 bytes)
+      panic @ src/token.rs:16:14
+  0x002c1920–0x002c263a  (3354 bytes)
+      panic @ src/token.rs:16:14
+  0x002c2640–0x002c270a  (202 bytes)
+      panic @ src/token.rs:16:14
+  0x002c3830–0x002c41f7  (2503 bytes)
+      panic @ src/token.rs:16:14
+  0x002c46d0–0x002c4966  (662 bytes)
+      panic @ src/token.rs:16:14
+  0x002c49e0–0x002c4e2d  (1101 bytes)
+      panic @ src/token.rs:16:14
+  0x002c51e0–0x002c7581  (9121 bytes)
+      panic @ src/search.rs:272:47
+  0x002c8360–0x002ced90  (27184 bytes)
+      panic @ src/subcommand.rs:758:46
+      panic @ src/token.rs:16:14
+  0x002d0600–0x002d1968  (4968 bytes)
+      panic @ src/justfile.rs:693:42
+  0x002d27f0–0x002d36f2  (3842 bytes)
+      panic @ src/subcommand.rs:553:9
+      panic @ src/subcommand.rs:557:72
+      panic @ src/subcommand.rs:580:28
+      panic @ src/subcommand.rs:588:26
+  0x002d4cb0–0x002d4d44  (148 bytes)
+      panic @ src/subcommand.rs:10:88
+  0x002d6160–0x002d7943  (6115 bytes)
+      panic @ src/token.rs:16:14
+  0x002d87d0–0x002d88b4  (228 bytes)
+      panic @ src/token.rs:16:14
+  0x002d88c0–0x002d92af  (2543 bytes)
+      panic @ src/token.rs:16:14
+  0x002d9490–0x002dafa3  (6931 bytes)
+      panic @ src/token.rs:16:14
+  0x002dc860–0x002dc94b  (235 bytes)
+      panic @ src/pattern.rs:34:25
+  0x002e0aa0–0x002e5456  (18870 bytes)
+      panic @ src/invocation_parser.rs:72:7
+      panic @ src/invocation_parser.rs:131:45
+      panic @ src/invocation_parser.rs:146:65
+      panic @ src/invocation_parser.rs:169:35
+      panic @ src/invocation_parser.rs:183:35
+      panic @ src/invocation_parser.rs:185:30
+      panic @ src/invocation_parser.rs:324:20
+      panic @ src/token.rs:16:14
+  0x002e5b20–0x002e660b  (2795 bytes)
+      panic @ src/token.rs:16:14
+  0x002ee070–0x002f5313  (29347 bytes)
+      panic @ src/compiler.rs:38:48
+      panic @ src/compiler.rs:68:16
+      panic @ src/compiler.rs:150:35
+      panic @ src/compiler.rs:183:56
+      panic @ src/compiler.rs:183:74
+      panic @ src/compiler.rs:192:45
+      panic @ src/compiler.rs:204:51
+      panic @ src/numerator.rs:7:39
+      panic @ src/source.rs:63:40
+  0x002f7410–0x00304b04  (55028 bytes)
+      panic @ src/analyzer.rs:54:30
+      panic @ src/analyzer.rs:82:47
+      panic @ src/analyzer.rs:237:41
+      panic @ src/analyzer.rs:280:67
+      panic @ src/analyzer.rs:281:15
+      panic @ src/analyzer.rs:358:32
+      panic @ src/token.rs:16:14
+  0x00306030–0x0030968a  (13914 bytes)
+      panic @ src/token.rs:16:14
+  0x00309750–0x00309d7c  (1580 bytes)
+      panic @ src/token.rs:16:14
+  0x0030b160–0x0030c36b  (4619 bytes)
+      panic @ src/namepath.rs:20:25
+      panic @ src/token.rs:16:14
+  0x0030c370–0x0030c510  (416 bytes)
+      panic @ src/alias.rs:17:5
+      panic @ src/namepath.rs:16:19
+      panic @ src/token.rs:16:14
+  0x0030c510–0x0030dbc4  (5812 bytes)
+      panic @ src/token.rs:16:14
+  0x0030dbd0–0x0030f2a7  (5847 bytes)
+      panic @ src/token.rs:16:14
+  0x0030fd10–0x00310d4f  (4159 bytes)
+      panic @ src/token.rs:16:14
+  0x00310d50–0x00310dcf  (127 bytes)
+      panic @ src/token.rs:16:14
+  0x00311680–0x00311990  (784 bytes)
+      panic @ src/token.rs:16:14
+  0x00314dc0–0x003183d5  (13845 bytes)
+      panic @ src/namepath.rs:16:19
+      panic @ src/token.rs:16:14
+  0x003183e0–0x00318631  (593 bytes)
+      panic @ src/namepath.rs:16:19
+      panic @ src/token.rs:16:14
+  0x00318840–0x0031ab29  (8937 bytes)
+      panic @ src/namepath.rs:16:19
+      panic @ src/token.rs:16:14
+      panic @ src/unresolved_recipe.rs:14:5
+      panic @ src/unresolved_recipe.rs:30:27
+  0x0031ab30–0x0031b3b2  (2178 bytes)
+      panic @ src/token.rs:16:14
+  0x0031ca00–0x0031cee8  (1256 bytes)
+      panic @ src/token.rs:16:14
+  0x0031d9a0–0x0031da8d  (237 bytes)
+      panic @ src/token.rs:16:14
+  0x0031dae0–0x0031de66  (902 bytes)
+      panic @ src/token.rs:16:14
+  0x0031de70–0x0031e667  (2039 bytes)
+      panic @ src/assignment_resolver.rs:91:25
+      panic @ src/token.rs:16:14
+  0x00349530–0x003495d5  (165 bytes)
+      panic @ src/token.rs:16:14
+  0x003498a0–0x0034a277  (2519 bytes)
+      panic @ src/token.rs:16:14
+  0x0034a4b0–0x0034a511  (97 bytes)
+      panic @ src/lexer.rs:110:14
+  0x0034a760–0x0034aa4a  (746 bytes)
+      panic @ src/lexer.rs:110:14
+  0x0034aa50–0x0034ab86  (310 bytes)
+      panic @ src/lexer.rs:603:5
+  0x0034ad60–0x0034c16d  (5133 bytes)
+      panic @ src/lexer.rs:157:14
+  0x0034c170–0x00352389  (25113 bytes)
+      panic @ src/parser.rs:134:16
+      panic @ src/parser.rs:464:50
+      panic @ src/token.rs:16:14
+  0x00352cf0–0x00352eb0  (448 bytes)
+      panic @ src/parser.rs:218:32
+  0x00352eb0–0x00352fa8  (248 bytes)
+      panic @ src/parser.rs:134:16
+  0x00352fb0–0x0035e756  (47014 bytes)
+      panic @ src/attribute.rs:148:43
+      panic @ src/attribute.rs:149:45
+      panic @ src/attribute.rs:153:62
+      panic @ src/attribute.rs:155:14
+      panic @ src/attribute.rs:173:48
+      panic @ src/attribute.rs:262:52
+      panic @ src/attribute.rs:267:88
+      panic @ src/attribute.rs:269:80
+      panic @ src/parser.rs:134:16
+      panic @ src/parser.rs:1737:22
+      panic @ src/token.rs:16:14
+  0x0035e760–0x0035e8e6  (390 bytes)
+      panic @ src/parser.rs:134:16
+  0x0035ee00–0x003634fc  (18172 bytes)
+      panic @ src/parser.rs:134:16
+      panic @ src/parser.rs:1282:64
+      panic @ src/parser.rs:1298:54
+      panic @ src/token.rs:16:14
+  0x00363c10–0x00363fd3  (963 bytes)
+      panic @ src/token.rs:16:14
+  0x00363fe0–0x00364755  (1909 bytes)
+      panic @ src/token.rs:16:14
+  0x00364760–0x003648f1  (401 bytes)
+      panic @ src/parser.rs:134:16
+  0x00364900–0x00368052  (14162 bytes)
+      panic @ src/parser.rs:134:16
+      panic @ src/parser.rs:1060:30
+      panic @ src/parser.rs:1167:58
+      panic @ src/token.rs:16:14
+  0x00368060–0x0036837b  (795 bytes)
+      panic @ src/parser.rs:134:16
+  0x00368380–0x00368798  (1048 bytes)
+      panic @ src/token.rs:16:14
+  0x003687a0–0x00368c28  (1160 bytes)
+      panic @ src/parser.rs:444:57
+      panic @ src/parser.rs:445:22
+      panic @ src/parser.rs:447:9
+  0x00368f00–0x00369245  (837 bytes)
+      panic @ src/token.rs:16:14
+  0x00369250–0x00369c16  (2502 bytes)
+      panic @ src/parser.rs:134:16
+  0x00369c20–0x0036a338  (1816 bytes)
+      panic @ src/parser.rs:134:16
+  0x0036a5b0–0x0036ad8d  (2013 bytes)
+      panic @ src/parser.rs:134:16
+  0x0036ad90–0x0036bbf2  (3682 bytes)
+      panic @ src/parser.rs:134:16
+  0x0036c550–0x0036c61f  (207 bytes)
+      panic @ src/parser.rs:134:16
+      panic @ src/token.rs:16:14
+  0x0036d560–0x0036f68a  (8490 bytes)
+      panic @ src/parser.rs:134:16
+      panic @ src/parser.rs:936:23
+      panic @ src/token.rs:16:14
+  0x0036f690–0x0036f758  (200 bytes)
+      panic @ src/token.rs:16:14
+  0x0036f760–0x0036ff65  (2053 bytes)
+      panic @ src/parser.rs:134:16
+  0x0036ff70–0x00370193  (547 bytes)
+      panic @ src/token.rs:16:14
+  0x003704d0–0x00370556  (134 bytes)
+      panic @ src/parser.rs:134:16
+  0x00370560–0x00370a33  (1235 bytes)
+      panic @ src/parser.rs:134:16
+  0x00370b00–0x00370d50  (592 bytes)
+      panic @ src/token.rs:16:14
+  0x00370d80–0x003712a7  (1319 bytes)
+      panic @ src/parser.rs:134:16
+  0x00371940–0x00372726  (3558 bytes)
+      panic @ src/token.rs:16:14
+  0x003727b0–0x003737a1  (4081 bytes)
+      panic @ src/parser.rs:134:16
+  0x00373830–0x00374331  (2817 bytes)
+      panic @ src/parser.rs:134:16
+  0x00374340–0x003744ee  (430 bytes)
+      panic @ src/parser.rs:134:16
+  0x003744f0–0x00374565  (117 bytes)
+      panic @ src/token.rs:16:14
+  0x0037b920–0x0037bce2  (962 bytes)
+      panic @ src/lexer.rs:157:14
+  0x0037c4d0–0x0037ccfd  (2093 bytes)
+      panic @ src/lexer.rs:157:14
+      panic @ src/token.rs:16:14
+  0x0037cd00–0x0037cd50  (80 bytes)
+      panic @ src/lexer.rs:157:14
+  0x0037d0a0–0x0037d134  (148 bytes)
+      panic @ src/lexer.rs:3:89
+  0x0038b390–0x0038c499  (4361 bytes)
+      panic @ src/recipe.rs:79:31
+      panic @ src/token.rs:16:14
+  0x0039f380–0x003a2569  (12777 bytes)
+      panic @ src/tangle.rs:12:35
+
+call closure — reachable from user code, not user-authored (920):
+  0x0014e7f0–0x0014eb44  (852 bytes)  [inferred]
+  0x0014eb50–0x0014ebbb  (107 bytes)  [inferred]
+  0x0014ec30–0x0014ec45  (21 bytes)  [inferred]
+  0x0014ec50–0x0014ecdf  (143 bytes)  [indeterminate]
+  0x0014ece0–0x0014ed08  (40 bytes)  [inferred]
+  0x0014ed10–0x0014edf0  (224 bytes)  [inferred]
+  0x0014f240–0x0014f2ac  (108 bytes)  [inferred]
+  0x0014f2b0–0x0014f387  (215 bytes)  [inferred]
+  0x0014f390–0x0014f436  (166 bytes)  [inferred]
+  0x0014f440–0x0014f4cc  (140 bytes)  [inferred]
+  0x0014f960–0x0014f9a4  (68 bytes)  [inferred]
+  0x0014f9b0–0x0014fa2f  (127 bytes)  [inferred]
+  0x0014fb60–0x0014fbdf  (127 bytes)  [inferred]
+  0x00150150–0x00150218  (200 bytes)  [inferred]
+  0x00150240–0x001502bf  (127 bytes)  [inferred]
+  0x001509b0–0x00150a1c  (108 bytes)  [inferred]
+  0x00150a20–0x00150c47  (551 bytes)  [inferred]
+  0x00151530–0x001515ae  (126 bytes)  [inferred]
+  0x00151690–0x00151a41  (945 bytes)  [inferred]
+  0x00151a50–0x0015214d  (1789 bytes)  [inferred]
+  … 900 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 2978 functions mapped (181 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain          130 predicted   TP=   25  FP=  16  unknown=  89   precision=61.0%
+  inferred         641 predicted   TP=   38  FP= 438  unknown= 165   precision=8.0%
+  indeterminate    279 predicted   TP=    4  FP= 228  unknown=  47   precision=1.7%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     25  ( 13.8%)  certain          (rock-solid signal)
+     38  ( 21.0%)  inferred         (call-graph reach)
+      4  (  2.2%)  indeterminate    (shared/mixed callers)
+    114  ( 63.0%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x00153a20  /home/user/Videos/unhusk/realval/work/just/src/main.rs
+    0x002163d0  /home/user/Videos/unhusk/realval/work/just/src/error.rs
+    0x0021ab00  /home/user/Videos/unhusk/realval/work/just/src/search_error.rs
+    0x0021c670  /home/user/Videos/unhusk/realval/work/just/src/token.rs
+    0x0021e640  /home/user/Videos/unhusk/realval/work/just/src/usage.rs
+    0x0021f0b0  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x0021f850  /home/user/Videos/unhusk/realval/work/just/src/string_literal.rs
+    0x00220440  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x0022e2b0  /home/user/Videos/unhusk/realval/work/just/src/name.rs
+    0x0023ec00  /home/user/Videos/unhusk/realval/work/just/src/command_ext.rs
+    0x00249280  /home/user/Videos/unhusk/realval/work/just/src/unindent.rs
+    0x0025f4c0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00263b30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00265300  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026b7f0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026ba10  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002875d0  /home/user/Videos/unhusk/realval/work/just/src/signals.rs
+    0x00287680  /home/user/Videos/unhusk/realval/work/just/src/signals.rs
+    0x002c2640  /home/user/Videos/unhusk/realval/work/just/src/justfile.rs
+    0x002c3830  /home/user/Videos/unhusk/realval/work/just/src/recipe.rs
+    0x002c49e0  /home/user/Videos/unhusk/realval/work/just/src/parameter.rs
+    0x002d27f0  /home/user/Videos/unhusk/realval/work/just/src/subcommand.rs
+    0x002d6160  /home/user/Videos/unhusk/realval/work/just/src/justfile.rs
+    0x002d88c0  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x003498a0  /home/user/Videos/unhusk/realval/work/just/src/recipe.rs
+  DWARF-user in inferred:
+    0x00218bc0  /home/user/Videos/unhusk/realval/work/just/src/error.rs
+    0x00218d80  /home/user/Videos/unhusk/realval/work/just/src/compile_error.rs
+    0x0021a330  /home/user/Videos/unhusk/realval/work/just/src/config_error.rs
+    0x0021bd50  /home/user/Videos/unhusk/realval/work/just/src/modulepath.rs
+    0x0023a750  /home/user/Videos/unhusk/realval/work/just/src/command_ext.rs
+    0x0023a9c0  /home/user/Videos/unhusk/realval/work/just/src/command_ext.rs
+    0x0023bc40  /home/user/Videos/unhusk/realval/work/just/src/shell_kind.rs
+    0x00244750  /home/user/Videos/unhusk/realval/work/just/src/value.rs
+    0x00245420  /home/user/Videos/unhusk/realval/work/just/src/value.rs
+    0x00245490  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00279360  /home/user/Videos/unhusk/realval/work/just/src/string_literal.rs
+    0x00279420  /home/user/Videos/unhusk/realval/work/just/src/interpreter.rs
+    0x002874a0  /home/user/Videos/unhusk/realval/work/just/src/signals.rs
+    0x00291d10  /home/user/Videos/unhusk/realval/work/just/src/filesystem.rs
+    0x002add70  /home/user/Videos/unhusk/realval/work/just/src/ast.rs
+    0x002d4740  /home/user/Videos/unhusk/realval/work/just/src/recipe_signature.rs
+    0x002d49b0  /home/user/Videos/unhusk/realval/work/just/src/subcommand.rs
+    0x002d9390  /home/user/Videos/unhusk/realval/work/just/src/modulepath.rs
+    0x002dc090  /home/user/Videos/unhusk/realval/work/just/src/warning.rs
+    0x002e76d0  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x002e9460  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x002ea540  /home/user/Videos/unhusk/realval/work/just/src/interpreter.rs
+    0x002f59d0  /home/user/Videos/unhusk/realval/work/just/src/alias.rs
+    0x002f5af0  /home/user/Videos/unhusk/realval/work/just/src/recipe.rs
+    0x002f6250  /home/user/Videos/unhusk/realval/work/just/src/setting.rs
+    0x002f6fc0  /home/user/Videos/unhusk/realval/work/just/src/interpreter.rs
+    0x00305fb0  /home/user/Videos/unhusk/realval/work/just/src/modulepath.rs
+    0x00311360  /home/user/Videos/unhusk/realval/work/just/src/references.rs
+    0x00377940  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x00377f20  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x003783e0  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x003787b0  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x00378940  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x00378c90  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x003794e0  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x00379ef0  /home/user/Videos/unhusk/realval/work/just/src/token.rs
+    0x0037e720  /home/user/Videos/unhusk/realval/work/just/src/arguments.rs
+    0x003aa620  /home/user/Videos/unhusk/realval/work/just/src/arguments.rs
+  DWARF-user in indeterminate:
+    0x0021e4d0  /home/user/Videos/unhusk/realval/work/just/src/modulepath.rs
+    0x00278df0  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x00279210  /home/user/Videos/unhusk/realval/work/just/src/token.rs
+    0x00291f30  /home/user/Videos/unhusk/realval/work/just/src/arguments.rs
+  DWARF-user in library (missed):
+    0x00216390  /home/user/Videos/unhusk/realval/work/just/src/color_display.rs
+    0x0021aec0  /home/user/Videos/unhusk/realval/work/just/src/count.rs
+    0x0021af70  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x0021b620  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x0021bb20  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x0021d770  /home/user/Videos/unhusk/realval/work/just/src/usage.rs
+    0x002202c0  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x00220340  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x002203c0  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x00220f70  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x00221420  /home/user/Videos/unhusk/realval/work/just/src/range_ext.rs
+    0x00221500  /home/user/Videos/unhusk/realval/work/just/src/show_whitespace.rs
+    0x00221810  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x00221990  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x00221e40  /home/user/Videos/unhusk/realval/work/just/src/list.rs
+    0x00221fb0  /home/user/Videos/unhusk/realval/work/just/src/token_kind.rs
+    0x00222290  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x00222320  /home/user/Videos/unhusk/realval/work/just/src/keyword.rs
+    0x00222660  /home/user/Videos/unhusk/realval/work/just/src/enclosure.rs
+    0x0024ab20  /home/user/Videos/unhusk/realval/work/just/src/error.rs
+    0x0024c1a0  /home/user/Videos/unhusk/realval/work/just/src/signal.rs
+    0x0024e150  /home/user/Videos/unhusk/realval/work/just/src/number.rs
+    0x0024e280  /home/user/Videos/unhusk/realval/work/just/src/parameter_kind.rs
+    0x0024e430  /home/user/Videos/unhusk/realval/work/just/src/expression.rs
+    0x0024fc30  /home/user/Videos/unhusk/realval/work/just/src/string_kind.rs
+    0x002507b0  /home/user/Videos/unhusk/realval/work/just/src/string_literal.rs
+    0x002522b0  /home/user/Videos/unhusk/realval/work/just/src/attribute_set.rs
+    0x00252740  /home/user/Videos/unhusk/realval/work/just/src/attribute.rs
+    0x002549c0  /home/user/Videos/unhusk/realval/work/just/src/token_kind.rs
+    0x00258ab0  /home/user/Videos/unhusk/realval/work/just/src/keyword.rs
+    0x00258ae0  /home/user/Videos/unhusk/realval/work/just/src/delimiter.rs
+    0x00259120  /home/user/Videos/unhusk/realval/work/just/src/namepath.rs
+    0x0025a100  /home/user/Videos/unhusk/realval/work/just/src/token.rs
+    0x0025a5a0  /home/user/Videos/unhusk/realval/work/just/src/name.rs
+    0x0025a9b0  /home/user/Videos/unhusk/realval/work/just/src/modulepath.rs
+    0x0025aa90  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025aba0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025ae00  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025b6d0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025b720  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025bad0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025d900  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025dc90  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025e120  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025e6d0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0025fc30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002600a0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002604c0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00260680  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002606a0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00260950  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00260c20  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00260ee0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261020  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261120  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261430  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002615d0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002616b0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002616e0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261850  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261a50  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261bc0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261ca0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00261e30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00262cd0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00263b10  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00263c70  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00263d50  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00263e20  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00264050  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002640a0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002640f0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002642e0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00264510  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00264de0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00265070  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00265430  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00265470  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00266f80  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x002671f0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00267e00  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00268020  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00268830  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00268c60  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x00269a30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026a800  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026a950  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026bbd0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026be80  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026c8b0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026c930  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026c9b0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026ca50  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026cd30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026cdb0  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026ce50  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026cf30  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026d970  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026d990  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026de90  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026e2c0  /home/user/Videos/unhusk/realval/work/just/src/value.rs
+    0x0026e4d0  /home/user/Videos/unhusk/realval/work/just/src/element.rs
+    0x0026e8f0  /home/user/Videos/unhusk/realval/work/just/src/signal.rs
+    0x0026eb80  /home/user/Videos/unhusk/realval/work/just/src/function.rs
+    0x0026ecb0  /home/user/Videos/unhusk/realval/work/just/src/which.rs
+    0x002c4660  /home/user/Videos/unhusk/realval/work/just/src/indentation.rs
+    0x002ea620  /home/user/Videos/unhusk/realval/work/just/src/load_dotenv.rs
+    0x00349090  /home/user/Videos/unhusk/realval/work/just/src/item.rs
+    0x00349730  /home/user/Videos/unhusk/realval/work/just/src/setting.rs
+    0x0034a3d0  /home/user/Videos/unhusk/realval/work/just/src/namepath.rs
+    0x0037e2f0  /home/user/Videos/unhusk/realval/work/just/src/indentation.rs
+    0x0038d3d0  /home/user/Videos/unhusk/realval/work/just/src/arguments.rs
+    0x00393c70  /home/user/Videos/unhusk/realval/work/just/src/arguments.rs
+    0x00397200  /home/user/Videos/unhusk/realval/work/just/src/shell.rs
+
+  total captured :    63  (34.8% of 181 DWARF-user fns)
+  total missed   :   114  (63.0%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 61.0%
+  Certain recall    : 13.8%  (25/181 DWARF-user fns reached by certain)
+  Overall recall    : 34.8%  (certain+inferred)
+
+validation complete.
