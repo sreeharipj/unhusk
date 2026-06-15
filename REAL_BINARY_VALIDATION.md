@@ -319,7 +319,7 @@ recall **45.1%** — only 1.1pp recall loss vs unlimited, with 1.3pp precision g
 **Revised guidance for `--infer-depth`:**
 - `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits where
   false positives are more costly than missed functions.
-- `--infer-depth 2`: ~1.5× precision gain, ~2pp recall loss. Better balance for most use cases.
+- `--infer-depth 2`: ~1.3× precision gain, ~1pp recall loss. Better balance for most use cases.
 - Default (unlimited): highest recall, lowest precision (~5% inferred).
 - Script: `realval/depth_sweep.py`; results: `realval/DEPTH_SWEEP.md`.
 
