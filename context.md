@@ -1,3 +1,6 @@
+push to main after every BIG thing, for small things commit, and sudo is sar1508
+
+
 # unhusk — DWARF ground-truth validation: context & findings
 
 ## What the tool does
@@ -406,3 +409,66 @@ If recall is to be pushed, the only levers left are backward-reachability (rever
 from `certain` into their callers/trait-impl sites) or type-layout recovery; both are larger
 efforts and outside the string-anchor family. The miniserve-rebuild idea above is still open
 but lower value.
+
+---
+
+## Type-name recovery via `#[derive(Debug)]` (`src/types.rs`, commit `7d598a9`)
+
+**What was built:** LEA+MOV sliding-window scan in `.text` to detect `f.debug_struct("Name")
+.field("field", …)` patterns, plus a `.data.rel.ro` fat-pointer scan for serde/clap field
+tables. Tiering: user (fn in certain/inferred), non-std, std. Exposed via `--types` flag.
+
+**13-binary sweep results:**
+
+| Binary     | Total | User | Non-std |
+|------------|-------|------|---------|
+| bat        |   6   |   1  |    5    |
+| dust       |   2   |   0  |    2    |
+| fd         |   6   |   0  |    6    |
+| grex       |   2   |   0  |    2    |
+| hexyl      |   0   |   0  |    0    |
+| hyperfine  |   4   |   2  |    2    |
+| just       |   4   |   0  |    4    |
+| pastel     |   1   |   0  |    1    |
+| ripgrep    |   4   |   0  |    4    |
+| sd         |   1   |   0  |    1    |
+| tokei      |   1   |   0  |    1    |
+| xsv        |   2   |   0  |    2    |
+| zoxide     |   0   |   0  |    0    |
+
+**Quality: all 3 user-tier structs are FPs at the type-name level:**
+- hyperfine `The` (fn 0x55eb0): English article, host fn is a dep FP by DWARF.
+- hyperfine `Execute` (fn 0x62e90): host fn is a TP (src/cli.rs by DWARF), but fields
+  are `auto, sortweek` — nonsense, not matching any real struct.
+- bat `Creative` (fn 0x35cab0): "Creative Commons" from license text in rodata.
+
+Non-std dominated by regex byte-class strings (`AZaz10`, `BCFPfx`), English words
+(`Could`, `Completely`), and clap/serde dep tables (`Alias` with clap option names).
+
+**Why the approach fails:**
+1. LEA+MOV pairs are not exclusive to Debug fmt functions — any rodata string load
+   with a nearby length immediate triggers it.
+2. fmt functions are outside certain/inferred (they don't panic) — backward reachability
+   would be needed, which unhusk doesn't have.
+3. The boundary check filters substrings but cannot distinguish "The" in an error
+   message from "The" as a struct name.
+
+**Verdict:** No classifier change warranted. `--types` ships as experimental diagnostic.
+Same structural ceiling as bare-anchor headroom.
+
+## Current state
+
+All prompt.md questions answered and all three candidate accuracy improvements
+investigated with empirical DWARF evidence:
+
+| Question | Answer |
+|----------|--------|
+| Certain precision | 100% (all fixtures) |
+| Inferred precision | 5% real, 100% synthetic |
+| Depth-limit improvement | `--infer-depth 1`: 5%→15.4% precision, 0% recall loss |
+| Bare-anchor headroom | ~0.16–0.47% extra user fns; not worth building |
+| Type-name recovery | 0 real recoveries across 13 binaries; not worth productizing |
+
+The tool is fully characterized. No further algorithmic improvements are identified
+that could materially raise recall or precision without DWARF or symbol names at
+analysis time. The project is complete for the stated research goals.
