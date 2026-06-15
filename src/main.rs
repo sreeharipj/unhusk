@@ -62,6 +62,12 @@ fn main() -> Result<()> {
     let score = unhusk::classify::Score::from(&attributed);
     unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_call_closure);
 
+    // Optional type-name recovery from #[derive(Debug)] artifacts.
+    if args.types {
+        let types = unhusk::types::find_type_names(&elf, &fn_map, &attributed);
+        unhusk::report::print_types_report(&types);
+    }
+
     // Optional DWARF validation.
     let ground_truth = if let Some(ref unstripped_path) = args.validate {
         let unstripped = unhusk::elf::ParsedElf::load(unstripped_path)?;
