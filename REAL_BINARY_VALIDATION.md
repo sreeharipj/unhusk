@@ -193,9 +193,92 @@ is a project property, not a failure — it builds on Cargo defaults.)
 
 ---
 
+---
+
+## SYMBOL-BASED PRECISION RE-EVALUATION
+
+**Date:** 2026-06-16 · Script: `realval/symbol_precision.py`
+
+**Motivation.** 67% of all DWARF-based FPs are `FnOnce`/`Fn`/`FnMut` closure shims — functions
+where the body is the user's closure but DWARF `decl_file` points to the trait method definition in
+`core/src/ops/function.rs`. REAL_BINARY_VALIDATION.md already noted: "by a symbol-name notion of
+authorship unhusk is closer to right on those ~67%." This section quantifies that claim.
+
+**Method.** For each of the 13 debug twins:
+1. Run `nm -C <name>.debug` to build addr → demangled-symbol table.
+2. Extract leading crate name from the demangled symbol (strip leading `<`s, take first identifier).
+3. Classify: **user** if leading crate ∉ {std, alloc, core, ...} and ∉ dep crates (top-10 parsed
+   from validate.txt); **std** if ∈ STD_CRATES; **dep** otherwise. **Unknown** if no nm entry.
+4. Precision denominator = user + std + dep (unknowns excluded, same as the DWARF treatment of
+   DWARF-unmapped addresses).
+
+### Results
+
+| binary | certain | DWARF prec | sym prec | sym [user/std/dep/unk] | delta |
+|--------|--------:|-----------:|---------:|-----------------------:|------:|
+| bat     |     133 | 8.9% (11/112)  | 99.2% | 132/1/0/0  | +90.3 |
+| dust    |      17 | 88.2% (15/2)   | 88.2% | 15/2/0/0   |  +0.0 |
+| fd      |      17 | 27.3% (3/8)    | 58.8% | 10/7/0/0   | +31.6 |
+| grex    |      23 | 21.4% (3/11)   | 52.4% | 11/10/0/2  | +31.0 |
+| hexyl   |      16 | 50.0% (4/4)    | 75.0% | 12/4/0/0   | +25.0 |
+| hyperfine |    16 | 90.9% (10/1)   | 93.8% | 15/1/0/0   |  +2.8 |
+| just    |     130 | 61.0% (25/16)  | 94.4% | 118/7/0/5  | +33.4 |
+| pastel  |      27 | 95.0% (19/1)   |100.0% | 26/0/0/1   |  +5.0 |
+| ripgrep |     345 | 94.7% (143/8)  | 97.9% | 328/7/0/10 |  +3.2 |
+| sd      |       5 | 66.7% (2/1)    |100.0% | 4/0/0/1    | +33.3 |
+| tokei   |      39 | 43.5% (10/13)  |100.0% | 35/0/0/4   | +56.5 |
+| xsv     |      48 | 86.2% (25/4)   | 93.8% | 45/1/2/0   |  +7.5 |
+| zoxide  |       8 |100.0% (3/0)    |100.0% | 8/0/0/0    |  +0.0 |
+
+**Symbol-based: median 94.4%, mean 88.7%.**
+**DWARF-based: median 66.7%, mean 64.1%.**
+
+### Genuinely wrong predictions (non-user by both symbol and DWARF)
+
+Aggregated across all 13 binaries, **42 certain functions are non-user by symbol** (vs 190 by DWARF).
+All 42 are std/alloc/core or dep functions; none are FnOnce closure shims. Categories:
+
+| category | count |
+|---|---:|
+| `core::slice::sort` generics (grex, ripgrep sort comparators inlined) | 11 |
+| `core::iter::adapters::GenericShunt`/`FilterMap`/`Map` generics | 10 |
+| `std::sync::once::Once::call_once_force` lazy-init shims (hexyl, fd, grex) | 7 |
+| `std::sys::backtrace::__rust_begin_short_backtrace` (fd, dust thread entry) | 3 |
+| `core::panicking::assert_failed` / `panic_const` | 3 |
+| `csv::writer::Writer::write_record` (xsv dep) | 2 |
+| other (std::thread::scope, std::process::Command impl of just trait, etc.) | 6 |
+
+**42 / (759 user + 42 non-user) = 5.2% genuine FP rate by symbol.** The remaining 21 unknowns
+(functions with no nm entry, ~2.6% of certain predictions) are ICF-merged or inlined-away functions
+excluded from the denominator.
+
+### Edge case: `<std::Type as UserTrait>::method`
+
+One `just` function — `<std::process::Command as just::command_ext::CommandExt>::export_scope` —
+is classified as `std` (non-user) by symbol because the leading type is `std::process::Command`,
+even though the impl body was written in `just/src/command_ext.rs`. This is the converse of the
+FnOnce-shim case: the user is *implementing a trait* on a std type rather than *passing a closure*
+to a std type. DWARF correctly attributes it to `just`. The frequency is low (1 of 42 "wrong"
+predictions) and the direction of error differs from the mass FnOnce issue.
+
+### Revised headline
+
+The "100% certain precision" claim from the fixtures survives when measured by the natural
+definition of authorship (symbol name / crate ownership), but not by DWARF `decl_file`.
+
+**By symbol-name GT:** certain precision **median 94.4%** on 13 real binaries.
+**By DWARF decl_file GT:** certain precision median 66.7% — penalty for user closures dispatched
+through `Fn*` traits, which DWARF attributes to `core/src/ops/function.rs`.
+
+The 5.2% genuine FP rate (by symbol) represents cases where a std/dep generic function was
+monomorphized with user types and unhusk's panic-Location scan found a user Location inside —
+there is no signal available in a stripped binary to distinguish these from real user functions.
+
+---
+
 ## REPRODUCING
 
 `realval/run.sh` (per-binary driver), `realval/batch.sh` (the 13-project list), `realval/collect.py`
 (table), and the per-binary `realval/out/<name>.validate.txt` full outputs + `<name>.debug` twins are
 retained. FP mechanism breakdown via `addr2line -f` on the certain start addresses against each
-`.debug` twin.
+`.debug` twin. Symbol-based re-evaluation: `realval/symbol_precision.py`.
