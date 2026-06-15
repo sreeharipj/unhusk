@@ -518,4 +518,11 @@ DWARF and symbol evidence:
 The tool is fully characterized. The "100% precision" claim from the fixtures is vindicated under
 symbol-based GT (94.4% median real-binary precision). The 5% genuine FP rate (std/dep generics
 with inlined user panic sites) is irreducible without DWARF or symbol names at analysis time.
-The project is complete.
+
+**README updated (0e96c8e):** The README previously claimed "100% precision, validated against DWARF
+ground truth on three independent binaries" as the headline — accurate for the synthetic fixtures but
+misleading for real-world use. Now leads with the 13-binary precision table (symbol 94.4%/DWARF 66.7%),
+corrects the recall figure (15.8% median, not 37.5% fixture), explains the FnOnce-shim mechanism in
+Limitations, and adds --infer-depth usage.
+
+The project is complete. No further algorithmic work identified.
