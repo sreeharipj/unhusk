@@ -313,8 +313,8 @@ Across 13 real binaries, depth-1 reduces recall by ~4pp because 25% of inferred 
 - **tokei**: precision -0.3pp, recall -6.3pp, TP 4→1 (same root cause)
 
 **Depth-2 comparison:** Recovers most of the grex/tokei TP loss while keeping most of the
-precision gain. Aggregate pooled precision d=2: ~7.5%, median recall ~44%. A reasonable middle
-ground when recall matters.
+precision gain. Aggregate pooled precision d=2: **6.4%** (2934 predicted, 187 TP), median
+recall **45.1%** — only 1.1pp recall loss vs unlimited, with 1.3pp precision gain.
 
 **Revised guidance for `--infer-depth`:**
 - `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits where
