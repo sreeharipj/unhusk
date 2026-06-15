@@ -574,4 +574,20 @@ DWARF GT. Corrects the "0% recall loss" claim from the earlier 1-binary measurem
 Results in `realval/DEPTH_SWEEP.md`. `REAL_BINARY_VALIDATION.md` updated with full table
 and revised guidance. context.md depth-limit section updated with the correction.
 
+## Doc consistency fix (2026-06-16)
+
+Cross-checked all four docs (README, REAL_BINARY_VALIDATION.md, DEPTH_SWEEP.md,
+context.md) for depth-2 numbers. Found two gaps:
+
+1. `REAL_BINARY_VALIDATION.md` guidance line for `--infer-depth 2` still said
+   "~1.5× precision gain, ~2pp recall loss" — stale (not updated in the 4b62884
+   correction commit). Corrected to "~1.3×, ~1pp" to match all other docs and
+   the actual measurement (6.4/5.1 = 1.25×, -1.1pp).
+
+2. `realval/DEPTH_SWEEP.md` had the depth-2 per-binary table but no aggregate
+   summary line (unlike the depth-1 section). Added "d=∞ 5.1% → d=2 6.4% (1.3×),
+   median recall 45.1% (−1.1pp)".
+
+All numbers are now consistent across all docs. Commit: 7174e24.
+
 No further open threads.
