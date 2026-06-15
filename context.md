@@ -526,3 +526,20 @@ corrects the recall figure (15.8% median, not 37.5% fixture), explains the FnOnc
 Limitations, and adds --infer-depth usage.
 
 The project is complete. No further algorithmic work identified.
+
+---
+
+## Verification pass (2026-06-16)
+
+Built (`cargo build --release` clean), all 6 tests pass (`cargo test`), and re-ran
+`realval/symbol_precision.py` against the 13 on-disk debug twins — output matches
+context exactly: median 94.4% symbol precision, 42 genuine FPs (5.2% FP rate).
+
+`REAL_BINARY_VALIDATION.md` already contains the symbol-based section (lines 198–276).
+`README.md` leads with the 13-binary table and the FnOnce-shim explanation.
+
+Verified FP breakdown consistency: total 42 ✓, categories (sort/iter/OnceLock/backtrace/
+panicking/dep/misc) sum to 42 ✓. Minor per-category rounding in the doc vs re-count is
+not a bug — total and headline percentages are exact.
+
+No open threads. The loop can stop.
