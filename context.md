@@ -345,8 +345,9 @@ the cargo_stripped fixture has no matching unstripped companion.
 4. **Speculative section capped at 20** (`6bbd2d4`): `--show-all-inferred` reveals all.
 
 5. **Depth-limit inference** (`3f46fab`): `--infer-depth N` caps BFS at N hops.
-   `--infer-depth 1` gives 3x precision improvement on real binaries (5% → 15.4%)
-   with zero recall loss. See depth-limit analysis table above.
+   `--infer-depth 1` gives 1.8x precision improvement pooled across 13 real binaries
+   (5.1% → 9.3%) with ~4pp median recall loss. The "zero recall loss" finding from the
+   single unhusk fixture was unrepresentative — see 13-binary sweep results above.
 
 ## Current state and next step
 
