@@ -110,10 +110,21 @@ lines.append("Depth 2 results:")
 lines.append("")
 lines.append("| binary | inf-n(2) | inf-prec(2) | inf-TP(2) | recall(2) |")
 lines.append("|--------|----------|-------------|-----------|-----------|")
+inf_n_2_sum = 0; inf_tp_2_sum = 0; recall_2_vals = []
 for name in BINARIES:
     d_2 = rows[name]["d=2"]
     inf_2, rec_2, _, _ = d_2
     lines.append(f"| {name} | {inf_2['n']} | {inf_2['prec']:.1f}% | {inf_2['tp']} | {rec_2:.1f}% |")
+    inf_n_2_sum += inf_2["n"]; inf_tp_2_sum += inf_2["tp"]
+    if rec_2 is not None: recall_2_vals.append(rec_2)
+
+agg_prec_2 = 100.0 * inf_tp_2_sum / inf_n_2_sum if inf_n_2_sum else 0.0
+med_rec_2  = statistics.median(recall_2_vals) if recall_2_vals else 0
+lines.append("")
+mult_2 = round(agg_prec_2, 1) / round(agg_prec_inf, 1) if agg_prec_inf else 0.0
+lines.append(f"**Aggregate inferred precision (pooled): d=∞ {agg_prec_inf:.1f}%  →  d=2 {agg_prec_2:.1f}%  ({mult_2:.1f}×)**")
+lines.append(f"Inferred count: d=2 {inf_n_2_sum} total, TP={inf_tp_2_sum}")
+lines.append(f"Median overall recall: d=2 {med_rec_2:.1f}%  (−{med_rec_inf - med_rec_2:.1f}pp vs unlimited)")
 
 result_text = "\n".join(lines)
 out_path = Path(__file__).parent / "DEPTH_SWEEP.md"
