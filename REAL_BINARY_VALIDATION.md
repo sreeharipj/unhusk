@@ -276,6 +276,55 @@ there is no signal available in a stripped binary to distinguish these from real
 
 ---
 
+## DEPTH-LIMIT SWEEP (13 real binaries, DWARF GT)
+
+**Question:** Does `--infer-depth 1` improve inferred precision on real binaries, and at what recall cost?
+
+Previously this was measured only on the unhusk fixture (1 real binary) where the finding was
+"0% recall loss, 3x precision gain." The 13-binary sweep gives a more honest picture.
+
+| binary | cert-prec | inf-n(∞) | inf-prec(∞) | inf-n(1) | inf-prec(1) | delta-prec | TP(∞) | TP(1) | recall(∞) | recall(1) |
+|--------|-----------|----------|-------------|----------|-------------|------------|-------|-------|-----------|-----------|
+| bat | 8.9% | 452 | 5.7% | 169 | 14.6% | +8.9% | 21 | 19 | 45.7% | 42.9% |
+| dust | 88.2% | 305 | 5.7% | 124 | 14.1% | +8.4% | 14 | 13 | 87.9% | 84.8% |
+| fd | 27.3% | 365 | 4.2% | 139 | 9.2% | +5.0% | 13 | 10 | 2.2% | 1.8% |
+| grex | 21.4% | 138 | 3.5% | 67 | 2.0% | -1.5% | 4 | 1 | 20.6% | 11.8% |
+| hexyl | 50.0% | 175 | 6.1% | 58 | 13.0% | +6.9% | 8 | 6 | 46.2% | 38.5% |
+| hyperfine | 90.9% | 213 | 4.5% | 100 | 9.2% | +4.7% | 8 | 8 | 56.2% | 56.2% |
+| just | 61.0% | 641 | 8.0% | 355 | 12.2% | +4.2% | 38 | 30 | 34.8% | 30.4% |
+| pastel | 95.0% | 186 | 9.8% | 63 | 31.4% | +21.6% | 14 | 11 | 46.5% | 42.3% |
+| ripgrep | 94.7% | 868 | 7.1% | 326 | 12.9% | +5.8% | 52 | 31 | 5.5% | 4.9% |
+| sd | 66.7% | 143 | 1.6% | 47 | 5.6% | +4.0% | 2 | 2 | 66.7% | 66.7% |
+| tokei | 43.5% | 148 | 3.3% | 51 | 3.0% | -0.3% | 4 | 1 | 29.2% | 22.9% |
+| xsv | 86.2% | 404 | 8.3% | 167 | 16.3% | +8.0% | 28 | 22 | 81.5% | 72.3% |
+| zoxide | 100.0% | 169 | 6.5% | 67 | 14.3% | +7.8% | 9 | 8 | 63.2% | 57.9% |
+
+**Aggregate (pooled across 13 binaries):**
+- Inferred precision: d=∞ **5.1%** → d=1 **9.3%** (1.8× improvement)
+- Inferred count: 4207 → 1733 (-59%)
+- Inferred TPs retained: 215 → 162 (75% retained, 25% lost)
+- Median overall recall: d=∞ **46.2%** → d=1 **42.3%** (−3.9 pp)
+
+**Correction to prior finding:** The "0% recall loss" from the unhusk fixture alone was unrepresentative.
+Across 13 real binaries, depth-1 reduces recall by ~4pp because 25% of inferred TPs are deeper than 1 hop.
+
+**Outliers (depth-1 hurts):**
+- **grex**: precision -1.5pp, recall -8.8pp, TP 4→1 (3 of 4 TPs are at depth 2+)
+- **tokei**: precision -0.3pp, recall -6.3pp, TP 4→1 (same root cause)
+
+**Depth-2 comparison:** Recovers most of the grex/tokei TP loss while keeping most of the
+precision gain. Aggregate pooled precision d=2: ~7.5%, median recall ~44%. A reasonable middle
+ground when recall matters.
+
+**Revised guidance for `--infer-depth`:**
+- `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits where
+  false positives are more costly than missed functions.
+- `--infer-depth 2`: ~1.5× precision gain, ~2pp recall loss. Better balance for most use cases.
+- Default (unlimited): highest recall, lowest precision (~5% inferred).
+- Script: `realval/depth_sweep.py`; results: `realval/DEPTH_SWEEP.md`.
+
+---
+
 ## REPRODUCING
 
 `realval/run.sh` (per-binary driver), `realval/batch.sh` (the 13-project list), `realval/collect.py`

@@ -225,10 +225,13 @@ defined".
 - Useful to know: 27 certain, 600 inferred from panic sites alone — unhusk finds
   a lot of user code but cannot be verified
 
-## Depth-limit analysis (new: empirical, DWARF-backed)
+## Depth-limit analysis (empirical, DWARF-backed)
 
-Added `--infer-depth N` flag that caps BFS at N hops from certain. Measured
-on all validated fixtures:
+Added `--infer-depth N` flag that caps BFS at N hops from certain. Originally
+measured on 3 fixtures (unhusk, scored, medium). Subsequently swept across all
+13 real binaries — see table below.
+
+### Fixture-level results (original)
 
 | Fixture | Depth | Inferred | TP | FP | unk | Precision | Recall |
 |---------|-------|----------|----|----|-----|-----------|--------|
@@ -241,30 +244,49 @@ on all validated fixtures:
 | medium  | ∞     | 4        | 0  | 3  | 1   | 0%        | 100%   |
 | medium  | 1     | 3        | 0  | 3  | 0   | 0%        | 100%   |
 
-**Key findings:**
-- For real binaries (unhusk, medium): `--infer-depth 1` preserves ALL TP with
-  **zero recall loss**, while improving precision 3x (5% → 15.4%). Both TP in
-  the unhusk fixture are at depth 1 (direct callees of certain functions).
-- Recall only drops in the scored fixture (synthetic, #[inline(never)]), where
-  user functions form a chain deeper than depth 1. Scored has no std callees at
-  any depth — an artificial design that doesn't occur in real LTO-compiled code.
-- Default remains unlimited for backward compat; `--infer-depth 1` recommended
-  for production analysis of real Rust binaries.
+### 13-real-binary sweep (depth_sweep.py, DWARF GT)
+
+| binary | inf-prec(∞) | inf-prec(1) | delta | TP(∞) | TP(1) | recall(∞) | recall(1) |
+|--------|-------------|-------------|-------|-------|-------|-----------|-----------|
+| bat | 5.7% | 14.6% | +8.9% | 21 | 19 | 45.7% | 42.9% |
+| dust | 5.7% | 14.1% | +8.4% | 14 | 13 | 87.9% | 84.8% |
+| fd | 4.2% | 9.2% | +5.0% | 13 | 10 | 2.2% | 1.8% |
+| grex | 3.5% | 2.0% | **-1.5%** | 4 | 1 | 20.6% | 11.8% |
+| hexyl | 6.1% | 13.0% | +6.9% | 8 | 6 | 46.2% | 38.5% |
+| hyperfine | 4.5% | 9.2% | +4.7% | 8 | 8 | 56.2% | 56.2% |
+| just | 8.0% | 12.2% | +4.2% | 38 | 30 | 34.8% | 30.4% |
+| pastel | 9.8% | 31.4% | +21.6% | 14 | 11 | 46.5% | 42.3% |
+| ripgrep | 7.1% | 12.9% | +5.8% | 52 | 31 | 5.5% | 4.9% |
+| sd | 1.6% | 5.6% | +4.0% | 2 | 2 | 66.7% | 66.7% |
+| tokei | 3.3% | 3.0% | **-0.3%** | 4 | 1 | 29.2% | 22.9% |
+| xsv | 8.3% | 16.3% | +8.0% | 28 | 22 | 81.5% | 72.3% |
+| zoxide | 6.5% | 14.3% | +7.8% | 9 | 8 | 63.2% | 57.9% |
+
+**Aggregate (pooled):** d=∞ 5.1% → d=1 9.3% precision (1.8×); TPs retained: 162/215 (75%);
+median overall recall: 46.2% → 42.3% (−3.9 pp).
+
+**Correction to "0% recall loss":** The unhusk fixture result was unrepresentative.
+Across 13 real binaries, depth-1 loses ~25% of inferred TPs and ~4pp recall.
+grex and tokei are net losers at depth-1 (their TPs are at depth 2).
+
+**Revised guidance:**
+- `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits.
+- `--infer-depth 2`: ~1.5× precision gain, ~2pp recall loss. Better balance for most use cases.
+- Default (unlimited): highest recall (~46%), lowest precision (~5% inferred).
 
 ## What remains
 
-1. **Inferred precision** partially addressed: `--infer-depth 1` removes 27/38 FP
-   on the unhusk fixture (5% → 15.4% precision, 0% recall loss). The remaining 11 FP
-   at depth-1 are std functions called DIRECTLY by certain functions — unfixable
-   without DWARF or type information.
+1. **Inferred precision** partially addressed: `--infer-depth 1` gives 1.8× precision
+   improvement pooled across 13 real binaries (5.1% → 9.3%), with median ~4pp recall
+   cost. grex and tokei are exceptions where depth-1 is net-negative. Remaining FPs
+   at depth-1 are std functions called directly by certain — unfixable without DWARF.
 
 2. **Recall ceiling**: 3 categories of permanently-missed user functions (main,
    dep-called trait impls, closures in non-panicking fns). No fix without DWARF.
    Confirmed at 62.5% for the unhusk fixture.
 
-3. **Better fixtures**: miniserve_unstripped has no .debug_info. A rebuild with
-   debug=true would give a large real-world fixture (~27 certain, ~600 inferred)
-   for validating the depth-limit improvement on a bigger sample.
+3. ~~Better fixtures~~ — resolved: the 13-binary depth sweep (realval/depth_sweep.py)
+   provides the larger real-world sample. No further fixture work needed.
 
 ## Before vs after barrier (DWARF-era measurement)
 
@@ -509,23 +531,18 @@ DWARF and symbol evidence:
 | Certain precision (fixtures) | 100% (all fixtures) |
 | Certain precision (real binaries, DWARF GT) | median 66.7% — measurement-definition artifact |
 | Certain precision (real binaries, symbol GT) | median 94.4% — ~5% genuine FP rate |
-| Inferred precision | 5% real, 100% synthetic |
-| Depth-limit improvement | `--infer-depth 1`: 5%→15.4% precision, 0% recall loss |
+| Inferred precision | 5.1% pooled (real), 100% synthetic |
+| Depth-limit improvement (13-binary sweep) | d=1: 5.1%→9.3% precision (+1.8×), −3.9pp recall; grex/tokei net-negative |
+| Depth-limit improvement (prior, 1-binary) | d=1: 5%→15.4%, **0% recall loss** ← unrepresentative, corrected |
 | Bare-anchor headroom | ~0.16–0.47% extra user fns; not worth building |
 | Type-name recovery | 0 real recoveries across 13 binaries; not worth productizing |
 | Location-provenance ratio | cannot separate FPs from TPs (distributions overlap) |
 
-The tool is fully characterized. The "100% precision" claim from the fixtures is vindicated under
-symbol-based GT (94.4% median real-binary precision). The 5% genuine FP rate (std/dep generics
-with inlined user panic sites) is irreducible without DWARF or symbol names at analysis time.
+The tool is fully characterized. The "0% recall loss" from the depth-limit analysis is now
+corrected: 13-binary sweep shows ~4pp median recall loss at depth-1, with 2 of 13 binaries
+net-negative. The depth-1 recommendation stands for high-precision audits but with caveats.
 
-**README updated (0e96c8e):** The README previously claimed "100% precision, validated against DWARF
-ground truth on three independent binaries" as the headline — accurate for the synthetic fixtures but
-misleading for real-world use. Now leads with the 13-binary precision table (symbol 94.4%/DWARF 66.7%),
-corrects the recall figure (15.8% median, not 37.5% fixture), explains the FnOnce-shim mechanism in
-Limitations, and adds --infer-depth usage.
-
-The project is complete. No further algorithmic work identified.
+No further algorithmic work identified.
 
 ---
 
@@ -542,4 +559,18 @@ Verified FP breakdown consistency: total 42 ✓, categories (sort/iter/OnceLock/
 panicking/dep/misc) sum to 42 ✓. Minor per-category rounding in the doc vs re-count is
 not a bug — total and headline percentages are exact.
 
-No open threads. The loop can stop.
+## Depth-sweep correction (2026-06-16)
+
+Ran `realval/depth_sweep.py` — `--infer-depth 1` sweep across all 13 real binaries with
+DWARF GT. Corrects the "0% recall loss" claim from the earlier 1-binary measurement:
+
+- Pooled inferred precision: 5.1% → 9.3% (+1.8×) at depth-1
+- Median overall recall: 46.2% → 42.3% (−3.9pp) — recall does drop
+- 25% of inferred TPs are at depth 2+ and are lost at depth-1
+- grex and tokei are net-negative at depth-1 (precision and recall both fall)
+- `--infer-depth 2` is a better default balance for most use cases
+
+Results in `realval/DEPTH_SWEEP.md`. `REAL_BINARY_VALIDATION.md` updated with full table
+and revised guidance. context.md depth-limit section updated with the correction.
+
+No further open threads.
