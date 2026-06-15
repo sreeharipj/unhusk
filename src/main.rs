@@ -29,6 +29,11 @@ struct Args {
     /// Depth 1 = direct callees only. Lower values reduce noise at the cost of recall.
     #[arg(long, value_name = "N")]
     infer_depth: Option<usize>,
+
+    /// Recover struct/field names from #[derive(Debug)] artifacts in .rodata/.data.rel.ro.
+    /// Outputs three tiers: user (cross-ref confirms), non-std, std.
+    #[arg(long)]
+    types: bool,
 }
 
 fn main() -> Result<()> {

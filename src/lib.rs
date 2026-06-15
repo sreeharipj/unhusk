@@ -5,4 +5,5 @@ pub mod frame;
 pub mod locate;
 pub mod report;
 pub mod strings;
+pub mod types;
 pub mod xref;
