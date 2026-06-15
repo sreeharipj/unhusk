@@ -597,4 +597,16 @@ stale reference: context.md line 345 said `--show-all-inferred` (the original fl
 name from commit `6bbd2d4`), but the flag was renamed to `--show-call-closure` in
 commit `cadea6d`. README and CLI help already used the correct name. Fixed context.md.
 
+## depth_sweep.py script fix (2026-06-16)
+
+Discovered: re-running `depth_sweep.py` silently dropped the depth-2 aggregate
+summary lines from `DEPTH_SWEEP.md` (they were added manually in commit `7174e24`
+but not written by the script). Fixed by adding depth-2 aggregate computation
+to the script. Also found the multiplier formula used raw values (1.247×) instead
+of formatted values (6.4/5.1 = 1.3×) — corrected to match docs. Commit: 16624e9.
+
+Re-ran both `symbol_precision.py` and `depth_sweep.py` to verify all numbers.
+Both reproduce exactly: median symbol precision 94.4%, 42 genuine FPs (5.2% FP rate);
+depth-1 9.3% / depth-2 6.4% / depth-∞ 5.1% pooled inferred precision.
+
 No further open threads.
