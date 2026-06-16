@@ -1,0 +1,3 @@
+{"crate":"pastel","binname":"//github.com/sharkdp/pastel:pastel","error":"clone_failed","source":"local"}
+{"crate":"zoxide","binname":"//github.com/ajeetdsouza/zoxide:zoxide","error":"clone_failed","source":"local"}
+{"crate":"hexyl","binname":"//github.com/sharkdp/hexyl:hexyl","error":"clone_failed","source":"local"}
