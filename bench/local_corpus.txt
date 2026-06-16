@@ -1,0 +1,16 @@
+# Local-source corpus: 13 baseline binaries rebuilt from git clone
+# format: crate_key:repo_url:binname
+# Ordered smallest → largest (by FDE count) for fast early results
+pastel:https://github.com/sharkdp/pastel:pastel
+zoxide:https://github.com/ajeetdsouza/zoxide:zoxide
+hexyl:https://github.com/sharkdp/hexyl:hexyl
+hyperfine:https://github.com/sharkdp/hyperfine:hyperfine
+sd:https://github.com/chmln/sd:sd
+du-dust:https://github.com/bootandy/dust:dust
+grex:https://github.com/pemistahl/grex:grex
+xsv:https://github.com/BurntSushi/xsv:xsv
+tokei:https://github.com/XAMPPRocky/tokei:tokei
+just:https://github.com/casey/just:just
+fd-find:https://github.com/sharkdp/fd:fd
+bat:https://github.com/sharkdp/bat:bat
+ripgrep:https://github.com/BurntSushi/ripgrep:rg
