@@ -1,0 +1,750 @@
+=== START atuin binname='auto' Wednesday 17 June 2026 12:57:59 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded atuin v18.16.1
+  Installing atuin v18.16.1
+    Updating crates.io index
+     Locking 638 packages to latest compatible versions
+      Adding colored v2.2.0 (available: v3.1.1)
+      Adding fs4 v0.13.1 (available: v1.1.0)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding itertools v0.14.0 (available: v0.15.0)
+      Adding matchit v0.8.4 (available: v0.8.6)
+      Adding shlex v1.3.0 (available: v2.0.1)
+      Adding sysinfo v0.30.13 (available: v0.39.3)
+ Downloading crates ...
+  Downloaded arraydeque v0.5.1
+  Downloaded atoi v2.0.0
+  Downloaded cfg_aliases v0.1.1
+  Downloaded arboard v3.6.1
+  Downloaded atuin-kv v18.16.1
+  Downloaded atuin-nucleo v0.6.0
+  Downloaded atuin-dotfiles v18.16.1
+  Downloaded atuin-history v18.16.1
+  Downloaded atuin-pty-proxy v18.16.1
+  Downloaded atuin-scripts v18.16.1
+  Downloaded atuin-ai v18.16.1
+  Downloaded atuin-daemon v18.16.1
+  Downloaded crypto_secretbox v0.1.1
+  Downloaded downcast-rs v1.2.1
+  Downloaded crc-catalog v2.5.0
+  Downloaded atuin-client v18.16.1
+  Downloaded eventsource-stream v0.2.3
+  Downloaded eye_declare_macros v0.5.1
+  Downloaded gethostname v1.1.0
+  Downloaded glob-match v0.2.1
+  Downloaded eye_declare v0.5.1
+  Downloaded futures-intrusive v0.5.0
+  Downloaded hyper-timeout v0.5.2
+  Downloaded inotify v0.10.2
+  Downloaded imara-diff v0.2.0
+  Downloaded listenfd v1.0.2
+  Downloaded iso8601 v0.6.3
+  Downloaded logos-derive v0.16.1
+  Downloaded minspan v0.1.5
+  Downloaded multimap v0.10.1
+  Downloaded notify-types v1.0.1
+  Downloaded norm v0.1.1
+  Downloaded portable-pty v0.9.0
+  Downloaded pulldown-cmark-escape v0.11.0
+  Downloaded prost v0.14.4
+  Downloaded prost-build v0.14.4
+  Downloaded protox v0.9.1
+  Downloaded protox-parse v0.9.0
+  Downloaded prost-types v0.14.4
+  Downloaded prost-reflect v0.16.4
+  Downloaded nix v0.28.0
+  Downloaded runtime-format v0.1.3
+  Downloaded rusty_paserk v0.5.0
+  Downloaded serial2 v0.2.37
+  Downloaded sqlx-macros-core v0.8.6
+  Downloaded sql-builder v3.1.1
+  Downloaded sqlx-macros v0.8.6
+  Downloaded stringprep v0.1.5
+  Downloaded sqlx-sqlite v0.8.6
+  Downloaded tonic-build v0.14.6
+  Downloaded tonic-prost v0.14.6
+  Downloaded tonic-prost-build v0.14.6
+  Downloaded sqlx-mysql v0.8.6
+  Downloaded typed-builder v0.18.2
+  Downloaded typed-builder-macro v0.23.2
+  Downloaded tiny-bip39 v2.0.0
+  Downloaded tonic-types v0.14.6
+  Downloaded typed-builder-macro v0.18.2
+  Downloaded tree-sitter-fish v3.6.0
+  Downloaded webpki-roots v0.26.11
+  Downloaded sqlx-core v0.8.6
+  Downloaded wayland-sys v0.31.11
+  Downloaded rusty_paseto v0.8.0
+  Downloaded vt100 v0.16.2
+  Downloaded wayland-protocols-wlr v0.3.12
+  Downloaded wl-clipboard-rs v0.9.3
+  Downloaded sqlx-postgres v0.8.6
+  Downloaded wayland-scanner v0.31.10
+  Downloaded tui-textarea-2 v0.10.2
+  Downloaded wayland-backend v0.3.15
+  Downloaded yaml-rust2 v0.11.0
+  Downloaded sysinfo v0.30.13
+  Downloaded tonic v0.14.6
+  Downloaded sqlx v0.8.6
+  Downloaded wayland-client v0.31.14
+  Downloaded wayland-protocols v0.32.12
+  Downloaded x11rb v0.13.2
+  Downloaded x11rb-protocol v0.13.2
+  Downloaded atuin-common v18.16.1
+  Downloaded atuin-nucleo-matcher v0.3.1
+  Downloaded prost-derive v0.14.4
+  Downloaded whoami v1.6.1
+  Downloaded notify v7.0.0
+  Downloaded pulldown-cmark-to-cmark v22.0.0
+  Downloaded libsqlite3-sys v0.30.1
+  Downloaded typed-builder v0.23.2
+  Downloaded logos v0.16.1
+  Downloaded logos-codegen v0.16.1
+   Compiling proc-macro2 v1.0.106
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.45
+   Compiling serde v1.0.228
+   Compiling serde_core v1.0.228
+   Compiling libc v0.2.186
+   Compiling cfg-if v1.0.4
+   Compiling version_check v0.9.5
+   Compiling find-msvc-tools v0.1.9
+   Compiling shlex v2.0.1
+   Compiling memchr v2.8.2
+   Compiling parking_lot_core v0.9.12
+   Compiling allocator-api2 v0.2.21
+   Compiling equivalent v1.0.2
+   Compiling log v0.4.32
+   Compiling once_cell v1.21.4
+   Compiling scopeguard v1.2.0
+   Compiling futures-core v0.3.32
+   Compiling cc v1.2.64
+   Compiling foldhash v0.2.0
+   Compiling lock_api v0.4.14
+   Compiling itoa v1.0.18
+   Compiling pin-project-lite v0.2.17
+   Compiling thiserror v2.0.18
+   Compiling generic-array v0.14.7
+   Compiling typenum v1.20.1
+   Compiling bytes v1.11.1
+   Compiling hashbrown v0.17.1
+   Compiling subtle v2.6.1
+   Compiling zerocopy v0.8.52
+   Compiling futures-sink v0.3.32
+   Compiling zmij v1.0.21
+   Compiling heck v0.5.0
+   Compiling icu_properties_data v2.2.0
+   Compiling icu_normalizer_data v2.2.0
+   Compiling autocfg v1.5.1
+   Compiling tracing-core v0.1.36
+   Compiling time-core v0.1.9
+   Compiling num-conv v0.2.2
+   Compiling slab v0.4.12
+   Compiling anyhow v1.0.102
+   Compiling syn v2.0.118
+   Compiling time-macros v0.2.29
+   Compiling futures-channel v0.3.32
+   Compiling pkg-config v0.3.33
+   Compiling stable_deref_trait v1.2.1
+   Compiling crossbeam-utils v0.8.21
+   Compiling num-traits v0.2.19
+   Compiling indexmap v2.14.0
+   Compiling futures-task v0.3.32
+   Compiling futures-io v0.3.32
+   Compiling rustix v1.1.4
+   Compiling rustls v0.23.40
+   Compiling semver v1.0.28
+   Compiling percent-encoding v2.3.2
+   Compiling getrandom v0.2.17
+   Compiling linux-raw-sys v0.12.1
+   Compiling errno v0.3.14
+   Compiling mio v1.2.1
+   Compiling socket2 v0.6.4
+   Compiling signal-hook-registry v1.4.8
+   Compiling rand_core v0.6.4
+   Compiling rustc_version v0.4.1
+   Compiling regex-syntax v0.8.11
+   Compiling ring v0.17.14
+   Compiling getrandom v0.4.2
+   Compiling cpufeatures v0.2.17
+   Compiling powerfmt v0.2.0
+   Compiling num_threads v0.1.7
+   Compiling bitflags v2.13.0
+   Compiling deranged v0.5.8
+   Compiling http v1.4.2
+   Compiling untrusted v0.9.0
+   Compiling foldhash v0.1.5
+   Compiling writeable v0.6.3
+   Compiling base64 v0.22.1
+   Compiling litemap v0.8.2
+   Compiling serde_json v1.0.150
+   Compiling unicode-width v0.2.2
+   Compiling utf8_iter v1.0.4
+   Compiling fnv v1.0.7
+   Compiling hashbrown v0.15.5
+   Compiling ryu v1.0.23
+   Compiling thiserror v1.0.69
+   Compiling ident_case v1.0.1
+   Compiling http-body v1.0.1
+   Compiling zeroize v1.9.0
+   Compiling strsim v0.11.1
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling rustls-pki-types v1.14.1
+   Compiling digest v0.10.7
+   Compiling time v0.3.49
+   Compiling synstructure v0.13.2
+   Compiling darling_core v0.23.0
+   Compiling aho-corasick v1.1.4
+   Compiling tower-service v0.3.3
+   Compiling vcpkg v0.2.15
+   Compiling logos-codegen v0.15.1
+   Compiling ppv-lite86 v0.2.21
+   Compiling httparse v1.10.1
+   Compiling serde_derive v1.0.228
+   Compiling zerofrom-derive v0.1.7
+   Compiling zeroize_derive v1.5.0
+   Compiling yoke-derive v0.8.2
+   Compiling zerovec-derive v0.11.3
+   Compiling displaydoc v0.2.6
+   Compiling thiserror-impl v2.0.18
+   Compiling tracing-attributes v0.1.31
+   Compiling tokio-macros v2.7.0
+   Compiling futures-macro v0.3.32
+   Compiling thiserror-impl v1.0.69
+   Compiling libsqlite3-sys v0.30.1
+   Compiling zerofrom v0.1.8
+   Compiling regex-automata v0.4.14
+   Compiling rand_chacha v0.3.1
+   Compiling tracing v0.1.44
+   Compiling yoke v0.8.3
+   Compiling futures-util v0.3.32
+   Compiling rand v0.8.6
+   Compiling form_urlencoded v1.2.2
+   Compiling zerovec v0.11.6
+   Compiling zerotrie v0.2.4
+   Compiling darling_macro v0.23.0
+   Compiling try-lock v0.2.5
+   Compiling darling v0.23.0
+   Compiling beef v0.5.2
+   Compiling atomic-waker v1.1.2
+   Compiling tinystr v0.8.3
+   Compiling potential_utf v0.1.5
+   Compiling unicode-segmentation v1.13.3
+   Compiling lazy_static v1.5.0
+   Compiling icu_collections v2.2.0
+   Compiling icu_locale_core v2.2.0
+   Compiling signal-hook v0.3.18
+   Compiling smallvec v1.15.2
+   Compiling either v1.16.0
+   Compiling itertools v0.14.0
+   Compiling parking_lot v0.12.5
+   Compiling icu_provider v2.2.0
+   Compiling tokio v1.52.3
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling sha2 v0.10.9
+   Compiling convert_case v0.10.0
+   Compiling rustls-webpki v0.103.13
+   Compiling want v0.3.1
+   Compiling idna_adapter v1.2.2
+   Compiling idna v1.1.0
+   Compiling concurrent-queue v2.5.0
+   Compiling webpki-roots v1.0.7
+   Compiling sync_wrapper v1.0.2
+   Compiling tower-layer v0.3.3
+   Compiling tinyvec_macros v0.1.1
+   Compiling httpdate v1.0.3
+   Compiling parking v2.2.1
+   Compiling crc-catalog v2.5.0
+   Compiling event-listener v5.4.1
+   Compiling tinyvec v1.11.0
+   Compiling crc v3.4.0
+   Compiling url v2.5.8
+   Compiling webpki-roots v0.26.11
+   Compiling prost-derive v0.14.4
+   Compiling derive_more-impl v2.1.1
+   Compiling futures-intrusive v0.5.0
+   Compiling tokio-stream v0.1.18
+   Compiling logos-derive v0.15.1
+   Compiling tokio-util v0.7.18
+   Compiling filedescriptor v0.8.3
+   Compiling crossbeam-queue v0.3.12
+   Compiling hashlink v0.10.0
+   Compiling h2 v0.4.15
+   Compiling uuid v1.23.3
+   Compiling ipnet v2.12.0
+   Compiling litrs v1.0.0
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-parse v1.0.0
+   Compiling tower v0.5.3
+   Compiling signal-hook-mio v0.2.5
+   Compiling derive_more v2.1.1
+   Compiling atoi v2.0.0
+   Compiling unicode-normalization v0.1.25
+   Compiling regex v1.12.4
+   Compiling hmac v0.12.1
+   Compiling inout v0.1.4
+   Compiling sqlx-core v0.8.6
+   Compiling document-features v0.2.12
+   Compiling spin v0.9.8
+   Compiling http-body-util v0.1.3
+   Compiling crossbeam-epoch v0.9.18
+   Compiling nom v8.0.0
+   Compiling colorchoice v1.0.5
+   Compiling anstyle v1.0.14
+   Compiling unicode-properties v0.1.4
+   Compiling rayon-core v1.13.0
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling unicode-bidi v0.3.18
+   Compiling anstyle-query v1.1.5
+   Compiling anstream v1.0.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling crossbeam-deque v0.8.6
+   Compiling stringprep v0.1.5
+   Compiling flume v0.11.1
+   Compiling crossterm v0.29.0
+   Compiling hkdf v0.12.4
+   Compiling cipher v0.4.4
+   Compiling futures-executor v0.3.32
+   Compiling md-5 v0.10.6
+   Compiling curve25519-dalek v4.1.3
+   Compiling whoami v1.6.1
+   Compiling clap_lex v1.1.0
+   Compiling option-ext v0.2.0
+   Compiling rustversion v1.0.22
+   Compiling hex v0.4.3
+   Compiling byteorder v1.5.0
+   Compiling home v0.5.12
+   Compiling dotenvy v0.15.7
+   Compiling siphasher v1.0.3
+   Compiling clap_builder v4.6.0
+   Compiling dirs-sys v0.5.0
+   Compiling phf_shared v0.11.3
+   Compiling sqlx-postgres v0.8.6
+   Compiling clap_derive v4.6.1
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling hashbrown v0.16.1
+   Compiling portable-atomic v1.13.1
+   Compiling eyre v0.6.12
+   Compiling signature v2.2.0
+   Compiling winnow v1.0.3
+   Compiling hyper v1.10.1
+   Compiling clap v4.6.1
+   Compiling ed25519 v2.2.3
+   Compiling toml_parser v1.1.2+spec-1.1.0
+   Compiling hyper-util v0.1.20
+   Compiling rayon v1.12.0
+   Compiling sqlx-sqlite v0.8.6
+   Compiling phf_generator v0.11.3
+   Compiling blake2 v0.10.6
+   Compiling async-trait v0.1.89
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling indenter v0.3.4
+   Compiling sqlx-macros-core v0.8.6
+   Compiling toml_writer v1.1.1+spec-1.1.0
+   Compiling base64ct v1.8.3
+   Compiling openssl-probe v0.2.1
+   Compiling rustls-native-certs v0.8.4
+   Compiling password-hash v0.5.0
+   Compiling castaway v0.2.4
+   Compiling phf_macros v0.11.3
+   Compiling ed25519-dalek v2.2.0
+   Compiling iso8601 v0.6.3
+   Compiling sqlx-macros v0.8.6
+   Compiling chacha20 v0.9.1
+   Compiling tokio-rustls v0.26.4
+   Compiling prost v0.14.4
+   Compiling universal-hash v0.5.1
+   Compiling typed-builder-macro v0.18.2
+   Compiling strum_macros v0.28.0
+   Compiling serde_spanned v1.1.1
+   Compiling inotify-sys v0.1.5
+   Compiling fs-err v3.3.0
+   Compiling instant v0.1.13
+   Compiling static_assertions v1.1.0
+   Compiling opaque-debug v0.3.1
+   Compiling instability v0.3.12
+   Compiling bitflags v1.3.2
+   Compiling pathdiff v0.2.3
+   Compiling by_address v1.2.1
+   Compiling same-file v1.0.6
+   Compiling palette v0.7.6
+   Compiling tree-sitter-language v0.1.7
+   Compiling indoc v2.0.7
+   Compiling rand_core v0.9.5
+   Compiling walkdir v2.5.0
+   Compiling rusty_paseto v0.8.0
+   Compiling palette_derive v0.7.6
+   Compiling inotify v0.10.2
+   Compiling poly1305 v0.8.0
+   Compiling compact_str v0.9.1
+   Compiling notify-types v1.0.1
+   Compiling toml v1.1.2+spec-1.1.0
+   Compiling prost-types v0.14.4
+   Compiling typed-builder v0.18.2
+   Compiling hyper-rustls v0.27.9
+   Compiling phf v0.11.3
+   Compiling argon2 v0.5.3
+   Compiling rustls-platform-verifier v0.7.0
+   Compiling sysinfo v0.30.13
+   Compiling kasuari v0.4.12
+   Compiling directories v6.0.0
+   Compiling dirs v6.0.0
+   Compiling futures v0.3.32
+   Compiling salsa20 v0.10.2
+   Compiling tower-http v0.6.11
+   Compiling unicode-truncate v2.0.1
+   Compiling strum v0.28.0
+   Compiling pbkdf2 v0.12.2
+   Compiling logos v0.15.1
+   Compiling aead v0.5.2
+   Compiling serde_with_macros v3.21.0
+   Compiling approx v0.5.1
+   Compiling strum_macros v0.27.2
+   Compiling console v0.16.3
+   Compiling filetime v0.2.29
+   Compiling wayland-sys v0.31.11
+   Compiling lru v0.18.0
+   Compiling rustc-hash v1.1.0
+   Compiling fast-srgb8 v1.0.0
+   Compiling unit-prefix v0.5.2
+   Compiling pulldown-cmark v0.13.4
+   Compiling critical-section v1.2.0
+   Compiling prettyplease v0.2.37
+   Compiling downcast-rs v1.2.1
+   Compiling ratatui-core v0.1.1
+   Compiling notify v7.0.0
+   Compiling tiny-bip39 v2.0.0
+   Compiling serde_with v3.21.0
+   Compiling indicatif v0.18.4
+   Compiling crypto_secretbox v0.1.1
+   Compiling interim v0.2.1
+   Compiling reqwest v0.13.4
+   Compiling config v0.15.24
+   Compiling strum v0.27.2
+   Compiling shellexpand v3.1.2
+   Compiling rusty_paserk v0.5.0
+   Compiling sql-builder v3.1.1
+   Compiling logos-codegen v0.16.1
+   Compiling serde_regex v1.2.0
+   Compiling rmp v0.8.15
+   Compiling miette-derive v7.6.0
+   Compiling whoami v2.1.2
+   Compiling wayland-backend v0.3.15
+   Compiling thread_local v1.1.9
+   Compiling humantime v2.3.0
+   Compiling urlencoding v2.1.3
+   Compiling unicode-width v0.1.14
+   Compiling unicase v2.9.0
+   Compiling minspan v0.1.5
+   Compiling miette v7.6.0
+   Compiling logos-derive v0.16.1
+   Compiling sharded-slab v0.1.7
+   Compiling matchers v0.2.0
+   Compiling tracing-serde v0.2.0
+   Compiling line-clipping v0.3.7
+   Compiling tracing-log v0.2.0
+   Compiling quick-xml v0.39.4
+   Compiling ahash v0.8.12
+   Compiling fixedbitset v0.5.7
+   Compiling mime v0.3.17
+   Compiling nu-ansi-term v0.50.3
+   Compiling fastrand v2.4.1
+   Compiling wayland-client v0.31.14
+   Compiling axum-core v0.5.6
+   Compiling tracing-subscriber v0.3.23
+   Compiling tempfile v3.27.0
+   Compiling petgraph v0.8.3
+   Compiling pulldown-cmark-to-cmark v22.0.0
+   Compiling ratatui-widgets v0.3.1
+   Compiling wayland-scanner v0.31.10
+   Compiling logos v0.16.1
+   Compiling pin-project-internal v1.1.13
+   Compiling tree-sitter v0.26.9
+   Compiling multimap v0.10.1
+   Compiling matchit v0.8.4
+   Compiling cfg_aliases v0.1.1
+   Compiling nix v0.28.0
+   Compiling axum v0.8.9
+   Compiling protox-parse v0.9.0
+   Compiling prost-reflect v0.16.4
+   Compiling tonic-build v0.14.6
+   Compiling pin-project v1.1.13
+   Compiling hyper-timeout v0.5.2
+   Compiling prost-build v0.14.4
+   Compiling arrayvec v0.7.6
+   Compiling hashbrown v0.14.5
+   Compiling vte v0.15.0
+   Compiling wayland-protocols v0.32.12
+   Compiling tonic-prost-build v0.14.6
+   Compiling typed-builder-macro v0.23.2
+   Compiling tree-sitter-fish v3.6.0
+   Compiling protox v0.9.1
+   Compiling tree-sitter-bash v0.25.1
+   Compiling yansi v1.0.1
+   Compiling diff v0.1.13
+   Compiling streaming-iterator v0.1.9
+   Compiling tonic v0.14.6
+   Compiling iana-time-zone v0.1.65
+   Compiling minimal-lexical v0.2.1
+   Compiling chrono v0.4.45
+   Compiling typed-builder v0.23.2
+   Compiling nom v7.1.3
+   Compiling pretty_assertions v1.4.1
+   Compiling tree_magic_mini v3.2.2
+   Compiling atuin-daemon v18.16.1
+   Compiling dashmap v6.2.1
+   Compiling wayland-protocols-wlr v0.3.12
+   Compiling vt100 v0.16.2
+   Compiling ratatui-macros v0.7.1
+   Compiling ratatui-crossterm v0.1.1
+   Compiling hashlink v0.11.1
+   Compiling atuin-nucleo-matcher v0.3.1
+   Compiling gethostname v1.1.0
+   Compiling eye_declare_macros v0.5.1
+   Compiling async-stream-impl v0.3.6
+   Compiling getopts v0.2.24
+   Compiling crossbeam-channel v0.5.15
+   Compiling serial2 v0.2.37
+   Compiling os_pipe v1.2.3
+   Compiling is-docker v0.2.0
+   Compiling encoding_rs v0.8.35
+   Compiling memo-map v0.3.3
+   Compiling pulldown-cmark-escape v0.11.0
+   Compiling shell-words v1.1.1
+   Compiling arraydeque v0.5.1
+   Compiling x11rb-protocol v0.13.2
+   Compiling symlink v0.1.0
+   Compiling tracing-appender v0.2.5
+   Compiling portable-pty v0.9.0
+   Compiling minijinja v2.20.0
+   Compiling is-wsl v0.4.0
+   Compiling wl-clipboard-rs v0.9.3
+   Compiling eye_declare v0.5.1
+   Compiling tonic-types v0.14.6
+   Compiling async-stream v0.3.6
+   Compiling atuin-nucleo v0.6.0
+   Compiling yaml-rust2 v0.11.0
+   Compiling ratatui v0.30.1
+   Compiling eventsource-stream v0.2.3
+   Compiling x11rb v0.13.2
+   Compiling lasso v0.7.3
+   Compiling tonic-prost v0.14.6
+   Compiling chrono-humanize v0.2.3
+   Compiling tui-textarea-2 v0.10.2
+   Compiling toml_edit v0.25.12+spec-1.1.0
+   Compiling clap_complete v4.6.5
+   Compiling imara-diff v0.2.0
+   Compiling rtoolbox v0.0.5
+   Compiling listenfd v1.0.2
+   Compiling xxhash-rust v0.8.15
+   Compiling glob-match v0.2.1
+   Compiling atuin v18.16.1
+   Compiling rpassword v7.5.4
+   Compiling clap_complete_nushell v4.6.0
+   Compiling arboard v3.6.1
+   Compiling atuin-pty-proxy v18.16.1
+   Compiling open v5.3.5
+   Compiling fuzzy-matcher v0.3.7
+   Compiling colored v2.2.0
+   Compiling runtime-format v0.1.3
+   Compiling fs4 v0.13.1
+   Compiling daemonize v0.5.0
+   Compiling norm v0.1.1
+   Compiling shlex v1.3.0
+   Compiling sqlx v0.8.6
+   Compiling atuin-common v18.16.1
+   Compiling atuin-client v18.16.1
+   Compiling atuin-history v18.16.1
+   Compiling atuin-dotfiles v18.16.1
+   Compiling atuin-kv v18.16.1
+   Compiling atuin-scripts v18.16.1
+   Compiling atuin-ai v18.16.1
+error[E0277]: `(dyn CellEffect + 'static)` cannot be shared between threads safely
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:95:39
+    |
+ 95 | #[component(props = InputBox, state = InputBoxState)]
+    |                                       ^^^^^^^^^^^^^ `(dyn CellEffect + 'static)` cannot be shared between threads safely
+    |
+    = help: the trait `std::marker::Sync` is not implemented for `(dyn CellEffect + 'static)`
+    = note: required for `Arc<(dyn CellEffect + 'static)>` to implement `std::marker::Send`
+note: required because it appears within the type `ratatui_widgets::block::shadow::Effect`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:68:6
+    |
+ 68 | enum Effect {
+    |      ^^^^^^
+note: required because it appears within the type `Shadow`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:60:12
+    |
+ 60 | pub struct Shadow {
+    |            ^^^^^^
+note: required because it appears within the type `std::option::Option<Shadow>`
+   --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/option.rs:600:9
+note: required because it appears within the type `ratatui_widgets::block::Block<'static>`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block.rs:217:12
+    |
+217 | pub struct Block<'a> {
+    |            ^^^^^
+note: required because it appears within the type `std::option::Option<ratatui_widgets::block::Block<'static>>`
+   --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/option.rs:600:9
+note: required because it appears within the type `TextArea<'static>`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tui-textarea-2-0.10.2/src/textarea.rs:131:12
+    |
+131 | pub struct TextArea<'a> {
+    |            ^^^^^^^^
+    = note: required for `std::sync::Mutex<TextArea<'static>>` to implement `std::marker::Sync`
+    = note: 1 redundant requirement hidden
+    = note: required for `Arc<std::sync::Mutex<TextArea<'static>>>` to implement `std::marker::Sync`
+note: required because it appears within the type `InputBoxState`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:43:19
+    |
+ 43 | pub(crate) struct InputBoxState {
+    |                   ^^^^^^^^^^^^^
+note: required by a bound in `eye_declare::Component::State`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/eye_declare-0.5.1/src/component.rs:259:24
+    |
+259 |     type State: Send + Sync + Default + 'static;
+    |                        ^^^^ required by this bound in `Component::State`
+
+error[E0277]: `(dyn CellEffect + 'static)` cannot be sent between threads safely
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:95:39
+    |
+ 95 | #[component(props = InputBox, state = InputBoxState)]
+    |                                       ^^^^^^^^^^^^^ `(dyn CellEffect + 'static)` cannot be sent between threads safely
+    |
+    = help: the trait `std::marker::Send` is not implemented for `(dyn CellEffect + 'static)`
+    = note: required for `Arc<(dyn CellEffect + 'static)>` to implement `std::marker::Send`
+note: required because it appears within the type `ratatui_widgets::block::shadow::Effect`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:68:6
+    |
+ 68 | enum Effect {
+    |      ^^^^^^
+note: required because it appears within the type `Shadow`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:60:12
+    |
+ 60 | pub struct Shadow {
+    |            ^^^^^^
+note: required because it appears within the type `std::option::Option<Shadow>`
+   --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/option.rs:600:9
+note: required because it appears within the type `ratatui_widgets::block::Block<'static>`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block.rs:217:12
+    |
+217 | pub struct Block<'a> {
+    |            ^^^^^
+note: required because it appears within the type `std::option::Option<ratatui_widgets::block::Block<'static>>`
+   --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/option.rs:600:9
+note: required because it appears within the type `TextArea<'static>`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tui-textarea-2-0.10.2/src/textarea.rs:131:12
+    |
+131 | pub struct TextArea<'a> {
+    |            ^^^^^^^^
+    = note: required for `std::sync::Mutex<TextArea<'static>>` to implement `std::marker::Sync`
+    = note: 1 redundant requirement hidden
+    = note: required for `Arc<std::sync::Mutex<TextArea<'static>>>` to implement `std::marker::Sync`
+note: required because it appears within the type `InputBoxState`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:43:19
+    |
+ 43 | pub(crate) struct InputBoxState {
+    |                   ^^^^^^^^^^^^^
+note: required by a bound in `eye_declare::Component::State`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/eye_declare-0.5.1/src/component.rs:259:24
+    |
+259 |     type State: Send + Sync + Default + 'static;
+    |                        ^^^^ required by this bound in `Component::State`
+
+error[E0599]: the method `use_focusable` exists for mutable reference `&mut Hooks<InputBox, InputBoxState>`, but its trait bounds were not satisfied
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:104:11
+    |
+ 43 | pub(crate) struct InputBoxState {
+    | ------------------------------- doesn't satisfy `InputBoxState: std::marker::Send`
+...
+104 |     hooks.use_focusable(true);
+    |           ^^^^^^^^^^^^^ method cannot be called on `&mut Hooks<InputBox, InputBoxState>` due to unsatisfied trait bounds
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:80:1
+    |
+ 80 | pub trait CellEffect: fmt::Debug {
+    | -------------------------------- doesn't satisfy `(dyn CellEffect + 'static): std::marker::Send` or `(dyn CellEffect + 'static): std::marker::Sync`
+    |
+    = note: the following trait bounds were not satisfied:
+            `(dyn CellEffect + 'static): std::marker::Sync`
+            which is required by `InputBoxState: std::marker::Send`
+            `(dyn CellEffect + 'static): std::marker::Send`
+            which is required by `InputBoxState: std::marker::Send`
+
+error[E0599]: the method `use_autofocus` exists for mutable reference `&mut Hooks<InputBox, InputBoxState>`, but its trait bounds were not satisfied
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:105:11
+    |
+ 43 | pub(crate) struct InputBoxState {
+    | ------------------------------- doesn't satisfy `InputBoxState: std::marker::Send`
+...
+105 |     hooks.use_autofocus();
+    |           ^^^^^^^^^^^^^ method cannot be called on `&mut Hooks<InputBox, InputBoxState>` due to unsatisfied trait bounds
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:80:1
+    |
+ 80 | pub trait CellEffect: fmt::Debug {
+    | -------------------------------- doesn't satisfy `(dyn CellEffect + 'static): std::marker::Send` or `(dyn CellEffect + 'static): std::marker::Sync`
+    |
+    = note: the following trait bounds were not satisfied:
+            `(dyn CellEffect + 'static): std::marker::Sync`
+            which is required by `InputBoxState: std::marker::Send`
+            `(dyn CellEffect + 'static): std::marker::Send`
+            which is required by `InputBoxState: std::marker::Send`
+
+error[E0599]: the method `use_context` exists for mutable reference `&mut Hooks<InputBox, InputBoxState>`, but its trait bounds were not satisfied
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:107:11
+    |
+ 43 | pub(crate) struct InputBoxState {
+    | ------------------------------- doesn't satisfy `InputBoxState: std::marker::Send`
+...
+107 |     hooks.use_context::<DriverEventSender>(|tx, _, state| {
+    |     ------^^^^^^^^^^^ method cannot be called on `&mut Hooks<InputBox, InputBoxState>` due to unsatisfied trait bounds
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:80:1
+    |
+ 80 | pub trait CellEffect: fmt::Debug {
+    | -------------------------------- doesn't satisfy `(dyn CellEffect + 'static): std::marker::Send` or `(dyn CellEffect + 'static): std::marker::Sync`
+    |
+    = note: the following trait bounds were not satisfied:
+            `(dyn CellEffect + 'static): std::marker::Sync`
+            which is required by `InputBoxState: std::marker::Send`
+            `(dyn CellEffect + 'static): std::marker::Send`
+            which is required by `InputBoxState: std::marker::Send`
+
+error[E0599]: the method `use_event` exists for mutable reference `&mut Hooks<InputBox, InputBoxState>`, but its trait bounds were not satisfied
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:111:11
+    |
+ 43 | pub(crate) struct InputBoxState {
+    | ------------------------------- doesn't satisfy `InputBoxState: std::marker::Send`
+...
+111 |     hooks.use_event(move |event, props, state| {
+    |     ------^^^^^^^^^ method cannot be called on `&mut Hooks<InputBox, InputBoxState>` due to unsatisfied trait bounds
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ratatui-widgets-0.3.1/src/block/shadow.rs:80:1
+    |
+ 80 | pub trait CellEffect: fmt::Debug {
+    | -------------------------------- doesn't satisfy `(dyn CellEffect + 'static): std::marker::Send` or `(dyn CellEffect + 'static): std::marker::Sync`
+    |
+    = note: the following trait bounds were not satisfied:
+            `(dyn CellEffect + 'static): std::marker::Sync`
+            which is required by `InputBoxState: std::marker::Send`
+            `(dyn CellEffect + 'static): std::marker::Send`
+            which is required by `InputBoxState: std::marker::Send`
+
+error[E0614]: type `KeyEvent` cannot be dereferenced
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atuin-ai-18.16.1/src/tui/components/input_box.rs:173:28
+    |
+173 |             textarea.input(*key);
+    |                            ^^^^ can't be dereferenced
+
+Some errors have detailed explanations: E0277, E0599, E0614.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `atuin-ai` (lib) due to 7 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: failed to compile `atuin v18.16.1`, intermediate artifacts can be found at `/home/user/Videos/unhusk/bench/target`.
+To reuse those artifacts with a future compilation, set the environment variable `CARGO_BUILD_BUILD_DIR` to that path.
+BUILD_FAILED
+=== END atuin Wednesday 17 June 2026 01:02:44 AM IST status=fail ===
