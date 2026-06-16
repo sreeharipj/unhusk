@@ -699,12 +699,12 @@ All other binaries within 0–1pp of the context.md tables.
 - `bench/corpus.txt` — 65 crates for cargo-install run
 - `bench/local_corpus.txt` — 13 baseline repos for local-source run
 
-### Phase 3: extended local-source run (14 of 15 new crates done)
+### Phase 3: extended local-source run — COMPLETE (15/15 new crates)
 
 **Goal:** expand local-source accuracy corpus from 13 → 28 binaries.
-Added 15 more repos; broot is still building (final crate).
+Added 15 more repos; all 15 built and validated successfully.
 
-**14 new crate results (sym precision sorted):**
+**15 new crate results (sym precision sorted):**
 
 | crate | n_certain | sym_prec | recall |
 |-------|-----------|---------|--------|
@@ -717,13 +717,14 @@ Added 15 more repos; broot is still building (final crate).
 | hgrep | 21 | 92.9% | 46.2% |
 | xh | 39 | 94.7% | 4.3% |
 | bottom | 46 | 95.7% | 50.7% |
+| broot | 210 | 96.6% | 50.6% |
 | htmlq | 4 | 100.0% | 18.5% |
 | tealdeer | 7 | 100.0% | 60.0% |
 | dua-cli | 22 | 100.0% | 56.7% |
 | procs | 25 | 100.0% | 13.8% |
 | lsd | 8 | 100.0% | 42.9% |
 
-**New-14 median sym_prec: 93.8%** (vs baseline 94.4% — CONFIRMS, Δ=−0.6pp).
+**New-15 median sym_prec: 94.7%** (vs baseline 94.4% — CONFIRMS, Δ=+0.3pp).
 
 **5 outliers (sym < 80%)**: ripsecrets, fclones, eza, git-delta, csview.
 All 5 share the same failure mode: std generics (sort, hash, BTreeMap) monomorphized
@@ -731,16 +732,13 @@ with user types where a user panic Location survived into the std function body.
 This is the same failure mode as fd (58.8%) and grex (52.4%) in the original 13.
 No new failure mode discovered.
 
-**Combined 27 binaries (13 original + 14 new):**
-- Sym precision: median **94.5%** (CONFIRMS 94.4%, Δ=+0.1pp)
-- DWARF precision: median 86.2% (IMPROVES vs 66.7% — extended corpus has fewer outliers)
-- Inferred prec (pooled, d=∞): 6.9% (CONFIRMS 5.1%, Δ=+1.8pp)
-- Recall median: 46.2% (CONFIRMS)
+**Combined 28 binaries (13 original + 15 new):**
+- Sym precision: median **94.6%** (CONFIRMS 94.4%, Δ=+0.2pp)
+- DWARF precision: median 83.1% (IMPROVES vs 66.7% — extended corpus has fewer outliers)
+- Inferred prec (pooled, d=∞): 7.2% (IMPROVES vs 5.1%, Δ=+2.1pp)
+- Recall median: 46.4% (CONFIRMS 46.2%, Δ=+0.1pp)
 
-**Key conclusion**: the 94.4% median sym precision is stable across 27 binaries (2×
+**Key conclusion**: the 94.4% median sym precision is stable across 28 binaries (2×+
 the original 13). Outliers are concentrated in binaries with heavy use of std generic
 containers/algorithms. This confirms the existing characterization and adds no new
 failure modes.
-
-**Broot (15th crate):** still building as of commit time. The harness will commit
-its result separately when done.

@@ -1,0 +1,81 @@
+[SKIP] pastel
+[SKIP] zoxide
+[SKIP] hexyl
+[SKIP] hyperfine
+[SKIP] sd
+[SKIP] du-dust
+[SKIP] grex
+[SKIP] xsv
+[SKIP] tokei
+[SKIP] just
+[SKIP] fd-find
+[SKIP] bat
+[SKIP] ripgrep
+[RUN] ripsecrets ...
+[OK]   ripsecrets
+[RUN] htmlq ...
+[OK]   htmlq
+[RUN] csview ...
+[OK]   csview
+[CHECKPOINT] 3 done
+[bench-20260616 c2bcbd4] bench: local-source checkpoint (29 results)
+ 5 files changed, 315 insertions(+), 1 deletion(-)
+ create mode 100644 bench/logs/local_csview.log
+ create mode 100644 bench/logs/local_htmlq.log
+ create mode 100644 bench/logs/local_ripsecrets.log
+[RUN] tealdeer ...
+[OK]   tealdeer
+[RUN] dua-cli ...
+[OK]   dua-cli
+[RUN] ouch ...
+[OK]   ouch
+[CHECKPOINT] 6 done
+[bench-20260616 dfe7b28] bench: local-source checkpoint (32 results)
+ 4 files changed, 529 insertions(+)
+ create mode 100644 bench/logs/local_dua-cli.log
+ create mode 100644 bench/logs/local_ouch.log
+ create mode 100644 bench/logs/local_tealdeer.log
+[RUN] procs ...
+[OK]   procs
+[RUN] fclones ...
+[OK]   fclones
+[RUN] xh ...
+[OK]   xh
+[CHECKPOINT] 9 done
+[bench-20260616 349117b] bench: local-source checkpoint (35 results)
+ 4 files changed, 711 insertions(+)
+ create mode 100644 bench/logs/local_fclones.log
+ create mode 100644 bench/logs/local_procs.log
+ create mode 100644 bench/logs/local_xh.log
+[RUN] lsd ...
+[OK]   lsd
+[RUN] eza ...
+[OK]   eza
+[RUN] hgrep ...
+[OK]   hgrep
+[CHECKPOINT] 12 done
+[bench-20260616 8d7dff4] bench: local-source checkpoint (38 results)
+ 4 files changed, 503 insertions(+)
+ create mode 100644 bench/logs/local_eza.log
+ create mode 100644 bench/logs/local_hgrep.log
+ create mode 100644 bench/logs/local_lsd.log
+[RUN] git-delta ...
+[OK]   git-delta
+[RUN] bottom ...
+[OK]   bottom
+[RUN] broot ...
+[OK]   broot
+[CHECKPOINT] 15 done
+[bench-20260616 64bbd58] bench: local-source checkpoint (41 results)
+ 2 files changed, 10 insertions(+)
+
+=== DONE: processed=15, results=41 ===
+On branch bench-20260616
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	bench/logs/local_broot.metrics.json
+	bench/logs/local_broot.validate.txt
+	bench/logs/run_local_extended.log
+	prompt.md
+
+nothing added to commit but untracked files present (use "git add" to track)
