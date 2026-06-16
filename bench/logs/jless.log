@@ -1,0 +1,112 @@
+=== START jless binname='auto' Tuesday 16 June 2026 11:51:37 PM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded jless v0.9.0
+  Installing jless v0.9.0
+    Updating crates.io index
+     Locking 110 packages to latest compatible versions
+      Adding isatty v0.1.9 (available: v0.2.0)
+      Adding logos v0.12.1 (available: v0.16.1)
+      Adding rustyline v9.1.2 (available: v18.0.0)
+      Adding signal-hook v0.3.18 (available: v0.4.4)
+      Adding termion v1.5.6 (available: v4.0.6)
+      Adding unicode-width v0.1.14 (available: v0.2.2)
+ Downloading crates ...
+  Downloaded beef v0.5.2
+  Downloaded fd-lock v3.0.13
+  Downloaded dirs-next v2.0.0
+  Downloaded clipboard v0.5.0
+  Downloaded logos-derive v0.12.1
+  Downloaded isatty v0.1.9
+  Downloaded endian-type v0.1.2
+  Downloaded logos v0.12.1
+  Downloaded numtoa v0.1.0
+  Downloaded x11-clipboard v0.3.3
+  Downloaded termion v1.5.6
+  Downloaded nix v0.23.2
+  Downloaded rustyline v9.1.2
+  Downloaded xcb v0.8.2
+  Downloaded radix_trie v0.2.1
+  Downloaded regex-syntax v0.6.29
+  Downloaded libc-stdhandle v0.1.0
+   Compiling libc v0.2.186
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.24
+   Compiling utf8parse v0.2.2
+   Compiling autocfg v1.5.1
+   Compiling find-msvc-tools v0.1.9
+   Compiling syn v1.0.109
+   Compiling log v0.4.32
+   Compiling cfg-if v1.0.4
+   Compiling rustix v0.38.44
+   Compiling memchr v2.8.2
+   Compiling shlex v2.0.1
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling anstyle-parse v1.0.0
+   Compiling bitflags v2.13.0
+   Compiling colorchoice v1.0.5
+   Compiling linux-raw-sys v0.4.15
+   Compiling smallvec v1.15.2
+   Compiling cc v1.2.64
+   Compiling regex-syntax v0.6.29
+   Compiling bitflags v1.3.2
+   Compiling fnv v1.0.7
+   Compiling regex-syntax v0.8.11
+   Compiling clap_lex v1.1.0
+   Compiling beef v0.5.2
+   Compiling anstream v1.0.0
+   Compiling heck v0.5.0
+   Compiling nibble_vec v0.1.0
+   Compiling strsim v0.11.1
+   Compiling endian-type v0.1.2
+   Compiling memoffset v0.6.5
+   Compiling signal-hook v0.3.18
+   Compiling radix_trie v0.2.1
+   Compiling numtoa v0.1.0
+   Compiling clap_builder v4.6.0
+   Compiling unicode-width v0.1.14
+   Compiling aho-corasick v1.1.4
+   Compiling unicode-segmentation v1.13.3
+   Compiling linked-hash-map v0.5.6
+   Compiling cfg-if v0.1.10
+   Compiling lazy_static v1.5.0
+   Compiling syn v2.0.118
+   Compiling yaml-rust v0.4.5
+   Compiling libc-stdhandle v0.1.0
+   Compiling xcb v0.8.2
+   Compiling dirs-sys-next v0.1.2
+   Compiling errno v0.3.14
+   Compiling nix v0.23.2
+   Compiling termion v1.5.6
+   Compiling isatty v0.1.9
+   Compiling signal-hook-registry v1.4.8
+   Compiling dirs-next v2.0.0
+   Compiling regex-automata v0.4.14
+   Compiling fd-lock v3.0.13
+   Compiling logos-derive v0.12.1
+   Compiling clap_derive v4.6.1
+   Compiling rustyline v9.1.2
+   Compiling regex v1.12.4
+   Compiling logos v0.12.1
+   Compiling clap v4.6.1
+   Compiling x11-clipboard v0.3.3
+   Compiling clipboard v0.5.0
+   Compiling jless v0.9.0
+error: linking with `cc` failed: exit status: 1
+  |
+  = note:  "cc" "-m64" "/home/user/Videos/unhusk/bench/target/release/deps/rustcNnXK8E/symbols.o" "<17 object files omitted>" "-Wl,--as-needed" "-Wl,-Bstatic" "/home/user/Videos/unhusk/bench/target/release/deps/{libisatty-4c459b2a90cfc31f,libcfg_if-29db72fd24a1f369,libyaml_rust-a6748809565d7dc6,liblinked_hash_map-cedabc8554237b3c,libregex-0cb22ab97bad479c,libregex_automata-4f57f8ed80d884be,libaho_corasick-0d488ec0d0c9edd4,libregex_syntax-e1e41d8990aa1d73,liblogos-e7f6cf90d30b68b5,libsignal_hook-3e9edc4d19026fc5,libsignal_hook_registry-3994773bf4164e7f,liberrno-20e2507cad17ed83,librustyline-f748a25ca45dd9d7,libnix-05255d099119acfd,libbitflags-d7fa452bfb4c7d3e,libmemoffset-655ce612df8f5a65,libfd_lock-24fe0e7e26128838,librustix-8396b60d5aefd518,libbitflags-39105589f80005e8,liblinux_raw_sys-a7b7ee2edf228396,libunicode_width-e2b7df40f8ec56a5,libunicode_segmentation-f88d0f3fa26dd743,libdirs_next-fd60b35349bb3ada,libdirs_sys_next-4a4d578996715e07,libcfg_if-2df5dee45ec43b35,libmemchr-96c6c91a0082568a,libradix_trie-4a24bf26db28fe85,libnibble_vec-439afcc027cabaee,libsmallvec-aeaa95fc31b661bb,libendian_type-38c532139ee8619d,libclipboard-b7c08fffeacefc70,libx11_clipboard-ca1bdc2780d874cc,libxcb-0651f656cb89be10,liblog-374c1f81abf2beab,libtermion-c9170846df46dd43,libnumtoa-0736c0ff5c6bead7,libclap-f9ea9e521bc05c7c,libclap_builder-7ec9e76f1613eb03,libstrsim-0aca7ee8df2f8043,libanstream-41036bcd5237e4fb,libanstyle_query-ddfea951aae9cd96,libis_terminal_polyfill-f424770e78c9bcbb,libcolorchoice-53ba9119ab71ed69,libanstyle_parse-26a2ca1a8f65a199,libutf8parse-104611c8cd77bb25,libclap_lex-c5275e2f68fd9606,libanstyle-5969c33f43a2b2c6,liblibc_stdhandle-dcde8992af949741,liblibc-dd3677710003f8ea,liblazy_static-aaef0b6f33f2b1d5}.rlib" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib/{libstd-*,libpanic_unwind-*,libobject-*,libmemchr-*,libaddr2line-*,libgimli-*,libcfg_if-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libminiz_oxide-*,libadler2-*,libunwind-*,liblibc-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "-Wl,-Bdynamic" "-lxcb" "-lxcb-render" "-lxcb-shape" "-lxcb-xfixes" "-lgcc_s" "-lutil" "-lrt" "-lpthread" "-lm" "-ldl" "-lc" "-L" "/home/user/Videos/unhusk/bench/target/release/deps/rustcNnXK8E/raw-dylibs" "-B<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld" "-fuse-ld=lld" "-Wl,--eh-frame-hdr" "-Wl,-z,noexecstack" "-L" "/home/user/Videos/unhusk/bench/target/release/build/libc-stdhandle-bec642a97fdca0b6/out" "-L" "<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib" "-o" "/home/user/Videos/unhusk/bench/target/release/deps/jless-c884a3ab946e1d9f" "-Wl,--gc-sections" "-pie" "-Wl,-z,relro,-z,now" "-Wl,-O1" "-nodefaultlibs"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: rust-lld: error: unable to find library -lxcb-render
+          rust-lld: error: unable to find library -lxcb-shape
+          rust-lld: error: unable to find library -lxcb-xfixes
+          collect2: error: ld returned 1 exit status
+          
+
+error: could not compile `jless` (bin "jless") due to 1 previous error
+error: failed to compile `jless v0.9.0`, intermediate artifacts can be found at `/home/user/Videos/unhusk/bench/target`.
+To reuse those artifacts with a future compilation, set the environment variable `CARGO_BUILD_BUILD_DIR` to that path.
+BUILD_FAILED
+=== END jless Tuesday 16 June 2026 11:52:20 PM IST status=fail ===
