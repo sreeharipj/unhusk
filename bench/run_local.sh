@@ -20,7 +20,8 @@ mkdir -p "$LOGS" "$CLONE_BASE"
 touch "$RESULTS"
 
 already_done() {
-    grep -qE "\"crate\"\s*:\s*\"$1\"" "$RESULTS" 2>/dev/null
+    # Skip only successfully processed entries (no "error" field)
+    grep -E "\"crate\"\s*:\s*\"$1\"" "$RESULTS" 2>/dev/null | grep -qv '"error"'
 }
 
 walltime_to_sec() {
@@ -194,7 +195,12 @@ crate_count=0
 while IFS= read -r line || [[ -n "${line:-}" ]]; do
     [[ -z "${line:-}" || "${line:0:1}" == "#" ]] && continue
 
-    IFS=':' read -r local_crate repo_url local_bin <<< "$line"
+    # Parse format crate:https://url/path:binname
+    # Cannot use IFS=':' because URL contains '://'
+    local_crate="${line%%:*}"
+    local_bin="${line##*:}"
+    _tmp="${line#*:}"     # strip leading 'crate:'
+    repo_url="${_tmp%:*}" # strip trailing ':binname'
 
     if already_done "$local_crate"; then
         echo "[SKIP] $local_crate" >&2
