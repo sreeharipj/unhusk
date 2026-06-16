@@ -699,33 +699,48 @@ All other binaries within 0–1pp of the context.md tables.
 - `bench/corpus.txt` — 65 crates for cargo-install run
 - `bench/local_corpus.txt` — 13 baseline repos for local-source run
 
-### Phase 3: extended local-source run (IN PROGRESS as of 2026-06-17)
+### Phase 3: extended local-source run (14 of 15 new crates done)
 
-**Goal:** expand local-source accuracy corpus from 13 → 28 binaries by adding 15 more
-repos to `bench/local_corpus.txt` (ripsecrets, htmlq, csview, tealdeer, dua-cli, ouch,
-procs, fclones, xh, lsd, eza, hgrep, git-delta, bottom, broot).
+**Goal:** expand local-source accuracy corpus from 13 → 28 binaries.
+Added 15 more repos; broot is still building (final crate).
 
-Harness: `bench/run_local.sh` (same as Phase 2, self-checkpointing every 3 crates).
-Aggregate: `bench/aggregate.py` updated to split results into baseline-13 / extended-15
-/ combined-28.
-
-**Partial results (6 of 15 new crates done):**
+**14 new crate results (sym precision sorted):**
 
 | crate | n_certain | sym_prec | recall |
 |-------|-----------|---------|--------|
 | ripsecrets | 11 | 45.5% | 64.3% |
-| htmlq | 4 | 100.0% | 18.5% |
+| fclones | 98 | 54.4% | 57.1% |
+| eza | 29 | 72.4% | 18.1% |
+| git-delta | 112 | 74.3% | 65.9% |
 | csview | 4 | 75.0% | 16.7% |
+| ouch | 21 | 85.7% | 63.8% |
+| hgrep | 21 | 92.9% | 46.2% |
+| xh | 39 | 94.7% | 4.3% |
+| bottom | 46 | 95.7% | 50.7% |
+| htmlq | 4 | 100.0% | 18.5% |
 | tealdeer | 7 | 100.0% | 60.0% |
 | dua-cli | 22 | 100.0% | 56.7% |
-| ouch | 21 | 85.7% | 63.8% |
+| procs | 25 | 100.0% | 13.8% |
+| lsd | 8 | 100.0% | 42.9% |
 
-**ripsecrets outlier**: only 11 certain functions, 6 of which are std generics
-(std sym = 6/11). DWARF prec 55.6%, sym prec 45.5%. Root cause: small binary with
-few user panic sites; high proportion of std generics monomorphized with user types.
+**New-14 median sym_prec: 93.8%** (vs baseline 94.4% — CONFIRMS, Δ=−0.6pp).
 
-**What to do when run completes:**
-1. Run `python3 bench/aggregate.py` → updates BENCHMARK_RESULTS.md
-2. Commit: `git add bench && git commit -m "bench: extended local run (28 binaries)"`
-3. Update context.md with final extended corpus numbers and new median sym precision
-4. Check whether the new crates confirm or shift the 94.4% median sym precision
+**5 outliers (sym < 80%)**: ripsecrets, fclones, eza, git-delta, csview.
+All 5 share the same failure mode: std generics (sort, hash, BTreeMap) monomorphized
+with user types where a user panic Location survived into the std function body.
+This is the same failure mode as fd (58.8%) and grex (52.4%) in the original 13.
+No new failure mode discovered.
+
+**Combined 27 binaries (13 original + 14 new):**
+- Sym precision: median **94.5%** (CONFIRMS 94.4%, Δ=+0.1pp)
+- DWARF precision: median 86.2% (IMPROVES vs 66.7% — extended corpus has fewer outliers)
+- Inferred prec (pooled, d=∞): 6.9% (CONFIRMS 5.1%, Δ=+1.8pp)
+- Recall median: 46.2% (CONFIRMS)
+
+**Key conclusion**: the 94.4% median sym precision is stable across 27 binaries (2×
+the original 13). Outliers are concentrated in binaries with heavy use of std generic
+containers/algorithms. This confirms the existing characterization and adds no new
+failure modes.
+
+**Broot (15th crate):** still building as of commit time. The harness will commit
+its result separately when done.

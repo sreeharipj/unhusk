@@ -1,0 +1,1873 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_git-delta.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x002ddd80   3733882 bytes
+  .rodata               vaddr 0x00097180   1956880 bytes
+  .data.rel.ro          vaddr 0x0066ed20    302016 bytes
+  .rela.dyn             vaddr 0x000024a0    389712 bytes
+  .eh_frame             vaddr 0x002826b8    370372 bytes
+  .rela.dyn entries     16091 R_X86_64_RELATIVE entries
+
+source-path strings: 292  (user=46, std=77, dep=169, unknown=0)
+  distinct dep crates visible: 42
+
+panic/assert sites:  2165  (user=273, std=463, dep=1429, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/align.rs  (9 sites)
+       61:23    Location struct @ 0x671b30
+       68:23    Location struct @ 0x671b18
+      101:39    Location struct @ 0x671ae8
+      108:27    Location struct @ 0x671b00
+      118:19    Location struct @ 0x671ad0
+      130:35    Location struct @ 0x671aa0
+      136:31    Location struct @ 0x671ab8
+      166:32    Location struct @ 0x671a40
+      171:33    Location struct @ 0x671a58
+  src/ansi/iterator.rs  (4 sites)
+      204:51    Location struct @ 0x6708a8
+      211:38    Location struct @ 0x670a10
+      228:51    Location struct @ 0x6708c0
+      235:38    Location struct @ 0x670a28
+  src/ansi/mod.rs  (22 sites)
+      112:71    Location struct @ 0x675370
+      143:44    Location struct @ 0x671c58
+      144:41    Location struct @ 0x671c70
+      145:41    Location struct @ 0x671c88
+      146:41    Location struct @ 0x671ca0
+      155:27    Location struct @ 0x671cd0
+      158:27    Location struct @ 0x671cb8
+      183:37    Location struct @ 0x66ed68
+      183:37    Location struct @ 0x66faf8
+      183:37    Location struct @ 0x675038
+      184:34    Location struct @ 0x66ed80
+      184:34    Location struct @ 0x66fb10
+      184:34    Location struct @ 0x675050
+      185:34    Location struct @ 0x66ed98
+      185:34    Location struct @ 0x66fb28
+      185:34    Location struct @ 0x675068
+      186:34    Location struct @ 0x66edb0
+      186:34    Location struct @ 0x66fb40
+      186:34    Location struct @ 0x675080
+      187:35    Location struct @ 0x66edc8
+      187:35    Location struct @ 0x66fb58
+      187:35    Location struct @ 0x675098
+  src/cli.rs  (1 sites)
+      169:51    Location struct @ 0x672240
+  src/color.rs  (1 sites)
+       44:70    Location struct @ 0x671b78
+  src/config.rs  (34 sites)
+      192:60    Location struct @ 0x66f5a0
+      296:33    Location struct @ 0x66f5b8
+      318:31    Location struct @ 0x66f5d0
+      320:44    Location struct @ 0x66f5e8
+      321:36    Location struct @ 0x66f600
+      322:51    Location struct @ 0x66f618
+      323:46    Location struct @ 0x66f630
+      324:41    Location struct @ 0x66f648
+      325:43    Location struct @ 0x66f660
+      326:42    Location struct @ 0x66f678
+      327:42    Location struct @ 0x66f690
+      332:43    Location struct @ 0x66f6a8
+      333:50    Location struct @ 0x66f6c0
+      334:38    Location struct @ 0x66f6d8
+      366:38    Location struct @ 0x66f6f0
+      382:23    Location struct @ 0x66f708
+      383:23    Location struct @ 0x66f720
+      386:23    Location struct @ 0x66f738
+      387:23    Location struct @ 0x66f750
+      389:44    Location struct @ 0x66f768
+      403:58    Location struct @ 0x66f780
+      405:17    Location struct @ 0x66f798
+      407:37    Location struct @ 0x66f7b0
+      408:50    Location struct @ 0x66f7c8
+      410:41    Location struct @ 0x66f7e0
+      411:32    Location struct @ 0x66f7f8
+      418:36    Location struct @ 0x66f810
+      419:49    Location struct @ 0x66f828
+      421:40    Location struct @ 0x66f840
+      422:31    Location struct @ 0x66f858
+      423:36    Location struct @ 0x66f870
+      424:35    Location struct @ 0x66f888
+      437:43    Location struct @ 0x66f8c0
+      438:31    Location struct @ 0x66f8d8
+  src/delta.rs  (4 sites)
+      201:41    Location struct @ 0x672638
+      213:55    Location struct @ 0x672650
+      216:35    Location struct @ 0x672668
+      217:35    Location struct @ 0x672680
+  src/edits.rs  (16 sites)
+       50:37    Location struct @ 0x674cd0
+       57:31    Location struct @ 0x674c58
+       59:32    Location struct @ 0x674c70
+       71:45    Location struct @ 0x674ca0
+       72:68    Location struct @ 0x674c88
+       88:56    Location struct @ 0x674cb8
+       92:33    Location struct @ 0x674c40
+       95:33    Location struct @ 0x674bf8
+       96:57    Location struct @ 0x674c10
+       99:60    Location struct @ 0x674c28
+      150:22    Location struct @ 0x6753a0
+      153:26    Location struct @ 0x6753b8
+      160:22    Location struct @ 0x675388
+      205:40    Location struct @ 0x675020
+      211:14    Location struct @ 0x675008
+      259:64    Location struct @ 0x674ce8
+  src/features/hyperlinks.rs  (4 sites)
+       28:77    Location struct @ 0x670c20
+       43:34    Location struct @ 0x670948
+       44:31    Location struct @ 0x670960
+       60:34    Location struct @ 0x670930
+  src/features/line_numbers.rs  (3 sites)
+      121:25    Location struct @ 0x671428
+      191:28    Location struct @ 0x671230
+      291:18    Location struct @ 0x671450
+  src/features/navigate.rs  (1 sites)
+       88:40    Location struct @ 0x6732f0
+  src/features/side_by_side.rs  (8 sites)
+      176:42    Location struct @ 0x672fc0
+      191:43    Location struct @ 0x672fd8
+      374:22    Location struct @ 0x672f48
+      375:48    Location struct @ 0x672f60
+      425:18    Location struct @ 0x672f78
+      426:18    Location struct @ 0x672f90
+      437:22    Location struct @ 0x672fa8
+      498:18    Location struct @ 0x672f30
+  src/format.rs  (12 sites)
+      152:6     Location struct @ 0x674290
+      176:38    Location struct @ 0x6742a8
+      177:49    Location struct @ 0x6742c0
+      180:49    Location struct @ 0x6742d8
+      190:41    Location struct @ 0x674098
+      194:21    Location struct @ 0x6740b0
+      305:28    Location struct @ 0x673f88
+      306:30    Location struct @ 0x673fa0
+      307:29    Location struct @ 0x673fb8
+      310:28    Location struct @ 0x673fd0
+      311:30    Location struct @ 0x673fe8
+      312:29    Location struct @ 0x674000
+  src/git_config/mod.rs  (6 sites)
+      152:60    Location struct @ 0x6720e8
+      154:31    Location struct @ 0x672100
+      155:37    Location struct @ 0x672118
+      179:6     Location struct @ 0x672470
+      199:26    Location struct @ 0x66fac8
+      199:51    Location struct @ 0x66fae0
+  src/git_config/remote.rs  (12 sites)
+       57:6     Location struct @ 0x671878
+       72:6     Location struct @ 0x671890
+       85:6     Location struct @ 0x6718a8
+       99:6     Location struct @ 0x6718e0
+      109:40    Location struct @ 0x671958
+      110:40    Location struct @ 0x671970
+      117:40    Location struct @ 0x671988
+      119:40    Location struct @ 0x6719a0
+      126:40    Location struct @ 0x6719b8
+      127:40    Location struct @ 0x6719d0
+      134:40    Location struct @ 0x6719e8
+      135:40    Location struct @ 0x671a00
+  src/handlers/blame.rs  (12 sites)
+      181:47    Location struct @ 0x672590
+      185:38    Location struct @ 0x6725a8
+      230:6     Location struct @ 0x671830
+      236:30    Location struct @ 0x671738
+      237:30    Location struct @ 0x671750
+      238:33    Location struct @ 0x671768
+      242:35    Location struct @ 0x671780
+      244:28    Location struct @ 0x671798
+      284:18    Location struct @ 0x6717c0
+      317:63    Location struct @ 0x6717d8
+      343:26    Location struct @ 0x671800
+      363:28    Location struct @ 0x671818
+  src/handlers/diff_header.rs  (10 sites)
+      326:46    Location struct @ 0x671fd8
+      330:18    Location struct @ 0x671fc0
+      333:18    Location struct @ 0x671fa8
+      336:18    Location struct @ 0x671f90
+      339:18    Location struct @ 0x671f78
+      342:18    Location struct @ 0x671f60
+      345:18    Location struct @ 0x671f48
+      357:16    Location struct @ 0x672008
+      371:14    Location struct @ 0x671ff0
+      391:92    Location struct @ 0x671f30
+  src/handlers/diff_stat.rs  (3 sites)
+       43:63    Location struct @ 0x670c38
+       52:50    Location struct @ 0x670bd8
+       69:30    Location struct @ 0x670c08
+  src/handlers/grep.rs  (10 sites)
+      197:43    Location struct @ 0x6725d8
+      338:43    Location struct @ 0x6725c0
+      385:50    Location struct @ 0x6716c0
+      387:42    Location struct @ 0x6716d8
+      391:46    Location struct @ 0x6716f0
+      411:72    Location struct @ 0x671720
+      664:6     Location struct @ 0x671708
+      704:28    Location struct @ 0x671678
+      719:6     Location struct @ 0x671690
+      720:28    Location struct @ 0x6716a8
+  src/handlers/hunk.rs  (1 sites)
+      208:35    Location struct @ 0x674398
+  src/handlers/hunk_header.rs  (9 sites)
+      170:18    Location struct @ 0x6726b8
+      213:78    Location struct @ 0x6743b0
+      229:6     Location struct @ 0x6743c8
+      237:37    Location struct @ 0x674350
+      242:25    Location struct @ 0x66ede0
+      242:46    Location struct @ 0x66edf8
+      248:26    Location struct @ 0x66ee28
+      255:37    Location struct @ 0x674368
+      319:28    Location struct @ 0x674380
+  src/handlers/ripgrep_json.rs  (1 sites)
+       22:22    Location struct @ 0x674908
+  src/handlers/submodule.rs  (2 sites)
+       54:71    Location struct @ 0x675478
+       59:40    Location struct @ 0x675430
+  src/main.rs  (6 sites)
+      157:84    Location struct @ 0x672258
+      159:29    Location struct @ 0x672288
+      161:30    Location struct @ 0x672270
+      206:67    Location struct @ 0x6722a0
+      232:32    Location struct @ 0x6721f8
+      261:36    Location struct @ 0x672210
+  src/options/get.rs  (1 sites)
+       45:33    Location struct @ 0x673ce0
+  src/options/set.rs  (11 sites)
+      108:68    Location struct @ 0x671e38
+      113:78    Location struct @ 0x671e50
+      128:5     Location struct @ 0x671e70
+      242:64    Location struct @ 0x671e88
+      271:9     Location struct @ 0x671f00
+      282:5     Location struct @ 0x671f18
+      350:76    Location struct @ 0x671ea0
+      583:60    Location struct @ 0x671eb8
+      590:31    Location struct @ 0x671ce8
+      594:37    Location struct @ 0x671ed0
+      595:37    Location struct @ 0x671ee8
+  src/options/theme.rs  (1 sites)
+       37:55    Location struct @ 0x670a40
+  src/paint.rs  (10 sites)
+      353:32    Location struct @ 0x672d00
+      380:18    Location struct @ 0x672cd0
+      504:17    Location struct @ 0x672ce8
+      567:53    Location struct @ 0x672cb8
+      573:57    Location struct @ 0x672ca0
+      706:30    Location struct @ 0x672db0
+      723:30    Location struct @ 0x672d80
+      729:30    Location struct @ 0x672d98
+      957:17    Location struct @ 0x672b38
+     1004:32    Location struct @ 0x672b50
+  src/parse_styles.rs  (2 sites)
+       33:28    Location struct @ 0x6709e0
+       38:28    Location struct @ 0x6709f8
+  src/subcommands/external.rs  (5 sites)
+       78:60    Location struct @ 0x672e58
+       80:21    Location struct @ 0x672e18
+       83:21    Location struct @ 0x672e40
+      108:25    Location struct @ 0x672dd8
+      114:36    Location struct @ 0x672df0
+  src/subcommands/parse_ansi.rs  (1 sites)
+       11:45    Location struct @ 0x66f2a0
+  src/subcommands/show_colors.rs  (4 sites)
+       22:14    Location struct @ 0x674338
+       29:83    Location struct @ 0x6742f0
+       30:39    Location struct @ 0x674308
+       59:88    Location struct @ 0x674320
+  src/subcommands/show_config.rs  (1 sites)
+      150:36    Location struct @ 0x673cc8
+  src/subcommands/show_syntax_themes.rs  (3 sites)
+       22:6     Location struct @ 0x66f3e8
+       23:43    Location struct @ 0x66f400
+       39:59    Location struct @ 0x66f2b8
+  src/subcommands/show_themes.rs  (2 sites)
+       50:6     Location struct @ 0x675400
+       52:39    Location struct @ 0x675418
+  src/utils/bat/assets.rs  (2 sites)
+       21:10    Location struct @ 0x66f530
+       56:13    Location struct @ 0x66f548
+  src/utils/bat/dirs.rs  (1 sites)
+       40:49    Location struct @ 0x6743e0
+  src/utils/bat/less.rs  (1 sites)
+       13:16    Location struct @ 0x675460
+  src/utils/bat/output.rs  (3 sites)
+       74:10    Location struct @ 0x675148
+       75:47    Location struct @ 0x675160
+      169:36    Location struct @ 0x675228
+  src/utils/helpwrap.rs  (3 sites)
+       57:28    Location struct @ 0x672b68
+       87:41    Location struct @ 0x672b80
+      101:16    Location struct @ 0x672b98
+  src/utils/path.rs  (1 sites)
+       92:38    Location struct @ 0x66fab0
+  src/utils/process.rs  (6 sites)
+       71:50    Location struct @ 0x66f2d0
+       79:10    Location struct @ 0x66f4c8
+       87:46    Location struct @ 0x66f4b0
+       99:41    Location struct @ 0x66f480
+      102:10    Location struct @ 0x66f498
+      248:53    Location struct @ 0x66f228
+  src/utils/regex_replacement.rs  (1 sites)
+       15:36    Location struct @ 0x670918
+  src/utils/syntect.rs  (9 sites)
+       73:74    Location struct @ 0x673d30
+       74:72    Location struct @ 0x673d48
+       75:74    Location struct @ 0x673d60
+       76:75    Location struct @ 0x673d78
+       77:73    Location struct @ 0x673d90
+       78:75    Location struct @ 0x673da8
+       79:73    Location struct @ 0x673dc0
+       80:74    Location struct @ 0x673dd8
+       81:77    Location struct @ 0x673df0
+  src/utils/tabs.rs  (1 sites)
+       38:21    Location struct @ 0x66f468
+  src/wrapping.rs  (13 sites)
+      271:38    Location struct @ 0x672900
+      273:22    Location struct @ 0x672918
+      288:32    Location struct @ 0x672930
+      302:22    Location struct @ 0x672958
+      428:32    Location struct @ 0x672970
+      435:36    Location struct @ 0x672988
+      460:36    Location struct @ 0x6729a0
+      469:9     Location struct @ 0x6729b8
+      506:50    Location struct @ 0x672af0
+      515:49    Location struct @ 0x672ab0
+      525:21    Location struct @ 0x672b08
+      527:21    Location struct @ 0x672b20
+      553:18    Location struct @ 0x672ad8
+
+dep crates by panic site count  (1429 sites across 42 crates):
+  regex-automata@0.4.14                           410
+  aho-corasick@1.1.2                              259
+  regex-syntax@0.8.10                             198
+  miniz_oxide@0.8.9                               76
+  clap_builder@4.5.60                             75
+  chrono@0.4.31                                   62
+  unicode-segmentation@1.12.0                     41
+  rustc-demangle@0.1.27                           40
+  clap_complete@4.4.6                             35
+  memchr@2.7.1                                    30
+  … 32 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_git-delta.stripped
+functions (from .eh_frame): 6943
+
+attribution breakdown:
+  certain        112  (1.6%)  user-authored (100% precision, DWARF-validated)
+  call closure   838  (12.1%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       5993  (86.3%)  not attributed
+
+user-authored functions — high confidence (112):
+  0x002e6020–0x002e6210  (496 bytes)
+      panic @ src/ansi/mod.rs:183:37
+      panic @ src/ansi/mod.rs:184:34
+      panic @ src/ansi/mod.rs:185:34
+      panic @ src/ansi/mod.rs:186:34
+      panic @ src/ansi/mod.rs:187:35
+  0x002e6210–0x002e6abe  (2222 bytes)
+      panic @ src/handlers/hunk_header.rs:242:25
+      panic @ src/handlers/hunk_header.rs:242:46
+      panic @ src/handlers/hunk_header.rs:248:26
+  0x00321890–0x00321d8b  (1275 bytes)
+      panic @ src/utils/process.rs:248:53
+  0x00321f00–0x003225f8  (1784 bytes)
+      panic @ src/utils/process.rs:71:50
+  0x00324db0–0x00324e06  (86 bytes)
+      panic @ src/subcommands/parse_ansi.rs:11:45
+  0x00324e10–0x00324f73  (355 bytes)
+      panic @ src/subcommands/show_syntax_themes.rs:39:59
+  0x003282d0–0x00328a75  (1957 bytes)
+      panic @ src/subcommands/show_syntax_themes.rs:22:6
+      panic @ src/subcommands/show_syntax_themes.rs:23:43
+      panic @ src/utils/bat/output.rs:169:36
+  0x00329660–0x003299d1  (881 bytes)
+      panic @ src/utils/tabs.rs:38:21
+  0x00329b10–0x00329cda  (458 bytes)
+      panic @ src/utils/process.rs:99:41
+      panic @ src/utils/process.rs:102:10
+  0x00329ce0–0x00329eff  (543 bytes)
+      panic @ src/utils/process.rs:87:46
+  0x0032a450–0x0032a5ea  (410 bytes)
+      panic @ src/utils/process.rs:79:10
+  0x0032a790–0x0032b41d  (3213 bytes)
+      panic @ src/utils/bat/assets.rs:21:10
+      panic @ src/utils/bat/assets.rs:56:13
+  0x0032b810–0x00333233  (31267 bytes)
+      panic @ src/config.rs:192:60
+      panic @ src/config.rs:296:33
+      panic @ src/config.rs:318:31
+      panic @ src/config.rs:320:44
+      panic @ src/config.rs:321:36
+      panic @ src/config.rs:322:51
+      panic @ src/config.rs:323:46
+      panic @ src/config.rs:324:41
+      panic @ src/config.rs:325:43
+      panic @ src/config.rs:326:42
+      panic @ src/config.rs:327:42
+      panic @ src/config.rs:332:43
+      panic @ src/config.rs:333:50
+      panic @ src/config.rs:334:38
+      panic @ src/config.rs:366:38
+      panic @ src/config.rs:382:23
+      panic @ src/config.rs:383:23
+      panic @ src/config.rs:386:23
+      panic @ src/config.rs:387:23
+      panic @ src/config.rs:389:44
+      panic @ src/config.rs:403:58
+      panic @ src/config.rs:405:17
+      panic @ src/config.rs:407:37
+      panic @ src/config.rs:408:50
+      panic @ src/config.rs:410:41
+      panic @ src/config.rs:411:32
+      panic @ src/config.rs:418:36
+      panic @ src/config.rs:419:49
+      panic @ src/config.rs:421:40
+      panic @ src/config.rs:422:31
+      panic @ src/config.rs:423:36
+      panic @ src/config.rs:424:35
+      panic @ src/config.rs:437:43
+      panic @ src/config.rs:438:31
+      panic @ src/subcommands/show_syntax_themes.rs:22:6
+  0x00338fd0–0x00339a05  (2613 bytes)
+      panic @ src/git_config/mod.rs:199:26
+      panic @ src/git_config/mod.rs:199:51
+  0x00339f60–0x0033a17b  (539 bytes)
+      panic @ src/ansi/mod.rs:183:37
+      panic @ src/ansi/mod.rs:184:34
+      panic @ src/ansi/mod.rs:185:34
+      panic @ src/ansi/mod.rs:186:34
+      panic @ src/ansi/mod.rs:187:35
+  0x0033aeb0–0x0033b3fc  (1356 bytes)
+      panic @ src/utils/path.rs:92:38
+  0x0033cad0–0x0033de0b  (4923 bytes)
+      panic @ src/ansi/iterator.rs:204:51
+      panic @ src/ansi/iterator.rs:211:38
+      panic @ src/ansi/iterator.rs:228:51
+      panic @ src/ansi/iterator.rs:235:38
+  0x00341940–0x00341a2a  (234 bytes)
+      panic @ src/features/hyperlinks.rs:28:77
+  0x00341a30–0x00341b1a  (234 bytes)
+      panic @ src/handlers/diff_stat.rs:43:63
+  0x003422a0–0x0034238a  (234 bytes)
+      panic @ src/features/hyperlinks.rs:28:77
+  0x00342390–0x0034247a  (234 bytes)
+      panic @ src/handlers/diff_stat.rs:43:63
+  0x00342b00–0x003430a5  (1445 bytes)
+      panic @ src/utils/regex_replacement.rs:15:36
+  0x003430b0–0x0034347c  (972 bytes)
+      panic @ src/features/hyperlinks.rs:43:34
+      panic @ src/features/hyperlinks.rs:44:31
+  0x00343480–0x00343839  (953 bytes)
+      panic @ src/features/hyperlinks.rs:43:34
+      panic @ src/features/hyperlinks.rs:44:31
+  0x00344300–0x00347508  (12808 bytes)
+      panic @ src/parse_styles.rs:33:28
+      panic @ src/parse_styles.rs:38:28
+  0x003484f0–0x0034906e  (2942 bytes)
+      panic @ src/options/theme.rs:37:55
+  0x00349150–0x00349ae4  (2452 bytes)
+      panic @ src/features/hyperlinks.rs:60:34
+  0x0034a190–0x0034ab4d  (2493 bytes)
+      panic @ src/handlers/diff_stat.rs:52:50
+      panic @ src/handlers/diff_stat.rs:69:30
+  0x0034afd0–0x0034afff  (47 bytes)
+      panic @ src/ansi/iterator.rs:204:51
+  0x0034b000–0x0034b02f  (47 bytes)
+      panic @ src/ansi/iterator.rs:228:51
+  0x0034f1d0–0x0034f2ba  (234 bytes)
+      panic @ src/handlers/blame.rs:230:6
+  0x0034f340–0x0034f42a  (234 bytes)
+      panic @ src/git_config/remote.rs:57:6
+  0x0034f430–0x0034f51a  (234 bytes)
+      panic @ src/git_config/remote.rs:72:6
+  0x0034f520–0x0034f60a  (234 bytes)
+      panic @ src/git_config/remote.rs:85:6
+  0x0034f690–0x0034f77a  (234 bytes)
+      panic @ src/git_config/remote.rs:99:6
+  0x00350060–0x0035014a  (234 bytes)
+      panic @ src/handlers/blame.rs:230:6
+  0x003501d0–0x003502ba  (234 bytes)
+      panic @ src/git_config/remote.rs:57:6
+  0x003502c0–0x003503aa  (234 bytes)
+      panic @ src/git_config/remote.rs:72:6
+  0x003503b0–0x0035049a  (234 bytes)
+      panic @ src/git_config/remote.rs:85:6
+  0x00350520–0x0035060a  (234 bytes)
+      panic @ src/git_config/remote.rs:99:6
+  0x00351e70–0x00352148  (728 bytes)
+      panic @ src/features/line_numbers.rs:191:28
+  0x00353f10–0x00354061  (337 bytes)
+      panic @ src/features/line_numbers.rs:121:25
+  0x00354070–0x003547b6  (1862 bytes)
+      panic @ src/features/line_numbers.rs:291:18
+  0x00355ed0–0x0035653a  (1642 bytes)
+      panic @ src/handlers/grep.rs:704:28
+      panic @ src/handlers/grep.rs:719:6
+      panic @ src/handlers/grep.rs:720:28
+  0x00356540–0x0035686d  (813 bytes)
+      panic @ src/handlers/grep.rs:385:50
+      panic @ src/handlers/grep.rs:387:42
+      panic @ src/handlers/grep.rs:391:46
+  0x00356af0–0x00356cb1  (449 bytes)
+      panic @ src/handlers/grep.rs:664:6
+  0x00356cc0–0x00356efe  (574 bytes)
+      panic @ src/handlers/grep.rs:411:72
+  0x00356f00–0x0035769a  (1946 bytes)
+      panic @ src/handlers/blame.rs:236:30
+      panic @ src/handlers/blame.rs:237:30
+      panic @ src/handlers/blame.rs:238:33
+      panic @ src/handlers/blame.rs:242:35
+      panic @ src/handlers/blame.rs:244:28
+  0x003576a0–0x00358a39  (5017 bytes)
+      panic @ src/handlers/blame.rs:284:18
+  0x00358a40–0x00358e1f  (991 bytes)
+      panic @ src/handlers/blame.rs:317:63
+  0x00358e20–0x00359672  (2130 bytes)
+      panic @ src/handlers/blame.rs:343:26
+      panic @ src/handlers/blame.rs:363:28
+  0x00359870–0x0035a70f  (3743 bytes)
+      panic @ src/git_config/remote.rs:109:40
+      panic @ src/git_config/remote.rs:110:40
+      panic @ src/git_config/remote.rs:117:40
+      panic @ src/git_config/remote.rs:119:40
+      panic @ src/git_config/remote.rs:126:40
+      panic @ src/git_config/remote.rs:127:40
+      panic @ src/git_config/remote.rs:134:40
+      panic @ src/git_config/remote.rs:135:40
+  0x00362620–0x00362993  (883 bytes)
+      panic @ src/align.rs:130:35
+      panic @ src/align.rs:136:31
+      panic @ src/align.rs:166:32
+      panic @ src/align.rs:171:33
+  0x003629a0–0x00362f69  (1481 bytes)
+      panic @ src/align.rs:61:23
+      panic @ src/align.rs:68:23
+      panic @ src/align.rs:101:39
+      panic @ src/align.rs:108:27
+      panic @ src/align.rs:118:19
+  0x00363e40–0x0036423e  (1022 bytes)
+      panic @ src/color.rs:44:70
+  0x00367b40–0x00367dec  (684 bytes)
+      panic @ src/ansi/mod.rs:143:44
+      panic @ src/ansi/mod.rs:144:41
+      panic @ src/ansi/mod.rs:145:41
+      panic @ src/ansi/mod.rs:146:41
+      panic @ src/ansi/mod.rs:155:27
+      panic @ src/ansi/mod.rs:158:27
+  0x00368530–0x00373d6d  (47165 bytes)
+      panic @ src/options/set.rs:108:68
+      panic @ src/options/set.rs:113:78
+      panic @ src/options/set.rs:128:5
+      panic @ src/options/set.rs:242:64
+      panic @ src/options/set.rs:271:9
+      panic @ src/options/set.rs:282:5
+      panic @ src/options/set.rs:350:76
+      panic @ src/options/set.rs:583:60
+      panic @ src/options/set.rs:590:31
+      panic @ src/options/set.rs:594:37
+      panic @ src/options/set.rs:595:37
+  0x00374d70–0x00374fb2  (578 bytes)
+      panic @ src/handlers/diff_header.rs:371:14
+      panic @ src/handlers/diff_header.rs:391:92
+  0x00374fc0–0x003754ec  (1324 bytes)
+      panic @ src/handlers/diff_header.rs:326:46
+      panic @ src/handlers/diff_header.rs:330:18
+      panic @ src/handlers/diff_header.rs:333:18
+      panic @ src/handlers/diff_header.rs:336:18
+      panic @ src/handlers/diff_header.rs:339:18
+      panic @ src/handlers/diff_header.rs:342:18
+      panic @ src/handlers/diff_header.rs:345:18
+  0x003756e0–0x00375a46  (870 bytes)
+      panic @ src/handlers/diff_header.rs:357:16
+  0x00377180–0x00377543  (963 bytes)
+      panic @ src/git_config/mod.rs:152:60
+      panic @ src/git_config/mod.rs:154:31
+      panic @ src/git_config/mod.rs:155:37
+  0x0037e2e0–0x0037e461  (385 bytes)
+      panic @ src/cli.rs:169:51
+  0x0037e470–0x0037e55a  (234 bytes)
+      panic @ src/git_config/mod.rs:179:6
+  0x0037e600–0x0037e6ea  (234 bytes)
+      panic @ src/git_config/mod.rs:179:6
+  0x0037e6f0–0x003805ba  (7882 bytes)
+      panic @ src/main.rs:157:84
+      panic @ src/main.rs:159:29
+      panic @ src/main.rs:161:30
+      panic @ src/main.rs:206:67
+      panic @ src/main.rs:232:32
+      panic @ src/main.rs:261:36
+  0x0038e270–0x0038f1b1  (3905 bytes)
+      panic @ src/handlers/hunk_header.rs:170:18
+  0x0038f1c0–0x0038f319  (345 bytes)
+      panic @ src/handlers/blame.rs:181:47
+      panic @ src/handlers/blame.rs:185:38
+  0x0038f320–0x00390896  (5494 bytes)
+      panic @ src/handlers/blame.rs:181:47
+  0x00390ec0–0x003928a1  (6625 bytes)
+      panic @ src/handlers/grep.rs:197:43
+      panic @ src/handlers/grep.rs:338:43
+  0x00393140–0x0039374f  (1551 bytes)
+      panic @ src/delta.rs:201:41
+      panic @ src/delta.rs:213:55
+      panic @ src/delta.rs:216:35
+      panic @ src/delta.rs:217:35
+  0x00396bb0–0x0039926b  (9915 bytes)
+      panic @ src/wrapping.rs:271:38
+      panic @ src/wrapping.rs:273:22
+      panic @ src/wrapping.rs:288:32
+      panic @ src/wrapping.rs:302:22
+      panic @ src/wrapping.rs:428:32
+      panic @ src/wrapping.rs:435:36
+      panic @ src/wrapping.rs:460:36
+      panic @ src/wrapping.rs:469:9
+  0x0039a700–0x0039c9dc  (8924 bytes)
+      panic @ src/wrapping.rs:271:38
+      panic @ src/wrapping.rs:273:22
+      panic @ src/wrapping.rs:288:32
+      panic @ src/wrapping.rs:302:22
+  0x0039c9e0–0x0039d8c7  (3815 bytes)
+      panic @ src/wrapping.rs:506:50
+      panic @ src/wrapping.rs:515:49
+      panic @ src/wrapping.rs:525:21
+      panic @ src/wrapping.rs:527:21
+      panic @ src/wrapping.rs:553:18
+  0x0039e6c0–0x0039f85d  (4509 bytes)
+      panic @ src/paint.rs:957:17
+      panic @ src/paint.rs:1004:32
+  0x0039f860–0x003a0534  (3284 bytes)
+      panic @ src/utils/helpwrap.rs:57:28
+      panic @ src/utils/helpwrap.rs:87:41
+      panic @ src/utils/helpwrap.rs:101:16
+  0x003a7810–0x003a7b77  (871 bytes)
+      panic @ src/paint.rs:567:53
+      panic @ src/paint.rs:573:57
+  0x003a7b80–0x003a7ee3  (867 bytes)
+      panic @ src/paint.rs:380:18
+  0x003a8700–0x003a8a07  (775 bytes)
+      panic @ src/paint.rs:353:32
+  0x003a9110–0x003aa8e4  (6100 bytes)
+      panic @ src/features/side_by_side.rs:176:42
+      panic @ src/features/side_by_side.rs:191:43
+  0x003aaf20–0x003ab5d5  (1717 bytes)
+      panic @ src/paint.rs:504:17
+      panic @ src/paint.rs:706:30
+      panic @ src/paint.rs:723:30
+      panic @ src/paint.rs:729:30
+  0x003ac670–0x003acc87  (1559 bytes)
+      panic @ src/subcommands/external.rs:78:60
+      panic @ src/subcommands/external.rs:80:21
+      panic @ src/subcommands/external.rs:83:21
+      panic @ src/subcommands/external.rs:108:25
+      panic @ src/subcommands/external.rs:114:36
+  0x003ad5b0–0x003adb3d  (1421 bytes)
+      panic @ src/features/side_by_side.rs:374:22
+      panic @ src/features/side_by_side.rs:375:48
+      panic @ src/features/side_by_side.rs:498:18
+  0x003adb40–0x003ade43  (771 bytes)
+      panic @ src/features/side_by_side.rs:425:18
+      panic @ src/features/side_by_side.rs:426:18
+      panic @ src/features/side_by_side.rs:437:22
+  0x003af080–0x003afec2  (3650 bytes)
+      panic @ src/features/navigate.rs:88:40
+  0x003b6150–0x003b87a0  (9808 bytes)
+      panic @ src/subcommands/show_config.rs:150:36
+  0x003b87a0–0x003b88cb  (299 bytes)
+      panic @ src/options/get.rs:45:33
+  0x003b8df0–0x003b8f56  (358 bytes)
+      panic @ src/utils/syntect.rs:73:74
+      panic @ src/utils/syntect.rs:74:72
+      panic @ src/utils/syntect.rs:75:74
+      panic @ src/utils/syntect.rs:76:75
+      panic @ src/utils/syntect.rs:77:73
+      panic @ src/utils/syntect.rs:78:75
+      panic @ src/utils/syntect.rs:79:73
+      panic @ src/utils/syntect.rs:80:74
+      panic @ src/utils/syntect.rs:81:77
+  0x003bdb10–0x003bdef7  (999 bytes)
+      panic @ src/format.rs:305:28
+      panic @ src/format.rs:306:30
+      panic @ src/format.rs:307:29
+      panic @ src/format.rs:310:28
+      panic @ src/format.rs:311:30
+      panic @ src/format.rs:312:29
+  0x003bdf00–0x003be39f  (1183 bytes)
+      panic @ src/format.rs:305:28
+      panic @ src/format.rs:306:30
+      panic @ src/format.rs:307:29
+      panic @ src/format.rs:310:28
+      panic @ src/format.rs:311:30
+      panic @ src/format.rs:312:29
+  0x003c2a50–0x003c2b3a  (234 bytes)
+      panic @ src/handlers/hunk_header.rs:213:78
+  0x003c2b40–0x003c2c2a  (234 bytes)
+      panic @ src/handlers/hunk_header.rs:229:6
+  0x003c2c30–0x003c2d4d  (285 bytes)
+      panic @ src/utils/bat/dirs.rs:40:49
+  0x003c3490–0x003c357a  (234 bytes)
+      panic @ src/handlers/hunk_header.rs:213:78
+  0x003c3580–0x003c366a  (234 bytes)
+      panic @ src/handlers/hunk_header.rs:229:6
+  0x003c4bd0–0x003c4d25  (341 bytes)
+      panic @ src/format.rs:152:6
+  0x003c4d30–0x003c6de8  (8376 bytes)
+      panic @ src/format.rs:176:38
+      panic @ src/format.rs:177:49
+      panic @ src/format.rs:180:49
+      panic @ src/format.rs:190:41
+      panic @ src/format.rs:194:21
+  0x003c6df0–0x003c7b69  (3449 bytes)
+      panic @ src/subcommands/show_colors.rs:22:14
+      panic @ src/subcommands/show_colors.rs:29:83
+      panic @ src/subcommands/show_colors.rs:30:39
+      panic @ src/subcommands/show_colors.rs:59:88
+      panic @ src/utils/bat/output.rs:169:36
+  0x003c7b70–0x003c82e5  (1909 bytes)
+      panic @ src/handlers/hunk_header.rs:237:37
+      panic @ src/handlers/hunk_header.rs:255:37
+  0x003c8730–0x003c9252  (2850 bytes)
+      panic @ src/handlers/hunk_header.rs:319:28
+  0x003c94f0–0x003c9f73  (2691 bytes)
+      panic @ src/handlers/hunk.rs:208:35
+  0x003d3da0–0x003d5676  (6358 bytes)
+      panic @ src/handlers/ripgrep_json.rs:22:22
+  0x003d7aa0–0x003da01d  (9597 bytes)
+      panic @ src/edits.rs:50:37
+      panic @ src/edits.rs:57:31
+      panic @ src/edits.rs:59:32
+      panic @ src/edits.rs:71:45
+      panic @ src/edits.rs:72:68
+      panic @ src/edits.rs:88:56
+      panic @ src/edits.rs:92:33
+      panic @ src/edits.rs:95:33
+      panic @ src/edits.rs:96:57
+      panic @ src/edits.rs:99:60
+      panic @ src/edits.rs:205:40
+      panic @ src/edits.rs:211:14
+      panic @ src/edits.rs:259:64
+  0x003dd360–0x003dd442  (226 bytes)
+      panic @ src/handlers/submodule.rs:54:71
+  0x003dd450–0x003dd532  (226 bytes)
+      panic @ src/handlers/submodule.rs:54:71
+  0x003dd540–0x003dd76c  (556 bytes)
+      panic @ src/utils/bat/output.rs:74:10
+      panic @ src/utils/bat/output.rs:75:47
+      panic @ src/utils/bat/output.rs:169:36
+  0x003dd770–0x003dd818  (168 bytes)
+      panic @ src/utils/bat/output.rs:169:36
+  0x003dd900–0x003de77f  (3711 bytes)
+      panic @ src/utils/bat/less.rs:13:16
+  0x003e0a50–0x003e0ea9  (1113 bytes)
+      panic @ src/ansi/mod.rs:183:37
+      panic @ src/ansi/mod.rs:184:34
+      panic @ src/ansi/mod.rs:185:34
+      panic @ src/ansi/mod.rs:186:34
+      panic @ src/ansi/mod.rs:187:35
+  0x003e0eb0–0x003e127d  (973 bytes)
+      panic @ src/ansi/mod.rs:112:71
+  0x003e18a0–0x003e2349  (2729 bytes)
+      panic @ src/edits.rs:150:22
+      panic @ src/edits.rs:153:26
+      panic @ src/edits.rs:160:22
+  0x003e2350–0x003e2f96  (3142 bytes)
+      panic @ src/subcommands/show_themes.rs:50:6
+      panic @ src/subcommands/show_themes.rs:52:39
+      panic @ src/utils/bat/output.rs:169:36
+  0x003e2fa0–0x003e34a0  (1280 bytes)
+      panic @ src/handlers/submodule.rs:59:40
+
+call closure — reachable from user code, not user-authored (838):
+  0x002dde70–0x002ddf98  (296 bytes)  [inferred]
+  0x002ddfa0–0x002de1e2  (578 bytes)  [inferred]
+  0x002de1f0–0x002de272  (130 bytes)  [inferred]
+  0x002de280–0x002de32c  (172 bytes)  [inferred]
+  0x002de330–0x002de39a  (106 bytes)  [inferred]
+  0x002de3a0–0x002de454  (180 bytes)  [inferred]
+  0x002de460–0x002de552  (242 bytes)  [inferred]
+  0x002de560–0x002de5e6  (134 bytes)  [inferred]
+  0x002de5f0–0x002de672  (130 bytes)  [indeterminate]
+  0x002de680–0x002de6e2  (98 bytes)  [inferred]
+  0x002de6f0–0x002de772  (130 bytes)  [inferred]
+  0x002de780–0x002de894  (276 bytes)  [inferred]
+  0x002de8a0–0x002de9d2  (306 bytes)  [inferred]
+  0x002de9e0–0x002deae0  (256 bytes)  [indeterminate]
+  0x002deb90–0x002dec55  (197 bytes)  [inferred]
+  0x002dec60–0x002ded1c  (188 bytes)  [inferred]
+  0x002ded20–0x002deda7  (135 bytes)  [inferred]
+  0x002dedb0–0x002dee0a  (90 bytes)  [inferred]
+  0x002dee10–0x002defe9  (473 bytes)  [indeterminate]
+  0x002deff0–0x002df1ab  (443 bytes)  [inferred]
+  0x002df1b0–0x002df2d4  (292 bytes)  [inferred]
+  0x002dfc30–0x002dfd19  (233 bytes)  [inferred]
+  0x002dfd20–0x002dfe09  (233 bytes)  [inferred]
+  0x002dfe60–0x002dffec  (396 bytes)  [inferred]
+  0x002dfff0–0x002e00b8  (200 bytes)  [inferred]
+  0x002e00c0–0x002e01b2  (242 bytes)  [inferred]
+  0x002e01c0–0x002e020f  (79 bytes)  [inferred]
+  0x002e0210–0x002e02f2  (226 bytes)  [inferred]
+  0x002e0300–0x002e0349  (73 bytes)  [inferred]
+  0x002e0350–0x002e03c6  (118 bytes)  [inferred]
+  0x002e0440–0x002e07c4  (900 bytes)  [inferred]
+  0x002e07d0–0x002e0876  (166 bytes)  [inferred]
+  0x002e0880–0x002e08ed  (109 bytes)  [inferred]
+  0x002e08f0–0x002e0aa3  (435 bytes)  [inferred]
+  0x002e0ab0–0x002e0bc7  (279 bytes)  [inferred]
+  0x002e0bd0–0x002e0cd7  (263 bytes)  [inferred]
+  0x002e0ce0–0x002e0f4d  (621 bytes)  [inferred]
+  0x002e0f50–0x002e0fce  (126 bytes)  [inferred]
+  0x002e0fd0–0x002e10c3  (243 bytes)  [inferred]
+  0x002e1120–0x002e1703  (1507 bytes)  [inferred]
+  0x002e1710–0x002e173f  (47 bytes)  [inferred]
+  0x002e1740–0x002e1c4c  (1292 bytes)  [inferred]
+  0x002e1c50–0x002e1e00  (432 bytes)  [inferred]
+  0x002e1e00–0x002e1e76  (118 bytes)  [inferred]
+  0x002e1e80–0x002e1eab  (43 bytes)  [inferred]
+  0x002e1eb0–0x002e1ee2  (50 bytes)  [inferred]
+  0x002e1ef0–0x002e2814  (2340 bytes)  [inferred]
+  0x002e2a20–0x002e2bd4  (436 bytes)  [inferred]
+  0x002e3330–0x002e34af  (383 bytes)  [inferred]
+  0x002e34b0–0x002e3646  (406 bytes)  [inferred]
+  0x002e3650–0x002e39cd  (893 bytes)  [inferred]
+  0x002e39d0–0x002e3ab3  (227 bytes)  [inferred]
+  0x002e3bc0–0x002e3f49  (905 bytes)  [inferred]
+  0x002e3f50–0x002e40c0  (368 bytes)  [inferred]
+  0x002e40c0–0x002e43e7  (807 bytes)  [inferred]
+  0x002e43f0–0x002e4517  (295 bytes)  [inferred]
+  0x002e4520–0x002e46be  (414 bytes)  [inferred]
+  0x002e46c0–0x002e4983  (707 bytes)  [inferred]
+  0x002e4990–0x002e4d0d  (893 bytes)  [inferred]
+  0x002e4d10–0x002e4e99  (393 bytes)  [inferred]
+  0x002e4ea0–0x002e5020  (384 bytes)  [inferred]
+  0x002e5020–0x002e5235  (533 bytes)  [inferred]
+  0x002e5240–0x002e53c7  (391 bytes)  [inferred]
+  0x002e53d0–0x002e55c3  (499 bytes)  [inferred]
+  0x002e55d0–0x002e5798  (456 bytes)  [inferred]
+  0x002e57a0–0x002e58f0  (336 bytes)  [inferred]
+  0x002e58f0–0x002e5a40  (336 bytes)  [inferred]
+  0x002e5a40–0x002e5c51  (529 bytes)  [inferred]
+  0x002e5c60–0x002e5d45  (229 bytes)  [inferred]
+  0x002e5d50–0x002e5e35  (229 bytes)  [inferred]
+  0x002e75e0–0x002e772a  (330 bytes)  [inferred]
+  0x002e7730–0x002e7835  (261 bytes)  [inferred]
+  0x002e7840–0x002e7930  (240 bytes)  [inferred]
+  0x002e7930–0x002e7aca  (410 bytes)  [inferred]
+  0x002e7ad0–0x002e7c44  (372 bytes)  [inferred]
+  0x002e7c50–0x002e7de6  (406 bytes)  [inferred]
+  0x002e7df0–0x002e7ff5  (517 bytes)  [inferred]
+  0x002e8000–0x002e80f4  (244 bytes)  [inferred]
+  0x002e8100–0x002e8292  (402 bytes)  [inferred]
+  0x002e82a0–0x002e8483  (483 bytes)  [inferred]
+  0x002e8490–0x002e8646  (438 bytes)  [inferred]
+  0x002e8650–0x002e8b93  (1347 bytes)  [indeterminate]
+  0x002e8e70–0x002e99af  (2879 bytes)  [inferred]
+  0x002e99b0–0x002e9a3a  (138 bytes)  [inferred]
+  0x002e9b10–0x002e9bcb  (187 bytes)  [inferred]
+  0x002e9bd0–0x002e9d4f  (383 bytes)  [inferred]
+  0x002e9d50–0x002e9d95  (69 bytes)  [indeterminate]
+  0x002e9da0–0x002e9ee4  (324 bytes)  [inferred]
+  0x002e9ef0–0x002ea181  (657 bytes)  [inferred]
+  0x002ea190–0x002ea254  (196 bytes)  [inferred]
+  0x002ea260–0x002ea324  (196 bytes)  [inferred]
+  0x002ea330–0x002ea620  (752 bytes)  [inferred]
+  0x002ea620–0x002ea800  (480 bytes)  [inferred]
+  0x002ea800–0x002ea911  (273 bytes)  [inferred]
+  0x002ea920–0x002ea97f  (95 bytes)  [inferred]
+  0x002ea980–0x002eaa21  (161 bytes)  [indeterminate]
+  0x002eaa30–0x002eaa4e  (30 bytes)  [inferred]
+  0x002eaa50–0x002eab40  (240 bytes)  [inferred]
+  0x002eab40–0x002eabaa  (106 bytes)  [inferred]
+  0x002ead70–0x002eae35  (197 bytes)  [inferred]
+  0x002eae40–0x002eaefc  (188 bytes)  [inferred]
+  0x002eaf00–0x002eaf7e  (126 bytes)  [inferred]
+  0x002eaf80–0x002eb007  (135 bytes)  [inferred]
+  0x002eb010–0x002eb06f  (95 bytes)  [inferred]
+  0x002eb070–0x002eb15b  (235 bytes)  [inferred]
+  0x002eb160–0x002eb183  (35 bytes)  [inferred]
+  0x002eb190–0x002eb270  (224 bytes)  [inferred]
+  0x002eb270–0x002ebce6  (2678 bytes)  [inferred]
+  0x002ebcf0–0x002ebe6f  (383 bytes)  [inferred]
+  0x002ebe90–0x002ebf19  (137 bytes)  [indeterminate]
+  0x002ebf20–0x002ec0b9  (409 bytes)  [indeterminate]
+  0x002ec0c0–0x002ec104  (68 bytes)  [indeterminate]
+  0x002ec110–0x002ec30e  (510 bytes)  [inferred]
+  0x002ec310–0x002ec355  (69 bytes)  [inferred]
+  0x002ec360–0x002ec921  (1473 bytes)  [inferred]
+  0x002ec930–0x002eca50  (288 bytes)  [inferred]
+  0x002eca50–0x002ecf49  (1273 bytes)  [indeterminate]
+  0x002ecf50–0x002ecfaa  (90 bytes)  [inferred]
+  0x002ecfb0–0x002ed049  (153 bytes)  [indeterminate]
+  0x002eed20–0x002ef78e  (2670 bytes)  [indeterminate]
+  0x002ef790–0x002ef837  (167 bytes)  [inferred]
+  0x002ef840–0x002ef91a  (218 bytes)  [inferred]
+  0x002f8250–0x0031c77b  (148779 bytes)  [indeterminate]
+  0x0031c780–0x0031c9fd  (637 bytes)  [inferred]
+  0x0031cbc0–0x0031cd55  (405 bytes)  [indeterminate]
+  0x0031ce80–0x0031cf93  (275 bytes)  [inferred]
+  0x0031cfa0–0x0031d022  (130 bytes)  [inferred]
+  0x0031d030–0x0031dab4  (2692 bytes)  [inferred]
+  0x0031dac0–0x0031dc7b  (443 bytes)  [inferred]
+  0x0031dc80–0x0031dcff  (127 bytes)  [inferred]
+  0x0031dd00–0x0031dda1  (161 bytes)  [indeterminate]
+  0x0031de10–0x0031de4c  (60 bytes)  [inferred]
+  0x0031de50–0x0031df40  (240 bytes)  [indeterminate]
+  0x0031df40–0x0031dff4  (180 bytes)  [indeterminate]
+  0x0031e000–0x0031e036  (54 bytes)  [indeterminate]
+  0x0031e040–0x0031e09c  (92 bytes)  [inferred]
+  0x0031e130–0x0031e1b2  (130 bytes)  [inferred]
+  0x0031e1c0–0x0031e2ba  (250 bytes)  [inferred]
+  0x0031e2c0–0x0031e36c  (172 bytes)  [inferred]
+  0x0031e370–0x0031e435  (197 bytes)  [inferred]
+  0x0031e440–0x0031e4be  (126 bytes)  [inferred]
+  0x0031e4c0–0x0031e501  (65 bytes)  [inferred]
+  0x0031e510–0x0031e5fb  (235 bytes)  [inferred]
+  0x0031e600–0x0031e623  (35 bytes)  [inferred]
+  0x0031e630–0x0031e671  (65 bytes)  [inferred]
+  0x0031e680–0x0031e775  (245 bytes)  [inferred]
+  0x0031e780–0x0031e7c1  (65 bytes)  [inferred]
+  0x0031ea40–0x0031f4b6  (2678 bytes)  [inferred]
+  0x0031f4c0–0x0031f63f  (383 bytes)  [inferred]
+  0x003200b0–0x003200fe  (78 bytes)  [indeterminate]
+  0x00320100–0x0032013f  (63 bytes)  [inferred]
+  0x00320150–0x003204c4  (884 bytes)  [indeterminate]
+  0x003204d0–0x00320555  (133 bytes)  [indeterminate]
+  0x00320560–0x00320775  (533 bytes)  [inferred]
+  0x00320780–0x00320801  (129 bytes)  [indeterminate]
+  0x00320810–0x00320d1d  (1293 bytes)  [inferred]
+  0x00320d20–0x00320dcf  (175 bytes)  [indeterminate]
+  0x00320dd0–0x00320df1  (33 bytes)  [indeterminate]
+  0x00320e00–0x00320e4f  (79 bytes)  [inferred]
+  0x00320e50–0x00320f32  (226 bytes)  [inferred]
+  0x00320f40–0x00320f89  (73 bytes)  [inferred]
+  0x00320f90–0x00321006  (118 bytes)  [inferred]
+  0x00321010–0x00321390  (896 bytes)  [inferred]
+  0x00321390–0x0032149a  (266 bytes)  [inferred]
+  0x003214a0–0x00321524  (132 bytes)  [indeterminate]
+  0x00321590–0x0032178e  (510 bytes)  [indeterminate]
+  0x00321790–0x00321829  (153 bytes)  [inferred]
+  0x00321830–0x0032188f  (95 bytes)  [inferred]
+  0x00322600–0x00322de6  (2022 bytes)  [inferred]
+  0x00322df0–0x00323c0c  (3612 bytes)  [inferred]
+  0x003245f0–0x00324733  (323 bytes)  [inferred]
+  0x00324740–0x00324b20  (992 bytes)  [inferred]
+  0x00324b20–0x00324bec  (204 bytes)  [inferred]
+  0x00324bf0–0x00324cbd  (205 bytes)  [inferred]
+  0x00324f80–0x00325057  (215 bytes)  [inferred]
+  0x00325150–0x00325425  (725 bytes)  [inferred]
+  0x003254d0–0x003274af  (8159 bytes)  [inferred]
+  0x003274b0–0x003274f7  (71 bytes)  [indeterminate]
+  0x00327500–0x00327708  (520 bytes)  [inferred]
+  0x003299e0–0x00329b10  (304 bytes)  [inferred]
+  0x00329f00–0x0032a44c  (1356 bytes)  [inferred]
+  0x0032a5f0–0x0032a78c  (412 bytes)  [inferred]
+  0x0032b580–0x0032b73a  (442 bytes)  [inferred]
+  0x003332b0–0x003334b6  (518 bytes)  [inferred]
+  0x003336a0–0x003337e5  (325 bytes)  [inferred]
+  0x00333d90–0x00333e0d  (125 bytes)  [inferred]
+  0x00333e10–0x0033405a  (586 bytes)  [inferred]
+  0x00334060–0x003340e3  (131 bytes)  [inferred]
+  0x003340f0–0x00334118  (40 bytes)  [inferred]
+  0x00334120–0x0033417c  (92 bytes)  [inferred]
+  0x00334480–0x003344c1  (65 bytes)  [inferred]
+  0x003344f0–0x00334526  (54 bytes)  [inferred]
+  0x00334530–0x00334782  (594 bytes)  [inferred]
+  0x00334790–0x003347ca  (58 bytes)  [inferred]
+  0x003347d0–0x0033487f  (175 bytes)  [indeterminate]
+  0x00335860–0x003358a2  (66 bytes)  [inferred]
+  0x00335b40–0x00335c84  (324 bytes)  [inferred]
+  0x00335e40–0x00336228  (1000 bytes)  [inferred]
+  0x00336400–0x00336626  (550 bytes)  [inferred]
+  0x00336630–0x003367ec  (444 bytes)  [inferred]
+  0x00336920–0x0033701c  (1788 bytes)  [inferred]
+  0x00337020–0x0033782b  (2059 bytes)  [inferred]
+  0x00337c20–0x00337d21  (257 bytes)  [inferred]
+  0x00337d30–0x00337e2b  (251 bytes)  [inferred]
+  0x00337e30–0x00338058  (552 bytes)  [inferred]
+  0x00338060–0x00338144  (228 bytes)  [inferred]
+  0x00338150–0x00338310  (448 bytes)  [inferred]
+  0x00338310–0x00338582  (626 bytes)  [inferred]
+  0x00338590–0x00338c02  (1650 bytes)  [inferred]
+  0x00339b50–0x00339db9  (617 bytes)  [inferred]
+  0x00339dc0–0x00339e8c  (204 bytes)  [inferred]
+  0x00339e90–0x00339f5d  (205 bytes)  [inferred]
+  0x0033a180–0x0033a9f8  (2168 bytes)  [inferred]
+  0x0033aa70–0x0033aea9  (1081 bytes)  [inferred]
+  0x0033b400–0x0033b66a  (618 bytes)  [inferred]
+  0x0033b670–0x0033b7d4  (356 bytes)  [inferred]
+  0x0033b7e0–0x0033bf0e  (1838 bytes)  [inferred]
+  0x0033bf10–0x0033c3c5  (1205 bytes)  [inferred]
+  0x0033e100–0x0033e43d  (829 bytes)  [inferred]
+  0x0033f3f0–0x0033f5cb  (475 bytes)  [inferred]
+  0x0033f930–0x0033f98c  (92 bytes)  [inferred]
+  0x0033f990–0x0033f9f4  (100 bytes)  [inferred]
+  0x0033fa00–0x0033fa7e  (126 bytes)  [inferred]
+  0x0033fad0–0x0033fbbb  (235 bytes)  [inferred]
+  0x0033fbc0–0x0033fce7  (295 bytes)  [inferred]
+  0x0033fd70–0x0033fe71  (257 bytes)  [inferred]
+  0x00340310–0x00340684  (884 bytes)  [inferred]
+  0x00340690–0x00340715  (133 bytes)  [inferred]
+  0x00340720–0x003407cc  (172 bytes)  [indeterminate]
+  0x003407d0–0x00340982  (434 bytes)  [indeterminate]
+  0x00340990–0x003409df  (79 bytes)  [inferred]
+  0x003409e0–0x00340ac2  (226 bytes)  [inferred]
+  0x00340ad0–0x00340b19  (73 bytes)  [inferred]
+  0x00340b20–0x00340b96  (118 bytes)  [inferred]
+  0x00340ba0–0x00340c0b  (107 bytes)  [indeterminate]
+  0x00340c10–0x00340f90  (896 bytes)  [inferred]
+  0x00340f90–0x00341014  (132 bytes)  [inferred]
+  0x00341020–0x003410c8  (168 bytes)  [inferred]
+  0x003410d0–0x0034112f  (95 bytes)  [inferred]
+  0x00341130–0x0034132e  (510 bytes)  [inferred]
+  0x00341330–0x003413a6  (118 bytes)  [inferred]
+  0x003413b0–0x003416d2  (802 bytes)  [inferred]
+  0x00341890–0x00341938  (168 bytes)  [inferred]
+  0x003421a0–0x00342291  (241 bytes)  [inferred]
+  0x00344100–0x003442f4  (500 bytes)  [inferred]
+  0x00347510–0x00347653  (323 bytes)  [inferred]
+  0x00347660–0x00347cdf  (1663 bytes)  [inferred]
+  0x00347ce0–0x00347e98  (440 bytes)  [inferred]
+  0x00347ea0–0x00347fe2  (322 bytes)  [inferred]
+  0x00347ff0–0x003484ee  (1278 bytes)  [indeterminate]
+  0x00349070–0x00349147  (215 bytes)  [inferred]
+  0x00349af0–0x0034a18a  (1690 bytes)  [inferred]
+  0x0034b7a0–0x0034b94f  (431 bytes)  [inferred]
+  0x0034c220–0x0034c2c7  (167 bytes)  [inferred]
+  0x0034c2d0–0x0034c37a  (170 bytes)  [inferred]
+  0x0034c380–0x0034c42a  (170 bytes)  [inferred]
+  0x0034c430–0x0034c497  (103 bytes)  [inferred]
+  0x0034c4a0–0x0034c4fa  (90 bytes)  [inferred]
+  0x0034c500–0x0034c5b1  (177 bytes)  [inferred]
+  0x0034c5c0–0x0034c674  (180 bytes)  [inferred]
+  0x0034c680–0x0034c7f7  (375 bytes)  [indeterminate]
+  0x0034c800–0x0034c85c  (92 bytes)  [inferred]
+  0x0034c860–0x0034c925  (197 bytes)  [indeterminate]
+  0x0034c930–0x0034c9b7  (135 bytes)  [inferred]
+  0x0034c9c0–0x0034ca1c  (92 bytes)  [inferred]
+  0x0034ca20–0x0034ca84  (100 bytes)  [inferred]
+  0x0034ca90–0x0034cc54  (452 bytes)  [indeterminate]
+  0x0034cc60–0x0034ccba  (90 bytes)  [inferred]
+  0x0034cd10–0x0034ce11  (257 bytes)  [inferred]
+  0x0034cf70–0x0034cfca  (90 bytes)  [indeterminate]
+  0x0034d090–0x0034d119  (137 bytes)  [indeterminate]
+  0x0034d120–0x0034d1db  (187 bytes)  [indeterminate]
+  0x0034d1e0–0x0034d392  (434 bytes)  [indeterminate]
+  0x0034d3a0–0x0034d3ef  (79 bytes)  [inferred]
+  0x0034d3f0–0x0034d4d2  (226 bytes)  [inferred]
+  0x0034d4e0–0x0034d529  (73 bytes)  [inferred]
+  0x0034d530–0x0034d5a6  (118 bytes)  [inferred]
+  0x0034d5b0–0x0034d61b  (107 bytes)  [indeterminate]
+  0x0034d620–0x0034d9a0  (896 bytes)  [inferred]
+  0x0034d9a0–0x0034da24  (132 bytes)  [indeterminate]
+  0x0034da30–0x0034daa6  (118 bytes)  [inferred]
+  0x0034dfa0–0x0034e48a  (1258 bytes)  [inferred]
+  0x0034e490–0x0034e6aa  (538 bytes)  [inferred]
+  0x0034e6b0–0x0034e7a7  (247 bytes)  [inferred]
+  0x0034e7b0–0x0034e922  (370 bytes)  [inferred]
+  0x00351720–0x00351849  (297 bytes)  [inferred]
+  0x00351850–0x00351b65  (789 bytes)  [inferred]
+  0x00351b70–0x00351e6a  (762 bytes)  [inferred]
+  0x00352370–0x003524ee  (382 bytes)  [inferred]
+  0x00353110–0x003532f1  (481 bytes)  [inferred]
+  0x00353300–0x0035339b  (155 bytes)  [inferred]
+  0x003533a0–0x003534fc  (348 bytes)  [inferred]
+  0x00353500–0x00353580  (128 bytes)  [inferred]
+  0x00353a50–0x00353f0f  (1215 bytes)  [inferred]
+  0x003547c0–0x00354cd3  (1299 bytes)  [inferred]
+  0x0035ada0–0x0035b3d5  (1589 bytes)  [inferred]
+  0x0035b3e0–0x0035ba5f  (1663 bytes)  [inferred]
+  0x0035ba60–0x0035bc55  (501 bytes)  [inferred]
+  0x0035bc60–0x0035c341  (1761 bytes)  [inferred]
+  0x0035c350–0x0035c50a  (442 bytes)  [inferred]
+  0x0035c510–0x0035cbc9  (1721 bytes)  [inferred]
+  0x0035cbd0–0x0035d1a1  (1489 bytes)  [inferred]
+  0x0035d1b0–0x0035d809  (1625 bytes)  [inferred]
+  0x0035de10–0x0035e3b4  (1444 bytes)  [indeterminate]
+  0x0035e3c0–0x0035e964  (1444 bytes)  [inferred]
+  0x0035e970–0x0035ea24  (180 bytes)  [inferred]
+  0x0035ea30–0x0035ed49  (793 bytes)  [inferred]
+  0x0035ed50–0x0035ef10  (448 bytes)  [inferred]
+  0x0035ef10–0x0035f0cd  (445 bytes)  [inferred]
+  0x0035f0d0–0x0035f2cf  (511 bytes)  [inferred]
+  0x0035f2d0–0x0035f30c  (60 bytes)  [inferred]
+  0x0035f310–0x0035f392  (130 bytes)  [inferred]
+  0x0035f3a0–0x0035f422  (130 bytes)  [inferred]
+  0x0035f430–0x0035f46d  (61 bytes)  [inferred]
+  0x0035f470–0x0035f578  (264 bytes)  [inferred]
+  0x0035f580–0x0035f5bb  (59 bytes)  [inferred]
+  0x0035f5c0–0x0035f7d5  (533 bytes)  [inferred]
+  0x0035f7e0–0x0035f861  (129 bytes)  [inferred]
+  0x0035f870–0x0035f8a4  (52 bytes)  [inferred]
+  0x0035f8b0–0x0035fa35  (389 bytes)  [inferred]
+  0x0035fa40–0x0036033d  (2301 bytes)  [inferred]
+  0x00360340–0x00360c2e  (2286 bytes)  [inferred]
+  0x00360c30–0x003614f8  (2248 bytes)  [inferred]
+  0x00361cd0–0x00361ddb  (267 bytes)  [inferred]
+  0x00361de0–0x00361fc0  (480 bytes)  [inferred]
+  0x00361fc0–0x0036208c  (204 bytes)  [inferred]
+  0x00362090–0x0036215b  (203 bytes)  [inferred]
+  0x00362f70–0x00363124  (436 bytes)  [inferred]
+  0x00363130–0x003637ee  (1726 bytes)  [inferred]
+  0x003637f0–0x00363ad1  (737 bytes)  [inferred]
+  0x00363ae0–0x00363e34  (852 bytes)  [indeterminate]
+  0x003643d0–0x0036448f  (191 bytes)  [inferred]
+  0x00364490–0x00364c9c  (2060 bytes)  [inferred]
+  0x00364ca0–0x00364eb5  (533 bytes)  [inferred]
+  0x00364fe0–0x00365010  (48 bytes)  [indeterminate]
+  0x00365010–0x0036513e  (302 bytes)  [indeterminate]
+  0x00365140–0x003652a1  (353 bytes)  [inferred]
+  0x003652b0–0x00365388  (216 bytes)  [inferred]
+  0x00365390–0x0036548c  (252 bytes)  [inferred]
+  0x00365490–0x0036558f  (255 bytes)  [inferred]
+  0x00365590–0x00365694  (260 bytes)  [inferred]
+  0x003656a0–0x00365956  (694 bytes)  [inferred]
+  0x00365960–0x00365a60  (256 bytes)  [indeterminate]
+  0x00365a60–0x00365a90  (48 bytes)  [inferred]
+  0x00365a90–0x00365b74  (228 bytes)  [inferred]
+  0x00365bc0–0x00365bef  (47 bytes)  [indeterminate]
+  0x00365c10–0x0036620a  (1530 bytes)  [inferred]
+  0x003662c0–0x0036631b  (91 bytes)  [inferred]
+  0x00366a80–0x00366ef5  (1141 bytes)  [inferred]
+  0x00366f00–0x00367329  (1065 bytes)  [inferred]
+  0x00367330–0x003673ae  (126 bytes)  [inferred]
+  0x003673b0–0x0036740a  (90 bytes)  [inferred]
+  0x00367410–0x003674fb  (235 bytes)  [inferred]
+  0x00367500–0x00367624  (292 bytes)  [inferred]
+  0x00367660–0x00367694  (52 bytes)  [inferred]
+  0x00367aa0–0x00367b31  (145 bytes)  [inferred]
+  0x00367df0–0x0036810b  (795 bytes)  [inferred]
+  0x00368110–0x0036827c  (364 bytes)  [inferred]
+  0x00368280–0x00368434  (436 bytes)  [inferred]
+  0x00368440–0x00368523  (227 bytes)  [inferred]
+  0x00373d70–0x003743b4  (1604 bytes)  [inferred]
+  0x003743c0–0x00374bcc  (2060 bytes)  [inferred]
+  0x00374bd0–0x00374d65  (405 bytes)  [inferred]
+  0x003754f0–0x003756d9  (489 bytes)  [inferred]
+  0x00375a50–0x00375ed8  (1160 bytes)  [inferred]
+  0x00375ee0–0x0037656b  (1675 bytes)  [inferred]
+  0x00376570–0x003765af  (63 bytes)  [inferred]
+  0x00376770–0x003767ee  (126 bytes)  [inferred]
+  0x00376820–0x0037685e  (62 bytes)  [inferred]
+  0x00376a00–0x00376a3e  (62 bytes)  [inferred]
+  0x00376a40–0x00376c46  (518 bytes)  [indeterminate]
+  0x00376fe0–0x00377032  (82 bytes)  [inferred]
+  0x00377040–0x003770cb  (139 bytes)  [inferred]
+  0x003770d0–0x0037712c  (92 bytes)  [indeterminate]
+  0x00377130–0x00377171  (65 bytes)  [inferred]
+  0x00377543–0x00377588  (69 bytes)  [inferred]
+  0x00377590–0x00377b17  (1415 bytes)  [inferred]
+  0x00377b20–0x00378077  (1367 bytes)  [inferred]
+  0x00378080–0x0037851a  (1178 bytes)  [indeterminate]
+  0x00378520–0x003786e0  (448 bytes)  [indeterminate]
+  0x003786e0–0x003787a3  (195 bytes)  [inferred]
+  0x003787b0–0x00378893  (227 bytes)  [inferred]
+  0x003788a0–0x00378983  (227 bytes)  [inferred]
+  0x00378990–0x00378a62  (210 bytes)  [inferred]
+  0x00378a70–0x00378b42  (210 bytes)  [inferred]
+  0x00378b50–0x00378c26  (214 bytes)  [inferred]
+  0x00378c30–0x00378c8f  (95 bytes)  [inferred]
+  0x00378c90–0x00378d48  (184 bytes)  [inferred]
+  0x00378d50–0x00378d6e  (30 bytes)  [inferred]
+  0x00378d70–0x00378dcf  (95 bytes)  [inferred]
+  0x00378dd0–0x00378ec0  (240 bytes)  [inferred]
+  0x00378ec0–0x00378f2a  (106 bytes)  [inferred]
+  0x00378f90–0x00378fb7  (39 bytes)  [inferred]
+  0x00378fc0–0x0037900e  (78 bytes)  [inferred]
+  0x00379010–0x00379046  (54 bytes)  [inferred]
+  0x00379050–0x003790ac  (92 bytes)  [inferred]
+  0x003790b0–0x0037910c  (92 bytes)  [inferred]
+  0x00379110–0x00379192  (130 bytes)  [inferred]
+  0x003791a0–0x00379222  (130 bytes)  [inferred]
+  0x00379230–0x003792f5  (197 bytes)  [inferred]
+  0x00379300–0x003793bc  (188 bytes)  [inferred]
+  0x003793c0–0x0037943e  (126 bytes)  [inferred]
+  0x00379440–0x003794c7  (135 bytes)  [inferred]
+  0x003794d0–0x0037952a  (90 bytes)  [inferred]
+  0x00379580–0x003795a5  (37 bytes)  [inferred]
+  0x003795b0–0x0037969b  (235 bytes)  [inferred]
+  0x003796a0–0x003797a1  (257 bytes)  [inferred]
+  0x0037a0f0–0x0037a1b2  (194 bytes)  [inferred]
+  0x0037a210–0x0037a2b7  (167 bytes)  [inferred]
+  0x0037a2c0–0x0037a382  (194 bytes)  [inferred]
+  0x0037a3a0–0x0037a3be  (30 bytes)  [inferred]
+  0x0037a3c0–0x0037ae36  (2678 bytes)  [inferred]
+  0x0037ae40–0x0037afbf  (383 bytes)  [inferred]
+  0x0037afc0–0x0037bb5c  (2972 bytes)  [inferred]
+  0x0037bb60–0x0037bbae  (78 bytes)  [inferred]
+  0x0037bbb0–0x0037bbef  (63 bytes)  [inferred]
+  0x0037bbf0–0x0037bf23  (819 bytes)  [inferred]
+  0x0037bf50–0x0037c0f2  (418 bytes)  [inferred]
+  0x0037c120–0x0037c2bc  (412 bytes)  [inferred]
+  0x0037c2c0–0x0037c2fb  (59 bytes)  [inferred]
+  0x0037c300–0x0037c3c2  (194 bytes)  [inferred]
+  0x0037c3d0–0x0037c47c  (172 bytes)  [inferred]
+  0x0037c480–0x0037c4a4  (36 bytes)  [indeterminate]
+  0x0037c4b0–0x0037c662  (434 bytes)  [indeterminate]
+  0x0037c670–0x0037c6bf  (79 bytes)  [inferred]
+  0x0037c6c0–0x0037c7a2  (226 bytes)  [inferred]
+  0x0037c7b0–0x0037c7f9  (73 bytes)  [inferred]
+  0x0037c800–0x0037c876  (118 bytes)  [inferred]
+  0x0037c880–0x0037cc00  (896 bytes)  [inferred]
+  0x0037cc00–0x0037cc84  (132 bytes)  [inferred]
+  0x0037cc90–0x0037ce8e  (510 bytes)  [inferred]
+  0x0037ce90–0x0037ced5  (69 bytes)  [inferred]
+  0x0037cee0–0x0037d4a1  (1473 bytes)  [inferred]
+  0x0037d4b0–0x0037d5d0  (288 bytes)  [inferred]
+  0x0037d5d0–0x0037dac9  (1273 bytes)  [inferred]
+  0x0037dad0–0x0037db2a  (90 bytes)  [inferred]
+  0x0037db30–0x0037dbc9  (153 bytes)  [inferred]
+  0x0037dbd0–0x0037dcce  (254 bytes)  [inferred]
+  0x0037dcd0–0x0037de25  (341 bytes)  [inferred]
+  0x0037de30–0x0037df85  (341 bytes)  [inferred]
+  0x0037df90–0x0037e0e5  (341 bytes)  [inferred]
+  0x0037e1d0–0x0037e24d  (125 bytes)  [inferred]
+  0x0037e250–0x0037e2dd  (141 bytes)  [inferred]
+  0x0037e560–0x0037e5e0  (128 bytes)  [inferred]
+  0x003805c0–0x003807dc  (540 bytes)  [indeterminate]
+  0x003807e0–0x003808c3  (227 bytes)  [inferred]
+  0x00380b10–0x00380b54  (68 bytes)  [inferred]
+  0x00380b60–0x0038107c  (1308 bytes)  [inferred]
+  0x00381080–0x003813b3  (819 bytes)  [indeterminate]
+  0x003813c0–0x00381694  (724 bytes)  [inferred]
+  0x003816a0–0x003819e4  (836 bytes)  [inferred]
+  0x003819f0–0x00381d26  (822 bytes)  [inferred]
+  0x00381d30–0x00381fa9  (633 bytes)  [inferred]
+  0x00381fb0–0x003821ae  (510 bytes)  [inferred]
+  0x003821b0–0x0038244a  (666 bytes)  [inferred]
+  0x00382690–0x00382889  (505 bytes)  [indeterminate]
+  0x00382890–0x00382a08  (376 bytes)  [inferred]
+  0x00382a10–0x00382ad0  (192 bytes)  [inferred]
+  0x00382ad0–0x00382cb5  (485 bytes)  [inferred]
+  0x00382cc0–0x003830a4  (996 bytes)  [inferred]
+  0x003830b0–0x00383494  (996 bytes)  [inferred]
+  0x003834a0–0x00383850  (944 bytes)  [inferred]
+  0x00383b40–0x00383ba0  (96 bytes)  [inferred]
+  0x00383ba0–0x00383cca  (298 bytes)  [inferred]
+  0x00383cd0–0x00383dce  (254 bytes)  [inferred]
+  0x00383dd0–0x00383f87  (439 bytes)  [inferred]
+  0x00383f90–0x003841eb  (603 bytes)  [inferred]
+  0x003841f0–0x00384404  (532 bytes)  [inferred]
+  0x00387020–0x00387728  (1800 bytes)  [inferred]
+  0x00387730–0x00387e2b  (1787 bytes)  [indeterminate]
+  0x00387e30–0x0038853c  (1804 bytes)  [inferred]
+  0x00388540–0x003885fc  (188 bytes)  [inferred]
+  0x00388600–0x0038870b  (267 bytes)  [inferred]
+  0x00388710–0x003888ca  (442 bytes)  [inferred]
+  0x003888d0–0x003888f7  (39 bytes)  [inferred]
+  0x00388a00–0x00388ac5  (197 bytes)  [inferred]
+  0x00388ad0–0x00388bb4  (228 bytes)  [inferred]
+  0x00388e00–0x00388e3d  (61 bytes)  [inferred]
+  0x00388e40–0x00388e76  (54 bytes)  [inferred]
+  0x00388e80–0x00388eec  (108 bytes)  [inferred]
+  0x00388ef0–0x00388f66  (118 bytes)  [inferred]
+  0x00388f70–0x003891d0  (608 bytes)  [inferred]
+  0x00389310–0x00389351  (65 bytes)  [inferred]
+  0x00389380–0x0038951c  (412 bytes)  [inferred]
+  0x00389520–0x003896ac  (396 bytes)  [indeterminate]
+  0x003896e0–0x0038999c  (700 bytes)  [inferred]
+  0x003899c0–0x003899fa  (58 bytes)  [inferred]
+  0x00389a00–0x00389a7b  (123 bytes)  [inferred]
+  0x0038a010–0x0038a0f3  (227 bytes)  [inferred]
+  0x0038a100–0x0038a1ad  (173 bytes)  [inferred]
+  0x0038a370–0x0038a3a6  (54 bytes)  [inferred]
+  0x0038a3b0–0x0038a3db  (43 bytes)  [inferred]
+  0x0038a3e0–0x0038a4c1  (225 bytes)  [inferred]
+  0x0038a4d0–0x0038a51c  (76 bytes)  [inferred]
+  0x0038a520–0x0038a730  (528 bytes)  [inferred]
+  0x0038a730–0x0038a8d4  (420 bytes)  [indeterminate]
+  0x0038b170–0x0038b50a  (922 bytes)  [inferred]
+  0x0038b510–0x0038b9ae  (1182 bytes)  [inferred]
+  0x0038b9b0–0x0038bc75  (709 bytes)  [inferred]
+  0x0038bc80–0x0038bd46  (198 bytes)  [inferred]
+  0x0038bd50–0x0038c1a6  (1110 bytes)  [indeterminate]
+  0x0038c1b0–0x0038c79f  (1519 bytes)  [inferred]
+  0x0038c7a0–0x0038ca15  (629 bytes)  [inferred]
+  0x0038ca20–0x0038cc12  (498 bytes)  [inferred]
+  0x0038cc20–0x0038ccf0  (208 bytes)  [inferred]
+  0x0038ccf0–0x0038ce6f  (383 bytes)  [inferred]
+  0x0038ce70–0x0038d2a3  (1075 bytes)  [inferred]
+  0x0038d2b0–0x0038dc3b  (2443 bytes)  [inferred]
+  0x0038dc40–0x0038dfd3  (915 bytes)  [inferred]
+  0x0038dfe0–0x0038e26a  (650 bytes)  [inferred]
+  0x003908a0–0x00390a66  (454 bytes)  [inferred]
+  0x00390a70–0x00390ac5  (85 bytes)  [inferred]
+  0x00390ad0–0x00390eb5  (997 bytes)  [inferred]
+  0x00393750–0x003938fb  (427 bytes)  [inferred]
+  0x00393900–0x00393c93  (915 bytes)  [inferred]
+  0x00393ca0–0x00393e24  (388 bytes)  [inferred]
+  0x00393e30–0x00393fa2  (370 bytes)  [inferred]
+  0x00393fb0–0x003946de  (1838 bytes)  [inferred]
+  0x00394ba0–0x00394e9d  (765 bytes)  [inferred]
+  0x00394ea0–0x0039500c  (364 bytes)  [inferred]
+  0x00395010–0x003950aa  (154 bytes)  [inferred]
+  0x00395120–0x0039515e  (62 bytes)  [inferred]
+  0x00395190–0x003951d7  (71 bytes)  [inferred]
+  0x00395260–0x003952d1  (113 bytes)  [inferred]
+  0x003952e0–0x003953fa  (282 bytes)  [indeterminate]
+  0x00395440–0x003955d3  (403 bytes)  [inferred]
+  0x003955e0–0x00395877  (663 bytes)  [inferred]
+  0x00395880–0x003959b0  (304 bytes)  [inferred]
+  0x00395cd0–0x00395db7  (231 bytes)  [inferred]
+  0x00395dc0–0x00395ea7  (231 bytes)  [inferred]
+  0x00395eb0–0x00396024  (372 bytes)  [inferred]
+  0x00396030–0x003960b6  (134 bytes)  [inferred]
+  0x003960c0–0x00396146  (134 bytes)  [inferred]
+  0x00396150–0x003961d2  (130 bytes)  [inferred]
+  0x003961e0–0x003962a2  (194 bytes)  [inferred]
+  0x003962b0–0x0039632e  (126 bytes)  [inferred]
+  0x00396330–0x0039638a  (90 bytes)  [inferred]
+  0x00396390–0x0039651c  (396 bytes)  [indeterminate]
+  0x00396520–0x00396657  (311 bytes)  [inferred]
+  0x00396660–0x0039678f  (303 bytes)  [inferred]
+  0x003968c0–0x003969ad  (237 bytes)  [inferred]
+  0x003969b0–0x00396a78  (200 bytes)  [inferred]
+  0x00399270–0x00399b94  (2340 bytes)  [inferred]
+  0x00399ba0–0x00399c6c  (204 bytes)  [inferred]
+  0x00399c70–0x00399d3d  (205 bytes)  [inferred]
+  0x00399d40–0x0039a29c  (1372 bytes)  [inferred]
+  0x0039a2a0–0x0039a3a6  (262 bytes)  [inferred]
+  0x0039a3b0–0x0039a59c  (492 bytes)  [inferred]
+  0x003a0540–0x003a092f  (1007 bytes)  [inferred]
+  0x003a0930–0x003a0ac3  (403 bytes)  [inferred]
+  0x003a0dd0–0x003a0e0e  (62 bytes)  [inferred]
+  0x003a1180–0x003a11ad  (45 bytes)  [inferred]
+  0x003a11b0–0x003a11fe  (78 bytes)  [inferred]
+  0x003a1200–0x003a125f  (95 bytes)  [inferred]
+  0x003a1280–0x003a129e  (30 bytes)  [inferred]
+  0x003a12a0–0x003a130a  (106 bytes)  [inferred]
+  0x003a1310–0x003a136b  (91 bytes)  [inferred]
+  0x003a1370–0x003a137a  (10 bytes)  [inferred]
+  0x003a1380–0x003a1467  (231 bytes)  [inferred]
+  0x003a1470–0x003a1557  (231 bytes)  [inferred]
+  0x003a1560–0x003a16d4  (372 bytes)  [inferred]
+  0x003a16e0–0x003a1716  (54 bytes)  [inferred]
+  0x003a1720–0x003a17a6  (134 bytes)  [inferred]
+  0x003a17b0–0x003a1836  (134 bytes)  [inferred]
+  0x003a1840–0x003a18c7  (135 bytes)  [inferred]
+  0x003a18d0–0x003a1992  (194 bytes)  [inferred]
+  0x003a19a0–0x003a1a65  (197 bytes)  [inferred]
+  0x003a1a70–0x003a1b2c  (188 bytes)  [inferred]
+  0x003a1b30–0x003a1c14  (228 bytes)  [inferred]
+  0x003a1c20–0x003a1c9e  (126 bytes)  [inferred]
+  0x003a1d00–0x003a1d5f  (95 bytes)  [inferred]
+  0x003a1d60–0x003a1df9  (153 bytes)  [inferred]
+  0x003a1e00–0x003a2090  (656 bytes)  [inferred]
+  0x003a20e0–0x003a226c  (396 bytes)  [inferred]
+  0x003a2290–0x003a2439  (425 bytes)  [inferred]
+  0x003a2440–0x003a2532  (242 bytes)  [inferred]
+  0x003a2540–0x003a26d9  (409 bytes)  [indeterminate]
+  0x003a26e0–0x003a2724  (68 bytes)  [indeterminate]
+  0x003a2730–0x003a276b  (59 bytes)  [inferred]
+  0x003a2770–0x003a27aa  (58 bytes)  [inferred]
+  0x003a27b0–0x003a285c  (172 bytes)  [inferred]
+  0x003a2860–0x003a2943  (227 bytes)  [inferred]
+  0x003a2950–0x003a29fd  (173 bytes)  [inferred]
+  0x003a2a00–0x003a2ab8  (184 bytes)  [inferred]
+  0x003a2ac0–0x003a2be0  (288 bytes)  [inferred]
+  0x003a2be0–0x003a30d9  (1273 bytes)  [inferred]
+  0x003a30e0–0x003a3229  (329 bytes)  [inferred]
+  0x003a3230–0x003a32a6  (118 bytes)  [inferred]
+  0x003a32b0–0x003a32db  (43 bytes)  [inferred]
+  0x003a32e0–0x003a330b  (43 bytes)  [inferred]
+  0x003a3420–0x003a3567  (327 bytes)  [inferred]
+  0x003a3570–0x003a39fe  (1166 bytes)  [inferred]
+  0x003a3a00–0x003a3ac9  (201 bytes)  [inferred]
+  0x003a50c0–0x003a50ed  (45 bytes)  [inferred]
+  0x003a50f0–0x003a5204  (276 bytes)  [inferred]
+  0x003a5530–0x003a566b  (315 bytes)  [inferred]
+  0x003a5670–0x003a57c6  (342 bytes)  [inferred]
+  0x003a57d0–0x003a5f55  (1925 bytes)  [indeterminate]
+  0x003a65c0–0x003a673b  (379 bytes)  [indeterminate]
+  0x003a6740–0x003a7662  (3874 bytes)  [inferred]
+  0x003a7670–0x003a7807  (407 bytes)  [inferred]
+  0x003a7ef0–0x003a839d  (1197 bytes)  [inferred]
+  0x003a83a0–0x003a8496  (246 bytes)  [indeterminate]
+  0x003a84a0–0x003a86f3  (595 bytes)  [inferred]
+  0x003a8b70–0x003a8ec9  (857 bytes)  [indeterminate]
+  0x003a8ed0–0x003a8f8e  (190 bytes)  [indeterminate]
+  0x003a8f90–0x003a9110  (384 bytes)  [inferred]
+  0x003aa8f0–0x003aaf1b  (1579 bytes)  [inferred]
+  0x003ab5e0–0x003ab6c8  (232 bytes)  [inferred]
+  0x003ab6d0–0x003ac661  (3985 bytes)  [inferred]
+  0x003acc90–0x003ad5a1  (2321 bytes)  [inferred]
+  0x003ade50–0x003aeaa9  (3161 bytes)  [inferred]
+  0x003aeab0–0x003af078  (1480 bytes)  [inferred]
+  0x003b00a0–0x003b07ce  (1838 bytes)  [indeterminate]
+  0x003b1560–0x003b159e  (62 bytes)  [inferred]
+  0x003b19d0–0x003b1bf0  (544 bytes)  [inferred]
+  0x003b24b0–0x003b2532  (130 bytes)  [inferred]
+  0x003b2540–0x003b25a4  (100 bytes)  [inferred]
+  0x003b26b0–0x003b26d3  (35 bytes)  [inferred]
+  0x003b26e0–0x003b27b4  (212 bytes)  [inferred]
+  0x003b27c0–0x003b285c  (156 bytes)  [inferred]
+  0x003b2860–0x003b29ec  (396 bytes)  [inferred]
+  0x003b2a40–0x003b2a74  (52 bytes)  [inferred]
+  0x003b2a80–0x003b2adf  (95 bytes)  [inferred]
+  0x003b2c90–0x003b2d06  (118 bytes)  [inferred]
+  0x003b2d10–0x003b2d3b  (43 bytes)  [inferred]
+  0x003b2d40–0x003b2f42  (514 bytes)  [inferred]
+  0x003b2f50–0x003b310f  (447 bytes)  [inferred]
+  0x003b3110–0x003b370a  (1530 bytes)  [inferred]
+  0x003b3710–0x003b3cf6  (1510 bytes)  [inferred]
+  0x003b3d00–0x003b42ed  (1517 bytes)  [inferred]
+  0x003b42f0–0x003b4760  (1136 bytes)  [inferred]
+  0x003b4760–0x003b48ac  (332 bytes)  [inferred]
+  0x003b4950–0x003b4a43  (243 bytes)  [inferred]
+  0x003b4a50–0x003b4d46  (758 bytes)  [inferred]
+  0x003b4d50–0x003b4e28  (216 bytes)  [inferred]
+  0x003b4e30–0x003b4fb7  (391 bytes)  [inferred]
+  0x003b4fc0–0x003b5278  (696 bytes)  [inferred]
+  0x003b5280–0x003b54de  (606 bytes)  [inferred]
+  0x003b54e0–0x003b5614  (308 bytes)  [inferred]
+  0x003b5620–0x003b5857  (567 bytes)  [inferred]
+  0x003b5860–0x003b59d6  (374 bytes)  [inferred]
+  0x003b59e0–0x003b5a2a  (74 bytes)  [inferred]
+  0x003b5e90–0x003b5f84  (244 bytes)  [inferred]
+  0x003b5f90–0x003b6144  (436 bytes)  [inferred]
+  0x003b88d0–0x003b8de7  (1303 bytes)  [inferred]
+  0x003b9040–0x003b90fa  (186 bytes)  [inferred]
+  0x003b92a0–0x003b94b6  (534 bytes)  [indeterminate]
+  0x003bbbc0–0x003bbc16  (86 bytes)  [inferred]
+  0x003bbc20–0x003bbc76  (86 bytes)  [inferred]
+  0x003bbc80–0x003bbcd6  (86 bytes)  [inferred]
+  0x003bbec0–0x003bbf59  (153 bytes)  [inferred]
+  0x003bbf60–0x003bbff9  (153 bytes)  [inferred]
+  0x003bc000–0x003bc09a  (154 bytes)  [inferred]
+  0x003bc0a0–0x003bc0f7  (87 bytes)  [inferred]
+  0x003bc100–0x003bc195  (149 bytes)  [inferred]
+  0x003bc270–0x003bc3a3  (307 bytes)  [inferred]
+  0x003bc3b0–0x003bc4a3  (243 bytes)  [inferred]
+  0x003bc4b0–0x003bc549  (153 bytes)  [inferred]
+  0x003bc620–0x003bcc15  (1525 bytes)  [inferred]
+  0x003bcc20–0x003bd250  (1584 bytes)  [inferred]
+  0x003bd250–0x003bd870  (1568 bytes)  [inferred]
+  0x003bd870–0x003bdb07  (663 bytes)  [inferred]
+  0x003be3a0–0x003be441  (161 bytes)  [inferred]
+  0x003be450–0x003be472  (34 bytes)  [inferred]
+  0x003be480–0x003be58b  (267 bytes)  [inferred]
+  0x003be590–0x003be5ef  (95 bytes)  [inferred]
+  0x003be5f0–0x003be7aa  (442 bytes)  [inferred]
+  0x003be7b0–0x003be8a0  (240 bytes)  [inferred]
+  0x003be8a0–0x003be9c3  (291 bytes)  [inferred]
+  0x003be9d0–0x003bea84  (180 bytes)  [inferred]
+  0x003bea90–0x003beac6  (54 bytes)  [inferred]
+  0x003bead0–0x003beb95  (197 bytes)  [inferred]
+  0x003beba0–0x003bebfc  (92 bytes)  [inferred]
+  0x003bec00–0x003bec82  (130 bytes)  [inferred]
+  0x003bec90–0x003bed12  (130 bytes)  [inferred]
+  0x003bed20–0x003beda2  (130 bytes)  [inferred]
+  0x003bedb0–0x003bee94  (228 bytes)  [inferred]
+  0x003beea0–0x003bef1e  (126 bytes)  [inferred]
+  0x003bef20–0x003bef7a  (90 bytes)  [inferred]
+  0x003befd0–0x003bf0bb  (235 bytes)  [inferred]
+  0x003bf0c0–0x003bf0e3  (35 bytes)  [inferred]
+  0x003bf0f0–0x003bf166  (118 bytes)  [inferred]
+  0x003bf170–0x003bf3d0  (608 bytes)  [inferred]
+  0x003bf3d0–0x003bf4d1  (257 bytes)  [inferred]
+  0x003bf5f0–0x003c0066  (2678 bytes)  [inferred]
+  0x003c0070–0x003c01ef  (383 bytes)  [inferred]
+  0x003c01f0–0x003c04ac  (700 bytes)  [inferred]
+  0x003c04b0–0x003c104c  (2972 bytes)  [inferred]
+  0x003c1050–0x003c109e  (78 bytes)  [inferred]
+  0x003c10c0–0x003c10ff  (63 bytes)  [inferred]
+  0x003c1120–0x003c12d2  (434 bytes)  [indeterminate]
+  0x003c12e0–0x003c132f  (79 bytes)  [inferred]
+  0x003c1330–0x003c1412  (226 bytes)  [inferred]
+  0x003c1420–0x003c1469  (73 bytes)  [inferred]
+  0x003c1470–0x003c14e6  (118 bytes)  [inferred]
+  0x003c14f0–0x003c155b  (107 bytes)  [inferred]
+  0x003c1560–0x003c18e0  (896 bytes)  [inferred]
+  0x003c18e0–0x003c1964  (132 bytes)  [inferred]
+  0x003c1970–0x003c1a53  (227 bytes)  [inferred]
+  0x003c1a60–0x003c1c5e  (510 bytes)  [inferred]
+  0x003c1c60–0x003c1d0d  (173 bytes)  [inferred]
+  0x003c1d10–0x003c1da9  (153 bytes)  [inferred]
+  0x003c1db0–0x003c1f58  (424 bytes)  [inferred]
+  0x003c1f60–0x003c229b  (827 bytes)  [inferred]
+  0x003c22a0–0x003c240b  (363 bytes)  [inferred]
+  0x003c2410–0x003c257a  (362 bytes)  [inferred]
+  0x003c2580–0x003c26ea  (362 bytes)  [indeterminate]
+  0x003c26f0–0x003c2850  (352 bytes)  [indeterminate]
+  0x003c2850–0x003c29a4  (340 bytes)  [inferred]
+  0x003c3730–0x003c38ab  (379 bytes)  [inferred]
+  0x003c38b0–0x003c3a85  (469 bytes)  [inferred]
+  0x003c3a90–0x003c3b18  (136 bytes)  [inferred]
+  0x003c3b20–0x003c3be1  (193 bytes)  [inferred]
+  0x003c3bf0–0x003c3e96  (678 bytes)  [inferred]
+  0x003c4960–0x003c4a28  (200 bytes)  [inferred]
+  0x003c82f0–0x003c8721  (1073 bytes)  [inferred]
+  0x003c9f80–0x003ca664  (1764 bytes)  [inferred]
+  0x003ca670–0x003ca75d  (237 bytes)  [inferred]
+  0x003ca760–0x003ca81a  (186 bytes)  [inferred]
+  0x003cb2d0–0x003cb4a7  (471 bytes)  [inferred]
+  0x003cb4b0–0x003cb57e  (206 bytes)  [inferred]
+  0x003cb770–0x003cb88a  (282 bytes)  [inferred]
+  0x003cc260–0x003cc32a  (202 bytes)  [inferred]
+  0x003cc330–0x003cd386  (4182 bytes)  [inferred]
+  0x003cd390–0x003cd3f0  (96 bytes)  [inferred]
+  0x003cd3f0–0x003cd472  (130 bytes)  [inferred]
+  0x003cd480–0x003cd520  (160 bytes)  [inferred]
+  0x003cd520–0x003cd7f7  (727 bytes)  [inferred]
+  0x003cd800–0x003cdb1e  (798 bytes)  [inferred]
+  0x003cdb20–0x003cdec9  (937 bytes)  [inferred]
+  0x003cded0–0x003ce29b  (971 bytes)  [inferred]
+  0x003ce2a0–0x003ce37d  (221 bytes)  [inferred]
+  0x003ce380–0x003ce402  (130 bytes)  [inferred]
+  0x003ce410–0x003ce492  (130 bytes)  [inferred]
+  0x003ce4a0–0x003ce522  (130 bytes)  [inferred]
+  0x003ce530–0x003ce5bc  (140 bytes)  [inferred]
+  0x003ce5c0–0x003ce61c  (92 bytes)  [inferred]
+  0x003ce620–0x003ce6a2  (130 bytes)  [inferred]
+  0x003ce6e0–0x003ce70f  (47 bytes)  [inferred]
+  0x003ce710–0x003ce802  (242 bytes)  [inferred]
+  0x003ce810–0x003ce8c3  (179 bytes)  [inferred]
+  0x003ce8d0–0x003ce97c  (172 bytes)  [indeterminate]
+  0x003ce980–0x003ce9ab  (43 bytes)  [inferred]
+  0x003ce9ab–0x003ce9de  (51 bytes)  [inferred]
+  0x003ce9e0–0x003cea32  (82 bytes)  [inferred]
+  0x003cea40–0x003d027c  (6204 bytes)  [inferred]
+  0x003d0280–0x003d0903  (1667 bytes)  [inferred]
+  0x003d0910–0x003d0a25  (277 bytes)  [inferred]
+  0x003d0a30–0x003d131d  (2285 bytes)  [inferred]
+  0x003d1320–0x003d1565  (581 bytes)  [inferred]
+  0x003d1570–0x003d171e  (430 bytes)  [inferred]
+  0x003d1720–0x003d1875  (341 bytes)  [inferred]
+  0x003d1880–0x003d234b  (2763 bytes)  [inferred]
+  0x003d2350–0x003d2512  (450 bytes)  [inferred]
+  0x003d2520–0x003d26ac  (396 bytes)  [inferred]
+  0x003d2c60–0x003d2dd2  (370 bytes)  [inferred]
+  0x003d2de0–0x003d2f1b  (315 bytes)  [inferred]
+  0x003d2f20–0x003d2f5d  (61 bytes)  [indeterminate]
+  0x003d3290–0x003d3405  (373 bytes)  [inferred]
+  0x003d38b0–0x003d3bb7  (775 bytes)  [inferred]
+  0x003d3bc0–0x003d3bfd  (61 bytes)  [indeterminate]
+  0x003d3c00–0x003d3ca1  (161 bytes)  [inferred]
+  0x003d3cb0–0x003d3d95  (229 bytes)  [inferred]
+  0x003d5a90–0x003d5bcf  (319 bytes)  [indeterminate]
+  0x003d6570–0x003d6681  (273 bytes)  [inferred]
+  0x003d6690–0x003d6791  (257 bytes)  [inferred]
+  0x003d67a0–0x003d68a8  (264 bytes)  [inferred]
+  0x003d7510–0x003d7543  (51 bytes)  [inferred]
+  0x003d7550–0x003d7606  (182 bytes)  [inferred]
+  0x003d7610–0x003d76c6  (182 bytes)  [inferred]
+  0x003d76d0–0x003d7786  (182 bytes)  [inferred]
+  0x003da100–0x003da1a1  (161 bytes)  [inferred]
+  0x003da1b0–0x003da20f  (95 bytes)  [inferred]
+  0x003da210–0x003da2e2  (210 bytes)  [inferred]
+  0x003da2f0–0x003da326  (54 bytes)  [inferred]
+  0x003da330–0x003da38c  (92 bytes)  [inferred]
+  0x003da390–0x003da3ec  (92 bytes)  [inferred]
+  0x003da3f0–0x003da472  (130 bytes)  [indeterminate]
+  0x003da480–0x003da4fe  (126 bytes)  [inferred]
+  0x003da560–0x003da64b  (235 bytes)  [inferred]
+  0x003da650–0x003da673  (35 bytes)  [inferred]
+  0x003da680–0x003da781  (257 bytes)  [inferred]
+  0x003da8e0–0x003da921  (65 bytes)  [indeterminate]
+  0x003da940–0x003daa6f  (303 bytes)  [inferred]
+  0x003daa70–0x003daace  (94 bytes)  [inferred]
+  0x003daad0–0x003db63e  (2926 bytes)  [inferred]
+  0x003db640–0x003db68e  (78 bytes)  [inferred]
+  0x003db6c0–0x003db6ff  (63 bytes)  [inferred]
+  0x003db700–0x003db736  (54 bytes)  [inferred]
+  0x003db740–0x003db992  (594 bytes)  [inferred]
+  0x003db9c0–0x003dba6c  (172 bytes)  [indeterminate]
+  0x003dbaa0–0x003dbc43  (419 bytes)  [indeterminate]
+  0x003dbc50–0x003dbc9f  (79 bytes)  [inferred]
+  0x003dbca0–0x003dbd82  (226 bytes)  [inferred]
+  0x003dbd90–0x003dbdd9  (73 bytes)  [inferred]
+  0x003dbde0–0x003dbe56  (118 bytes)  [inferred]
+  0x003dbe60–0x003dbecb  (107 bytes)  [indeterminate]
+  0x003dbed0–0x003dc250  (896 bytes)  [inferred]
+  0x003dc250–0x003dc2d4  (132 bytes)  [inferred]
+  0x003dc2e0–0x003dc4de  (510 bytes)  [inferred]
+  0x003dc4e0–0x003dc582  (162 bytes)  [indeterminate]
+  0x003dc5d0–0x003dc669  (153 bytes)  [inferred]
+  0x003dc670–0x003dc6fe  (142 bytes)  [indeterminate]
+  0x003dc700–0x003dc7e3  (227 bytes)  [inferred]
+  0x003dc7f0–0x003dc90b  (283 bytes)  [inferred]
+  0x003dc910–0x003dca2b  (283 bytes)  [inferred]
+  0x003dca30–0x003dd354  (2340 bytes)  [inferred]
+  0x003dd820–0x003dd8f3  (211 bytes)  [inferred]
+  0x003df040–0x003df0a4  (100 bytes)  [inferred]
+  0x003df0b0–0x003df114  (100 bytes)  [inferred]
+  0x003df120–0x003df184  (100 bytes)  [inferred]
+  0x003df190–0x003df1f4  (100 bytes)  [inferred]
+  0x003df200–0x003df264  (100 bytes)  [inferred]
+  0x003df270–0x003df2d4  (100 bytes)  [inferred]
+  0x003df2e0–0x003df344  (100 bytes)  [inferred]
+  0x003df350–0x003df3b4  (100 bytes)  [inferred]
+  0x003df3c0–0x003df424  (100 bytes)  [inferred]
+  0x003df430–0x003df494  (100 bytes)  [inferred]
+  0x003df4a0–0x003df504  (100 bytes)  [inferred]
+  0x003df510–0x003df574  (100 bytes)  [inferred]
+  0x003df580–0x003df5e4  (100 bytes)  [inferred]
+  0x003df5f0–0x003df69f  (175 bytes)  [inferred]
+  0x003df6a0–0x003df742  (162 bytes)  [indeterminate]
+  0x003dfab0–0x003dfca5  (501 bytes)  [indeterminate]
+  0x003dfed0–0x003e0a50  (2944 bytes)  [inferred]
+  0x003e1280–0x003e14ad  (557 bytes)  [inferred]
+  0x003e14b0–0x003e16c0  (528 bytes)  [inferred]
+  0x003e16c0–0x003e1895  (469 bytes)  [indeterminate]
+  0x003e3500–0x003e3570  (112 bytes)  [inferred]
+  0x003e3650–0x003e3670  (32 bytes)  [inferred]
+  0x003e3670–0x003e368c  (28 bytes)  [inferred]
+  0x003e3690–0x003e36ac  (28 bytes)  [inferred]
+  0x003e41d0–0x003e420e  (62 bytes)  [inferred]
+  0x003e4210–0x003e434e  (318 bytes)  [inferred]
+  0x003e4350–0x003e44df  (399 bytes)  [inferred]
+  0x003e44e0–0x003e4700  (544 bytes)  [inferred]
+  0x003e6db0–0x003e6e3e  (142 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 5736 functions mapped (220 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain          112 predicted   TP=   63  FP=  30  unknown=  19   precision=67.7%
+  inferred         750 predicted   TP=   82  FP= 536  unknown= 132   precision=13.3%
+  indeterminate     88 predicted   TP=   14  FP=  60  unknown=  14   precision=18.9%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     63  ( 28.6%)  certain          (rock-solid signal)
+     82  ( 37.3%)  inferred         (call-graph reach)
+     14  (  6.4%)  indeterminate    (shared/mixed callers)
+     61  ( 27.7%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x00321890  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x00324db0  /tmp/unhusk-local-bench/git-delta/src/subcommands/parse_ansi.rs
+    0x00324e10  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_syntax_themes.rs
+    0x003282d0  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_syntax_themes.rs
+    0x00329660  /tmp/unhusk-local-bench/git-delta/src/utils/tabs.rs
+    0x00329b10  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x00329ce0  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x0032a450  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x0032a790  /tmp/unhusk-local-bench/git-delta/src/utils/bat/assets.rs
+    0x0032b810  /tmp/unhusk-local-bench/git-delta/src/config.rs
+    0x00339f60  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x0033aeb0  /tmp/unhusk-local-bench/git-delta/src/utils/path.rs
+    0x00344300  /tmp/unhusk-local-bench/git-delta/src/parse_styles.rs
+    0x003484f0  /tmp/unhusk-local-bench/git-delta/src/options/theme.rs
+    0x00349150  /tmp/unhusk-local-bench/git-delta/src/features/hyperlinks.rs
+    0x0034a190  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_stat.rs
+    0x00353f10  /tmp/unhusk-local-bench/git-delta/src/features/line_numbers.rs
+    0x00354070  /tmp/unhusk-local-bench/git-delta/src/features/line_numbers.rs
+    0x00355ed0  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00356540  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00356af0  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00356cc0  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00356f00  /tmp/unhusk-local-bench/git-delta/src/handlers/blame.rs
+    0x003576a0  /tmp/unhusk-local-bench/git-delta/src/handlers/blame.rs
+    0x00358a40  /tmp/unhusk-local-bench/git-delta/src/handlers/blame.rs
+    0x00358e20  /tmp/unhusk-local-bench/git-delta/src/handlers/blame.rs
+    0x00359870  /tmp/unhusk-local-bench/git-delta/src/git_config/remote.rs
+    0x00363e40  /tmp/unhusk-local-bench/git-delta/src/color.rs
+    0x00367b40  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x00368530  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x00374d70  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x00374fc0  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x003756e0  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x0037e6f0  /tmp/unhusk-local-bench/git-delta/src/main.rs
+    0x00396bb0  /tmp/unhusk-local-bench/git-delta/src/wrapping.rs
+    0x0039a700  /tmp/unhusk-local-bench/git-delta/src/wrapping.rs
+    0x0039c9e0  /tmp/unhusk-local-bench/git-delta/src/wrapping.rs
+    0x0039e6c0  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x0039f860  /tmp/unhusk-local-bench/git-delta/src/utils/helpwrap.rs
+    0x003a9110  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003aaf20  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003ac670  /tmp/unhusk-local-bench/git-delta/src/subcommands/external.rs
+    0x003ad5b0  /tmp/unhusk-local-bench/git-delta/src/features/side_by_side.rs
+    0x003adb40  /tmp/unhusk-local-bench/git-delta/src/features/side_by_side.rs
+    0x003af080  /tmp/unhusk-local-bench/git-delta/src/features/navigate.rs
+    0x003b6150  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_config.rs
+    0x003b87a0  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x003b8df0  /tmp/unhusk-local-bench/git-delta/src/utils/syntect.rs
+    0x003bdb10  /tmp/unhusk-local-bench/git-delta/src/format.rs
+    0x003bdf00  /tmp/unhusk-local-bench/git-delta/src/format.rs
+    0x003c4bd0  /tmp/unhusk-local-bench/git-delta/src/format.rs
+    0x003c4d30  /tmp/unhusk-local-bench/git-delta/src/format.rs
+    0x003c6df0  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_colors.rs
+    0x003c7b70  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk_header.rs
+    0x003c8730  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk_header.rs
+    0x003c94f0  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk.rs
+    0x003d3da0  /tmp/unhusk-local-bench/git-delta/src/handlers/ripgrep_json.rs
+    0x003d7aa0  /tmp/unhusk-local-bench/git-delta/src/edits.rs
+    0x003e0a50  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e0eb0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e18a0  /tmp/unhusk-local-bench/git-delta/src/edits.rs
+    0x003e2350  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_themes.rs
+    0x003e2fa0  /tmp/unhusk-local-bench/git-delta/src/handlers/submodule.rs
+  DWARF-user in inferred:
+    0x002ef840  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x003245f0  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x00324740  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x00324f80  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x003254d0  /tmp/unhusk-local-bench/git-delta/src/colors.rs
+    0x00327500  /tmp/unhusk-local-bench/git-delta/src/subcommands/parse_ansi.rs
+    0x003299e0  /tmp/unhusk-local-bench/git-delta/src/utils/tabs.rs
+    0x00329f00  /tmp/unhusk-local-bench/git-delta/src/utils/process.rs
+    0x0032a5f0  /tmp/unhusk-local-bench/git-delta/src/features/color_only.rs
+    0x0033aa70  /tmp/unhusk-local-bench/git-delta/src/utils/git.rs
+    0x0033b400  /tmp/unhusk-local-bench/git-delta/src/utils/path.rs
+    0x0033b670  /tmp/unhusk-local-bench/git-delta/src/utils/path.rs
+    0x0033b7e0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x003413b0  /tmp/unhusk-local-bench/git-delta/src/features/hyperlinks.rs
+    0x00347510  /tmp/unhusk-local-bench/git-delta/src/parse_styles.rs
+    0x00347660  /tmp/unhusk-local-bench/git-delta/src/parse_styles.rs
+    0x00347ce0  /tmp/unhusk-local-bench/git-delta/src/parse_styles.rs
+    0x00347ea0  /tmp/unhusk-local-bench/git-delta/src/parse_styles.rs
+    0x00349070  /tmp/unhusk-local-bench/git-delta/src/features/hyperlinks.rs
+    0x00349af0  /tmp/unhusk-local-bench/git-delta/src/features/diff_highlight.rs
+    0x0034e490  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x0034e6b0  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00353a50  /tmp/unhusk-local-bench/git-delta/src/features/line_numbers.rs
+    0x003547c0  /tmp/unhusk-local-bench/git-delta/src/features/diff_so_fancy.rs
+    0x00363130  /tmp/unhusk-local-bench/git-delta/src/parse_style.rs
+    0x003637f0  /tmp/unhusk-local-bench/git-delta/src/parse_style.rs
+    0x00364490  /tmp/unhusk-local-bench/git-delta/src/subcommands/diff.rs
+    0x00364ca0  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x00365c10  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x00367df0  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x00368110  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x00368440  /tmp/unhusk-local-bench/git-delta/src/utils/syntect.rs
+    0x00373d70  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x003743c0  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x00374bd0  /tmp/unhusk-local-bench/git-delta/src/options/set.rs
+    0x003754f0  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x00375a50  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x00375ee0  /tmp/unhusk-local-bench/git-delta/src/handlers/diff_header.rs
+    0x00376570  /tmp/unhusk-local-bench/git-delta/src/options/option_value.rs
+    0x00376820  /tmp/unhusk-local-bench/git-delta/src/options/option_value.rs
+    0x00376a00  /tmp/unhusk-local-bench/git-delta/src/options/option_value.rs
+    0x00377130  /tmp/unhusk-local-bench/git-delta/src/main.rs
+    0x0037e560  /tmp/unhusk-local-bench/git-delta/src/main.rs
+    0x00383dd0  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x00383f90  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x003841f0  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x00387020  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00387e30  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00393ca0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00393e30  /tmp/unhusk-local-bench/git-delta/src/utils/bat/terminal.rs
+    0x00393fb0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00394ba0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00395010  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk_header.rs
+    0x00395190  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00395260  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x003a0540  /tmp/unhusk-local-bench/git-delta/src/handlers/merge_conflict.rs
+    0x003a0930  /tmp/unhusk-local-bench/git-delta/src/handlers/merge_conflict.rs
+    0x003a8f90  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003aa8f0  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003ab5e0  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003ab6d0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003acc90  /tmp/unhusk-local-bench/git-delta/src/features/side_by_side.rs
+    0x003ade50  /tmp/unhusk-local-bench/git-delta/src/features/raw.rs
+    0x003aeab0  /tmp/unhusk-local-bench/git-delta/src/features/navigate.rs
+    0x003b19d0  /tmp/unhusk-local-bench/git-delta/src/style.rs
+    0x003b2d40  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_config.rs
+    0x003b2f50  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_config.rs
+    0x003b3110  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x003b3710  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x003b3d00  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x003b5620  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003b5860  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_config.rs
+    0x003b59e0  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_config.rs
+    0x003bc620  /tmp/unhusk-local-bench/git-delta/src/options/get.rs
+    0x003c82f0  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk_header.rs
+    0x003c9f80  /tmp/unhusk-local-bench/git-delta/src/style.rs
+    0x003ca670  /tmp/unhusk-local-bench/git-delta/src/format.rs
+    0x003dfed0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e1280  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e14b0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e3500  /tmp/unhusk-local-bench/git-delta/src/utils/bat/output.rs
+    0x003e44e0  /tmp/unhusk-local-bench/git-delta/src/style.rs
+  DWARF-user in indeterminate:
+    0x002f8250  /tmp/unhusk-local-bench/git-delta/src/cli.rs
+    0x0031cbc0  /tmp/unhusk-local-bench/git-delta/src/cli.rs
+    0x003274b0  /tmp/unhusk-local-bench/git-delta/src/config.rs
+    0x00347ff0  /tmp/unhusk-local-bench/git-delta/src/options/theme.rs
+    0x00363ae0  /tmp/unhusk-local-bench/git-delta/src/color.rs
+    0x003770d0  /tmp/unhusk-local-bench/git-delta/src/main.rs
+    0x00387730  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x003952e0  /tmp/unhusk-local-bench/git-delta/src/style.rs
+    0x003a8b70  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003a8ed0  /tmp/unhusk-local-bench/git-delta/src/paint.rs
+    0x003b00a0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x003b92a0  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x003dfab0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+    0x003e16c0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+  DWARF-user in library (missed):
+    0x002ef920  /tmp/unhusk-local-bench/git-delta/src/cli.rs
+    0x00327710  /tmp/unhusk-local-bench/git-delta/src/subcommands/list_syntax_themes.rs
+    0x00328a80  /tmp/unhusk-local-bench/git-delta/src/subcommands/show_syntax_themes.rs
+    0x0032b420  /tmp/unhusk-local-bench/git-delta/src/utils/bat/assets.rs
+    0x00341b20  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341b40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341c40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341d10  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341e00  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341f00  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00341fd0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003420c0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034abe0  /tmp/unhusk-local-bench/git-delta/src/ansi/iterator.rs
+    0x0034f9b0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034f9d0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fa30  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fac0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fb40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fbd0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fcb0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fd80  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fdf0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034fee0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x0034ff50  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x00354ce0  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x00355060  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x003551b0  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x00355290  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x00355710  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x00355a10  /tmp/unhusk-local-bench/git-delta/src/handlers/draw.rs
+    0x00355c40  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00356870  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x00364240  /tmp/unhusk-local-bench/git-delta/src/color.rs
+    0x00383850  /tmp/unhusk-local-bench/git-delta/src/git_config/mod.rs
+    0x003946e0  /tmp/unhusk-local-bench/git-delta/src/config.rs
+    0x00394710  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00394b30  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk_header.rs
+    0x003950b0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x00395160  /tmp/unhusk-local-bench/git-delta/src/handlers/grep.rs
+    0x003951e0  /tmp/unhusk-local-bench/git-delta/src/delta.rs
+    0x0039d8d0  /tmp/unhusk-local-bench/git-delta/src/wrapping.rs
+    0x003a3ad0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3af0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3b60  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3bd0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3c40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3ca0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3d00  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3de0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3e40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3f20  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3f40  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003a3fa0  /tmp/unhusk-local-bench/git-delta/src/features/mod.rs
+    0x003affb0  /tmp/unhusk-local-bench/git-delta/src/subcommands/external.rs
+    0x003b1e60  /tmp/unhusk-local-bench/git-delta/src/subcommands/external.rs
+    0x003c3130  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk.rs
+    0x003c3290  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk.rs
+    0x003c4a30  /tmp/unhusk-local-bench/git-delta/src/style.rs
+    0x003c9260  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk.rs
+    0x003c92d0  /tmp/unhusk-local-bench/git-delta/src/handlers/hunk.rs
+    0x003dfcb0  /tmp/unhusk-local-bench/git-delta/src/ansi/mod.rs
+
+  total captured :   145  (65.9% of 220 DWARF-user fns)
+  total missed   :    61  (27.7%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 67.7%
+  Certain recall    : 28.6%  (63/220 DWARF-user fns reached by certain)
+  Overall recall    : 65.9%  (certain+inferred)
+
+validation complete.
