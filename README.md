@@ -82,6 +82,28 @@ cargo build --release
 
 Requires Rust 1.70+. No C library deps, no external tools at runtime.
 
+## Docker
+
+You can easily build and run `unhusk` using Docker, which provides an isolated environment without needing to install the Rust toolchain.
+
+### Build the Image
+
+```sh
+docker build -t unhusk .
+```
+
+### Run the Container
+
+When running via Docker, you need to mount the directory containing your binaries as a volume so the container can access them.
+
+```sh
+# Mount the current directory and analyze a binary
+docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
+
+# Validate against an unstripped binary
+docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf> --validate <unstripped-elf>
+```
+
 ## Usage
 
 ```sh
