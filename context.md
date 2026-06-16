@@ -609,4 +609,10 @@ Re-ran both `symbol_precision.py` and `depth_sweep.py` to verify all numbers.
 Both reproduce exactly: median symbol precision 94.4%, 42 genuine FPs (5.2% FP rate);
 depth-1 9.3% / depth-2 6.4% / depth-∞ 5.1% pooled inferred precision.
 
+## Cargo default-run fix (2026-06-16)
+
+`anchor_headroom.rs` in `src/bin/` made `cargo run` fail with "ambiguous binary" error.
+Added `default-run = "unhusk"` to Cargo.toml (commit `aeef29e`). `cargo run` now works
+correctly. All 6 integration tests still pass.
+
 No further open threads.
