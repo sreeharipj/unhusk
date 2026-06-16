@@ -7,3 +7,6 @@
 {"crate":"grex","binname":"//github.com/pemistahl/grex:grex","error":"clone_failed","source":"local"}
 {"crate":"xsv","binname":"//github.com/BurntSushi/xsv:xsv","error":"clone_failed","source":"local"}
 {"crate":"tokei","binname":"//github.com/XAMPPRocky/tokei:tokei","error":"clone_failed","source":"local"}
+{"crate":"just","binname":"//github.com/casey/just:just","error":"clone_failed","source":"local"}
+{"crate":"fd-find","binname":"//github.com/sharkdp/fd:fd","error":"clone_failed","source":"local"}
+{"crate":"bat","binname":"//github.com/sharkdp/bat:bat","error":"clone_failed","source":"local"}
