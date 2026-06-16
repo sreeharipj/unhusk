@@ -30,3 +30,12 @@ hgrep:https://github.com/rhysd/hgrep:hgrep
 git-delta:https://github.com/dandavison/delta:delta
 bottom:https://github.com/ClementTsang/bottom:btm
 broot:https://github.com/Canop/broot:broot
+# Batch 3 — further expansion (ordered small→large by cargo-install FDE count)
+loc:https://github.com/cgag/loc:loc
+kondo:https://github.com/tbillington/kondo:kondo
+gping:https://github.com/orf/gping:gping
+mcfly:https://github.com/cantino/mcfly:mcfly
+jaq:https://github.com/01mf02/jaq:jaq
+mprocs:https://github.com/pvolok/mprocs:mprocs
+pueue:https://github.com/Nukesor/pueue:pueue
+onefetch:https://github.com/o2sh/onefetch:onefetch
