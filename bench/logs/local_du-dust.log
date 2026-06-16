@@ -1,3 +1,75 @@
 === START du-dust repo=https binname=//github.com/bootandy/dust:dust Wednesday 17 June 2026 03:36:19 AM IST ===
 fatal: repository 'https' does not exist
 CLONE_FAILED
+=== START du-dust repo=https://github.com/bootandy/dust binname=dust Wednesday 17 June 2026 03:39:25 AM IST ===
+Cloning into '/tmp/unhusk-local-bench/du-dust'...
+   Compiling proc-macro2 v1.0.105
+   Compiling quote v1.0.43
+   Compiling unicode-ident v1.0.22
+   Compiling utf8parse v0.2.2
+   Compiling heck v0.5.0
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.13
+   Compiling colorchoice v1.0.4
+   Compiling crossbeam-utils v0.8.21
+   Compiling memchr v2.7.6
+   Compiling clap_lex v0.7.6
+   Compiling serde_core v1.0.228
+   Compiling strsim v0.11.1
+   Compiling libc v0.2.180
+   Compiling serde v1.0.228
+   Compiling anstyle-parse v0.2.7
+   Compiling cfg_aliases v0.2.1
+   Compiling bitflags v2.10.0
+   Compiling autocfg v1.5.0
+   Compiling nix v0.30.1
+   Compiling anstream v0.6.21
+   Compiling thiserror v1.0.69
+   Compiling rayon-core v1.13.0
+   Compiling zmij v1.0.12
+   Compiling rustix v1.1.3
+   Compiling roff v0.2.2
+   Compiling cfg-if v1.0.4
+   Compiling regex-syntax v0.8.8
+   Compiling clap_builder v4.5.54
+   Compiling linux-raw-sys v0.11.0
+   Compiling serde_json v1.0.149
+   Compiling num-traits v0.2.19
+   Compiling iana-time-zone v0.1.64
+   Compiling itoa v1.0.17
+   Compiling aho-corasick v1.1.4
+   Compiling either v1.15.0
+   Compiling crossbeam-epoch v0.9.18
+   Compiling syn v2.0.114
+   Compiling nu-ansi-term v0.50.3
+   Compiling stfu8 v0.2.7
+   Compiling unicode-width v0.2.2
+   Compiling thousands v0.2.0
+   Compiling crossbeam-deque v0.8.6
+   Compiling chrono v0.4.42
+   Compiling terminal_size v0.4.3
+   Compiling lscolors v0.21.0
+   Compiling rayon v1.11.0
+   Compiling sysinfo v0.37.2
+   Compiling regex-automata v0.4.13
+   Compiling ctrlc v3.5.1
+   Compiling clap_derive v4.5.49
+   Compiling serde_derive v1.0.228
+   Compiling thiserror-impl v1.0.69
+   Compiling clap v4.5.54
+   Compiling clap_complete v4.5.65
+   Compiling clap_mangen v0.2.31
+   Compiling regex v1.12.2
+   Compiling du-dust v1.2.4 (/tmp/unhusk-local-bench/du-dust)
+   Compiling toml v0.5.11
+   Compiling config-file v0.2.3
+    Finished `release` profile [optimized + debuginfo] target(s) in 40.30s
+file: /tmp/unhusk-local-bench/du-dust/target/release/dust: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=a9563ccfe3fa026504fe46c7e4216099021a611b, with debug_info, not stripped
+bin_size: 2954928 bytes
+metrics: {"n_fdes": 2689, "n_certain": 17, "n_call_closure": 504, "n_locations": 35, "dwarf_certain_n": 17, "dwarf_certain_tp": 15, "dwarf_certain_fp": 2, "dwarf_certain_prec": 88.2, "dwarf_inferred_n": 305, "dwarf_inferred_tp": 14, "dwarf_inferred_fp": 233, "dwarf_inferred_prec": 5.7, "dwarf_certain_prec_hl": 88.2, "dwarf_certain_recall": 45.5, "dwarf_overall_recall": 87.9, "sym_user": 15, "sym_std": 2, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 88.24, "n_certain_addrs_parsed": 17}
+d1: inf_prec=14.1 recall=84.8
+d2: inf_prec=7.1 recall=84.8
+perf: wall=0.03s rss=8656kb
+APPENDED: {"n_fdes": 2689, "n_certain": 17, "n_call_closure": 504, "n_locations": 35, "dwarf_certain_n": 17, "dwarf_certain_tp": 15, "dwarf_certain_fp": 2, "dwarf_certain_prec": 88.2, "dwarf_inferred_n": 305, "dwarf_inferred_tp": 14, "dwarf_inferred_fp": 233, "dwarf_inferred_prec": 5.7, "dwarf_certain_prec_hl": 88.2, "dwarf_certain_recall": 45.5, "dwarf_overall_recall": 87.9, "sym_user": 15, "sym_std": 2, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 88.24, "n_certain_addrs_parsed": 17, "crate": "du-dust", "binname": "dust", "bin_size": 2954928, "d1_inf_prec": 14.1, "d1_recall": 84.8, "d2_inf_prec": 7.1, "d2_recall": 84.8, "wall_sec": 0.03, "peak_rss_kb": 8656, "source": "local"}
+=== END du-dust Wednesday 17 June 2026 03:40:07 AM IST status=ok ===
