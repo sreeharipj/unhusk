@@ -1,3 +1,6 @@
 {"crate":"pastel","binname":"//github.com/sharkdp/pastel:pastel","error":"clone_failed","source":"local"}
 {"crate":"zoxide","binname":"//github.com/ajeetdsouza/zoxide:zoxide","error":"clone_failed","source":"local"}
 {"crate":"hexyl","binname":"//github.com/sharkdp/hexyl:hexyl","error":"clone_failed","source":"local"}
+{"crate":"hyperfine","binname":"//github.com/sharkdp/hyperfine:hyperfine","error":"clone_failed","source":"local"}
+{"crate":"sd","binname":"//github.com/chmln/sd:sd","error":"clone_failed","source":"local"}
+{"crate":"du-dust","binname":"//github.com/bootandy/dust:dust","error":"clone_failed","source":"local"}
