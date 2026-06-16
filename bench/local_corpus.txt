@@ -1,4 +1,4 @@
-# Local-source corpus: 13 baseline binaries rebuilt from git clone
+# Local-source corpus: baseline + extended binaries rebuilt from git clone
 # format: crate_key:repo_url:binname
 # Ordered smallest → largest (by FDE count) for fast early results
 pastel:https://github.com/sharkdp/pastel:pastel
@@ -14,3 +14,19 @@ just:https://github.com/casey/just:just
 fd-find:https://github.com/sharkdp/fd:fd
 bat:https://github.com/sharkdp/bat:bat
 ripgrep:https://github.com/BurntSushi/ripgrep:rg
+# Extended corpus — additional pure-Rust CLI tools (ordered small→large)
+ripsecrets:https://github.com/sirwart/ripsecrets:ripsecrets
+htmlq:https://github.com/mgdm/htmlq:htmlq
+csview:https://github.com/wfxr/csview:csview
+tealdeer:https://github.com/dbrgn/tealdeer:tldr
+dua-cli:https://github.com/Byron/dua-cli:dua
+ouch:https://github.com/ouch-org/ouch:ouch
+procs:https://github.com/dalance/procs:procs
+fclones:https://github.com/pkolaczk/fclones:fclones
+xh:https://github.com/ducaale/xh:xh
+lsd:https://github.com/lsd-rs/lsd:lsd
+eza:https://github.com/eza-community/eza:eza
+hgrep:https://github.com/rhysd/hgrep:hgrep
+git-delta:https://github.com/dandavison/delta:delta
+bottom:https://github.com/ClementTsang/bottom:btm
+broot:https://github.com/Canop/broot:broot
