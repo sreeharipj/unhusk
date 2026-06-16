@@ -699,10 +699,33 @@ All other binaries within 0–1pp of the context.md tables.
 - `bench/corpus.txt` — 65 crates for cargo-install run
 - `bench/local_corpus.txt` — 13 baseline repos for local-source run
 
-### What remains / no open threads
+### Phase 3: extended local-source run (IN PROGRESS as of 2026-06-17)
 
-The benchmark is complete:
-- Performance: fully measured at 52-binary scale
-- Accuracy: confirmed via 13 local-source rebuilds (within 0.1pp of baseline)
-- Applicability boundary: documented and explained (cargo-registry path classification)
-- No additional binary corpus work needed
+**Goal:** expand local-source accuracy corpus from 13 → 28 binaries by adding 15 more
+repos to `bench/local_corpus.txt` (ripsecrets, htmlq, csview, tealdeer, dua-cli, ouch,
+procs, fclones, xh, lsd, eza, hgrep, git-delta, bottom, broot).
+
+Harness: `bench/run_local.sh` (same as Phase 2, self-checkpointing every 3 crates).
+Aggregate: `bench/aggregate.py` updated to split results into baseline-13 / extended-15
+/ combined-28.
+
+**Partial results (6 of 15 new crates done):**
+
+| crate | n_certain | sym_prec | recall |
+|-------|-----------|---------|--------|
+| ripsecrets | 11 | 45.5% | 64.3% |
+| htmlq | 4 | 100.0% | 18.5% |
+| csview | 4 | 75.0% | 16.7% |
+| tealdeer | 7 | 100.0% | 60.0% |
+| dua-cli | 22 | 100.0% | 56.7% |
+| ouch | 21 | 85.7% | 63.8% |
+
+**ripsecrets outlier**: only 11 certain functions, 6 of which are std generics
+(std sym = 6/11). DWARF prec 55.6%, sym prec 45.5%. Root cause: small binary with
+few user panic sites; high proportion of std generics monomorphized with user types.
+
+**What to do when run completes:**
+1. Run `python3 bench/aggregate.py` → updates BENCHMARK_RESULTS.md
+2. Commit: `git add bench && git commit -m "bench: extended local run (28 binaries)"`
+3. Update context.md with final extended corpus numbers and new median sym precision
+4. Check whether the new crates confirm or shift the 94.4% median sym precision
