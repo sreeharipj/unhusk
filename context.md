@@ -738,7 +738,48 @@ No new failure mode discovered.
 - Inferred prec (pooled, d=∞): 7.2% (IMPROVES vs 5.1%, Δ=+2.1pp)
 - Recall median: 46.4% (CONFIRMS 46.2%, Δ=+0.1pp)
 
-**Key conclusion**: the 94.4% median sym precision is stable across 28 binaries (2×+
-the original 13). Outliers are concentrated in binaries with heavy use of std generic
+**Key conclusion (28-binary)**: the 94.4% median sym precision is stable across 28 binaries
+(2×+ the original 13). Outliers are concentrated in binaries with heavy use of std generic
 containers/algorithms. This confirms the existing characterization and adds no new
 failure modes.
+
+### Phase 3 batch 2: 8 more local-source builds (36 total, 2026-06-17)
+
+Added to bench/local_corpus.txt and ran bench/run_local.sh:
+loc, kondo, gping, mcfly, jaq, mprocs, pueue, onefetch — all built and validated.
+
+**Per-binary results (8 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| loc | 3 | 100.0% | 100.0% | 0.0% | 75.0% | 0.0% |
+| kondo | 2 | 50.0% | 100.0% | 5.6% | 25.0% | 7.1% |
+| gping | 8 | 50.0% | 75.0% | 2.3% | 64.3% | 6.5% |
+| mcfly | 108 | 97.8% | 99.1% | 2.3% | 92.1% | 5.7% |
+| jaq | 104 | 50.8% | 89.1% | 9.5% | 24.3% | 13.5% |
+| mprocs | 110 | 77.3% | 80.0% | 11.5% | 12.0% | 9.6% |
+| pueue | 32 | 90.3% | 93.8% | 4.9% | 34.7% | 6.8% |
+| onefetch | 17 | 91.7% | 100.0% | 0.6% | 8.2% | 1.9% |
+
+**Notable findings:**
+- **mcfly** is the best-recall binary in the full corpus: 99.1% sym, 97.8% DWARF, 92.1% recall.
+  mcfly is a history manager that heavily uses panicking assertions on user data — panic sites
+  are dense and cover most user functions.
+- **gping** (sym=75%) and **mprocs** (sym=80%) are new negative outliers below 90%.
+  Both fit the known failure mode: std generics (sort, hash, HashMap ops) monomorphized
+  with user types where a user panic Location survived into the std function body. No new
+  failure mode.
+- **onefetch** (sym=100%, recall=8.2%): high precision but very low recall — 17 certain fns
+  out of a large call graph. onefetch draws heavily on git2/libgit2 bindings; most user
+  logic is in dep-called callbacks not reachable from panic forward-BFS.
+
+**Combined 36 binaries (13 original + 23 new):**
+- Sym precision: median **94.6%** (CONFIRMS, unchanged from 28-binary)
+- DWARF precision: median **83.1%** (unchanged from 28-binary)
+- Inferred prec (pooled, d=∞): **6.6%** (vs 7.2% at 28 — slight drop from low-inferred onefetch/loc)
+- Recall median: **46.2%** (CONFIRMS exactly — 4th successive confirmation)
+
+**Stability conclusion**: median sym precision 94.6% has now been confirmed independently at N=13,
+N=28, and N=36 (each differing by ≤0.2pp). The headline number is stable. The outlier set
+grows slightly (gping 75%, mprocs 80%) but all fit the pre-characterized failure mode.
+No new algorithmic gap identified.
