@@ -1,0 +1,55 @@
+=== START loc binname='auto' Wednesday 17 June 2026 12:48:46 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded loc v0.5.0
+  Installing loc v0.5.0
+    Updating crates.io index
+     Locking 43 packages to latest compatible versions
+      Adding clap v2.34.0 (available: v4.6.1)
+      Adding smallvec v0.6.14 (available: v1.15.2)
+ Downloading crates ...
+  Downloaded edit-distance v2.2.2
+  Downloaded deque v0.3.2
+  Downloaded maybe-uninit v2.0.0
+  Downloaded smallvec v0.6.14
+   Compiling memchr v2.8.2
+   Compiling libc v0.2.186
+   Compiling crossbeam-utils v0.8.21
+   Compiling regex-syntax v0.8.11
+   Compiling maybe-uninit v2.0.0
+   Compiling log v0.4.32
+   Compiling unicode-width v0.1.14
+   Compiling same-file v1.0.6
+   Compiling strsim v0.8.0
+   Compiling ansi_term v0.12.1
+   Compiling bitflags v1.3.2
+   Compiling vec_map v0.8.2
+   Compiling deque v0.3.2
+   Compiling edit-distance v2.2.2
+   Compiling walkdir v2.5.0
+   Compiling textwrap v0.11.0
+   Compiling smallvec v0.6.14
+   Compiling aho-corasick v1.1.4
+   Compiling bstr v1.12.1
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling atty v0.2.14
+   Compiling num_cpus v1.17.0
+   Compiling clap v2.34.0
+   Compiling regex-automata v0.4.14
+   Compiling globset v0.4.18
+   Compiling regex v1.12.4
+   Compiling ignore v0.4.26
+   Compiling loc v0.5.0
+    Finished `release` profile [optimized + debuginfo] target(s) in 33.85s
+  Installing /home/user/Videos/unhusk/bench/install/bin/loc
+   Installed package `loc v0.5.0` (executable `loc`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/loc.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=6fdb3ab7b7a64ffa9b320e80a34448eed7eb508f, with debug_info, not stripped
+bin_size: 2679320 bytes
+metrics: {"n_fdes": 2618, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.02s rss=7768kb
+APPENDED: {"n_fdes": 2618, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "loc", "binname": "loc", "bin_size": 2679320, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.02, "peak_rss_kb": 7768}
+=== END loc Wednesday 17 June 2026 12:49:20 AM IST status=ok ===
