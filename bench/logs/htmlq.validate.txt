@@ -1,0 +1,99 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/htmlq.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000c1bb0   1126259 bytes
+  .rodata               vaddr 0x00058f80    292480 bytes
+  .data.rel.ro          vaddr 0x001d5bb8    278208 bytes
+  .rela.dyn             vaddr 0x00001130    307824 bytes
+  .eh_frame             vaddr 0x000a4b88    114724 bytes
+  .rela.dyn entries     12752 R_X86_64_RELATIVE entries
+
+source-path strings: 135  (user=0, std=65, dep=68, unknown=2)
+  distinct dep crates visible: 30
+
+panic/assert sites:  757  (user=0, std=289, dep=448, unknown=20)
+
+USER CODE: no directly-attributed panic/assert sites found.
+
+  Possible reasons:
+  • LTO proved every user panic/bounds-check unreachable and deleted it
+  • Compiled with panic = "abort" and no reachable panic sites remain
+  • User code truly has no panics or assertions
+
+  Phase 2 (.eh_frame + xref scan) will attempt indirect attribution.
+
+dep crates by panic site count  (448 sites across 31 crates):
+  html5ever@0.25.2                                57
+  url@2.5.8                                       57
+  clap@2.34.0                                     42
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               38
+  kuchiki@0.8.1                                   24
+  idna@1.1.0                                      21
+  tendril@0.4.3                                   18
+  cssparser@0.27.2                                17
+  string_cache@0.8.9                              17
+  … 21 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/htmlq.stripped
+functions (from .eh_frame): 2219
+
+attribution breakdown:
+  certain          0  (0.0%)  user-authored (100% precision, DWARF-validated)
+  call closure     0  (0.0%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2219  (100.0%)  not attributed
+
+user-authored functions: none
+  (no functions with direct user panic-site references found)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 1746 functions mapped (16 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain            0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+  inferred           0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+  indeterminate      0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+      0  (  0.0%)  certain          (rock-solid signal)
+      0  (  0.0%)  inferred         (call-graph reach)
+      0  (  0.0%)  indeterminate    (shared/mixed callers)
+     16  (100.0%)  library          (MISSED)
+
+  DWARF-user in library (missed):
+    0x000dde80  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x00103b30  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017cad0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017e110  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017e790  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017eba0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017f130  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017f1d0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017f620  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x0017fa20  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x001802e0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x00180430  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x001808c0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x00180a80  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x001832b0  /home/user/Videos/unhusk/bench/target/release/build/cssparser-2bcace803fae8cdf/out/tokenizer.rs
+    0x001840d0  /home/user/Videos/unhusk/bench/target/release/build/html5ever-23c082e4974531f9/out/rules.rs
+
+  total captured :     0  (0.0% of 16 DWARF-user fns)
+  total missed   :    16  (100.0%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : n/a (no certain predictions)
+  Certain recall    : 0.0%  (0/16 DWARF-user fns reached by certain)
+  Overall recall    : 0.0%  (certain+inferred)
+
+validation complete.
