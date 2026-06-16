@@ -1,0 +1,100 @@
+[RUN] pastel ...
+[FAIL] pastel
+[RUN] zoxide ...
+[FAIL] zoxide
+[RUN] hexyl ...
+[FAIL] hexyl
+[CHECKPOINT] 3 done
+[bench-20260616 54def4a] bench: local-source checkpoint (3 results)
+ 4 files changed, 12 insertions(+)
+ create mode 100644 bench/local_results.jsonl
+ create mode 100644 bench/logs/local_hexyl.log
+ create mode 100644 bench/logs/local_pastel.log
+ create mode 100644 bench/logs/local_zoxide.log
+[RUN] hyperfine ...
+[FAIL] hyperfine
+[RUN] sd ...
+[FAIL] sd
+[RUN] du-dust ...
+[FAIL] du-dust
+[CHECKPOINT] 6 done
+[bench-20260616 ecd410a] bench: local-source checkpoint (6 results)
+ 4 files changed, 12 insertions(+)
+ create mode 100644 bench/logs/local_du-dust.log
+ create mode 100644 bench/logs/local_hyperfine.log
+ create mode 100644 bench/logs/local_sd.log
+[RUN] grex ...
+[FAIL] grex
+[RUN] xsv ...
+[FAIL] xsv
+[RUN] tokei ...
+[FAIL] tokei
+[CHECKPOINT] 9 done
+[bench-20260616 630a557] bench: local-source checkpoint (9 results)
+ 4 files changed, 12 insertions(+)
+ create mode 100644 bench/logs/local_grex.log
+ create mode 100644 bench/logs/local_tokei.log
+ create mode 100644 bench/logs/local_xsv.log
+[RUN] just ...
+[FAIL] just
+[RUN] fd-find ...
+[FAIL] fd-find
+[RUN] bat ...
+[FAIL] bat
+[CHECKPOINT] 12 done
+[bench-20260616 99e1e25] bench: local-source checkpoint (12 results)
+ 4 files changed, 12 insertions(+)
+ create mode 100644 bench/logs/local_bat.log
+ create mode 100644 bench/logs/local_fd-find.log
+ create mode 100644 bench/logs/local_just.log
+[RUN] ripgrep ...
+[FAIL] ripgrep
+
+=== DONE: processed=13, results=13 ===
+[bench-20260616 6f07dea] bench: local-source run complete (13 results)
+ 2 files changed, 4 insertions(+)
+ create mode 100644 bench/logs/local_ripgrep.log
+bench/run_local.sh: line 202: local: can only be used in a function
+bench/run_local.sh: line 203: _tmp: unbound variable
+[RUN] pastel ...
+[OK]   pastel
+[RUN] zoxide ...
+[OK]   zoxide
+[RUN] hexyl ...
+[OK]   hexyl
+[CHECKPOINT] 3 done
+[bench-20260616 140775b] bench: local-source checkpoint (16 results)
+ 5 files changed, 179 insertions(+), 2 deletions(-)
+[RUN] hyperfine ...
+[OK]   hyperfine
+[RUN] sd ...
+[OK]   sd
+[RUN] du-dust ...
+[OK]   du-dust
+[CHECKPOINT] 6 done
+[bench-20260616 04be3d7] bench: local-source checkpoint (19 results)
+ 4 files changed, 217 insertions(+)
+[RUN] grex ...
+[OK]   grex
+[RUN] xsv ...
+[OK]   xsv
+[RUN] tokei ...
+[OK]   tokei
+[CHECKPOINT] 9 done
+[bench-20260616 06f1005] bench: local-source checkpoint (22 results)
+ 4 files changed, 1227 insertions(+)
+[RUN] just ...
+[OK]   just
+[RUN] fd-find ...
+[OK]   fd-find
+[RUN] bat ...
+[OK]   bat
+[CHECKPOINT] 12 done
+[bench-20260616 32cdc23] bench: local-source checkpoint (25 results)
+ 4 files changed, 362 insertions(+)
+[RUN] ripgrep ...
+[OK]   ripgrep
+
+=== DONE: processed=13, results=26 ===
+[bench-20260616 f14b8f7] bench: local-source run complete (26 results)
+ 2 files changed, 46 insertions(+)
