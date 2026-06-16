@@ -1,0 +1,9 @@
+=== START yq binname='auto' Wednesday 17 June 2026 01:03:46 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded yq v0.4.1
+error: there is nothing to install in `yq v0.4.1`, because it has no binaries
+`cargo install` is only for installing programs, and can't be used with libraries.
+To use a library crate, add it as a dependency to a Cargo project with `cargo add`.
+BUILD_FAILED
+=== END yq Wednesday 17 June 2026 01:03:48 AM IST status=fail ===

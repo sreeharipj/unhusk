@@ -1,0 +1,326 @@
+#!/usr/bin/env python3
+"""
+aggregate.py — summarize bench/results.jsonl into BENCHMARK_RESULTS.md
+
+Reads results.jsonl, excludes error rows from accuracy stats, computes:
+  - N attempted / succeeded / failed
+  - certain precision (DWARF GT + symbol GT): median, mean, min/max
+  - inferred precision: pooled + median at depth inf / 1 / 2
+  - recall: median + distribution
+  - perf: wall_sec + peak_rss_kb vs bin_size and n_fdes
+  - side-by-side vs context.md 13-binary baseline
+"""
+
+import json, math, sys, statistics
+from pathlib import Path
+from collections import defaultdict
+
+RESULTS = Path(__file__).parent / "results.jsonl"
+OUT_MD  = Path(__file__).parent / "BENCHMARK_RESULTS.md"
+
+# Baseline from context.md (13-binary depth_sweep)
+BASELINE = {
+    "sym_prec_median":     94.4,
+    "dwarf_prec_median":   66.7,
+    "inf_prec_pooled_inf": 5.1,
+    "inf_prec_pooled_d1":  9.3,
+    "inf_prec_pooled_d2":  6.4,
+    "recall_median_inf":   46.2,
+    "recall_median_d1":    42.3,
+    "recall_median_d2":    45.1,
+}
+
+def load_results():
+    rows = []
+    seen_crates = {}  # crate -> last row (handle duplicates from interrupted runs)
+    with open(RESULTS) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                r = json.loads(line)
+                crate = r.get("crate", "?")
+                seen_crates[crate] = r  # last entry wins
+            except json.JSONDecodeError as e:
+                print(f"WARNING: bad JSON line: {e}", file=sys.stderr)
+    return list(seen_crates.values())
+
+def median(vals):
+    if not vals:
+        return None
+    s = sorted(vals)
+    n = len(s)
+    return s[n // 2] if n % 2 == 1 else (s[n // 2 - 1] + s[n // 2]) / 2
+
+def mean(vals):
+    return sum(vals) / len(vals) if vals else None
+
+def fmt_pct(v):
+    return f"{v:.1f}%" if v is not None else "N/A"
+
+def fmt_float(v, dp=2):
+    return f"{v:.{dp}f}" if v is not None else "N/A"
+
+def confirm_or_shift(new_val, baseline_val, label="", low_better=False):
+    if new_val is None or baseline_val is None:
+        return "N/A"
+    diff = new_val - baseline_val
+    if abs(diff) < 2.0:
+        direction = "CONFIRMS"
+    elif (diff > 0) == (not low_better):
+        direction = "IMPROVES"
+    else:
+        direction = "SHIFTS"
+    return f"{direction} ({new_val:.1f}% vs baseline {baseline_val:.1f}%, Δ={diff:+.1f}pp)"
+
+def main():
+    all_rows = load_results()
+    if not all_rows:
+        print("No results found in results.jsonl")
+        return
+
+    ok_rows   = [r for r in all_rows if "error" not in r]
+    fail_rows = [r for r in all_rows if "error" in r]
+
+    n_total = len(all_rows)
+    n_ok    = len(ok_rows)
+    n_fail  = len(fail_rows)
+
+    # Error breakdown
+    error_types = defaultdict(int)
+    for r in fail_rows:
+        error_types[r.get("error", "unknown")] += 1
+
+    # ── certain precision — DWARF GT (excluding None and 0-prediction binaries) ──
+    dwarf_precs = [r["dwarf_certain_prec"] for r in ok_rows
+                   if r.get("dwarf_certain_prec") is not None
+                   and r.get("dwarf_certain_n", 0) > 0]
+
+    # ── certain precision — symbol GT ──
+    sym_precs = [r["sym_certain_prec"] for r in ok_rows
+                 if r.get("sym_certain_prec") is not None]
+
+    # ── inferred precision — pooled at depth inf ──
+    inf_tp_total  = sum(r.get("dwarf_inferred_tp", 0) for r in ok_rows)
+    inf_n_total   = sum(r.get("dwarf_inferred_n", 0)  for r in ok_rows)
+    inf_prec_inf_pooled = (inf_tp_total / inf_n_total * 100) if inf_n_total > 0 else None
+    inf_precs_inf = [r["dwarf_inferred_prec"] for r in ok_rows
+                     if r.get("dwarf_inferred_prec") is not None
+                     and r.get("dwarf_inferred_n", 0) > 0]
+
+    # ── inferred precision — depth 1 ──
+    d1_precs = [r["d1_inf_prec"] for r in ok_rows if r.get("d1_inf_prec") is not None]
+    # pooled d1: approximate using median ratio (don't have per-depth TP counts)
+    # Just use median for d1
+
+    # ── inferred precision — depth 2 ──
+    d2_precs = [r["d2_inf_prec"] for r in ok_rows if r.get("d2_inf_prec") is not None]
+
+    # ── recall ──
+    recalls = [r["dwarf_overall_recall"] for r in ok_rows
+               if r.get("dwarf_overall_recall") is not None
+               and r.get("n_certain", 0) > 0]
+    d1_recalls = [r["d1_recall"] for r in ok_rows
+                  if r.get("d1_recall") is not None
+                  and r.get("n_certain", 0) > 0]
+    d2_recalls = [r["d2_recall"] for r in ok_rows
+                  if r.get("d2_recall") is not None
+                  and r.get("n_certain", 0) > 0]
+
+    # ── performance ──
+    wall_times = [(r["wall_sec"], r.get("bin_size", 0), r.get("n_fdes", 0))
+                  for r in ok_rows if r.get("wall_sec") is not None]
+    rss_vals   = [(r["peak_rss_kb"], r.get("bin_size", 0), r.get("n_fdes", 0))
+                  for r in ok_rows if r.get("peak_rss_kb") is not None and r.get("peak_rss_kb", 0) > 0]
+
+    # Throughput
+    total_bytes = sum(r.get("bin_size", 0) for r in ok_rows if r.get("bin_size"))
+    total_secs  = sum(r.get("wall_sec", 0) for r in ok_rows if r.get("wall_sec"))
+    mb_per_sec  = (total_bytes / 1e6 / total_secs) if total_secs > 0 else None
+    binaries_per_hr = (n_ok / total_secs * 3600) if total_secs > 0 else None
+
+    # ── per-binary table (ok rows) ──
+    per_binary_rows = sorted(ok_rows, key=lambda r: r.get("bin_size", 0))
+
+    # ── outliers: low sym precision (<80%), binaries with 0 certain ──
+    low_sym = [r for r in ok_rows if r.get("sym_certain_prec") is not None and r["sym_certain_prec"] < 80]
+    zero_certain = [r for r in ok_rows if r.get("n_certain", 0) == 0]
+
+    # ── build report ──
+    lines = []
+    lines += ["# unhusk Benchmark Results", ""]
+    lines += [f"Generated from `bench/results.jsonl`. N={n_total} attempted, {n_ok} succeeded, {n_fail} failed.", ""]
+
+    # Summary stats
+    lines += ["## Summary", ""]
+    lines += ["| Metric | Value |", "|--------|-------|"]
+    lines += [f"| Binaries attempted | {n_total} |"]
+    lines += [f"| Succeeded | {n_ok} |"]
+    lines += [f"| Failed | {n_fail} |"]
+    lines += [f"| Certain precision (DWARF GT) median | {fmt_pct(median(dwarf_precs))} |"]
+    lines += [f"| Certain precision (symbol GT) median | {fmt_pct(median(sym_precs))} |"]
+    lines += [f"| Inferred precision (pooled, d=∞) | {fmt_pct(inf_prec_inf_pooled)} |"]
+    lines += [f"| Inferred precision (median, d=1) | {fmt_pct(median(d1_precs))} |"]
+    lines += [f"| Inferred precision (median, d=2) | {fmt_pct(median(d2_precs))} |"]
+    lines += [f"| Overall recall median (d=∞) | {fmt_pct(median(recalls))} |"]
+    lines += [f"| Wall time median | {fmt_float(median([w for w,_,_ in wall_times]))}s |"]
+    lines += [f"| Peak RSS median | {fmt_float(median([r for r,_,_ in rss_vals])/1024, 0)} MB |"]
+    lines += [f"| Throughput | {fmt_float(mb_per_sec)} MB/s, {fmt_float(binaries_per_hr, 0)} binaries/hr |"]
+    lines += [""]
+
+    # Failure breakdown
+    if fail_rows:
+        lines += ["## Failure breakdown", ""]
+        for etype, cnt in sorted(error_types.items(), key=lambda x: -x[1]):
+            lines += [f"- `{etype}`: {cnt}"]
+        lines += [""]
+        lines += ["Failed crates: " + ", ".join(r["crate"] for r in fail_rows)]
+        lines += [""]
+
+    # Precision detail
+    lines += ["## Certain precision detail", ""]
+    lines += ["### Symbol GT (authoritative)", ""]
+    if sym_precs:
+        lines += [f"N={len(sym_precs)} binaries with ≥1 certain function and nm symbol match"]
+        lines += [f"- Median: {fmt_pct(median(sym_precs))}"]
+        lines += [f"- Mean:   {fmt_pct(mean(sym_precs))}"]
+        lines += [f"- Min:    {fmt_pct(min(sym_precs))}"]
+        lines += [f"- Max:    {fmt_pct(max(sym_precs))}"]
+    lines += [""]
+    lines += ["### DWARF GT (penalizes FnOnce/FnMut shims)", ""]
+    if dwarf_precs:
+        lines += [f"N={len(dwarf_precs)} binaries with ≥1 certain function and DWARF coverage"]
+        lines += [f"- Median: {fmt_pct(median(dwarf_precs))}"]
+        lines += [f"- Mean:   {fmt_pct(mean(dwarf_precs))}"]
+        lines += [f"- Min:    {fmt_pct(min(dwarf_precs))}"]
+        lines += [f"- Max:    {fmt_pct(max(dwarf_precs))}"]
+    lines += [""]
+
+    # Inferred precision
+    lines += ["## Inferred precision", ""]
+    lines += [f"| Depth | Pooled | Median | N binaries |", "|-------|--------|--------|------------|"]
+    lines += [f"| ∞ | {fmt_pct(inf_prec_inf_pooled)} | {fmt_pct(median(inf_precs_inf))} | {len(inf_precs_inf)} |"]
+    lines += [f"| 2 | — | {fmt_pct(median(d2_precs))} | {len(d2_precs)} |"]
+    lines += [f"| 1 | — | {fmt_pct(median(d1_precs))} | {len(d1_precs)} |"]
+    lines += [""]
+
+    # Recall
+    lines += ["## Recall (DWARF GT, binaries with ≥1 certain function)", ""]
+    lines += [f"| Depth | Median | Min | Max |", "|-------|--------|-----|-----|"]
+    lines += [f"| ∞ | {fmt_pct(median(recalls))} | {fmt_pct(min(recalls) if recalls else None)} | {fmt_pct(max(recalls) if recalls else None)} |"]
+    lines += [f"| 2 | {fmt_pct(median(d2_recalls))} | — | — |"]
+    lines += [f"| 1 | {fmt_pct(median(d1_recalls))} | — | — |"]
+    lines += [""]
+
+    # Performance
+    lines += ["## Performance", ""]
+    wall_sorted = sorted(wall_times, key=lambda x: x[0])
+    rss_sorted  = sorted(rss_vals,   key=lambda x: x[0])
+    lines += [f"Wall time range: {wall_sorted[0][0]:.2f}s – {wall_sorted[-1][0]:.2f}s"]
+    lines += [f"Peak RSS range: {rss_sorted[0][0]//1024} MB – {rss_sorted[-1][0]//1024} MB"]
+    lines += [f"Throughput: {fmt_float(mb_per_sec)} MB stripped binary/s, {fmt_float(binaries_per_hr, 0)} binaries/hr"]
+    lines += [""]
+
+    # Scaling check: correlation wall_sec vs n_fdes
+    fde_wall = [(n_fdes, wall) for wall, _, n_fdes in wall_times if n_fdes > 0]
+    if len(fde_wall) >= 3:
+        xs = [x for x,_ in fde_wall]
+        ys = [y for _,y in fde_wall]
+        xm, ym = mean(xs), mean(ys)
+        cov = mean([(x-xm)*(y-ym) for x,y in zip(xs,ys)])
+        varx = mean([(x-xm)**2 for x in xs])
+        r = cov / (varx**0.5 * (mean([(y-ym)**2 for y in ys])**0.5)) if varx > 0 else 0
+        lines += [f"Wall time vs FDE count: Pearson r={r:.3f} ({'approximately linear' if abs(r) > 0.8 else 'sublinear' if r > 0 else 'no correlation'})"]
+        lines += [""]
+
+    # Per-binary table
+    lines += ["## Per-binary results", ""]
+    lines += ["| crate | bin_KB | FDEs | certain | sym_prec | dwarf_prec | inf_prec(∞) | recall(∞) | wall_s | RSS_MB |"]
+    lines += ["|-------|--------|------|---------|----------|------------|-------------|-----------|--------|--------|"]
+    for r in sorted(ok_rows, key=lambda r: r.get("crate","")):
+        lines += [
+            f"| {r['crate']} "
+            f"| {r.get('bin_size',0)//1024} "
+            f"| {r.get('n_fdes',0)} "
+            f"| {r.get('n_certain',0)} "
+            f"| {fmt_pct(r.get('sym_certain_prec'))} "
+            f"| {fmt_pct(r.get('dwarf_certain_prec'))} "
+            f"| {fmt_pct(r.get('dwarf_inferred_prec'))} "
+            f"| {fmt_pct(r.get('dwarf_overall_recall'))} "
+            f"| {r.get('wall_sec','?')} "
+            f"| {r.get('peak_rss_kb',0)//1024} |"
+        ]
+    lines += [""]
+
+    # Baseline comparison
+    lines += ["## Comparison to 13-binary baseline (context.md)", ""]
+    lines += ["Baseline was measured on 13 binaries from local source builds with DWARF.", ""]
+    lines += ["| Metric | Baseline | This run | Verdict |"]
+    lines += ["|--------|----------|----------|---------|"]
+    new_sym = median(sym_precs)
+    new_dwarf = median(dwarf_precs)
+    new_inf_inf = inf_prec_inf_pooled
+    new_d1 = median(d1_precs)
+    new_d2 = median(d2_precs)
+    new_rec = median(recalls)
+
+    def row(label, new, base, fmt=True):
+        nv = fmt_pct(new) if fmt else str(new)
+        bv = fmt_pct(base) if fmt else str(base)
+        return f"| {label} | {bv} | {nv} | {confirm_or_shift(new, base)} |"
+
+    lines += [row("Sym precision (median)", new_sym, BASELINE["sym_prec_median"])]
+    lines += [row("DWARF precision (median)", new_dwarf, BASELINE["dwarf_prec_median"])]
+    lines += [row("Inferred prec (pooled, d=∞)", new_inf_inf, BASELINE["inf_prec_pooled_inf"])]
+    lines += [row("Inferred prec (median, d=1)", new_d1, BASELINE["inf_prec_pooled_d1"])]
+    lines += [row("Inferred prec (median, d=2)", new_d2, BASELINE["inf_prec_pooled_d2"])]
+    lines += [row("Recall median (d=∞)", new_rec, BASELINE["recall_median_inf"])]
+    lines += [""]
+
+    # Outliers
+    lines += ["## Named outliers", ""]
+    if low_sym:
+        lines += ["**Low symbol precision (<80%):**"]
+        for r in sorted(low_sym, key=lambda r: r.get("sym_certain_prec", 0)):
+            lines += [f"- {r['crate']}: {fmt_pct(r.get('sym_certain_prec'))} ({r.get('n_certain',0)} certain)"]
+        lines += [""]
+    if zero_certain:
+        lines += ["**Zero certain functions (logic in dep crate):**"]
+        for r in zero_certain:
+            lines += [f"- {r['crate']} ({r.get('n_fdes',0)} FDEs, {r.get('n_locations',0)} user panic sites)"]
+        lines += [""]
+
+    # Corpus bias
+    lines += ["## Corpus bias", ""]
+    lines += [
+        "All binaries are `cargo`-installable pure-Rust CLI tools from crates.io. "
+        "This population is systematically different from the full space of Rust binaries: "
+        "it skews toward well-maintained, well-structured projects that follow idiomatic Rust "
+        "(panic-heavy error handling, clear module boundaries). Embedded/no_std binaries, "
+        "heavily-LTO'd system tools (rustc, cargo, servo), and binaries with C FFI-heavy deps "
+        "(graphics, networking stack) are excluded. The measured precision and recall figures "
+        "should be treated as an upper bound for typical CLI Rust code, not general Rust binary analysis.",
+        "",
+        "Additionally, `cargo install` builds crates.io release versions, which may differ from "
+        "locally-sourced builds used in the 13-binary baseline (different versions, different "
+        "optimization flags from the workspace). This affects the apples-to-apples comparison.",
+    ]
+    lines += [""]
+
+    report = "\n".join(lines)
+    OUT_MD.write_text(report)
+    print(f"Written {OUT_MD}")
+    print(f"\n=== SUMMARY ===")
+    print(f"N={n_total} total, {n_ok} ok, {n_fail} fail")
+    if sym_precs:
+        print(f"Sym precision: median={fmt_pct(median(sym_precs))}, mean={fmt_pct(mean(sym_precs))}")
+    if dwarf_precs:
+        print(f"DWARF precision: median={fmt_pct(median(dwarf_precs))}, mean={fmt_pct(mean(dwarf_precs))}")
+    print(f"Inferred precision pooled (d=∞): {fmt_pct(inf_prec_inf_pooled)}")
+    print(f"Recall median: {fmt_pct(median(recalls))}")
+    if wall_times:
+        print(f"Throughput: {fmt_float(mb_per_sec)} MB/s, {fmt_float(binaries_per_hr, 0)} binaries/hr")
+
+if __name__ == "__main__":
+    main()
