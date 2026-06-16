@@ -1,3 +1,73 @@
 === START fd-find repo=https binname=//github.com/sharkdp/fd:fd Wednesday 17 June 2026 03:36:19 AM IST ===
 fatal: repository 'https' does not exist
 CLONE_FAILED
+=== START fd-find repo=https://github.com/sharkdp/fd binname=fd Wednesday 17 June 2026 03:43:05 AM IST ===
+Cloning into '/tmp/unhusk-local-bench/fd-find'...
+   Compiling libc v0.2.186
+   Compiling bitflags v2.11.0
+   Compiling cfg_aliases v0.2.1
+   Compiling proc-macro2 v1.0.106
+   Compiling memchr v2.8.0
+   Compiling crossbeam-utils v0.8.21
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.45
+   Compiling rustix v1.1.4
+   Compiling cfg-if v1.0.4
+   Compiling utf8parse v0.2.2
+   Compiling linux-raw-sys v0.12.1
+   Compiling find-msvc-tools v0.1.9
+   Compiling shlex v1.3.0
+   Compiling anstyle-query v1.1.5
+   Compiling regex-syntax v0.8.10
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.4
+   Compiling anstyle-parse v1.0.0
+   Compiling anstyle v1.0.13
+   Compiling nix v0.30.1
+   Compiling nix v0.31.2
+   Compiling heck v0.5.0
+   Compiling cc v1.2.56
+   Compiling strsim v0.11.1
+   Compiling clap_lex v1.0.0
+   Compiling same-file v1.0.6
+   Compiling anstream v1.0.0
+   Compiling log v0.4.29
+   Compiling anyhow v1.0.102
+   Compiling walkdir v2.5.0
+   Compiling bitflags v1.3.2
+   Compiling nu-ansi-term v0.50.3
+   Compiling once_cell v1.21.3
+   Compiling etcetera v0.11.0
+   Compiling jiff v0.2.27
+   Compiling normpath v1.5.1
+   Compiling aho-corasick v1.1.4
+   Compiling bstr v1.12.1
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-channel v0.5.15
+   Compiling syn v2.0.117
+   Compiling crossbeam-deque v0.8.6
+   Compiling terminal_size v0.4.3
+   Compiling clap_builder v4.6.0
+   Compiling tikv-jemalloc-sys v0.7.1+5.3.1-0-g81034ce1f1373e37dc865038e1bc8eeecf559ce8
+   Compiling lscolors v0.21.0
+   Compiling faccess v0.2.4
+   Compiling argmax v0.4.0
+   Compiling regex-automata v0.4.14
+   Compiling ctrlc v3.5.2
+   Compiling clap_derive v4.6.1
+   Compiling clap v4.6.1
+   Compiling clap_complete v4.6.5
+   Compiling globset v0.4.18
+   Compiling regex v1.12.3
+   Compiling ignore v0.4.25
+   Compiling tikv-jemallocator v0.7.0
+   Compiling fd-find v10.4.2 (/tmp/unhusk-local-bench/fd-find)
+    Finished `release` profile [optimized + debuginfo] target(s) in 1m 11s
+file: /tmp/unhusk-local-bench/fd-find/target/release/fd: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=5a54de1a1ab59bdc6fe8dbae91499f9d38b59a98, with debug_info, not stripped
+bin_size: 4074960 bytes
+metrics: {"n_fdes": 4552, "n_certain": 17, "n_call_closure": 642, "n_locations": 31, "dwarf_certain_n": 17, "dwarf_certain_tp": 3, "dwarf_certain_fp": 8, "dwarf_certain_prec": 27.3, "dwarf_inferred_n": 365, "dwarf_inferred_tp": 13, "dwarf_inferred_fp": 300, "dwarf_inferred_prec": 4.2, "dwarf_certain_prec_hl": 27.3, "dwarf_certain_recall": 0.4, "dwarf_overall_recall": 2.2, "sym_user": 10, "sym_std": 7, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 58.82, "n_certain_addrs_parsed": 17}
+d1: inf_prec=9.2 recall=1.8
+d2: inf_prec=6.5 recall=2.2
+perf: wall=0.04s rss=10632kb
+APPENDED: {"n_fdes": 4552, "n_certain": 17, "n_call_closure": 642, "n_locations": 31, "dwarf_certain_n": 17, "dwarf_certain_tp": 3, "dwarf_certain_fp": 8, "dwarf_certain_prec": 27.3, "dwarf_inferred_n": 365, "dwarf_inferred_tp": 13, "dwarf_inferred_fp": 300, "dwarf_inferred_prec": 4.2, "dwarf_certain_prec_hl": 27.3, "dwarf_certain_recall": 0.4, "dwarf_overall_recall": 2.2, "sym_user": 10, "sym_std": 7, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 58.82, "n_certain_addrs_parsed": 17, "crate": "fd-find", "binname": "fd", "bin_size": 4074960, "d1_inf_prec": 9.2, "d1_recall": 1.8, "d2_inf_prec": 6.5, "d2_recall": 2.2, "wall_sec": 0.04, "peak_rss_kb": 10632, "source": "local"}
+=== END fd-find Wednesday 17 June 2026 03:44:18 AM IST status=ok ===
