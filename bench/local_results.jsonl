@@ -10,3 +10,4 @@
 {"crate":"just","binname":"//github.com/casey/just:just","error":"clone_failed","source":"local"}
 {"crate":"fd-find","binname":"//github.com/sharkdp/fd:fd","error":"clone_failed","source":"local"}
 {"crate":"bat","binname":"//github.com/sharkdp/bat:bat","error":"clone_failed","source":"local"}
+{"crate":"ripgrep","binname":"//github.com/BurntSushi/ripgrep:rg","error":"clone_failed","source":"local"}
