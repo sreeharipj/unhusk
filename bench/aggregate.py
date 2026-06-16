@@ -31,6 +31,12 @@ BASELINE = {
     "recall_median_d2":    45.1,
 }
 
+# The original 13 baseline binaries (from realval/ study)
+BASELINE_13 = {
+    "pastel", "zoxide", "hexyl", "hyperfine", "sd", "du-dust",
+    "grex", "xsv", "tokei", "just", "fd-find", "bat", "ripgrep",
+}
+
 def load_results(path=None):
     if path is None:
         path = RESULTS
@@ -128,9 +134,14 @@ def main():
     n_ok    = len(ok_rows)
     n_fail  = len(fail_rows)
 
-    # Load local-source results (13-baseline git-clone builds)
+    # Load local-source results (all git-clone builds)
     local_rows = load_local_results()
     lcl = local_stats(local_rows) if local_rows else None
+    # Separate into original-13 (for baseline confirmation) and new extended crates
+    baseline_rows = [r for r in local_rows if r["crate"] in BASELINE_13]
+    new_rows      = [r for r in local_rows if r["crate"] not in BASELINE_13]
+    lcl_b13  = local_stats(baseline_rows) if baseline_rows else None
+    lcl_new  = local_stats(new_rows)      if new_rows      else None
 
     # Error breakdown
     error_types = defaultdict(int)
@@ -331,10 +342,11 @@ def main():
 
     # Local-source baseline confirmation
     if lcl:
-        lines += ["## Local-source baseline confirmation (13 git-clone builds)", ""]
+        n_lcl = lcl["n"]
+        lines += [f"## Local-source validation ({n_lcl} git-clone builds)", ""]
         lines += [
-            f"The 13 baseline binaries were rebuilt from git HEAD (same repos as realval/ study).",
-            f"Built locally; source paths are relative → classify as User (unlike cargo install).",
+            f"Binaries rebuilt from git HEAD with `CARGO_PROFILE_RELEASE_DEBUG=2`.",
+            f"Local source paths → relative paths → classified as User (unlike cargo install).",
             "",
         ]
         lines += ["| crate | certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec | d2 prec |"]
@@ -358,38 +370,49 @@ def main():
         lines += [f"- Recall (d=∞): median {fmt_pct(lcl['recall_median'])}"]
         lines += [""]
 
-    # Baseline comparison — use local results if available
+    # Baseline comparison
     lines += ["## Comparison to 13-binary baseline (context.md)", ""]
-    if lcl:
-        lines += ["Local rebuild of the same 13 repos. Numbers from `bench/local_results.jsonl`.", ""]
-    else:
-        lines += ["Baseline was measured on 13 binaries from local source builds with DWARF.", ""]
-    lines += ["| Metric | Baseline (realval/) | Local rebuild | Verdict |"]
-    lines += ["|--------|---------------------|---------------|---------|"]
 
     def row(label, new, base):
         nv = fmt_pct(new)
         bv = fmt_pct(base)
         return f"| {label} | {bv} | {nv} | {confirm_or_shift(new, base)} |"
 
-    new_sym   = lcl["sym_prec_median"]   if lcl else None
-    new_dwarf = lcl["dwarf_prec_median"] if lcl else None
-    new_inf   = lcl["inf_prec_pooled"]   if lcl else None
-    new_d1    = lcl["d1_prec_median"]    if lcl else None
-    new_d2    = lcl["d2_prec_median"]    if lcl else None
-    new_rec   = lcl["recall_median"]     if lcl else None
+    # Row 1: original 13 rebuilt → confirms reproducibility
+    # Row 2: extended corpus (all N) → new data
+    lines += ["### Original 13 binaries rebuilt from git HEAD", ""]
+    if lcl_b13:
+        lines += [f"N={lcl_b13['n']} binaries (same repos as realval/ study).", ""]
+        lines += ["| Metric | Baseline (realval/) | This run | Verdict |"]
+        lines += ["|--------|---------------------|----------|---------|"]
+        lines += [row("Sym precision (median)", lcl_b13["sym_prec_median"], BASELINE["sym_prec_median"])]
+        lines += [row("DWARF precision (median)", lcl_b13["dwarf_prec_median"], BASELINE["dwarf_prec_median"])]
+        lines += [row("Inferred prec (pooled, d=∞)", lcl_b13["inf_prec_pooled"], BASELINE["inf_prec_pooled_inf"])]
+        lines += [row("Recall median (d=∞)", lcl_b13["recall_median"], BASELINE["recall_median_inf"])]
+        lines += [""]
 
-    lines += [row("Sym precision (median)", new_sym, BASELINE["sym_prec_median"])]
-    lines += [row("DWARF precision (median)", new_dwarf, BASELINE["dwarf_prec_median"])]
-    lines += [row("Inferred prec (pooled, d=∞)", new_inf, BASELINE["inf_prec_pooled_inf"])]
-    lines += [row("Inferred prec (median, d=1)", new_d1, BASELINE["inf_prec_pooled_d1"])]
-    lines += [row("Inferred prec (median, d=2)", new_d2, BASELINE["inf_prec_pooled_d2"])]
-    lines += [row("Recall median (d=∞)", new_rec, BASELINE["recall_median_inf"])]
-    lines += [""]
-    if lcl:
+    if lcl_new:
+        lines += [f"### Extended corpus ({lcl_new['n']} new binaries)", ""]
+        lines += [f"New crates not in the original 13-binary study.", ""]
+        lines += ["| Metric | Baseline (realval/) | Extended corpus | Verdict |"]
+        lines += ["|--------|---------------------|-----------------|---------|"]
+        lines += [row("Sym precision (median)", lcl_new["sym_prec_median"], BASELINE["sym_prec_median"])]
+        lines += [row("DWARF precision (median)", lcl_new["dwarf_prec_median"], BASELINE["dwarf_prec_median"])]
+        lines += [row("Inferred prec (pooled, d=∞)", lcl_new["inf_prec_pooled"], BASELINE["inf_prec_pooled_inf"])]
+        lines += [row("Recall median (d=∞)", lcl_new["recall_median"], BASELINE["recall_median_inf"])]
+        lines += [""]
+
+    if lcl and lcl_new:
+        lines += [f"### Combined ({lcl['n']} total local-source builds)", ""]
+        lines += ["| Metric | Baseline (realval/) | Combined | Verdict |"]
+        lines += ["|--------|---------------------|----------|---------|"]
+        lines += [row("Sym precision (median)", lcl["sym_prec_median"], BASELINE["sym_prec_median"])]
+        lines += [row("DWARF precision (median)", lcl["dwarf_prec_median"], BASELINE["dwarf_prec_median"])]
+        lines += [row("Inferred prec (pooled, d=∞)", lcl["inf_prec_pooled"], BASELINE["inf_prec_pooled_inf"])]
+        lines += [row("Recall median (d=∞)", lcl["recall_median"], BASELINE["recall_median_inf"])]
+        lines += [""]
         lines += [
-            "*Note: d=1/d=2 compare per-binary medians (local) to pooled values (baseline).",
-            "Pooled tends lower because high-FP binaries contribute proportionally more predictions.",
+            "*Note: d=1/d=2 precision comparisons use per-binary medians (local) vs pooled values (baseline).",
             "Direction and magnitude are consistent with baseline findings.*",
             "",
         ]
