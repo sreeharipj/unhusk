@@ -1,0 +1,109 @@
+=== START qsv binname='auto' Wednesday 17 June 2026 12:51:08 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded qsv v16.1.0
+  Installing qsv v16.1.0
+    Updating crates.io index
+     Locking 512 packages to latest compatible versions
+      Adding atoi_simd v0.17.0 (available: v0.18.1)
+      Adding cached v0.56.0 (available: v2.0.2)
+      Adding calamine v0.33.0 (available: v0.35.0)
+      Adding csv-nose v0.8.0 (available: v1.1.0)
+      Adding file-format v0.28.0 (available: v0.29.0)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding itertools v0.14.0 (available: v0.15.0)
+      Adding jaq-core v2.2.1 (available: v3.1.0)
+      Adding jaq-json v1.1.3 (available: v2.0.1)
+      Adding jaq-std v2.1.2 (available: v3.0.1)
+      Adding jsonschema v0.42.2 (available: v0.46.5)
+      Adding libmimalloc-sys v0.1.44 (available: v0.1.49)
+      Adding mimalloc v0.1.48 (available: v0.1.52)
+      Adding pragmastat v8.0.0 (available: v12.1.0)
+      Adding qsv-dateparser v0.13.0 (available: v0.15.1)
+      Adding qsv-stats v0.45.0 (available: v0.54.1)
+      Adding strum v0.27.2 (available: v0.28.0)
+      Adding strum_macros v0.27.2 (available: v0.28.0)
+      Adding sysinfo v0.38.4 (available: v0.39.3)
+      Adding toon-format v0.4.6 (available: v0.5.0)
+      Adding zip v7.2.0 (available: v8.6.0)
+ Downloading crates ...
+  Downloaded ar_archive_writer v0.5.2
+  Downloaded arcstr v1.2.0
+  Downloaded atoi_simd v0.17.0
+  Downloaded bytecount v0.6.9
+  Downloaded cached_proc_macro v0.25.0
+  Downloaded cached v0.56.0
+  Downloaded calamine v0.33.0
+  Downloaded constant_time_eq v0.3.1
+  Downloaded codepage v0.1.2
+  Downloaded chrono-tz v0.10.4
+  Downloaded cty v0.2.2
+  Downloaded csv-diff v0.1.2
+  Downloaded debug_unsafe v0.1.4
+  Downloaded deflate64 v0.1.12
+  Downloaded dynfmt2 v0.3.0
+  Downloaded ext-sort v0.1.5
+  Downloaded fast-float2 v0.2.3
+  Downloaded flatten-json-object v0.6.1
+  Downloaded fancy-regex v0.17.0
+  Downloaded float-cmp v0.10.0
+  Downloaded file-format v0.28.0
+  Downloaded email_address v0.2.9
+  Downloaded halfbrown v0.4.0
+  Downloaded fraction v0.15.4
+  Downloaded flexi_logger v0.31.9
+  Downloaded iso_country v0.1.4
+  Downloaded iso_currency v0.5.3
+  Downloaded json-objects-to-csv v0.1.3
+  Downloaded mimalloc v0.1.48
+  Downloaded num v0.4.3
+  Downloaded num-cmp v0.1.0
+  Downloaded mown v1.0.0
+  Downloaded odht v0.3.1
+  Downloaded minijinja-contrib v2.20.0
+  Downloaded lzma-rust2 v0.15.8
+  Downloaded outref v0.5.2
+  Downloaded scheduled-thread-pool v0.2.7
+  Downloaded qsv-tabwriter v2.0.0
+  Downloaded qsv_currency v0.7.0
+  Downloaded r2d2 v0.8.10
+  Downloaded rand_xoshiro v0.8.1
+  Downloaded serde-xml-rs v0.5.1
+  Downloaded smawk v0.3.3
+  Downloaded stacker v0.1.24
+  Downloaded minijinja v2.20.0
+  Downloaded pragmastat v8.0.0
+  Downloaded qsv-dateparser v0.13.0
+  Downloaded qsv-stats v0.45.0
+  Downloaded referencing v0.42.2
+  Downloaded uuid-simd v0.8.0
+  Downloaded zeroize_derive v1.5.0
+  Downloaded value-trait v0.12.1
+  Downloaded vsimd v0.8.0
+  Downloaded jsonschema v0.42.2
+  Downloaded qsv_docopt v1.10.0
+  Downloaded toon-format v0.4.6
+  Downloaded unicode_categories v0.1.1
+  Downloaded simd-json v0.17.0
+  Downloaded redis v1.2.3
+  Downloaded time-tz v2.0.0
+  Downloaded cached_proc_macro_types v0.1.1
+  Downloaded csv-nose v0.8.0
+  Downloaded hostname-validator v1.1.1
+  Downloaded rand_hc v0.5.1
+  Downloaded psm v0.1.31
+  Downloaded libmimalloc-sys v0.1.44
+    Finished `release` profile [optimized + debuginfo] target(s) in 12.32s
+warning: none of the package's binaries are available for install using the selected features
+  bin "qsv" requires the features: `feature_capable`
+  bin "qsvlite" requires the features: `lite`
+  bin "qsvdp" requires the features: `datapusher_plus`
+Consider enabling some of the needed features by passing, e.g., `--features="feature_capable"`
+file: /home/user/Videos/unhusk/bench/bin/qsv.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=446cb53bce88b6c2a09ed09c2960f49bf37e9fdd, with debug_info, not stripped
+bin_size: 16566368 bytes
+metrics: {"n_fdes": 14989, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.33s rss=35380kb
+APPENDED: {"n_fdes": 14989, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "qsv", "binname": "sccache", "bin_size": 16566368, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.33, "peak_rss_kb": 35380}
+=== END qsv Wednesday 17 June 2026 12:51:29 AM IST status=ok ===
