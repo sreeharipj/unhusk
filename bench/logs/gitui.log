@@ -1,0 +1,684 @@
+=== START gitui binname='auto' Wednesday 17 June 2026 12:23:48 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded gitui v0.28.1
+  Installing gitui v0.28.1
+    Updating crates.io index
+     Locking 433 packages to latest compatible versions
+      Adding bugreport v0.5.1 (available: v0.6.0)
+      Adding crossterm v0.28.1 (available: v0.29.0)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding itertools v0.14.0 (available: v0.15.0)
+      Adding ratatui v0.29.0 (available: v0.30.1)
+      Adding struct-patch v0.10.5 (available: v0.12.3)
+      Adding two-face v0.4.5 (available: v0.5.1)
+      Adding unicode-width v0.2.0 (available: v0.2.2)
+ Downloading crates ...
+  Downloaded bcrypt-pbkdf v0.10.0
+  Downloaded bit-vec v0.8.0
+  Downloaded blowfish v0.9.1
+  Downloaded chacha20 v0.9.1
+  Downloaded asyncgit v0.28.1
+  Downloaded bit-set v0.8.0
+  Downloaded block-padding v0.3.3
+  Downloaded cbc v0.1.2
+  Downloaded bwrap v1.3.0
+  Downloaded compact_str v0.8.2
+  Downloaded ed25519 v2.2.3
+  Downloaded easy-cast v0.5.4
+  Downloaded curve25519-dalek v4.1.3
+  Downloaded fuzzy-matcher v0.3.7
+  Downloaded filetreelist v0.6.0
+  Downloaded gh-emoji v1.0.8
+  Downloaded fancy-regex v0.16.2
+  Downloaded ed25519-dalek v2.2.0
+  Downloaded git2-hooks v0.7.0
+  Downloaded gix-actor v0.38.0
+  Downloaded gix-attributes v0.30.1
+  Downloaded gix-chunk v0.5.0
+  Downloaded gix v0.78.0
+  Downloaded gix-command v0.7.1
+  Downloaded gix-discover v0.46.0
+  Downloaded gix-ref v0.58.0
+  Downloaded gix-shallow v0.8.1
+  Downloaded gix-revision v0.40.0
+  Downloaded gix-url v0.35.3
+  Downloaded gix-ignore v0.19.1
+  Downloaded gix-worktree v0.47.0
+  Downloaded gix-protocol v0.56.0
+  Downloaded gix-status v0.25.0
+  Downloaded gix-traverse v0.52.0
+  Downloaded notify-debouncer-mini v0.7.0
+  Downloaded gix-error v0.0.0
+  Downloaded gix-hash v0.22.1
+  Downloaded gix-sec v0.13.3
+  Downloaded gix-lock v21.0.2
+  Downloaded gix-index v0.46.0
+  Downloaded gix-config-value v0.17.2
+  Downloaded gix-glob v0.24.0
+  Downloaded gix-pathspec v0.15.1
+  Downloaded gix-hashtable v0.12.0
+  Downloaded gix-mailmap v0.30.0
+  Downloaded gix-date v0.13.0
+  Downloaded gix-refspec v0.36.0
+  Downloaded gix-commitgraph v0.32.0
+  Downloaded gix-fs v0.19.2
+  Downloaded pbkdf2 v0.12.2
+  Downloaded gix-revwalk v0.26.0
+  Downloaded gix-features v0.46.2
+  Downloaded gix-filter v0.25.0
+  Downloaded scopetime v0.1.2
+  Downloaded poly1305 v0.8.0
+  Downloaded gix-tempfile v21.0.2
+  Downloaded gix-object v0.55.0
+  Downloaded gix-path v0.11.3
+  Downloaded gix-submodule v0.25.0
+  Downloaded ssh-cipher v0.2.0
+  Downloaded ssh-encoding v0.2.0
+  Downloaded gix-config v0.51.0
+  Downloaded gix-diff v0.58.0
+  Downloaded gix-dir v0.20.0
+  Downloaded struct-patch v0.10.5
+  Downloaded struct-patch-derive v0.10.5
+  Downloaded gix-transport v0.53.0
+  Downloaded gix-odb v0.75.0
+  Downloaded tui-textarea v0.7.0
+  Downloaded gix-pack v0.65.0
+  Downloaded ssh-key v0.6.7
+  Downloaded ron v0.12.1
+  Downloaded p521 v0.13.3
+  Downloaded git2 v0.21.0
+  Downloaded unicode-width v0.2.0
+  Downloaded ratatui v0.29.0
+  Downloaded two-face v0.4.5
+   Compiling libc v0.2.186
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.24
+   Compiling cfg-if v1.0.4
+   Compiling zeroize v1.9.0
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling memchr v2.8.2
+   Compiling subtle v2.6.1
+   Compiling regex-syntax v0.8.11
+   Compiling const-oid v0.9.6
+   Compiling smallvec v1.15.2
+   Compiling serde_core v1.0.228
+   Compiling thiserror v2.0.18
+   Compiling crossbeam-utils v0.8.21
+   Compiling cpufeatures v0.2.17
+   Compiling stable_deref_trait v1.2.1
+   Compiling parking_lot_core v0.9.12
+   Compiling fastrand v2.4.1
+   Compiling tinyvec_macros v0.1.1
+   Compiling scopeguard v1.2.0
+   Compiling once_cell v1.21.4
+   Compiling tinyvec v1.11.0
+   Compiling gix-trace v0.1.20
+   Compiling lock_api v0.4.14
+   Compiling generic-array v0.14.7
+   Compiling same-file v1.0.6
+   Compiling crc32fast v1.5.0
+   Compiling zlib-rs v0.6.3
+   Compiling byteorder v1.5.0
+   Compiling equivalent v1.0.2
+   Compiling walkdir v2.5.0
+   Compiling itoa v1.0.18
+   Compiling heapless v0.8.0
+   Compiling allocator-api2 v0.2.21
+   Compiling foldhash v0.2.0
+   Compiling aho-corasick v1.1.4
+   Compiling hash32 v0.3.1
+   Compiling unicode-normalization v0.1.25
+   Compiling jiff v0.2.28
+   Compiling winnow v0.7.15
+   Compiling crossbeam-channel v0.5.15
+   Compiling hashbrown v0.16.1
+   Compiling syn v2.0.118
+   Compiling rustix v1.1.4
+   Compiling getrandom v0.4.2
+   Compiling linux-raw-sys v0.12.1
+   Compiling shlex v2.0.1
+   Compiling faster-hex v0.10.0
+   Compiling memmap2 v0.9.10
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling getrandom v0.2.17
+   Compiling digest v0.10.7
+   Compiling parking_lot v0.12.5
+   Compiling find-msvc-tools v0.1.9
+   Compiling rand_core v0.6.4
+   Compiling pkg-config v0.3.33
+   Compiling hashbrown v0.14.5
+   Compiling autocfg v1.5.1
+   Compiling vcpkg v0.2.15
+   Compiling sha1 v0.10.6
+   Compiling prodash v31.0.0
+   Compiling sha1-checked v0.10.0
+   Compiling regex-automata v0.4.14
+   Compiling static_assertions v1.1.0
+   Compiling jobserver v0.1.34
+   Compiling der v0.7.10
+   Compiling log v0.4.32
+   Compiling dashmap v6.2.1
+   Compiling block-padding v0.3.3
+   Compiling cc v1.2.64
+   Compiling rustversion v1.0.22
+   Compiling unicode-bom v2.0.3
+   Compiling serde v1.0.228
+   Compiling inout v0.1.4
+   Compiling kstring v2.0.2
+   Compiling cipher v0.4.4
+   Compiling sha2 v0.10.9
+   Compiling libm v0.2.16
+   Compiling either v1.16.0
+   Compiling bitflags v2.13.0
+   Compiling num-traits v0.2.19
+   Compiling ff v0.13.1
+   Compiling signature v2.2.0
+   Compiling gix-sec v0.13.3
+   Compiling fnv v1.0.7
+   Compiling foldhash v0.1.5
+   Compiling base16ct v0.2.0
+   Compiling spki v0.7.3
+   Compiling writeable v0.6.3
+   Compiling litemap v0.8.2
+   Compiling openssl-src v300.6.1+3.6.3
+   Compiling percent-encoding v2.3.2
+   Compiling zerocopy v0.8.52
+   Compiling sec1 v0.7.3
+   Compiling hashbrown v0.15.5
+   Compiling group v0.13.0
+   Compiling crypto-bigint v0.5.5
+   Compiling shell-words v1.1.1
+   Compiling icu_normalizer_data v2.2.0
+   Compiling utf8_iter v1.0.4
+   Compiling icu_properties_data v2.2.0
+   Compiling hmac v0.12.1
+   Compiling universal-hash v0.5.1
+   Compiling filetime v0.2.29
+   Compiling semver v1.0.28
+   Compiling opaque-debug v0.3.1
+   Compiling rayon-core v1.13.0
+   Compiling openssl-sys v0.9.117
+   Compiling libz-sys v1.1.29
+   Compiling libssh2-sys v0.3.1
+   Compiling libgit2-sys v0.18.5+1.9.4
+   Compiling rustc_version v0.4.1
+   Compiling rfc6979 v0.4.0
+   Compiling mio v1.2.1
+   Compiling errno v0.3.14
+   Compiling crossbeam-epoch v0.9.18
+   Compiling strsim v0.11.1
+   Compiling ident_case v1.0.1
+   Compiling num-conv v0.2.2
+   Compiling signal-hook v0.3.18
+   Compiling time-core v0.1.9
+   Compiling signal-hook-registry v1.4.8
+   Compiling synstructure v0.13.2
+   Compiling darling_core v0.23.0
+   Compiling time-macros v0.2.29
+   Compiling tempfile v3.27.0
+   Compiling crossbeam-deque v0.8.6
+   Compiling elliptic-curve v0.13.8
+   Compiling curve25519-dalek v4.1.3
+   Compiling polyval v0.6.2
+   Compiling bstr v1.12.1
+   Compiling encoding_rs v0.8.35
+   Compiling unicode-segmentation v1.13.3
+   Compiling primeorder v0.13.6
+   Compiling num-integer v0.1.46
+   Compiling ecdsa v0.16.9
+   Compiling option-ext v0.2.0
+   Compiling zmij v1.0.21
+   Compiling simd-adler32 v0.3.9
+   Compiling base64ct v1.8.3
+   Compiling gix-validate v0.11.2
+   Compiling gix-utils v0.3.3
+   Compiling gix-error v0.0.0
+   Compiling spin v0.9.8
+   Compiling powerfmt v0.2.0
+   Compiling adler2 v2.0.1
+   Compiling gix-date v0.13.0
+   Compiling gix-chunk v0.5.0
+   Compiling num-bigint-dig v0.8.6
+   Compiling arrayvec v0.7.6
+   Compiling deranged v0.5.8
+   Compiling rustix v0.38.44
+   Compiling lazy_static v1.5.0
+   Compiling uluru v3.1.0
+   Compiling pem-rfc7468 v0.7.0
+   Compiling miniz_oxide v0.8.9
+   Compiling num-iter v0.1.45
+   Compiling dirs-sys v0.5.0
+   Compiling ghash v0.5.1
+   Compiling thiserror-impl v2.0.18
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+   Compiling zerovec-derive v0.11.3
+   Compiling displaydoc v0.2.6
+   Compiling serde_derive v1.0.228
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.3.1
+   Compiling time v0.3.49
+   Compiling darling_macro v0.23.0
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling imara-diff v0.1.8
+   Compiling pkcs8 v0.10.2
+   Compiling aes v0.8.4
+   Compiling ctr v0.9.2
+   Compiling clru v0.6.3
+   Compiling rand v0.8.6
+   Compiling zerofrom v0.1.8
+   Compiling gix-path v0.11.3
+   Compiling gix-actor v0.38.0
+   Compiling yoke v0.8.3
+   Compiling gix-quote v0.6.2
+   Compiling gix-packetline v0.21.5
+   Compiling gix-features v0.46.2
+   Compiling gix-config-value v0.17.2
+   Compiling zerovec v0.11.6
+   Compiling zerotrie v0.2.4
+   Compiling gix-command v0.7.1
+   Compiling gix-bitmap v0.2.16
+   Compiling gix-url v0.35.3
+   Compiling gix-hash v0.22.1
+   Compiling gix-fs v0.19.2
+   Compiling gix-glob v0.24.0
+   Compiling aead v0.5.2
+   Compiling bit-vec v0.8.0
+   Compiling unicode-width v0.1.14
+   Compiling serde_json v1.0.150
+   Compiling hashbrown v0.17.1
+   Compiling paste v1.0.15
+   Compiling gix-hashtable v0.12.0
+   Compiling gix-tempfile v21.0.2
+   Compiling gix-commitgraph v0.32.0
+   Compiling gix-attributes v0.30.1
+   Compiling tinystr v0.8.3
+   Compiling gix-object v0.55.0
+   Compiling potential_utf v0.1.5
+   Compiling gix-ignore v0.19.1
+   Compiling heck v0.5.0
+   Compiling instability v0.3.12
+   Compiling linux-raw-sys v0.4.15
+   Compiling gix-lock v21.0.2
+   Compiling icu_locale_core v2.2.0
+   Compiling icu_collections v2.2.0
+   Compiling unicode-width v0.2.0
+   Compiling utf8parse v0.2.2
+   Compiling gix-pathspec v0.15.1
+   Compiling anstyle-parse v1.0.0
+   Compiling gix-shallow v0.8.1
+   Compiling indexmap v2.14.0
+   Compiling strum_macros v0.26.4
+   Compiling gix-transport v0.53.0
+   Compiling bit-set v0.8.0
+   Compiling aes-gcm v0.10.3
+   Compiling pkcs1 v0.7.5
+   Compiling darling v0.23.0
+   Compiling rayon v1.12.0
+   Compiling signal-hook-mio v0.2.5
+   Compiling dirs v6.0.0
+   Compiling gix-revwalk v0.26.0
+   Compiling gix-ref v0.58.0
+   Compiling icu_provider v2.2.0
+   Compiling gix-traverse v0.52.0
+   Compiling gix-revision v0.40.0
+   Compiling gix-filter v0.25.0
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling gix-pack v0.65.0
+   Compiling gix-index v0.46.0
+   Compiling maybe-async v0.2.11
+   Compiling gix-refspec v0.36.0
+   Compiling ssh-encoding v0.2.0
+   Compiling gix-discover v0.46.0
+   Compiling gix-config v0.51.0
+   Compiling poly1305 v0.8.0
+   Compiling form_urlencoded v1.2.2
+   Compiling arc-swap v1.9.1
+   Compiling idna_adapter v1.2.2
+   Compiling castaway v0.2.4
+   Compiling gix-worktree v0.47.0
+   Compiling idna v1.1.0
+   Compiling ed25519 v2.2.3
+   Compiling itertools v0.13.0
+   Compiling blowfish v0.9.1
+   Compiling cbc v0.1.2
+   Compiling chacha20 v0.9.1
+   Compiling pbkdf2 v0.12.2
+   Compiling inotify-sys v0.1.5
+   Compiling gix-dir v0.20.0
+   Compiling gix-diff v0.58.0
+   Compiling quick-xml v0.39.4
+   Compiling object v0.37.3
+   Compiling siphasher v1.0.3
+   Compiling iana-time-zone v0.1.65
+   Compiling anstyle-query v1.1.5
+   Compiling colorchoice v1.0.5
+   Compiling typeid v1.0.3
+   Compiling base64 v0.22.1
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling indoc v2.0.7
+   Compiling ryu v1.0.23
+   Compiling anstyle v1.0.14
+   Compiling chrono v0.4.45
+   Compiling gix-submodule v0.25.0
+   Compiling anstream v1.0.0
+   Compiling compact_str v0.8.2
+   Compiling plist v1.9.0
+   Compiling gix-status v0.25.0
+   Compiling phf_shared v0.11.3
+   Compiling inotify v0.11.2
+   Compiling ssh-cipher v0.2.0
+   Compiling url v2.5.8
+   Compiling bcrypt-pbkdf v0.10.0
+   Compiling ed25519-dalek v2.2.0
+   Compiling gix-odb v0.75.0
+   Compiling gix-protocol v0.56.0
+   Compiling strum v0.26.3
+   Compiling crossterm v0.28.1
+   Compiling bincode v1.3.3
+   Compiling rsa v0.9.10
+   Compiling shellexpand v3.1.2
+   Compiling unicode-truncate v1.1.0
+   Compiling fancy-regex v0.16.2
+   Compiling gix-mailmap v0.30.0
+   Compiling flate2 v1.1.9
+   Compiling git-version-macro v0.3.9
+   Compiling p521 v0.13.3
+   Compiling p384 v0.13.1
+   Compiling p256 v0.13.2
+   Compiling lru v0.12.5
+   Compiling itertools v0.14.0
+   Compiling notify-types v2.1.0
+   Compiling thread_local v1.1.9
+   Compiling cassowary v0.3.0
+   Compiling bugreport v0.5.1
+   Compiling clap_lex v1.1.0
+   Compiling openssl-probe v0.1.6
+   Compiling gimli v0.32.3
+   Compiling anyhow v1.0.102
+   Compiling clap_builder v4.6.0
+   Compiling ssh-key v0.6.7
+   Compiling ratatui v0.29.0
+   Compiling notify v8.2.0
+   Compiling fuzzy-matcher v0.3.7
+   Compiling syntect v5.3.0
+   Compiling git-version v0.3.9
+   Compiling gix v0.78.0
+   Compiling gitui v0.28.1
+   Compiling phf v0.11.3
+   Compiling sysinfo v0.33.1
+   Compiling struct-patch-derive v0.10.5
+   Compiling regex v1.12.4
+   Compiling scopetime v0.1.2
+   Compiling shell-escape v0.1.5
+   Compiling unicode-truncate v2.0.1
+   Compiling rustc-demangle v0.1.27
+   Compiling easy-cast v0.5.4
+   Compiling ron v0.12.1
+   Compiling struct-patch v0.10.5
+   Compiling two-face v0.4.5
+   Compiling gh-emoji v1.0.8
+   Compiling notify-debouncer-mini v0.7.0
+   Compiling clap v4.6.1
+   Compiling addr2line v0.25.1
+   Compiling simplelog v0.12.2
+   Compiling tui-textarea v0.7.0
+   Compiling bwrap v1.3.0
+   Compiling filetreelist v0.6.0
+   Compiling which v8.0.4
+   Compiling bytesize v2.4.0
+   Compiling backtrace v0.3.76
+   Compiling git2 v0.21.0
+   Compiling git2 v0.20.4
+   Compiling git2-hooks v0.7.0
+   Compiling asyncgit v0.28.1
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:124:34
+    |
+124 |     Ok(git2_hooks::hooks_commit_msg(&repo, None, msg)?.into())
+    |        ---------------------------- ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |        |
+    |        arguments to this function are incorrect
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:184:8
+    |
+184 | pub fn hooks_commit_msg(
+    |        ^^^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:133:34
+    |
+133 |     Ok(git2_hooks::hooks_pre_commit(&repo, None)?.into())
+    |        ---------------------------- ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |        |
+    |        arguments to this function are incorrect
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:208:8
+    |
+208 | pub fn hooks_pre_commit(
+    |        ^^^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:142:35
+    |
+142 |     Ok(git2_hooks::hooks_post_commit(&repo, None)?.into())
+    |        ----------------------------- ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |        |
+    |        arguments to this function are incorrect
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:222:8
+    |
+222 | pub fn hooks_post_commit(
+    |        ^^^^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:156:3
+    |
+155 |     Ok(git2_hooks::hooks_prepare_commit_msg(
+    |        ------------------------------------ arguments to this function are incorrect
+156 |         &repo, None, source, msg,
+    |         ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:284:8
+    |
+284 | pub fn hooks_prepare_commit_msg(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:172:3
+    |
+171 |     if !git2_hooks::hook_available(
+    |         -------------------------- arguments to this function are incorrect
+172 |         &repo,
+    |         ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:52:8
+    |
+ 52 | pub fn hook_available(
+    |        ^^^^^^^^^^^^^^
+
+error[E0308]: mismatched types
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:214:3
+    |
+213 |     Ok(git2_hooks::hooks_pre_push(
+    |        -------------------------- arguments to this function are incorrect
+214 |         &repo,
+    |         ^^^^^ expected `git2::repo::Repository`, found `git2::Repository`
+    |
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/repo.rs:110:1
+    |
+110 | pub struct Repository {
+    | ^^^^^^^^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/repo.rs:109:1
+    |
+109 | pub struct Repository {
+    | --------------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:247:8
+    |
+247 | pub fn hooks_pre_push(
+    |        ^^^^^^^^^^^^^^
+
+error[E0308]: arguments to this function are incorrect
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:244:5
+    |
+244 |     Ok(PrePushRef::new(
+    |        ^^^^^^^^^^^^^^^
+    |
+note: expected `git2::oid::Oid`, found `Oid`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:245:14
+    |
+245 |         local_ref, local_oid, remote_ref, remote_oid,
+    |                    ^^^^^^^^^
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/oid.rs:63:1
+    |
+ 63 | pub struct Oid {
+    | ^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/oid.rs:14:1
+    |
+ 14 | pub struct Oid {
+    | -------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: expected `git2::oid::Oid`, found `Oid`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:245:37
+    |
+245 |         local_ref, local_oid, remote_ref, remote_oid,
+    |                                           ^^^^^^^^^^
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/oid.rs:63:1
+    |
+ 63 | pub struct Oid {
+    | ^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/oid.rs:14:1
+    |
+ 14 | pub struct Oid {
+    | -------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: associated function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:70:9
+    |
+ 70 |     pub fn new(
+    |            ^^^
+
+error[E0308]: arguments to this function are incorrect
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:266:17
+    |
+266 |             updates.push(PrePushRef::new(
+    |                          ^^^^^^^^^^^^^^^
+    |
+note: expected `git2::oid::Oid`, found `Oid`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:268:5
+    |
+268 |                 tag_oid,
+    |                 ^^^^^^^
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/oid.rs:63:1
+    |
+ 63 | pub struct Oid {
+    | ^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/oid.rs:14:1
+    |
+ 14 | pub struct Oid {
+    | -------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: expected `git2::oid::Oid`, found `Oid`
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/asyncgit-0.28.1/src/sync/hooks.rs:270:5
+    |
+270 |                 advertised_oid,
+    |                 ^^^^^^^^^^^^^^
+note: there are multiple different versions of crate `git2` in the dependency graph
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.21.0/src/oid.rs:63:1
+    |
+ 63 | pub struct Oid {
+    | ^^^^^^^^^^^^^^ this is the expected type
+    |
+   ::: /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-0.20.4/src/oid.rs:14:1
+    |
+ 14 | pub struct Oid {
+    | -------------- this is the found type
+    = help: you can use `cargo tree` to explore your dependency tree
+note: associated function defined here
+   --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/git2-hooks-0.7.0/src/lib.rs:70:9
+    |
+ 70 |     pub fn new(
+    |            ^^^
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `asyncgit` (lib) due to 8 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: failed to compile `gitui v0.28.1`, intermediate artifacts can be found at `/home/user/Videos/unhusk/bench/target`.
+To reuse those artifacts with a future compilation, set the environment variable `CARGO_BUILD_BUILD_DIR` to that path.
+BUILD_FAILED
+=== END gitui Wednesday 17 June 2026 12:26:33 AM IST status=fail ===
