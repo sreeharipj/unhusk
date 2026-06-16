@@ -1,0 +1,81 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/sccache.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x001b6c80   4815816 bytes
+  .rodata               vaddr 0x00090000    572096 bytes
+  .data.rel.ro          vaddr 0x0064f9c8    173376 bytes
+  .rela.dyn             vaddr 0x00001e18    273576 bytes
+  .eh_frame             vaddr 0x0012f7c8    550048 bytes
+  .rela.dyn entries     11245 R_X86_64_RELATIVE entries
+
+source-path strings: 474  (user=0, std=84, dep=390, unknown=0)
+  distinct dep crates visible: 60
+
+panic/assert sites:  2631  (user=0, std=599, dep=2032, unknown=0)
+
+USER CODE: no directly-attributed panic/assert sites found.
+
+  Possible reasons:
+  • LTO proved every user panic/bounds-check unreachable and deleted it
+  • Compiled with panic = "abort" and no reachable panic sites remain
+  • User code truly has no panics or assertions
+
+  Phase 2 (.eh_frame + xref scan) will attempt indirect attribution.
+
+dep crates by panic site count  (2032 sites across 61 crates):
+  regex-automata@0.4.14                           252
+  tokio@1.52.3                                    208
+  pueue@4.0.4                                     196
+  regex-syntax@0.8.11                             173
+  rustls@0.23.40                                  145
+  ring@0.17.14                                    136
+  miniz_oxide@0.8.9                               125
+  chrono@0.4.45                                   94
+  rustc-demangle@0.1.27                           79
+  clap_builder@4.6.0                              72
+  … 51 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/sccache.stripped
+functions (from .eh_frame): 10139
+
+attribution breakdown:
+  certain          0  (0.0%)  user-authored (100% precision, DWARF-validated)
+  call closure     0  (0.0%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library      10139  (100.0%)  not attributed
+
+user-authored functions: none
+  (no functions with direct user panic-site references found)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 8059 functions mapped (0 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain            0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+  inferred           0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+  indeterminate      0 predicted   TP=    0  FP=   0  unknown=   0   precision=n/a
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+      0  (  0.0%)  certain          (rock-solid signal)
+      0  (  0.0%)  inferred         (call-graph reach)
+      0  (  0.0%)  indeterminate    (shared/mixed callers)
+      0  (  0.0%)  library          (MISSED)
+
+  total captured :     0  (0.0% of 0 DWARF-user fns)
+  total missed   :     0  (0.0%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : n/a (no certain predictions)
+  Certain recall    : 0.0%  (0/0 DWARF-user fns reached by certain)
+  Overall recall    : 0.0%  (certain+inferred)
+
+validation complete.
