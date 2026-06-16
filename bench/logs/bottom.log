@@ -1,0 +1,190 @@
+=== START bottom binname='auto' Wednesday 17 June 2026 12:05:02 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded bottom v0.12.3
+  Installing bottom v0.12.3
+    Updating crates.io index
+     Locking 287 packages to latest compatible versions
+      Adding clap_mangen v0.2.33 (available: v0.3.0)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding itertools v0.14.0 (available: v0.15.0)
+      Adding nvml-wrapper v0.11.0 (available: v0.12.1)
+      Adding plist v1.8.0 (available: v1.9.0)
+      Adding starship-battery v0.10.3 (available: v0.11.0)
+      Adding sysinfo v0.37.2 (available: v0.39.3)
+      Adding toml_edit v0.24.1+spec-1.1.0 (available: v0.25.12+spec-1.1.0)
+      Adding unicode-ellipsis v0.3.0 (available: v0.4.0)
+ Downloading crates ...
+  Downloaded atomic v0.6.1
+  Downloaded concat-string v1.0.1
+  Downloaded csscolorparser v0.6.2
+  Downloaded lazycell v1.3.0
+  Downloaded memmem v0.1.1
+  Downloaded mac_address v1.1.8
+  Downloaded lab v0.11.0
+  Downloaded nohash v0.2.0
+  Downloaded ratatui-macros v0.7.1
+  Downloaded ordered-float v4.6.0
+  Downloaded ratatui-termwiz v0.1.1
+  Downloaded nvml-wrapper-sys v0.9.1
+  Downloaded timeless v0.0.14-alpha
+  Downloaded wezterm-blob-leases v0.1.1
+  Downloaded wrapcenum-derive v0.4.1
+  Downloaded wezterm-dynamic v0.2.1
+  Downloaded wezterm-color-types v0.3.0
+  Downloaded unicode-ellipsis v0.3.0
+  Downloaded nvml-wrapper v0.11.0
+  Downloaded wezterm-dynamic-derive v0.1.1
+  Downloaded vtparse v0.6.2
+  Downloaded wezterm-input-types v0.1.0
+  Downloaded starship-battery v0.10.3
+  Downloaded toml_edit v0.24.1+spec-1.1.0
+  Downloaded wezterm-bidi v0.2.3
+  Downloaded uom v0.37.0
+  Downloaded termwiz v0.23.3
+  Downloaded deltae v0.3.2
+   Compiling proc-macro2 v1.0.106
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.45
+   Compiling strsim v0.11.1
+   Compiling libc v0.2.186
+   Compiling heck v0.5.0
+   Compiling cfg-if v1.0.4
+   Compiling bitflags v2.13.0
+   Compiling ident_case v1.0.1
+   Compiling equivalent v1.0.2
+   Compiling allocator-api2 v0.2.21
+   Compiling rustix v1.1.4
+   Compiling foldhash v0.2.0
+   Compiling linux-raw-sys v0.12.1
+   Compiling utf8parse v0.2.2
+   Compiling rustversion v1.0.22
+   Compiling colorchoice v1.0.5
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling anstyle-parse v1.0.0
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling thiserror v2.0.18
+   Compiling indoc v2.0.7
+   Compiling clap_lex v1.1.0
+   Compiling unicode-segmentation v1.13.3
+   Compiling static_assertions v1.1.0
+   Compiling unicode-width v0.2.2
+   Compiling anstream v1.0.0
+   Compiling either v1.16.0
+   Compiling itoa v1.0.18
+   Compiling signal-hook v0.3.18
+   Compiling instability v0.3.12
+   Compiling hashbrown v0.17.1
+   Compiling hashbrown v0.16.1
+   Compiling parking_lot_core v0.9.12
+   Compiling serde_core v1.0.228
+   Compiling ryu v1.0.23
+   Compiling critical-section v1.2.0
+   Compiling autocfg v1.5.1
+   Compiling itertools v0.14.0
+   Compiling scopeguard v1.2.0
+   Compiling log v0.4.32
+   Compiling fnv v1.0.7
+   Compiling smallvec v1.15.2
+   Compiling lock_api v0.4.14
+   Compiling num-conv v0.2.2
+   Compiling castaway v0.2.4
+   Compiling compact_str v0.9.1
+   Compiling syn v2.0.118
+   Compiling convert_case v0.10.0
+   Compiling num_threads v0.1.7
+   Compiling powerfmt v0.2.0
+   Compiling num-traits v0.2.19
+   Compiling deranged v0.5.8
+   Compiling time-core v0.1.9
+   Compiling cfg_aliases v0.2.1
+   Compiling litrs v1.0.0
+   Compiling memchr v2.8.2
+   Compiling terminal_size v0.4.4
+   Compiling nix v0.31.3
+   Compiling clap_builder v4.6.0
+   Compiling line-clipping v0.3.7
+   Compiling roff v1.1.1
+   Compiling lru v0.18.0
+   Compiling thiserror v1.0.69
+   Compiling libloading v0.8.9
+   Compiling starship-battery v0.10.3
+   Compiling document-features v0.2.12
+   Compiling regex-syntax v0.8.11
+   Compiling option-ext v0.2.0
+   Compiling aho-corasick v1.1.4
+   Compiling winnow v1.0.3
+   Compiling serde v1.0.228
+   Compiling errno v0.3.14
+   Compiling mio v1.2.1
+   Compiling signal-hook-registry v1.4.8
+   Compiling anyhow v1.0.102
+   Compiling typenum v1.20.1
+   Compiling time v0.3.49
+   Compiling parking_lot v0.12.5
+   Compiling toml_parser v1.1.2+spec-1.1.0
+   Compiling unicode-truncate v2.0.1
+   Compiling signal-hook-mio v0.2.5
+   Compiling dirs-sys v0.5.0
+   Compiling nvml-wrapper-sys v0.9.1
+   Compiling indexmap v2.14.0
+   Compiling toml_writer v1.1.1+spec-1.1.0
+   Compiling winnow v0.7.15
+   Compiling uom v0.37.0
+   Compiling lazycell v1.3.0
+   Compiling dirs v6.0.0
+   Compiling sysinfo v0.37.2
+   Compiling unicode-ellipsis v0.3.0
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+   Compiling serde_spanned v1.1.1
+   Compiling timeless v0.0.14-alpha
+   Compiling concat-string v1.0.1
+   Compiling regex-automata v0.4.14
+   Compiling humantime v2.3.0
+   Compiling nohash v0.2.0
+   Compiling rustc-hash v2.1.2
+   Compiling ctrlc v3.5.2
+   Compiling darling_core v0.23.0
+   Compiling darling_core v0.20.11
+   Compiling clap_derive v4.6.1
+   Compiling thiserror-impl v2.0.18
+   Compiling strum_macros v0.28.0
+   Compiling derive_more-impl v2.1.1
+   Compiling thiserror-impl v1.0.69
+   Compiling serde_derive v1.0.228
+   Compiling toml_edit v0.24.1+spec-1.1.0
+   Compiling derive_more v2.1.1
+   Compiling crossterm v0.29.0
+   Compiling kasuari v0.4.12
+   Compiling clap v4.6.1
+   Compiling clap_complete v4.6.5
+   Compiling clap_mangen v0.2.33
+   Compiling darling_macro v0.23.0
+   Compiling regex v1.12.4
+   Compiling darling_macro v0.20.11
+   Compiling strum v0.28.0
+   Compiling darling v0.23.0
+   Compiling ratatui-core v0.1.1
+   Compiling clap_complete_nushell v4.6.0
+   Compiling darling v0.20.11
+   Compiling clap_complete_fig v4.5.2
+   Compiling wrapcenum-derive v0.4.1
+   Compiling bottom v0.12.3
+   Compiling nvml-wrapper v0.11.0
+   Compiling ratatui-widgets v0.3.1
+   Compiling ratatui-crossterm v0.1.1
+   Compiling ratatui-macros v0.7.1
+   Compiling ratatui v0.30.1
+    Finished `release` profile [optimized + debuginfo] target(s) in 1m 43s
+  Installing /home/user/Videos/unhusk/bench/install/bin/btm
+   Installed package `bottom v0.12.3` (executable `btm`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/bottom.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=3b2a1d035a5c3bfc6b5155c307a3d2ed3b0ad52d, with debug_info, not stripped
+bin_size: 4830880 bytes
+metrics: {"n_fdes": 3912, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.06s rss=12108kb
+APPENDED: {"n_fdes": 3912, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "bottom", "binname": "btm", "bin_size": 4830880, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.06, "peak_rss_kb": 12108}
+=== END bottom Wednesday 17 June 2026 12:06:47 AM IST status=ok ===
