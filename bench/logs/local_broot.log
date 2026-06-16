@@ -361,3 +361,12 @@ Cloning into '/tmp/unhusk-local-bench/broot'...
    Compiling custom_error v1.9.2
    Compiling id-arena v2.2.1
    Compiling git2 v0.20.0
+    Finished `release` profile [optimized + debuginfo] target(s) in 3m 46s
+file: /tmp/unhusk-local-bench/broot/target/release/broot: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=80bd7fe96ffab6f825a0b222bddfbd96fa98118e, with debug_info, not stripped
+bin_size: 12916696 bytes
+metrics: {"n_fdes": 9632, "n_certain": 210, "n_call_closure": 1388, "n_locations": 347, "dwarf_certain_n": 210, "dwarf_certain_tp": 80, "dwarf_certain_fp": 33, "dwarf_certain_prec": 70.8, "dwarf_inferred_n": 862, "dwarf_inferred_tp": 88, "dwarf_inferred_fp": 580, "dwarf_inferred_prec": 13.2, "dwarf_certain_prec_hl": 70.8, "dwarf_certain_recall": 24.1, "dwarf_overall_recall": 50.6, "sym_user": 201, "sym_std": 7, "sym_dep": 0, "sym_unknown": 2, "sym_certain_prec": 96.63, "n_certain_addrs_parsed": 210}
+d1: inf_prec=21.9 recall=46.1
+d2: inf_prec=17.3 recall=49.7
+perf: wall=0.25s rss=28236kb
+APPENDED: {"n_fdes": 9632, "n_certain": 210, "n_call_closure": 1388, "n_locations": 347, "dwarf_certain_n": 210, "dwarf_certain_tp": 80, "dwarf_certain_fp": 33, "dwarf_certain_prec": 70.8, "dwarf_inferred_n": 862, "dwarf_inferred_tp": 88, "dwarf_inferred_fp": 580, "dwarf_inferred_prec": 13.2, "dwarf_certain_prec_hl": 70.8, "dwarf_certain_recall": 24.1, "dwarf_overall_recall": 50.6, "sym_user": 201, "sym_std": 7, "sym_dep": 0, "sym_unknown": 2, "sym_certain_prec": 96.63, "n_certain_addrs_parsed": 210, "crate": "broot", "binname": "broot", "bin_size": 12916696, "d1_inf_prec": 21.9, "d1_recall": 46.1, "d2_inf_prec": 17.3, "d2_recall": 49.7, "wall_sec": 0.25, "peak_rss_kb": 28236, "source": "local"}
+=== END broot Wednesday 17 June 2026 04:18:42 AM IST status=ok ===
