@@ -25,7 +25,8 @@ touch "$RESULTS"
 # ── guards ───────────────────────────────────────────────────────────────────
 
 already_done() {
-    grep -q "\"crate\":\"$1\"" "$RESULTS" 2>/dev/null
+    # "crate": "name" with optional spaces around colon
+    grep -qE "\"crate\"\s*:\s*\"$1\"" "$RESULTS" 2>/dev/null
 }
 
 check_time_guard() {

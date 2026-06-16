@@ -1,0 +1,126 @@
+=== START navi binname='auto' Tuesday 16 June 2026 11:50:02 PM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded navi v2.24.0
+  Installing navi v2.24.0
+    Updating crates.io index
+     Locking 155 packages to latest compatible versions
+      Adding crossterm v0.28.1 (available: v0.29.0)
+      Adding etcetera v0.8.0 (available: v0.11.0)
+ Downloading crates ...
+  Downloaded edit v0.1.5
+  Downloaded shellwords v1.1.0
+  Downloaded strip-ansi-escapes v0.2.1
+  Downloaded synstructure v0.12.6
+  Downloaded vte v0.14.1
+  Downloaded which v4.4.2
+  Downloaded dns_common_derive v0.2.1
+  Downloaded dns_common v0.2.1
+   Compiling libc v0.2.186
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.24
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.8.2
+   Compiling bitflags v2.13.0
+   Compiling once_cell v1.21.4
+   Compiling log v0.4.32
+   Compiling regex-syntax v0.8.11
+   Compiling serde_core v1.0.228
+   Compiling rustix v0.38.44
+   Compiling smallvec v1.15.2
+   Compiling cfg_aliases v0.2.1
+   Compiling getrandom v0.4.2
+   Compiling parking_lot_core v0.9.12
+   Compiling lazy_static v1.5.0
+   Compiling syn v1.0.109
+   Compiling nix v0.29.0
+   Compiling rustix v1.1.4
+   Compiling serde v1.0.228
+   Compiling zmij v1.0.21
+   Compiling utf8parse v0.2.2
+   Compiling tracing-core v0.1.36
+   Compiling signal-hook v0.3.18
+   Compiling linux-raw-sys v0.4.15
+   Compiling anstyle-parse v1.0.0
+   Compiling anyhow v1.0.102
+   Compiling colorchoice v1.0.5
+   Compiling pin-project-lite v0.2.17
+   Compiling equivalent v1.0.2
+   Compiling home v0.5.12
+   Compiling linux-raw-sys v0.12.1
+   Compiling anstyle-query v1.1.5
+   Compiling itoa v1.0.18
+   Compiling scopeguard v1.2.0
+   Compiling serde_json v1.0.150
+   Compiling hashbrown v0.17.1
+   Compiling anstyle v1.0.14
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling lock_api v0.4.14
+   Compiling sharded-slab v0.1.7
+   Compiling aho-corasick v1.1.4
+   Compiling thread_local v1.1.9
+   Compiling tracing-log v0.2.0
+   Compiling anstream v1.0.0
+   Compiling syn v2.0.118
+   Compiling cvt v0.1.2
+   Compiling fastrand v2.4.1
+   Compiling strsim v0.11.1
+   Compiling unicode-xid v0.2.6
+   Compiling thiserror v2.0.18
+   Compiling indexmap v2.14.0
+   Compiling either v1.16.0
+   Compiling nu-ansi-term v0.50.3
+   Compiling heck v0.5.0
+   Compiling unsafe-libyaml v0.2.11
+   Compiling clap_lex v1.1.0
+   Compiling ryu v1.0.23
+   Compiling clap_builder v4.6.0
+   Compiling errno v0.3.14
+   Compiling mio v1.2.1
+   Compiling signal-hook-registry v1.4.8
+   Compiling regex-automata v0.4.14
+   Compiling dirs-sys-next v0.1.2
+   Compiling parking_lot v0.12.5
+   Compiling tempfile v3.27.0
+   Compiling signal-hook-mio v0.2.5
+   Compiling directories-next v2.0.0
+   Compiling which v4.4.2
+   Compiling synstructure v0.12.6
+   Compiling fs_at v0.2.1
+   Compiling vte v0.14.1
+   Compiling normpath v1.5.1
+   Compiling same-file v1.0.6
+   Compiling strip-ansi-escapes v0.2.1
+   Compiling walkdir v2.5.0
+   Compiling remove_dir_all v1.0.0
+   Compiling edit v0.1.5
+   Compiling dns_common_derive v0.2.1
+   Compiling crossterm v0.28.1
+   Compiling etcetera v0.8.0
+   Compiling unicode-width v0.2.2
+   Compiling serde_derive v1.0.228
+   Compiling tracing-attributes v0.1.31
+   Compiling matchers v0.2.0
+   Compiling regex v1.12.4
+   Compiling clap_derive v4.6.1
+   Compiling thiserror-impl v2.0.18
+   Compiling shellwords v1.1.0
+   Compiling tracing v0.1.44
+   Compiling tracing-subscriber v0.3.23
+   Compiling clap v4.6.1
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling dns_common v0.2.1
+   Compiling navi v2.24.0
+    Finished `release` profile [optimized + debuginfo] target(s) in 48.63s
+  Installing /home/user/Videos/unhusk/bench/install/bin/navi
+   Installed package `navi v2.24.0` (executable `navi`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/navi.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=5acf82f329caa1560763c14bb37efbcba04ed067, with debug_info, not stripped
+bin_size: 4018000 bytes
+metrics: {"n_fdes": 5341, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.06s rss=10656kb
+APPENDED: {"n_fdes": 5341, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "navi", "binname": "navi", "bin_size": 4018000, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.06, "peak_rss_kb": 10656}
+=== END navi Tuesday 16 June 2026 11:50:53 PM IST status=ok ===
