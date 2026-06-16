@@ -1,0 +1,207 @@
+=== START ripgrep /  ===
+    Updating crates.io index
+    Updating crates.io index
+  Installing ripgrep v15.1.0
+  Installing ripgrep v15.1.0
+    Updating crates.io index
+    Updating crates.io index
+     Locking     Locking 46 packages to latest compatible versions
+ 46 packages to latest compatible versions
+      Adding      Adding tikv-jemallocator v0.6.1  tikv-jemallocator v0.6.1 (available: v0.7.0)(available: v0.7.0)
+
+   Compiling   Compiling memchr v2.8.2
+ memchr v2.8.2
+   Compiling   Compiling regex-syntax v0.8.11
+ regex-syntax v0.8.11
+   Compiling   Compiling log v0.4.32
+ log v0.4.32
+   Compiling   Compiling libc v0.2.186
+ libc v0.2.186
+   Compiling   Compiling serde_core v1.0.228
+ serde_core v1.0.228
+   Compiling   Compiling crossbeam-utils v0.8.21
+ crossbeam-utils v0.8.21
+   Compiling   Compiling cfg-if v1.0.4
+ cfg-if v1.0.4
+   Compiling   Compiling zmij v1.0.21
+ zmij v1.0.21
+   Compiling   Compiling serde v1.0.228
+ serde v1.0.228
+   Compiling   Compiling serde_json v1.0.150
+ serde_json v1.0.150
+   Compiling   Compiling termcolor v1.4.1
+ termcolor v1.4.1
+   Compiling   Compiling itoa v1.0.18
+ itoa v1.0.18
+   Compiling   Compiling same-file v1.0.6
+ same-file v1.0.6
+   Compiling anyhow v1.0.102
+   Compiling anyhow v1.0.102
+   Compiling ripgrep v15.1.0
+   Compiling ripgrep v15.1.0
+   Compiling   Compiling lexopt v0.3.2
+ lexopt v0.3.2
+   Compiling encoding_rs v0.8.35
+   Compiling encoding_rs v0.8.35
+   Compiling   Compiling walkdir v2.5.0
+ walkdir v2.5.0
+   Compiling textwrap v0.16.2
+   Compiling textwrap v0.16.2
+   Compiling aho-corasick v1.1.4
+   Compiling aho-corasick v1.1.4
+   Compiling grep-matcher v0.1.8
+   Compiling grep-matcher v0.1.8
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling crossbeam-deque v0.8.6
+   Compiling memmap2 v0.9.10
+   Compiling memmap2 v0.9.10
+   Compiling encoding_rs_io v0.1.7
+   Compiling encoding_rs_io v0.1.7
+=== START ripgrep binname='auto' Tuesday 16 June 2026 11:22:57 PM IST ===
+    Updating crates.io index
+  Installing ripgrep v15.1.0
+    Updating crates.io index
+     Locking 46 packages to latest compatible versions
+      Adding tikv-jemallocator v0.6.1 (available: v0.7.0)
+   Compiling aho-corasick v1.1.4
+   Compiling regex-syntax v0.8.11
+   Compiling encoding_rs v0.8.35
+   Compiling serde_core v1.0.228
+   Compiling memmap2 v0.9.10
+   Compiling encoding_rs_io v0.1.7
+   Compiling regex-automata v0.4.14
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.150
+   Compiling bstr v1.12.1
+   Compiling globset v0.4.18
+   Compiling grep-searcher v0.1.16
+   Compiling grep-regex v0.1.14
+   Compiling grep-printer v0.3.1
+   Compiling grep-cli v0.1.12
+   Compiling ignore v0.4.26
+   Compiling grep v0.4.1
+   Compiling ripgrep v15.1.0
+    Finished `release` profile [optimized + debuginfo] target(s) in 35.75s
+  Installing /home/user/Videos/unhusk/bench/install/bin/rg
+   Installed package `ripgrep v15.1.0` (executable `rg`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/ripgrep.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=c81d9cd386a6275500f827956800ed6a0213ef06, with debug_info, not stripped
+bin_size: 5339992 bytes
+metrics: {"n_fdes": 8739, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=null recall=0.0
+d2: inf_prec=null recall=0.0
+perf: wall=0.07s rss=13516kb
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'null' is not defined
+APPENDED: {"crate":"ripgrep","error":"json_assembly_failed"}
+=== END ripgrep Tuesday 16 June 2026 11:23:34 PM IST status=ok ===
+=== START ripgrep binname='auto' Tuesday 16 June 2026 11:25:24 PM IST ===
+    Updating crates.io index
+  Installing ripgrep v15.1.0
+    Updating crates.io index
+     Locking 46 packages to latest compatible versions
+      Adding tikv-jemallocator v0.6.1 (available: v0.7.0)
+   Compiling memchr v2.8.2
+   Compiling regex-syntax v0.8.11
+   Compiling libc v0.2.186
+   Compiling log v0.4.32
+   Compiling serde_core v1.0.228
+   Compiling cfg-if v1.0.4
+   Compiling zmij v1.0.21
+   Compiling crossbeam-utils v0.8.21
+   Compiling serde v1.0.228
+   Compiling serde_json v1.0.150
+   Compiling itoa v1.0.18
+   Compiling termcolor v1.4.1
+   Compiling anyhow v1.0.102
+   Compiling same-file v1.0.6
+   Compiling ripgrep v15.1.0
+   Compiling textwrap v0.16.2
+   Compiling encoding_rs v0.8.35
+   Compiling walkdir v2.5.0
+   Compiling lexopt v0.3.2
+   Compiling aho-corasick v1.1.4
+   Compiling grep-matcher v0.1.8
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling memmap2 v0.9.10
+   Compiling encoding_rs_io v0.1.7
+   Compiling regex-automata v0.4.14
+   Compiling bstr v1.12.1
+   Compiling globset v0.4.18
+   Compiling grep-searcher v0.1.16
+   Compiling grep-regex v0.1.14
+   Compiling grep-printer v0.3.1
+   Compiling grep-cli v0.1.12
+   Compiling ignore v0.4.26
+   Compiling grep v0.4.1
+    Finished `release` profile [optimized + debuginfo] target(s) in 40.66s
+  Installing /home/user/Videos/unhusk/bench/install/bin/rg
+   Installed package `ripgrep v15.1.0` (executable `rg`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/ripgrep.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=c81d9cd386a6275500f827956800ed6a0213ef06, with debug_info, not stripped
+bin_size: 5339992 bytes
+metrics: {"n_fdes": 8739, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.07s rss=13384kb
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'null' is not defined
+APPENDED: {"crate":"ripgrep","error":"json_assembly_failed"}
+=== END ripgrep Tuesday 16 June 2026 11:26:06 PM IST status=ok ===
+=== START ripgrep binname='auto' Tuesday 16 June 2026 11:26:55 PM IST ===
+    Updating crates.io index
+  Installing ripgrep v15.1.0
+    Updating crates.io index
+     Locking 46 packages to latest compatible versions
+      Adding tikv-jemallocator v0.6.1 (available: v0.7.0)
+   Compiling memchr v2.8.2
+   Compiling regex-syntax v0.8.11
+   Compiling log v0.4.32
+   Compiling libc v0.2.186
+   Compiling serde_core v1.0.228
+   Compiling zmij v1.0.21
+   Compiling crossbeam-utils v0.8.21
+   Compiling cfg-if v1.0.4
+   Compiling serde_json v1.0.150
+   Compiling serde v1.0.228
+   Compiling termcolor v1.4.1
+   Compiling itoa v1.0.18
+   Compiling same-file v1.0.6
+   Compiling anyhow v1.0.102
+   Compiling ripgrep v15.1.0
+   Compiling textwrap v0.16.2
+   Compiling encoding_rs v0.8.35
+   Compiling walkdir v2.5.0
+   Compiling lexopt v0.3.2
+   Compiling aho-corasick v1.1.4
+   Compiling grep-matcher v0.1.8
+   Compiling crossbeam-epoch v0.9.18
+   Compiling crossbeam-deque v0.8.6
+   Compiling memmap2 v0.9.10
+   Compiling encoding_rs_io v0.1.7
+   Compiling regex-automata v0.4.14
+   Compiling bstr v1.12.1
+   Compiling globset v0.4.18
+   Compiling grep-searcher v0.1.16
+   Compiling grep-regex v0.1.14
+   Compiling grep-cli v0.1.12
+   Compiling ignore v0.4.26
+   Compiling grep-printer v0.3.1
+   Compiling grep v0.4.1
+    Finished `release` profile [optimized + debuginfo] target(s) in 35.17s
+  Installing /home/user/Videos/unhusk/bench/install/bin/rg
+   Installed package `ripgrep v15.1.0` (executable `rg`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/ripgrep.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=c81d9cd386a6275500f827956800ed6a0213ef06, with debug_info, not stripped
+bin_size: 5339992 bytes
+metrics: {"n_fdes": 8739, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.07s rss=13368kb
+APPENDED: {"n_fdes": 8739, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "ripgrep", "binname": "rg", "bin_size": 5339992, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.07, "peak_rss_kb": 13368}
+=== END ripgrep Tuesday 16 June 2026 11:27:32 PM IST status=ok ===
