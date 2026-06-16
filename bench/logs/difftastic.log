@@ -1,0 +1,258 @@
+=== START difftastic binname='difft' Wednesday 17 June 2026 12:30:14 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded difftastic v0.69.0
+  Installing difftastic v0.69.0
+    Updating crates.io index
+     Locking 181 packages to latest compatible versions
+      Adding crossterm v0.28.1 (available: v0.29.0)
+      Adding hashbrown v0.14.5 (available: v0.17.1)
+      Adding ignore v0.4.23 (available: v0.4.26)
+      Adding line-numbers v0.3.1 (available: v0.4.0)
+      Adding strum v0.26.3 (available: v0.28.0)
+      Adding tikv-jemallocator v0.6.1 (available: v0.7.0)
+      Adding tree-sitter-devicetree v0.14.1 (available: v0.15.0)
+      Adding tree-sitter-erlang v0.16.0 (available: v0.19.0)
+      Adding tree-sitter-fortran v0.5.1 (available: v0.6.0)
+      Adding tree-sitter-ocaml v0.24.2 (available: v0.25.0)
+      Adding tree-sitter-php v0.23.11 (available: v0.24.2)
+      Adding tree-sitter-proto v0.2.0 (available: v0.4.0)
+      Adding tree-sitter-sfapex v2.4.0 (available: v3.0.0)
+      Adding unicode-width v0.1.14 (available: v0.2.2)
+ Downloading crates ...
+  Downloaded ignore v0.4.23
+  Downloaded pretty_env_logger v0.5.0
+  Downloaded radix-heap v0.4.2
+  Downloaded tree-sitter v0.26.9
+  Downloaded streaming-iterator v0.1.9
+  Downloaded tree-sitter-css v0.25.0
+  Downloaded tree-sitter-clojure-orchard v0.2.5
+  Downloaded tree-sitter-cmake v0.7.1
+  Downloaded tree-sitter-commonlisp v0.4.1
+  Downloaded tree-sitter-language v0.1.7
+  Downloaded tree-sitter-json v0.24.8
+  Downloaded tree_magic_mini v3.2.2
+  Downloaded tree-sitter-html v0.23.2
+  Downloaded tree-sitter-toml-ng v0.7.0
+  Downloaded tree-sitter-elisp v1.6.1
+  Downloaded tree-sitter-lua v0.5.0
+  Downloaded tree-sitter-nix v0.3.0
+  Downloaded tree-sitter-proto v0.2.0
+  Downloaded tree-sitter-hcl v1.1.0
+  Downloaded tree-sitter-make v1.1.1
+  Downloaded tree-sitter-xml v0.7.0
+  Downloaded tree-sitter-devicetree v0.14.1
+  Downloaded line-numbers v0.3.1
+  Downloaded tree-sitter-c v0.24.2
+  Downloaded tree-sitter-bash v0.25.1
+  Downloaded tree-sitter-yaml v0.7.2
+  Downloaded tree-sitter-go v0.25.0
+  Downloaded tree-sitter-elm v5.9.0
+  Downloaded tree-sitter-erlang v0.16.0
+  Downloaded tree-sitter-javascript v0.25.0
+  Downloaded tree-sitter-java v0.23.5
+  Downloaded tree-sitter-python v0.25.0
+  Downloaded tree-sitter-r v1.2.0
+  Downloaded tree-sitter-asm v0.24.0
+  Downloaded tree-sitter-solidity v1.2.13
+  Downloaded tree-sitter-newick v1.1.0
+  Downloaded tree-sitter-zig v1.1.2
+  Downloaded wu-diff v0.1.2
+  Downloaded tree-sitter-scheme v0.24.7
+  Downloaded tree-sitter-pascal v0.10.2
+  Downloaded tree-sitter-racket v0.24.7
+  Downloaded tree-sitter-dart-orchard v0.3.2
+  Downloaded tree-sitter-gleam v1.0.0
+  Downloaded tree-sitter-ada v0.1.0
+  Downloaded tree-sitter-php v0.23.11
+  Downloaded tree-sitter-elixir v0.3.5
+  Downloaded tree-sitter-ruby v0.23.1
+  Downloaded tree-sitter-qmljs v0.3.0
+  Downloaded tree-sitter-vhdl v1.4.0
+  Downloaded tree-sitter-cpp v0.23.4
+  Downloaded tree-sitter-sfapex v2.4.0
+  Downloaded tree-sitter-rust-orchard v0.16.6
+  Downloaded tree-sitter-haskell v0.23.1
+  Downloaded tree-sitter-typescript v0.23.2
+  Downloaded tree-sitter-sequel v0.3.11
+  Downloaded tree-sitter-swift v0.7.3
+  Downloaded tree-sitter-c-sharp v0.23.5
+  Downloaded tree-sitter-scala v0.26.0
+  Downloaded tree-sitter-objc v3.0.2
+  Downloaded tree-sitter-fortran v0.5.1
+  Downloaded ts-parser-perl v1.1.2
+  Downloaded tree-sitter-verilog v1.0.3
+  Downloaded tree-sitter-julia v0.23.1
+  Downloaded tree-sitter-ocaml v0.24.2
+  Downloaded tree-sitter-fsharp v0.3.0
+   Compiling find-msvc-tools v0.1.9
+   Compiling shlex v2.0.1
+   Compiling tree-sitter-language v0.1.7
+   Compiling crossbeam-utils v0.8.21
+   Compiling libc v0.2.186
+   Compiling memchr v2.8.2
+   Compiling zmij v1.0.21
+   Compiling proc-macro2 v1.0.106
+   Compiling rayon-core v1.13.0
+   Compiling quote v1.0.45
+   Compiling serde_core v1.0.228
+   Compiling unicode-ident v1.0.24
+   Compiling regex-syntax v0.8.11
+   Compiling log v0.4.32
+   Compiling cfg-if v1.0.4
+   Compiling hashbrown v0.17.1
+   Compiling bitflags v2.13.0
+   Compiling serde_json v1.0.150
+   Compiling version_check v0.9.5
+   Compiling equivalent v1.0.2
+   Compiling cc v1.2.64
+   Compiling rustix v1.1.4
+   Compiling itoa v1.0.18
+   Compiling linux-raw-sys v0.12.1
+   Compiling signal-hook v0.3.18
+   Compiling parking_lot_core v0.9.12
+   Compiling utf8parse v0.2.2
+   Compiling zerocopy v0.8.52
+   Compiling rustversion v1.0.22
+   Compiling aho-corasick v1.1.4
+   Compiling anstyle-parse v1.0.0
+   Compiling crossbeam-epoch v0.9.18
+   Compiling indexmap v2.14.0
+   Compiling ahash v0.8.12
+   Compiling rustix v0.38.44
+   Compiling crossbeam-deque v0.8.6
+   Compiling scopeguard v1.2.0
+   Compiling syn v2.0.118
+   Compiling anstyle-query v1.1.5
+   Compiling libm v0.2.16
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling either v1.16.0
+   Compiling foldhash v0.1.5
+   Compiling anstyle v1.0.14
+   Compiling smallvec v1.15.2
+   Compiling colorchoice v1.0.5
+   Compiling hashbrown v0.15.5
+   Compiling lock_api v0.4.14
+   Compiling errno v0.3.14
+   Compiling anstream v1.0.0
+   Compiling mio v1.2.1
+   Compiling is-terminal v0.4.17
+   Compiling signal-hook-registry v1.4.8
+   Compiling tikv-jemalloc-sys v0.6.1+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7
+   Compiling tree-sitter-json v0.24.8
+   Compiling tree-sitter-lua v0.5.0
+   Compiling tree-sitter-elisp v1.6.1
+   Compiling tree-sitter-qmljs v0.3.0
+   Compiling tree-sitter-toml-ng v0.7.0
+   Compiling tree-sitter-ruby v0.23.1
+   Compiling tree-sitter-hcl v1.1.0
+   Compiling tree-sitter-yaml v0.7.2
+   Compiling tree-sitter-python v0.25.0
+   Compiling tree-sitter-scala v0.26.0
+   Compiling tree-sitter-dart-orchard v0.3.2
+   Compiling tree-sitter-scheme v0.24.7
+   Compiling tree-sitter-css v0.25.0
+   Compiling ts-parser-perl v1.1.2
+   Compiling tree-sitter-sequel v0.3.11
+   Compiling tree-sitter-erlang v0.16.0
+   Compiling tree-sitter-vhdl v1.4.0
+   Compiling regex-automata v0.4.14
+   Compiling tree-sitter-c v0.24.2
+   Compiling tree-sitter-r v1.2.0
+   Compiling tree-sitter-cpp v0.23.4
+   Compiling tree-sitter-julia v0.23.1
+   Compiling tree-sitter-objc v3.0.2
+   Compiling tree-sitter-devicetree v0.14.1
+   Compiling tree-sitter-javascript v0.25.0
+   Compiling tree-sitter-fsharp v0.3.0
+   Compiling tree-sitter-gleam v1.0.0
+   Compiling tree-sitter-ocaml v0.24.2
+   Compiling tree-sitter-newick v1.1.0
+   Compiling tree-sitter-proto v0.2.0
+   Compiling tree-sitter-sfapex v2.4.0
+   Compiling tree-sitter-html v0.23.2
+   Compiling tree-sitter-pascal v0.10.2
+   Compiling tree-sitter-c-sharp v0.23.5
+   Compiling tree-sitter-fortran v0.5.1
+   Compiling tree-sitter-commonlisp v0.4.1
+   Compiling tree-sitter-zig v1.1.2
+   Compiling tree-sitter-haskell v0.23.1
+   Compiling tree-sitter-rust-orchard v0.16.6
+   Compiling tree-sitter-nix v0.3.0
+   Compiling tree-sitter-php v0.23.11
+   Compiling tree-sitter-go v0.25.0
+   Compiling tree-sitter-verilog v1.0.3
+   Compiling tree-sitter-bash v0.25.1
+   Compiling tree-sitter-ada v0.1.0
+   Compiling tree-sitter-solidity v1.2.13
+   Compiling tree-sitter-asm v0.24.0
+   Compiling tree-sitter-cmake v0.7.1
+   Compiling tree-sitter-elm v5.9.0
+   Compiling tree-sitter-elixir v0.3.5
+   Compiling tree-sitter-swift v0.7.3
+   Compiling tree-sitter-typescript v0.23.2
+   Compiling tree-sitter-xml v0.7.0
+   Compiling tree-sitter-racket v0.24.7
+   Compiling regex v1.12.4
+   Compiling tree-sitter-java v0.23.5
+   Compiling tree-sitter-make v1.1.1
+   Compiling tree-sitter-clojure-orchard v0.2.5
+   Compiling terminal_size v0.4.4
+   Compiling tree-sitter v0.26.9
+   Compiling rayon v1.12.0
+   Compiling bstr v1.12.1
+   Compiling termcolor v1.4.1
+   Compiling serde v1.0.228
+   Compiling strsim v0.11.1
+   Compiling clap_lex v1.1.0
+   Compiling humantime v2.3.0
+   Compiling fixedbitset v0.5.7
+   Compiling linux-raw-sys v0.4.15
+   Compiling once_cell v1.21.4
+   Compiling owo-colors v4.3.0
+   Compiling same-file v1.0.6
+   Compiling heck v0.5.0
+   Compiling walkdir v2.5.0
+   Compiling globset v0.4.18
+   Compiling petgraph v0.8.3
+   Compiling clap_builder v4.6.0
+   Compiling strum_macros v0.26.4
+   Compiling serde_derive v1.0.228
+   Compiling env_logger v0.10.2
+   Compiling signal-hook-mio v0.2.5
+   Compiling difftastic v0.69.0
+   Compiling parking_lot v0.12.5
+   Compiling nom v8.0.0
+   Compiling allocator-api2 v0.2.21
+   Compiling streaming-iterator v0.1.9
+   Compiling hashbrown v0.14.5
+   Compiling humansize v2.1.3
+   Compiling crossterm v0.28.1
+   Compiling clap v4.6.1
+   Compiling strum v0.26.3
+   Compiling pretty_env_logger v0.5.0
+   Compiling ignore v0.4.23
+   Compiling encoding_rs v0.8.35
+   Compiling typed-arena v2.0.2
+   Compiling radix-heap v0.4.2
+   Compiling rustc-hash v2.1.2
+   Compiling line-numbers v0.3.1
+   Compiling unicode-width v0.1.14
+   Compiling bumpalo v3.20.3
+   Compiling glob v0.3.3
+   Compiling lazy_static v1.5.0
+   Compiling wu-diff v0.1.2
+   Compiling tree_magic_mini v3.2.2
+   Compiling tikv-jemallocator v0.6.1
+    Finished `release` profile [optimized + debuginfo] target(s) in 2m 43s
+  Installing /home/user/Videos/unhusk/bench/install/bin/difft
+   Installed package `difftastic v0.69.0` (executable `difft`)
+warning: be sure to add `/home/user/Videos/unhusk/bench/install/bin` to your PATH to be able to run the installed binaries
+file: /home/user/Videos/unhusk/bench/bin/difftastic.debug: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=22045a262bc7ade9306d9ee02f4921cb4357153b, with debug_info, not stripped
+bin_size: 123514096 bytes
+metrics: {"n_fdes": 6864, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0}
+d1: inf_prec=None recall=0.0
+d2: inf_prec=None recall=0.0
+perf: wall=0.23s rss=244168kb
+APPENDED: {"n_fdes": 6864, "n_certain": 0, "n_call_closure": 0, "n_locations": 0, "dwarf_certain_n": 0, "dwarf_certain_tp": 0, "dwarf_certain_fp": 0, "dwarf_certain_prec": null, "dwarf_inferred_n": 0, "dwarf_inferred_tp": 0, "dwarf_inferred_fp": 0, "dwarf_inferred_prec": null, "dwarf_certain_prec_hl": null, "dwarf_certain_recall": 0.0, "dwarf_overall_recall": 0.0, "sym_user": 0, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": null, "n_certain_addrs_parsed": 0, "crate": "difftastic", "binname": "difft", "bin_size": 123514096, "d1_inf_prec": null, "d1_recall": 0.0, "d2_inf_prec": null, "d2_recall": 0.0, "wall_sec": 0.23, "peak_rss_kb": 244168}
+=== END difftastic Wednesday 17 June 2026 12:33:05 AM IST status=ok ===
