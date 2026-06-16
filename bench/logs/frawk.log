@@ -1,0 +1,223 @@
+=== START frawk binname='auto' Wednesday 17 June 2026 12:51:29 AM IST ===
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded frawk v0.4.8
+  Installing frawk v0.4.8
+    Updating crates.io index
+     Locking 152 packages to latest compatible versions
+      Adding clap v3.2.25 (available: v4.6.1)
+      Adding cranelift v0.93.2 (available: v0.132.2)
+      Adding cranelift-codegen v0.93.2 (available: v0.132.2)
+      Adding cranelift-frontend v0.93.2 (available: v0.132.2)
+      Adding cranelift-jit v0.93.2 (available: v0.132.2)
+      Adding cranelift-module v0.93.2 (available: v0.132.2)
+      Adding cranelift-native v0.93.2 (available: v0.132.2)
+      Adding hashbrown v0.11.2 (available: v0.17.1)
+      Adding itertools v0.10.5 (available: v0.15.0)
+      Adding lalrpop v0.19.12 (available: v0.23.1)
+      Adding lalrpop-util v0.19.12 (available: v0.23.1)
+      Adding llvm-sys v120.3.2 (available: v221.0.1)
+      Adding petgraph v0.6.5 (available: v0.8.3)
+      Adding rand v0.8.6 (available: v0.10.1)
+      Adding regex-syntax v0.6.29 (available: v0.8.11)
+      Adding target-lexicon v0.12.16 (available: v0.13.5)
+      Adding tikv-jemallocator v0.4.3 (available: v0.7.0)
+ Downloading crates ...
+  Downloaded ascii-canvas v3.0.0
+  Downloaded assert_cmd v2.2.2
+  Downloaded clap_lex v0.2.4
+  Downloaded clap v3.2.25
+  Downloaded ena v0.14.4
+  Downloaded fallible-iterator v0.2.0
+  Downloaded os_str_bytes v6.6.1
+  Downloaded fast-float v0.2.0
+  Downloaded hashbrown v0.11.2
+  Downloaded regalloc2 v0.5.1
+  Downloaded lalrpop v0.19.12
+  Downloaded slice-group-by v0.3.1
+  Downloaded tikv-jemallocator v0.4.3
+  Downloaded semver v0.11.0
+  Downloaded target-lexicon v0.12.16
+  Downloaded gimli v0.26.2
+  Downloaded tikv-jemalloc-sys v0.4.3+5.2.1-patched.2
+  Downloaded cranelift v0.93.2
+  Downloaded cranelift-entity v0.93.2
+  Downloaded cranelift-bforest v0.93.2
+  Downloaded llvm-sys v120.3.2
+  Downloaded cranelift-jit v0.93.2
+  Downloaded cranelift-frontend v0.93.2
+  Downloaded cranelift-native v0.93.2
+  Downloaded lalrpop-util v0.19.12
+  Downloaded cranelift-isle v0.93.2
+  Downloaded cranelift-codegen-shared v0.93.2
+  Downloaded cranelift-codegen-meta v0.93.2
+  Downloaded cranelift-codegen v0.93.2
+  Downloaded cranelift-module v0.93.2
+  Downloaded wasmtime-jit-icache-coherence v6.0.2
+  Downloaded region v2.2.0
+  Downloaded semver-parser v0.10.3
+   Compiling libc v0.2.186
+   Compiling cfg-if v1.0.4
+   Compiling version_check v0.9.5
+   Compiling memchr v2.8.2
+   Compiling once_cell v1.21.4
+   Compiling autocfg v1.5.1
+   Compiling cranelift-isle v0.93.2
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.9
+   Compiling regex-syntax v0.8.11
+   Compiling log v0.4.32
+   Compiling cranelift-codegen-shared v0.93.2
+   Compiling byteorder v1.5.0
+   Compiling target-lexicon v0.12.16
+   Compiling cranelift-entity v0.93.2
+   Compiling smallvec v1.15.2
+   Compiling cranelift-codegen-meta v0.93.2
+   Compiling fallible-iterator v0.2.0
+   Compiling cc v1.2.64
+   Compiling crossbeam-utils v0.8.21
+   Compiling slice-group-by v0.3.1
+   Compiling ahash v0.7.8
+   Compiling fxhash v0.2.1
+   Compiling ucd-trie v0.1.7
+   Compiling indexmap v1.9.3
+   Compiling stable_deref_trait v1.2.1
+   Compiling parking_lot_core v0.9.12
+   Compiling cranelift-bforest v0.93.2
+   Compiling aho-corasick v1.1.4
+   Compiling pest v2.8.6
+   Compiling regalloc2 v0.5.1
+   Compiling crunchy v0.2.4
+   Compiling arrayvec v0.7.6
+   Compiling scopeguard v1.2.0
+   Compiling bumpalo v3.20.3
+   Compiling lock_api v0.4.14
+   Compiling equivalent v1.0.2
+   Compiling zerocopy v0.8.52
+   Compiling hashbrown v0.17.1
+   Compiling tiny-keccak v2.0.2
+   Compiling getrandom v0.2.17
+   Compiling dirs-sys-next v0.1.2
+   Compiling siphasher v1.0.3
+   Compiling dirs-next v2.0.0
+   Compiling phf_shared v0.11.3
+   Compiling parking_lot v0.12.5
+   Compiling term v0.7.0
+   Compiling hashbrown v0.12.3
+   Compiling bit-vec v0.6.3
+   Compiling indexmap v2.14.0
+   Compiling fs_extra v1.3.0
+   Compiling either v1.16.0
+   Compiling precomputed-hash v0.1.1
+   Compiling semver-parser v0.10.3
+   Compiling fixedbitset v0.4.2
+   Compiling new_debug_unreachable v1.0.6
+   Compiling regex-automata v0.4.14
+   Compiling anyhow v1.0.102
+   Compiling lazy_static v1.5.0
+   Compiling tikv-jemalloc-sys v0.4.3+5.2.1-patched.2
+   Compiling string_cache v0.8.9
+   Compiling itertools v0.10.5
+   Compiling ascii-canvas v3.0.0
+   Compiling bit-set v0.5.3
+   Compiling ena v0.14.4
+   Compiling semver v0.11.0
+   Compiling is-terminal v0.4.17
+   Compiling predicates-core v1.0.10
+   Compiling bitflags v1.3.2
+   Compiling petgraph v0.6.5
+   Compiling unicode-xid v0.2.6
+   Compiling cranelift-codegen v0.93.2
+   Compiling diff v0.1.13
+   Compiling regex-syntax v0.6.29
+   Compiling crossbeam-epoch v0.9.18
+   Compiling rand_core v0.6.4
+   Compiling os_str_bytes v6.6.1
+   Compiling gimli v0.26.2
+   Compiling termcolor v1.4.1
+   Compiling paste v1.0.15
+   Compiling difflib v0.4.0
+   Compiling anstyle v1.0.14
+   Compiling termtree v0.5.1
+   Compiling assert_cmd v2.2.2
+   Compiling predicates-tree v1.0.13
+   Compiling clap_lex v0.2.4
+   Compiling predicates v3.1.4
+   Compiling crossbeam-deque v0.8.6
+   Compiling region v2.2.0
+   Compiling crossbeam-queue v0.3.12
+   Compiling crossbeam-channel v0.5.15
+   Compiling atty v0.2.14
+   Compiling wait-timeout v0.2.1
+   Compiling wasmtime-jit-icache-coherence v6.0.2
+   Compiling regex v1.12.4
+   Compiling textwrap v0.16.2
+   Compiling strsim v0.10.0
+   Compiling lalrpop-util v0.19.12
+   Compiling clap v3.2.25
+   Compiling crossbeam v0.8.4
+   Compiling lalrpop v0.19.12
+   Compiling hashbrown v0.11.2
+   Compiling num_cpus v1.17.0
+   Compiling ryu v1.0.23
+   Compiling itoa v1.0.18
+   Compiling fast-float v0.2.0
+   Compiling bstr v1.12.1
+   Compiling llvm-sys v120.3.2
+   Compiling ppv-lite86 v0.2.21
+   Compiling globset v0.4.18
+   Compiling rand_chacha v0.3.1
+   Compiling grep-cli v0.1.12
+   Compiling rand v0.8.6
+   Compiling frawk v0.4.8
+   Compiling cranelift-native v0.93.2
+   Compiling cranelift-module v0.93.2
+   Compiling cranelift-frontend v0.93.2
+   Compiling cranelift-jit v0.93.2
+   Compiling cranelift v0.93.2
+   Compiling tikv-jemallocator v0.4.3
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+    --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/frawk-0.4.8/src/runtime/splitter/batch.rs:1140:17
+     |
+1140 |                 std::intrinsics::prefetch_read_data($buf.offset(128), 3);
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                   - unexpected argument #2 of type `{integer}`
+...
+1151 |                     let (rel, nl) = iterate!(buf_ptr.add(V::INPUT_SIZE * b + ix));
+     |                                     --------------------------------------------- in this macro invocation
+     |
+note: function defined here
+    --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/intrinsics/mod.rs:276:13
+     = note: this error originates in the macro `iterate` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+    --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/frawk-0.4.8/src/runtime/splitter/batch.rs:1140:17
+     |
+1140 |                 std::intrinsics::prefetch_read_data($buf.offset(128), 3);
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                   - unexpected argument #2 of type `{integer}`
+...
+1175 |             let (fields, nl) = iterate!(buf_ptr.add(ix));
+     |                                ------------------------- in this macro invocation
+     |
+note: function defined here
+    --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/intrinsics/mod.rs:276:13
+     = note: this error originates in the macro `iterate` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0061]: this function takes 1 argument but 2 arguments were supplied
+    --> /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/frawk-0.4.8/src/runtime/splitter/batch.rs:1140:17
+     |
+1140 |                 std::intrinsics::prefetch_read_data($buf.offset(128), 3);
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                   - unexpected argument #2 of type `{integer}`
+...
+1186 |             let (fields, nl) = iterate!(rest.as_mut_ptr());
+     |                                --------------------------- in this macro invocation
+     |
+note: function defined here
+    --> /rustc/9ec5d5f32e19d250c7fbeaa90978c79105b39dee/library/core/src/intrinsics/mod.rs:276:13
+     = note: this error originates in the macro `iterate` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0061`.
+error: could not compile `frawk` (bin "frawk") due to 3 previous errors
+error: failed to compile `frawk v0.4.8`, intermediate artifacts can be found at `/home/user/Videos/unhusk/bench/target`.
+To reuse those artifacts with a future compilation, set the environment variable `CARGO_BUILD_BUILD_DIR` to that path.
+BUILD_FAILED
+=== END frawk Wednesday 17 June 2026 12:52:41 AM IST status=fail ===
