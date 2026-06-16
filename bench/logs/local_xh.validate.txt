@@ -1,0 +1,2615 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_xh.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x003bfd80   7605968 bytes
+  .rodata               vaddr 0x00119000   1880992 bytes
+  .data.rel.ro          vaddr 0x00b02100    551728 bytes
+  .rela.dyn             vaddr 0x00001cb0    817536 bytes
+  .eh_frame             vaddr 0x00301be8    774536 bytes
+  .rela.dyn entries     33941 R_X86_64_RELATIVE entries
+
+source-path strings: 554  (user=16, std=88, dep=450, unknown=0)
+  distinct dep crates visible: 90
+
+panic/assert sites:  3690  (user=85, std=578, dep=3027, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/auth.rs  (5 sites)
+       49:50    Location struct @ 0xb08070
+       50:16    Location struct @ 0xb08088
+       51:59    Location struct @ 0xb080a0
+       52:27    Location struct @ 0xb080b8
+       53:27    Location struct @ 0xb080d0
+  src/cli.rs  (11 sites)
+      490:56    Location struct @ 0xb0cb98
+      545:67    Location struct @ 0xb0c6a8
+      552:35    Location struct @ 0xb0c6c0
+      621:29    Location struct @ 0xb0c798
+      627:29    Location struct @ 0xb0c780
+      671:43    Location struct @ 0xb02100
+      776:50    Location struct @ 0xb0c898
+      797:47    Location struct @ 0xb0c8b0
+     1074:42    Location struct @ 0xb0c880
+     1277:41    Location struct @ 0xb0cac0
+     1407:22    Location struct @ 0xb0c8c8
+  src/content_disposition.rs  (1 sites)
+       44:18    Location struct @ 0xb09958
+  src/download.rs  (4 sites)
+      105:5     Location struct @ 0xb081a0
+      115:6     Location struct @ 0xb081b8
+      122:10    Location struct @ 0xb081d0
+      128:10    Location struct @ 0xb081e8
+  src/formatting/mod.rs  (1 sites)
+       83:14    Location struct @ 0xb0dcf8
+  src/formatting/palette.rs  (1 sites)
+       55:66    Location struct @ 0xb0dcc8
+  src/generation.rs  (14 sites)
+       38:51    Location struct @ 0xb0c0e0
+       39:36    Location struct @ 0xb0c0f8
+       66:10    Location struct @ 0xb0bfe0
+       68:10    Location struct @ 0xb0bff8
+      107:53    Location struct @ 0xb0c010
+      122:14    Location struct @ 0xb0c028
+      179:10    Location struct @ 0xb0bf20
+      181:10    Location struct @ 0xb0bf38
+      192:17    Location struct @ 0xb0bfc8
+      228:53    Location struct @ 0xb0bf98
+      252:14    Location struct @ 0xb0bfb0
+      305:73    Location struct @ 0xb0bf50
+      305:83    Location struct @ 0xb0bf68
+      313:64    Location struct @ 0xb0bf80
+  src/main.rs  (13 sites)
+      175:13    Location struct @ 0xb083c0
+      215:17    Location struct @ 0xb083d8
+      244:13    Location struct @ 0xb083f0
+      392:5     Location struct @ 0xb08408
+      393:5     Location struct @ 0xb08420
+      416:48    Location struct @ 0xb08438
+      496:21    Location struct @ 0xb08450
+      524:17    Location struct @ 0xb08468
+      570:17    Location struct @ 0xb08498
+      632:5     Location struct @ 0xb084b0
+      634:5     Location struct @ 0xb084c8
+      737:17    Location struct @ 0xb084e0
+      775:44    Location struct @ 0xb084f8
+  src/middleware.rs  (2 sites)
+       19:49    Location struct @ 0xb0c110
+       23:57    Location struct @ 0xb0c128
+  src/nested_json.rs  (8 sites)
+       45:44    Location struct @ 0xb097d8
+       47:37    Location struct @ 0xb097f0
+       48:52    Location struct @ 0xb09808
+      165:5     Location struct @ 0xb09940
+      248:16    Location struct @ 0xb09928
+      256:24    Location struct @ 0xb098f8
+      257:24    Location struct @ 0xb09910
+      306:27    Location struct @ 0xb09970
+  src/netrc.rs  (4 sites)
+      226:38    Location struct @ 0xb0c448
+      253:27    Location struct @ 0xb0c460
+      256:40    Location struct @ 0xb0c478
+      256:79    Location struct @ 0xb0c490
+  src/printer.rs  (4 sites)
+      103:51    Location struct @ 0xb0c4c8
+      215:17    Location struct @ 0xb0c4f8
+      314:54    Location struct @ 0xb0c340
+      391:18    Location struct @ 0xb03118
+  src/request_items.rs  (9 sites)
+       67:54    Location struct @ 0xb03338
+      121:22    Location struct @ 0xb03350
+      177:18    Location struct @ 0xb03320
+      201:34    Location struct @ 0xb032f0
+      201:55    Location struct @ 0xb03308
+      323:49    Location struct @ 0xb031b0
+      350:49    Location struct @ 0xb03198
+      427:21    Location struct @ 0xb031e0
+      448:25    Location struct @ 0xb031c8
+  src/session.rs  (4 sites)
+      198:32    Location struct @ 0xb0b8d8
+      208:32    Location struct @ 0xb0b8a8
+      281:32    Location struct @ 0xb0b8c0
+      320:32    Location struct @ 0xb0b780
+  src/to_curl.rs  (2 sites)
+      451:39    Location struct @ 0xb0b8f0
+      452:30    Location struct @ 0xb0b908
+  src/utils.rs  (2 sites)
+       45:28    Location struct @ 0xb080e8
+      172:38    Location struct @ 0xb07f50
+
+dep crates by panic site count  (3027 sites across 91 crates):
+  h2@0.4.13                                       438
+  http@1.4.0                                      219
+  regex-automata@0.4.14                           198
+  regex-syntax@0.8.10                             196
+  brotli-decompressor@5.0.0                       172
+  tokio@1.52.1                                    153
+  miniz_oxide@0.8.9                               125
+  rustls@0.23.38                                  123
+  hyper-util@0.1.20                               114
+  url@2.5.8                                       86
+  … 81 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_xh.stripped
+functions (from .eh_frame): 15107
+
+attribution breakdown:
+  certain         39  (0.3%)  user-authored (100% precision, DWARF-validated)
+  call closure   840  (5.6%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library      14228  (94.2%)  not attributed
+
+user-authored functions — high confidence (39):
+  0x003bfe70–0x003bff97  (295 bytes)
+      panic @ src/formatting/palette.rs:55:66
+  0x003ca2d0–0x003ca4de  (526 bytes)
+      panic @ src/cli.rs:671:43
+  0x003e4790–0x003e4b3e  (942 bytes)
+      panic @ src/printer.rs:391:18
+  0x003ea390–0x003ebf75  (7141 bytes)
+      panic @ src/request_items.rs:323:49
+      panic @ src/request_items.rs:350:49
+      panic @ src/request_items.rs:427:21
+      panic @ src/request_items.rs:448:25
+  0x003edd30–0x003ef40a  (5850 bytes)
+      panic @ src/request_items.rs:67:54
+      panic @ src/request_items.rs:121:22
+      panic @ src/request_items.rs:177:18
+      panic @ src/request_items.rs:201:34
+      panic @ src/request_items.rs:201:55
+  0x00420620–0x00420846  (550 bytes)
+      panic @ src/utils.rs:172:38
+  0x00420850–0x00420a4f  (511 bytes)
+      panic @ src/utils.rs:172:38
+  0x00420a50–0x00420e31  (993 bytes)
+      panic @ src/utils.rs:172:38
+  0x00424d50–0x004253a6  (1622 bytes)
+      panic @ src/auth.rs:49:50
+      panic @ src/auth.rs:50:16
+      panic @ src/auth.rs:51:59
+      panic @ src/auth.rs:52:27
+      panic @ src/auth.rs:53:27
+  0x00426810–0x00428c5b  (9291 bytes)
+      panic @ src/download.rs:105:5
+      panic @ src/download.rs:115:6
+      panic @ src/download.rs:122:10
+      panic @ src/download.rs:128:10
+  0x00428d00–0x00429717  (2583 bytes)
+      panic @ src/utils.rs:45:28
+  0x00431500–0x0043a0ca  (35786 bytes)
+      panic @ src/main.rs:175:13
+      panic @ src/main.rs:215:17
+      panic @ src/main.rs:244:13
+      panic @ src/main.rs:392:5
+      panic @ src/main.rs:393:5
+      panic @ src/main.rs:416:48
+      panic @ src/main.rs:496:21
+      panic @ src/main.rs:524:17
+      panic @ src/main.rs:570:17
+      panic @ src/main.rs:632:5
+      panic @ src/main.rs:634:5
+      panic @ src/main.rs:737:17
+      panic @ src/main.rs:775:44
+      panic @ src/session.rs:281:32
+  0x0043d0a0–0x0043e000  (3936 bytes)
+      panic @ src/utils.rs:45:28
+  0x00448070–0x004483a9  (825 bytes)
+      panic @ src/nested_json.rs:45:44
+      panic @ src/nested_json.rs:47:37
+      panic @ src/nested_json.rs:48:52
+  0x004495d0–0x004498bc  (748 bytes)
+      panic @ src/nested_json.rs:248:16
+      panic @ src/nested_json.rs:256:24
+      panic @ src/nested_json.rs:257:24
+  0x004498c0–0x0044a805  (3909 bytes)
+      panic @ src/nested_json.rs:165:5
+  0x0044a810–0x0044b129  (2329 bytes)
+      panic @ src/content_disposition.rs:44:18
+  0x0044b2c0–0x0044b4ea  (554 bytes)
+      panic @ src/nested_json.rs:306:27
+  0x00467050–0x0046788e  (2110 bytes)
+      panic @ src/session.rs:320:32
+  0x0046fc60–0x004700d1  (1137 bytes)
+      panic @ src/session.rs:208:32
+  0x004702e0–0x004703e0  (256 bytes)
+      panic @ src/session.rs:198:32
+  0x00470d20–0x0047718f  (25711 bytes)
+      panic @ src/to_curl.rs:451:39
+      panic @ src/to_curl.rs:452:30
+  0x0047d900–0x004825bf  (19647 bytes)
+      panic @ src/generation.rs:38:51
+      panic @ src/generation.rs:39:36
+      panic @ src/generation.rs:66:10
+      panic @ src/generation.rs:68:10
+      panic @ src/generation.rs:107:53
+      panic @ src/generation.rs:122:14
+      panic @ src/generation.rs:179:10
+      panic @ src/generation.rs:181:10
+      panic @ src/generation.rs:192:17
+      panic @ src/generation.rs:228:53
+      panic @ src/generation.rs:252:14
+      panic @ src/generation.rs:305:73
+      panic @ src/generation.rs:305:83
+      panic @ src/generation.rs:313:64
+  0x00484be0–0x00485521  (2369 bytes)
+      panic @ src/printer.rs:314:54
+  0x00488a00–0x00488c15  (533 bytes)
+      panic @ src/netrc.rs:226:38
+  0x00488c20–0x0048902e  (1038 bytes)
+      panic @ src/netrc.rs:253:27
+      panic @ src/netrc.rs:256:40
+      panic @ src/netrc.rs:256:79
+  0x004895e0–0x00489955  (885 bytes)
+      panic @ src/printer.rs:103:51
+  0x00489d50–0x0048a179  (1065 bytes)
+      panic @ src/printer.rs:215:17
+  0x0048a710–0x0048b537  (3623 bytes)
+      panic @ src/middleware.rs:23:57
+  0x0048b540–0x0048b827  (743 bytes)
+      panic @ src/middleware.rs:19:49
+  0x00494480–0x004947b6  (822 bytes)
+      panic @ src/cli.rs:621:29
+      panic @ src/cli.rs:627:29
+  0x004947c0–0x004978c7  (12551 bytes)
+      panic @ src/cli.rs:545:67
+      panic @ src/cli.rs:552:35
+  0x00497b60–0x00497cf6  (406 bytes)
+      panic @ src/cli.rs:1074:42
+  0x00497f00–0x004981c5  (709 bytes)
+      panic @ src/cli.rs:776:50
+  0x004981d0–0x00498a12  (2114 bytes)
+      panic @ src/cli.rs:797:47
+  0x0049b220–0x0049b523  (771 bytes)
+      panic @ src/cli.rs:1277:41
+  0x0049ba80–0x0049c6bd  (3133 bytes)
+      panic @ src/cli.rs:1407:22
+  0x0049c700–0x0049eb8f  (9359 bytes)
+      panic @ src/cli.rs:490:56
+  0x004b9a20–0x004b9b2d  (269 bytes)
+      panic @ src/formatting/mod.rs:83:14
+
+call closure — reachable from user code, not user-authored (840):
+  0x003bffa0–0x003c0023  (131 bytes)  [inferred]
+  0x003c0030–0x003c0109  (217 bytes)  [indeterminate]
+  0x003c0150–0x003c017c  (44 bytes)  [inferred]
+  0x003c02c0–0x003c032a  (106 bytes)  [inferred]
+  0x003c0330–0x003c0357  (39 bytes)  [inferred]
+  0x003c0360–0x003c04a8  (328 bytes)  [inferred]
+  0x003c04b0–0x003c05a2  (242 bytes)  [inferred]
+  0x003c0670–0x003c0740  (208 bytes)  [indeterminate]
+  0x003c07a0–0x003c0806  (102 bytes)  [inferred]
+  0x003c0810–0x003c0892  (130 bytes)  [indeterminate]
+  0x003c09a0–0x003c0a22  (130 bytes)  [inferred]
+  0x003c0a30–0x003c0ab2  (130 bytes)  [inferred]
+  0x003c0ac0–0x003c0b9c  (220 bytes)  [inferred]
+  0x003c0ba0–0x003c0c39  (153 bytes)  [inferred]
+  0x003c0c40–0x003c0cce  (142 bytes)  [inferred]
+  0x003c0cd0–0x003c0d52  (130 bytes)  [inferred]
+  0x003c0e80–0x003c0f0a  (138 bytes)  [inferred]
+  0x003c0f10–0x003c1010  (256 bytes)  [inferred]
+  0x003c1010–0x003c10d5  (197 bytes)  [inferred]
+  0x003c10e0–0x003c116a  (138 bytes)  [inferred]
+  0x003c1170–0x003c1235  (197 bytes)  [inferred]
+  0x003c1240–0x003c12a2  (98 bytes)  [inferred]
+  0x003c12b0–0x003c1316  (102 bytes)  [inferred]
+  0x003c1320–0x003c13c9  (169 bytes)  [inferred]
+  0x003c13d0–0x003c1481  (177 bytes)  [inferred]
+  0x003c1490–0x003c1516  (134 bytes)  [inferred]
+  0x003c1520–0x003c157a  (90 bytes)  [inferred]
+  0x003c1580–0x003c166a  (234 bytes)  [inferred]
+  0x003c1830–0x003c191f  (239 bytes)  [inferred]
+  0x003c1a10–0x003c1a76  (102 bytes)  [inferred]
+  0x003c1a80–0x003c1be3  (355 bytes)  [inferred]
+  0x003c1bf0–0x003c1c70  (128 bytes)  [indeterminate]
+  0x003c1c70–0x003c1d1b  (171 bytes)  [inferred]
+  0x003c1db0–0x003c1eb2  (258 bytes)  [inferred]
+  0x003c1ec0–0x003c2014  (340 bytes)  [indeterminate]
+  0x003c2120–0x003c21e8  (200 bytes)  [inferred]
+  0x003c21f0–0x003c224d  (93 bytes)  [inferred]
+  0x003c2250–0x003c241b  (459 bytes)  [inferred]
+  0x003c2420–0x003c256c  (332 bytes)  [indeterminate]
+  0x003c2570–0x003c25fa  (138 bytes)  [inferred]
+  0x003c2600–0x003c2636  (54 bytes)  [inferred]
+  0x003c2640–0x003c26e6  (166 bytes)  [inferred]
+  0x003c26f0–0x003c276c  (124 bytes)  [inferred]
+  0x003c2770–0x003c2889  (281 bytes)  [inferred]
+  0x003c2890–0x003c29e1  (337 bytes)  [inferred]
+  0x003c29f0–0x003c2ba3  (435 bytes)  [indeterminate]
+  0x003c3050–0x003c30ce  (126 bytes)  [inferred]
+  0x003c30d0–0x003c32a0  (464 bytes)  [inferred]
+  0x003c32a0–0x003c3393  (243 bytes)  [inferred]
+  0x003c33a0–0x003c346b  (203 bytes)  [indeterminate]
+  0x003c3470–0x003c3d35  (2245 bytes)  [inferred]
+  0x003c3d40–0x003c3d6f  (47 bytes)  [inferred]
+  0x003c3d70–0x003c449a  (1834 bytes)  [inferred]
+  0x003c44a0–0x003c462b  (395 bytes)  [inferred]
+  0x003c4630–0x003c46a7  (119 bytes)  [inferred]
+  0x003c46b0–0x003c4753  (163 bytes)  [inferred]
+  0x003c4760–0x003c4910  (432 bytes)  [inferred]
+  0x003c4910–0x003c4a9b  (395 bytes)  [inferred]
+  0x003c4aa0–0x003c4ad0  (48 bytes)  [inferred]
+  0x003c4ad0–0x003c4b0c  (60 bytes)  [inferred]
+  0x003c4b10–0x003c4be7  (215 bytes)  [inferred]
+  0x003c4c60–0x003c4fad  (845 bytes)  [inferred]
+  0x003c61e0–0x003c62c3  (227 bytes)  [inferred]
+  0x003c62d0–0x003c64d5  (517 bytes)  [inferred]
+  0x003c6600–0x003c6d09  (1801 bytes)  [inferred]
+  0x003c6d10–0x003c708d  (893 bytes)  [inferred]
+  0x003c7090–0x003c7173  (227 bytes)  [inferred]
+  0x003c7180–0x003c7256  (214 bytes)  [inferred]
+  0x003c7450–0x003c7701  (689 bytes)  [inferred]
+  0x003c7710–0x003c7999  (649 bytes)  [inferred]
+  0x003c7c10–0x003c7f3a  (810 bytes)  [inferred]
+  0x003c7f40–0x003c8219  (729 bytes)  [inferred]
+  0x003c8220–0x003c8754  (1332 bytes)  [inferred]
+  0x003c8760–0x003c8bd9  (1145 bytes)  [inferred]
+  0x003c8be0–0x003c8dc1  (481 bytes)  [inferred]
+  0x003c8dd0–0x003c8f48  (376 bytes)  [inferred]
+  0x003c8f50–0x003c90c0  (368 bytes)  [inferred]
+  0x003c90c0–0x003c9381  (705 bytes)  [indeterminate]
+  0x003c9390–0x003c961e  (654 bytes)  [inferred]
+  0x003c98f0–0x003c9a81  (401 bytes)  [inferred]
+  0x003c9a90–0x003c9b58  (200 bytes)  [inferred]
+  0x003ca910–0x003caa61  (337 bytes)  [inferred]
+  0x003caa70–0x003cac76  (518 bytes)  [indeterminate]
+  0x003cb1c0–0x003cb2ed  (301 bytes)  [inferred]
+  0x003cb2f0–0x003cbe2f  (2879 bytes)  [inferred]
+  0x003cbe30–0x003cbeba  (138 bytes)  [inferred]
+  0x003cbec0–0x003cc0b9  (505 bytes)  [indeterminate]
+  0x003cc0c0–0x003cc134  (116 bytes)  [indeterminate]
+  0x003cc140–0x003cc1fb  (187 bytes)  [inferred]
+  0x003cc200–0x003cc2b4  (180 bytes)  [indeterminate]
+  0x003cc2c0–0x003cc30c  (76 bytes)  [inferred]
+  0x003cc360–0x003cc3d4  (116 bytes)  [inferred]
+  0x003cc3e0–0x003cc427  (71 bytes)  [inferred]
+  0x003cc430–0x003cc4d4  (164 bytes)  [inferred]
+  0x003cc4e0–0x003cc53a  (90 bytes)  [inferred]
+  0x003cc8e0–0x003cc9a4  (196 bytes)  [inferred]
+  0x003ccf00–0x003cdf9c  (4252 bytes)  [inferred]
+  0x003ce270–0x003ce8dc  (1644 bytes)  [indeterminate]
+  0x003ce8e0–0x003ceae4  (516 bytes)  [inferred]
+  0x003cec10–0x003cecff  (239 bytes)  [inferred]
+  0x003ced00–0x003cedb3  (179 bytes)  [inferred]
+  0x003ceed0–0x003cef15  (69 bytes)  [inferred]
+  0x003cf5d0–0x003cfee4  (2324 bytes)  [indeterminate]
+  0x003d1c70–0x003d2246  (1494 bytes)  [inferred]
+  0x003d2250–0x003d2933  (1763 bytes)  [inferred]
+  0x003d2940–0x003d31ff  (2239 bytes)  [inferred]
+  0x003d3a10–0x003d3fdb  (1483 bytes)  [inferred]
+  0x003d3fe0–0x003d45b6  (1494 bytes)  [inferred]
+  0x003d45c0–0x003d4b96  (1494 bytes)  [inferred]
+  0x003d4ba0–0x003d518a  (1514 bytes)  [inferred]
+  0x003d5190–0x003d577a  (1514 bytes)  [inferred]
+  0x003d58a0–0x003d631c  (2684 bytes)  [inferred]
+  0x003d6320–0x003d6e4a  (2858 bytes)  [inferred]
+  0x003d7810–0x003d818e  (2430 bytes)  [inferred]
+  0x003d8190–0x003d8b1e  (2446 bytes)  [inferred]
+  0x003e2f60–0x003e2fdd  (125 bytes)  [inferred]
+  0x003e2fe0–0x003e3059  (121 bytes)  [indeterminate]
+  0x003e3060–0x003e3072  (18 bytes)  [inferred]
+  0x003e3100–0x003e3191  (145 bytes)  [inferred]
+  0x003e31a0–0x003e32a7  (263 bytes)  [inferred]
+  0x003e3840–0x003e39d6  (406 bytes)  [inferred]
+  0x003e39e0–0x003e3bd8  (504 bytes)  [inferred]
+  0x003e4d00–0x003e5175  (1141 bytes)  [inferred]
+  0x003e5180–0x003e55a9  (1065 bytes)  [inferred]
+  0x003e55b0–0x003e55dc  (44 bytes)  [inferred]
+  0x003e5660–0x003e57ea  (394 bytes)  [inferred]
+  0x003e57f0–0x003e5874  (132 bytes)  [inferred]
+  0x003e5880–0x003e58a7  (39 bytes)  [inferred]
+  0x003e58b0–0x003e5984  (212 bytes)  [indeterminate]
+  0x003e5990–0x003e59ad  (29 bytes)  [inferred]
+  0x003e59b0–0x003e5a80  (208 bytes)  [indeterminate]
+  0x003e5a80–0x003e5b04  (132 bytes)  [inferred]
+  0x003e5b10–0x003e5bcf  (191 bytes)  [inferred]
+  0x003e5bd0–0x003e5c5a  (138 bytes)  [inferred]
+  0x003e5c60–0x003e5d60  (256 bytes)  [inferred]
+  0x003e5d60–0x003e5dea  (138 bytes)  [inferred]
+  0x003e5df0–0x003e5e89  (153 bytes)  [inferred]
+  0x003e5e90–0x003e5f53  (195 bytes)  [inferred]
+  0x003e5f60–0x003e6009  (169 bytes)  [inferred]
+  0x003e6010–0x003e60c1  (177 bytes)  [inferred]
+  0x003e60d0–0x003e6156  (134 bytes)  [inferred]
+  0x003e6160–0x003e61e7  (135 bytes)  [inferred]
+  0x003e62f0–0x003e6356  (102 bytes)  [indeterminate]
+  0x003e6560–0x003e660b  (171 bytes)  [inferred]
+  0x003e6610–0x003e6680  (112 bytes)  [inferred]
+  0x003e6680–0x003e67f4  (372 bytes)  [inferred]
+  0x003e6940–0x003e6a8c  (332 bytes)  [inferred]
+  0x003e6a90–0x003e6ae1  (81 bytes)  [inferred]
+  0x003e6af0–0x003e6b9f  (175 bytes)  [inferred]
+  0x003e6ba0–0x003e6cea  (330 bytes)  [inferred]
+  0x003e6cf0–0x003e6d39  (73 bytes)  [inferred]
+  0x003e6d40–0x003e6ea5  (357 bytes)  [inferred]
+  0x003e6eb0–0x003e7001  (337 bytes)  [indeterminate]
+  0x003e7010–0x003e78fc  (2284 bytes)  [inferred]
+  0x003e7900–0x003e7a20  (288 bytes)  [inferred]
+  0x003e7a20–0x003e7a56  (54 bytes)  [inferred]
+  0x003e82c0–0x003e837e  (190 bytes)  [inferred]
+  0x003e8380–0x003e8429  (169 bytes)  [inferred]
+  0x003e90b0–0x003e921b  (363 bytes)  [inferred]
+  0x003e93c0–0x003ea38f  (4047 bytes)  [inferred]
+  0x003ebf80–0x003ec219  (665 bytes)  [inferred]
+  0x003ed390–0x003ed4ce  (318 bytes)  [indeterminate]
+  0x003edc90–0x003edce8  (88 bytes)  [indeterminate]
+  0x003ef410–0x003ef8bf  (1199 bytes)  [inferred]
+  0x003efbc0–0x003efd97  (471 bytes)  [indeterminate]
+  0x003efee0–0x003f00b6  (470 bytes)  [inferred]
+  0x003f00c0–0x003f012b  (107 bytes)  [inferred]
+  0x003f0130–0x003f01c5  (149 bytes)  [indeterminate]
+  0x003f01d0–0x003f0251  (129 bytes)  [inferred]
+  0x003f0260–0x003f02f7  (151 bytes)  [inferred]
+  0x003f0300–0x003f03bf  (191 bytes)  [inferred]
+  0x003f03c0–0x003f0455  (149 bytes)  [inferred]
+  0x003f0460–0x003f04f5  (149 bytes)  [inferred]
+  0x003f0500–0x003f0595  (149 bytes)  [inferred]
+  0x003f05a0–0x003f0670  (208 bytes)  [indeterminate]
+  0x003f0670–0x003f0735  (197 bytes)  [inferred]
+  0x003f0740–0x003f07ea  (170 bytes)  [inferred]
+  0x003f3200–0x003f35fd  (1021 bytes)  [inferred]
+  0x003f3600–0x003f39fd  (1021 bytes)  [inferred]
+  0x003f3a00–0x003f3a8a  (138 bytes)  [inferred]
+  0x003f3a90–0x003f3af3  (99 bytes)  [inferred]
+  0x003f3b00–0x003f3d42  (578 bytes)  [inferred]
+  0x003f3d50–0x003f3dd5  (133 bytes)  [inferred]
+  0x003f3e20–0x003f3e5c  (60 bytes)  [inferred]
+  0x003f3e60–0x003f3ee3  (131 bytes)  [inferred]
+  0x003f3ef0–0x003f3f73  (131 bytes)  [inferred]
+  0x003f3f80–0x003f4027  (167 bytes)  [inferred]
+  0x003f4100–0x003f4451  (849 bytes)  [indeterminate]
+  0x003f45b0–0x003f465f  (175 bytes)  [indeterminate]
+  0x003f4750–0x003f489d  (333 bytes)  [inferred]
+  0x003f4ae0–0x003f4bcc  (236 bytes)  [inferred]
+  0x003fbe20–0x003fc650  (2096 bytes)  [inferred]
+  0x003fc650–0x003fc843  (499 bytes)  [indeterminate]
+  0x003fcad0–0x003fcc1d  (333 bytes)  [inferred]
+  0x003fcc20–0x003fccfd  (221 bytes)  [inferred]
+  0x003fcd00–0x003fcddd  (221 bytes)  [inferred]
+  0x003fd380–0x003fd754  (980 bytes)  [inferred]
+  0x00403d40–0x00403dc2  (130 bytes)  [indeterminate]
+  0x00403dd0–0x00403e2c  (92 bytes)  [inferred]
+  0x00403e30–0x00403ec9  (153 bytes)  [inferred]
+  0x004043b0–0x0040443a  (138 bytes)  [inferred]
+  0x00404440–0x00404476  (54 bytes)  [inferred]
+  0x00404cc0–0x00404e67  (423 bytes)  [inferred]
+  0x00404e70–0x00405119  (681 bytes)  [inferred]
+  0x00405120–0x004053a8  (648 bytes)  [inferred]
+  0x0040f400–0x0040f4d6  (214 bytes)  [inferred]
+  0x0040f710–0x0040f781  (113 bytes)  [indeterminate]
+  0x0040f790–0x0040f7c3  (51 bytes)  [indeterminate]
+  0x0040f7d0–0x0040f88f  (191 bytes)  [inferred]
+  0x0040f890–0x0040f94f  (191 bytes)  [inferred]
+  0x0040f950–0x0040fa0f  (191 bytes)  [inferred]
+  0x0040fa10–0x0040facf  (191 bytes)  [inferred]
+  0x0040fc50–0x0040fd02  (178 bytes)  [inferred]
+  0x0040fd10–0x0040fdc2  (178 bytes)  [inferred]
+  0x0040fdd0–0x0040fe8b  (187 bytes)  [inferred]
+  0x0040ff50–0x00410006  (182 bytes)  [indeterminate]
+  0x00410010–0x004100c2  (178 bytes)  [inferred]
+  0x004100d0–0x00410186  (182 bytes)  [inferred]
+  0x00410190–0x0041022d  (157 bytes)  [inferred]
+  0x00410230–0x004102d6  (166 bytes)  [inferred]
+  0x004102e0–0x004103b1  (209 bytes)  [inferred]
+  0x004103c0–0x0041045d  (157 bytes)  [inferred]
+  0x00410460–0x00410509  (169 bytes)  [inferred]
+  0x00410510–0x004105b6  (166 bytes)  [inferred]
+  0x004105c0–0x0041066a  (170 bytes)  [inferred]
+  0x00410670–0x00410724  (180 bytes)  [inferred]
+  0x00410730–0x004107d6  (166 bytes)  [inferred]
+  0x004107e0–0x004108a4  (196 bytes)  [inferred]
+  0x004108b0–0x00410962  (178 bytes)  [inferred]
+  0x00410970–0x00410a4f  (223 bytes)  [inferred]
+  0x00410a50–0x00410aed  (157 bytes)  [inferred]
+  0x00410ba0–0x00410c43  (163 bytes)  [inferred]
+  0x00410c50–0x00410cf3  (163 bytes)  [inferred]
+  0x00410d00–0x00410db4  (180 bytes)  [inferred]
+  0x004114d0–0x00411637  (359 bytes)  [inferred]
+  0x00411640–0x004117d5  (405 bytes)  [inferred]
+  0x004117e0–0x00411925  (325 bytes)  [inferred]
+  0x00411930–0x00411a2e  (254 bytes)  [inferred]
+  0x004123b0–0x0041240f  (95 bytes)  [inferred]
+  0x00412430–0x0041250d  (221 bytes)  [inferred]
+  0x00412510–0x0041259c  (140 bytes)  [inferred]
+  0x004125a0–0x00412675  (213 bytes)  [inferred]
+  0x00412680–0x00412702  (130 bytes)  [inferred]
+  0x00412710–0x00412792  (130 bytes)  [inferred]
+  0x004127a0–0x00412863  (195 bytes)  [inferred]
+  0x00412870–0x0041289c  (44 bytes)  [inferred]
+  0x004128a0–0x004128cb  (43 bytes)  [inferred]
+  0x00412910–0x0041293b  (43 bytes)  [inferred]
+  0x00412960–0x004129bf  (95 bytes)  [inferred]
+  0x004129c0–0x00412a1e  (94 bytes)  [inferred]
+  0x00412a20–0x00412a80  (96 bytes)  [indeterminate]
+  0x00412a80–0x00412ae0  (96 bytes)  [indeterminate]
+  0x00412ae0–0x00412b3e  (94 bytes)  [inferred]
+  0x00412b40–0x00412b88  (72 bytes)  [inferred]
+  0x00412b90–0x00412bd6  (70 bytes)  [inferred]
+  0x00412c00–0x00412ca0  (160 bytes)  [inferred]
+  0x00412cb0–0x00412d4b  (155 bytes)  [inferred]
+  0x00412d50–0x00412d96  (70 bytes)  [inferred]
+  0x00412da0–0x00412de6  (70 bytes)  [inferred]
+  0x00412df0–0x00412e86  (150 bytes)  [inferred]
+  0x00412e90–0x00412f01  (113 bytes)  [inferred]
+  0x00412f20–0x00412f66  (70 bytes)  [inferred]
+  0x00412f80–0x00412ff0  (112 bytes)  [inferred]
+  0x00412ff0–0x0041301f  (47 bytes)  [inferred]
+  0x00413020–0x00413194  (372 bytes)  [inferred]
+  0x004131a0–0x00413217  (119 bytes)  [inferred]
+  0x00413220–0x00413328  (264 bytes)  [inferred]
+  0x00413350–0x004133ed  (157 bytes)  [inferred]
+  0x004133f0–0x00413472  (130 bytes)  [inferred]
+  0x00413480–0x004134df  (95 bytes)  [inferred]
+  0x004134e0–0x00413575  (149 bytes)  [inferred]
+  0x00413580–0x0041372a  (426 bytes)  [inferred]
+  0x00413730–0x004137a0  (112 bytes)  [inferred]
+  0x004137a0–0x0041384a  (170 bytes)  [inferred]
+  0x00413850–0x0041389e  (78 bytes)  [inferred]
+  0x004138d0–0x0041397f  (175 bytes)  [indeterminate]
+  0x00413a70–0x00413c40  (464 bytes)  [inferred]
+  0x00414180–0x0041429a  (282 bytes)  [indeterminate]
+  0x004142a0–0x004143e6  (326 bytes)  [indeterminate]
+  0x004143f0–0x00414e31  (2625 bytes)  [inferred]
+  0x00414e40–0x00414eed  (173 bytes)  [inferred]
+  0x00414fa0–0x00415009  (105 bytes)  [inferred]
+  0x004150a0–0x004152e8  (584 bytes)  [inferred]
+  0x004152f0–0x00415445  (341 bytes)  [inferred]
+  0x00415450–0x00415cb5  (2149 bytes)  [inferred]
+  0x00415cc0–0x0041666d  (2477 bytes)  [inferred]
+  0x00416670–0x004183cd  (7517 bytes)  [inferred]
+  0x004183d0–0x004184cc  (252 bytes)  [inferred]
+  0x004184d0–0x004185d4  (260 bytes)  [inferred]
+  0x00418b40–0x00419103  (1475 bytes)  [inferred]
+  0x00419110–0x0041914d  (61 bytes)  [indeterminate]
+  0x00419150–0x00419479  (809 bytes)  [inferred]
+  0x00419480–0x004195f4  (372 bytes)  [indeterminate]
+  0x00419850–0x00419a99  (585 bytes)  [inferred]
+  0x00419aa0–0x00419da7  (775 bytes)  [inferred]
+  0x00419db0–0x00419ded  (61 bytes)  [indeterminate]
+  0x00419df0–0x00419e91  (161 bytes)  [indeterminate]
+  0x00419ea0–0x00419f85  (229 bytes)  [indeterminate]
+  0x0041a0e0–0x0041a228  (328 bytes)  [inferred]
+  0x0041a230–0x0041a26f  (63 bytes)  [inferred]
+  0x0041a270–0x0041a291  (33 bytes)  [indeterminate]
+  0x0041a3c0–0x0041a40e  (78 bytes)  [inferred]
+  0x0041a450–0x0041a471  (33 bytes)  [inferred]
+  0x0041b9e0–0x0041ba65  (133 bytes)  [inferred]
+  0x0041ba70–0x0041baba  (74 bytes)  [inferred]
+  0x0041bac0–0x0041bb4e  (142 bytes)  [inferred]
+  0x0041bb50–0x0041bbd5  (133 bytes)  [inferred]
+  0x0041bbe0–0x0041bc76  (150 bytes)  [inferred]
+  0x0041bc80–0x0041bcc6  (70 bytes)  [inferred]
+  0x0041bcd0–0x0041bd1d  (77 bytes)  [inferred]
+  0x0041bd20–0x0041bd5e  (62 bytes)  [inferred]
+  0x0041bd60–0x0041bdaa  (74 bytes)  [inferred]
+  0x0041bdb0–0x0041be3e  (142 bytes)  [inferred]
+  0x0041be40–0x0041bee3  (163 bytes)  [inferred]
+  0x0041bef0–0x0041bf2e  (62 bytes)  [inferred]
+  0x0041bf30–0x0041bf6e  (62 bytes)  [inferred]
+  0x0041bf70–0x0041bff5  (133 bytes)  [indeterminate]
+  0x0041c050–0x0041c09d  (77 bytes)  [inferred]
+  0x0041c0a0–0x0041c0ed  (77 bytes)  [indeterminate]
+  0x0041c140–0x0041c196  (86 bytes)  [inferred]
+  0x0041c1a0–0x0041c1f6  (86 bytes)  [inferred]
+  0x0041c990–0x0041cae4  (340 bytes)  [indeterminate]
+  0x0041caf0–0x0041cc90  (416 bytes)  [inferred]
+  0x0041cc90–0x0041cd87  (247 bytes)  [inferred]
+  0x0041cd90–0x0041ce87  (247 bytes)  [inferred]
+  0x0041d2c0–0x0041d3d2  (274 bytes)  [inferred]
+  0x0041d620–0x0041d717  (247 bytes)  [inferred]
+  0x0041d720–0x0041d817  (247 bytes)  [inferred]
+  0x0041d820–0x0041da0a  (490 bytes)  [inferred]
+  0x0041dbb0–0x0041dcb0  (256 bytes)  [inferred]
+  0x0041dcb0–0x0041dda7  (247 bytes)  [inferred]
+  0x0041ddb0–0x0041dea7  (247 bytes)  [inferred]
+  0x0041deb0–0x0041e004  (340 bytes)  [inferred]
+  0x0041e010–0x0041e1b0  (416 bytes)  [inferred]
+  0x0041e1b0–0x0041e2a3  (243 bytes)  [inferred]
+  0x0041e2b0–0x0041e3a7  (247 bytes)  [inferred]
+  0x0041e3b0–0x0041e4a7  (247 bytes)  [inferred]
+  0x0041e4b0–0x0041e5a3  (243 bytes)  [inferred]
+  0x0041e5b0–0x0041e6a1  (241 bytes)  [inferred]
+  0x00420080–0x00420249  (457 bytes)  [inferred]
+  0x00420250–0x00420459  (521 bytes)  [inferred]
+  0x00420460–0x00420618  (440 bytes)  [indeterminate]
+  0x00420eb0–0x00420f0f  (95 bytes)  [inferred]
+  0x00420f10–0x00420f34  (36 bytes)  [inferred]
+  0x00420f40–0x00420fc4  (132 bytes)  [inferred]
+  0x00420fd0–0x004210a0  (208 bytes)  [inferred]
+  0x004210a0–0x004210fa  (90 bytes)  [inferred]
+  0x00421100–0x00421132  (50 bytes)  [inferred]
+  0x00421160–0x004211e1  (129 bytes)  [inferred]
+  0x004211f0–0x004212ee  (254 bytes)  [inferred]
+  0x004212f0–0x00421343  (83 bytes)  [inferred]
+  0x00421350–0x004213b3  (99 bytes)  [inferred]
+  0x00421410–0x00421575  (357 bytes)  [inferred]
+  0x00421650–0x004216fc  (172 bytes)  [inferred]
+  0x00421700–0x00421794  (148 bytes)  [inferred]
+  0x004217a0–0x00421936  (406 bytes)  [inferred]
+  0x00421940–0x00421991  (81 bytes)  [inferred]
+  0x004219a0–0x00421a79  (217 bytes)  [indeterminate]
+  0x00421a80–0x00421ac9  (73 bytes)  [inferred]
+  0x00421ad0–0x00421b09  (57 bytes)  [inferred]
+  0x00421b10–0x00421bba  (170 bytes)  [inferred]
+  0x00421bc0–0x00421c91  (209 bytes)  [inferred]
+  0x00421ca0–0x00421d7a  (218 bytes)  [inferred]
+  0x00421d80–0x00421e8a  (266 bytes)  [inferred]
+  0x00422000–0x004220ac  (172 bytes)  [indeterminate]
+  0x004220e0–0x0042222a  (330 bytes)  [inferred]
+  0x00422350–0x0042240b  (187 bytes)  [inferred]
+  0x00422410–0x004225db  (459 bytes)  [inferred]
+  0x00422690–0x004227e1  (337 bytes)  [inferred]
+  0x004227f0–0x0042293a  (330 bytes)  [indeterminate]
+  0x00422940–0x00422970  (48 bytes)  [inferred]
+  0x00422f70–0x004231b1  (577 bytes)  [inferred]
+  0x004231c0–0x004232b1  (241 bytes)  [inferred]
+  0x004232c0–0x00423382  (194 bytes)  [inferred]
+  0x00423390–0x00423506  (374 bytes)  [inferred]
+  0x004236d0–0x00423856  (390 bytes)  [inferred]
+  0x00423860–0x004239e6  (390 bytes)  [inferred]
+  0x00423b30–0x00423fee  (1214 bytes)  [inferred]
+  0x00423ff0–0x004244ae  (1214 bytes)  [inferred]
+  0x00424860–0x00424920  (192 bytes)  [indeterminate]
+  0x00424920–0x00424b4a  (554 bytes)  [inferred]
+  0x00424b50–0x00424d41  (497 bytes)  [inferred]
+  0x004253b0–0x00425486  (214 bytes)  [inferred]
+  0x00425490–0x004255e2  (338 bytes)  [inferred]
+  0x004257d0–0x00425825  (85 bytes)  [inferred]
+  0x00425830–0x004267a1  (3953 bytes)  [inferred]
+  0x004267b0–0x00426805  (85 bytes)  [inferred]
+  0x00428c60–0x00428cab  (75 bytes)  [inferred]
+  0x0042b9e0–0x0042baec  (268 bytes)  [inferred]
+  0x0042baf0–0x0042bbed  (253 bytes)  [inferred]
+  0x0042c120–0x0042c379  (601 bytes)  [inferred]
+  0x0042c380–0x0042c3fd  (125 bytes)  [inferred]
+  0x0042c400–0x0042c489  (137 bytes)  [inferred]
+  0x0042c490–0x0042c633  (419 bytes)  [inferred]
+  0x0042c640–0x0042c80c  (460 bytes)  [inferred]
+  0x0042c810–0x0042c86f  (95 bytes)  [indeterminate]
+  0x0042c8b0–0x0042c958  (168 bytes)  [inferred]
+  0x0042c980–0x0042ca14  (148 bytes)  [inferred]
+  0x0042ca20–0x0042cc84  (612 bytes)  [inferred]
+  0x0042ccb0–0x0042ccd4  (36 bytes)  [inferred]
+  0x0042cce0–0x0042cdf4  (276 bytes)  [inferred]
+  0x0042ce00–0x0042ce84  (132 bytes)  [inferred]
+  0x0042ce90–0x0042cefe  (110 bytes)  [inferred]
+  0x0042cf00–0x0042cf13  (19 bytes)  [inferred]
+  0x0042cf20–0x0042cff0  (208 bytes)  [inferred]
+  0x0042cff0–0x0042d0f0  (256 bytes)  [inferred]
+  0x0042d0f0–0x0042d172  (130 bytes)  [inferred]
+  0x0042d180–0x0042d1fe  (126 bytes)  [inferred]
+  0x0042d200–0x0042d287  (135 bytes)  [inferred]
+  0x0042d290–0x0042d355  (197 bytes)  [inferred]
+  0x0042d440–0x0042d4c2  (130 bytes)  [inferred]
+  0x0042d4d0–0x0042d552  (130 bytes)  [inferred]
+  0x0042d560–0x0042d5f9  (153 bytes)  [inferred]
+  0x0042d600–0x0042d687  (135 bytes)  [inferred]
+  0x0042d690–0x0042d6ea  (90 bytes)  [inferred]
+  0x0042d6f0–0x0042d722  (50 bytes)  [inferred]
+  0x0042d730–0x0042d78c  (92 bytes)  [inferred]
+  0x0042d810–0x0042d851  (65 bytes)  [inferred]
+  0x0042d8d0–0x0042da47  (375 bytes)  [indeterminate]
+  0x0042da50–0x0042daaa  (90 bytes)  [inferred]
+  0x0042dab0–0x0042daf1  (65 bytes)  [inferred]
+  0x0042db20–0x0042dbcb  (171 bytes)  [inferred]
+  0x0042dbd0–0x0042dc4e  (126 bytes)  [inferred]
+  0x0042dc80–0x0042ddf4  (372 bytes)  [inferred]
+  0x0042dfd0–0x0042e0ea  (282 bytes)  [inferred]
+  0x0042e0f0–0x0042e13d  (77 bytes)  [inferred]
+  0x0042e140–0x0042e3ed  (685 bytes)  [inferred]
+  0x0042e3f0–0x0042e4f3  (259 bytes)  [indeterminate]
+  0x0042e500–0x0042e578  (120 bytes)  [inferred]
+  0x0042e580–0x0042e5e2  (98 bytes)  [inferred]
+  0x0042e5f0–0x0042e6af  (191 bytes)  [inferred]
+  0x0042e6b0–0x0042e7d2  (290 bytes)  [indeterminate]
+  0x0042ec60–0x0042ec96  (54 bytes)  [inferred]
+  0x0042eca0–0x0042ed10  (112 bytes)  [inferred]
+  0x0042ed10–0x0042edba  (170 bytes)  [inferred]
+  0x0042edc0–0x0042ee11  (81 bytes)  [inferred]
+  0x0042ee20–0x0042ee3e  (30 bytes)  [inferred]
+  0x0042ee40–0x0042eecb  (139 bytes)  [inferred]
+  0x0042eed0–0x0042ef7f  (175 bytes)  [inferred]
+  0x0042ef80–0x0042f552  (1490 bytes)  [inferred]
+  0x0042f560–0x0042f6aa  (330 bytes)  [inferred]
+  0x0042f6b0–0x0042f72c  (124 bytes)  [inferred]
+  0x0042f730–0x0042f78e  (94 bytes)  [inferred]
+  0x0042f790–0x0042f84b  (187 bytes)  [inferred]
+  0x0042f850–0x0042fa1b  (459 bytes)  [inferred]
+  0x0042fa20–0x0042fb85  (357 bytes)  [inferred]
+  0x0042fb90–0x0042fc2a  (154 bytes)  [inferred]
+  0x0042fc30–0x0042fd89  (345 bytes)  [inferred]
+  0x00430b20–0x00430c6b  (331 bytes)  [inferred]
+  0x00430c70–0x00430cfe  (142 bytes)  [indeterminate]
+  0x00430d00–0x00430de7  (231 bytes)  [inferred]
+  0x00430ef0–0x00430f62  (114 bytes)  [inferred]
+  0x00430f70–0x004310d0  (352 bytes)  [inferred]
+  0x004310d0–0x00431150  (128 bytes)  [inferred]
+  0x004312c0–0x004314e1  (545 bytes)  [inferred]
+  0x0043a830–0x0043a90d  (221 bytes)  [inferred]
+  0x0043a9e0–0x0043aa2b  (75 bytes)  [inferred]
+  0x0043ab70–0x0043ac2e  (190 bytes)  [inferred]
+  0x0043ac30–0x0043ac94  (100 bytes)  [inferred]
+  0x0043ad10–0x0043ad74  (100 bytes)  [inferred]
+  0x0043ad80–0x0043ade4  (100 bytes)  [indeterminate]
+  0x0043adf0–0x0043ae54  (100 bytes)  [indeterminate]
+  0x0043ae60–0x0043aec4  (100 bytes)  [inferred]
+  0x0043aed0–0x0043af34  (100 bytes)  [inferred]
+  0x0043afb0–0x0043b014  (100 bytes)  [inferred]
+  0x0043b020–0x0043b084  (100 bytes)  [inferred]
+  0x0043b090–0x0043b13f  (175 bytes)  [indeterminate]
+  0x0043b140–0x0043b1e2  (162 bytes)  [indeterminate]
+  0x0043b260–0x0043b2f2  (146 bytes)  [inferred]
+  0x0043b300–0x0043b4a6  (422 bytes)  [inferred]
+  0x0043b4b0–0x0043b4de  (46 bytes)  [inferred]
+  0x0043b4e0–0x0043b58d  (173 bytes)  [inferred]
+  0x0043b590–0x0043b7a2  (530 bytes)  [inferred]
+  0x0043b7b0–0x0043b8c7  (279 bytes)  [inferred]
+  0x0043bd30–0x0043bd4c  (28 bytes)  [inferred]
+  0x0043bd50–0x0043bd70  (32 bytes)  [inferred]
+  0x0043e7d0–0x0043e8fb  (299 bytes)  [inferred]
+  0x0043ea60–0x0043ecbf  (607 bytes)  [inferred]
+  0x0043ecc0–0x0043ee0d  (333 bytes)  [inferred]
+  0x004400d0–0x0044015e  (142 bytes)  [inferred]
+  0x00440160–0x00440223  (195 bytes)  [inferred]
+  0x00440230–0x004402b4  (132 bytes)  [inferred]
+  0x004402c0–0x00440344  (132 bytes)  [inferred]
+  0x00440350–0x004403ac  (92 bytes)  [inferred]
+  0x004403b0–0x00440449  (153 bytes)  [inferred]
+  0x00440450–0x0044050f  (191 bytes)  [inferred]
+  0x00440510–0x004405ee  (222 bytes)  [inferred]
+  0x00441270–0x004413e4  (372 bytes)  [inferred]
+  0x004413f0–0x0044148d  (157 bytes)  [inferred]
+  0x00441490–0x004414cc  (60 bytes)  [inferred]
+  0x004414d0–0x0044155a  (138 bytes)  [inferred]
+  0x00441560–0x00441596  (54 bytes)  [inferred]
+  0x00441700–0x004418d0  (464 bytes)  [inferred]
+  0x004418d0–0x0044190c  (60 bytes)  [inferred]
+  0x00441ba0–0x004423f8  (2136 bytes)  [inferred]
+  0x00442400–0x004424c8  (200 bytes)  [inferred]
+  0x004424d0–0x00442612  (322 bytes)  [inferred]
+  0x00442620–0x004426e0  (192 bytes)  [inferred]
+  0x004426e0–0x00443483  (3491 bytes)  [inferred]
+  0x00443490–0x00443a90  (1536 bytes)  [inferred]
+  0x00443a90–0x00444358  (2248 bytes)  [inferred]
+  0x00444360–0x00444674  (788 bytes)  [inferred]
+  0x00444680–0x00444a04  (900 bytes)  [inferred]
+  0x00444a10–0x00444b3a  (298 bytes)  [inferred]
+  0x00444b40–0x00444c6f  (303 bytes)  [inferred]
+  0x00444c70–0x00444da4  (308 bytes)  [inferred]
+  0x00444db0–0x00444eac  (252 bytes)  [inferred]
+  0x00444eb0–0x004458ff  (2639 bytes)  [inferred]
+  0x00445900–0x00446736  (3638 bytes)  [inferred]
+  0x00446740–0x00446d7d  (1597 bytes)  [inferred]
+  0x00446d80–0x0044718a  (1034 bytes)  [inferred]
+  0x00447190–0x004473ad  (541 bytes)  [inferred]
+  0x004473b0–0x00447479  (201 bytes)  [inferred]
+  0x00447480–0x00447da4  (2340 bytes)  [inferred]
+  0x00447db0–0x00447edd  (301 bytes)  [inferred]
+  0x004483b0–0x004483e8  (56 bytes)  [inferred]
+  0x004483f0–0x0044845e  (110 bytes)  [inferred]
+  0x004485c0–0x00448725  (357 bytes)  [inferred]
+  0x00448730–0x00449510  (3552 bytes)  [inferred]
+  0x00449510–0x004495c8  (184 bytes)  [inferred]
+  0x0044b130–0x0044b232  (258 bytes)  [inferred]
+  0x0044be50–0x0044beab  (91 bytes)  [indeterminate]
+  0x0044beb0–0x0044c1f3  (835 bytes)  [indeterminate]
+  0x0044c200–0x0044c7de  (1502 bytes)  [inferred]
+  0x0044c7e0–0x0044cd8e  (1454 bytes)  [inferred]
+  0x0044cd90–0x0044d33e  (1454 bytes)  [inferred]
+  0x0044d8f0–0x0044deab  (1467 bytes)  [inferred]
+  0x0044deb0–0x0044e45e  (1454 bytes)  [inferred]
+  0x0044e460–0x0044ea0e  (1454 bytes)  [inferred]
+  0x0044ea10–0x0044eff2  (1506 bytes)  [inferred]
+  0x0044f000–0x0044f5c0  (1472 bytes)  [inferred]
+  0x0044f5c0–0x0044fb6e  (1454 bytes)  [inferred]
+  0x0044fb70–0x0045011e  (1454 bytes)  [inferred]
+  0x00450120–0x004506fe  (1502 bytes)  [inferred]
+  0x00450700–0x00450cde  (1502 bytes)  [inferred]
+  0x00450ce0–0x00451291  (1457 bytes)  [inferred]
+  0x004512a0–0x0045184e  (1454 bytes)  [inferred]
+  0x00451850–0x00451e01  (1457 bytes)  [inferred]
+  0x00451e10–0x004523ca  (1466 bytes)  [inferred]
+  0x004523d0–0x00452527  (343 bytes)  [inferred]
+  0x00452530–0x0045291f  (1007 bytes)  [inferred]
+  0x00452d10–0x004530ff  (1007 bytes)  [inferred]
+  0x00453100–0x004534ef  (1007 bytes)  [inferred]
+  0x00453720–0x004539a9  (649 bytes)  [inferred]
+  0x00454cd0–0x0045531b  (1611 bytes)  [inferred]
+  0x00455880–0x00455972  (242 bytes)  [inferred]
+  0x00455980–0x00455a72  (242 bytes)  [inferred]
+  0x00455a80–0x00455d8d  (781 bytes)  [inferred]
+  0x00455d90–0x00455e82  (242 bytes)  [inferred]
+  0x00455e90–0x0045600a  (378 bytes)  [indeterminate]
+  0x004563f0–0x004564e2  (242 bytes)  [inferred]
+  0x00456500–0x0045655a  (90 bytes)  [inferred]
+  0x00456560–0x0045659d  (61 bytes)  [indeterminate]
+  0x004565a0–0x004566a8  (264 bytes)  [indeterminate]
+  0x004566b0–0x00456730  (128 bytes)  [indeterminate]
+  0x004568c0–0x004569c2  (258 bytes)  [inferred]
+  0x00456b10–0x00456b4c  (60 bytes)  [inferred]
+  0x00456cd0–0x00456d7f  (175 bytes)  [indeterminate]
+  0x00456ff0–0x004571a0  (432 bytes)  [indeterminate]
+  0x00457470–0x00457501  (145 bytes)  [inferred]
+  0x00457510–0x00457593  (131 bytes)  [inferred]
+  0x00457dd0–0x00458103  (819 bytes)  [indeterminate]
+  0x00458110–0x00458488  (888 bytes)  [inferred]
+  0x00458a90–0x00458bcf  (319 bytes)  [indeterminate]
+  0x004597b0–0x00459934  (388 bytes)  [indeterminate]
+  0x00459940–0x00459ad8  (408 bytes)  [inferred]
+  0x00459ae0–0x00459c78  (408 bytes)  [inferred]
+  0x00459c80–0x00459e04  (388 bytes)  [inferred]
+  0x0045a9b0–0x0045aaa8  (248 bytes)  [inferred]
+  0x0045aab0–0x0045abcd  (285 bytes)  [inferred]
+  0x0045abd0–0x0045aca2  (210 bytes)  [inferred]
+  0x0045acb0–0x0045ad16  (102 bytes)  [inferred]
+  0x0045b1e0–0x0045b20f  (47 bytes)  [inferred]
+  0x0045b250–0x0045b36d  (285 bytes)  [inferred]
+  0x0045b370–0x0045b49e  (302 bytes)  [indeterminate]
+  0x0045b4a0–0x0045b5d5  (309 bytes)  [inferred]
+  0x0045b5e0–0x0045b73b  (347 bytes)  [inferred]
+  0x0045b740–0x0045b876  (310 bytes)  [inferred]
+  0x0045b880–0x0045b969  (233 bytes)  [indeterminate]
+  0x0045b970–0x0045baa6  (310 bytes)  [inferred]
+  0x0045c4e0–0x0045c532  (82 bytes)  [inferred]
+  0x0045d1b0–0x0045d239  (137 bytes)  [inferred]
+  0x0045ddf0–0x0045e193  (931 bytes)  [inferred]
+  0x0045e1a0–0x0045e28a  (234 bytes)  [indeterminate]
+  0x00460be0–0x00460f9f  (959 bytes)  [inferred]
+  0x00463270–0x0046331c  (172 bytes)  [indeterminate]
+  0x00463320–0x0046344e  (302 bytes)  [inferred]
+  0x00464110–0x004643e7  (727 bytes)  [inferred]
+  0x00464b90–0x00464cd1  (321 bytes)  [inferred]
+  0x00465480–0x00465671  (497 bytes)  [inferred]
+  0x00466c90–0x00466d94  (260 bytes)  [inferred]
+  0x00466e30–0x00466eaa  (122 bytes)  [inferred]
+  0x00466eb0–0x00466f51  (161 bytes)  [inferred]
+  0x00466f60–0x0046700e  (174 bytes)  [inferred]
+  0x00467890–0x004678b9  (41 bytes)  [inferred]
+  0x004678c0–0x00467942  (130 bytes)  [inferred]
+  0x00467950–0x00467a27  (215 bytes)  [inferred]
+  0x00467a30–0x00467b46  (278 bytes)  [inferred]
+  0x00467b50–0x00467c20  (208 bytes)  [inferred]
+  0x00467c20–0x00467ca2  (130 bytes)  [inferred]
+  0x00467cb0–0x00467d6f  (191 bytes)  [inferred]
+  0x00467d70–0x00467df2  (130 bytes)  [inferred]
+  0x00467e00–0x00467e82  (130 bytes)  [inferred]
+  0x00467e90–0x00467f29  (153 bytes)  [inferred]
+  0x00467f30–0x00467fb7  (135 bytes)  [inferred]
+  0x00467fc0–0x00468134  (372 bytes)  [inferred]
+  0x00468160–0x004682ac  (332 bytes)  [inferred]
+  0x004682b0–0x00468556  (678 bytes)  [inferred]
+  0x00468560–0x00468692  (306 bytes)  [inferred]
+  0x004686a0–0x004686ff  (95 bytes)  [inferred]
+  0x00468700–0x00468795  (149 bytes)  [inferred]
+  0x004687a0–0x0046882a  (138 bytes)  [inferred]
+  0x00468830–0x00468866  (54 bytes)  [inferred]
+  0x00468870–0x00468a1a  (426 bytes)  [inferred]
+  0x00468a20–0x00468a90  (112 bytes)  [inferred]
+  0x00468a90–0x00468b3a  (170 bytes)  [inferred]
+  0x00468b40–0x00468c83  (323 bytes)  [inferred]
+  0x00468c90–0x00468cae  (30 bytes)  [inferred]
+  0x00468cb0–0x00468d5c  (172 bytes)  [inferred]
+  0x00468d60–0x00468eb1  (337 bytes)  [inferred]
+  0x00468ec0–0x00468fa0  (224 bytes)  [inferred]
+  0x00468fa0–0x00469170  (464 bytes)  [inferred]
+  0x00469170–0x0046936a  (506 bytes)  [inferred]
+  0x00469370–0x00469647  (727 bytes)  [inferred]
+  0x00469650–0x004698c9  (633 bytes)  [inferred]
+  0x004698d0–0x00469a8d  (445 bytes)  [inferred]
+  0x00469a90–0x0046a417  (2439 bytes)  [inferred]
+  0x0046a420–0x0046b796  (4982 bytes)  [inferred]
+  0x0046b7a0–0x0046c256  (2742 bytes)  [inferred]
+  0x0046c260–0x0046c5d9  (889 bytes)  [inferred]
+  0x0046c5e0–0x0046ca37  (1111 bytes)  [inferred]
+  0x0046ca40–0x0046ccd0  (656 bytes)  [inferred]
+  0x0046ccd0–0x0046ce42  (370 bytes)  [inferred]
+  0x0046ce50–0x0046d1c9  (889 bytes)  [inferred]
+  0x0046d1d0–0x0046d3b5  (485 bytes)  [inferred]
+  0x0046d3c0–0x0046d532  (370 bytes)  [inferred]
+  0x0046d540–0x0046d670  (304 bytes)  [inferred]
+  0x0046d670–0x0046d73d  (205 bytes)  [inferred]
+  0x0046d740–0x0046d7b2  (114 bytes)  [indeterminate]
+  0x0046d7c0–0x0046e6c0  (3840 bytes)  [indeterminate]
+  0x0046e6c0–0x0046e8c3  (515 bytes)  [indeterminate]
+  0x0046eb90–0x0046ed61  (465 bytes)  [inferred]
+  0x0046ed70–0x0046fc60  (3824 bytes)  [inferred]
+  0x004700e0–0x004702d7  (503 bytes)  [inferred]
+  0x004703e0–0x004707f5  (1045 bytes)  [inferred]
+  0x00470800–0x00470b35  (821 bytes)  [inferred]
+  0x00470b40–0x00470b5e  (30 bytes)  [inferred]
+  0x00470b60–0x00470d11  (433 bytes)  [inferred]
+  0x00477190–0x004772e6  (342 bytes)  [inferred]
+  0x00477520–0x00477767  (583 bytes)  [inferred]
+  0x00477770–0x0047782a  (186 bytes)  [inferred]
+  0x00477c50–0x00477fa4  (852 bytes)  [indeterminate]
+  0x00477ff0–0x004782dd  (749 bytes)  [inferred]
+  0x004782e0–0x00478577  (663 bytes)  [indeterminate]
+  0x00478580–0x004786fe  (382 bytes)  [inferred]
+  0x00478700–0x00478993  (659 bytes)  [inferred]
+  0x004789a0–0x00478da4  (1028 bytes)  [inferred]
+  0x00478db0–0x00479171  (961 bytes)  [inferred]
+  0x00479180–0x004792ee  (366 bytes)  [inferred]
+  0x004793e0–0x00479a19  (1593 bytes)  [inferred]
+  0x00479a20–0x00479b53  (307 bytes)  [inferred]
+  0x00479b60–0x00479e9d  (829 bytes)  [inferred]
+  0x00479ea0–0x00479fad  (269 bytes)  [inferred]
+  0x00479fb0–0x0047a09d  (237 bytes)  [inferred]
+  0x0047a0a0–0x0047a18d  (237 bytes)  [inferred]
+  0x0047a190–0x0047a27d  (237 bytes)  [inferred]
+  0x0047a280–0x0047a36d  (237 bytes)  [inferred]
+  0x0047a370–0x0047a45d  (237 bytes)  [inferred]
+  0x0047a460–0x0047a54d  (237 bytes)  [inferred]
+  0x0047a550–0x0047a63d  (237 bytes)  [inferred]
+  0x0047a640–0x0047a76e  (302 bytes)  [inferred]
+  0x0047a770–0x0047a85b  (235 bytes)  [inferred]
+  0x0047a860–0x0047a94d  (237 bytes)  [inferred]
+  0x0047a950–0x0047aa3d  (237 bytes)  [inferred]
+  0x0047aa40–0x0047ac1b  (475 bytes)  [inferred]
+  0x0047ac20–0x0047ac4c  (44 bytes)  [inferred]
+  0x0047ac50–0x0047acba  (106 bytes)  [inferred]
+  0x0047acc0–0x0047ace7  (39 bytes)  [inferred]
+  0x0047acf0–0x0047ad72  (130 bytes)  [indeterminate]
+  0x0047ad80–0x0047ae0e  (142 bytes)  [inferred]
+  0x0047ae10–0x0047ae9a  (138 bytes)  [inferred]
+  0x0047aea0–0x0047af63  (195 bytes)  [inferred]
+  0x0047af70–0x0047affa  (138 bytes)  [inferred]
+  0x0047b000–0x0047b0c5  (197 bytes)  [inferred]
+  0x0047b0d0–0x0047b18f  (191 bytes)  [inferred]
+  0x0047b190–0x0047b253  (195 bytes)  [inferred]
+  0x0047b260–0x0047b309  (169 bytes)  [inferred]
+  0x0047b310–0x0047b3c1  (177 bytes)  [inferred]
+  0x0047b3d0–0x0047b456  (134 bytes)  [inferred]
+  0x0047b480–0x0047b502  (130 bytes)  [inferred]
+  0x0047b510–0x0047b59b  (139 bytes)  [inferred]
+  0x0047b5a0–0x0047b64f  (175 bytes)  [indeterminate]
+  0x0047b680–0x0047bf6c  (2284 bytes)  [inferred]
+  0x0047bf70–0x0047c090  (288 bytes)  [inferred]
+  0x0047c090–0x0047c7de  (1870 bytes)  [indeterminate]
+  0x0047c7e0–0x0047c96b  (395 bytes)  [inferred]
+  0x0047c970–0x0047c9c2  (82 bytes)  [inferred]
+  0x0047d470–0x0047d8f3  (1155 bytes)  [inferred]
+  0x00483290–0x0048335e  (206 bytes)  [inferred]
+  0x00483dd0–0x00483f7f  (431 bytes)  [inferred]
+  0x00484430–0x00484540  (272 bytes)  [inferred]
+  0x00484540–0x0048463b  (251 bytes)  [inferred]
+  0x00484640–0x00484732  (242 bytes)  [inferred]
+  0x00484740–0x00484882  (322 bytes)  [inferred]
+  0x00484890–0x004849db  (331 bytes)  [inferred]
+  0x00486520–0x00487698  (4472 bytes)  [inferred]
+  0x00487a30–0x00487cce  (670 bytes)  [inferred]
+  0x00487cd0–0x00487d07  (55 bytes)  [inferred]
+  0x00487d10–0x00487d38  (40 bytes)  [inferred]
+  0x00487d40–0x00487dda  (154 bytes)  [inferred]
+  0x00487f10–0x00487f46  (54 bytes)  [indeterminate]
+  0x00487fc0–0x00487fff  (63 bytes)  [inferred]
+  0x00488000–0x00488043  (67 bytes)  [inferred]
+  0x00488050–0x00488152  (258 bytes)  [inferred]
+  0x00488160–0x004881de  (126 bytes)  [inferred]
+  0x004881e0–0x0048825d  (125 bytes)  [indeterminate]
+  0x00488260–0x004882a1  (65 bytes)  [inferred]
+  0x004882b0–0x0048835c  (172 bytes)  [inferred]
+  0x00488360–0x0048845b  (251 bytes)  [indeterminate]
+  0x00488460–0x0048850f  (175 bytes)  [indeterminate]
+  0x00488670–0x00488753  (227 bytes)  [inferred]
+  0x00488760–0x0048880d  (173 bytes)  [inferred]
+  0x004888f0–0x004889e1  (241 bytes)  [inferred]
+  0x00489030–0x00489174  (324 bytes)  [inferred]
+  0x00489180–0x00489567  (999 bytes)  [inferred]
+  0x00489570–0x004895d2  (98 bytes)  [inferred]
+  0x0048a3f0–0x0048a462  (114 bytes)  [inferred]
+  0x0048a470–0x0048a70a  (666 bytes)  [inferred]
+  0x0048b830–0x0048b910  (224 bytes)  [indeterminate]
+  0x0048b910–0x0048bb1e  (526 bytes)  [indeterminate]
+  0x0048bf60–0x0048c083  (291 bytes)  [inferred]
+  0x0048c090–0x0048c1b3  (291 bytes)  [inferred]
+  0x0048c1c0–0x0048c280  (192 bytes)  [indeterminate]
+  0x0048c280–0x0048c402  (386 bytes)  [indeterminate]
+  0x0048c410–0x0048c5a8  (408 bytes)  [indeterminate]
+  0x0048c5b0–0x0048c7a1  (497 bytes)  [inferred]
+  0x0048d4b0–0x0048e67f  (4559 bytes)  [inferred]
+  0x0048e680–0x0048e719  (153 bytes)  [indeterminate]
+  0x0048e720–0x0048e8d5  (437 bytes)  [inferred]
+  0x0048f130–0x0048f179  (73 bytes)  [indeterminate]
+  0x0048f180–0x0048f1b7  (55 bytes)  [indeterminate]
+  0x0048f1c0–0x0048f3fe  (574 bytes)  [indeterminate]
+  0x0048f480–0x0048f4fe  (126 bytes)  [inferred]
+  0x0048fb50–0x00490389  (2105 bytes)  [inferred]
+  0x00490940–0x00490a7e  (318 bytes)  [inferred]
+  0x00490a80–0x00490adb  (91 bytes)  [inferred]
+  0x00490d20–0x00490f53  (563 bytes)  [inferred]
+  0x00490f60–0x00490fc6  (102 bytes)  [inferred]
+  0x00490fd0–0x00490ffc  (44 bytes)  [inferred]
+  0x00491000–0x0049105f  (95 bytes)  [indeterminate]
+  0x00491060–0x00491155  (245 bytes)  [inferred]
+  0x00491160–0x00491189  (41 bytes)  [inferred]
+  0x00491190–0x004911ae  (30 bytes)  [inferred]
+  0x004911b0–0x0049121a  (106 bytes)  [inferred]
+  0x00491220–0x00491247  (39 bytes)  [inferred]
+  0x00491250–0x0049125b  (11 bytes)  [inferred]
+  0x00491260–0x004912e2  (130 bytes)  [inferred]
+  0x004912f0–0x00491372  (130 bytes)  [inferred]
+  0x00491380–0x00491402  (130 bytes)  [inferred]
+  0x00491410–0x0049149e  (142 bytes)  [inferred]
+  0x004914a0–0x0049152a  (138 bytes)  [inferred]
+  0x00491530–0x004915ba  (138 bytes)  [inferred]
+  0x004915c0–0x00491685  (197 bytes)  [inferred]
+  0x00491690–0x0049174f  (191 bytes)  [inferred]
+  0x00491750–0x00491813  (195 bytes)  [inferred]
+  0x00491820–0x004918c9  (169 bytes)  [inferred]
+  0x004918d0–0x00491981  (177 bytes)  [inferred]
+  0x00491990–0x00491a16  (134 bytes)  [inferred]
+  0x00491a20–0x00491a7a  (90 bytes)  [inferred]
+  0x00491a80–0x00491adf  (95 bytes)  [inferred]
+  0x00491ae0–0x00491bde  (254 bytes)  [inferred]
+  0x00491be0–0x00491c10  (48 bytes)  [inferred]
+  0x00491c10–0x00491d40  (304 bytes)  [inferred]
+  0x00491d40–0x00491ea3  (355 bytes)  [inferred]
+  0x00491eb0–0x00491f20  (112 bytes)  [inferred]
+  0x004920c0–0x00492364  (676 bytes)  [inferred]
+  0x00492370–0x0049242f  (191 bytes)  [inferred]
+  0x00492430–0x00492562  (306 bytes)  [inferred]
+  0x004925a0–0x004925e9  (73 bytes)  [inferred]
+  0x004925f0–0x0049278c  (412 bytes)  [inferred]
+  0x00492790–0x0049283f  (175 bytes)  [inferred]
+  0x00492840–0x00492861  (33 bytes)  [inferred]
+  0x00492940–0x0049322c  (2284 bytes)  [inferred]
+  0x00493230–0x00493350  (288 bytes)  [inferred]
+  0x00493350–0x00493a9e  (1870 bytes)  [inferred]
+  0x00493aa0–0x00493c2b  (395 bytes)  [inferred]
+  0x00493c30–0x00493cc9  (153 bytes)  [inferred]
+  0x00493cd0–0x00493db7  (231 bytes)  [inferred]
+  0x00493dc0–0x00493eba  (250 bytes)  [inferred]
+  0x00493ec0–0x00493f25  (101 bytes)  [inferred]
+  0x00493ff0–0x00494075  (133 bytes)  [inferred]
+  0x00494080–0x00494102  (130 bytes)  [inferred]
+  0x00494110–0x00494192  (130 bytes)  [inferred]
+  0x004941a0–0x00494222  (130 bytes)  [inferred]
+  0x004978d0–0x00497b5b  (651 bytes)  [inferred]
+  0x00498a20–0x00498b30  (272 bytes)  [inferred]
+  0x0049a610–0x0049a7f3  (483 bytes)  [inferred]
+  0x0049ac90–0x0049ae96  (518 bytes)  [indeterminate]
+  0x0049eb90–0x004b36d7  (84807 bytes)  [inferred]
+  0x004b4270–0x004b454b  (731 bytes)  [inferred]
+  0x004b4550–0x004b47ee  (670 bytes)  [inferred]
+  0x004b47ee–0x004b4840  (82 bytes)  [inferred]
+  0x004b4840–0x004b486d  (45 bytes)  [inferred]
+  0x004b7620–0x004b767f  (95 bytes)  [inferred]
+  0x004b7680–0x004b769e  (30 bytes)  [inferred]
+  0x004b76a0–0x004b76ab  (11 bytes)  [inferred]
+  0x004b76b0–0x004b770a  (90 bytes)  [inferred]
+  0x004b77a0–0x004b77da  (58 bytes)  [inferred]
+  0x004b77e0–0x004b781b  (59 bytes)  [inferred]
+  0x004b7a70–0x004b7bfa  (394 bytes)  [inferred]
+  0x004b7c00–0x004b7c7e  (126 bytes)  [inferred]
+  0x004b7f10–0x004b7f57  (71 bytes)  [indeterminate]
+  0x004b7f60–0x004b804e  (238 bytes)  [indeterminate]
+  0x004b8110–0x004b82a9  (409 bytes)  [indeterminate]
+  0x004b82b0–0x004b82f4  (68 bytes)  [indeterminate]
+  0x004b8400–0x004b84af  (175 bytes)  [indeterminate]
+  0x004b8670–0x004b8709  (153 bytes)  [inferred]
+  0x004b8710–0x004b87a9  (153 bytes)  [inferred]
+  0x004b87b0–0x004b88c9  (281 bytes)  [inferred]
+  0x004b88d0–0x004b895a  (138 bytes)  [inferred]
+  0x004b8960–0x004b89ea  (138 bytes)  [inferred]
+  0x004b89f0–0x004b8a7a  (138 bytes)  [inferred]
+  0x004b8a80–0x004b8b2c  (172 bytes)  [inferred]
+  0x004b8b30–0x004b8bee  (190 bytes)  [inferred]
+  0x004b8bf0–0x004b8c93  (163 bytes)  [inferred]
+  0x004b8f60–0x004b9061  (257 bytes)  [inferred]
+  0x004b9070–0x004b926b  (507 bytes)  [inferred]
+  0x004b9270–0x004b9354  (228 bytes)  [inferred]
+  0x004b9540–0x004b96a2  (354 bytes)  [inferred]
+  0x004b9870–0x004b9a14  (420 bytes)  [indeterminate]
+  0x004b9b30–0x004b9f3d  (1037 bytes)  [indeterminate]
+  0x004b9f40–0x004ba198  (600 bytes)  [indeterminate]
+  0x004ba750–0x004baaca  (890 bytes)  [indeterminate]
+  0x004baad0–0x004bab08  (56 bytes)  [inferred]
+  0x004bab10–0x004bac24  (276 bytes)  [inferred]
+  0x004bac30–0x004bad07  (215 bytes)  [inferred]
+  0x004bb030–0x004bb39f  (879 bytes)  [inferred]
+  0x004bb3a0–0x004bb4b8  (280 bytes)  [inferred]
+  0x004bb4c0–0x004bb585  (197 bytes)  [inferred]
+  0x004bb590–0x004bb5f1  (97 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 11995 functions mapped (1467 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           39 predicted   TP=   19  FP=   2  unknown=  18   precision=90.5%
+  inferred         733 predicted   TP=   44  FP= 515  unknown= 174   precision=7.9%
+  indeterminate    107 predicted   TP=    6  FP=  67  unknown=  34   precision=8.2%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     19  (  1.3%)  certain          (rock-solid signal)
+     44  (  3.0%)  inferred         (call-graph reach)
+      6  (  0.4%)  indeterminate    (shared/mixed callers)
+   1398  ( 95.3%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x003edd30  /tmp/unhusk-local-bench/xh/src/request_items.rs
+    0x00420620  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00420850  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00420a50  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00424d50  /tmp/unhusk-local-bench/xh/src/auth.rs
+    0x00426810  /tmp/unhusk-local-bench/xh/src/download.rs
+    0x00428d00  /tmp/unhusk-local-bench/xh/src/auth.rs
+    0x00431500  /tmp/unhusk-local-bench/xh/src/main.rs
+    0x0043d0a0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x004495d0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x004498c0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x0044a810  /tmp/unhusk-local-bench/xh/src/content_disposition.rs
+    0x0044b2c0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x00470d20  /tmp/unhusk-local-bench/xh/src/to_curl.rs
+    0x0047d900  /tmp/unhusk-local-bench/xh/src/generation.rs
+    0x00497f00  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004981d0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049b220  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049c700  /tmp/unhusk-local-bench/xh/src/cli.rs
+  DWARF-user in inferred:
+    0x003f3200  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003f3600  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x00420250  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x004253b0  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00425490  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x004257d0  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00425830  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x004267b0  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00428c60  /tmp/unhusk-local-bench/xh/src/download.rs
+    0x004312c0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x0043b4e0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x0043b590  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x0043b7b0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x00442400  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x004424d0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x00442620  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x004485c0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x00448730  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x00449510  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x0046b7a0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046c260  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046c5e0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046ca40  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046ccd0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046ce50  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046d1d0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0046d3c0  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x00470b60  /tmp/unhusk-local-bench/xh/src/to_curl.rs
+    0x00477190  /tmp/unhusk-local-bench/xh/src/session.rs
+    0x0047d470  /tmp/unhusk-local-bench/xh/src/generation.rs
+    0x00487a30  /tmp/unhusk-local-bench/xh/src/printer.rs
+    0x0048d4b0  /tmp/unhusk-local-bench/xh/src/netrc.rs
+    0x0048e720  /tmp/unhusk-local-bench/xh/src/printer.rs
+    0x00493ec0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00493ff0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00494080  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00494110  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004941a0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00498a20  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049eb90  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004bb030  /tmp/unhusk-local-bench/xh/src/formatting/mod.rs
+    0x004bb3a0  /tmp/unhusk-local-bench/xh/src/formatting/mod.rs
+    0x004bb4c0  /tmp/unhusk-local-bench/xh/src/formatting/palette.rs
+    0x004bb590  /tmp/unhusk-local-bench/xh/src/formatting/palette.rs
+  DWARF-user in indeterminate:
+    0x00420460  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x00477c50  /tmp/unhusk-local-bench/xh/src/formatting/palette.rs
+    0x0048e680  /tmp/unhusk-local-bench/xh/src/printer.rs
+    0x0048f130  /tmp/unhusk-local-bench/xh/src/buffer.rs
+    0x0048f180  /tmp/unhusk-local-bench/xh/src/buffer.rs
+    0x0048f1c0  /tmp/unhusk-local-bench/xh/src/buffer.rs
+  DWARF-user in library (missed):
+    0x003fd760  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003fdc10  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003fe4e0  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003fe6d0  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003fe880  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003fef30  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x003ff440  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x0041b360  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x0041b4f0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x0041b750  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x004255f0  /tmp/unhusk-local-bench/xh/src/utils.rs
+    0x0042b490  /tmp/unhusk-local-bench/xh/src/middleware.rs
+    0x0042b4a0  /tmp/unhusk-local-bench/xh/src/middleware.rs
+    0x00431150  /tmp/unhusk-local-bench/xh/src/main.rs
+    0x0043a0d0  /tmp/unhusk-local-bench/xh/src/main.rs
+    0x0043bcf0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x0043e000  /tmp/unhusk-local-bench/xh/src/request_items.rs
+    0x0043e080  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0043e730  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0043e900  /tmp/unhusk-local-bench/xh/src/middleware.rs
+    0x0043e910  /tmp/unhusk-local-bench/xh/src/middleware.rs
+    0x0044b240  /tmp/unhusk-local-bench/xh/src/redacted.rs
+    0x00458fc0  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x00459690  /tmp/unhusk-local-bench/xh/src/printer.rs
+    0x0045a160  /tmp/unhusk-local-bench/xh/src/decoder.rs
+    0x004779d0  /tmp/unhusk-local-bench/xh/src/to_curl.rs
+    0x004825c0  /tmp/unhusk-local-bench/xh/src/error_reporting.rs
+    0x00482b40  /tmp/unhusk-local-bench/xh/src/error_reporting.rs
+    0x0048e8e0  /tmp/unhusk-local-bench/xh/src/printer.rs
+    0x00493f80  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00498b90  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x00499110  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004997a0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049a080  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049a280  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049a490  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049a800  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049aec0  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x0049b900  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004b3720  /tmp/unhusk-local-bench/xh/src/cli.rs
+    0x004b7360  /tmp/unhusk-local-bench/xh/src/formatting/mod.rs
+    0x004b74c0  /tmp/unhusk-local-bench/xh/src/formatting/mod.rs
+    0x004bc1c0  /tmp/unhusk-local-bench/xh/src/redirect.rs
+    0x004bc3a0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x004bc8a0  /tmp/unhusk-local-bench/xh/src/nested_json.rs
+    0x007e5420  /aws-lc/crypto/bn_extra/convert.c
+    0x007e5490  /aws-lc/crypto/bn_extra/convert.c
+    0x007e5750  /aws-lc/crypto/bn_extra/convert.c
+    0x007e5930  /aws-lc/crypto/bn_extra/convert.c
+    0x007e59c0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5a90  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5ab0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5b20  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5b70  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5bc0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5f10  /aws-lc/crypto/bytestring/cbb.c
+    0x007e5fe0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6030  /aws-lc/crypto/bytestring/cbb.c
+    0x007e60b0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e61a0  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6220  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6280  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6440  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6570  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6580  /aws-lc/crypto/bytestring/cbb.c
+    0x007e6630  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6640  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6670  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6680  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6690  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6720  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6750  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6790  /aws-lc/crypto/bytestring/cbs.c
+    0x007e67d0  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6830  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6ba0  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6bc0  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6c60  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6d80  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6e10  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6e70  /aws-lc/crypto/bytestring/cbs.c
+    0x007e6f20  /aws-lc/crypto/bytestring/cbs.c
+    0x007e7060  /aws-lc/crypto/bytestring/cbs.c
+    0x007e70b0  /aws-lc/crypto/bytestring/cbs.c
+    0x007e7190  /aws-lc/crypto/chacha/chacha.c
+    0x007e7350  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7360  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e74f0  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7570  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7760  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7b60  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7ba0  /aws-lc/crypto/cipher_extra/e_chacha20poly1305.c
+    0x007e7bb0  /aws-lc/crypto/crypto.c
+    0x007e7bc0  /aws-lc/crypto/crypto.c
+    0x007e7bd0  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7ca0  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7d40  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7df0  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7eb0  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7f20  /aws-lc/crypto/ecdsa_extra/ecdsa_asn1.c
+    0x007e7f60  /aws-lc/crypto/bn_extra/bn_asn1.c
+    0x007e8050  /aws-lc/crypto/bn_extra/bn_asn1.c
+    0x007e8160  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e8240  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e8320  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e83e0  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e8980  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e8d80  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e8e30  /aws-lc/crypto/ec_extra/ec_asn1.c
+    0x007e90a0  /aws-lc/crypto/err/err.c
+    0x007e9120  /aws-lc/crypto/err/err.c
+    0x007e91a0  /aws-lc/crypto/err/err.c
+    0x007e9220  /aws-lc/crypto/err/err.c
+    0x007e92a0  /aws-lc/crypto/err/err.c
+    0x007e9360  /aws-lc/crypto/err/err.c
+    0x007e9450  /aws-lc/crypto/err/err.c
+    0x007e9540  /aws-lc/crypto/evp_extra/evp_asn1.c
+    0x007e9670  /aws-lc/crypto/evp_extra/evp_asn1.c
+    0x007e9820  /aws-lc/crypto/evp_extra/evp_asn1.c
+    0x007e9a70  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007e9aa0  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007e9ce0  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007e9df0  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007e9ee0  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007ea030  /aws-lc/crypto/dsa/dsa_asn1.c
+    0x007ea130  /aws-lc/crypto/dsa/dsa.c
+    0x007ea180  /aws-lc/crypto/dsa/dsa.c
+    0x007eac10  /aws-lc/crypto/dsa/dsa.c
+    0x007ead90  /aws-lc/crypto/dsa/dsa.c
+    0x007eada0  /aws-lc/crypto/dsa/dsa.c
+    0x007eade0  /aws-lc/crypto/dsa/dsa.c
+    0x007eb360  /aws-lc/crypto/dsa/dsa.c
+    0x007eb6d0  /aws-lc/crypto/dsa/dsa.c
+    0x007eb730  /aws-lc/crypto/dsa/dsa.c
+    0x007eb7c0  /aws-lc/crypto/evp_extra/p_methods.c
+    0x007eb7d0  /aws-lc/crypto/evp_extra/p_methods.c
+    0x007eb7e0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb7f0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb820  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb890  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb8c0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb8e0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eb8f0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007eba80  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007ebaf0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007ebc80  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007ebe00  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007ebeb0  /aws-lc/crypto/evp_extra/p_ec_asn1.c
+    0x007ebff0  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec020  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec030  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec060  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec110  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec120  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec130  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec2d0  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec460  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec540  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec6c0  /aws-lc/crypto/evp_extra/p_dsa_asn1.c
+    0x007ec730  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ec740  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ec750  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ec780  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ec7e0  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ec9d0  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ecb80  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ecce0  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ece30  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ecf50  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ecfe0  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ed080  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ed0e0  /aws-lc/crypto/evp_extra/p_ed25519_asn1.c
+    0x007ed1b0  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed1f0  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed220  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed420  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed490  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed620  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed800  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed8e0  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007ed9b0  /aws-lc/crypto/evp_extra/p_kem_asn1.c
+    0x007eda80  /aws-lc/crypto/evp_extra/p_hmac_asn1.c
+    0x007eda90  /aws-lc/crypto/evp_extra/p_hmac_asn1.c
+    0x007edac0  /aws-lc/crypto/evp_extra/p_hmac_asn1.c
+    0x007edb50  /aws-lc/crypto/evp_extra/p_hmac_asn1.c
+    0x007edbd0  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edc00  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edc50  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edc60  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edc70  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007ede00  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edee0  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007edf40  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007ee0b0  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007ee0f0  /aws-lc/crypto/evp_extra/p_dh_asn1.c
+    0x007ee290  /aws-lc/crypto/dh_extra/dh_asn1.c
+    0x007ee2c0  /aws-lc/crypto/dh_extra/dh_asn1.c
+    0x007ee410  /aws-lc/crypto/dh_extra/dh_asn1.c
+    0x007ee510  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee5c0  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee780  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee800  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee830  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee880  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee8d0  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee970  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee990  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee9b0  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007ee9d0  /aws-lc/crypto/evp_extra/p_dh.c
+    0x007eeb80  /aws-lc/crypto/dh_extra/params.c
+    0x007eee40  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef080  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef250  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef280  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef410  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef600  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef650  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef6c0  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef770  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef7a0  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef7d0  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef800  /aws-lc/crypto/evp_extra/p_dsa.c
+    0x007ef9a0  /aws-lc/crypto/digest_extra/digest_extra.c
+    0x007ef9f0  /aws-lc/crypto/digest_extra/digest_extra.c
+    0x007efa30  /aws-lc/crypto/digest_extra/digest_extra.c
+    0x007efac0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007efaf0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007efca0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007efce0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007efe70  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007efec0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007eff00  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007f0160  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007f01f0  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007f0310  /aws-lc/crypto/evp_extra/p_pqdsa_asn1.c
+    0x007f03e0  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f03f0  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0400  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0410  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0420  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0590  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f06f0  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0780  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f08c0  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0a00  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0b30  /aws-lc/crypto/evp_extra/p_rsa_asn1.c
+    0x007f0b90  /aws-lc/crypto/evp_extra/p_x25519.c
+    0x007f0ba0  /aws-lc/crypto/evp_extra/p_x25519.c
+    0x007f0cf0  /aws-lc/crypto/evp_extra/p_x25519.c
+    0x007f0d50  /aws-lc/crypto/evp_extra/p_x25519.c
+    0x007f0d90  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f0da0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f0db0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f0de0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f0e30  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f1020  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f11d0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f1320  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f13b0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f1450  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f14b0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f15d0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f16f0  /aws-lc/crypto/evp_extra/p_x25519_asn1.c
+    0x007f17c0  /aws-lc/crypto/ex_data.c
+    0x007f1810  /aws-lc/crypto/ex_data.c
+    0x007f1820  /aws-lc/crypto/ex_data.c
+    0x007f1960  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007f1d30  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x007f1d60  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x007f1f10  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x007f1f20  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f1f30  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f1fa0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2010  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2080  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f20f0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2160  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f21d0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2240  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f22b0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2320  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2390  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2400  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2470  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f24e0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2560  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f25e0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f2650  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x007f2740  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x007f2860  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x007f2a70  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x007f2b40  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007f2c20  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f2ce0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f2e10  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f2e50  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f2f10  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f2fe0  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x007f3000  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x007f3100  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x007f3110  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x007f3220  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x007f3320  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x007f33c0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x007f3440  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x007f3550  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x007f3660  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x007f3760  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x007f3860  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f38b0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f3900  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f3950  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x007f3aa0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x007f3b00  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x007f3b90  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x007f3cf0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x007f3eb0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x007f3f60  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x007f4070  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x007f4170  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x007f4e40  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x007f4ec0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/compress.c
+    0x007f4fa0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/compress.c
+    0x007f5090  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/sampling.c
+    0x007f56a0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/sampling.c
+    0x007f5790  /aws-lc/crypto/fipsmodule/modes/gcm_nohw.c
+    0x007f5a30  /aws-lc/crypto/fipsmodule/modes/gcm_nohw.c
+    0x007f5b80  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f5be0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f5c40  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f5ca0  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x007f5d10  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x007f5d20  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x007f5da0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x007f5dd0  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x007f5de0  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x007f5df0  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x007f5fd0  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007f61e0  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007f6460  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x007f64c0  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x007f64e0  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x007f64f0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x007f6540  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x007f6550  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x007f6560  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x007f65a0  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x007f65f0  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x007f6630  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x007f6670  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x007f66d0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f6760  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f67f0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x007f6880  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f6910  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f69a0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x007f6a70  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x007f6ae0  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x007f6b30  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f6c80  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f6db0  /aws-lc/crypto/fipsmodule/cpucap/cpu_intel.c
+    0x007f6f30  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x007f6f70  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f6f80  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f6f90  /aws-lc/crypto/fipsmodule/curve25519/../../../third_party/s2n-bignum/s2n-bignum_aws-lc.h
+    0x007f6fc0  /aws-lc/crypto/fipsmodule/curve25519/../../../third_party/s2n-bignum/s2n-bignum_aws-lc.h
+    0x007f6ff0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f7000  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f7010  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x007f7130  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f7140  /aws-lc/crypto/fipsmodule/curve25519/../../../third_party/s2n-bignum/s2n-bignum_aws-lc.h
+    0x007f7170  /aws-lc/crypto/fipsmodule/curve25519/../../../third_party/s2n-bignum/s2n-bignum_aws-lc.h
+    0x007f71a0  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f71b0  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007f71c0  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x007f71d0  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x007f71f0  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x007f72b0  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x007f7300  /aws-lc/crypto/fipsmodule/../internal.h
+    0x007f7330  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x007f7400  /aws-lc/crypto/fipsmodule/md5/../digest/md32_common.h
+    0x007f7430  /aws-lc/crypto/fipsmodule/bn/random.c
+    0x007f74d0  /aws-lc/crypto/fipsmodule/rand/rand.c
+    0x007f7590  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x007f76f0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f77a0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f7850  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f78d0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f7950  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f79d0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x007f7ae0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly.c
+    0x007f81e0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly.c
+    0x007f90a0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/compress.c
+    0x007f9530  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly.c
+    0x007f9950  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/sampling.c
+    0x007f9a00  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly_k.c
+    0x007fa0c0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly_k.c
+    0x007fa9d0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly_k.c
+    0x007fae60  /aws-lc/crypto/fipsmodule/bn/rsaz_exp_x2.c
+    0x007fb050  /aws-lc/crypto/fipsmodule/bn/rsaz_exp_x2.c
+    0x007fb2f0  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x007fb420  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x007fb440  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x007fb470  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007fb540  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007fb630  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x007fb6f0  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007fb7b0  /aws-lc/crypto/fipsmodule/modes/gcm_nohw.c
+    0x007fb830  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/packing.c
+    0x007fb930  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/packing.c
+    0x007fba20  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007fbb50  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007fbcc0  /aws-lc/crypto/fipsmodule/modes/gcm_nohw.c
+    0x007fbda0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/packing.c
+    0x007fc230  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007fc470  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x007fc5e0  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x007fc840  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x007fcc60  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007fd050  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x007fd460  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x007fdd70  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x007fe160  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007feec0  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007ff030  /aws-lc/crypto/fipsmodule/aes/aes.c
+    0x007ff060  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x007ff070  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x007ff610  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x00800710  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x00800880  /aws-lc/crypto/fipsmodule/aes/aes.c
+    0x008008b0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00800ae0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00800dc0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00801990  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00801b50  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00803230  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x008037d0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00806050  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00807dd0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x008080e0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x008082f0  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x00808dd0  /aws-lc/crypto/fipsmodule/aes/aes.c
+    0x00808e20  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x00808e30  /aws-lc/crypto/fipsmodule/aes/aes.c
+    0x00808e80  /aws-lc/crypto/fipsmodule/aes/aes_nohw.c
+    0x00808ea0  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x00808eb0  /aws-lc/crypto/fipsmodule/aes/mode_wrappers.c
+    0x00808f30  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809050  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809150  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x008092a0  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809360  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809390  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x00809490  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x008094c0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x00809610  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809b40  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x00809f70  /aws-lc/crypto/fipsmodule/bn/asm/x86_64-gcc.c
+    0x0080a0a0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a0c0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a0e0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a0f0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a120  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a1e0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a200  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a290  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a320  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a410  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a420  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a510  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080a690  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080a830  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a8a0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080a900  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x0080a9f0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080aa50  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080aa60  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080aac0  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x0080ac10  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080ac60  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080ad10  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080ad50  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x0080adb0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080afb0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080b310  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080b7b0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080bd10  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080bd50  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080bd90  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080bdb0  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080bde0  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080be10  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080bf50  /aws-lc/crypto/fipsmodule/bn/bytes.c
+    0x0080c050  /aws-lc/crypto/fipsmodule/bn/bytes.c
+    0x0080c0b0  /aws-lc/crypto/fipsmodule/bn/bytes.c
+    0x0080c2d0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0080c3c0  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0080c420  /aws-lc/crypto/fipsmodule/bn/bytes.c
+    0x0080c460  /aws-lc/crypto/fipsmodule/bn/bytes.c
+    0x0080c640  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080c660  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080c720  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080c820  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080c890  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080c8b0  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0080c990  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0080ca50  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080cae0  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080cb60  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080cb70  /aws-lc/crypto/fipsmodule/bn/bn.c
+    0x0080cbb0  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080ccd0  /aws-lc/crypto/fipsmodule/bn/add.c
+    0x0080cdd0  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080ce00  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080ce50  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080ce70  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080cee0  /aws-lc/crypto/fipsmodule/bn/cmp.c
+    0x0080d0a0  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x0080d0d0  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x0080d150  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x0080d210  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x0080d320  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080d3e0  /aws-lc/crypto/fipsmodule/bn/ctx.c
+    0x0080d440  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080d4e0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080d5f0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080d6b0  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080d730  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080d7a0  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080d7e0  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080db40  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080dc40  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080dd40  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080de40  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x0080de60  /aws-lc/crypto/fipsmodule/bn/div_extra.c
+    0x0080e020  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e060  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e090  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e0d0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e110  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e170  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e1f0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e310  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e440  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0080e4c0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e530  /aws-lc/crypto/fipsmodule/bn/montgomery_inv.c
+    0x0080e6f0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080e880  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080e9d0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080ed80  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080f1e0  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080f270  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080f4b0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080f670  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080f680  /aws-lc/crypto/fipsmodule/bn/mul.c
+    0x0080f8a0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x0080f8c0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0080f900  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0080f970  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0080f9a0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0080f9c0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080f9d0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080f9e0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080f9f0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080fa50  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080fa60  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x0080faa0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x0080fb30  /aws-lc/crypto/fipsmodule/bn/random.c
+    0x0080fc20  /aws-lc/crypto/fipsmodule/bn/rsaz_exp.c
+    0x00810040  /aws-lc/crypto/fipsmodule/bn/rsaz_exp_x2.c
+    0x00810ad0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00810cd0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00810d70  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00810f20  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00810fd0  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x00811510  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x00811590  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x00811640  /aws-lc/crypto/fipsmodule/bn/div.c
+    0x008116a0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x008117a0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00811880  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x008118f0  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x00811ca0  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x00811d10  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x00811e60  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x00811f50  /aws-lc/crypto/fipsmodule/bn/gcd_extra.c
+    0x00812760  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x008127b0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00812870  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x00812940  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x008129b0  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x00812a50  /aws-lc/crypto/fipsmodule/bn/montgomery_inv.c
+    0x00812c60  /aws-lc/crypto/fipsmodule/bn/montgomery.c
+    0x00812ce0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00812d00  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x008135d0  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x008135f0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x00813610  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00813640  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x00813d20  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x00813e60  /aws-lc/crypto/fipsmodule/bn/gcd.c
+    0x00813f10  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x00814d30  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x00814df0  /aws-lc/crypto/fipsmodule/bn/exponentiation.c
+    0x008152a0  /aws-lc/crypto/fipsmodule/bn/gcd.c
+    0x00815350  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00815630  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x008157d0  /aws-lc/crypto/fipsmodule/bn/gcd.c
+    0x00815b20  /aws-lc/crypto/fipsmodule/bn/gcd.c
+    0x00815c50  /aws-lc/crypto/fipsmodule/bn/jacobi.c
+    0x00815e60  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00815ed0  /aws-lc/crypto/fipsmodule/bn/shift.c
+    0x00816080  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x00816170  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x008161b0  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x00816230  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x00816290  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x008162d0  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x00816310  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x00816490  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x008165e0  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x008166c0  /aws-lc/crypto/fipsmodule/cipher/aead.c
+    0x00816860  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x00816890  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x008168c0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x008168f0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x00816920  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x00816950  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x00816980  /aws-lc/crypto/fipsmodule/cpucap/cpu_intel.c
+    0x00816bd0  /aws-lc/crypto/fipsmodule/curve25519/curve25519_s2n_bignum_asm.c
+    0x00816c70  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x00816cb0  /aws-lc/crypto/fipsmodule/curve25519/curve25519_s2n_bignum_asm.c
+    0x00816d50  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x00816d60  /aws-lc/crypto/fipsmodule/curve25519/curve25519_s2n_bignum_asm.c
+    0x00816e30  /aws-lc/crypto/fipsmodule/dh/check.c
+    0x00816f30  /aws-lc/crypto/fipsmodule/dh/check.c
+    0x00817060  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817250  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817290  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817320  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817330  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817340  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817350  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817360  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817370  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817430  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x008174d0  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x008174e0  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00817590  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x008175a0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x008175b0  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x00817710  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817720  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817730  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x008178a0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x008178b0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x008178d0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817960  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x008179c0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817a50  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817c40  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817c70  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817c90  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817d60  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817d90  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817db0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00817dd0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00817e00  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00817e30  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00817e60  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00818360  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818390  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x008183c0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x008183f0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818420  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818450  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818480  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x008184b0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x008184e0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818510  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818540  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00818a10  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818a40  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818a70  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00818aa0  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x00818ae0  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x00818b50  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x00818b60  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x00818b70  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x00818bd0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818c00  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818c30  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818c60  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818c90  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818cc0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818d40  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00818e60  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818ed0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818f90  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818fb0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00818ff0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00819000  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00819010  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00819020  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008190b0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008190f0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00819110  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00819150  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008191c0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008191d0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00819270  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00819290  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008192b0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008192c0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008192d0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008192e0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008192f0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00819320  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00819330  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x008193f0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00819400  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x00819430  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008195e0  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x00819880  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x00819ef0  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x0081a390  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x0081a3f0  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x0081a450  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x0081a530  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081a600  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081a6d0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081a810  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081a9b0  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081a9c0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081aa80  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081aa90  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081ab90  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081ac80  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081acf0  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081ad00  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081ae00  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081ae60  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081aec0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0081b5e0  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081b6b0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0081ba30  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081bb60  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081bb80  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081bbf0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0081c110  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x0081c370  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x0081c4a0  /aws-lc/crypto/fipsmodule/ec/felem.c
+    0x0081c4d0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081c6f0  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x0081c770  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x0081c930  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x0081ca30  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x0081ca60  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081cc20  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x0081cc50  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081ce20  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081ce50  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081cec0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081d000  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081d0c0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081d0f0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081d300  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081d330  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081d3a0  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081d530  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081d640  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081d670  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081d8b0  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081d930  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081d970  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081da30  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x0081db50  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dbc0  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dbe0  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dc00  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dc30  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dc40  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dca0  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x0081dd40  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x0081dd50  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0081e090  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0081e0a0  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0081e1a0  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x0081e1d0  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081e270  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081e280  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081e2f0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081e360  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081e410  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081e420  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081e450  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081e520  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x0081e8a0  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x0081e8b0  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x0081ed70  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081ed80  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081eda0  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0081eec0  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x0081ef30  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x0081f140  /aws-lc/crypto/fipsmodule/ec/p256-nistz.c
+    0x0081f270  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081f5c0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x0081f800  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x0081f870  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081f910  /aws-lc/crypto/fipsmodule/ec/ec_montgomery.c
+    0x0081fb00  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x0081fce0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081fd90  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x0081fe30  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x008200e0  /aws-lc/crypto/fipsmodule/ec/simple.c
+    0x008202c0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008203d0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00820450  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008204c0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00820520  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00820580  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x008206e0  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00820790  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00820870  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00820970  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x00820b00  /aws-lc/crypto/fipsmodule/ec/ec.c
+    0x00820ba0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00820d60  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00820f10  /aws-lc/crypto/fipsmodule/ecdh/ecdh.c
+    0x00821110  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00821230  /aws-lc/crypto/fipsmodule/ec/util.c
+    0x00821280  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00821920  /aws-lc/crypto/fipsmodule/ec/p224-64.c
+    0x00821f10  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x008220f0  /aws-lc/crypto/fipsmodule/ec/simple_mul.c
+    0x00822510  /aws-lc/crypto/fipsmodule/ec/wnaf.c
+    0x008227a0  /aws-lc/crypto/fipsmodule/ec/ec_nistp.c
+    0x00822cb0  /aws-lc/crypto/fipsmodule/ec/p384.c
+    0x00822df0  /aws-lc/crypto/fipsmodule/ec/p521.c
+    0x00822f90  /aws-lc/crypto/fipsmodule/ec/wnaf.c
+    0x00823550  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823570  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x008235f0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00823650  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823670  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00823820  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00823900  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823930  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823960  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00823af0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00823c80  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823cb0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823cc0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823d00  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823dd0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823e20  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823ef0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00823ff0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824030  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x008240e0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824120  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824260  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x008242f0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x008243c0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824410  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824450  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x00824590  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x008245a0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x008245b0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x008246a0  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x008246c0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x008247f0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824880  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824900  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824990  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824a10  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824a60  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824c70  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824cf0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824d40  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824e70  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824ed0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824f30  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824fc0  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00824fe0  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00825010  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00825030  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00825070  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00825170  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x008251a0  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x008251d0  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00825200  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00825220  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00825290  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00825300  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00825370  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x008256d0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825700  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825730  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x008257e0  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x00825890  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x00825a00  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x00825b40  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825b50  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825be0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825c60  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825cc0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00825db0  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00825de0  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x00825e10  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825e40  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825e70  /aws-lc/crypto/fipsmodule/evp/evp_ctx.c
+    0x00825ef0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825f50  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825f70  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825f90  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825fb0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00825fd0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00826030  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00826470  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008264b0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x008264f0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00826500  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x00826550  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00826da0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00826ee0  /aws-lc/crypto/fipsmodule/digest/digest.c
+    0x00827000  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x008271a0  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x008272e0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00827320  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x00827340  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00827530  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x00827790  /aws-lc/crypto/fipsmodule/evp/digestsign.c
+    0x008278f0  /aws-lc/crypto/fipsmodule/hkdf/hkdf.c
+    0x00827bd0  /aws-lc/crypto/fipsmodule/hkdf/hkdf.c
+    0x00827c70  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00827d70  /aws-lc/crypto/fipsmodule/hkdf/hkdf.c
+    0x00827e90  /aws-lc/crypto/fipsmodule/hkdf/hkdf.c
+    0x00827fd0  /aws-lc/crypto/fipsmodule/evp/p_hkdf.c
+    0x00828220  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00828260  /aws-lc/crypto/fipsmodule/tls/kdf.c
+    0x008286d0  /aws-lc/crypto/fipsmodule/evp/p_hmac.c
+    0x008287c0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00828850  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00828930  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x008289b0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00828a90  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00828ac0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00828b30  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00828b40  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00828d70  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00828ff0  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00829300  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00829500  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00829540  /aws-lc/crypto/fipsmodule/evp/p_kem.c
+    0x00829630  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00829670  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x008298c0  /aws-lc/crypto/fipsmodule/md5/md5.c
+    0x00829930  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00829940  /aws-lc/crypto/fipsmodule/md5/md5.c
+    0x008299c0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008299d0  /aws-lc/crypto/fipsmodule/md5/md5.c
+    0x00829c80  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00829c90  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00829ca0  /aws-lc/crypto/fipsmodule/md5/md5.c
+    0x00829e50  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00829e60  /aws-lc/crypto/fipsmodule/md5/md5.c
+    0x00829eb0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00829ec0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00829f40  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00829fb0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00829fc0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00829fe0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a050  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a060  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a080  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a0f0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a100  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a120  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a190  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a200  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a220  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a290  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a2b0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a320  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a340  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a390  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a3e0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a3f0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a410  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a460  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a470  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a490  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a4e0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0082a4f0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0082a510  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082ac40  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082b2e0  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082b8b0  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082b990  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082ba80  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082baa0  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082bae0  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082c430  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082c690  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082c6d0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082c790  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082ceb0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d010  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d0a0  /aws-lc/crypto/fipsmodule/modes/gcm_nohw.c
+    0x0082d0f0  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082d280  /aws-lc/crypto/fipsmodule/modes/gcm.c
+    0x0082d360  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d4c0  /aws-lc/crypto/fipsmodule/rand/ctrdrbg.c
+    0x0082d6b0  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d780  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d860  /aws-lc/crypto/fipsmodule/cipher/e_aes.c
+    0x0082d940  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082d950  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082da50  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082dac0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082dae0  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082dcb0  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082ded0  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082dff0  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082e190  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082e390  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082e430  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082e5d0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082e710  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082e9c0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082ea50  /aws-lc/crypto/fipsmodule/evp/p_pqdsa.c
+    0x0082ead0  /aws-lc/crypto/fipsmodule/pqdsa/pqdsa.c
+    0x0082eb00  /aws-lc/crypto/fipsmodule/rand/ctrdrbg.c
+    0x0082ed50  /aws-lc/crypto/fipsmodule/rand/entropy/tree_drbg_jitter_entropy.c
+    0x0082ee90  /aws-lc/crypto/fipsmodule/rand/ctrdrbg.c
+    0x0082f320  /aws-lc/crypto/fipsmodule/rand/ctrdrbg.c
+    0x0082f5e0  /aws-lc/crypto/fipsmodule/rand/entropy/tree_drbg_jitter_entropy.c
+    0x0082f910  /aws-lc/crypto/fipsmodule/rand/ctrdrbg.c
+    0x0082f920  /aws-lc/crypto/fipsmodule/rand/rand.c
+    0x0082f9a0  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x00830000  /aws-lc/crypto/fipsmodule/bn/random.c
+    0x00830120  /aws-lc/crypto/fipsmodule/bn/random.c
+    0x008301a0  /aws-lc/crypto/fipsmodule/bn/gcd.c
+    0x00830300  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x00830870  /aws-lc/crypto/fipsmodule/dh/dh.c
+    0x00830aa0  /aws-lc/crypto/fipsmodule/ec/scalar.c
+    0x00830ad0  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00830c30  /aws-lc/crypto/fipsmodule/ec/ec_key.c
+    0x00830c90  /aws-lc/crypto/fipsmodule/rand/rand.c
+    0x00830ed0  /aws-lc/crypto/fipsmodule/bn/random.c
+    0x00830ee0  /aws-lc/crypto/fipsmodule/bn/sqrt.c
+    0x008316f0  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x00831aa0  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x00831e90  /aws-lc/crypto/fipsmodule/ec/oct.c
+    0x00832100  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x00832550  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x008325c0  /aws-lc/crypto/fipsmodule/bn/prime.c
+    0x00832be0  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00833130  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x00833190  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x008331b0  /aws-lc/crypto/fipsmodule/rand/entropy/entropy_sources.c
+    0x00833240  /aws-lc/crypto/fipsmodule/rsa/blinding.c
+    0x00833280  /aws-lc/crypto/fipsmodule/rsa/blinding.c
+    0x008332f0  /aws-lc/crypto/fipsmodule/rsa/blinding.c
+    0x00833300  /aws-lc/crypto/fipsmodule/rsa/blinding.c
+    0x00833480  /aws-lc/crypto/fipsmodule/rsa/blinding.c
+    0x008334a0  /aws-lc/crypto/fipsmodule/rsa/padding.c
+    0x00833590  /aws-lc/crypto/fipsmodule/rsa/padding.c
+    0x00833730  /aws-lc/crypto/fipsmodule/rsa/padding.c
+    0x008337e0  /aws-lc/crypto/fipsmodule/rsa/padding.c
+    0x00833960  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00833980  /aws-lc/crypto/fipsmodule/evp/evp.c
+    0x008339c0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008339d0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008339f0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00833dd0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00833fd0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008346d0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00834bb0  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00834ce0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00834dd0  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00834df0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00834e50  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00834f70  /aws-lc/crypto/fipsmodule/rsa/padding.c
+    0x00835bc0  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00835fd0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008361e0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008361f0  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00836200  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x008364a0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008365e0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00836790  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00837400  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837430  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837440  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00837560  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837930  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837940  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x008379f0  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837af0  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00837c40  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00837c70  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837d40  /aws-lc/crypto/fipsmodule/rsa/rsa.c
+    0x00837d50  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00838760  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00838770  /aws-lc/crypto/fipsmodule/rsa/rsa_impl.c
+    0x00838830  /aws-lc/crypto/fipsmodule/self_check/fips.c
+    0x00838840  /aws-lc/crypto/fipsmodule/service_indicator/service_indicator.c
+    0x00838850  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x00838940  /aws-lc/crypto/fipsmodule/evp/p_rsa.c
+    0x00838ad0  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00838ae0  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00838b60  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00838c00  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00838f20  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00838f70  /aws-lc/crypto/fipsmodule/sha/keccak1600.c
+    0x00839080  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x00839120  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839130  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x008391d0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008391e0  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x00839490  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x008394a0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00839500  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839510  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x00839730  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839740  /aws-lc/crypto/fipsmodule/sha/sha1.c
+    0x008397a0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008397b0  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839820  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839830  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x008398a0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008398b0  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839960  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839970  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839a20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839a30  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839ce0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00839cf0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839d00  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839d10  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00839d20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839d30  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x00839f50  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00839f60  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x0083a000  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x0083a210  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083a220  /aws-lc/crypto/fipsmodule/sha/sha256.c
+    0x0083a290  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083a310  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083a320  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a480  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a600  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x0083a640  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a7b0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a860  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a9b0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a9c0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083a9d0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083a9e0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083a9f0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aa00  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aa10  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aa20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aa40  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aa60  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aa70  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aa80  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aaa0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aac0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083aad0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aae0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083ab00  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083ab20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0083ab30  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083ad90  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x0083adb0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aef0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x0083af10  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083aff0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083b250  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083b420  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083b5f0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083b7c0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083c270  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083c550  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly_kl.c
+    0x0083cee0  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083cf20  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083cf40  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0083cf80  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/poly.c
+    0x0083d600  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/polyvec.c
+    0x0083d720  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0083dbf0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0083df10  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0083df30  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0083dfa0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0083e410  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0083e430  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00840da0  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00840ea0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00841c30  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00841d50  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00841d90  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00841dd0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/polyvec.c
+    0x008420d0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00842590  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00843c80  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00843ca0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00844100  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00844120  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00846820  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00846920  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00847fb0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x008480d0  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00848110  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00848150  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/polyvec.c
+    0x00848340  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00848820  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00848c00  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x00848c20  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x00849090  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x008490b0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0084b7e0  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0084b8e0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0084cfb0  /aws-lc/crypto/fipsmodule/ml_dsa/mldsa/sign.c
+    0x0084d0d0  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0084d110  /aws-lc/crypto/fipsmodule/ml_dsa/ml_dsa.c
+    0x0084d150  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/sampling.c
+    0x0084d770  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x0084d8c0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x0084dd20  /aws-lc/crypto/fipsmodule/sha/sha3.c
+    0x0084e170  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/poly_k.c
+    0x0084e310  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x0084ee20  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0084ef70  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x0084ef80  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x0084efa0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x0084fe90  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x0084ffc0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x008520e0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x00852950  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00852aa0  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00852ab0  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00852ad0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x00853310  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x00853440  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x008555a0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/indcpa.c
+    0x00855e90  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x00855fc0  /aws-lc/crypto/fipsmodule/ml_kem/mlkem/kem.c
+    0x00858a20  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00858b70  /aws-lc/crypto/fipsmodule/ml_kem/ml_kem.c
+    0x00858b80  /aws-lc/crypto/fipsmodule/kem/kem.c
+    0x00858ba0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858c20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858c30  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858cb0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858cc0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858d40  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858d50  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858dd0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858de0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858ea0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858eb0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00858f70  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00858f80  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859040  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859050  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859110  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859120  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859410  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859420  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x008596f0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859700  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x008599d0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x008599e0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859ce0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00859cf0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859d00  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859d10  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00859d20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859d30  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x00859de0  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00859df0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859e10  /aws-lc/crypto/fipsmodule/digest/digests.c
+    0x00859e20  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x00859e30  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x0085a1a0  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085a290  /aws-lc/crypto/fipsmodule/curve25519/curve25519_s2n_bignum_asm.c
+    0x0085a570  /aws-lc/crypto/fipsmodule/curve25519/curve25519_s2n_bignum_asm.c
+    0x0085aa70  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085aac0  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085aaf0  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085ab00  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x0085ab70  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085aba0  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085abb0  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x0085ac80  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0085ae70  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0085aea0  /aws-lc/crypto/fipsmodule/ecdsa/ecdsa.c
+    0x0085afd0  /aws-lc/crypto/fipsmodule/evp/p_ec.c
+    0x0085b0b0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0085b0c0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x0085b160  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b2b0  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x0085b620  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b670  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b6a0  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b6b0  /aws-lc/crypto/fipsmodule/evp/p_ed25519.c
+    0x0085b760  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b790  /aws-lc/crypto/fipsmodule/curve25519/curve25519.c
+    0x0085b7a0  /aws-lc/crypto/fipsmodule/evp/p_ed25519ph.c
+    0x0085b8b0  /aws-lc/crypto/fipsmodule/sha/sha512.c
+    0x0085b930  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0085b9c0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0085ba50  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0085bae0  /aws-lc/crypto/fipsmodule/hmac/hmac.c
+    0x0085baf0  /aws-lc/crypto/fipsmodule/tls/kdf.c
+    0x0085bc40  /aws-lc/crypto/decrepit/ripemd/ripemd.c
+    0x0085d090  /aws-lc/crypto/decrepit/ripemd/ripemd.c
+    0x0085d0d0  /aws-lc/crypto/decrepit/ripemd/ripemd.c
+    0x0085d380  /aws-lc/crypto/decrepit/ripemd/ripemd.c
+    0x0085d520  /aws-lc/crypto/engine/engine.c
+    0x0085d530  /aws-lc/crypto/engine/engine.c
+    0x0085d540  /aws-lc/crypto/md4/md4.c
+    0x0085d580  /aws-lc/crypto/md4/md4.c
+    0x0085db30  /aws-lc/crypto/md4/md4.c
+    0x0085dcc0  /aws-lc/crypto/md4/md4.c
+    0x0085df70  /aws-lc/crypto/mem.c
+    0x0085e170  /aws-lc/crypto/mem.c
+    0x0085e1b0  /aws-lc/crypto/mem.c
+    0x0085e1f0  /aws-lc/crypto/mem.c
+    0x0085e220  /aws-lc/crypto/mem.c
+    0x0085e3d0  /aws-lc/crypto/mem.c
+    0x0085e640  /aws-lc/crypto/mem.c
+    0x0085e830  /aws-lc/crypto/mem.c
+    0x0085e860  /aws-lc/crypto/mem.c
+    0x0085e870  /aws-lc/crypto/mem.c
+    0x0085e8b0  /aws-lc/crypto/mem.c
+    0x0085e920  /aws-lc/crypto/mem.c
+    0x0085ea40  /aws-lc/crypto/mem.c
+    0x0085ebc0  /aws-lc/crypto/mem.c
+    0x0085ec10  /aws-lc/crypto/obj/obj.c
+    0x0085ec20  /aws-lc/crypto/obj/obj.c
+    0x0085ec30  /aws-lc/crypto/obj/obj.c
+    0x0085edf0  /aws-lc/crypto/obj/obj.c
+    0x0085f0e0  /aws-lc/crypto/lhash/lhash.c
+    0x0085f180  /aws-lc/crypto/poly1305/poly1305_vec.c
+    0x0085f5e0  /aws-lc/crypto/poly1305/poly1305_vec.c
+    0x0085f6c0  /aws-lc/crypto/poly1305/poly1305_vec.c
+    0x00860860  /aws-lc/crypto/poly1305/poly1305_vec.c
+    0x00861650  /aws-lc/crypto/rand_extra/urandom.c
+    0x008619f0  /aws-lc/crypto/rand_extra/urandom.c
+    0x00861a30  /aws-lc/crypto/rand_extra/urandom.c
+    0x00861ab0  /aws-lc/crypto/rand_extra/vm_ube_fallback.c
+    0x00861ad0  /aws-lc/crypto/refcount_c11.c
+    0x00861b20  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861b30  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861b40  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861c10  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861c20  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861c30  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861c50  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00861c90  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00862440  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x008624a0  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00862780  /aws-lc/crypto/rsa_extra/rsassa_pss_asn1.c
+    0x00862a00  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00862a30  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00862b60  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00862c00  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00862cf0  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00862db0  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x00863190  /aws-lc/crypto/rsa_extra/rsa_asn1.c
+    0x008638e0  /aws-lc/crypto/rsa_extra/rsa_crypt.c
+    0x008643b0  /aws-lc/crypto/rsa_extra/rsa_crypt.c
+    0x008647d0  /aws-lc/crypto/stack/stack.c
+    0x00864830  /aws-lc/crypto/stack/stack.c
+    0x00864840  /aws-lc/crypto/stack/stack.c
+    0x00864860  /aws-lc/crypto/stack/stack.c
+    0x00864890  /aws-lc/crypto/stack/stack.c
+    0x008648d0  /aws-lc/crypto/stack/stack.c
+    0x00864950  /aws-lc/crypto/stack/stack.c
+    0x00864aa0  /aws-lc/crypto/stack/stack.c
+    0x00864ab0  /aws-lc/crypto/stack/stack.c
+    0x00864b40  /aws-lc/crypto/thread_pthread.c
+    0x00864b70  /aws-lc/crypto/thread_pthread.c
+    0x00864d00  /aws-lc/crypto/thread_pthread.c
+    0x00864db0  /aws-lc/crypto/thread_pthread.c
+    0x00864e10  /aws-lc/crypto/thread_pthread.c
+    0x00864f00  /aws-lc/crypto/ube/fork_ube_detect.c
+    0x00865050  /aws-lc/crypto/ube/fork_ube_detect.c
+    0x00865110  /aws-lc/crypto/ube/ube.c
+    0x00865120  /aws-lc/crypto/ube/ube.c
+    0x00865200  /aws-lc/crypto/ube/ube.c
+    0x008655a0  /aws-lc/crypto/ube/vm_ube_detect.c
+    0x008655d0  /aws-lc/crypto/ube/vm_ube_detect.c
+    0x008655e0  /aws-lc/crypto/ube/vm_ube_detect.c
+
+  total captured :    63  (4.3% of 1467 DWARF-user fns)
+  total missed   :  1398  (95.3%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 90.5%
+  Certain recall    : 1.3%  (19/1467 DWARF-user fns reached by certain)
+  Overall recall    : 4.3%  (certain+inferred)
+
+validation complete.
