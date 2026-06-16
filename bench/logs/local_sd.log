@@ -1,3 +1,59 @@
 === START sd repo=https binname=//github.com/chmln/sd:sd Wednesday 17 June 2026 03:36:19 AM IST ===
 fatal: repository 'https' does not exist
 CLONE_FAILED
+=== START sd repo=https://github.com/chmln/sd binname=sd Wednesday 17 June 2026 03:38:54 AM IST ===
+Cloning into '/tmp/unhusk-local-bench/sd'...
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling rustix v0.38.20
+   Compiling autocfg v1.1.0
+   Compiling linux-raw-sys v0.4.10
+   Compiling bitflags v2.4.1
+   Compiling cfg-if v1.0.0
+   Compiling utf8parse v0.2.1
+   Compiling crossbeam-utils v0.8.16
+   Compiling colorchoice v1.0.0
+   Compiling anstyle v1.0.13
+   Compiling anstyle-query v1.0.0
+   Compiling scopeguard v1.2.0
+   Compiling strsim v0.10.0
+   Compiling heck v0.4.1
+   Compiling clap_lex v0.5.1
+   Compiling anstyle-parse v0.2.2
+   Compiling memchr v2.7.6
+   Compiling rayon-core v1.12.0
+   Compiling thiserror v1.0.50
+   Compiling regex-syntax v0.8.8
+   Compiling fastrand v2.0.1
+   Compiling either v1.15.0
+   Compiling anstream v0.6.4
+   Compiling roff v0.2.1
+   Compiling memoffset v0.9.0
+   Compiling crossbeam-epoch v0.9.15
+   Compiling aho-corasick v1.1.4
+   Compiling crossbeam-deque v0.8.3
+   Compiling syn v2.0.111
+   Compiling rayon v1.8.0
+   Compiling regex-automata v0.4.13
+   Compiling terminal_size v0.3.0
+   Compiling tempfile v3.8.0
+   Compiling clap_builder v4.4.6
+   Compiling clap_derive v4.4.2
+   Compiling thiserror-impl v1.0.50
+   Compiling regex v1.10.2
+   Compiling clap v4.4.6
+   Compiling clap_mangen v0.2.14
+   Compiling clap_complete v4.4.3
+   Compiling sd v1.0.0 (/tmp/unhusk-local-bench/sd/sd)
+   Compiling xtask v1.0.0 (/tmp/unhusk-local-bench/sd/xtask)
+   Compiling sd-cli v1.0.0 (/tmp/unhusk-local-bench/sd/sd-cli)
+    Finished `release` profile [optimized + debuginfo] target(s) in 29.42s
+file: /tmp/unhusk-local-bench/sd/target/release/sd: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=8ebdacc0b2a50a8d7e1ffdbf75739ced6316e2f7, with debug_info, not stripped
+bin_size: 2422416 bytes
+metrics: {"n_fdes": 2366, "n_certain": 5, "n_call_closure": 276, "n_locations": 16, "dwarf_certain_n": 5, "dwarf_certain_tp": 2, "dwarf_certain_fp": 1, "dwarf_certain_prec": 66.7, "dwarf_inferred_n": 143, "dwarf_inferred_tp": 2, "dwarf_inferred_fp": 121, "dwarf_inferred_prec": 1.6, "dwarf_certain_prec_hl": 66.7, "dwarf_certain_recall": 33.3, "dwarf_overall_recall": 66.7, "sym_user": 4, "sym_std": 0, "sym_dep": 0, "sym_unknown": 1, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 5}
+d1: inf_prec=5.6 recall=66.7
+d2: inf_prec=2.6 recall=66.7
+perf: wall=0.02s rss=7368kb
+APPENDED: {"n_fdes": 2366, "n_certain": 5, "n_call_closure": 276, "n_locations": 16, "dwarf_certain_n": 5, "dwarf_certain_tp": 2, "dwarf_certain_fp": 1, "dwarf_certain_prec": 66.7, "dwarf_inferred_n": 143, "dwarf_inferred_tp": 2, "dwarf_inferred_fp": 121, "dwarf_inferred_prec": 1.6, "dwarf_certain_prec_hl": 66.7, "dwarf_certain_recall": 33.3, "dwarf_overall_recall": 66.7, "sym_user": 4, "sym_std": 0, "sym_dep": 0, "sym_unknown": 1, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 5, "crate": "sd", "binname": "sd", "bin_size": 2422416, "d1_inf_prec": 5.6, "d1_recall": 66.7, "d2_inf_prec": 2.6, "d2_recall": 66.7, "wall_sec": 0.02, "peak_rss_kb": 7368, "source": "local"}
+=== END sd Wednesday 17 June 2026 03:39:25 AM IST status=ok ===
