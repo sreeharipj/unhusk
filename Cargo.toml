@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Recover user-authored logic from stripped Rust release binaries"
 license = "MIT OR Apache-2.0"
+default-run = "unhusk"
 
 [lib]
 name = "unhusk"
