@@ -1,0 +1,57 @@
+[SKIP] pastel
+[SKIP] zoxide
+[SKIP] hexyl
+[SKIP] hyperfine
+[SKIP] sd
+[SKIP] du-dust
+[SKIP] grex
+[SKIP] xsv
+[SKIP] tokei
+[SKIP] just
+[SKIP] fd-find
+[SKIP] bat
+[SKIP] ripgrep
+[SKIP] ripsecrets
+[SKIP] htmlq
+[SKIP] csview
+[SKIP] tealdeer
+[SKIP] dua-cli
+[SKIP] ouch
+[SKIP] procs
+[SKIP] fclones
+[SKIP] xh
+[SKIP] lsd
+[SKIP] eza
+[SKIP] hgrep
+[SKIP] git-delta
+[SKIP] bottom
+[SKIP] broot
+[SKIP] loc
+[SKIP] kondo
+[SKIP] gping
+[SKIP] mcfly
+[SKIP] jaq
+[SKIP] mprocs
+[SKIP] pueue
+[SKIP] onefetch
+[SKIP] navi
+[RUN] bandwhich ...
+[OK]   bandwhich
+[RUN] wiki-tui ...
+[OK]   wiki-tui
+[RUN] topgrade ...
+[OK]   topgrade
+[CHECKPOINT] 3 done
+[bench-20260616 afc43cd] bench: local-source checkpoint (53 results)
+ 6 files changed, 1158 insertions(+)
+ create mode 100644 bench/logs/local_bandwhich.log
+ create mode 100644 bench/logs/local_navi.log
+ create mode 100644 bench/logs/local_topgrade.log
+ create mode 100644 bench/logs/local_wiki-tui.log
+[RUN] monolith ...
+[OK]   monolith
+
+=== DONE: processed=4, results=54 ===
+[bench-20260616 6497779] bench: local-source run complete (54 results)
+ 2 files changed, 239 insertions(+)
+ create mode 100644 bench/logs/local_monolith.log
