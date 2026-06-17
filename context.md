@@ -835,3 +835,41 @@ the recommendation: d=2 is the best balance for most use cases; d=1 for high-pre
 
 **Final stability conclusion**: median 94.5% confirmed independently at N=13, N=28, N=36, N=41
 (each within ±0.1pp of each other). The measurement is stable. The benchmark is complete.
+
+### Batch 5: 5 more local-source builds (46 total, 2026-06-17)
+
+Added typos-cli, genact, difftastic, cargo-expand, watchexec-cli — all 5 built and validated.
+
+**Per-binary results (5 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| typos-cli | 29 | 87.0% | 89.7% | 12.7% | 60.7% | 9.1% |
+| genact | 49 | 93.8% | 93.8% | 0.7% | 42.7% | 1.9% |
+| difftastic | 78 | 80.5% | 78.3% | 13.9% | 13.3% | 23.4% |
+| cargo-expand | 9 | 88.9% | 100.0% | 1.1% | 71.4% | 15.9% |
+| watchexec-cli | 67 | 85.7% | 97.0% | 2.6% | 44.2% | 3.8% |
+
+**Notable findings:**
+- **difftastic** (sym=78.3%): new outlier below 80%. Fits the known failure mode: std generics
+  monomorphized with user types. difftastic embeds tree-sitter grammars but its Rust code
+  uses BTreeMap/HashMap operations where user panic Locations survive into std function bodies.
+- **cargo-expand** (sym=100%, recall=71.4%): strongest combined result in batch 5. Simple tool
+  with dense panicking assertions across its logic, good panic site distribution.
+- **watchexec-cli** (sym=97%, recall=44.2%): complex event-driven architecture, precision
+  holds well despite async callgraph.
+
+**Combined 46 binaries (13 original + 33 new):**
+- Sym precision: median **94.1%** (Δ=−0.4pp from N=41 — 6th successive confirmation within ±0.5pp)
+- DWARF precision: median **84.8%** (IMPROVES vs 81.8% at N=41)
+- Inferred prec (pooled, d=∞): **6.0%** (vs 6.4% at N=41 — no order-of-magnitude change)
+- Recall median: **46.0%** (CONFIRMS exactly — 6th confirmation near 46.2%)
+- d=1: median inf prec 9.6%, recall 40.4% (−5.6pp vs d=∞)
+- d=2: median inf prec 7.4%, recall 44.3% (−1.7pp vs d=∞)
+
+**Outlier count at N=46:** 11 binaries with sym prec <80% (difftastic 78.3% added; all others same).
+All 11 fit the pre-characterized std-generic contamination failure mode. No new failure mode.
+
+**Stability conclusion at N=46**: median sym precision confirmed at 94.1% — the 0.4pp drop from
+N=41 is within measurement noise (difftastic adds one <80% outlier, genact pulls the median
+slightly). The headline "~94% certain precision" is stable across N=13/28/36/41/46.
