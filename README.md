@@ -8,14 +8,14 @@ A stripped, LTO release Rust binary is dominated by the standard library and Car
 
 **Primary output — `certain` functions:** functions that directly reference a `core::panic::Location` struct in `.data.rel.ro` whose source path resolves to user code (`src/`, `tests/`, `examples/`). Every such function contains user-path panic metadata.
 
-**Measured precision on 57 real-world Rust binaries (ripgrep, bat, fd, just, dust, broot, topgrade, …):**
+**Measured precision on 60 real-world Rust binaries (ripgrep, bat, fd, just, dust, broot, topgrade, …):**
 
 | Ground-truth method | Median precision | Mean | Genuine FP rate |
 |---|---|---|---|
-| Symbol name (crate ownership) | **94.5%** | 89.1% | **5.2%** |
-| DWARF `decl_file` | 86.2% | 76.6% | — |
+| Symbol name (crate ownership) | **93.8%** | 88.1% | **6.2%** |
+| DWARF `decl_file` | 86.6% | 77.5% | — |
 
-The symbol-name figure (94.5%) is the more honest measurement. The DWARF figure is lower because DWARF attributes `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs` even when the closure body is entirely user code; these account for ~67% of DWARF-scored false positives. The irreducible 5.2% error comes from std/dep generic functions monomorphized with user types — unhusk cannot distinguish these from real user functions in a stripped binary.
+The symbol-name figure (93.8%) is the more honest measurement. The DWARF figure is lower because DWARF attributes `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs` even when the closure body is entirely user code; these account for ~67% of DWARF-scored false positives. The irreducible 6.2% error comes from std/dep generic functions monomorphized with user types — unhusk cannot distinguish these from real user functions in a stripped binary.
 
 **Measured recall (DWARF-denominator — the ceiling):** certain catches roughly 15% of user functions on real binaries (median 15.8%, range 0.4%–45.5%). On the 13-binary realval set the overall recall (certain+inferred, d=∞) is **46.2% by DWARF denominator** (ceiling) and **19.0% by symbol denominator** (the floor): DWARF undercounts by dropping FnOnce/FnMut closure shims and unmapped monomorphizations; symbol overcounts by including `<UserType as Debug/Clone/Serialize>::method` boilerplate the tool cannot find. True user-logic recall lies between the two. See `realval/BACKTRACE_SWEEP.md` for the derivation. The structural ceiling is explained in Limitations below.
 
