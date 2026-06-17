@@ -39,3 +39,9 @@ jaq:https://github.com/01mf02/jaq:jaq
 mprocs:https://github.com/pvolok/mprocs:mprocs
 pueue:https://github.com/Nukesor/pueue:pueue
 onefetch:https://github.com/o2sh/onefetch:onefetch
+# Batch 4 — further expansion
+navi:https://github.com/denisidoro/navi:navi
+bandwhich:https://github.com/imsnif/bandwhich:bandwhich
+wiki-tui:https://github.com/Builditluc/wiki-tui:wiki-tui
+topgrade:https://github.com/topgrade-rs/topgrade:topgrade
+monolith:https://github.com/Y2Z/monolith:monolith
