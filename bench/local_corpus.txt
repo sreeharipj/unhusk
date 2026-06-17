@@ -79,3 +79,9 @@ cargo-bloat:https://github.com/RazrFalcon/cargo-bloat:cargo-bloat
 git-cliff:https://github.com/orhun/git-cliff:git-cliff
 xplr:https://github.com/sayanarijit/xplr:xplr
 prr:https://github.com/danobi/prr:prr
+# Batch 12 — parsers, formatters, new tool categories
+fend:https://github.com/printfn/fend:fend
+taplo:https://github.com/tamasfe/taplo:taplo
+skim:https://github.com/skim-rs/skim:sk
+cargo-watch:https://github.com/watchexec/cargo-watch:cargo-watch
+miniserve:https://github.com/svenstaro/miniserve:miniserve
