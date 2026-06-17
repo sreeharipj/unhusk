@@ -1,0 +1,141 @@
+[SKIP] pastel
+[SKIP] zoxide
+[SKIP] hexyl
+[SKIP] hyperfine
+[SKIP] sd
+[SKIP] du-dust
+[SKIP] grex
+[SKIP] xsv
+[SKIP] tokei
+[SKIP] just
+[SKIP] fd-find
+[SKIP] bat
+[SKIP] ripgrep
+[SKIP] ripsecrets
+[SKIP] htmlq
+[SKIP] csview
+[SKIP] tealdeer
+[SKIP] dua-cli
+[SKIP] ouch
+[SKIP] procs
+[SKIP] fclones
+[SKIP] xh
+[SKIP] lsd
+[SKIP] eza
+[SKIP] hgrep
+[SKIP] git-delta
+[SKIP] bottom
+[SKIP] broot
+[SKIP] loc
+[SKIP] kondo
+[SKIP] gping
+[SKIP] mcfly
+[SKIP] jaq
+[SKIP] mprocs
+[SKIP] pueue
+[SKIP] onefetch
+[SKIP] navi
+[SKIP] bandwhich
+[SKIP] wiki-tui
+[SKIP] topgrade
+[SKIP] monolith
+[SKIP] typos-cli
+[SKIP] genact
+[SKIP] difftastic
+[SKIP] cargo-expand
+[SKIP] watchexec-cli
+[SKIP] bingrep
+[SKIP] choose
+[SKIP] jql
+[SKIP] cargo-outdated
+[RUN] dog ...
+[FAIL] dog
+[SKIP] ruplacer
+[SKIP] amber
+[SKIP] ox
+[SKIP] cargo-nextest
+[SKIP] cargo-deny
+[SKIP] lfs
+[SKIP] felix
+[SKIP] viu
+[SKIP] oha
+[SKIP] cargo-audit
+[RUN] binsider ...
+[SKIP] pastel
+[SKIP] zoxide
+[SKIP] hexyl
+[SKIP] hyperfine
+[SKIP] sd
+[SKIP] du-dust
+[SKIP] grex
+[SKIP] xsv
+[SKIP] tokei
+[SKIP] just
+[SKIP] fd-find
+[SKIP] bat
+[SKIP] ripgrep
+[SKIP] ripsecrets
+[SKIP] htmlq
+[SKIP] csview
+[SKIP] tealdeer
+[SKIP] dua-cli
+[SKIP] ouch
+[SKIP] procs
+[SKIP] fclones
+[SKIP] xh
+[SKIP] lsd
+[SKIP] eza
+[SKIP] hgrep
+[SKIP] git-delta
+[SKIP] bottom
+[SKIP] broot
+[SKIP] loc
+[SKIP] kondo
+[SKIP] gping
+[SKIP] mcfly
+[SKIP] jaq
+[SKIP] mprocs
+[SKIP] pueue
+[SKIP] onefetch
+[SKIP] navi
+[SKIP] bandwhich
+[SKIP] wiki-tui
+[SKIP] topgrade
+[SKIP] monolith
+[SKIP] typos-cli
+[SKIP] genact
+[SKIP] difftastic
+[SKIP] cargo-expand
+[SKIP] watchexec-cli
+[SKIP] bingrep
+[SKIP] choose
+[SKIP] jql
+[SKIP] cargo-outdated
+[RUN] dog ...
+[FAIL] dog
+[SKIP] ruplacer
+[SKIP] amber
+[SKIP] ox
+[SKIP] cargo-nextest
+[SKIP] cargo-deny
+[SKIP] lfs
+[SKIP] felix
+[SKIP] viu
+[SKIP] oha
+[SKIP] cargo-audit
+[RUN] binsider ...
+[OK]   binsider
+[RUN] numbat ...
+[OK]   numbat
+[CHECKPOINT] 3 done
+[bench-20260616 1cc472c] bench: local-source checkpoint (80 results)
+ 4 files changed, 1024 insertions(+)
+ create mode 100644 bench/logs/local_binsider.log
+ create mode 100644 bench/logs/local_numbat.log
+[RUN] cargo-geiger ...
+[OK]   cargo-geiger
+
+=== DONE: processed=4, results=81 ===
+[bench-20260616 b2cc608] bench: local-source run complete (81 results)
+ 2 files changed, 468 insertions(+)
+ create mode 100644 bench/logs/local_cargo-geiger.log
