@@ -45,3 +45,9 @@ bandwhich:https://github.com/imsnif/bandwhich:bandwhich
 wiki-tui:https://github.com/Builditluc/wiki-tui:wiki-tui
 topgrade:https://github.com/topgrade-rs/topgrade:topgrade
 monolith:https://github.com/Y2Z/monolith:monolith
+# Batch 5 — further expansion (from cargo-install success list)
+typos-cli:https://github.com/crate-ci/typos:typos
+genact:https://github.com/svenstaro/genact:genact
+difftastic:https://github.com/Wilfred/difftastic:difft
+cargo-expand:https://github.com/dtolnay/cargo-expand:cargo-expand
+watchexec-cli:https://github.com/watchexec/watchexec:watchexec
