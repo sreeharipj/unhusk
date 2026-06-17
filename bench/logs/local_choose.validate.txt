@@ -1,0 +1,259 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_choose.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000d9b20   1490691 bytes
+  .rodata               vaddr 0x00059200    341376 bytes
+  .data.rel.ro          vaddr 0x00246ab8    242192 bytes
+  .rela.dyn             vaddr 0x00001070    296088 bytes
+  .eh_frame             vaddr 0x000b28a0    156288 bytes
+  .rela.dyn entries     12266 R_X86_64_RELATIVE entries
+
+source-path strings: 155  (user=4, std=54, dep=97, unknown=0)
+  distinct dep crates visible: 17
+
+panic/assert sites:  1326  (user=21, std=224, dep=1081, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/choice/mod.rs  (5 sites)
+      139:32    Location struct @ 0x246b18
+      142:40    Location struct @ 0x246b00
+      144:32    Location struct @ 0x246ad0
+      150:40    Location struct @ 0x246ae8
+      152:40    Location struct @ 0x246ab8
+  src/opt.rs  (1 sites)
+       48:71    Location struct @ 0x246ec8
+  src/parse.rs  (11 sites)
+        9:83    Location struct @ 0x246e08
+       24:23    Location struct @ 0x246d30
+       27:18    Location struct @ 0x246d48
+       30:66    Location struct @ 0x246df0
+       36:26    Location struct @ 0x246d60
+       43:21    Location struct @ 0x246d78
+       45:77    Location struct @ 0x246d90
+       49:21    Location struct @ 0x246da8
+       52:18    Location struct @ 0x246dc0
+       55:64    Location struct @ 0x246dd8
+       65:23    Location struct @ 0x246d18
+  src/writer.rs  (4 sites)
+       80:28    Location struct @ 0x247150
+       89:84    Location struct @ 0x247168
+       90:28    Location struct @ 0x247180
+       96:28    Location struct @ 0x2471d8
+
+dep crates by panic site count  (1081 sites across 17 crates):
+  regex-automata@0.4.10                           383
+  aho-corasick@1.1.3                              304
+  regex-syntax@0.8.6                              198
+  clap@2.34.0                                     42
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               38
+  memchr@2.7.5                                    30
+  addr2line@0.25.1                                10
+  gimli@0.32.3                                    8
+  regex@1.11.2                                    6
+  … 7 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_choose.stripped
+functions (from .eh_frame): 3102
+
+attribution breakdown:
+  certain         15  (0.5%)  user-authored (100% precision, DWARF-validated)
+  call closure    94  (3.0%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2993  (96.5%)  not attributed
+
+user-authored functions — high confidence (15):
+  0x000d9c10–0x000dc757  (11079 bytes)
+      panic @ src/choice/mod.rs:139:32
+      panic @ src/choice/mod.rs:142:40
+      panic @ src/choice/mod.rs:144:32
+      panic @ src/choice/mod.rs:150:40
+      panic @ src/choice/mod.rs:152:40
+      panic @ src/writer.rs:80:28
+      panic @ src/writer.rs:89:84
+      panic @ src/writer.rs:90:28
+  0x000dc760–0x000de983  (8739 bytes)
+      panic @ src/choice/mod.rs:139:32
+      panic @ src/choice/mod.rs:142:40
+      panic @ src/choice/mod.rs:144:32
+      panic @ src/choice/mod.rs:150:40
+      panic @ src/choice/mod.rs:152:40
+  0x000e1c30–0x000e1cfa  (202 bytes)
+      panic @ src/parse.rs:9:83
+  0x000e1d00–0x000e1dca  (202 bytes)
+      panic @ src/parse.rs:9:83
+  0x000e1dd0–0x000e2e66  (4246 bytes)
+      panic @ src/parse.rs:24:23
+      panic @ src/parse.rs:27:18
+      panic @ src/parse.rs:30:66
+      panic @ src/parse.rs:36:26
+      panic @ src/parse.rs:43:21
+      panic @ src/parse.rs:45:77
+      panic @ src/parse.rs:49:21
+      panic @ src/parse.rs:52:18
+      panic @ src/parse.rs:55:64
+  0x000e58d0–0x000e5c56  (902 bytes)
+      panic @ src/opt.rs:48:71
+  0x000e7cb0–0x000e8da0  (4336 bytes)
+      panic @ src/parse.rs:65:23
+  0x000e9080–0x000e9101  (129 bytes)
+      panic @ src/writer.rs:80:28
+  0x000e9110–0x000e913d  (45 bytes)
+      panic @ src/writer.rs:80:28
+  0x000e9140–0x000e9223  (227 bytes)
+      panic @ src/writer.rs:89:84
+      panic @ src/writer.rs:90:28
+  0x000e9230–0x000e9329  (249 bytes)
+      panic @ src/writer.rs:80:28
+  0x000e9330–0x000e9543  (531 bytes)
+      panic @ src/writer.rs:80:28
+  0x000e9550–0x000e96a2  (338 bytes)
+      panic @ src/writer.rs:89:84
+      panic @ src/writer.rs:90:28
+  0x000e96b0–0x000e991a  (618 bytes)
+      panic @ src/writer.rs:89:84
+      panic @ src/writer.rs:90:28
+  0x000ebed0–0x000ed234  (4964 bytes)
+      panic @ src/writer.rs:96:28
+
+call closure — reachable from user code, not user-authored (94):
+  0x000de990–0x000deaf4  (356 bytes)  [inferred]
+  0x000deb00–0x000dec64  (356 bytes)  [inferred]
+  0x000dfd00–0x000dfd59  (89 bytes)  [inferred]
+  0x000dfd60–0x000dff54  (500 bytes)  [inferred]
+  0x000dff60–0x000e0140  (480 bytes)  [inferred]
+  0x000e0140–0x000e0296  (342 bytes)  [inferred]
+  0x000e02a0–0x000e0678  (984 bytes)  [inferred]
+  0x000e11e0–0x000e1275  (149 bytes)  [inferred]
+  0x000e1490–0x000e14fb  (107 bytes)  [inferred]
+  0x000e1880–0x000e192c  (172 bytes)  [indeterminate]
+  0x000e1930–0x000e1ab6  (390 bytes)  [inferred]
+  0x000e1ac0–0x000e1c2a  (362 bytes)  [inferred]
+  0x000e3010–0x000e3204  (500 bytes)  [inferred]
+  0x000e3230–0x000e3304  (212 bytes)  [inferred]
+  0x000e3310–0x000e3332  (34 bytes)  [inferred]
+  0x000e3340–0x000e3405  (197 bytes)  [inferred]
+  0x000e3410–0x000e34d5  (197 bytes)  [inferred]
+  0x000e34e0–0x000e35b8  (216 bytes)  [inferred]
+  0x000e35c0–0x000e3799  (473 bytes)  [indeterminate]
+  0x000e37f0–0x000e3df0  (1536 bytes)  [inferred]
+  0x000e46e0–0x000e472f  (79 bytes)  [inferred]
+  0x000e4730–0x000e4812  (226 bytes)  [inferred]
+  0x000e4820–0x000e4869  (73 bytes)  [inferred]
+  0x000e4870–0x000e48e6  (118 bytes)  [inferred]
+  0x000e48f0–0x000e4c74  (900 bytes)  [inferred]
+  0x000e4c80–0x000e4d3d  (189 bytes)  [inferred]
+  0x000e4d40–0x000e4e04  (196 bytes)  [inferred]
+  0x000e4e10–0x000e4e54  (68 bytes)  [inferred]
+  0x000e4e60–0x000e4fc7  (359 bytes)  [inferred]
+  0x000e4fd0–0x000e517d  (429 bytes)  [inferred]
+  0x000e5480–0x000e5609  (393 bytes)  [inferred]
+  0x000e5610–0x000e58c5  (693 bytes)  [inferred]
+  0x000e5c60–0x000e5e54  (500 bytes)  [inferred]
+  0x000e5ec0–0x000e5f47  (135 bytes)  [inferred]
+  0x000e5f50–0x000e60cf  (383 bytes)  [inferred]
+  0x000e60d0–0x000e6134  (100 bytes)  [inferred]
+  0x000e6140–0x000e6207  (199 bytes)  [inferred]
+  0x000e6290–0x000e6470  (480 bytes)  [inferred]
+  0x000e66b0–0x000e67f1  (321 bytes)  [inferred]
+  0x000e6980–0x000e69e2  (98 bytes)  [inferred]
+  0x000e69f0–0x000e6ab5  (197 bytes)  [inferred]
+  0x000e6ac0–0x000e6b85  (197 bytes)  [inferred]
+  0x000e6b90–0x000e6c68  (216 bytes)  [inferred]
+  0x000e6c70–0x000e6cd2  (98 bytes)  [inferred]
+  0x000e6d00–0x000e71c7  (1223 bytes)  [inferred]
+  0x000e71d0–0x000e73d2  (514 bytes)  [inferred]
+  0x000e73e0–0x000e746e  (142 bytes)  [indeterminate]
+  0x000e7490–0x000e7557  (199 bytes)  [inferred]
+  0x000e75d0–0x000e767f  (175 bytes)  [indeterminate]
+  0x000e7680–0x000e769c  (28 bytes)  [inferred]
+  0x000e79a0–0x000e7aa0  (256 bytes)  [indeterminate]
+  0x000e8da0–0x000e8ee0  (320 bytes)  [inferred]
+  0x000e8ee0–0x000e8faa  (202 bytes)  [inferred]
+  0x000e8fb0–0x000e907a  (202 bytes)  [inferred]
+  0x000e9920–0x000e9941  (33 bytes)  [inferred]
+  0x000e9950–0x000e99ed  (157 bytes)  [inferred]
+  0x000ea160–0x000ea200  (160 bytes)  [inferred]
+  0x000ea200–0x000ea2ac  (172 bytes)  [inferred]
+  0x000ea2b0–0x000ea2d1  (33 bytes)  [inferred]
+  0x000ea2e0–0x000ea3a4  (196 bytes)  [inferred]
+  0x000ea3b0–0x000ea520  (368 bytes)  [inferred]
+  0x000eac60–0x000eadbb  (347 bytes)  [inferred]
+  0x000eb000–0x000eb1e0  (480 bytes)  [inferred]
+  0x000eb1e0–0x000eb39b  (443 bytes)  [inferred]
+  0x000eb3a0–0x000eb3fc  (92 bytes)  [inferred]
+  0x000eb400–0x000eb444  (68 bytes)  [inferred]
+  0x000eb450–0x000eb545  (245 bytes)  [inferred]
+  0x000eb550–0x000eb5c6  (118 bytes)  [inferred]
+  0x000eb5d0–0x000eb66d  (157 bytes)  [inferred]
+  0x000eb680–0x000eb716  (150 bytes)  [inferred]
+  0x000eb720–0x000eb755  (53 bytes)  [inferred]
+  0x000eb760–0x000eb7cb  (107 bytes)  [inferred]
+  0x000eb7d0–0x000eb85b  (139 bytes)  [inferred]
+  0x000eb860–0x000eb8af  (79 bytes)  [inferred]
+  0x000eb8b0–0x000eb992  (226 bytes)  [inferred]
+  0x000eb9a0–0x000eb9e9  (73 bytes)  [inferred]
+  0x000eb9f0–0x000eba66  (118 bytes)  [inferred]
+  0x000eba70–0x000ebdf0  (896 bytes)  [inferred]
+  0x000ebdf0–0x000ebe9c  (172 bytes)  [inferred]
+  0x000ebea0–0x000ebec1  (33 bytes)  [inferred]
+  0x000ed2d0–0x000ed48b  (443 bytes)  [inferred]
+  0x000ed490–0x000ed4ec  (92 bytes)  [inferred]
+  0x000ed4f0–0x000ed5e5  (245 bytes)  [inferred]
+  0x000ed5f0–0x000ed686  (150 bytes)  [inferred]
+  0x000ed690–0x000ed71b  (139 bytes)  [inferred]
+  0x000ed720–0x000ed76f  (79 bytes)  [inferred]
+  0x000ed770–0x000ed852  (226 bytes)  [inferred]
+  0x000ed860–0x000ed8a9  (73 bytes)  [inferred]
+  0x000ed8b0–0x000ed926  (118 bytes)  [inferred]
+  0x000ed930–0x000edcb0  (896 bytes)  [inferred]
+  0x000edcb0–0x000ede10  (352 bytes)  [indeterminate]
+  0x000ede10–0x000ee38d  (1405 bytes)  [inferred]
+  0x000ee390–0x000ee567  (471 bytes)  [inferred]
+  0x000ee570–0x000ee78e  (542 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 2444 functions mapped (9 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           15 predicted   TP=    2  FP=   4  unknown=   9   precision=33.3%
+  inferred          88 predicted   TP=    3  FP=  76  unknown=   9   precision=3.8%
+  indeterminate      6 predicted   TP=    0  FP=   5  unknown=   1   precision=0.0%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+      2  ( 22.2%)  certain          (rock-solid signal)
+      3  ( 33.3%)  inferred         (call-graph reach)
+      0  (  0.0%)  indeterminate    (shared/mixed callers)
+      4  ( 44.4%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x000e1dd0  /tmp/unhusk-local-bench/choose/src/parse.rs
+    0x000ebed0  /tmp/unhusk-local-bench/choose/src/main.rs
+  DWARF-user in inferred:
+    0x000dfd00  /tmp/unhusk-local-bench/choose/src/choice/mod.rs
+    0x000e1930  /tmp/unhusk-local-bench/choose/src/writer.rs
+    0x000e1ac0  /tmp/unhusk-local-bench/choose/src/writer.rs
+  DWARF-user in library (missed):
+    0x000e2e70  /tmp/unhusk-local-bench/choose/src/error.rs
+    0x000e5e60  /tmp/unhusk-local-bench/choose/src/parse_error.rs
+    0x000ea530  /tmp/unhusk-local-bench/choose/src/opt.rs
+    0x000ea5b0  /tmp/unhusk-local-bench/choose/src/opt.rs
+
+  total captured :     5  (55.6% of 9 DWARF-user fns)
+  total missed   :     4  (44.4%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 33.3%
+  Certain recall    : 22.2%  (2/9 DWARF-user fns reached by certain)
+  Overall recall    : 55.6%  (certain+inferred)
+
+validation complete.
