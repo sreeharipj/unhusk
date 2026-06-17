@@ -1,0 +1,1646 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_binsider.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000a98e0   2192872 bytes
+  .rodata               vaddr 0x00024980    362776 bytes
+  .data.rel.ro          vaddr 0x002c1f80     58248 bytes
+  .rela.dyn             vaddr 0x00001cb8     82080 bytes
+  .eh_frame             vaddr 0x00082710    156112 bytes
+  .rela.dyn entries     3270 R_X86_64_RELATIVE entries
+
+source-path strings: 306  (user=13, std=74, dep=187, unknown=32)
+  distinct dep crates visible: 63
+
+panic/assert sites:  1244  (user=64, std=208, dep=884, unknown=88)
+
+USER CODE — directly attributed panic/assert sites:
+  src/app.rs  (1 sites)
+      120:18    Location struct @ 0x2c3898
+  src/elf/header.rs  (1 sites)
+      227:31    Location struct @ 0x2c3af0
+  src/elf/mod.rs  (3 sites)
+       64:34    Location struct @ 0x2c3bc8
+       76:28    Location struct @ 0x2c3e50
+      137:28    Location struct @ 0x2c41d0
+  src/elf/notes.rs  (3 sites)
+       42:22    Location struct @ 0x2c3a78
+       45:22    Location struct @ 0x2c3a90
+       81:38    Location struct @ 0x2c3aa8
+  src/elf/relocations.rs  (2 sites)
+       30:26    Location struct @ 0x2c3a48
+       39:26    Location struct @ 0x2c3a60
+  src/elf/symbols.rs  (3 sites)
+       45:38    Location struct @ 0x2c3b08
+      135:31    Location struct @ 0x2c3ac0
+      136:38    Location struct @ 0x2c3ad8
+  src/file.rs  (1 sites)
+      140:25    Location struct @ 0x2c3e98
+  src/tracer.rs  (1 sites)
+       69:18    Location struct @ 0x2c3910
+  src/tui/event.rs  (5 sites)
+       69:52    Location struct @ 0x2c36a0
+       70:45    Location struct @ 0x2c36b8
+       74:34    Location struct @ 0x2c3700
+       76:26    Location struct @ 0x2c36d0
+       80:50    Location struct @ 0x2c36e8
+  src/tui/mod.rs  (1 sites)
+       61:27    Location struct @ 0x2c3688
+  src/tui/state.rs  (6 sites)
+      112:34    Location struct @ 0x2c4090
+      198:85    Location struct @ 0x2c4048
+      201:30    Location struct @ 0x2c4060
+      207:26    Location struct @ 0x2c4078
+      222:26    Location struct @ 0x2c40a8
+      393:32    Location struct @ 0x2c4030
+  src/tui/ui.rs  (36 sites)
+      111:13    Location struct @ 0x2c4550
+      127:35    Location struct @ 0x2c4568
+      145:13    Location struct @ 0x2c4580
+      150:47    Location struct @ 0x2c4598
+      153:50    Location struct @ 0x2c45b0
+      156:51    Location struct @ 0x2c45c8
+      159:42    Location struct @ 0x2c45e0
+      164:28    Location struct @ 0x2c45f8
+      165:56    Location struct @ 0x2c4610
+      170:39    Location struct @ 0x2c4628
+      193:30    Location struct @ 0x2c4490
+      227:33    Location struct @ 0x2c43d0
+      233:33    Location struct @ 0x2c43e8
+      392:16    Location struct @ 0x2c4400
+      411:21    Location struct @ 0x2c4430
+      414:33    Location struct @ 0x2c4418
+      477:33    Location struct @ 0x2c4448
+      484:22    Location struct @ 0x2c4478
+      491:12    Location struct @ 0x2c4460
+      509:35    Location struct @ 0x2c3988
+      579:35    Location struct @ 0x2c39a0
+      582:26    Location struct @ 0x2c39b8
+      619:16    Location struct @ 0x2c44a8
+      620:55    Location struct @ 0x2c44c0
+      676:13    Location struct @ 0x2c44d8
+      690:20    Location struct @ 0x2c44f0
+      703:35    Location struct @ 0x2c4508
+      707:23    Location struct @ 0x2c4520
+      797:36    Location struct @ 0x2c4538
+      849:33    Location struct @ 0x2c3970
+      849:56    Location struct @ 0x2c3940
+      850:38    Location struct @ 0x2c3958
+      957:27    Location struct @ 0x2c4380
+      963:17    Location struct @ 0x2c43b8
+      982:45    Location struct @ 0x2c3628
+      995:38    Location struct @ 0x2c3928
+  src/tui/widgets/logo.rs  (1 sites)
+       45:43    Location struct @ 0x2c47c0
+
+dep crates by panic site count  (884 sites across 66 crates):
+  heh@0.6.3                                       81
+  rustc-demangle@0.1.27                           80
+  miniz_oxide@0.8.9                               72
+  clap_builder@4.5.56                             60
+  url@2.5.8                                       55
+  chrono@0.4.43                                   43
+  crossbeam-channel@0.5.15                        35
+  ratatui-core@0.1.0                              31
+  x11rb@0.13.2                                    31
+  textwrap@0.16.2                                 28
+  … 56 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_binsider.stripped
+functions (from .eh_frame): 2697
+
+attribution breakdown:
+  certain         19  (0.7%)  user-authored (100% precision, DWARF-validated)
+  call closure   498  (18.5%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2180  (80.8%)  not attributed
+
+user-authored functions — high confidence (19):
+  0x000f3cb0–0x000f48c7  (3095 bytes)
+      panic @ src/tui/event.rs:69:52
+      panic @ src/tui/event.rs:70:45
+      panic @ src/tui/event.rs:74:34
+      panic @ src/tui/event.rs:76:26
+      panic @ src/tui/event.rs:80:50
+  0x000f8250–0x000f8ba3  (2387 bytes)
+      panic @ src/app.rs:120:18
+  0x000f95f0–0x000fccc7  (14039 bytes)
+      panic @ src/tracer.rs:69:18
+  0x0010b370–0x00113ef9  (35721 bytes)
+      panic @ src/file.rs:140:25
+  0x00115ec0–0x0011f5f8  (38712 bytes)
+      panic @ src/tui/ui.rs:111:13
+      panic @ src/tui/ui.rs:127:35
+      panic @ src/tui/ui.rs:145:13
+      panic @ src/tui/ui.rs:150:47
+      panic @ src/tui/ui.rs:153:50
+      panic @ src/tui/ui.rs:156:51
+      panic @ src/tui/ui.rs:159:42
+      panic @ src/tui/ui.rs:164:28
+      panic @ src/tui/ui.rs:165:56
+      panic @ src/tui/ui.rs:170:39
+      panic @ src/tui/ui.rs:193:30
+      panic @ src/tui/ui.rs:849:33
+      panic @ src/tui/ui.rs:849:56
+      panic @ src/tui/ui.rs:850:38
+      panic @ src/tui/widgets/logo.rs:45:43
+  0x00121090–0x00123abd  (10797 bytes)
+      panic @ src/tui/state.rs:112:34
+      panic @ src/tui/state.rs:198:85
+      panic @ src/tui/state.rs:201:30
+      panic @ src/tui/state.rs:207:26
+      panic @ src/tui/state.rs:222:26
+  0x00123ac0–0x0012518c  (5836 bytes)
+      panic @ src/tui/state.rs:393:32
+  0x00126740–0x00126e06  (1734 bytes)
+      panic @ src/elf/mod.rs:137:28
+  0x00129b80–0x0012aad0  (3920 bytes)
+      panic @ src/elf/symbols.rs:135:31
+      panic @ src/elf/symbols.rs:136:38
+  0x0012aad0–0x0012b868  (3480 bytes)
+      panic @ src/elf/symbols.rs:45:38
+  0x0012b870–0x0012c688  (3608 bytes)
+      panic @ src/elf/header.rs:227:31
+  0x001316a0–0x00138122  (27266 bytes)
+      panic @ src/tui/ui.rs:227:33
+      panic @ src/tui/ui.rs:233:33
+      panic @ src/tui/ui.rs:392:16
+      panic @ src/tui/ui.rs:411:21
+      panic @ src/tui/ui.rs:414:33
+      panic @ src/tui/ui.rs:477:33
+      panic @ src/tui/ui.rs:484:22
+      panic @ src/tui/ui.rs:491:12
+      panic @ src/tui/ui.rs:509:35
+  0x00138130–0x0013cae7  (18871 bytes)
+      panic @ src/elf/mod.rs:64:34
+      panic @ src/elf/mod.rs:76:28
+      panic @ src/tui/ui.rs:579:35
+      panic @ src/tui/ui.rs:582:26
+      panic @ src/tui/ui.rs:619:16
+      panic @ src/tui/ui.rs:620:55
+      panic @ src/tui/ui.rs:676:13
+      panic @ src/tui/ui.rs:690:20
+      panic @ src/tui/ui.rs:703:35
+      panic @ src/tui/ui.rs:707:23
+      panic @ src/tui/ui.rs:797:36
+  0x0013f2a0–0x00140185  (3813 bytes)
+      panic @ src/elf/mod.rs:64:34
+      panic @ src/elf/mod.rs:76:28
+      panic @ src/tui/ui.rs:957:27
+      panic @ src/tui/ui.rs:963:17
+  0x00140720–0x00144e8a  (18282 bytes)
+      panic @ src/tui/ui.rs:982:45
+      panic @ src/tui/ui.rs:995:38
+  0x00146a90–0x00146ceb  (603 bytes)
+      panic @ src/tui/mod.rs:61:27
+  0x00149850–0x0014ef34  (22244 bytes)
+      panic @ src/elf/notes.rs:42:22
+      panic @ src/elf/notes.rs:45:22
+      panic @ src/elf/notes.rs:81:38
+  0x00156720–0x00156ecb  (1963 bytes)
+      panic @ src/elf/relocations.rs:30:26
+  0x00156ed0–0x00157784  (2228 bytes)
+      panic @ src/elf/relocations.rs:39:26
+
+call closure — reachable from user code, not user-authored (498):
+  0x000b3b20–0x000b3b6d  (77 bytes)  [indeterminate]
+  0x000b403a–0x000b404d  (19 bytes)  [indeterminate]
+  0x000b4050–0x000b40c0  (112 bytes)  [indeterminate]
+  0x000b40c0–0x000b4142  (130 bytes)  [indeterminate]
+  0x000b4142–0x000b4154  (18 bytes)  [indeterminate]
+  0x000b4160–0x000b417c  (28 bytes)  [indeterminate]
+  0x000b4180–0x000b43a4  (548 bytes)  [indeterminate]
+  0x000b43b0–0x000b50a6  (3318 bytes)  [indeterminate]
+  0x000b50b0–0x000b510a  (90 bytes)  [indeterminate]
+  0x000b5110–0x000b51d7  (199 bytes)  [indeterminate]
+  0x000b51d7–0x000b5213  (60 bytes)  [indeterminate]
+  0x000b5250–0x000b53d0  (384 bytes)  [indeterminate]
+  0x000b5630–0x000b5692  (98 bytes)  [indeterminate]
+  0x000b5710–0x000b5889  (377 bytes)  [indeterminate]
+  0x000bacc0–0x000badf4  (308 bytes)  [inferred]
+  0x000c2100–0x000c21b4  (180 bytes)  [indeterminate]
+  0x000c6620–0x000c67d3  (435 bytes)  [indeterminate]
+  0x000c6850–0x000c68b4  (100 bytes)  [indeterminate]
+  0x000c68c0–0x000c6916  (86 bytes)  [indeterminate]
+  0x000c6920–0x000c698f  (111 bytes)  [indeterminate]
+  0x000c6990–0x000c69c5  (53 bytes)  [indeterminate]
+  0x000c6b30–0x000c6bce  (158 bytes)  [inferred]
+  0x000c6bd0–0x000c6c1e  (78 bytes)  [indeterminate]
+  0x000c6c20–0x000c6c7b  (91 bytes)  [inferred]
+  0x000e9bd0–0x000e9ec2  (754 bytes)  [indeterminate]
+  0x000ea830–0x000ea85a  (42 bytes)  [inferred]
+  0x000f15f0–0x000f1653  (99 bytes)  [indeterminate]
+  0x000f24f0–0x000f2662  (370 bytes)  [indeterminate]
+  0x000f2670–0x000f2847  (471 bytes)  [indeterminate]
+  0x000f2850–0x000f295d  (269 bytes)  [indeterminate]
+  0x000f48d0–0x000f491e  (78 bytes)  [indeterminate]
+  0x000f4920–0x000f59d5  (4277 bytes)  [inferred]
+  0x000f59e0–0x000f5abe  (222 bytes)  [inferred]
+  0x000f5ac0–0x000f5cdc  (540 bytes)  [inferred]
+  0x000f5d40–0x000f6092  (850 bytes)  [inferred]
+  0x000f60a0–0x000f6123  (131 bytes)  [inferred]
+  0x000f6130–0x000f646e  (830 bytes)  [inferred]
+  0x000f6470–0x000f64ee  (126 bytes)  [inferred]
+  0x000f64f0–0x000f6f2a  (2618 bytes)  [inferred]
+  0x000f6f30–0x000f6fb5  (133 bytes)  [inferred]
+  0x000f6fc0–0x000f7076  (182 bytes)  [inferred]
+  0x000f7080–0x000f70d1  (81 bytes)  [indeterminate]
+  0x000f70e0–0x000f7143  (99 bytes)  [inferred]
+  0x000f7150–0x000f725c  (268 bytes)  [inferred]
+  0x000f7260–0x000f739c  (316 bytes)  [indeterminate]
+  0x000f73a0–0x000f7546  (422 bytes)  [inferred]
+  0x000f7550–0x000f777b  (555 bytes)  [inferred]
+  0x000f7780–0x000f78b8  (312 bytes)  [inferred]
+  0x000f78c0–0x000f7b50  (656 bytes)  [inferred]
+  0x000f7c20–0x000f7cfd  (221 bytes)  [inferred]
+  0x000f7d00–0x000f80b3  (947 bytes)  [inferred]
+  0x000f8160–0x000f81c4  (100 bytes)  [indeterminate]
+  0x000f8210–0x000f824f  (63 bytes)  [indeterminate]
+  0x000f8bb0–0x000f8c2e  (126 bytes)  [inferred]
+  0x000f8c30–0x000f8cc3  (147 bytes)  [inferred]
+  0x000f8cd0–0x000f8cfb  (43 bytes)  [inferred]
+  0x000f8d00–0x000f8d2d  (45 bytes)  [inferred]
+  0x000f8d30–0x000f8d58  (40 bytes)  [indeterminate]
+  0x000f8ef0–0x000f8f6d  (125 bytes)  [indeterminate]
+  0x000fccd0–0x000fce0b  (315 bytes)  [indeterminate]
+  0x000fd130–0x000fd209  (217 bytes)  [inferred]
+  0x000fd210–0x000fd373  (355 bytes)  [inferred]
+  0x000fd380–0x000fd559  (473 bytes)  [inferred]
+  0x000fd560–0x000fd588  (40 bytes)  [inferred]
+  0x000fd590–0x000fd5f2  (98 bytes)  [indeterminate]
+  0x000fd600–0x000fd703  (259 bytes)  [indeterminate]
+  0x00101860–0x0010189d  (61 bytes)  [indeterminate]
+  0x001018a0–0x001018da  (58 bytes)  [indeterminate]
+  0x001018e0–0x0010191d  (61 bytes)  [inferred]
+  0x001044d0–0x0010452f  (95 bytes)  [inferred]
+  0x00104c30–0x00104d0c  (220 bytes)  [inferred]
+  0x00104d10–0x00104d7f  (111 bytes)  [indeterminate]
+  0x00104d80–0x00104e25  (165 bytes)  [inferred]
+  0x00105030–0x0010507c  (76 bytes)  [inferred]
+  0x00108660–0x001086f0  (144 bytes)  [inferred]
+  0x00108a20–0x00108aba  (154 bytes)  [inferred]
+  0x00109790–0x0010980c  (124 bytes)  [indeterminate]
+  0x00113f00–0x00113f6b  (107 bytes)  [inferred]
+  0x00113f70–0x00113fdc  (108 bytes)  [indeterminate]
+  0x00113fe0–0x001140bb  (219 bytes)  [inferred]
+  0x001140c0–0x001141f9  (313 bytes)  [inferred]
+  0x00114200–0x001142cb  (203 bytes)  [inferred]
+  0x001142d0–0x0011433c  (108 bytes)  [inferred]
+  0x00114340–0x001145b4  (628 bytes)  [inferred]
+  0x001145c0–0x001146f8  (312 bytes)  [inferred]
+  0x00114700–0x00114929  (553 bytes)  [inferred]
+  0x00114930–0x001150d3  (1955 bytes)  [inferred]
+  0x001150e0–0x001156fe  (1566 bytes)  [inferred]
+  0x00115700–0x00115812  (274 bytes)  [inferred]
+  0x00115820–0x00115857  (55 bytes)  [inferred]
+  0x00115860–0x00115959  (249 bytes)  [inferred]
+  0x00115960–0x00115ca2  (834 bytes)  [inferred]
+  0x0011fbd0–0x0011fcbd  (237 bytes)  [inferred]
+  0x0011fcc0–0x00120e95  (4565 bytes)  [inferred]
+  0x00120ea0–0x00121081  (481 bytes)  [inferred]
+  0x00125190–0x0012594c  (1980 bytes)  [inferred]
+  0x00125950–0x001259a0  (80 bytes)  [inferred]
+  0x001259a0–0x00125bf6  (598 bytes)  [inferred]
+  0x00126260–0x00126423  (451 bytes)  [inferred]
+  0x00126430–0x001264f6  (198 bytes)  [inferred]
+  0x001266b0–0x0012673d  (141 bytes)  [inferred]
+  0x00126e10–0x00127407  (1527 bytes)  [inferred]
+  0x00127410–0x001274cf  (191 bytes)  [inferred]
+  0x001274d0–0x001275c1  (241 bytes)  [inferred]
+  0x001275d0–0x00127744  (372 bytes)  [inferred]
+  0x00127750–0x00127816  (198 bytes)  [inferred]
+  0x00127820–0x00127906  (230 bytes)  [inferred]
+  0x00127910–0x0012797c  (108 bytes)  [inferred]
+  0x00127980–0x00127d10  (912 bytes)  [inferred]
+  0x00127d10–0x00127df0  (224 bytes)  [inferred]
+  0x00127df0–0x001280cd  (733 bytes)  [inferred]
+  0x001280d0–0x00128476  (934 bytes)  [indeterminate]
+  0x00128480–0x001285b9  (313 bytes)  [indeterminate]
+  0x001285c0–0x0012863d  (125 bytes)  [inferred]
+  0x00128640–0x001286bd  (125 bytes)  [inferred]
+  0x001286c0–0x0012878d  (205 bytes)  [inferred]
+  0x00128790–0x001287b8  (40 bytes)  [inferred]
+  0x0012d120–0x0012f88f  (10095 bytes)  [inferred]
+  0x0012f900–0x0012f95f  (95 bytes)  [inferred]
+  0x0012f960–0x0012fa4f  (239 bytes)  [inferred]
+  0x0012fa50–0x0012fa78  (40 bytes)  [inferred]
+  0x0012fa80–0x0012fb8b  (267 bytes)  [inferred]
+  0x0012fb90–0x0012fece  (830 bytes)  [inferred]
+  0x0012fed0–0x0012ff4e  (126 bytes)  [inferred]
+  0x0012ff50–0x0013027e  (814 bytes)  [inferred]
+  0x00130280–0x001302fe  (126 bytes)  [inferred]
+  0x00130300–0x00130cce  (2510 bytes)  [inferred]
+  0x00130cd0–0x00130d71  (161 bytes)  [inferred]
+  0x00130d80–0x0013124c  (1228 bytes)  [inferred]
+  0x0013caf0–0x0013cea7  (951 bytes)  [inferred]
+  0x0013ceb0–0x0013cfa6  (246 bytes)  [inferred]
+  0x0013cfb0–0x0013d155  (421 bytes)  [inferred]
+  0x0013d160–0x0013dad3  (2419 bytes)  [inferred]
+  0x0013dae0–0x0013e02d  (1357 bytes)  [inferred]
+  0x0013e030–0x0013e0af  (127 bytes)  [inferred]
+  0x0013e0b0–0x0013e1c0  (272 bytes)  [inferred]
+  0x0013e1c0–0x0013e446  (646 bytes)  [inferred]
+  0x0013e450–0x0013f2a0  (3664 bytes)  [inferred]
+  0x00140190–0x00140718  (1416 bytes)  [inferred]
+  0x00144e90–0x0014506a  (474 bytes)  [inferred]
+  0x00145070–0x00145195  (293 bytes)  [inferred]
+  0x001451a0–0x00145910  (1904 bytes)  [inferred]
+  0x00145910–0x0014597c  (108 bytes)  [indeterminate]
+  0x00145980–0x001459ff  (127 bytes)  [inferred]
+  0x00145a00–0x00145b42  (322 bytes)  [inferred]
+  0x00145b50–0x00145e4c  (764 bytes)  [inferred]
+  0x00145e50–0x00145e85  (53 bytes)  [inferred]
+  0x00146010–0x001460df  (207 bytes)  [indeterminate]
+  0x001460e0–0x001461c2  (226 bytes)  [inferred]
+  0x001461d0–0x0014623c  (108 bytes)  [inferred]
+  0x00146240–0x0014641a  (474 bytes)  [inferred]
+  0x00146420–0x001465e1  (449 bytes)  [inferred]
+  0x001465f0–0x001466c5  (213 bytes)  [inferred]
+  0x00146cf0–0x00146d3e  (78 bytes)  [inferred]
+  0x00147ed0–0x00147f6a  (154 bytes)  [inferred]
+  0x00147f70–0x00147fcb  (91 bytes)  [indeterminate]
+  0x001481b0–0x00148245  (149 bytes)  [inferred]
+  0x00148410–0x00148678  (616 bytes)  [inferred]
+  0x00148680–0x00148761  (225 bytes)  [inferred]
+  0x00148770–0x001488f7  (391 bytes)  [inferred]
+  0x00148bd0–0x00148bf8  (40 bytes)  [inferred]
+  0x001492b0–0x0014937d  (205 bytes)  [inferred]
+  0x00149380–0x0014972e  (942 bytes)  [inferred]
+  0x00149730–0x0014984b  (283 bytes)  [inferred]
+  0x0014ef40–0x0014f0da  (410 bytes)  [inferred]
+  0x00155dd0–0x00155e77  (167 bytes)  [inferred]
+  0x00155e80–0x00156107  (647 bytes)  [inferred]
+  0x00156110–0x00156300  (496 bytes)  [inferred]
+  0x00156300–0x001563a2  (162 bytes)  [inferred]
+  0x001563b0–0x00156419  (105 bytes)  [inferred]
+  0x00156420–0x001565f7  (471 bytes)  [inferred]
+  0x00156600–0x00156663  (99 bytes)  [inferred]
+  0x00157790–0x001577c2  (50 bytes)  [inferred]
+  0x001577d0–0x00157931  (353 bytes)  [inferred]
+  0x00157940–0x00157d61  (1057 bytes)  [inferred]
+  0x00157d70–0x00157f44  (468 bytes)  [inferred]
+  0x00157f50–0x00158063  (275 bytes)  [inferred]
+  0x00158070–0x0015820e  (414 bytes)  [inferred]
+  0x00158210–0x0015828c  (124 bytes)  [inferred]
+  0x00158290–0x001582c9  (57 bytes)  [inferred]
+  0x00158f00–0x00159000  (256 bytes)  [inferred]
+  0x00166070–0x00166162  (242 bytes)  [inferred]
+  0x001aa310–0x001aa44c  (316 bytes)  [indeterminate]
+  0x001b0820–0x001b0883  (99 bytes)  [indeterminate]
+  0x001b9a90–0x001b9abe  (46 bytes)  [indeterminate]
+  0x001b9e00–0x001b9ec9  (201 bytes)  [indeterminate]
+  0x001ba0f0–0x001ba146  (86 bytes)  [indeterminate]
+  0x001ba150–0x001ba233  (227 bytes)  [inferred]
+  0x001ba240–0x001ba307  (199 bytes)  [indeterminate]
+  0x001ba310–0x001ba58c  (636 bytes)  [inferred]
+  0x001ba590–0x001ba5f1  (97 bytes)  [inferred]
+  0x001bb0f5–0x001bb1de  (233 bytes)  [indeterminate]
+  0x001bb230–0x001bb25b  (43 bytes)  [indeterminate]
+  0x001bb260–0x001bb420  (448 bytes)  [indeterminate]
+  0x001bb420–0x001bb849  (1065 bytes)  [indeterminate]
+  0x001bb850–0x001bbd13  (1219 bytes)  [indeterminate]
+  0x001bc080–0x001bc2d3  (595 bytes)  [indeterminate]
+  0x001bc2d3–0x001bc30f  (60 bytes)  [indeterminate]
+  0x001bc830–0x001bc9bb  (395 bytes)  [indeterminate]
+  0x001bd0b0–0x001bd2a7  (503 bytes)  [indeterminate]
+  0x001bd2b0–0x001bd375  (197 bytes)  [indeterminate]
+  0x001bd380–0x001bd391  (17 bytes)  [indeterminate]
+  0x001beb10–0x001bf02c  (1308 bytes)  [indeterminate]
+  0x001bf130–0x001bf139  (9 bytes)  [indeterminate]
+  0x001bf140–0x001bf49c  (860 bytes)  [inferred]
+  0x001bf730–0x001bf748  (24 bytes)  [indeterminate]
+  0x001bf750–0x001bf77e  (46 bytes)  [indeterminate]
+  0x001bf7f0–0x001bf823  (51 bytes)  [indeterminate]
+  0x001bf830–0x001bf881  (81 bytes)  [indeterminate]
+  0x001bf890–0x001bf8a7  (23 bytes)  [indeterminate]
+  0x001bf8b0–0x001bf8e3  (51 bytes)  [inferred]
+  0x001bf8e3–0x001bf8f3  (16 bytes)  [indeterminate]
+  0x001bf8f3–0x001bf8fc  (9 bytes)  [indeterminate]
+  0x001bf900–0x001bf921  (33 bytes)  [inferred]
+  0x001bfa30–0x001bfb14  (228 bytes)  [indeterminate]
+  0x001bfb20–0x001bfc3b  (283 bytes)  [indeterminate]
+  0x001bfc40–0x001bfc58  (24 bytes)  [indeterminate]
+  0x001bff30–0x001c0029  (249 bytes)  [indeterminate]
+  0x001c0030–0x001c016e  (318 bytes)  [indeterminate]
+  0x001c0170–0x001c0269  (249 bytes)  [inferred]
+  0x001c0270–0x001c0369  (249 bytes)  [indeterminate]
+  0x001c0370–0x001c0419  (169 bytes)  [inferred]
+  0x001c0420–0x001c04dc  (188 bytes)  [inferred]
+  0x001c04e0–0x001c05a1  (193 bytes)  [inferred]
+  0x001c4320–0x001c44aa  (394 bytes)  [indeterminate]
+  0x001c8880–0x001c88b0  (48 bytes)  [indeterminate]
+  0x001c88b0–0x001c894a  (154 bytes)  [indeterminate]
+  0x001c8950–0x001c89b3  (99 bytes)  [inferred]
+  0x001c8b30–0x001c8d46  (534 bytes)  [indeterminate]
+  0x001c8d50–0x001c8dcd  (125 bytes)  [indeterminate]
+  0x001c8dd0–0x001c8ecc  (252 bytes)  [inferred]
+  0x001c8ed0–0x001c947c  (1452 bytes)  [inferred]
+  0x001c9480–0x001c9974  (1268 bytes)  [inferred]
+  0x001c9980–0x001ca32f  (2479 bytes)  [inferred]
+  0x001cce30–0x001cd1a5  (885 bytes)  [inferred]
+  0x001cd1b0–0x001cd3d7  (551 bytes)  [inferred]
+  0x001cd3e0–0x001cdabe  (1758 bytes)  [inferred]
+  0x001cdac0–0x001ce086  (1478 bytes)  [inferred]
+  0x001ce530–0x001ce544  (20 bytes)  [indeterminate]
+  0x001ce550–0x001ce5c8  (120 bytes)  [inferred]
+  0x001cf080–0x001cf162  (226 bytes)  [indeterminate]
+  0x001cfb20–0x001cfb6c  (76 bytes)  [indeterminate]
+  0x001cfb70–0x001cfbc8  (88 bytes)  [indeterminate]
+  0x001cfbd0–0x001cfc64  (148 bytes)  [indeterminate]
+  0x001cfc70–0x001cfcc8  (88 bytes)  [indeterminate]
+  0x001cfcd0–0x001cfd5d  (141 bytes)  [indeterminate]
+  0x001cfd60–0x001cfe10  (176 bytes)  [indeterminate]
+  0x001cfe10–0x001cfe4d  (61 bytes)  [indeterminate]
+  0x001cfe50–0x001cff86  (310 bytes)  [indeterminate]
+  0x001d0ca0–0x001d0fc0  (800 bytes)  [indeterminate]
+  0x001d0fc0–0x001d1212  (594 bytes)  [inferred]
+  0x001d42b0–0x001d433e  (142 bytes)  [inferred]
+  0x001eb480–0x001eb5bc  (316 bytes)  [indeterminate]
+  0x001eb9d0–0x001eba6e  (158 bytes)  [indeterminate]
+  0x001ec350–0x001ec37d  (45 bytes)  [indeterminate]
+  0x001ec610–0x001ec68d  (125 bytes)  [indeterminate]
+  0x001ec690–0x001ec70b  (123 bytes)  [indeterminate]
+  0x001ec710–0x001ec97e  (622 bytes)  [indeterminate]
+  0x001ec980–0x001eca4c  (204 bytes)  [inferred]
+  0x001eeee0–0x001eefc3  (227 bytes)  [indeterminate]
+  0x001f34e0–0x001f3537  (87 bytes)  [indeterminate]
+  0x001f4c70–0x001f4f2e  (702 bytes)  [indeterminate]
+  0x001f5fa0–0x001f6003  (99 bytes)  [indeterminate]
+  0x001f6010–0x001f607d  (109 bytes)  [indeterminate]
+  0x0020c1b0–0x0020c1d8  (40 bytes)  [indeterminate]
+  0x0020d220–0x0020d2aa  (138 bytes)  [indeterminate]
+  0x0020d3d0–0x0020d43c  (108 bytes)  [indeterminate]
+  0x0020eb80–0x0020ecbc  (316 bytes)  [indeterminate]
+  0x0020ecc0–0x0020edad  (237 bytes)  [indeterminate]
+  0x0020fcd0–0x0020fd4f  (127 bytes)  [indeterminate]
+  0x0020fff0–0x00210053  (99 bytes)  [indeterminate]
+  0x00210670–0x00210847  (471 bytes)  [inferred]
+  0x00210850–0x00210878  (40 bytes)  [inferred]
+  0x00210880–0x002108b2  (50 bytes)  [inferred]
+  0x002108c0–0x0021094d  (141 bytes)  [indeterminate]
+  0x00210950–0x00210c43  (755 bytes)  [inferred]
+  0x00210e10–0x00210edc  (204 bytes)  [inferred]
+  0x00210ee0–0x00211235  (853 bytes)  [inferred]
+  0x00211240–0x00211318  (216 bytes)  [inferred]
+  0x00211320–0x0021136e  (78 bytes)  [indeterminate]
+  0x00211370–0x00211417  (167 bytes)  [inferred]
+  0x00211550–0x0021166c  (284 bytes)  [indeterminate]
+  0x002116e0–0x0021177a  (154 bytes)  [inferred]
+  0x00213b60–0x00213c16  (182 bytes)  [indeterminate]
+  0x0021a490–0x0021a4c8  (56 bytes)  [indeterminate]
+  0x0021a940–0x0021a959  (25 bytes)  [indeterminate]
+  0x0021aa10–0x0021aa59  (73 bytes)  [inferred]
+  0x0021ab60–0x0021ade7  (647 bytes)  [indeterminate]
+  0x0021aec0–0x0021af54  (148 bytes)  [inferred]
+  0x0021af60–0x0021afbd  (93 bytes)  [indeterminate]
+  0x0021b050–0x0021b097  (71 bytes)  [indeterminate]
+  0x0021fc80–0x002205f3  (2419 bytes)  [indeterminate]
+  0x00220600–0x0022073c  (316 bytes)  [indeterminate]
+  0x00220ba0–0x00220c1d  (125 bytes)  [indeterminate]
+  0x00224990–0x00224a40  (176 bytes)  [indeterminate]
+  0x00224a40–0x00224c14  (468 bytes)  [inferred]
+  0x00224c20–0x00224c9b  (123 bytes)  [inferred]
+  0x00224ca0–0x00224d25  (133 bytes)  [inferred]
+  0x00224d30–0x00224e32  (258 bytes)  [inferred]
+  0x00224e40–0x00224ec8  (136 bytes)  [inferred]
+  0x00226c10–0x00226c23  (19 bytes)  [indeterminate]
+  0x0022b7b0–0x0022b7f3  (67 bytes)  [inferred]
+  0x0022b800–0x0022b863  (99 bytes)  [indeterminate]
+  0x0022b870–0x0022b8d3  (99 bytes)  [indeterminate]
+  0x0022b8e0–0x0022b929  (73 bytes)  [inferred]
+  0x0022d1b0–0x0022d38d  (477 bytes)  [inferred]
+  0x0022d390–0x0022d670  (736 bytes)  [indeterminate]
+  0x0022d670–0x0022d6dc  (108 bytes)  [indeterminate]
+  0x0022d6e0–0x0022d7b5  (213 bytes)  [indeterminate]
+  0x0022d7c0–0x0022db15  (853 bytes)  [inferred]
+  0x0022db20–0x0022dc52  (306 bytes)  [inferred]
+  0x0022dc60–0x0022dccc  (108 bytes)  [indeterminate]
+  0x0022dcd0–0x0022de52  (386 bytes)  [inferred]
+  0x0022e390–0x0022e954  (1476 bytes)  [inferred]
+  0x0022e960–0x0022ea90  (304 bytes)  [inferred]
+  0x0022ea90–0x0022eb9f  (271 bytes)  [indeterminate]
+  0x0022ebc0–0x0022edea  (554 bytes)  [indeterminate]
+  0x00230450–0x002305de  (398 bytes)  [indeterminate]
+  0x002305e0–0x00230744  (356 bytes)  [indeterminate]
+  0x00230750–0x0023087e  (302 bytes)  [inferred]
+  0x00230d40–0x00230e6e  (302 bytes)  [inferred]
+  0x00230e70–0x00230fb2  (322 bytes)  [indeterminate]
+  0x00238810–0x00238b0e  (766 bytes)  [inferred]
+  0x00238b10–0x00238d55  (581 bytes)  [inferred]
+  0x00239f00–0x00239fe9  (233 bytes)  [inferred]
+  0x00239ff0–0x0023a0c6  (214 bytes)  [indeterminate]
+  0x0023bb50–0x0023bcd6  (390 bytes)  [indeterminate]
+  0x00247c50–0x00247cf1  (161 bytes)  [indeterminate]
+  0x00247d00–0x00247e8b  (395 bytes)  [inferred]
+  0x0024c8b0–0x0024c8fe  (78 bytes)  [indeterminate]
+  0x0024d050–0x0024d0d0  (128 bytes)  [indeterminate]
+  0x0024d400–0x0024d438  (56 bytes)  [indeterminate]
+  0x0024e3a0–0x0024e3f1  (81 bytes)  [indeterminate]
+  0x0024fdee–0x00250183  (917 bytes)  [inferred]
+  0x00250190–0x00250324  (404 bytes)  [inferred]
+  0x002503a0–0x0025049f  (255 bytes)  [indeterminate]
+  0x002504a0–0x0025052c  (140 bytes)  [indeterminate]
+  0x00250530–0x00250539  (9 bytes)  [indeterminate]
+  0x00250540–0x00250567  (39 bytes)  [inferred]
+  0x00250570–0x002505b4  (68 bytes)  [inferred]
+  0x002505c0–0x002507b1  (497 bytes)  [inferred]
+  0x002507c0–0x002507ce  (14 bytes)  [indeterminate]
+  0x002507d0–0x00250850  (128 bytes)  [indeterminate]
+  0x00250850–0x002508da  (138 bytes)  [indeterminate]
+  0x002508e0–0x00250a2a  (330 bytes)  [indeterminate]
+  0x00250a30–0x00250b17  (231 bytes)  [indeterminate]
+  0x00250b20–0x00250b7a  (90 bytes)  [inferred]
+  0x00250b80–0x00250f64  (996 bytes)  [inferred]
+  0x00250f70–0x00250fd0  (96 bytes)  [indeterminate]
+  0x00251200–0x00251372  (370 bytes)  [indeterminate]
+  0x00255e80–0x0025601c  (412 bytes)  [indeterminate]
+  0x00258220–0x002582c1  (161 bytes)  [indeterminate]
+  0x00258370–0x0025879d  (1069 bytes)  [indeterminate]
+  0x00258ac0–0x00258cfc  (572 bytes)  [indeterminate]
+  0x0026b150–0x0026b1b6  (102 bytes)  [indeterminate]
+  0x00273d10–0x00274027  (791 bytes)  [indeterminate]
+  0x00274030–0x002742f8  (712 bytes)  [indeterminate]
+  0x00274490–0x002745af  (287 bytes)  [indeterminate]
+  0x002751b0–0x00275251  (161 bytes)  [indeterminate]
+  0x00275260–0x00275438  (472 bytes)  [indeterminate]
+  0x00275480–0x002755ea  (362 bytes)  [indeterminate]
+  0x002755f0–0x00275679  (137 bytes)  [indeterminate]
+  0x00275680–0x00275967  (743 bytes)  [indeterminate]
+  0x00275e50–0x00275f50  (256 bytes)  [indeterminate]
+  0x002773b0–0x002774ce  (286 bytes)  [indeterminate]
+  0x002774d0–0x00277590  (192 bytes)  [indeterminate]
+  0x00277590–0x002775af  (31 bytes)  [inferred]
+  0x002775b0–0x0027761b  (107 bytes)  [inferred]
+  0x00277620–0x002776b0  (144 bytes)  [inferred]
+  0x002777c0–0x00277808  (72 bytes)  [indeterminate]
+  0x00277810–0x00277937  (295 bytes)  [indeterminate]
+  0x00277940–0x00277a16  (214 bytes)  [inferred]
+  0x00277a20–0x00277a2a  (10 bytes)  [inferred]
+  0x00277ea1–0x00277ee7  (70 bytes)  [inferred]
+  0x00278507–0x00278539  (50 bytes)  [indeterminate]
+  0x00278612–0x00278648  (54 bytes)  [inferred]
+  0x00278820–0x00278829  (9 bytes)  [inferred]
+  0x00278830–0x0027883e  (14 bytes)  [inferred]
+  0x0027883e–0x0027897b  (317 bytes)  [inferred]
+  0x00278980–0x00278989  (9 bytes)  [inferred]
+  0x00278990–0x00278a1e  (142 bytes)  [inferred]
+  0x00278ef0–0x00278f0c  (28 bytes)  [inferred]
+  0x00278f10–0x00278fbe  (174 bytes)  [indeterminate]
+  0x00278fc0–0x00278fd2  (18 bytes)  [inferred]
+  0x00278fe0–0x00278fe9  (9 bytes)  [inferred]
+  0x00278ff0–0x002790b5  (197 bytes)  [indeterminate]
+  0x002790c0–0x00279185  (197 bytes)  [indeterminate]
+  0x00279eb0–0x00279ecc  (28 bytes)  [indeterminate]
+  0x00279ed0–0x00279f0b  (59 bytes)  [inferred]
+  0x00279f10–0x00279f33  (35 bytes)  [indeterminate]
+  0x00279f40–0x0027a11c  (476 bytes)  [indeterminate]
+  0x0027a120–0x0027a219  (249 bytes)  [inferred]
+  0x0027a220–0x0027a322  (258 bytes)  [inferred]
+  0x0027a330–0x0027a454  (292 bytes)  [indeterminate]
+  0x0027a460–0x0027a632  (466 bytes)  [indeterminate]
+  0x0027a980–0x0027aafd  (381 bytes)  [inferred]
+  0x0027ab00–0x0027ada4  (676 bytes)  [indeterminate]
+  0x0027adb0–0x0027ade2  (50 bytes)  [inferred]
+  0x0027aff0–0x0027b06c  (124 bytes)  [indeterminate]
+  0x0027b310–0x0027b36d  (93 bytes)  [indeterminate]
+  0x0027de10–0x0027e058  (584 bytes)  [indeterminate]
+  0x0027e760–0x0027e8d2  (370 bytes)  [indeterminate]
+  0x0027ee50–0x0027f10f  (703 bytes)  [indeterminate]
+  0x0027f110–0x0027f31c  (524 bytes)  [indeterminate]
+  0x0027f890–0x0027f8f6  (102 bytes)  [indeterminate]
+  0x0027f900–0x0027f914  (20 bytes)  [indeterminate]
+  0x0027f920–0x0027f965  (69 bytes)  [inferred]
+  0x0027f970–0x0027f985  (21 bytes)  [inferred]
+  0x0027f990–0x0027f9d0  (64 bytes)  [inferred]
+  0x0027fe10–0x0027ff20  (272 bytes)  [indeterminate]
+  0x002802d0–0x0028052e  (606 bytes)  [indeterminate]
+  0x00280530–0x0028074a  (538 bytes)  [indeterminate]
+  0x002809a0–0x00280a63  (195 bytes)  [indeterminate]
+  0x00280a70–0x00280b38  (200 bytes)  [indeterminate]
+  0x00280c90–0x00280d8c  (252 bytes)  [indeterminate]
+  0x00280de0–0x00280e57  (119 bytes)  [inferred]
+  0x00280e60–0x00280f39  (217 bytes)  [inferred]
+  0x00280f40–0x00281045  (261 bytes)  [indeterminate]
+  0x002810e0–0x0028142c  (844 bytes)  [indeterminate]
+  0x00281430–0x002814f8  (200 bytes)  [inferred]
+  0x00281500–0x002815ce  (206 bytes)  [inferred]
+  0x002815d0–0x00281667  (151 bytes)  [inferred]
+  0x00281670–0x002825cf  (3935 bytes)  [inferred]
+  0x002825d0–0x00282dd1  (2049 bytes)  [inferred]
+  0x00282de0–0x00282e17  (55 bytes)  [inferred]
+  0x00282e20–0x002831c4  (932 bytes)  [inferred]
+  0x002831d0–0x00283625  (1109 bytes)  [inferred]
+  0x00283630–0x00283a0c  (988 bytes)  [inferred]
+  0x00283a10–0x00283d65  (853 bytes)  [inferred]
+  0x00283d70–0x00283df6  (134 bytes)  [inferred]
+  0x00283e60–0x00284f69  (4361 bytes)  [indeterminate]
+  0x00284f70–0x0028642d  (5309 bytes)  [inferred]
+  0x00286430–0x0028664b  (539 bytes)  [inferred]
+  0x00286650–0x002869aa  (858 bytes)  [indeterminate]
+  0x002869b0–0x00286a6b  (187 bytes)  [inferred]
+  0x00286a70–0x00286aa3  (51 bytes)  [inferred]
+  0x00286ab0–0x00286de4  (820 bytes)  [inferred]
+  0x00286df0–0x00286f6b  (379 bytes)  [inferred]
+  0x00286f70–0x00286fad  (61 bytes)  [inferred]
+  0x00286fb0–0x0028703c  (140 bytes)  [inferred]
+  0x00287560–0x002875ae  (78 bytes)  [inferred]
+  0x002875b0–0x002875eb  (59 bytes)  [inferred]
+  0x002878f0–0x00287a82  (402 bytes)  [inferred]
+  0x00287a90–0x00287b0b  (123 bytes)  [inferred]
+  0x00287b10–0x00287e02  (754 bytes)  [indeterminate]
+  0x00287e10–0x00287fbd  (429 bytes)  [indeterminate]
+  0x002880d0–0x002881b7  (231 bytes)  [indeterminate]
+  0x00288890–0x00288996  (262 bytes)  [inferred]
+  0x002889a0–0x00288bb1  (529 bytes)  [indeterminate]
+  0x00288ca0–0x00288cd5  (53 bytes)  [indeterminate]
+  0x0028909b–0x002890ee  (83 bytes)  [indeterminate]
+  0x002890f0–0x00289290  (416 bytes)  [indeterminate]
+  0x00289410–0x00289581  (369 bytes)  [indeterminate]
+  0x002897c0–0x002897ea  (42 bytes)  [indeterminate]
+  0x002899b0–0x00289c63  (691 bytes)  [indeterminate]
+  0x00289c70–0x00289cc4  (84 bytes)  [inferred]
+  0x00289cd0–0x00289ea9  (473 bytes)  [indeterminate]
+  0x00289eb0–0x0028a12f  (639 bytes)  [indeterminate]
+  0x0028a12f–0x0028a1a7  (120 bytes)  [inferred]
+  0x0028a8f0–0x0028ab40  (592 bytes)  [indeterminate]
+  0x0028ab40–0x0028ac39  (249 bytes)  [inferred]
+  0x0028ac40–0x0028b055  (1045 bytes)  [indeterminate]
+  0x0028ba80–0x0028bbc9  (329 bytes)  [indeterminate]
+  0x0028bbd0–0x0028bce2  (274 bytes)  [indeterminate]
+  0x0028cf50–0x0028cf69  (25 bytes)  [indeterminate]
+  0x0028cf70–0x0028cf89  (25 bytes)  [indeterminate]
+  0x0028d5d0–0x0028d756  (390 bytes)  [indeterminate]
+  0x0028dd50–0x0028de6e  (286 bytes)  [inferred]
+  0x0028de70–0x0028df33  (195 bytes)  [inferred]
+  0x0028df40–0x0028df9d  (93 bytes)  [inferred]
+  0x0028dfa0–0x0028dffd  (93 bytes)  [inferred]
+  0x0028e000–0x0028e028  (40 bytes)  [inferred]
+  0x0028e030–0x0028e11a  (234 bytes)  [inferred]
+  0x0028e120–0x0028e18c  (108 bytes)  [inferred]
+  0x0028e190–0x0028e262  (210 bytes)  [inferred]
+  0x0028e270–0x0028e35a  (234 bytes)  [inferred]
+  0x00291110–0x00291173  (99 bytes)  [inferred]
+  0x00291180–0x002911e3  (99 bytes)  [inferred]
+  0x002911f0–0x00291253  (99 bytes)  [indeterminate]
+  0x00291260–0x002914b9  (601 bytes)  [indeterminate]
+  0x002914c0–0x0029153d  (125 bytes)  [inferred]
+  0x00292d10–0x00292dd6  (198 bytes)  [inferred]
+  0x002950c0–0x0029513d  (125 bytes)  [inferred]
+  0x00295140–0x002952db  (411 bytes)  [inferred]
+  0x002952e0–0x0029552f  (591 bytes)  [inferred]
+  0x00295530–0x0029597b  (1099 bytes)  [inferred]
+  0x00295980–0x00295c58  (728 bytes)  [inferred]
+  0x00295c60–0x00295fe5  (901 bytes)  [inferred]
+  0x00295ff0–0x0029612c  (316 bytes)  [inferred]
+  0x00296130–0x0029b232  (20738 bytes)  [inferred]
+  0x0029c390–0x0029c40d  (125 bytes)  [indeterminate]
+  0x0029c410–0x0029c54c  (316 bytes)  [indeterminate]
+  0x0029c940–0x0029cadc  (412 bytes)  [indeterminate]
+  0x002a2070–0x002a20eb  (123 bytes)  [indeterminate]
+  0x002a2270–0x002a2588  (792 bytes)  [indeterminate]
+  0x002b0ba0–0x002b0e93  (755 bytes)  [indeterminate]
+  0x002b11b0–0x002b127c  (204 bytes)  [inferred]
+  0x002b3a50–0x002b3ac8  (120 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 2053 functions mapped (906 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           19 predicted   TP=   16  FP=   0  unknown=   3   precision=100.0%
+  inferred         271 predicted   TP=  122  FP=  94  unknown=  55   precision=56.5%
+  indeterminate    227 predicted   TP=   65  FP= 131  unknown=  31   precision=33.2%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     16  (  1.8%)  certain          (rock-solid signal)
+    122  ( 13.5%)  inferred         (call-graph reach)
+     65  (  7.2%)  indeterminate    (shared/mixed callers)
+    703  ( 77.6%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x000f3cb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x000f8250  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x000f95f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x0010b370  /tmp/unhusk-local-bench/binsider/src/lib.rs
+    0x00115ec0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x00129b80  /tmp/unhusk-local-bench/binsider/src/elf/symbols.rs
+    0x0012aad0  /tmp/unhusk-local-bench/binsider/src/elf/symbols.rs
+    0x0012b870  /tmp/unhusk-local-bench/binsider/src/elf/header.rs
+    0x001316a0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x00138130  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x0013f2a0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x00140720  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x00146a90  /tmp/unhusk-local-bench/binsider/src/tui/mod.rs
+    0x00149850  /tmp/unhusk-local-bench/binsider/src/elf/mod.rs
+    0x00156720  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x00156ed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+  DWARF-user in inferred:
+    0x000c6b30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x000c6c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ea830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f59e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f5ac0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f6130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/array.rs
+    0x000f6470  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/context.rs
+    0x000f64f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/zero.rs
+    0x000f6f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f6fc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/context.rs
+    0x000f7150  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f7780  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f7c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8bb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8cd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8d00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000fd130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00104c30  /tmp/unhusk-local-bench/binsider/src/tracer.rs
+    0x00105030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00113f00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00113fe0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001140c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x00114200  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001142d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001145c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00115820  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0011fbd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00125190  /tmp/unhusk-local-bench/binsider/src/tracer.rs
+    0x001259a0  /tmp/unhusk-local-bench/binsider/src/error.rs
+    0x00126260  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00126430  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001266b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00126e10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x00127410  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001274d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001275d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x00127750  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00127820  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00127910  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00127980  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/filter.rs
+    0x00127d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00127df0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x001285c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00128640  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001286c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00128790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0012d120  /tmp/unhusk-local-bench/binsider/src/elf/header.rs
+    0x0012f960  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0012fa50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0012fa80  /tmp/unhusk-local-bench/binsider/src/tui/state.rs
+    0x0012fb90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/array.rs
+    0x0012fed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/context.rs
+    0x0012ff50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/list.rs
+    0x00130280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/context.rs
+    0x00130300  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/zero.rs
+    0x00130cd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpmc/context.rs
+    0x00130d80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0013caf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x0013ceb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0013cfb0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x0013d160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/double_ended.rs
+    0x0013dae0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x0013e030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0013e0b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0013e450  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x00140190  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00144e90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00145070  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00145980  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00145a00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00145e50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001460e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001461d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00146240  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x00146420  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001465f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00146cf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00147ed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001481b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00148410  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00148680  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00148770  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00148bd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001492b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00155dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00157790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001577d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x00157940  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00157f50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00158070  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00158210  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00158290  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00158f00  /tmp/unhusk-local-bench/binsider/src/file.rs
+    0x001ba150  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ba310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ba590  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001c9480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/collections/vec_deque/spec_extend.rs
+    0x001ec980  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00210670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/sip.rs
+    0x00210950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00210e10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00211240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00224c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0022d1b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x0022db20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x0022dcd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x0022e960  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00238b10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e000  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e120  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e190  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e270  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002914c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x00292d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002950c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x00295140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x002952e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00295530  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/skip_while.rs
+    0x00295980  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00295c60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/skip_while.rs
+    0x002b11b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+  DWARF-user in indeterminate:
+    0x000c6620  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6920  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6990  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6bd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e9bd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x000f24f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/mod.rs
+    0x000f2670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/sip.rs
+    0x000f2850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f48d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f7080  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8210  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8d30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8ef0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000fccd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000fd600  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/impls.rs
+    0x00104d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00109790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00113f70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001280d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x00128480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x00145910  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00147f70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001c8b30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001c8d50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001cf080  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfb20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfb70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfbd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfc70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfd60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfe10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001cfe50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb9d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x001ec610  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001ec690  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ec710  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eeee0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001f34e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001f6010  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020c1b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020d220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020d3d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020ecc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x0020fcd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002108c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00211320  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00211550  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00213b60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0021fc80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/double_ended.rs
+    0x00220ba0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0022d390  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x0022d670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0022d6e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0022dc60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00230e70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00239ff0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0023bb50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024c8b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024d400  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024e3a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028d5d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/mod.rs
+    0x0029c390  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x002b0ba0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+  DWARF-user in library (missed):
+    0x000a9d80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000a9e10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000a9ef0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000a9f60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa040  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa0f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa180  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa1d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa250  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa2d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa4f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aa790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aac40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000aac70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ab030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ab140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ab2b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x000ab2c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000ab330  /tmp/unhusk-local-bench/binsider/src/main.rs
+    0x000afed0  /tmp/unhusk-local-bench/binsider/src/error.rs
+    0x000b0560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b0850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b09b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b0c40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b0d60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b1060  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b1320  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b1890  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b1d80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2720  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2930  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2b00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2cc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2e80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b2f80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b3140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b3240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x000b3330  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_extend.rs
+    0x000b3dc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000b5c30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b84e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b85c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b85f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b87d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b8920  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000b8a80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000ba2c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000ba3d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x000ba540  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000ba560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000ba5d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ba6a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ba6c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000ba730  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000ba830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000babe0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000baca0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000bae00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/sip.rs
+    0x000bafe0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x000c0020  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c0050  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000c00d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c01b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000c0280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000c1f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c21c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/collections/vec_deque/spec_extend.rs
+    0x000c2640  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c26c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c2700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x000c29e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000c2a50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000c2b50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000c2b70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c2c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c2ca0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c2d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/poison.rs
+    0x000c2d30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c2e80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c60e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs
+    0x000c63d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c67e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c69d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x000c6c80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6d50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c6da0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c7130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c8310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c8360  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x000c8480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x000c8ab0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000c8b20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x000c9520  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000c95d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x000c96d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x000c9d00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x000ca700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000ca7b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x000ca8c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x000caef0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x000cb8c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000cb970  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x000cba70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x000cc120  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x000ccab0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000ccc20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000ccd20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x000cce20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x000cd4a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x000cdf10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000ce290  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000ce340  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/unstable/mod.rs
+    0x000ce420  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/unstable/quicksort.rs
+    0x000ce810  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000ced00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/unstable/heapsort.rs
+    0x000cee00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x000ceeb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000cf0b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000d8160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000d8220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000d8e90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000dbe40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000dbea0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000dbf10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000dc030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000dc9c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000dca80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e1540  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000e1600  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e3240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e3280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e3310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e33a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e3450  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e6050  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e6130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e6140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e6250  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e6360  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e63c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e80d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8500  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8660  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8810  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e88c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8e10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x000e8f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e8fe0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e99f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e9a50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e9ab0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/path.rs
+    0x000e9ed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000e9f40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000ea3d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x000ea550  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/mod.rs
+    0x000ea670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x000ea700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/mod.rs
+    0x000ec620  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x000ecd60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000edbd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000edc40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000edcc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x000efb30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f0700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x000f0ce0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f0d00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x000f0dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x000f0fd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f1660  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f1690  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000f1700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000f1800  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000f1820  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x000f18d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000f1a20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000f39d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hash/mod.rs
+    0x000f3b60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f3ca0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x000f5ce0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f5cf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/mpsc.rs
+    0x000f7b50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f80c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f81d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000f8d60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000f8dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x000f8ed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x000fce10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x000fcfa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00104530  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00104fa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00105000  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00105010  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00105020  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x001050c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x001050d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x001050e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00105560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00105700  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001057b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00106220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00106300  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00106310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00106320  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00106360  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00106580  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00106660  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00106750  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x00106850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x00106970  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00106bb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00106c00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x00107420  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x00108160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x00108330  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x00108520  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x001087c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x001088a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00108a00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00108bb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x00108cd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x00109810  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x0010a8f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x0010ae20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x0010b080  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x00125c00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00125c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00125c70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00126020  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00126040  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00126500  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001287c0  /tmp/unhusk-local-bench/binsider/src/elf/relocations.rs
+    0x00128e10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x00128f10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x00129020  /tmp/unhusk-local-bench/binsider/src/elf/dynamic.rs
+    0x0012c690  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0012c6b0  /tmp/unhusk-local-bench/binsider/src/elf/header.rs
+    0x00131310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00131460  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00131530  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00131680  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00146860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00146a80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x00146d40  /tmp/unhusk-local-bench/binsider/src/error.rs
+    0x001473d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00147500  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00147fd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x00148250  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x00148900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00148c00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001549e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00154cc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001552b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001553d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00155540  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001555b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001556d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00155cb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00155da0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00156670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00156710  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x001582d0  /tmp/unhusk-local-bench/binsider/src/file.rs
+    0x0015e220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015e260  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015e620  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/mod.rs
+    0x0015eba0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x0015f450  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015f480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015f580  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015f660  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0015f6d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x0015f6e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x0015f6f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x0015f8a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/filter_map.rs
+    0x0015f900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/filter_map.rs
+    0x0015f920  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x0015f9c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x0015faa0  /tmp/unhusk-local-bench/binsider/src/tui/ui.rs
+    0x0015fea0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00160760  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x001614f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00161560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00161b70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x00161b80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x00161c30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00161c40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00161c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00161c60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00161c70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00161d20  /tmp/unhusk-local-bench/binsider/src/args.rs
+    0x00165280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x00165300  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/once.rs
+    0x001659f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x00165cc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00165db0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00165dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001663d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00166440  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00166540  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00166560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00166580  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x00166f40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/validations.rs
+    0x001671f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00169730  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00169d60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00169e80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00169f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0016b280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016b730  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/take.rs
+    0x0016be40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x0016d5a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016dc80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/thread_local/native/lazy.rs
+    0x0016de50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016df30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016df70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016dfa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016e3c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016e6d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0016f2b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x0016f3e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x00170fb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001736d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173a90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173b40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173bf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173c80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173ce0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00173e70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00174320  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00175890  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00175900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00175dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00175e50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00175ec0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001764d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00176e70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00176ee0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x00177300  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x00177790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00177980  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0017ae00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x0017cf40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0017dde0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x0017e390  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x0017e7f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x0017e920  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x0017e930  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0017eb20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0017eb70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x0017ed40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/convert/mod.rs
+    0x0017ede0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0017ee10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0017f030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x0017f080  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x0017f0a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x0017f140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x0017f5a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x001805d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x001807e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x00180c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x00180dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00181090  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001810d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/impls.rs
+    0x00181100  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/impls.rs
+    0x00181140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001811a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x00183f90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x0018ba10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0018ba80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0018e640  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x0018f100  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0018f160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0018f3a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0018f410  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0018fe70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00190000  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001958b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001959c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00195e70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00195f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001960a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00196130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001961e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00196a50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00199c80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/cloned.rs
+    0x0019bf10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0019c7e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a5520  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a5590  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a6bb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/cloned.rs
+    0x001a6e00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/cloned.rs
+    0x001a6fc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x001a7190  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a7500  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/filter_map.rs
+    0x001a7ef0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a8850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/any.rs
+    0x001a8860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001a8950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/cmp.rs
+    0x001a89c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001a8a80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/boxed.rs
+    0x001a92e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001a9850  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/error.rs
+    0x001aa450  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001aa4d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x001aa6e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x001aa8a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x001ab310  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001ab370  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/once.rs
+    0x001ab650  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/double_ended.rs
+    0x001abfd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ac030  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ac110  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ae5c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x001ae830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001b06d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001b0890  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001b4350  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/slice.rs
+    0x001b5c70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001b5c90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001b5d70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001b5e50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x001b6240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001b6260  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001b62d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001b63d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001b9c00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/alloc/layout.rs
+    0x001b9d50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001ba7a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ba7f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/poison.rs
+    0x001ba840  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001ba8f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001ba960  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001bad50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001bafc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001ce4b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001d3360  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001d3720  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001d3760  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001d3790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001d3880  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001d4340  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001d4930  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001d5220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x001d7830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x001d7950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x001d8770  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001d87e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x001da210  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x001da8e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x001dc0a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001dc1f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001dc3c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001dc610  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001de560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001de620  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs
+    0x001ded10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x001df100  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001df170  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001df2f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001df3a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001df9a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001dff10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001e67b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/chain.rs
+    0x001e7590  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/backtrace.rs
+    0x001ea5b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001ea640  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eac20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eacf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb150  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb1f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb210  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb2c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb3d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001eb9a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/thread_local/native/lazy.rs
+    0x001efee0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001f0170  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x001f0220  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001f0950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001f09c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001f0a30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x001f0c40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001f0cb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001f0d20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001f0e20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x001f1be0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/mod.rs
+    0x001f5740  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/boxed.rs
+    0x001f5770  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x001f7410  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001f7430  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x001f7970  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x001f7d50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x001f80a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x001f8120  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x001f81b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x001f8420  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x001f8470  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x001f84d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x001f8c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001f8db0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001f8e40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/zip.rs
+    0x001f8eb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs
+    0x001f91e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb0b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb290  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb360  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb4b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb610  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb740  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb8b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fb900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x001fbaa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panic/unwind_safe.rs
+    0x001fbab0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/thread/lifecycle.rs
+    0x001fbb10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fbb70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x001fbb90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x001fc7e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x001fc8e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x001fcf70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x001fd950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x001fdce0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x001fdf40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x001fe040  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x001fe6b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x001ff130  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/smallsort.rs
+    0x001ff4b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs
+    0x001ff560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/mod.rs
+    0x001ff660  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/drift.rs
+    0x001ffcd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/stable/quicksort.rs
+    0x00203520  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0020a370  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020ca50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020cb40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020cc60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020d1b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0020d2b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020d2d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020d810  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020e060  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020e1e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x0020e680  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x0020e970  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x0020e9e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x0020eae0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0020eb00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0020edb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0020f1d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0020fd50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00210060  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00210c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x002116b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x002116c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002116d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00211860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00211870  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x002118c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x002118d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x002118e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x002118f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00211900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00211d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00212b60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00212bd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x00212d90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00212e60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00212ed0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x00212fd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00213070  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/mod.rs
+    0x002130e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002131d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002131f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00213390  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002137a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00213870  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x00213c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00213c30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/error.rs
+    0x00213c40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00213c60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00213cd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00213dd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002147a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00214840  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0021ab20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0021baa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/thread_local/native/lazy.rs
+    0x0021ed20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00220740  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00220830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002209f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x00224860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x00226c30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sys/thread_local/native/lazy.rs
+    0x00226c50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00229ab0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0022b5e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0022c720  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x0022d140  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/mod.rs
+    0x00230300  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00230880  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x00230cd0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x00231a90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/double_ended.rs
+    0x002363a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00236b70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00236db0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x002381e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002384f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/collections/vec_deque/drain.rs
+    0x00238790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0023bd50  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0023d1c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0023f830  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/sources/from_fn.rs
+    0x0023fbf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/char/methods.rs
+    0x0023fe20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/unicode/unicode_data.rs
+    0x0023fe80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/char/methods.rs
+    0x0023fef0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x0023ff10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/iter.rs
+    0x00241430  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x002414e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00241510  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002422e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002423b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00247e90  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00247ee0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00247f00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00248380  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x002483a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00248410  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x00248510  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x00248530  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x00248770  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024ce60  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs
+    0x0024d270  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024d350  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024d440  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x0024d460  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/sync/once.rs
+    0x0024d610  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0024d6c0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028e7e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x0028e860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x0028efc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x0028f4b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00291540  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/filter.rs
+    0x00291770  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x00291790  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/sources/from_fn.rs
+    0x00291c20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00291c70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00292020  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/scan.rs
+    0x00292160  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/sources/from_fn.rs
+    0x00292320  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00292330  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x00292380  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs
+    0x002923e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x00294240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x00294440  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs
+    0x0029c1f6  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panicking.rs
+    0x0029c240  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002a2260  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs
+    0x002a2fc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x002a5930  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002a5f30  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x002a5fa0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x002a60a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002a6ae0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/string.rs
+    0x002aa3a0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x002aa680  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs
+    0x002aaa70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/mod.rs
+    0x002aad10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002aad80  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x002b1280  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/str/pattern.rs
+    0x002b2f70  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b2fb0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b3670  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/str.rs
+    0x002b38b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/borrow.rs
+    0x002b8430  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b89d0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b8ae0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b8b10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b8ba0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b93b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b93e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002b9480  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x002b9d10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002b9e00  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002b9f10  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002ba050  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002ba070  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs
+    0x002ba1b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x002ba370  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/num.rs
+    0x002ba7b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panicking.rs
+    0x002ba860  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs
+    0x002ba950  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bb7b0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bb900  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bbdf0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bbf40  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs
+    0x002bbfc0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/error.rs
+    0x002bc0f0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/io/buffered/bufreader.rs
+    0x002bea20  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bf4e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bf560  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bf690  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs
+    0x002bf7e0  /home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/collections/vec_deque/drain.rs
+
+  total captured :   138  (15.2% of 906 DWARF-user fns)
+  total missed   :   703  (77.6%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 100.0%
+  Certain recall    : 1.8%  (16/906 DWARF-user fns reached by certain)
+  Overall recall    : 15.2%  (certain+inferred)
+
+validation complete.

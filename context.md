@@ -1040,3 +1040,51 @@ original 13-binary baseline was biased toward file-processing CLIs with more pan
 
 **Stability conclusion at N=60**: median sym precision 93.75% — within 0.65pp of baseline. The
 measurement is confirmed at N=13/28/36/41/46/50/53/57/60 within ±0.7pp.
+
+### Batch 10: 3 more local-source builds (63 total, 2026-06-17)
+
+Added binsider, numbat, cargo-geiger. Total N=63.
+
+**Per-binary results (3 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| binsider | 19 | 100.0% | 68.4% | **56.5%** | 15.2% | 80.9% |
+| numbat | 243 | 99.2% | 92.6% | **80.7%** | 33.5% | 90.6% |
+| cargo-geiger | 25 | 100.0% | 95.8% | **87.2%** | 2.4% | 86.0% |
+
+**Notable findings:**
+- **binsider** (sym=68.4%, DWARF=100%): confirms the secondary failure mode (async/closure wrappers).
+  DWARF sees 100% precision (all classifiable certain fns are user-sourced), but sym sees 68.4% because
+  6 of 19 certain fns are async/closure dispatch shims where the body is in binsider's source but
+  the trait-method symbol is in core. This is the same pattern as oha and viu. binsider also joins
+  the high-precision inferred cluster (56.5% DWARF inf prec).
+- **numbat** (inf_prec=80.7%): calculator/unit-conversion language with 243 certain fns. Large
+  n_certain indicates dense panic assertions in the parser/evaluator. Joins the high-precision
+  inferred cluster at 80.7% DWARF (90.6% at d=1) — the BFS stays within numbat's own parser logic.
+- **cargo-geiger** (87.2% inf prec): cargo subcommand for unsafe counting. 33,772 FDEs but only
+  25 certain (tiny recall 2.4%). Joins high-precision cluster at 87.2% — its callees are
+  predominantly cargo-geiger's own scanning logic.
+
+**Failure mode classification (finalized at N=63):**
+Two distinct failure modes produce low symbol precision (< 80%):
+- **Primary (std-generic contamination):** DWARF also says std. 11 binaries.
+  Examples: ripsecrets 55.6%, grex 21.4%, fclones 19.7%.
+- **Secondary (async/closure wrappers):** DWARF says user, sym says std. 3 binaries.
+  viu (DWARF 100%/sym 50%), binsider (DWARF 100%/sym 68.4%), oha (DWARF 96.1%/sym 68.8%).
+
+This split is now embedded in bench/aggregate.py and BENCHMARK_RESULTS.md.
+
+**Combined 63 binaries:**
+- Sym precision: median **93.8%** (Δ=+0.05pp from N=60 — 11th successive confirmation ±0.65pp)
+- DWARF precision: median **87.5%** (vs 86.6% at N=60)
+- Inferred prec pooled: **26.1%** (inflated; 15/63 in high-precision cluster >50%)
+- Recall median: **34.7%** (vs 36.7% at N=60; cargo-geiger 2.4% and binsider 15.2% pull median down)
+- High-precision inferred cluster (>50%): **15/63 (24%)** — grew from 12/60 with binsider+numbat+cargo-geiger
+
+**Stability conclusion at N=63**: median sym precision 93.8% — within 0.6pp of the original 13-binary
+baseline (94.4%). Confirmed at N=13/28/36/41/46/50/53/57/60/63 within ±0.7pp. The measurement is stable.
+
+The failure-mode taxonomy is now complete: primary (std-generic contamination, DWARF+sym agree)
+vs secondary (async/closure wrappers, DWARF says user but sym says std). Both are documented in
+BENCHMARK_RESULTS.md with concrete per-binary DWARF vs sym breakdowns.

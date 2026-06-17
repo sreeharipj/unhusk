@@ -429,18 +429,42 @@ def main():
         if local_low_sym or local_low_recall:
             lines += ["## Named outliers (local-source corpus)", ""]
             lines += [
-                "All outliers share the **same failure mode**: std generic functions "
+                "Two distinct failure modes produce low symbol precision:",
+                "",
+                "**Primary (std-generic contamination):** std generic functions "
                 "(sort, hash, BTreeMap, HashMap operations) monomorphized with user types "
                 "where a user panic Location survived into the std function body. "
-                "No new failure mode was identified across the extended corpus.",
+                "Both DWARF and symbol-name agree the function is in std. "
+                "Affects the majority of sub-80% outliers.",
+                "",
+                "**Secondary (async/closure wrappers):** async Future poll methods or "
+                "FnOnce/FnMut closure dispatch shims where the *body* is user code "
+                "but the *trait method symbol* resolves to core/std. DWARF `decl_file` "
+                "correctly attributes these to the user source file (high DWARF precision), "
+                "but `nm -C` reports the core/std trait implementation symbol. "
+                "Identified in oha, binsider, viu (DWARF certainprec ≥ 85%, sym prec < 80%).",
                 "",
             ]
         if local_low_sym:
-            lines += ["**Low symbol precision (<80%) — std-generic contamination:**", ""]
-            for r in sorted(local_low_sym, key=lambda r: r.get("sym_certain_prec", 0)):
-                lines += [f"- **{r['crate']}**: {fmt_pct(r.get('sym_certain_prec'))} sym prec "
-                          f"({r.get('n_certain',0)} certain)"]
-            lines += [""]
+            # Split into primary (DWARF also low) vs secondary (DWARF high, sym low)
+            local_low_sym_primary = [r for r in local_low_sym
+                                     if r.get("dwarf_certain_prec", 100) < 85]
+            local_low_sym_secondary = [r for r in local_low_sym
+                                       if r.get("dwarf_certain_prec", 100) >= 85]
+            if local_low_sym_primary:
+                lines += ["**Primary failure mode — std-generic contamination (DWARF also says std):**", ""]
+                for r in sorted(local_low_sym_primary, key=lambda r: r.get("sym_certain_prec", 0)):
+                    lines += [f"- **{r['crate']}**: {fmt_pct(r.get('sym_certain_prec'))} sym prec, "
+                              f"{fmt_pct(r.get('dwarf_certain_prec'))} DWARF prec "
+                              f"({r.get('n_certain',0)} certain)"]
+                lines += [""]
+            if local_low_sym_secondary:
+                lines += ["**Secondary failure mode — async/closure wrappers (DWARF says user, sym says std):**", ""]
+                for r in sorted(local_low_sym_secondary, key=lambda r: r.get("sym_certain_prec", 0)):
+                    lines += [f"- **{r['crate']}**: {fmt_pct(r.get('sym_certain_prec'))} sym prec, "
+                              f"{fmt_pct(r.get('dwarf_certain_prec'))} DWARF prec "
+                              f"({r.get('n_certain',0)} certain)"]
+                lines += [""]
         if local_low_recall:
             lines += ["**High precision but near-zero recall — user code is dep-called:**", ""]
             for r in sorted(local_low_recall, key=lambda r: r.get("dwarf_overall_recall", 0)):
