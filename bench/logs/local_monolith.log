@@ -1,0 +1,238 @@
+=== START monolith repo=https://github.com/Y2Z/monolith binname=monolith Wednesday 17 June 2026 08:48:59 AM IST ===
+Cloning into '/tmp/unhusk-local-bench/monolith'...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded errno v0.3.11
+  Downloaded async-compression v0.4.23
+  Downloaded iana-time-zone v0.1.63
+  Downloaded quote v1.0.40
+  Downloaded litemap v0.7.5
+  Downloaded getrandom v0.3.2
+  Downloaded slab v0.4.9
+  Downloaded smallvec v1.15.0
+  Downloaded clap_derive v4.5.32
+  Downloaded tempfile v3.19.1
+  Downloaded clap v4.5.37
+  Downloaded icu_normalizer_data v1.5.1
+  Downloaded icu_locid_transform_data v1.5.1
+  Downloaded proc-macro2 v1.0.95
+  Downloaded tracing-core v0.1.33
+  Downloaded socket2 v0.5.9
+  Downloaded rustls-pki-types v1.11.0
+  Downloaded openssl-sys v0.9.107
+  Downloaded flate2 v1.1.1
+  Downloaded serde v1.0.219
+  Downloaded hyper-util v0.1.11
+  Downloaded typenum v1.18.0
+  Downloaded cc v1.2.20
+  Downloaded tokio-util v0.7.15
+  Downloaded hyper v1.6.0
+  Downloaded reqwest v0.12.15
+  Downloaded chrono v0.4.41
+  Downloaded regex v1.11.1
+  Downloaded icu_properties_data v1.5.1
+  Downloaded openssl v0.10.72
+  Downloaded syn v2.0.101
+  Downloaded rustix v1.0.5
+  Downloaded regex-automata v0.4.9
+  Downloaded brotli v8.0.0
+  Downloaded miniz_oxide v0.8.8
+  Downloaded xml5ever v0.20.0
+  Downloaded redb v2.4.0
+  Downloaded clap_builder v4.5.37
+  Downloaded markup5ever_rcdom v0.5.0-unofficial
+  Downloaded openssl-src v300.5.0+3.5.0
+   Compiling proc-macro2 v1.0.95
+   Compiling unicode-ident v1.0.18
+   Compiling libc v0.2.172
+   Compiling autocfg v1.4.0
+   Compiling cfg-if v1.0.0
+   Compiling smallvec v1.15.0
+   Compiling rand_core v0.6.4
+   Compiling stable_deref_trait v1.2.0
+   Compiling siphasher v1.0.1
+   Compiling shlex v1.3.0
+   Compiling pin-project-lite v0.2.16
+   Compiling bytes v1.10.1
+   Compiling futures-core v0.3.31
+   Compiling pkg-config v0.3.32
+   Compiling vcpkg v0.2.15
+   Compiling writeable v0.5.5
+   Compiling icu_locid_transform_data v1.5.1
+   Compiling once_cell v1.21.3
+   Compiling itoa v1.0.15
+   Compiling litemap v0.7.5
+   Compiling rand v0.8.5
+   Compiling phf_shared v0.11.3
+   Compiling cc v1.2.20
+   Compiling serde v1.0.219
+   Compiling futures-sink v0.3.31
+   Compiling icu_properties_data v1.5.1
+   Compiling parking_lot_core v0.9.10
+   Compiling log v0.4.27
+   Compiling memchr v2.7.4
+   Compiling version_check v0.9.5
+   Compiling lock_api v0.4.12
+   Compiling slab v0.4.9
+   Compiling scopeguard v1.2.0
+   Compiling bitflags v2.9.0
+   Compiling new_debug_unreachable v1.0.6
+   Compiling icu_normalizer_data v1.5.1
+   Compiling fnv v1.0.7
+   Compiling typenum v1.18.0
+   Compiling pin-utils v0.1.0
+   Compiling generic-array v0.14.7
+   Compiling phf_generator v0.11.3
+   Compiling futures-task v0.3.31
+   Compiling openssl v0.10.72
+   Compiling httparse v1.10.1
+   Compiling quote v1.0.40
+   Compiling http v1.3.1
+   Compiling futures-io v0.3.31
+   Compiling phf_codegen v0.11.3
+   Compiling mac v0.1.1
+   Compiling foreign-types-shared v0.1.1
+   Compiling futf v0.1.5
+   Compiling foreign-types v0.3.2
+   Compiling socket2 v0.5.9
+   Compiling syn v2.0.101
+   Compiling mio v1.0.3
+   Compiling string_cache_codegen v0.5.4
+   Compiling futures-util v0.3.31
+   Compiling precomputed-hash v0.1.1
+   Compiling openssl-src v300.5.0+3.5.0
+   Compiling utf8_iter v1.0.4
+   Compiling utf16_iter v1.0.5
+   Compiling write16 v1.0.0
+   Compiling native-tls v0.2.14
+   Compiling alloc-no-stdlib v2.0.4
+   Compiling markup5ever v0.14.1
+   Compiling try-lock v0.2.5
+   Compiling utf-8 v0.7.6
+   Compiling futures-channel v0.3.31
+   Compiling want v0.3.1
+   Compiling openssl-sys v0.9.107
+   Compiling parking_lot v0.12.3
+   Compiling tracing-core v0.1.33
+   Compiling http-body v1.0.1
+   Compiling alloc-stdlib v0.2.2
+   Compiling tendril v0.4.3
+   Compiling openssl-probe v0.1.6
+   Compiling tower-service v0.3.3
+   Compiling utf8parse v0.2.2
+   Compiling adler2 v2.0.0
+   Compiling synstructure v0.13.2
+   Compiling percent-encoding v2.3.1
+   Compiling brotli-decompressor v5.0.0
+   Compiling tracing v0.1.41
+   Compiling miniz_oxide v0.8.8
+   Compiling string_cache v0.8.9
+   Compiling anstyle-parse v0.2.6
+   Compiling num-traits v0.2.19
+   Compiling form_urlencoded v1.2.1
+   Compiling crc32fast v1.4.2
+   Compiling rustix v1.0.5
+   Compiling anstyle-query v1.1.2
+   Compiling anstyle v1.0.10
+   Compiling colorchoice v1.0.3
+   Compiling getrandom v0.3.2
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling http-body-util v0.1.3
+   Compiling sync_wrapper v1.0.2
+   Compiling strsim v0.11.1
+   Compiling regex-syntax v0.8.5
+   Compiling linux-raw-sys v0.9.4
+   Compiling flate2 v1.1.1
+   Compiling tower-layer v0.3.3
+   Compiling anstream v0.6.18
+   Compiling ryu v1.0.20
+   Compiling rustls-pki-types v1.11.0
+   Compiling heck v0.5.0
+   Compiling clap_lex v0.7.4
+   Compiling dtoa v1.0.10
+   Compiling redb v2.4.0
+   Compiling tokio v1.44.2
+   Compiling dtoa-short v0.3.5
+   Compiling clap_builder v4.5.37
+   Compiling serde_urlencoded v0.7.1
+   Compiling digest v0.10.7
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.7.5
+   Compiling zerovec-derive v0.10.3
+   Compiling displaydoc v0.2.5
+   Compiling icu_provider_macros v1.5.0
+   Compiling phf_macros v0.11.3
+   Compiling openssl-macros v0.1.1
+   Compiling brotli v8.0.0
+   Compiling match_token v0.1.0
+   Compiling cssparser-macros v0.6.1
+   Compiling phf v0.11.3
+   Compiling clap_derive v4.5.32
+   Compiling rustls-pemfile v2.2.0
+   Compiling regex-automata v0.4.9
+   Compiling iana-time-zone v0.1.63
+   Compiling fastrand v2.3.0
+   Compiling cpufeatures v0.2.17
+   Compiling zerofrom v0.1.6
+   Compiling mime v0.3.17
+   Compiling yoke v0.7.5
+   Compiling base64 v0.22.1
+   Compiling html5ever v0.29.1
+   Compiling zerovec v0.10.4
+   Compiling xml5ever v0.20.0
+   Compiling ipnet v2.11.0
+   Compiling chrono v0.4.41
+   Compiling tempfile v3.19.1
+   Compiling clap v4.5.37
+   Compiling sha2 v0.10.9
+   Compiling cssparser v0.35.0
+   Compiling tinystr v0.7.6
+   Compiling icu_collections v1.5.0
+   Compiling regex v1.11.1
+   Compiling icu_locid v1.5.0
+   Compiling markup5ever_rcdom v0.5.0-unofficial
+   Compiling hyper v1.6.0
+   Compiling async-compression v0.4.23
+   Compiling tower v0.5.2
+   Compiling hyper-util v0.1.11
+   Compiling tokio-util v0.7.15
+   Compiling atty v0.2.14
+   Compiling encoding_rs v0.8.35
+   Compiling icu_provider v1.5.0
+   Compiling icu_locid_transform v1.5.0
+   Compiling icu_properties v1.5.1
+   Compiling icu_normalizer v1.5.0
+   Compiling idna_adapter v1.2.0
+   Compiling idna v1.0.3
+   Compiling url v2.5.4
+   Compiling tokio-native-tls v0.3.1
+   Compiling hyper-tls v0.6.0
+   Compiling reqwest v0.12.15
+   Compiling monolith v2.11.0 (/tmp/unhusk-local-bench/monolith)
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> src/html.rs:381:29
+    |
+381 | pub fn parse_srcset(srcset: &str) -> Vec<SrcSetItem> {
+    |                             ^^^^         ^^^^^^^^^^ the same lifetime is hidden here
+    |                             |
+    |                             the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+381 | pub fn parse_srcset(srcset: &str) -> Vec<SrcSetItem<'_>> {
+    |                                                    ++++
+
+warning: `monolith` (lib) generated 1 warning (run `cargo fix --lib -p monolith` to apply 1 suggestion)
+    Finished `release` profile [optimized + debuginfo] target(s) in 2m 30s
+file: /tmp/unhusk-local-bench/monolith/target/release/monolith: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=b113701080b45317361b5809aca4140fecdb7e11, with debug_info, not stripped
+bin_size: 11040912 bytes
+metrics: {"n_fdes": 17183, "n_certain": 33, "n_call_closure": 253, "n_locations": 113, "dwarf_certain_n": 33, "dwarf_certain_tp": 28, "dwarf_certain_fp": 0, "dwarf_certain_prec": 100.0, "dwarf_inferred_n": 209, "dwarf_inferred_tp": 1, "dwarf_inferred_fp": 176, "dwarf_inferred_prec": 0.6, "dwarf_certain_prec_hl": 100.0, "dwarf_certain_recall": 0.3, "dwarf_overall_recall": 0.3, "sym_user": 33, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 33}
+d1: inf_prec=1.5 recall=0.3
+d2: inf_prec=0.8 recall=0.3
+perf: wall=0.17s rss=24708kb
+APPENDED: {"n_fdes": 17183, "n_certain": 33, "n_call_closure": 253, "n_locations": 113, "dwarf_certain_n": 33, "dwarf_certain_tp": 28, "dwarf_certain_fp": 0, "dwarf_certain_prec": 100.0, "dwarf_inferred_n": 209, "dwarf_inferred_tp": 1, "dwarf_inferred_fp": 176, "dwarf_inferred_prec": 0.6, "dwarf_certain_prec_hl": 100.0, "dwarf_certain_recall": 0.3, "dwarf_overall_recall": 0.3, "sym_user": 33, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 33, "crate": "monolith", "binname": "monolith", "bin_size": 11040912, "d1_inf_prec": 1.5, "d1_recall": 0.3, "d2_inf_prec": 0.8, "d2_recall": 0.3, "wall_sec": 0.17, "peak_rss_kb": 24708, "source": "local"}
+=== END monolith Wednesday 17 June 2026 08:51:35 AM IST status=ok ===
