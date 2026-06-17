@@ -91,3 +91,9 @@ jnv:https://github.com/ynqa/jnv:jnv
 cargo-msrv:https://github.com/foresterre/cargo-msrv:cargo-msrv
 sad:https://github.com/ms-jpq/sad:sad
 yazi:https://github.com/sxyazi/yazi:yazi
+# Batch 14 — shell tools, git impl, more cargo
+starship:https://github.com/starship/starship:starship
+atuin:https://github.com/atuinsh/atuin:atuin
+cargo-semver-checks:https://github.com/obi1kenobi/cargo-semver-checks:cargo-semver-checks
+sheldon:https://github.com/rossmacarthur/sheldon:sheldon
+gitoxide:https://github.com/GitoxideLabs/gitoxide:gix
