@@ -61,3 +61,8 @@ dog:https://github.com/ogham/dog:dog
 ruplacer:https://github.com/your-tools/ruplacer:ruplacer
 amber:https://github.com/dalance/amber:ambr
 ox:https://github.com/curlpipe/ox:ox
+# Batch 8 — further expansion
+cargo-nextest:https://github.com/nextest-rs/nextest:cargo-nextest
+cargo-deny:https://github.com/EmbarkStudios/cargo-deny:cargo-deny
+lfs:https://github.com/Canop/lfs:lfs
+felix:https://github.com/kyoheiu/felix:felix
