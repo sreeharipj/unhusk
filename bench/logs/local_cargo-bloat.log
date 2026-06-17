@@ -1,0 +1,34 @@
+=== START cargo-bloat repo=https://github.com/RazrFalcon/cargo-bloat binname=cargo-bloat Wednesday 17 June 2026 01:48:57 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/cargo-bloat'...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded scroll v0.11.0
+  Downloaded multimap v0.10.0
+  Downloaded uuid v1.8.0
+  Downloaded regex v1.10.4
+  Downloaded pdb v0.8.0
+  Downloaded libc v0.2.154
+   Compiling libc v0.2.154
+   Compiling regex-syntax v0.8.3
+   Compiling fallible-iterator v0.2.0
+   Compiling scroll v0.11.0
+   Compiling uuid v1.8.0
+   Compiling multimap v0.10.0
+   Compiling pico-args v0.5.0
+   Compiling binfarce v0.2.1
+   Compiling json v0.12.4
+   Compiling pdb v0.8.0
+   Compiling term_size v0.3.2
+   Compiling memmap2 v0.9.4
+   Compiling regex-automata v0.4.6
+   Compiling regex v1.10.4
+   Compiling cargo-bloat v0.12.1 (/tmp/unhusk-local-bench/cargo-bloat)
+    Finished `release` profile [optimized + debuginfo] target(s) in 13.22s
+file: /tmp/unhusk-local-bench/cargo-bloat/target/release/cargo-bloat: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=e57b08274fccd36094fe21d22cc17612841d193c, with debug_info, not stripped
+bin_size: 1295112 bytes
+metrics: {"n_fdes": 1827, "n_certain": 11, "n_call_closure": 219, "n_locations": 52, "dwarf_certain_n": 11, "dwarf_certain_tp": 10, "dwarf_certain_fp": 0, "dwarf_certain_prec": 100.0, "dwarf_inferred_n": 187, "dwarf_inferred_tp": 139, "dwarf_inferred_fp": 22, "dwarf_inferred_prec": 86.3, "dwarf_certain_prec_hl": 100.0, "dwarf_certain_recall": 1.4, "dwarf_overall_recall": 20.3, "sym_user": 11, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 11}
+d1: inf_prec=94.9 recall=11.6
+d2: inf_prec=85.4 recall=15.6
+perf: wall=0.01s rss=5060kb
+APPENDED: {"n_fdes": 1827, "n_certain": 11, "n_call_closure": 219, "n_locations": 52, "dwarf_certain_n": 11, "dwarf_certain_tp": 10, "dwarf_certain_fp": 0, "dwarf_certain_prec": 100.0, "dwarf_inferred_n": 187, "dwarf_inferred_tp": 139, "dwarf_inferred_fp": 22, "dwarf_inferred_prec": 86.3, "dwarf_certain_prec_hl": 100.0, "dwarf_certain_recall": 1.4, "dwarf_overall_recall": 20.3, "sym_user": 11, "sym_std": 0, "sym_dep": 0, "sym_unknown": 0, "sym_certain_prec": 100.0, "n_certain_addrs_parsed": 11, "crate": "cargo-bloat", "binname": "cargo-bloat", "bin_size": 1295112, "d1_inf_prec": 94.9, "d1_recall": 11.6, "d2_inf_prec": 85.4, "d2_recall": 15.6, "wall_sec": 0.01, "peak_rss_kb": 5060, "source": "local"}
+=== END cargo-bloat Wednesday 17 June 2026 01:49:12 PM IST status=ok ===
