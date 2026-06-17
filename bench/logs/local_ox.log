@@ -1,0 +1,105 @@
+=== START ox repo=https://github.com/curlpipe/ox binname=ox Wednesday 17 June 2026 09:34:36 AM IST ===
+Cloning into '/tmp/unhusk-local-bench/ox'...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded home v0.5.11
+  Downloaded nohash-hasher v0.2.0
+  Downloaded rustc-hash v2.1.0
+  Downloaded shellexpand v3.1.0
+  Downloaded str_indices v0.4.4
+  Downloaded synoptic v2.2.9
+  Downloaded signal-hook-registry v1.4.2
+  Downloaded proc-macro2 v1.0.92
+  Downloaded ropey v1.6.1
+  Downloaded serde v1.0.216
+  Downloaded cc v1.2.5
+  Downloaded mlua v0.10.2
+  Downloaded syn v2.0.91
+  Downloaded bstr v1.11.1
+  Downloaded rustix v0.38.42
+  Downloaded lua-src v547.0.0
+  Downloaded jargon-args v0.2.7
+  Downloaded mlua-sys v0.6.6
+  Downloaded indices v0.3.6
+  Downloaded alinio v0.2.1
+  Downloaded ptyprocess v0.4.1
+  Downloaded char_index v0.1.4
+  Downloaded error_set v0.7.0
+  Downloaded error_set_impl v0.7.0
+  Downloaded if_chain v1.0.2
+  Downloaded luajit-src v210.5.11+97813fb
+   Compiling libc v0.2.169
+   Compiling autocfg v1.4.0
+   Compiling rustix v0.38.42
+   Compiling bitflags v2.6.0
+   Compiling proc-macro2 v1.0.92
+   Compiling cfg-if v1.0.0
+   Compiling memchr v2.7.4
+   Compiling linux-raw-sys v0.4.14
+   Compiling shlex v1.3.0
+   Compiling smallvec v1.13.2
+   Compiling either v1.13.0
+   Compiling home v0.5.11
+   Compiling unicode-ident v1.0.14
+   Compiling parking_lot_core v0.9.10
+   Compiling scopeguard v1.2.0
+   Compiling regex-syntax v0.8.5
+   Compiling pkg-config v0.3.31
+   Compiling signal-hook v0.3.17
+   Compiling cfg_aliases v0.2.1
+   Compiling option-ext v0.2.0
+   Compiling cc v1.2.5
+   Compiling indices v0.3.6
+   Compiling log v0.4.22
+   Compiling nix v0.29.0
+   Compiling str_indices v0.4.4
+   Compiling bitflags v1.3.2
+   Compiling pin-utils v0.1.0
+   Compiling unicode-width v0.2.0
+   Compiling unicode-width v0.1.14
+   Compiling lock_api v0.4.12
+   Compiling memoffset v0.7.1
+   Compiling num-traits v0.2.19
+   Compiling ropey v1.6.1
+   Compiling char_index v0.1.4
+   Compiling if_chain v1.0.2
+   Compiling aho-corasick v1.1.3
+   Compiling bstr v1.11.1
+   Compiling rustc-hash v2.1.0
+   Compiling nohash-hasher v0.2.0
+   Compiling quote v1.0.37
+   Compiling alinio v0.2.1
+   Compiling jargon-args v0.2.7
+   Compiling base64 v0.22.1
+   Compiling syn v2.0.91
+   Compiling lua-src v547.0.0
+   Compiling signal-hook-registry v1.4.2
+   Compiling mio v1.0.3
+   Compiling dirs-sys v0.4.1
+   Compiling nix v0.26.4
+   Compiling which v6.0.3
+   Compiling regex-automata v0.4.9
+   Compiling luajit-src v210.5.11+97813fb
+   Compiling parking_lot v0.12.3
+   Compiling mlua-sys v0.6.6
+   Compiling dirs v5.0.1
+   Compiling shellexpand v3.1.0
+   Compiling signal-hook-mio v0.2.4
+   Compiling crossterm v0.28.1
+   Compiling error_set_impl v0.7.0
+   Compiling error_set v0.7.0
+   Compiling regex v1.11.1
+   Compiling ptyprocess v0.4.1
+   Compiling synoptic v2.2.9
+   Compiling kaolinite v0.10.0 (/tmp/unhusk-local-bench/ox/kaolinite)
+   Compiling mlua v0.10.2
+   Compiling ox v0.7.7 (/tmp/unhusk-local-bench/ox)
+    Finished `release` profile [optimized + debuginfo] target(s) in 46.95s
+file: /tmp/unhusk-local-bench/ox/target/release/ox: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=487655425bce263b919045228b9db995675cadf1, with debug_info, not stripped
+bin_size: 5439928 bytes
+metrics: {"n_fdes": 6088, "n_certain": 127, "n_call_closure": 770, "n_locations": 440, "dwarf_certain_n": 127, "dwarf_certain_tp": 33, "dwarf_certain_fp": 3, "dwarf_certain_prec": 91.7, "dwarf_inferred_n": 681, "dwarf_inferred_tp": 335, "dwarf_inferred_fp": 227, "dwarf_inferred_prec": 59.6, "dwarf_certain_prec_hl": 91.7, "dwarf_certain_recall": 1.6, "dwarf_overall_recall": 17.7, "sym_user": 118, "sym_std": 2, "sym_dep": 0, "sym_unknown": 7, "sym_certain_prec": 98.33, "n_certain_addrs_parsed": 127}
+d1: inf_prec=99.3 recall=8.4
+d2: inf_prec=95.2 recall=12.0
+perf: wall=0.08s rss=13384kb
+APPENDED: {"n_fdes": 6088, "n_certain": 127, "n_call_closure": 770, "n_locations": 440, "dwarf_certain_n": 127, "dwarf_certain_tp": 33, "dwarf_certain_fp": 3, "dwarf_certain_prec": 91.7, "dwarf_inferred_n": 681, "dwarf_inferred_tp": 335, "dwarf_inferred_fp": 227, "dwarf_inferred_prec": 59.6, "dwarf_certain_prec_hl": 91.7, "dwarf_certain_recall": 1.6, "dwarf_overall_recall": 17.7, "sym_user": 118, "sym_std": 2, "sym_dep": 0, "sym_unknown": 7, "sym_certain_prec": 98.33, "n_certain_addrs_parsed": 127, "crate": "ox", "binname": "ox", "bin_size": 5439928, "d1_inf_prec": 99.3, "d1_recall": 8.4, "d2_inf_prec": 95.2, "d2_recall": 12.0, "wall_sec": 0.08, "peak_rss_kb": 13384, "source": "local"}
+=== END ox Wednesday 17 June 2026 09:35:28 AM IST status=ok ===
