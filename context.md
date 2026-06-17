@@ -1132,3 +1132,48 @@ Added cargo-bloat, git-cliff, xplr, prr. Total N=67.
 
 **Stability conclusion at N=67**: median sym precision 93.8% — confirmed at N=13/28/36/41/46/50/53/57/60/63/67
 within ±0.7pp. The "~94% certain precision" headline is stable across the entire benchmark run.
+
+---
+
+## Benchmark final summary (2026-06-17)
+
+**Status: COMPLETE.** 67 local-source builds across 11 batches. All key findings confirmed.
+
+### Headline numbers (N=67, local-source)
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| Sym precision median | **93.8%** | Confirmed N=13→67, ±0.7pp |
+| DWARF precision median | 88.2% | Improving trend as corpus grows |
+| Genuine FP rate (sym) | **~6.2%** | std generics monomorphized w/ user types |
+| Inferred prec pooled | ~26% inflated / ~6% median | Bimodal (see cluster below) |
+| Recall median | 34.0% (certain+inferred) | 15.4% certain-only |
+| Performance | 0.06s median, 12 MB median RSS | Linear in FDE count, r=0.94 |
+
+### Failure mode taxonomy (finalized)
+
+| Mode | N binaries | Condition | Example |
+|------|-----------|-----------|---------|
+| Primary | 11 | sym < 80% AND DWARF < 85% | ripsecrets (45.5%/55.6%), grex (52.4%/21.4%) |
+| Secondary | 4 | sym < 80% AND DWARF ≥ 85% | oha (68.8%/96.1%), prr (64.7%/100%) |
+
+Primary = std generics with user types (both metrics agree).
+Secondary = async/closure dispatch shims (DWARF decl_file says user; nm symbol says core).
+For secondary-mode binaries, DWARF is the correct (higher) precision estimate.
+
+### High-precision inferred cluster
+
+17/67 binaries (25%) have DWARF inferred precision > 50%. Reliable predictors:
+- Cargo subcommands (6/6: all have inf prec 65–96%): BFS stays in tool's own wrapping logic
+- Small/focused utilities with compact call graphs (ruplacer 96.5%, lfs 88.3%)
+- Async tools with thin wrapper layers (oha 94.8%, prr 89.9%)
+
+For the remaining 50/67 (75%), inferred precision is ~5-15% (BFS fans into std/dep).
+
+### What the benchmark adds beyond realval/ (13-binary study)
+
+1. **Scale**: 67 binaries across diverse Rust CLI domains (not just sharkdp tools)
+2. **Failure-mode taxonomy**: two distinct modes (primary/secondary) with concrete per-binary evidence
+3. **High-inf-prec cluster**: 25% of real binaries achieve high inferred precision; structural predictor identified
+4. **Applicability boundary confirmed**: cargo-install binaries return n_certain=0 (expected — registry path == dep path)
+5. **Performance**: linear scaling to 34K-FDE binaries, throughput quantified at 88 MB/s
