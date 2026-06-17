@@ -1,0 +1,2394 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_difftastic.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000ef450   7619696 bytes
+  .rodata               vaddr 0x00834000  113707712 bytes
+  .data.rel.ro          vaddr 0x07527620    522240 bytes
+  .rela.dyn             vaddr 0x000021d8    965160 bytes
+  .eh_frame             vaddr 0x074b2818    374848 bytes
+  .rela.dyn entries     40096 R_X86_64_RELATIVE entries
+
+source-path strings: 646  (user=26, std=327, dep=293, unknown=0)
+  distinct dep crates visible: 45
+
+panic/assert sites:  2887  (user=369, std=660, dep=1858, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/diff/changes.rs  (3 sites)
+       65:21    Location struct @ 0x7565b60
+       77:21    Location struct @ 0x7565b78
+       89:14    Location struct @ 0x7565b90
+  src/diff/dijkstra.rs  (9 sites)
+       43:54    Location struct @ 0x7566928
+       43:72    Location struct @ 0x7566910
+       66:21    Location struct @ 0x75668f8
+       81:22    Location struct @ 0x7566940
+       92:34    Location struct @ 0x7566988
+       99:13    Location struct @ 0x75669a0
+      125:5     Location struct @ 0x7566a08
+      128:51    Location struct @ 0x75669f0
+      150:5     Location struct @ 0x75669d8
+  src/diff/graph.rs  (11 sites)
+      498:21    Location struct @ 0x7563e08
+      787:5     Location struct @ 0x7563dd8
+      793:10    Location struct @ 0x7563df0
+      804:40    Location struct @ 0x7563e20
+      805:40    Location struct @ 0x7563e38
+      813:40    Location struct @ 0x7563e50
+      814:40    Location struct @ 0x7563e68
+      819:40    Location struct @ 0x7563e80
+      820:40    Location struct @ 0x7563e98
+      838:40    Location struct @ 0x7563eb0
+      842:40    Location struct @ 0x7563ec8
+  src/diff/lcs_diff.rs  (26 sites)
+       28:66    Location struct @ 0x75652f0
+       28:82    Location struct @ 0x75652d8
+       30:42    Location struct @ 0x7565308
+       31:42    Location struct @ 0x7565320
+       32:35    Location struct @ 0x7565338
+       32:49    Location struct @ 0x7565350
+       34:65    Location struct @ 0x7565380
+       34:81    Location struct @ 0x7565368
+       57:23    Location struct @ 0x7563ee0
+       68:17    Location struct @ 0x7563f28
+       71:23    Location struct @ 0x7563ef8
+       82:17    Location struct @ 0x7563f10
+       88:73    Location struct @ 0x7565398
+       90:40    Location struct @ 0x75653b0
+       91:40    Location struct @ 0x75653c8
+       93:75    Location struct @ 0x75653e0
+      123:43    Location struct @ 0x7563f40
+      132:29    Location struct @ 0x7563fa0
+      139:21    Location struct @ 0x7563f88
+      145:29    Location struct @ 0x7563fe8
+      154:29    Location struct @ 0x7563fd0
+      161:21    Location struct @ 0x7563fb8
+      168:29    Location struct @ 0x7564018
+      175:21    Location struct @ 0x7564000
+      182:13    Location struct @ 0x7563f70
+      186:13    Location struct @ 0x7563f58
+  src/diff/sliders.rs  (29 sites)
+      163:14    Location struct @ 0x75611f8
+      196:14    Location struct @ 0x7561210
+      230:36    Location struct @ 0x7561228
+      232:23    Location struct @ 0x7561240
+      279:27    Location struct @ 0x7561270
+      295:27    Location struct @ 0x7561258
+      307:31    Location struct @ 0x7561288
+      330:10    Location struct @ 0x75612a0
+      362:46    Location struct @ 0x75612b8
+      408:43    Location struct @ 0x7561300
+      414:29    Location struct @ 0x7561318
+      422:23    Location struct @ 0x7561348
+      429:29    Location struct @ 0x7561330
+      439:17    Location struct @ 0x75612d0
+      459:43    Location struct @ 0x7561378
+      465:29    Location struct @ 0x7561390
+      472:19    Location struct @ 0x75613a8
+      483:17    Location struct @ 0x7561360
+      542:22    Location struct @ 0x75613c0
+      543:21    Location struct @ 0x75613d8
+      545:28    Location struct @ 0x75613f0
+      557:14    Location struct @ 0x7561408
+      570:27    Location struct @ 0x7561420
+      613:22    Location struct @ 0x7561438
+      614:21    Location struct @ 0x7561450
+      615:28    Location struct @ 0x7561468
+      616:27    Location struct @ 0x7561480
+      628:14    Location struct @ 0x7561498
+      640:27    Location struct @ 0x75614b0
+  src/diff/unchanged.rs  (14 sites)
+       60:17    Location struct @ 0x75614c8
+       69:17    Location struct @ 0x75614e0
+       78:21    Location struct @ 0x75614f8
+       97:21    Location struct @ 0x7561540
+      107:21    Location struct @ 0x7561528
+      115:17    Location struct @ 0x7561510
+      205:21    Location struct @ 0x7561558
+      217:22    Location struct @ 0x7561570
+      230:13    Location struct @ 0x7561588
+      280:39    Location struct @ 0x75615d0
+      281:39    Location struct @ 0x75615e8
+      293:25    Location struct @ 0x75615b8
+      297:35    Location struct @ 0x75615a0
+      300:35    Location struct @ 0x7561600
+  src/display/context.rs  (29 sites)
+       72:17    Location struct @ 0x7565bd8
+       77:17    Location struct @ 0x7565bc0
+       81:17    Location struct @ 0x7565ba8
+       93:17    Location struct @ 0x7565c20
+       98:17    Location struct @ 0x7565c08
+      102:17    Location struct @ 0x7565bf0
+      164:17    Location struct @ 0x7565c50
+      187:43    Location struct @ 0x7565c80
+      196:13    Location struct @ 0x7565c98
+      200:13    Location struct @ 0x7565c68
+      225:12    Location struct @ 0x7565cb0
+      225:55    Location struct @ 0x7565cc8
+      226:17    Location struct @ 0x7565ce0
+      254:12    Location struct @ 0x7565cf8
+      254:55    Location struct @ 0x7565d10
+      255:17    Location struct @ 0x7565d28
+      314:13    Location struct @ 0x7565d40
+      409:13    Location struct @ 0x7565d58
+      431:19    Location struct @ 0x7565d70
+      450:19    Location struct @ 0x7565d88
+      508:13    Location struct @ 0x7565da0
+      659:13    Location struct @ 0x7565db8
+      697:29    Location struct @ 0x7565e18
+      698:40    Location struct @ 0x7565e30
+      701:40    Location struct @ 0x7565e48
+      709:29    Location struct @ 0x7565dd0
+      710:40    Location struct @ 0x7565de8
+      713:40    Location struct @ 0x7565e00
+      720:21    Location struct @ 0x7565e60
+  src/display/hunks.rs  (21 sites)
+       59:27    Location struct @ 0x7561868
+      123:18    Location struct @ 0x7561898
+      175:34    Location struct @ 0x75618c8
+      197:22    Location struct @ 0x75618b0
+      268:27    Location struct @ 0x75618e0
+      316:32    Location struct @ 0x7561928
+      320:19    Location struct @ 0x7561910
+      339:15    Location struct @ 0x75618f8
+      385:17    Location struct @ 0x7561940
+      398:17    Location struct @ 0x7561958
+      411:13    Location struct @ 0x7561970
+      418:13    Location struct @ 0x7561988
+      425:13    Location struct @ 0x75619b8
+      428:13    Location struct @ 0x75619a0
+      507:35    Location struct @ 0x75619f0
+      511:35    Location struct @ 0x7561a08
+      518:17    Location struct @ 0x7561a20
+      576:27    Location struct @ 0x7561a38
+      590:27    Location struct @ 0x7561a50
+      667:31    Location struct @ 0x7561a68
+      668:27    Location struct @ 0x7561a80
+  src/display/inline.rs  (4 sites)
+      112:38    Location struct @ 0x7561b50
+      127:38    Location struct @ 0x7561b38
+      141:38    Location struct @ 0x7561b20
+      156:38    Location struct @ 0x7561b08
+  src/display/json.rs  (10 sites)
+      121:34    Location struct @ 0x7561b68
+      126:55    Location struct @ 0x7561b80
+      145:51    Location struct @ 0x7561bb0
+      153:51    Location struct @ 0x7561bc8
+      161:28    Location struct @ 0x7561b98
+      304:39    Location struct @ 0x7561be0
+      312:38    Location struct @ 0x7561bf8
+      322:20    Location struct @ 0x7561c10
+      326:22    Location struct @ 0x7561c40
+      329:31    Location struct @ 0x7561c28
+  src/display/side_by_side.rs  (12 sites)
+       80:31    Location struct @ 0x7564a70
+       92:21    Location struct @ 0x7564a88
+      107:25    Location struct @ 0x7564ab8
+      210:9     Location struct @ 0x7564ae0
+      291:16    Location struct @ 0x7564b10
+      305:16    Location struct @ 0x7564af8
+      564:52    Location struct @ 0x7564be8
+      620:52    Location struct @ 0x7564c00
+      664:58    Location struct @ 0x7564c18
+      684:58    Location struct @ 0x7564c30
+      701:34    Location struct @ 0x7564c48
+      711:34    Location struct @ 0x7564c60
+  src/display/style.rs  (13 sites)
+       56:7     Location struct @ 0x75656a8
+       60:14    Location struct @ 0x75656c0
+      114:15    Location struct @ 0x75656f0
+      118:15    Location struct @ 0x75656d8
+      141:5     Location struct @ 0x7565748
+      145:5     Location struct @ 0x7565760
+      230:22    Location struct @ 0x7565778
+      278:32    Location struct @ 0x7565790
+      294:28    Location struct @ 0x75657a8
+      303:22    Location struct @ 0x75657c0
+      347:28    Location struct @ 0x75657f0
+      358:16    Location struct @ 0x75657d8
+      440:16    Location struct @ 0x7565808
+  src/files.rs  (10 sites)
+      124:43    Location struct @ 0x75643a8
+      126:43    Location struct @ 0x7564390
+      290:44    Location struct @ 0x7561010
+      314:27    Location struct @ 0x7561058
+      327:27    Location struct @ 0x7561028
+      328:27    Location struct @ 0x7561040
+      341:11    Location struct @ 0x7561070
+      342:18    Location struct @ 0x75610b8
+      347:11    Location struct @ 0x7561088
+      348:18    Location struct @ 0x75610a0
+  src/line_parser.rs  (19 sites)
+       15:57    Location struct @ 0x75634d0
+       21:15    Location struct @ 0x7562138
+       21:21    Location struct @ 0x7562120
+       26:15    Location struct @ 0x7562108
+       26:21    Location struct @ 0x75620f0
+       54:25    Location struct @ 0x7562168
+       59:21    Location struct @ 0x7562180
+       69:13    Location struct @ 0x7562150
+       85:21    Location struct @ 0x7562198
+       88:21    Location struct @ 0x75621b0
+       91:21    Location struct @ 0x75621c8
+      137:25    Location struct @ 0x7562288
+      143:37    Location struct @ 0x7562270
+      164:33    Location struct @ 0x7562258
+      184:33    Location struct @ 0x7562210
+      188:45    Location struct @ 0x75621f8
+      200:37    Location struct @ 0x7562240
+      203:58    Location struct @ 0x7562228
+      236:13    Location struct @ 0x75621e0
+  src/main.rs  (8 sites)
+      144:10    Location struct @ 0x7564ef8
+      339:25    Location struct @ 0x7564f10
+      348:38    Location struct @ 0x7566588
+      695:43    Location struct @ 0x7565068
+      695:56    Location struct @ 0x7565080
+      740:51    Location struct @ 0x7565098
+      744:51    Location struct @ 0x75650b0
+      971:38    Location struct @ 0x75651a8
+  src/options.rs  (20 sites)
+        1:0     Location struct @ 0x7566d18
+      583:31    Location struct @ 0x7566b70
+      649:35    Location struct @ 0x7566c58
+      679:36    Location struct @ 0x7566c28
+      682:32    Location struct @ 0x7566c40
+      696:27    Location struct @ 0x7566c70
+      720:10    Location struct @ 0x7566db8
+      726:13    Location struct @ 0x7566dd0
+      739:34    Location struct @ 0x7566ef0
+      751:27    Location struct @ 0x7566ed8
+      796:10    Location struct @ 0x7566de8
+      810:13    Location struct @ 0x7566e00
+      817:10    Location struct @ 0x7566e18
+      821:14    Location struct @ 0x7566e30
+      833:10    Location struct @ 0x7566e48
+      837:10    Location struct @ 0x7566e60
+      841:10    Location struct @ 0x7566e78
+      845:10    Location struct @ 0x7566e90
+      849:10    Location struct @ 0x7566ea8
+      886:31    Location struct @ 0x7566ec0
+  src/parse/guess_language.rs  (6 sites)
+      425:38    Location struct @ 0x7564490
+      518:79    Location struct @ 0x75634e8
+      519:70    Location struct @ 0x7563500
+      526:51    Location struct @ 0x7563488
+      582:77    Location struct @ 0x7563518
+      586:50    Location struct @ 0x75634a0
+  src/parse/syntax.rs  (19 sites)
+      510:14    Location struct @ 0x7566390
+      531:14    Location struct @ 0x75663a8
+      574:58    Location struct @ 0x75663c0
+      751:25    Location struct @ 0x7566408
+      757:29    Location struct @ 0x75663d8
+      760:26    Location struct @ 0x75663f0
+      769:62    Location struct @ 0x7566420
+      770:25    Location struct @ 0x7566438
+      772:21    Location struct @ 0x7566450
+      777:21    Location struct @ 0x7566468
+      836:15    Location struct @ 0x7566480
+      858:36    Location struct @ 0x75664b0
+      862:36    Location struct @ 0x75664c8
+      908:25    Location struct @ 0x7566498
+      935:25    Location struct @ 0x75664e0
+      972:19    Location struct @ 0x75664f8
+      997:32    Location struct @ 0x7566520
+     1049:27    Location struct @ 0x7566538
+     1074:27    Location struct @ 0x7566550
+  src/parse/tree_sitter_parser.rs  (88 sites)
+      113:41    Location struct @ 0x7560288
+      136:18    Location struct @ 0x75602a0
+      163:18    Location struct @ 0x75602b8
+      177:22    Location struct @ 0x75602d0
+      193:22    Location struct @ 0x75602e8
+      205:92    Location struct @ 0x7560300
+      223:78    Location struct @ 0x7560360
+      242:18    Location struct @ 0x7560318
+      258:18    Location struct @ 0x7560330
+      271:64    Location struct @ 0x7560348
+      294:18    Location struct @ 0x7560378
+      315:22    Location struct @ 0x7560390
+      331:18    Location struct @ 0x75603a8
+      349:18    Location struct @ 0x75603c0
+      365:22    Location struct @ 0x75603d8
+      379:22    Location struct @ 0x75603f0
+      394:18    Location struct @ 0x7560408
+      413:18    Location struct @ 0x7560420
+      427:22    Location struct @ 0x7560438
+      441:22    Location struct @ 0x7560450
+      458:18    Location struct @ 0x7560468
+      471:22    Location struct @ 0x7560480
+      489:22    Location struct @ 0x7560498
+      504:18    Location struct @ 0x75604b0
+      526:22    Location struct @ 0x75604c8
+      549:18    Location struct @ 0x75604e0
+      573:22    Location struct @ 0x75604f8
+      577:30    Location struct @ 0x7560510
+      582:30    Location struct @ 0x7560528
+      608:18    Location struct @ 0x7560540
+      638:22    Location struct @ 0x7560558
+      665:22    Location struct @ 0x7560570
+      679:22    Location struct @ 0x7560588
+      703:18    Location struct @ 0x75605a0
+      731:18    Location struct @ 0x75605b8
+      746:18    Location struct @ 0x75605d0
+      762:22    Location struct @ 0x75605e8
+      776:22    Location struct @ 0x7560600
+      779:26    Location struct @ 0x7560618
+      797:18    Location struct @ 0x7560630
+      813:22    Location struct @ 0x7560648
+      833:22    Location struct @ 0x7560660
+      846:22    Location struct @ 0x7560678
+      859:64    Location struct @ 0x7560690
+      876:18    Location struct @ 0x75606a8
+      899:22    Location struct @ 0x75606c0
+      914:22    Location struct @ 0x75606d8
+      930:18    Location struct @ 0x75606f0
+      951:22    Location struct @ 0x7560708
+      968:78    Location struct @ 0x7560720
+      981:22    Location struct @ 0x7560738
+      996:22    Location struct @ 0x7560750
+     1017:22    Location struct @ 0x7560768
+     1045:18    Location struct @ 0x7560780
+     1064:22    Location struct @ 0x7560798
+     1077:22    Location struct @ 0x75607b0
+     1092:18    Location struct @ 0x75607c8
+     1107:22    Location struct @ 0x75607e0
+     1120:22    Location struct @ 0x75607f8
+     1138:22    Location struct @ 0x7560810
+     1152:22    Location struct @ 0x7560828
+     1179:78    Location struct @ 0x7560840
+     1196:22    Location struct @ 0x7560888
+     1217:22    Location struct @ 0x75608a0
+     1233:18    Location struct @ 0x7560858
+     1247:22    Location struct @ 0x7560870
+     1263:22    Location struct @ 0x75608b8
+     1275:10    Location struct @ 0x75608d0
+     1277:29    Location struct @ 0x75608e8
+     1320:60    Location struct @ 0x7560900
+     1329:18    Location struct @ 0x7560918
+     1332:18    Location struct @ 0x7560930
+     1334:48    Location struct @ 0x7560948
+     1374:30    Location struct @ 0x7560978
+     1386:37    Location struct @ 0x7560960
+     1394:32    Location struct @ 0x7560990
+     1400:30    Location struct @ 0x75609a8
+     1404:33    Location struct @ 0x75609c0
+     1455:32    Location struct @ 0x7560a78
+     1598:20    Location struct @ 0x7560ac0
+     1600:20    Location struct @ 0x7560aa8
+     1600:34    Location struct @ 0x7560a90
+     1857:38    Location struct @ 0x7560af0
+     1872:39    Location struct @ 0x7560ad8
+     1900:37    Location struct @ 0x7560b08
+     1903:27    Location struct @ 0x7560b20
+     1927:18    Location struct @ 0x7560b38
+     1952:27    Location struct @ 0x7560b50
+  src/words.rs  (18 sites)
+       19:27    Location struct @ 0x7565958
+       19:34    Location struct @ 0x7565940
+       20:27    Location struct @ 0x7565988
+       20:34    Location struct @ 0x7565970
+       28:27    Location struct @ 0x7565928
+       28:34    Location struct @ 0x7565910
+       35:15    Location struct @ 0x75658f8
+       35:22    Location struct @ 0x75658e0
+       57:31    Location struct @ 0x7565a78
+       57:38    Location struct @ 0x7565a60
+       62:27    Location struct @ 0x7565a18
+       62:34    Location struct @ 0x7565a00
+       63:27    Location struct @ 0x7565a48
+       63:34    Location struct @ 0x7565a30
+       71:27    Location struct @ 0x75659e8
+       71:34    Location struct @ 0x75659d0
+       78:15    Location struct @ 0x75659b8
+       78:22    Location struct @ 0x75659a0
+
+dep crates by panic site count  (1858 sites across 46 crates):
+  regex-automata@0.4.13                           472
+  aho-corasick@1.1.3                              394
+  regex-syntax@0.8.8                              281
+  clap_builder@4.5.23                             153
+  tree-sitter@0.26.8                              58
+  encoding_rs@0.8.35                              53
+  miniz_oxide@0.7.4                               45
+  globset@0.4.15                                  41
+  rustc-demangle@0.1.24                           39
+  wu-diff@0.1.2                                   35
+  … 36 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_difftastic.stripped
+functions (from .eh_frame): 7077
+
+attribution breakdown:
+  certain         78  (1.1%)  user-authored (100% precision, DWARF-validated)
+  call closure   555  (7.8%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       6444  (91.1%)  not attributed
+
+user-authored functions — high confidence (78):
+  0x001bd600–0x001bd77f  (383 bytes)
+      panic @ src/files.rs:124:43
+      panic @ src/files.rs:126:43
+  0x001bedf0–0x001befc5  (469 bytes)
+      panic @ src/parse/guess_language.rs:425:38
+  0x001c2130–0x001c257c  (1100 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:113:41
+  0x001c2580–0x001cb961  (37857 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:136:18
+      panic @ src/parse/tree_sitter_parser.rs:163:18
+      panic @ src/parse/tree_sitter_parser.rs:177:22
+      panic @ src/parse/tree_sitter_parser.rs:193:22
+      panic @ src/parse/tree_sitter_parser.rs:205:92
+      panic @ src/parse/tree_sitter_parser.rs:223:78
+      panic @ src/parse/tree_sitter_parser.rs:242:18
+      panic @ src/parse/tree_sitter_parser.rs:258:18
+      panic @ src/parse/tree_sitter_parser.rs:271:64
+      panic @ src/parse/tree_sitter_parser.rs:294:18
+      panic @ src/parse/tree_sitter_parser.rs:315:22
+      panic @ src/parse/tree_sitter_parser.rs:331:18
+      panic @ src/parse/tree_sitter_parser.rs:349:18
+      panic @ src/parse/tree_sitter_parser.rs:365:22
+      panic @ src/parse/tree_sitter_parser.rs:379:22
+      panic @ src/parse/tree_sitter_parser.rs:394:18
+      panic @ src/parse/tree_sitter_parser.rs:413:18
+      panic @ src/parse/tree_sitter_parser.rs:427:22
+      panic @ src/parse/tree_sitter_parser.rs:441:22
+      panic @ src/parse/tree_sitter_parser.rs:458:18
+      panic @ src/parse/tree_sitter_parser.rs:471:22
+      panic @ src/parse/tree_sitter_parser.rs:489:22
+      panic @ src/parse/tree_sitter_parser.rs:504:18
+      panic @ src/parse/tree_sitter_parser.rs:526:22
+      panic @ src/parse/tree_sitter_parser.rs:549:18
+      panic @ src/parse/tree_sitter_parser.rs:573:22
+      panic @ src/parse/tree_sitter_parser.rs:577:30
+      panic @ src/parse/tree_sitter_parser.rs:582:30
+      panic @ src/parse/tree_sitter_parser.rs:608:18
+      panic @ src/parse/tree_sitter_parser.rs:638:22
+      panic @ src/parse/tree_sitter_parser.rs:665:22
+      panic @ src/parse/tree_sitter_parser.rs:679:22
+      panic @ src/parse/tree_sitter_parser.rs:703:18
+      panic @ src/parse/tree_sitter_parser.rs:731:18
+      panic @ src/parse/tree_sitter_parser.rs:746:18
+      panic @ src/parse/tree_sitter_parser.rs:762:22
+      panic @ src/parse/tree_sitter_parser.rs:776:22
+      panic @ src/parse/tree_sitter_parser.rs:779:26
+      panic @ src/parse/tree_sitter_parser.rs:797:18
+      panic @ src/parse/tree_sitter_parser.rs:813:22
+      panic @ src/parse/tree_sitter_parser.rs:833:22
+      panic @ src/parse/tree_sitter_parser.rs:846:22
+      panic @ src/parse/tree_sitter_parser.rs:859:64
+      panic @ src/parse/tree_sitter_parser.rs:876:18
+      panic @ src/parse/tree_sitter_parser.rs:899:22
+      panic @ src/parse/tree_sitter_parser.rs:914:22
+      panic @ src/parse/tree_sitter_parser.rs:930:18
+      panic @ src/parse/tree_sitter_parser.rs:951:22
+      panic @ src/parse/tree_sitter_parser.rs:968:78
+      panic @ src/parse/tree_sitter_parser.rs:981:22
+      panic @ src/parse/tree_sitter_parser.rs:996:22
+      panic @ src/parse/tree_sitter_parser.rs:1017:22
+      panic @ src/parse/tree_sitter_parser.rs:1045:18
+      panic @ src/parse/tree_sitter_parser.rs:1064:22
+      panic @ src/parse/tree_sitter_parser.rs:1077:22
+      panic @ src/parse/tree_sitter_parser.rs:1092:18
+      panic @ src/parse/tree_sitter_parser.rs:1107:22
+      panic @ src/parse/tree_sitter_parser.rs:1120:22
+      panic @ src/parse/tree_sitter_parser.rs:1138:22
+      panic @ src/parse/tree_sitter_parser.rs:1152:22
+      panic @ src/parse/tree_sitter_parser.rs:1179:78
+      panic @ src/parse/tree_sitter_parser.rs:1196:22
+      panic @ src/parse/tree_sitter_parser.rs:1217:22
+      panic @ src/parse/tree_sitter_parser.rs:1233:18
+      panic @ src/parse/tree_sitter_parser.rs:1247:22
+      panic @ src/parse/tree_sitter_parser.rs:1263:22
+  0x001cb970–0x001cbacc  (348 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1275:10
+      panic @ src/parse/tree_sitter_parser.rs:1277:29
+  0x001cbad0–0x001cc769  (3225 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1374:30
+      panic @ src/parse/tree_sitter_parser.rs:1386:37
+      panic @ src/parse/tree_sitter_parser.rs:1394:32
+      panic @ src/parse/tree_sitter_parser.rs:1400:30
+      panic @ src/parse/tree_sitter_parser.rs:1404:33
+  0x001cc770–0x001cd08c  (2332 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1455:32
+  0x001cd400–0x001ce2e3  (3811 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1320:60
+      panic @ src/parse/tree_sitter_parser.rs:1329:18
+      panic @ src/parse/tree_sitter_parser.rs:1332:18
+      panic @ src/parse/tree_sitter_parser.rs:1334:48
+  0x001ce2f0–0x001cfef7  (7175 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1598:20
+      panic @ src/parse/tree_sitter_parser.rs:1600:20
+      panic @ src/parse/tree_sitter_parser.rs:1600:34
+      panic @ src/parse/tree_sitter_parser.rs:1857:38
+      panic @ src/parse/tree_sitter_parser.rs:1872:39
+      panic @ src/parse/tree_sitter_parser.rs:1900:37
+      panic @ src/parse/tree_sitter_parser.rs:1903:27
+      panic @ src/parse/tree_sitter_parser.rs:1927:18
+  0x001cff00–0x001d053a  (1594 bytes)
+      panic @ src/parse/tree_sitter_parser.rs:1952:27
+  0x001d4220–0x001d4327  (263 bytes)
+      panic @ src/files.rs:290:44
+  0x001d9b30–0x001da53d  (2573 bytes)
+      panic @ src/files.rs:314:27
+      panic @ src/files.rs:327:27
+      panic @ src/files.rs:328:27
+      panic @ src/files.rs:341:11
+      panic @ src/files.rs:342:18
+      panic @ src/files.rs:347:11
+      panic @ src/files.rs:348:18
+  0x001dd2f0–0x001de4da  (4586 bytes)
+      panic @ src/diff/sliders.rs:408:43
+      panic @ src/diff/sliders.rs:414:29
+      panic @ src/diff/sliders.rs:422:23
+      panic @ src/diff/sliders.rs:429:29
+      panic @ src/diff/sliders.rs:439:17
+      panic @ src/diff/sliders.rs:459:43
+      panic @ src/diff/sliders.rs:465:29
+      panic @ src/diff/sliders.rs:472:19
+      panic @ src/diff/sliders.rs:483:17
+      panic @ src/diff/sliders.rs:542:22
+      panic @ src/diff/sliders.rs:543:21
+      panic @ src/diff/sliders.rs:545:28
+      panic @ src/diff/sliders.rs:557:14
+      panic @ src/diff/sliders.rs:570:27
+      panic @ src/diff/sliders.rs:613:22
+      panic @ src/diff/sliders.rs:614:21
+      panic @ src/diff/sliders.rs:615:28
+      panic @ src/diff/sliders.rs:616:27
+      panic @ src/diff/sliders.rs:628:14
+      panic @ src/diff/sliders.rs:640:27
+  0x001de4e0–0x001de8e4  (1028 bytes)
+      panic @ src/diff/sliders.rs:163:14
+      panic @ src/diff/sliders.rs:330:10
+  0x001de8f0–0x001dec3d  (845 bytes)
+      panic @ src/diff/sliders.rs:196:14
+      panic @ src/diff/sliders.rs:362:46
+  0x001dec40–0x001dee0d  (461 bytes)
+      panic @ src/diff/sliders.rs:230:36
+      panic @ src/diff/sliders.rs:232:23
+  0x001dee10–0x001df17e  (878 bytes)
+      panic @ src/diff/sliders.rs:279:27
+      panic @ src/diff/sliders.rs:295:27
+      panic @ src/diff/sliders.rs:307:31
+  0x001df370–0x001e0a2b  (5819 bytes)
+      panic @ src/diff/unchanged.rs:60:17
+      panic @ src/diff/unchanged.rs:69:17
+      panic @ src/diff/unchanged.rs:78:21
+      panic @ src/diff/unchanged.rs:205:21
+      panic @ src/diff/unchanged.rs:217:22
+      panic @ src/diff/unchanged.rs:230:13
+  0x001e0a30–0x001e11ae  (1918 bytes)
+      panic @ src/diff/unchanged.rs:97:21
+      panic @ src/diff/unchanged.rs:107:21
+      panic @ src/diff/unchanged.rs:115:17
+  0x001e1440–0x001e1e04  (2500 bytes)
+      panic @ src/diff/unchanged.rs:280:39
+      panic @ src/diff/unchanged.rs:281:39
+      panic @ src/diff/unchanged.rs:293:25
+      panic @ src/diff/unchanged.rs:297:35
+      panic @ src/diff/unchanged.rs:300:35
+  0x001e5520–0x001e783d  (8989 bytes)
+      panic @ src/display/hunks.rs:59:27
+      panic @ src/display/hunks.rs:123:18
+      panic @ src/display/hunks.rs:175:34
+      panic @ src/display/hunks.rs:197:22
+      panic @ src/parse/syntax.rs:1049:27
+  0x001e7a80–0x001e8d5d  (4829 bytes)
+      panic @ src/display/hunks.rs:385:17
+      panic @ src/display/hunks.rs:398:17
+      panic @ src/display/hunks.rs:411:13
+      panic @ src/display/hunks.rs:418:13
+      panic @ src/display/hunks.rs:425:13
+      panic @ src/display/hunks.rs:428:13
+  0x001e8f90–0x001eac02  (7282 bytes)
+      panic @ src/display/hunks.rs:268:27
+      panic @ src/display/hunks.rs:316:32
+      panic @ src/display/hunks.rs:320:19
+      panic @ src/display/hunks.rs:339:15
+      panic @ src/display/hunks.rs:507:35
+      panic @ src/display/hunks.rs:511:35
+      panic @ src/display/hunks.rs:518:17
+      panic @ src/display/hunks.rs:576:27
+      panic @ src/display/hunks.rs:590:27
+  0x001eac10–0x001eb0db  (1227 bytes)
+      panic @ src/display/hunks.rs:667:31
+      panic @ src/display/hunks.rs:668:27
+  0x001eb0e0–0x001ed352  (8818 bytes)
+      panic @ src/display/inline.rs:112:38
+      panic @ src/display/inline.rs:127:38
+      panic @ src/display/inline.rs:141:38
+      panic @ src/display/inline.rs:156:38
+  0x001ed360–0x001ee789  (5161 bytes)
+      panic @ src/display/json.rs:121:34
+      panic @ src/display/json.rs:126:55
+      panic @ src/display/json.rs:145:51
+      panic @ src/display/json.rs:153:51
+      panic @ src/display/json.rs:161:28
+  0x001ee9a0–0x001eed12  (882 bytes)
+      panic @ src/display/json.rs:304:39
+  0x001eed20–0x001eef5e  (574 bytes)
+      panic @ src/display/json.rs:312:38
+  0x001eef60–0x001ef226  (710 bytes)
+      panic @ src/display/json.rs:322:20
+      panic @ src/display/json.rs:326:22
+      panic @ src/display/json.rs:329:31
+  0x001f2880–0x001f295d  (221 bytes)
+      panic @ src/parse/guess_language.rs:518:79
+  0x001f2960–0x001f2a3d  (221 bytes)
+      panic @ src/parse/guess_language.rs:519:70
+  0x001f2a40–0x001f2b1d  (221 bytes)
+      panic @ src/line_parser.rs:15:57
+  0x001f2b20–0x001f2bfd  (221 bytes)
+      panic @ src/parse/guess_language.rs:582:77
+  0x001f2c30–0x001f2d0d  (221 bytes)
+      panic @ src/parse/guess_language.rs:518:79
+  0x001f2d10–0x001f2ded  (221 bytes)
+      panic @ src/parse/guess_language.rs:519:70
+  0x001f2df0–0x001f2ecd  (221 bytes)
+      panic @ src/line_parser.rs:15:57
+  0x001f2ed0–0x001f2fad  (221 bytes)
+      panic @ src/parse/guess_language.rs:582:77
+  0x001f5c80–0x001f63d3  (1875 bytes)
+      panic @ src/line_parser.rs:21:15
+      panic @ src/line_parser.rs:21:21
+      panic @ src/line_parser.rs:26:15
+      panic @ src/line_parser.rs:26:21
+  0x001f63e0–0x001f82b0  (7888 bytes)
+      panic @ src/line_parser.rs:54:25
+      panic @ src/line_parser.rs:59:21
+      panic @ src/line_parser.rs:69:13
+      panic @ src/line_parser.rs:85:21
+      panic @ src/line_parser.rs:88:21
+      panic @ src/line_parser.rs:91:21
+      panic @ src/line_parser.rs:137:25
+      panic @ src/line_parser.rs:143:37
+      panic @ src/line_parser.rs:164:33
+      panic @ src/line_parser.rs:184:33
+      panic @ src/line_parser.rs:188:45
+      panic @ src/line_parser.rs:200:37
+      panic @ src/line_parser.rs:203:58
+      panic @ src/line_parser.rs:236:13
+  0x001f8470–0x001fa10d  (7325 bytes)
+      panic @ src/parse/guess_language.rs:526:51
+      panic @ src/parse/guess_language.rs:586:50
+  0x001fde10–0x001fec27  (3607 bytes)
+      panic @ src/diff/graph.rs:498:21
+      panic @ src/diff/graph.rs:787:5
+      panic @ src/diff/graph.rs:793:10
+  0x001fec30–0x001feea8  (632 bytes)
+      panic @ src/diff/graph.rs:804:40
+      panic @ src/diff/graph.rs:805:40
+      panic @ src/diff/graph.rs:813:40
+      panic @ src/diff/graph.rs:814:40
+      panic @ src/diff/graph.rs:819:40
+      panic @ src/diff/graph.rs:820:40
+      panic @ src/diff/graph.rs:838:40
+      panic @ src/diff/graph.rs:842:40
+  0x00200f90–0x0020149b  (1291 bytes)
+      panic @ src/diff/lcs_diff.rs:57:23
+      panic @ src/diff/lcs_diff.rs:68:17
+      panic @ src/diff/lcs_diff.rs:71:23
+      panic @ src/diff/lcs_diff.rs:82:17
+  0x002014a0–0x002021de  (3390 bytes)
+      panic @ src/diff/lcs_diff.rs:57:23
+      panic @ src/diff/lcs_diff.rs:68:17
+      panic @ src/diff/lcs_diff.rs:71:23
+      panic @ src/diff/lcs_diff.rs:82:17
+      panic @ src/diff/lcs_diff.rs:123:43
+      panic @ src/diff/lcs_diff.rs:132:29
+      panic @ src/diff/lcs_diff.rs:139:21
+      panic @ src/diff/lcs_diff.rs:145:29
+      panic @ src/diff/lcs_diff.rs:154:29
+      panic @ src/diff/lcs_diff.rs:161:21
+      panic @ src/diff/lcs_diff.rs:168:29
+      panic @ src/diff/lcs_diff.rs:175:21
+      panic @ src/diff/lcs_diff.rs:182:13
+      panic @ src/diff/lcs_diff.rs:186:13
+  0x0020dbf0–0x0020e38c  (1948 bytes)
+      panic @ src/display/side_by_side.rs:80:31
+      panic @ src/display/side_by_side.rs:92:21
+      panic @ src/display/side_by_side.rs:107:25
+  0x0020e4c0–0x0021247f  (16319 bytes)
+      panic @ src/display/side_by_side.rs:210:9
+      panic @ src/display/side_by_side.rs:291:16
+      panic @ src/display/side_by_side.rs:305:16
+      panic @ src/display/side_by_side.rs:564:52
+      panic @ src/display/side_by_side.rs:620:52
+      panic @ src/display/side_by_side.rs:664:58
+      panic @ src/display/side_by_side.rs:684:58
+      panic @ src/display/side_by_side.rs:701:34
+      panic @ src/display/side_by_side.rs:711:34
+  0x00214fd0–0x0021760d  (9789 bytes)
+      panic @ src/main.rs:144:10
+      panic @ src/main.rs:339:25
+  0x00219300–0x0021b371  (8305 bytes)
+      panic @ src/main.rs:695:43
+      panic @ src/main.rs:695:56
+      panic @ src/main.rs:740:51
+      panic @ src/main.rs:744:51
+  0x0021b950–0x0021c186  (2102 bytes)
+      panic @ src/main.rs:971:38
+  0x0021c2e0–0x0021c712  (1074 bytes)
+      panic @ src/diff/lcs_diff.rs:88:73
+      panic @ src/diff/lcs_diff.rs:90:40
+      panic @ src/diff/lcs_diff.rs:91:40
+      panic @ src/diff/lcs_diff.rs:93:75
+  0x0021c720–0x0021c8d5  (437 bytes)
+      panic @ src/diff/lcs_diff.rs:28:66
+      panic @ src/diff/lcs_diff.rs:28:82
+      panic @ src/diff/lcs_diff.rs:30:42
+      panic @ src/diff/lcs_diff.rs:31:42
+      panic @ src/diff/lcs_diff.rs:32:35
+      panic @ src/diff/lcs_diff.rs:32:49
+      panic @ src/diff/lcs_diff.rs:34:65
+      panic @ src/diff/lcs_diff.rs:34:81
+  0x0021c8e0–0x0021caab  (459 bytes)
+      panic @ src/diff/lcs_diff.rs:28:66
+      panic @ src/diff/lcs_diff.rs:28:82
+      panic @ src/diff/lcs_diff.rs:30:42
+      panic @ src/diff/lcs_diff.rs:31:42
+      panic @ src/diff/lcs_diff.rs:32:35
+      panic @ src/diff/lcs_diff.rs:32:49
+      panic @ src/diff/lcs_diff.rs:34:65
+      panic @ src/diff/lcs_diff.rs:34:81
+  0x00228440–0x002285d5  (405 bytes)
+      panic @ src/display/style.rs:60:14
+  0x00228800–0x00228ef5  (1781 bytes)
+      panic @ src/display/style.rs:56:7
+      panic @ src/display/style.rs:114:15
+      panic @ src/display/style.rs:118:15
+  0x00228f00–0x002299a2  (2722 bytes)
+      panic @ src/display/style.rs:141:5
+      panic @ src/display/style.rs:145:5
+      panic @ src/display/style.rs:230:22
+  0x002299b0–0x0022a321  (2417 bytes)
+      panic @ src/display/style.rs:347:28
+      panic @ src/display/style.rs:358:16
+      panic @ src/display/style.rs:440:16
+  0x0022a330–0x0022b3ab  (4219 bytes)
+      panic @ src/display/style.rs:56:7
+      panic @ src/display/style.rs:278:32
+      panic @ src/display/style.rs:294:28
+      panic @ src/display/style.rs:303:22
+  0x0022cc20–0x0022d17e  (1374 bytes)
+      panic @ src/words.rs:19:27
+      panic @ src/words.rs:19:34
+      panic @ src/words.rs:20:27
+      panic @ src/words.rs:20:34
+      panic @ src/words.rs:28:27
+      panic @ src/words.rs:28:34
+      panic @ src/words.rs:35:15
+      panic @ src/words.rs:35:22
+  0x0022d180–0x0022d791  (1553 bytes)
+      panic @ src/words.rs:57:31
+      panic @ src/words.rs:57:38
+      panic @ src/words.rs:62:27
+      panic @ src/words.rs:62:34
+      panic @ src/words.rs:63:27
+      panic @ src/words.rs:63:34
+      panic @ src/words.rs:71:27
+      panic @ src/words.rs:71:34
+      panic @ src/words.rs:78:15
+      panic @ src/words.rs:78:22
+  0x00231c10–0x00231dde  (462 bytes)
+      panic @ src/diff/changes.rs:65:21
+      panic @ src/diff/changes.rs:77:21
+      panic @ src/diff/changes.rs:89:14
+  0x00231e60–0x00233a8c  (7212 bytes)
+      panic @ src/display/context.rs:72:17
+      panic @ src/display/context.rs:77:17
+      panic @ src/display/context.rs:81:17
+      panic @ src/display/context.rs:93:17
+      panic @ src/display/context.rs:98:17
+      panic @ src/display/context.rs:102:17
+      panic @ src/display/context.rs:164:17
+      panic @ src/display/context.rs:225:12
+      panic @ src/display/context.rs:225:55
+      panic @ src/display/context.rs:226:17
+      panic @ src/display/context.rs:254:12
+      panic @ src/display/context.rs:254:55
+      panic @ src/display/context.rs:255:17
+      panic @ src/display/context.rs:314:13
+      panic @ src/display/context.rs:659:13
+      panic @ src/display/context.rs:697:29
+      panic @ src/display/context.rs:698:40
+      panic @ src/display/context.rs:701:40
+      panic @ src/display/context.rs:709:29
+      panic @ src/display/context.rs:710:40
+      panic @ src/display/context.rs:713:40
+      panic @ src/display/context.rs:720:21
+  0x00233c50–0x00233e7d  (557 bytes)
+      panic @ src/display/context.rs:187:43
+      panic @ src/display/context.rs:196:13
+      panic @ src/display/context.rs:200:13
+  0x002342a0–0x0023487f  (1503 bytes)
+      panic @ src/display/context.rs:409:13
+  0x00234880–0x00234d5e  (1246 bytes)
+      panic @ src/display/context.rs:508:13
+  0x00234d60–0x002351a6  (1094 bytes)
+      panic @ src/display/context.rs:431:19
+  0x002351b0–0x00235528  (888 bytes)
+      panic @ src/display/context.rs:450:19
+  0x00235710–0x0023584c  (316 bytes)
+      panic @ src/main.rs:348:38
+  0x0023bed0–0x0023bf57  (135 bytes)
+      panic @ src/parse/syntax.rs:510:14
+  0x0023c250–0x0023c3dd  (397 bytes)
+      panic @ src/parse/syntax.rs:531:14
+  0x0023c4f0–0x0023c5b2  (194 bytes)
+      panic @ src/parse/syntax.rs:574:58
+  0x0023c6b0–0x0023d7e9  (4409 bytes)
+      panic @ src/parse/syntax.rs:751:25
+      panic @ src/parse/syntax.rs:757:29
+      panic @ src/parse/syntax.rs:760:26
+      panic @ src/parse/syntax.rs:769:62
+      panic @ src/parse/syntax.rs:770:25
+      panic @ src/parse/syntax.rs:772:21
+      panic @ src/parse/syntax.rs:777:21
+      panic @ src/parse/syntax.rs:836:15
+      panic @ src/parse/syntax.rs:858:36
+      panic @ src/parse/syntax.rs:862:36
+      panic @ src/parse/syntax.rs:908:25
+      panic @ src/parse/syntax.rs:935:25
+  0x0023d7f0–0x0023d9e5  (501 bytes)
+      panic @ src/parse/syntax.rs:972:19
+  0x0023d9f0–0x0023df41  (1361 bytes)
+      panic @ src/parse/syntax.rs:997:32
+  0x0023df50–0x0023e265  (789 bytes)
+      panic @ src/parse/syntax.rs:1049:27
+  0x0023e270–0x0023e4a2  (562 bytes)
+      panic @ src/parse/syntax.rs:1074:27
+  0x00241e20–0x00243961  (6977 bytes)
+      panic @ src/diff/dijkstra.rs:43:54
+      panic @ src/diff/dijkstra.rs:43:72
+      panic @ src/diff/dijkstra.rs:66:21
+      panic @ src/diff/dijkstra.rs:81:22
+      panic @ src/diff/dijkstra.rs:92:34
+      panic @ src/diff/dijkstra.rs:99:13
+      panic @ src/diff/dijkstra.rs:125:5
+      panic @ src/diff/dijkstra.rs:128:51
+      panic @ src/diff/dijkstra.rs:150:5
+  0x0024df50–0x0024e801  (2225 bytes)
+      panic @ src/options.rs:583:31
+  0x0024e810–0x00252633  (15907 bytes)
+      panic @ src/options.rs:1:0
+      panic @ src/options.rs:649:35
+      panic @ src/options.rs:679:36
+      panic @ src/options.rs:682:32
+      panic @ src/options.rs:696:27
+      panic @ src/options.rs:720:10
+      panic @ src/options.rs:726:13
+      panic @ src/options.rs:739:34
+      panic @ src/options.rs:751:27
+      panic @ src/options.rs:796:10
+      panic @ src/options.rs:810:13
+      panic @ src/options.rs:817:10
+      panic @ src/options.rs:821:14
+      panic @ src/options.rs:833:10
+      panic @ src/options.rs:837:10
+      panic @ src/options.rs:841:10
+      panic @ src/options.rs:845:10
+      panic @ src/options.rs:849:10
+      panic @ src/options.rs:886:31
+
+call closure — reachable from user code, not user-authored (555):
+  0x000efde0–0x000efe94  (180 bytes)  [indeterminate]
+  0x000efea0–0x000eff95  (245 bytes)  [indeterminate]
+  0x000f16e0–0x000f1789  (169 bytes)  [indeterminate]
+  0x000f4000–0x000f40b4  (180 bytes)  [indeterminate]
+  0x000f40c0–0x000f41b5  (245 bytes)  [indeterminate]
+  0x000f41b5–0x000f41e3  (46 bytes)  [inferred]
+  0x000ffe70–0x000fff2e  (190 bytes)  [indeterminate]
+  0x000fff30–0x0010000d  (221 bytes)  [indeterminate]
+  0x00100010–0x00100053  (67 bytes)  [indeterminate]
+  0x001001f0–0x0010022b  (59 bytes)  [indeterminate]
+  0x0010054a–0x0010059f  (85 bytes)  [indeterminate]
+  0x00100673–0x001006c8  (85 bytes)  [indeterminate]
+  0x00101370–0x0010141a  (170 bytes)  [indeterminate]
+  0x00195ac0–0x00195f70  (1200 bytes)  [inferred]
+  0x001b3840–0x001b3bd7  (919 bytes)  [inferred]
+  0x001b3be0–0x001b3cd8  (248 bytes)  [inferred]
+  0x001b3ce0–0x001b3dab  (203 bytes)  [inferred]
+  0x001b3db0–0x001b3e99  (233 bytes)  [inferred]
+  0x001b3ea0–0x001b3ef6  (86 bytes)  [inferred]
+  0x001b3f00–0x001b4138  (568 bytes)  [inferred]
+  0x001b4140–0x001b4295  (341 bytes)  [inferred]
+  0x001b42a0–0x001b4546  (678 bytes)  [inferred]
+  0x001b4550–0x001b45d2  (130 bytes)  [inferred]
+  0x001b45e0–0x001b46cb  (235 bytes)  [inferred]
+  0x001b46d0–0x001b488c  (444 bytes)  [inferred]
+  0x001b4890–0x001b4948  (184 bytes)  [inferred]
+  0x001b4950–0x001b4aca  (378 bytes)  [inferred]
+  0x001b4c70–0x001b4c99  (41 bytes)  [inferred]
+  0x001b4ca0–0x001b4d77  (215 bytes)  [inferred]
+  0x001b4d80–0x001b4e20  (160 bytes)  [inferred]
+  0x001b4e20–0x001b4f64  (324 bytes)  [inferred]
+  0x001b4f70–0x001b4fab  (59 bytes)  [inferred]
+  0x001b4fb0–0x001b505b  (171 bytes)  [inferred]
+  0x001b5060–0x001b5137  (215 bytes)  [inferred]
+  0x001b5140–0x001b51c0  (128 bytes)  [inferred]
+  0x001b51c0–0x001b520a  (74 bytes)  [inferred]
+  0x001b5210–0x001b5292  (130 bytes)  [inferred]
+  0x001b52a0–0x001b538d  (237 bytes)  [inferred]
+  0x001b5390–0x001b544f  (191 bytes)  [inferred]
+  0x001b5680–0x001b57e4  (356 bytes)  [indeterminate]
+  0x001b57f0–0x001b5842  (82 bytes)  [inferred]
+  0x001b5850–0x001b596d  (285 bytes)  [indeterminate]
+  0x001b5970–0x001b599c  (44 bytes)  [inferred]
+  0x001b59a0–0x001b5a01  (97 bytes)  [inferred]
+  0x001b5a10–0x001b5c8f  (639 bytes)  [inferred]
+  0x001b5c90–0x001b5dd3  (323 bytes)  [inferred]
+  0x001b5de0–0x001b5e99  (185 bytes)  [indeterminate]
+  0x001b5ea0–0x001b6030  (400 bytes)  [inferred]
+  0x001b6030–0x001b6186  (342 bytes)  [indeterminate]
+  0x001b6190–0x001b6a63  (2259 bytes)  [inferred]
+  0x001b6a70–0x001b6af8  (136 bytes)  [inferred]
+  0x001b6b00–0x001b6c0d  (269 bytes)  [inferred]
+  0x001b6c10–0x001b6eac  (668 bytes)  [inferred]
+  0x001b6eb0–0x001b7052  (418 bytes)  [inferred]
+  0x001b7060–0x001b7163  (259 bytes)  [indeterminate]
+  0x001b7170–0x001b719c  (44 bytes)  [inferred]
+  0x001b71a0–0x001b71f2  (82 bytes)  [inferred]
+  0x001b7200–0x001b7256  (86 bytes)  [inferred]
+  0x001b7260–0x001b795d  (1789 bytes)  [inferred]
+  0x001b7960–0x001b79dc  (124 bytes)  [inferred]
+  0x001b7a70–0x001b7aec  (124 bytes)  [inferred]
+  0x001b7af0–0x001b7c55  (357 bytes)  [inferred]
+  0x001b7c60–0x001b7d4d  (237 bytes)  [indeterminate]
+  0x001b7d50–0x001b7d9f  (79 bytes)  [inferred]
+  0x001b7da0–0x001b7e6d  (205 bytes)  [inferred]
+  0x001b7e70–0x001b7eec  (124 bytes)  [inferred]
+  0x001b7ef0–0x001b7f5a  (106 bytes)  [inferred]
+  0x001b7f60–0x001b8009  (169 bytes)  [inferred]
+  0x001b8010–0x001b808c  (124 bytes)  [inferred]
+  0x001b8090–0x001b8128  (152 bytes)  [inferred]
+  0x001b8130–0x001b81b4  (132 bytes)  [inferred]
+  0x001b81c0–0x001b8247  (135 bytes)  [inferred]
+  0x001b8250–0x001b8303  (179 bytes)  [inferred]
+  0x001b8310–0x001b838c  (124 bytes)  [inferred]
+  0x001b83e0–0x001b8461  (129 bytes)  [inferred]
+  0x001b8530–0x001b85b4  (132 bytes)  [indeterminate]
+  0x001b85c0–0x001b876d  (429 bytes)  [inferred]
+  0x001b8770–0x001b89d7  (615 bytes)  [inferred]
+  0x001b89e0–0x001b8c11  (561 bytes)  [inferred]
+  0x001b8c20–0x001b8c63  (67 bytes)  [inferred]
+  0x001b8c70–0x001b8cae  (62 bytes)  [inferred]
+  0x001b8cb0–0x001b8cd4  (36 bytes)  [inferred]
+  0x001b8ce0–0x001b8da2  (194 bytes)  [inferred]
+  0x001b8db0–0x001b8ea0  (240 bytes)  [inferred]
+  0x001b8ea0–0x001b8eff  (95 bytes)  [inferred]
+  0x001b8f00–0x001b8fbb  (187 bytes)  [inferred]
+  0x001b8fc0–0x001b9040  (128 bytes)  [inferred]
+  0x001b9040–0x001b9173  (307 bytes)  [inferred]
+  0x001b9180–0x001b926c  (236 bytes)  [inferred]
+  0x001b92e0–0x001b9372  (146 bytes)  [inferred]
+  0x001b9380–0x001b93e5  (101 bytes)  [inferred]
+  0x001b9460–0x001b9606  (422 bytes)  [inferred]
+  0x001b9610–0x001b9651  (65 bytes)  [inferred]
+  0x001b99c0–0x001b9a66  (166 bytes)  [inferred]
+  0x001b9fd0–0x001ba075  (165 bytes)  [inferred]
+  0x001ba6c0–0x001ba71c  (92 bytes)  [inferred]
+  0x001ba720–0x001ba7e5  (197 bytes)  [indeterminate]
+  0x001ba7f0–0x001ba84c  (92 bytes)  [inferred]
+  0x001ba850–0x001ba946  (246 bytes)  [inferred]
+  0x001ba950–0x001baa14  (196 bytes)  [indeterminate]
+  0x001baa20–0x001baa59  (57 bytes)  [inferred]
+  0x001baa60–0x001bab08  (168 bytes)  [indeterminate]
+  0x001bab10–0x001bab49  (57 bytes)  [inferred]
+  0x001babf0–0x001bad69  (377 bytes)  [inferred]
+  0x001bad70–0x001badb2  (66 bytes)  [inferred]
+  0x001badc0–0x001baeab  (235 bytes)  [inferred]
+  0x001baeb0–0x001baf89  (217 bytes)  [inferred]
+  0x001baf90–0x001bb1c7  (567 bytes)  [inferred]
+  0x001bb1d0–0x001bb2aa  (218 bytes)  [inferred]
+  0x001bb2b0–0x001bb3e2  (306 bytes)  [inferred]
+  0x001bb560–0x001bb63a  (218 bytes)  [inferred]
+  0x001bb6f0–0x001bb984  (660 bytes)  [inferred]
+  0x001bb990–0x001bbb62  (466 bytes)  [inferred]
+  0x001bbb70–0x001bbde3  (627 bytes)  [inferred]
+  0x001bbdf0–0x001bc12e  (830 bytes)  [inferred]
+  0x001bc130–0x001bc562  (1074 bytes)  [inferred]
+  0x001bc570–0x001bc7eb  (635 bytes)  [inferred]
+  0x001bc7f0–0x001bc969  (377 bytes)  [inferred]
+  0x001bc970–0x001bcc7f  (783 bytes)  [inferred]
+  0x001bcc80–0x001bce29  (425 bytes)  [inferred]
+  0x001bce30–0x001bd167  (823 bytes)  [inferred]
+  0x001bd2a0–0x001bd435  (405 bytes)  [inferred]
+  0x001bd440–0x001bd5f9  (441 bytes)  [inferred]
+  0x001bd900–0x001bdbed  (749 bytes)  [inferred]
+  0x001bdbf0–0x001bde64  (628 bytes)  [inferred]
+  0x001bde70–0x001be19f  (815 bytes)  [inferred]
+  0x001be1a0–0x001be2e1  (321 bytes)  [inferred]
+  0x001be420–0x001be72a  (778 bytes)  [inferred]
+  0x001be730–0x001becc4  (1428 bytes)  [inferred]
+  0x001becd0–0x001bede5  (277 bytes)  [inferred]
+  0x001bf0b0–0x001bf27b  (459 bytes)  [inferred]
+  0x001bf280–0x001bf58a  (778 bytes)  [inferred]
+  0x001bf7a0–0x001bf8c9  (297 bytes)  [inferred]
+  0x001bf8d0–0x001bfc6f  (927 bytes)  [inferred]
+  0x001bfc70–0x001bfd99  (297 bytes)  [inferred]
+  0x001bfda0–0x001bfe74  (212 bytes)  [inferred]
+  0x001bfe80–0x001bff37  (183 bytes)  [inferred]
+  0x001bff40–0x001bfff7  (183 bytes)  [inferred]
+  0x001c0000–0x001c00b7  (183 bytes)  [inferred]
+  0x001c00c0–0x001c0153  (147 bytes)  [inferred]
+  0x001c0160–0x001c0227  (199 bytes)  [inferred]
+  0x001c0230–0x001c02e7  (183 bytes)  [inferred]
+  0x001c02f0–0x001c03a7  (183 bytes)  [inferred]
+  0x001c03b0–0x001c0467  (183 bytes)  [inferred]
+  0x001c0730–0x001c08e4  (436 bytes)  [inferred]
+  0x001c08f0–0x001c09c7  (215 bytes)  [inferred]
+  0x001c09d0–0x001c0b14  (324 bytes)  [inferred]
+  0x001c0b20–0x001c0bf7  (215 bytes)  [inferred]
+  0x001c0c00–0x001c0cbf  (191 bytes)  [inferred]
+  0x001c0cc0–0x001c0d15  (85 bytes)  [inferred]
+  0x001c0d20–0x001c0d72  (82 bytes)  [inferred]
+  0x001c0d80–0x001c0ede  (350 bytes)  [inferred]
+  0x001c0ee0–0x001c1111  (561 bytes)  [inferred]
+  0x001c1160–0x001c126d  (269 bytes)  [inferred]
+  0x001c1270–0x001c14ea  (634 bytes)  [inferred]
+  0x001c14f0–0x001c153f  (79 bytes)  [inferred]
+  0x001c1540–0x001c160d  (205 bytes)  [inferred]
+  0x001c1610–0x001c167a  (106 bytes)  [inferred]
+  0x001c1680–0x001c17cd  (333 bytes)  [inferred]
+  0x001c17d0–0x001c18b2  (226 bytes)  [inferred]
+  0x001c18c0–0x001c19d5  (277 bytes)  [inferred]
+  0x001c19e0–0x001c1a23  (67 bytes)  [inferred]
+  0x001c1a30–0x001c1aeb  (187 bytes)  [inferred]
+  0x001c1af0–0x001c1b50  (96 bytes)  [inferred]
+  0x001c1b50–0x001c1bae  (94 bytes)  [inferred]
+  0x001c1bb0–0x001c1c5c  (172 bytes)  [inferred]
+  0x001c1c60–0x001c1ce8  (136 bytes)  [inferred]
+  0x001c2060–0x001c2125  (197 bytes)  [inferred]
+  0x001cd090–0x001cd25a  (458 bytes)  [inferred]
+  0x001cd260–0x001cd3f2  (402 bytes)  [inferred]
+  0x001d0640–0x001d0aa5  (1125 bytes)  [inferred]
+  0x001d1150–0x001d1188  (56 bytes)  [inferred]
+  0x001d1190–0x001d1307  (375 bytes)  [inferred]
+  0x001d1a90–0x001d1be7  (343 bytes)  [indeterminate]
+  0x001d1bf0–0x001d1ca4  (180 bytes)  [inferred]
+  0x001d1d50–0x001d1eab  (347 bytes)  [inferred]
+  0x001d1eb0–0x001d232f  (1151 bytes)  [inferred]
+  0x001d2330–0x001d2593  (611 bytes)  [inferred]
+  0x001d2d20–0x001d2e51  (305 bytes)  [inferred]
+  0x001d2e60–0x001d3064  (516 bytes)  [indeterminate]
+  0x001d3070–0x001d3278  (520 bytes)  [indeterminate]
+  0x001d3280–0x001d352a  (682 bytes)  [indeterminate]
+  0x001d3530–0x001d3703  (467 bytes)  [indeterminate]
+  0x001d3710–0x001d4215  (2821 bytes)  [inferred]
+  0x001d47f0–0x001d488f  (159 bytes)  [inferred]
+  0x001d4890–0x001d4912  (130 bytes)  [inferred]
+  0x001d4920–0x001d4972  (82 bytes)  [inferred]
+  0x001d4a10–0x001d4a8e  (126 bytes)  [inferred]
+  0x001d4a90–0x001d4aaf  (31 bytes)  [inferred]
+  0x001d4ab0–0x001d4b4d  (157 bytes)  [inferred]
+  0x001d4b50–0x001d4ba6  (86 bytes)  [inferred]
+  0x001d4bb0–0x001d4c3f  (143 bytes)  [inferred]
+  0x001d4e40–0x001d4f83  (323 bytes)  [inferred]
+  0x001d4f90–0x001d5059  (201 bytes)  [indeterminate]
+  0x001d5060–0x001d51bf  (351 bytes)  [inferred]
+  0x001d51c0–0x001d5215  (85 bytes)  [inferred]
+  0x001d5260–0x001d5531  (721 bytes)  [indeterminate]
+  0x001d5540–0x001d56b9  (377 bytes)  [inferred]
+  0x001d5f40–0x001d5f96  (86 bytes)  [inferred]
+  0x001d5fa0–0x001d5ff6  (86 bytes)  [inferred]
+  0x001d6000–0x001d60b5  (181 bytes)  [indeterminate]
+  0x001d60c0–0x001d613c  (124 bytes)  [inferred]
+  0x001d6140–0x001d61be  (126 bytes)  [inferred]
+  0x001d61c0–0x001d623c  (124 bytes)  [inferred]
+  0x001d6480–0x001d64fc  (124 bytes)  [inferred]
+  0x001d6500–0x001d6531  (49 bytes)  [inferred]
+  0x001d6540–0x001d65bc  (124 bytes)  [inferred]
+  0x001d65c0–0x001d666c  (172 bytes)  [inferred]
+  0x001d6670–0x001d677e  (270 bytes)  [inferred]
+  0x001d6a10–0x001d6b0f  (255 bytes)  [inferred]
+  0x001d6b10–0x001d6d39  (553 bytes)  [inferred]
+  0x001d6db0–0x001d6dbb  (11 bytes)  [indeterminate]
+  0x001d6e10–0x001d70a9  (665 bytes)  [inferred]
+  0x001d70b0–0x001d71e0  (304 bytes)  [indeterminate]
+  0x001d7200–0x001d7223  (35 bytes)  [inferred]
+  0x001d8590–0x001d8876  (742 bytes)  [inferred]
+  0x001d8880–0x001d8a8b  (523 bytes)  [inferred]
+  0x001d8a90–0x001d8c0d  (381 bytes)  [inferred]
+  0x001d8c10–0x001d8d02  (242 bytes)  [inferred]
+  0x001d99d0–0x001d9b21  (337 bytes)  [inferred]
+  0x001daac0–0x001dabcb  (267 bytes)  [inferred]
+  0x001dabd0–0x001dac79  (169 bytes)  [inferred]
+  0x001dae40–0x001daec2  (130 bytes)  [inferred]
+  0x001daed0–0x001daff8  (296 bytes)  [inferred]
+  0x001db4d0–0x001db508  (56 bytes)  [inferred]
+  0x001db510–0x001db5a0  (144 bytes)  [indeterminate]
+  0x001db5a0–0x001db638  (152 bytes)  [inferred]
+  0x001db640–0x001db678  (56 bytes)  [inferred]
+  0x001db740–0x001db7d4  (148 bytes)  [inferred]
+  0x001db800–0x001db9e6  (486 bytes)  [indeterminate]
+  0x001db9f0–0x001dba70  (128 bytes)  [inferred]
+  0x001dba70–0x001dbb70  (256 bytes)  [inferred]
+  0x001dbb70–0x001dbba0  (48 bytes)  [inferred]
+  0x001dbba0–0x001dbd74  (468 bytes)  [inferred]
+  0x001dbd80–0x001dbf71  (497 bytes)  [inferred]
+  0x001dc0e0–0x001dc117  (55 bytes)  [inferred]
+  0x001dc120–0x001dc157  (55 bytes)  [inferred]
+  0x001dc160–0x001dc196  (54 bytes)  [inferred]
+  0x001dc300–0x001dc40e  (270 bytes)  [indeterminate]
+  0x001dc550–0x001dc580  (48 bytes)  [inferred]
+  0x001dca10–0x001dcaaa  (154 bytes)  [inferred]
+  0x001dcab0–0x001dcc1f  (367 bytes)  [inferred]
+  0x001dcc20–0x001dccba  (154 bytes)  [inferred]
+  0x001dcf60–0x001dd027  (199 bytes)  [inferred]
+  0x001df180–0x001df36c  (492 bytes)  [inferred]
+  0x001e11b0–0x001e1231  (129 bytes)  [inferred]
+  0x001e1240–0x001e1369  (297 bytes)  [inferred]
+  0x001e1370–0x001e143d  (205 bytes)  [inferred]
+  0x001e1e10–0x001e2586  (1910 bytes)  [inferred]
+  0x001e25d0–0x001e26cf  (255 bytes)  [inferred]
+  0x001e26d0–0x001e27c7  (247 bytes)  [inferred]
+  0x001e27d0–0x001e28ca  (250 bytes)  [inferred]
+  0x001e28d0–0x001e294a  (122 bytes)  [inferred]
+  0x001e2950–0x001e29b1  (97 bytes)  [inferred]
+  0x001e29c0–0x001e2a4d  (141 bytes)  [inferred]
+  0x001e2a50–0x001e2ad8  (136 bytes)  [inferred]
+  0x001e2ae0–0x001e2b5c  (124 bytes)  [inferred]
+  0x001e2b60–0x001e2c3f  (223 bytes)  [inferred]
+  0x001e2c40–0x001e2cf3  (179 bytes)  [inferred]
+  0x001e2d00–0x001e2dc2  (194 bytes)  [inferred]
+  0x001e2dd0–0x001e2e26  (86 bytes)  [inferred]
+  0x001e2e30–0x001e2f2f  (255 bytes)  [inferred]
+  0x001e2f30–0x001e2f8e  (94 bytes)  [inferred]
+  0x001e2f90–0x001e334b  (955 bytes)  [inferred]
+  0x001e3350–0x001e3707  (951 bytes)  [inferred]
+  0x001e3710–0x001e3933  (547 bytes)  [inferred]
+  0x001e3940–0x001e489c  (3932 bytes)  [inferred]
+  0x001e48a0–0x001e4b87  (743 bytes)  [inferred]
+  0x001e5300–0x001e53f8  (248 bytes)  [inferred]
+  0x001e5400–0x001e54a8  (168 bytes)  [inferred]
+  0x001e54b0–0x001e551a  (106 bytes)  [inferred]
+  0x001e7840–0x001e7a80  (576 bytes)  [inferred]
+  0x001e8d60–0x001e8f8c  (556 bytes)  [inferred]
+  0x001ee790–0x001ee999  (521 bytes)  [inferred]
+  0x001ef230–0x001ef385  (341 bytes)  [inferred]
+  0x001ef390–0x001ef477  (231 bytes)  [inferred]
+  0x001ef480–0x001ef58a  (266 bytes)  [inferred]
+  0x001ef630–0x001ef8eb  (699 bytes)  [inferred]
+  0x001f0300–0x001f057f  (639 bytes)  [indeterminate]
+  0x001f0580–0x001f0d84  (2052 bytes)  [inferred]
+  0x001f0d90–0x001f1611  (2177 bytes)  [inferred]
+  0x001f2740–0x001f2871  (305 bytes)  [indeterminate]
+  0x001f2ff0–0x001f3028  (56 bytes)  [inferred]
+  0x001f3030–0x001f3082  (82 bytes)  [indeterminate]
+  0x001f3090–0x001f30e5  (85 bytes)  [indeterminate]
+  0x001f30f0–0x001f314b  (91 bytes)  [inferred]
+  0x001f31f0–0x001f3284  (148 bytes)  [inferred]
+  0x001f3290–0x001f32e8  (88 bytes)  [inferred]
+  0x001f32f0–0x001f33af  (191 bytes)  [inferred]
+  0x001f33b0–0x001f3445  (149 bytes)  [inferred]
+  0x001f3450–0x001f35b4  (356 bytes)  [inferred]
+  0x001f36a0–0x001f3971  (721 bytes)  [indeterminate]
+  0x001f3a40–0x001f3ac8  (136 bytes)  [inferred]
+  0x001f3ad0–0x001f3d4a  (634 bytes)  [inferred]
+  0x001f3d50–0x001f3efb  (427 bytes)  [indeterminate]
+  0x001f3f00–0x001f3f65  (101 bytes)  [indeterminate]
+  0x001f3f70–0x001f3fec  (124 bytes)  [inferred]
+  0x001f3ff0–0x001f403f  (79 bytes)  [inferred]
+  0x001f4040–0x001f410d  (205 bytes)  [inferred]
+  0x001f4110–0x001f417a  (106 bytes)  [inferred]
+  0x001f4180–0x001f427f  (255 bytes)  [inferred]
+  0x001f4280–0x001f4309  (137 bytes)  [inferred]
+  0x001f4310–0x001f4353  (67 bytes)  [inferred]
+  0x001f43a0–0x001f45d7  (567 bytes)  [inferred]
+  0x001f4c20–0x001f4db7  (407 bytes)  [inferred]
+  0x001f4e30–0x001f4f90  (352 bytes)  [indeterminate]
+  0x001f5050–0x001f511b  (203 bytes)  [inferred]
+  0x001f82b0–0x001f840b  (347 bytes)  [inferred]
+  0x001f8410–0x001f842e  (30 bytes)  [indeterminate]
+  0x001f8430–0x001f8469  (57 bytes)  [inferred]
+  0x001fa110–0x001fa13f  (47 bytes)  [inferred]
+  0x001fba20–0x001fba84  (100 bytes)  [inferred]
+  0x001fba90–0x001fbda5  (789 bytes)  [inferred]
+  0x001fbdb0–0x001fc0e0  (816 bytes)  [inferred]
+  0x001fc0e0–0x001fc260  (384 bytes)  [inferred]
+  0x001fc260–0x001fc3e0  (384 bytes)  [inferred]
+  0x001fc3e0–0x001fc638  (600 bytes)  [inferred]
+  0x001fc640–0x001fc886  (582 bytes)  [inferred]
+  0x001fc890–0x001fc99e  (270 bytes)  [inferred]
+  0x001fcb20–0x001fcb92  (114 bytes)  [inferred]
+  0x001fcba0–0x001fcbff  (95 bytes)  [inferred]
+  0x001fcc00–0x001fdb7e  (3966 bytes)  [inferred]
+  0x001fdb80–0x001fde08  (648 bytes)  [inferred]
+  0x002022a0–0x002023ee  (334 bytes)  [inferred]
+  0x002023f0–0x0020257e  (398 bytes)  [inferred]
+  0x00202580–0x00202af8  (1400 bytes)  [inferred]
+  0x00204410–0x0020452d  (285 bytes)  [inferred]
+  0x00204530–0x0020470b  (475 bytes)  [inferred]
+  0x00204710–0x002047f1  (225 bytes)  [inferred]
+  0x00204800–0x002048e0  (224 bytes)  [inferred]
+  0x002048e0–0x00204baf  (719 bytes)  [inferred]
+  0x00204bb0–0x00204cdc  (300 bytes)  [inferred]
+  0x00204ce0–0x00204da9  (201 bytes)  [inferred]
+  0x00204db0–0x0020538c  (1500 bytes)  [inferred]
+  0x00205390–0x002054a0  (272 bytes)  [inferred]
+  0x002054a0–0x00205693  (499 bytes)  [inferred]
+  0x002056a0–0x00205966  (710 bytes)  [indeterminate]
+  0x00206190–0x002061e6  (86 bytes)  [inferred]
+  0x00206420–0x00206450  (48 bytes)  [inferred]
+  0x00206470–0x00206536  (198 bytes)  [inferred]
+  0x00206540–0x00206778  (568 bytes)  [inferred]
+  0x00206dc0–0x00207240  (1152 bytes)  [inferred]
+  0x00207240–0x002076e7  (1191 bytes)  [inferred]
+  0x00207870–0x0020849a  (3114 bytes)  [inferred]
+  0x002084d0–0x0020876e  (670 bytes)  [inferred]
+  0x002098d0–0x00209b56  (646 bytes)  [inferred]
+  0x00209b60–0x00209e0d  (685 bytes)  [inferred]
+  0x0020a5f0–0x0020ad2e  (1854 bytes)  [inferred]
+  0x0020af80–0x0020b2b8  (824 bytes)  [inferred]
+  0x0020b2c0–0x0020b902  (1602 bytes)  [inferred]
+  0x0020ba80–0x0020bac0  (64 bytes)  [inferred]
+  0x0020bac0–0x0020bb2b  (107 bytes)  [inferred]
+  0x0020bb30–0x0020bb82  (82 bytes)  [indeterminate]
+  0x0020bbb0–0x0020be81  (721 bytes)  [indeterminate]
+  0x0020be90–0x0020c076  (486 bytes)  [inferred]
+  0x0020c080–0x0020c0fc  (124 bytes)  [inferred]
+  0x0020c100–0x0020c200  (256 bytes)  [inferred]
+  0x0020c200–0x0020c2ff  (255 bytes)  [inferred]
+  0x0020c3c0–0x0020c415  (85 bytes)  [indeterminate]
+  0x0020c6a0–0x0020c837  (407 bytes)  [inferred]
+  0x0020d200–0x0020d28f  (143 bytes)  [indeterminate]
+  0x0020d650–0x0020d69a  (74 bytes)  [inferred]
+  0x0020d6a0–0x0020d817  (375 bytes)  [inferred]
+  0x0020d820–0x0020dbe8  (968 bytes)  [inferred]
+  0x0020e390–0x0020e4b5  (293 bytes)  [inferred]
+  0x002124f0–0x0021263c  (332 bytes)  [inferred]
+  0x00212640–0x00212789  (329 bytes)  [inferred]
+  0x00212de0–0x00212e8c  (172 bytes)  [indeterminate]
+  0x00212f10–0x00212fa5  (149 bytes)  [inferred]
+  0x00212fd0–0x002132a1  (721 bytes)  [inferred]
+  0x002132b0–0x00213306  (86 bytes)  [indeterminate]
+  0x00213310–0x002133d2  (194 bytes)  [inferred]
+  0x002133e0–0x00213436  (86 bytes)  [inferred]
+  0x00213440–0x0021354e  (270 bytes)  [indeterminate]
+  0x00213550–0x00213665  (277 bytes)  [inferred]
+  0x00213670–0x0021376f  (255 bytes)  [inferred]
+  0x00213770–0x002137d2  (98 bytes)  [inferred]
+  0x002137e0–0x0021383e  (94 bytes)  [inferred]
+  0x00213840–0x00213a2d  (493 bytes)  [inferred]
+  0x00213a30–0x00213a72  (66 bytes)  [inferred]
+  0x00213a80–0x00213b08  (136 bytes)  [inferred]
+  0x00213e20–0x00213ee2  (194 bytes)  [inferred]
+  0x00213ef0–0x00213fec  (252 bytes)  [inferred]
+  0x00214170–0x0021426c  (252 bytes)  [inferred]
+  0x00214270–0x0021447a  (522 bytes)  [inferred]
+  0x00214480–0x00214877  (1015 bytes)  [inferred]
+  0x00214a00–0x00214c0a  (522 bytes)  [inferred]
+  0x00214c10–0x00214c8f  (127 bytes)  [inferred]
+  0x00214e60–0x00214fca  (362 bytes)  [inferred]
+  0x00217610–0x00218368  (3416 bytes)  [indeterminate]
+  0x00218370–0x00218e95  (2853 bytes)  [inferred]
+  0x00218ea0–0x002192fe  (1118 bytes)  [inferred]
+  0x0021c1c0–0x0021c1dc  (28 bytes)  [indeterminate]
+  0x0021c250–0x0021c2e0  (144 bytes)  [inferred]
+  0x0021cab0–0x0021cb55  (165 bytes)  [inferred]
+  0x0021cb60–0x0021ccc8  (360 bytes)  [inferred]
+  0x0021ccd0–0x0021cf33  (611 bytes)  [inferred]
+  0x0021cf40–0x0021d15f  (543 bytes)  [inferred]
+  0x0021d160–0x0021d28b  (299 bytes)  [inferred]
+  0x0021d290–0x0021d443  (435 bytes)  [inferred]
+  0x0021ec40–0x0021f38a  (1866 bytes)  [inferred]
+  0x0021f4c0–0x0021f4e8  (40 bytes)  [inferred]
+  0x0021f710–0x0021f76a  (90 bytes)  [inferred]
+  0x0021f830–0x0021f8b7  (135 bytes)  [inferred]
+  0x0021fef0–0x0021ff6c  (124 bytes)  [inferred]
+  0x0021ff70–0x00220241  (721 bytes)  [indeterminate]
+  0x00220250–0x00220350  (256 bytes)  [inferred]
+  0x00220350–0x002203a6  (86 bytes)  [inferred]
+  0x002203b0–0x00220ac1  (1809 bytes)  [indeterminate]
+  0x00220ad0–0x00220b4c  (124 bytes)  [inferred]
+  0x00220ca0–0x00220d1c  (124 bytes)  [inferred]
+  0x00220d20–0x00220db8  (152 bytes)  [inferred]
+  0x00220ed0–0x00220fcf  (255 bytes)  [inferred]
+  0x00220fd0–0x00221221  (593 bytes)  [inferred]
+  0x00221230–0x0022124b  (27 bytes)  [inferred]
+  0x00221250–0x00221276  (38 bytes)  [inferred]
+  0x00221280–0x002212a4  (36 bytes)  [inferred]
+  0x002212b0–0x00221372  (194 bytes)  [inferred]
+  0x00221380–0x0022142c  (172 bytes)  [inferred]
+  0x00221430–0x00221492  (98 bytes)  [inferred]
+  0x00221560–0x002216b1  (337 bytes)  [indeterminate]
+  0x002217d0–0x00221862  (146 bytes)  [inferred]
+  0x00221870–0x00221dbb  (1355 bytes)  [inferred]
+  0x00223070–0x00223111  (161 bytes)  [inferred]
+  0x00223120–0x002231af  (143 bytes)  [inferred]
+  0x002231b0–0x002232a6  (246 bytes)  [inferred]
+  0x002232b0–0x00223359  (169 bytes)  [inferred]
+  0x00223360–0x0022346a  (266 bytes)  [inferred]
+  0x00223470–0x0022355c  (236 bytes)  [inferred]
+  0x00223560–0x00223605  (165 bytes)  [inferred]
+  0x00223610–0x00223722  (274 bytes)  [inferred]
+  0x00223730–0x002237e7  (183 bytes)  [inferred]
+  0x002237f0–0x002238fa  (266 bytes)  [inferred]
+  0x00223900–0x002239bc  (188 bytes)  [indeterminate]
+  0x002239c0–0x00223a82  (194 bytes)  [inferred]
+  0x00223a90–0x00223b23  (147 bytes)  [inferred]
+  0x00223b30–0x00223bbf  (143 bytes)  [inferred]
+  0x00223bc0–0x00223c65  (165 bytes)  [inferred]
+  0x002259b0–0x00225a2c  (124 bytes)  [inferred]
+  0x00225dd0–0x0022604c  (636 bytes)  [inferred]
+  0x00226050–0x00226180  (304 bytes)  [inferred]
+  0x00226180–0x002262fe  (382 bytes)  [inferred]
+  0x00226300–0x00226421  (289 bytes)  [inferred]
+  0x00226600–0x00226a90  (1168 bytes)  [inferred]
+  0x00226af0–0x00226bbf  (207 bytes)  [indeterminate]
+  0x00226bc0–0x00226c88  (200 bytes)  [inferred]
+  0x00226c90–0x00226d5f  (207 bytes)  [inferred]
+  0x00226d60–0x00226e2b  (203 bytes)  [inferred]
+  0x00226e30–0x00226eff  (207 bytes)  [inferred]
+  0x00226fe0–0x002270ab  (203 bytes)  [inferred]
+  0x00227180–0x00227249  (201 bytes)  [inferred]
+  0x00227250–0x0022731f  (207 bytes)  [inferred]
+  0x00227320–0x002273e8  (200 bytes)  [indeterminate]
+  0x002274c0–0x00227589  (201 bytes)  [inferred]
+  0x00227590–0x0022765f  (207 bytes)  [inferred]
+  0x00227660–0x0022772f  (207 bytes)  [inferred]
+  0x00227730–0x002277f8  (200 bytes)  [inferred]
+  0x00227870–0x00227aa3  (563 bytes)  [indeterminate]
+  0x00227ab0–0x00228432  (2434 bytes)  [inferred]
+  0x0022b3b0–0x0022b8c1  (1297 bytes)  [inferred]
+  0x0022b8d0–0x0022bbc7  (759 bytes)  [inferred]
+  0x0022bbd0–0x0022bdec  (540 bytes)  [inferred]
+  0x0022bdf0–0x0022c9a6  (2998 bytes)  [inferred]
+  0x0022c9b0–0x0022cac5  (277 bytes)  [inferred]
+  0x0022cad0–0x0022cc19  (329 bytes)  [inferred]
+  0x0022db80–0x0022dbe1  (97 bytes)  [inferred]
+  0x0022e140–0x0022e1e9  (169 bytes)  [indeterminate]
+  0x0022e1f0–0x0022e8e2  (1778 bytes)  [inferred]
+  0x0022e8f0–0x0022ea90  (416 bytes)  [inferred]
+  0x0022ea90–0x0022ebc9  (313 bytes)  [inferred]
+  0x0022ebd0–0x0022eeb7  (743 bytes)  [inferred]
+  0x0022eec0–0x0022f060  (416 bytes)  [inferred]
+  0x00231420–0x002316c0  (672 bytes)  [inferred]
+  0x002318a0–0x00231a52  (434 bytes)  [inferred]
+  0x00231a60–0x00231c0e  (430 bytes)  [indeterminate]
+  0x00231de0–0x00231e51  (113 bytes)  [inferred]
+  0x00233a90–0x00233c49  (441 bytes)  [inferred]
+  0x00233e80–0x0023429d  (1053 bytes)  [inferred]
+  0x00235530–0x00235709  (473 bytes)  [inferred]
+  0x00236ed0–0x00236f29  (89 bytes)  [inferred]
+  0x00236f30–0x00236fdf  (175 bytes)  [inferred]
+  0x00236fe0–0x0023704c  (108 bytes)  [inferred]
+  0x00237070–0x00237341  (721 bytes)  [indeterminate]
+  0x00237410–0x00237498  (136 bytes)  [inferred]
+  0x002376b0–0x002377af  (255 bytes)  [inferred]
+  0x002377c0–0x00237d02  (1346 bytes)  [inferred]
+  0x002391a0–0x00239293  (243 bytes)  [inferred]
+  0x002392a0–0x002393bd  (285 bytes)  [inferred]
+  0x002393c0–0x00239548  (392 bytes)  [inferred]
+  0x00239c80–0x00239feb  (875 bytes)  [inferred]
+  0x00239ff0–0x0023a0af  (191 bytes)  [inferred]
+  0x0023a0b0–0x0023a303  (595 bytes)  [inferred]
+  0x0023a310–0x0023abb9  (2217 bytes)  [inferred]
+  0x0023abc0–0x0023be48  (4744 bytes)  [inferred]
+  0x0023be50–0x0023bec4  (116 bytes)  [inferred]
+  0x0023bf60–0x0023c246  (742 bytes)  [inferred]
+  0x0023c3e0–0x0023c452  (114 bytes)  [inferred]
+  0x0023c460–0x0023c4e9  (137 bytes)  [inferred]
+  0x0023c5c0–0x0023c62e  (110 bytes)  [inferred]
+  0x0023c630–0x0023c6a4  (116 bytes)  [inferred]
+  0x0023ea70–0x0023ed2b  (699 bytes)  [inferred]
+  0x0023f680–0x0023f6d6  (86 bytes)  [inferred]
+  0x0023f710–0x0023f76a  (90 bytes)  [inferred]
+  0x0023f8c0–0x0023f96c  (172 bytes)  [inferred]
+  0x0023fa00–0x0023fa95  (149 bytes)  [inferred]
+  0x00240430–0x00240486  (86 bytes)  [inferred]
+  0x00240490–0x00240590  (256 bytes)  [indeterminate]
+  0x00240590–0x00240ca1  (1809 bytes)  [indeterminate]
+  0x00240cb0–0x00240d2c  (124 bytes)  [inferred]
+  0x00240d30–0x00240dc8  (152 bytes)  [inferred]
+  0x00240e60–0x00240ee1  (129 bytes)  [inferred]
+  0x00240f80–0x002410f6  (374 bytes)  [inferred]
+  0x00241100–0x00241124  (36 bytes)  [indeterminate]
+  0x00241130–0x002411f2  (194 bytes)  [inferred]
+  0x00241200–0x002412ac  (172 bytes)  [inferred]
+  0x00241330–0x002413fb  (203 bytes)  [inferred]
+  0x00241400–0x002414cc  (204 bytes)  [inferred]
+  0x002415b0–0x00241642  (146 bytes)  [inferred]
+  0x00241650–0x002416d8  (136 bytes)  [inferred]
+  0x0024d820–0x0024d911  (241 bytes)  [indeterminate]
+  0x0024d920–0x0024d9e1  (193 bytes)  [inferred]
+  0x0024db80–0x0024dc4c  (204 bytes)  [inferred]
+  0x0024dc50–0x0024dd00  (176 bytes)  [inferred]
+  0x0024dd00–0x0024df41  (577 bytes)  [inferred]
+  0x00252640–0x002527e3  (419 bytes)  [inferred]
+  0x002527f0–0x0025290b  (283 bytes)  [inferred]
+  0x00252950–0x00252a32  (226 bytes)  [inferred]
+  0x00252a40–0x00252b77  (311 bytes)  [inferred]
+  0x00252b80–0x00252e4d  (717 bytes)  [indeterminate]
+  0x00253080–0x00253330  (688 bytes)  [inferred]
+  0x00253fa0–0x0025412e  (398 bytes)  [inferred]
+  0x00254130–0x00254296  (358 bytes)  [inferred]
+  0x002542a0–0x002545e6  (838 bytes)  [inferred]
+  0x002545f0–0x002546b2  (194 bytes)  [inferred]
+  0x002546c0–0x00254824  (356 bytes)  [inferred]
+  0x00254830–0x00254b66  (822 bytes)  [inferred]
+  0x00254b70–0x00254e8c  (796 bytes)  [inferred]
+  0x00254e90–0x00254fe1  (337 bytes)  [inferred]
+  0x00254ff0–0x0025548b  (1179 bytes)  [inferred]
+  0x00255490–0x002555f4  (356 bytes)  [inferred]
+  0x002558b0–0x002558fd  (77 bytes)  [inferred]
+  0x00255900–0x00255a85  (389 bytes)  [inferred]
+  0x00255a90–0x00255bd5  (325 bytes)  [inferred]
+  0x00255be0–0x00255d15  (309 bytes)  [inferred]
+  0x00255d20–0x00255e5a  (314 bytes)  [inferred]
+  0x003642b0–0x003642d5  (37 bytes)  [inferred]
+  0x003647f0–0x003648b6  (198 bytes)  [indeterminate]
+  0x00364910–0x00364974  (100 bytes)  [indeterminate]
+  0x00386fa0–0x00387374  (980 bytes)  [inferred]
+  0x00389da0–0x00389ff3  (595 bytes)  [indeterminate]
+  0x0038a7c0–0x0038a8c0  (256 bytes)  [inferred]
+  0x0038af70–0x0038b0c1  (337 bytes)  [inferred]
+  0x00396720–0x003967e9  (201 bytes)  [indeterminate]
+  0x003967f0–0x003968c2  (210 bytes)  [indeterminate]
+  0x003b97d0–0x003b991d  (333 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 5588 functions mapped (905 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           78 predicted   TP=   62  FP=  15  unknown=   1   precision=80.5%
+  inferred         481 predicted   TP=   58  FP= 358  unknown=  65   precision=13.9%
+  indeterminate     74 predicted   TP=    3  FP=  60  unknown=  11   precision=4.8%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     62  (  6.9%)  certain          (rock-solid signal)
+     58  (  6.4%)  inferred         (call-graph reach)
+      3  (  0.3%)  indeterminate    (shared/mixed callers)
+    782  ( 86.4%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x001c2130  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001c2580  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cb970  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cbad0  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cc770  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cd400  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001ce2f0  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cff00  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001d9b30  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001dd2f0  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001de4e0  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001de8f0  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001dec40  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001dee10  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001df370  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e0a30  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e1440  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e5520  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001e7a80  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001e8f90  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001eac10  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001eb0e0  /tmp/unhusk-local-bench/difftastic/src/display/inline.rs
+    0x001ed360  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001ee9a0  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001eed20  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001eef60  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001f5c80  /tmp/unhusk-local-bench/difftastic/src/line_parser.rs
+    0x001f63e0  /tmp/unhusk-local-bench/difftastic/src/line_parser.rs
+    0x001f8470  /tmp/unhusk-local-bench/difftastic/src/parse/guess_language.rs
+    0x001fde10  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x001fec30  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x00200f90  /tmp/unhusk-local-bench/difftastic/src/diff/lcs_diff.rs
+    0x002014a0  /tmp/unhusk-local-bench/difftastic/src/diff/lcs_diff.rs
+    0x0020dbf0  /tmp/unhusk-local-bench/difftastic/src/display/side_by_side.rs
+    0x0020e4c0  /tmp/unhusk-local-bench/difftastic/src/display/side_by_side.rs
+    0x00214fd0  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x00219300  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x0021b950  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x00228440  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x00228800  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x00228f00  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x002299b0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022a330  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022cc20  /tmp/unhusk-local-bench/difftastic/src/words.rs
+    0x0022d180  /tmp/unhusk-local-bench/difftastic/src/words.rs
+    0x00231c10  /tmp/unhusk-local-bench/difftastic/src/diff/changes.rs
+    0x00231e60  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x00233c50  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x002342a0  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x00234880  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x00234d60  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x002351b0  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x0023bed0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c250  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c4f0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023d7f0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023d9f0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023df50  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023e270  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x00241e20  /tmp/unhusk-local-bench/difftastic/src/diff/dijkstra.rs
+    0x0024df50  /tmp/unhusk-local-bench/difftastic/src/options.rs
+    0x0024e810  /tmp/unhusk-local-bench/difftastic/src/options.rs
+  DWARF-user in inferred:
+    0x001cd090  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001cd260  /tmp/unhusk-local-bench/difftastic/src/parse/tree_sitter_parser.rs
+    0x001d8590  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001d8880  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001d8a90  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001d8c10  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001d99d0  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001dcf60  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001df180  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001e11b0  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e1240  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e1370  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e1e10  /tmp/unhusk-local-bench/difftastic/src/diff/unchanged.rs
+    0x001e7840  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001e8d60  /tmp/unhusk-local-bench/difftastic/src/display/hunks.rs
+    0x001ee790  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001ef230  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001ef390  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001ef480  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001ef630  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x001f82b0  /tmp/unhusk-local-bench/difftastic/src/parse/guess_language.rs
+    0x001f8430  /tmp/unhusk-local-bench/difftastic/src/parse/guess_language.rs
+    0x001fa110  /tmp/unhusk-local-bench/difftastic/src/parse/guess_language.rs
+    0x001fc890  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x001fcb20  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x001fcc00  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x001fdb80  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x00207870  /tmp/unhusk-local-bench/difftastic/src/gitattributes.rs
+    0x0020d820  /tmp/unhusk-local-bench/difftastic/src/display/side_by_side.rs
+    0x0020e390  /tmp/unhusk-local-bench/difftastic/src/display/side_by_side.rs
+    0x00218370  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x00218ea0  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x00227ab0  /tmp/unhusk-local-bench/difftastic/src/conflicts.rs
+    0x0022b3b0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022b8d0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022bbd0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022bdf0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x0022c9b0  /tmp/unhusk-local-bench/difftastic/src/lines.rs
+    0x0022cad0  /tmp/unhusk-local-bench/difftastic/src/lines.rs
+    0x00231de0  /tmp/unhusk-local-bench/difftastic/src/diff/changes.rs
+    0x00233a90  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x00233e80  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x00235530  /tmp/unhusk-local-bench/difftastic/src/display/context.rs
+    0x002393c0  /tmp/unhusk-local-bench/difftastic/src/diff/stack.rs
+    0x00239ff0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023a0b0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023a310  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023abc0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023be50  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023bf60  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c3e0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c460  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c5c0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023c630  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023ea70  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0024d920  /tmp/unhusk-local-bench/difftastic/src/options.rs
+    0x0024dd00  /tmp/unhusk-local-bench/difftastic/src/options.rs
+    0x00252640  /tmp/unhusk-local-bench/difftastic/src/options.rs
+  DWARF-user in indeterminate:
+    0x001f8410  /tmp/unhusk-local-bench/difftastic/src/parse/guess_language.rs
+    0x00217610  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x0021c1c0  /tmp/unhusk-local-bench/difftastic/src/main.rs
+  DWARF-user in library (missed):
+    0x001044da  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00105167  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00105213  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x0010529e  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00105380  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x001053c8  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x00105526  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0010563f  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0010569c  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x001056d9  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0010571f  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x00105738  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x00105809  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x00107e50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x001d8d10  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001d8d90  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001dd030  /tmp/unhusk-local-bench/difftastic/src/diff/sliders.rs
+    0x001ef590  /tmp/unhusk-local-bench/difftastic/src/display/json.rs
+    0x001f5c40  /tmp/unhusk-local-bench/difftastic/src/files.rs
+    0x001fc9a0  /tmp/unhusk-local-bench/difftastic/src/diff/graph.rs
+    0x001feeb0  /tmp/unhusk-local-bench/difftastic/src/diff/lcs_diff.rs
+    0x001fff30  /tmp/unhusk-local-bench/difftastic/src/diff/lcs_diff.rs
+    0x002021e0  /tmp/unhusk-local-bench/difftastic/src/diff/stack.rs
+    0x002084a0  /tmp/unhusk-local-bench/difftastic/src/gitattributes.rs
+    0x0021b380  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x0021c190  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x0021c1e0  /tmp/unhusk-local-bench/difftastic/src/main.rs
+    0x002285e0  /tmp/unhusk-local-bench/difftastic/src/display/style.rs
+    0x00239550  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023e4b0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023e6d0  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x0023e830  /tmp/unhusk-local-bench/difftastic/src/parse/syntax.rs
+    0x00243970  /tmp/unhusk-local-bench/difftastic/src/options.rs
+    0x0024d9f0  /tmp/unhusk-local-bench/difftastic/src/options.rs
+    0x003c3ae0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/parser.c
+    0x003c3af0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/scanner.c
+    0x003c3b00  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/scanner.c
+    0x003c3b10  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/scanner.c
+    0x003c3b20  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/scanner.c
+    0x003c3b30  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-janet-simple-src/scanner.c
+    0x003c3c40  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/parser.c
+    0x003c3ce0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/parser.c
+    0x003de1c0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/parser.c
+    0x003e5cb0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/parser.c
+    0x003e5cd0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/scanner.c
+    0x003e5ce0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/scanner.c
+    0x003e5cf0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/scanner.c
+    0x003e5d00  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/scanner.c
+    0x003e5d10  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-smali-src/scanner.c
+    0x003e5de0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-hare-src/parser.c
+    0x003e5e80  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-hare-src/parser.c
+    0x003f1f90  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-hare-src/parser.c
+    0x003f1fb0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003f4350  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003f66f0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003f8ac0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003fae70  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003fd230  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x003ff5e0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x00401980  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x00403d20  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x004060d0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x00408480  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x0040a820  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x004129e0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x00413020  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-elvish-src/parser.c
+    0x00413030  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x004168b0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x0041a0f0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x0041d9b0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00421270  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00424ed0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00428bf0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x0042c910  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00441310  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00442d10  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/parser.c
+    0x00442d30  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00442dc0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00442e60  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00443690  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x004436e0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00443710  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00443740  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-kotlin-src/scanner.c
+    0x00443780  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/parser.c
+    0x0047d020  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/parser.c
+    0x0047d0a0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/parser.c
+    0x0047d0c0  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/tree_sitter/parser.h
+    0x0047d130  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x0047d230  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x0047d240  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x0047d250  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x0047d260  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x0047d270  /tmp/unhusk-local-bench/difftastic/vendored_parsers/tree-sitter-latex-src/scanner.c
+    0x007c4420  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/sz.h
+    0x007c44c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/arena_inlines_b.h
+    0x007c4820  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c4840  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c4850  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c4960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c4b00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c4d30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c5380  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c6d30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c6db0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c73c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/jemalloc_internal_inlines_b.h
+    0x007c75c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c7620  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c7670  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c85c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c8680  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007c9760  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cae90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007caea0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cc090  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007ccf20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007ccfc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cd070  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cd150  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cd170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/jemalloc.c
+    0x007cdeb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/ticker.h
+    0x007cdf20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cdfe0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce230  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce3f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce7d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce890  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ce9f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ced10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ced20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ced40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ced70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ced80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007ceff0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cf110  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cf730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cf780  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cfa30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007cfff0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d0460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2140  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2770  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2780  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2840  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2850  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2860  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d28a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d28d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d28e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2920  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2930  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2970  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2980  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2990  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d29a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d29b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2e10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d2f60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d35c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d3b20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5810  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5bd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5be0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5bf0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5c50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5cc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5d50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/arena.c
+    0x007d5e40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d5ef0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7150  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d71d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7870  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7ae0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7af0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7b30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7b60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7bc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7c30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7e20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7e90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d7f10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/background_thread.c
+    0x007d8100  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d8730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d8ce0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9180  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9480  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d94d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d94e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9510  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9520  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d95e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9830  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9950  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9970  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d9980  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/base.c
+    0x007d99b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9c70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9cb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9d10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9d20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9d30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9d40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007d9fd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da040  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da120  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da1e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da340  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da350  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da3d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da580  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin.c
+    0x007da5e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bin_info.c
+    0x007da6d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/bitmap.c
+    0x007da730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/arena_inlines_b.h
+    0x007daa90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/buf_writer.c
+    0x007dabc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/buf_writer.c
+    0x007dacc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/buf_writer.c
+    0x007dad20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007dad30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007dad50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007db0e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007db100  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007db120  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007db170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/cache_bin.c
+    0x007db1a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db1b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db1d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db1f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db200  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db220  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db240  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db260  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db280  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db290  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db4b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db6d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007db8f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dbb10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dbcb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dbcf0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc200  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc420  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc640  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc6d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc760  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc7f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dc9b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dca40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dcad0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dcb60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dcbf0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dcc80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dcea0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd0c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd150  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd370  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd7b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dd9d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ddbf0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dddb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ddfd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007de1f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007de410  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007de630  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007de850  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007de8e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007deb00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007deb90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dedb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007def70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007df190  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007df3b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007df5d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007df660  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007df880  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dfaa0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dfcc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dfd50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007dff70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0190  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e03b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e05d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0660  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e06f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0780  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e09a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0b60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0d20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e0ee0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1100  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1320  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1540  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1700  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e18c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1ae0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1d00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e1f20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2140  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e21d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e23f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2600  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2820  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2a30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2c40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e2e50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3060  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3280  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3440  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3600  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3820  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3a00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3c30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3e10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e3fd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e41f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4450  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e44d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4540  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4580  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e47e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4a40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4ca0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4f00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e4f50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e51e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e5220  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e5260  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e54a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e5530  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e57c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e5a30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e71c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7250  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7550  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7790  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7a80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7f00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e7fd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8360  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8410  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e84e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8740  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8a00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8aa0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8d60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e8df0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9030  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9100  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e91d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e92e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9750  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9790  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e97d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9be0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007e9e00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ea380  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ea6c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eadb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eb2d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eb5d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eb8d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ebbd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ebed0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ec1d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ec460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ec760  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eca50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ecbb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ecc30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ecdb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ed050  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ed2f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ed6d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ed940  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007edb80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007eddd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007edec0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee1b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee560  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee5a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee5b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ctl.c
+    0x007ee5c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ee6c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ee770  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ee850  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ee880  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ee8f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007eebb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/decay.c
+    0x007ef780  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/div.c
+    0x007ef7a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007ef7c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007efac0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007efef0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f04a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f0d70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f0fe0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f1340  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f17e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata.c
+    0x007f1fc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f1fd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f1fe0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f1ff0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2000  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2010  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2070  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f20b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f20f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2280  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2290  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f23b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f23f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2430  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2450  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2470  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2490  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f24b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f24c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f24e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2530  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2540  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ehooks.c
+    0x007f2550  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2560  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2d10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2d30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2d50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f2d60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f31a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f3460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f3850  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f3b10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f3fb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f4720  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f47d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f4ef0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/emap.c
+    0x007f4f80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f50e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f51e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f5330  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f5340  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f5500  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f56d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/eset.c
+    0x007f5f70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f6160  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f6500  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f6790  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f6b80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f6ce0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f7090  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f70b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f72a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f75c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f7ee0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8130  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8150  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f81d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8400  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f85b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8760  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8b50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8f00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f8fc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f9370  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f93d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f9ec0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent.c
+    0x007f9ee0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007f9ef0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007f9f00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007fa360  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007fa380  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007fa3e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_dss.c
+    0x007fa420  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_mmap.c
+    0x007fa450  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/extent_mmap.c
+    0x007fa480  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa5d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa6e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa760  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa990  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa9c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san.c
+    0x007fa9f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007faa10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007fabb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007fad00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007fae60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007fafc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hook.c
+    0x007fb160  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fb170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fb180  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fb3d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fb4d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fb930  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fba70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fbd40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fbff0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc1d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc270  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc690  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc6a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc880  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc940  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fc9c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fca80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcb00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcb60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcb70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcb80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcb90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcbd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa.c
+    0x007fcc10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_central.c
+    0x007fcca0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_central.c
+    0x007fced0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcee0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcef0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcf40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcf50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcfa0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcfb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fcfc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_hooks.c
+    0x007fd010  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpa_utils.c
+    0x007fd6d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fd6f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fd700  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fd980  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fdd00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fe400  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fe440  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fe520  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007fe600  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007ff1a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007ff660  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x007ffde0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x008001b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x008002e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x00800330  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/hpdata.c
+    0x00800340  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/inspect.c
+    0x008005d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/inspect.c
+    0x008009c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/ticker.h
+    0x00800a30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x00800c10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x008011a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x008011c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x00801580  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x00801620  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x008016b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x00801890  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/large.c
+    0x00802140  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x008021b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00802240  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00802280  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x008024d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/malloc_io.c
+    0x00802540  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/conf.c
+    0x008077b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/conf.c
+    0x008077e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/conf.c
+    0x008078f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/mutex.c
+    0x00807a90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/mutex.c
+    0x00807b60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/mutex.c
+    0x00807ba0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/mutex.c
+    0x00807ca0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/mutex.c
+    0x00807cb0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807cc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807d40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807d50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807d70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807d80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807da0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807dd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807de0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807e80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807f10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/nstime.c
+    0x00807f70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00807f90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x008080b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808110  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808130  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808160  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808180  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x008081c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808310  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x008083e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x008084a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808550  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808560  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808570  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x008085b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa.c
+    0x00808620  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808650  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808670  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x008086c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808720  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x008087d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808870  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808880  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pa_extra.c
+    0x00808900  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008089a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00808a60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00808bd0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00808e60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00808fa0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008092d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008093f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008095c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008096e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00809750  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00809890  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008099d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x008099f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pac.c
+    0x00809f70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x00809fc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a040  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a070  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a0a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a0c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a0e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a0f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/pages.c
+    0x0080a630  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a640  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a650  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a660  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a670  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a680  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a690  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a6a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a6b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/prof.c
+    0x0080a700  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080a7a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080a8f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080aa30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080ab80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080ad00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080ae20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080af50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b390  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b480  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b490  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b620  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/psset.c
+    0x0080b7e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/rtree.c
+    0x0080b800  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/rtree.c
+    0x0080b980  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/rtree.c
+    0x0080bb70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/safety_check.c
+    0x0080bb80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/safety_check.c
+    0x0080bc80  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sc.c
+    0x0080bfc0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sc.c
+    0x0080c180  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080c320  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080c4b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080c800  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080ca70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080ccf0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080ce00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080ce70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080cee0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sec.c
+    0x0080cf50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080cf60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080cf70  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080cf90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080d050  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080d210  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080d2e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080d350  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080d580  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080d7c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080da50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/emitter.h
+    0x0080e2e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080e340  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080e350  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080e360  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/stats.c
+    0x0080e370  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sz.c
+    0x0080e400  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sz.c
+    0x0080e500  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/sz.c
+    0x0080e9f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080ea00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080ea10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080ea30  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080f4a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080f9f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/include/jemalloc/internal/arena_inlines_b.h
+    0x0080fd50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x0080ff10  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008100f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008102c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008103f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008104f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00810f50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811160  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811220  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811230  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811560  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008115c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811660  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008118e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00811d40  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812350  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008123f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812640  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x008126e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812950  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812970  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tcache.c
+    0x00812980  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event.c
+    0x00812ae0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event.c
+    0x00812b50  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event.c
+    0x00812be0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event.c
+    0x00813130  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event.c
+    0x00813160  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813170  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813180  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813190  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008131a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008131b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008131d0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008131f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813210  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813230  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813250  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813270  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813290  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008132b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813320  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813390  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813400  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813470  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008134e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813550  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x008135c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813630  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813650  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813680  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/thread_event_registry.c
+    0x00813960  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00813a00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00813ac0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00813ae0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00813b00  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00813b60  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x008141c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00814240  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x008142e0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x008142f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00814300  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/tsd.c
+    0x00814350  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/util.c
+    0x00814460  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/witness.c
+    0x008144a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/counter.c
+    0x008144c0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/counter.c
+    0x008144f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ecache.c
+    0x00814580  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ecache.c
+    0x00814590  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ecache.c
+    0x008145a0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/ecache.c
+    0x008145b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814600  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x008146b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814720  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814730  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814740  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814750  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814770  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x008148f0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x008149b0  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/edata_cache.c
+    0x00814a90  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/exp_grow.c
+    0x00814e20  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/fxp.c
+    0x00815450  /tmp/unhusk-local-bench/difftastic/target/release/build/tikv-jemalloc-sys-280a88bc578a44de/out/build/src/san_bump.c
+
+  total captured :   120  (13.3% of 905 DWARF-user fns)
+  total missed   :   782  (86.4%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 80.5%
+  Certain recall    : 6.9%  (62/905 DWARF-user fns reached by certain)
+  Overall recall    : 13.3%  (certain+inferred)
+
+validation complete.

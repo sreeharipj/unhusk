@@ -1,0 +1,2530 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_watchexec-cli.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x001b0d00   6942709 bytes
+  .rodata               vaddr 0x0009f700    453776 bytes
+  .data.rel.ro          vaddr 0x00850e30    240584 bytes
+  .rela.dyn             vaddr 0x00001ef8    341136 bytes
+  .eh_frame             vaddr 0x00120e18    585432 bytes
+  .rela.dyn entries     14050 R_X86_64_RELATIVE entries
+
+source-path strings: 610  (user=61, std=102, dep=447, unknown=0)
+  distinct dep crates visible: 102
+
+panic/assert sites:  3228  (user=500, std=316, dep=2412, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  crates/cli/src/args.rs  (6 sites)
+        1:0     Location struct @ 0x87b930
+        1:0     Location struct @ 0x87b9a8
+        1:0     Location struct @ 0x87ba40
+        1:0     Location struct @ 0x87bab8
+      248:51    Location struct @ 0x852120
+      257:44    Location struct @ 0x852108
+  crates/cli/src/args/command.rs  (3 sites)
+        1:0     Location struct @ 0x87b068
+        1:0     Location struct @ 0x87b0e0
+      269:57    Location struct @ 0x851ee0
+  crates/cli/src/args/events.rs  (1 sites)
+        1:0     Location struct @ 0x87d1f8
+  crates/cli/src/args/filtering.rs  (7 sites)
+        1:0     Location struct @ 0x87b158
+        1:0     Location struct @ 0x87b1d0
+        1:0     Location struct @ 0x87b248
+        1:0     Location struct @ 0x87b2e0
+        1:0     Location struct @ 0x87b358
+      389:80    Location struct @ 0x851ef8
+      469:47    Location struct @ 0x851f10
+  crates/cli/src/args/logging.rs  (5 sites)
+        1:0     Location struct @ 0x87c900
+        1:0     Location struct @ 0x87d970
+       91:59    Location struct @ 0x879b20
+      103:74    Location struct @ 0x852368
+      130:8     Location struct @ 0x852380
+  crates/cli/src/config.rs  (68 sites)
+        1:0     Location struct @ 0x879be8
+        1:0     Location struct @ 0x879c60
+        1:0     Location struct @ 0x879cd8
+        1:0     Location struct @ 0x879d70
+        1:0     Location struct @ 0x879de8
+        1:0     Location struct @ 0x879e60
+        1:0     Location struct @ 0x879ed8
+        1:0     Location struct @ 0x879f50
+        1:0     Location struct @ 0x879fc8
+        1:0     Location struct @ 0x87a040
+        1:0     Location struct @ 0x87a0b8
+        1:0     Location struct @ 0x87a150
+        1:0     Location struct @ 0x87a350
+        1:0     Location struct @ 0x87a3c8
+        1:0     Location struct @ 0x87a440
+        1:0     Location struct @ 0x87a4b8
+        1:0     Location struct @ 0x87a530
+        1:0     Location struct @ 0x87a5a8
+        1:0     Location struct @ 0x87a620
+        1:0     Location struct @ 0x87a698
+        1:0     Location struct @ 0x87a710
+        1:0     Location struct @ 0x87a7a8
+        1:0     Location struct @ 0x87a820
+        1:0     Location struct @ 0x87a898
+        1:0     Location struct @ 0x87a940
+        1:0     Location struct @ 0x87a9b8
+        1:0     Location struct @ 0x87aa30
+        1:0     Location struct @ 0x87aaa8
+        1:0     Location struct @ 0x87ab20
+        1:0     Location struct @ 0x87ab98
+        1:0     Location struct @ 0x87ac10
+        1:0     Location struct @ 0x87ac88
+        1:0     Location struct @ 0x87c610
+        1:0     Location struct @ 0x87c700
+        1:0     Location struct @ 0x87c778
+        1:0     Location struct @ 0x87d308
+        1:0     Location struct @ 0x87d5d8
+        1:0     Location struct @ 0x87d650
+        1:0     Location struct @ 0x87d6c8
+        1:0     Location struct @ 0x87d760
+        1:0     Location struct @ 0x87d7d8
+        1:0     Location struct @ 0x87d850
+        2:0     Location struct @ 0x87c688
+        2:0     Location struct @ 0x87d270
+        2:0     Location struct @ 0x87d3f0
+        2:0     Location struct @ 0x87d498
+        2:0     Location struct @ 0x87d560
+        2:0     Location struct @ 0x87d8d8
+      139:26    Location struct @ 0x878728
+      217:13    Location struct @ 0x878340
+      336:38    Location struct @ 0x878160
+      337:33    Location struct @ 0x878148
+      345:25    Location struct @ 0x878290
+      347:33    Location struct @ 0x878358
+      365:57    Location struct @ 0x878218
+      500:34    Location struct @ 0x878190
+      501:29    Location struct @ 0x878178
+      516:34    Location struct @ 0x8781e0
+      580:45    Location struct @ 0x8781c8
+      584:49    Location struct @ 0x878130
+      649:5     Location struct @ 0x879ac0
+      689:57    Location struct @ 0x879ad8
+      708:23    Location struct @ 0x879af0
+      757:5     Location struct @ 0x879940
+      760:9     Location struct @ 0x878758
+      762:17    Location struct @ 0x878388
+      764:25    Location struct @ 0x878740
+      783:49    Location struct @ 0x878370
+  crates/cli/src/dirs.rs  (26 sites)
+        1:0     Location struct @ 0x87a2b8
+        1:0     Location struct @ 0x87bb50
+        1:0     Location struct @ 0x87bbe8
+        1:0     Location struct @ 0x87bc60
+        1:0     Location struct @ 0x87bcd8
+        1:0     Location struct @ 0x87bd70
+        1:0     Location struct @ 0x87be08
+        1:0     Location struct @ 0x87bea0
+        1:0     Location struct @ 0x87bf18
+        1:0     Location struct @ 0x87bfb0
+        1:0     Location struct @ 0x87c028
+        1:0     Location struct @ 0x87c0c0
+        1:0     Location struct @ 0x87c138
+        1:0     Location struct @ 0x87c1e0
+        1:0     Location struct @ 0x87c288
+        1:0     Location struct @ 0x87c300
+        1:0     Location struct @ 0x87c378
+        1:0     Location struct @ 0x87c3f0
+        1:0     Location struct @ 0x87c488
+        1:0     Location struct @ 0x87c500
+        1:0     Location struct @ 0x87c598
+       22:22    Location struct @ 0x852178
+       58:35    Location struct @ 0x8521d0
+       76:59    Location struct @ 0x852298
+       86:89    Location struct @ 0x852200
+       87:53    Location struct @ 0x8521e8
+  crates/cli/src/filterer.rs  (11 sites)
+        1:0     Location struct @ 0x87b3d0
+        1:0     Location struct @ 0x87c888
+        1:0     Location struct @ 0x87da80
+        1:0     Location struct @ 0x87daf8
+        1:0     Location struct @ 0x87dba0
+        2:0     Location struct @ 0x87c7f0
+        2:0     Location struct @ 0x87da08
+       72:53    Location struct @ 0x8520a8
+       73:62    Location struct @ 0x852078
+       74:46    Location struct @ 0x852090
+      161:82    Location struct @ 0x8522e8
+  crates/cli/src/filterer/parse.rs  (4 sites)
+        1:0     Location struct @ 0x87b810
+        1:0     Location struct @ 0x87b8b8
+       29:82    Location struct @ 0x851c10
+       30:58    Location struct @ 0x8520f0
+  crates/cli/src/filterer/proglib/file.rs  (5 sites)
+        1:0     Location struct @ 0x87c978
+        1:0     Location struct @ 0x87c9f0
+        1:0     Location struct @ 0x87ca68
+        1:0     Location struct @ 0x87cae0
+        1:0     Location struct @ 0x87cb58
+  crates/cli/src/filterer/proglib/hash.rs  (3 sites)
+        1:0     Location struct @ 0x87cbd0
+        1:0     Location struct @ 0x87cc48
+       48:51    Location struct @ 0x878770
+  crates/cli/src/filterer/proglib/output.rs  (10 sites)
+        1:0     Location struct @ 0x87ccc0
+        1:0     Location struct @ 0x87cd38
+        1:0     Location struct @ 0x87cdb0
+        1:0     Location struct @ 0x87ce28
+        1:0     Location struct @ 0x87cea0
+        1:0     Location struct @ 0x87cf18
+        1:0     Location struct @ 0x87cf90
+        1:0     Location struct @ 0x87d008
+        1:0     Location struct @ 0x87d080
+        1:0     Location struct @ 0x87d0f8
+  crates/cli/src/filterer/progs.rs  (16 sites)
+        1:0     Location struct @ 0x87a1c8
+        1:0     Location struct @ 0x87a240
+        1:0     Location struct @ 0x87b468
+        1:0     Location struct @ 0x87b510
+        1:0     Location struct @ 0x87b5b8
+        1:0     Location struct @ 0x87b630
+        1:0     Location struct @ 0x87b6a8
+        1:0     Location struct @ 0x87b720
+        1:0     Location struct @ 0x87b798
+       46:9     Location struct @ 0x8795a8
+       48:25    Location struct @ 0x8783d8
+       52:18    Location struct @ 0x8783f0
+       66:20    Location struct @ 0x879578
+       67:63    Location struct @ 0x878630
+      106:9     Location struct @ 0x879590
+      106:22    Location struct @ 0x8786a8
+  crates/cli/src/lib.rs  (14 sites)
+        1:0     Location struct @ 0x87ad20
+        1:0     Location struct @ 0x87ad98
+        1:0     Location struct @ 0x87ae10
+        1:0     Location struct @ 0x87ae88
+        1:0     Location struct @ 0x87af00
+        1:0     Location struct @ 0x87af78
+        1:0     Location struct @ 0x87aff0
+       32:71    Location struct @ 0x851e38
+       45:4     Location struct @ 0x851e50
+       71:38    Location struct @ 0x851e20
+       91:5     Location struct @ 0x851e08
+      116:64    Location struct @ 0x851e68
+      136:40    Location struct @ 0x851e80
+      148:39    Location struct @ 0x851e98
+  crates/cli/src/main.rs  (3 sites)
+       22:10    Location struct @ 0x852418
+       23:10    Location struct @ 0x852430
+       23:19    Location struct @ 0x851eb0
+  crates/cli/src/socket/unix.rs  (5 sites)
+        2:0     Location struct @ 0x87d180
+        2:0     Location struct @ 0x87dc28
+       20:2     Location struct @ 0x851dc0
+       21:56    Location struct @ 0x8523b8
+       39:41    Location struct @ 0x87dd58
+  crates/cli/src/state.rs  (4 sites)
+       21:48    Location struct @ 0x8522d0
+       54:24    Location struct @ 0x878b30
+       66:43    Location struct @ 0x878b18
+       74:43    Location struct @ 0x878b00
+  crates/events/src/process.rs  (2 sites)
+       58:17    Location struct @ 0x880010
+      112:18    Location struct @ 0x87fff8
+  crates/filterer/globset/src/lib.rs  (20 sites)
+        1:0     Location struct @ 0x880230
+        1:0     Location struct @ 0x880328
+        1:0     Location struct @ 0x8803c0
+        1:0     Location struct @ 0x8804c0
+        1:0     Location struct @ 0x880538
+        1:0     Location struct @ 0x8805d0
+        1:0     Location struct @ 0x880648
+        1:0     Location struct @ 0x8806c0
+        1:0     Location struct @ 0x880738
+        1:0     Location struct @ 0x8807b0
+        1:0     Location struct @ 0x880848
+        1:0     Location struct @ 0x8808c0
+        1:0     Location struct @ 0x8809c8
+        1:0     Location struct @ 0x880a40
+        1:0     Location struct @ 0x880ab8
+        1:0     Location struct @ 0x880b30
+        1:0     Location struct @ 0x880ba8
+        2:0     Location struct @ 0x880448
+        2:0     Location struct @ 0x880950
+       73:27    Location struct @ 0x851ae0
+  crates/filterer/ignore/src/lib.rs  (7 sites)
+        1:0     Location struct @ 0x880ce8
+        1:0     Location struct @ 0x880d80
+        1:0     Location struct @ 0x880df8
+        1:0     Location struct @ 0x880e70
+        1:0     Location struct @ 0x880f08
+        2:0     Location struct @ 0x880c70
+        2:0     Location struct @ 0x880fa0
+  crates/ignore-files/src/discover.rs  (31 sites)
+        1:0     Location struct @ 0x859850
+        1:0     Location struct @ 0x8598f8
+        1:0     Location struct @ 0x859970
+        1:0     Location struct @ 0x8599e8
+        1:0     Location struct @ 0x859a60
+        1:0     Location struct @ 0x859b50
+        1:0     Location struct @ 0x859bc8
+        1:0     Location struct @ 0x859c40
+        1:0     Location struct @ 0x859cb8
+        1:0     Location struct @ 0x859d30
+        1:0     Location struct @ 0x859da8
+        1:0     Location struct @ 0x859e20
+        1:0     Location struct @ 0x859e98
+        1:0     Location struct @ 0x859f10
+        1:0     Location struct @ 0x85a000
+        1:0     Location struct @ 0x85a610
+        2:0     Location struct @ 0x859ad8
+        2:0     Location struct @ 0x859f88
+        2:0     Location struct @ 0x85a6b8
+       62:59    Location struct @ 0x851ec8
+      158:36    Location struct @ 0x851c88
+      161:4     Location struct @ 0x851c70
+      329:87    Location struct @ 0x852338
+      442:1     Location struct @ 0x851d88
+      450:11    Location struct @ 0x852320
+      473:69    Location struct @ 0x852350
+      504:27    Location struct @ 0x851fc0
+      537:40    Location struct @ 0x852048
+      546:2     Location struct @ 0x851d70
+      547:57    Location struct @ 0x851f90
+      638:4     Location struct @ 0x851fa8
+  crates/ignore-files/src/filter.rs  (33 sites)
+        1:0     Location struct @ 0x8597d8
+        1:0     Location struct @ 0x85a100
+        1:0     Location struct @ 0x85a178
+        1:0     Location struct @ 0x85a278
+        1:0     Location struct @ 0x85a2f0
+        1:0     Location struct @ 0x85a3b8
+        1:0     Location struct @ 0x85a430
+        1:0     Location struct @ 0x85a4a8
+        1:0     Location struct @ 0x85a520
+        1:0     Location struct @ 0x85a760
+        1:0     Location struct @ 0x85a7d8
+        1:0     Location struct @ 0x85a850
+        1:0     Location struct @ 0x85a8c8
+        1:0     Location struct @ 0x85a940
+        1:0     Location struct @ 0x85a9b8
+        1:0     Location struct @ 0x85aab8
+        1:0     Location struct @ 0x85aba8
+        1:0     Location struct @ 0x85ac20
+        1:0     Location struct @ 0x85ac98
+        1:0     Location struct @ 0x85ad10
+        1:0     Location struct @ 0x85ad88
+        1:0     Location struct @ 0x85ae00
+        1:0     Location struct @ 0x85aea8
+        2:0     Location struct @ 0x85a088
+        2:0     Location struct @ 0x85a200
+        2:0     Location struct @ 0x85a598
+        2:0     Location struct @ 0x85aa40
+        2:0     Location struct @ 0x85ab30
+       68:97    Location struct @ 0x851b78
+       80:16    Location struct @ 0x851d20
+      203:75    Location struct @ 0x8520c0
+      355:45    Location struct @ 0x859658
+      373:63    Location struct @ 0x859690
+  crates/lib/src/action/worker.rs  (34 sites)
+        1:0     Location struct @ 0x8733e0
+        1:0     Location struct @ 0x873a98
+        1:0     Location struct @ 0x873b10
+        1:0     Location struct @ 0x873b88
+        1:0     Location struct @ 0x873c20
+        1:0     Location struct @ 0x873c98
+        1:0     Location struct @ 0x873d10
+        1:0     Location struct @ 0x873db8
+        1:0     Location struct @ 0x873e30
+        1:0     Location struct @ 0x873ea8
+        1:0     Location struct @ 0x873f20
+        1:0     Location struct @ 0x873f98
+        1:0     Location struct @ 0x874010
+        1:0     Location struct @ 0x874088
+        1:0     Location struct @ 0x874100
+        1:0     Location struct @ 0x874178
+        1:0     Location struct @ 0x874210
+        1:0     Location struct @ 0x874288
+        1:0     Location struct @ 0x874300
+        1:0     Location struct @ 0x874378
+        1:0     Location struct @ 0x874410
+        1:0     Location struct @ 0x8744b8
+        1:0     Location struct @ 0x874530
+        1:0     Location struct @ 0x8745a8
+        1:0     Location struct @ 0x874620
+        1:0     Location struct @ 0x874698
+        1:0     Location struct @ 0x874710
+        1:0     Location struct @ 0x874788
+        1:0     Location struct @ 0x874800
+       33:32    Location struct @ 0x872790
+       72:31    Location struct @ 0x872808
+       72:37    Location struct @ 0x8723e0
+      118:48    Location struct @ 0x872700
+      143:31    Location struct @ 0x872738
+  crates/lib/src/changeable.rs  (3 sites)
+       37:20    Location struct @ 0x878b48
+       37:26    Location struct @ 0x872ab8
+       45:23    Location struct @ 0x872aa0
+  crates/lib/src/config.rs  (11 sites)
+        1:0     Location struct @ 0x8734f0
+        1:0     Location struct @ 0x873588
+        1:0     Location struct @ 0x875598
+        1:0     Location struct @ 0x875630
+        1:0     Location struct @ 0x8756a8
+        1:0     Location struct @ 0x875740
+        1:0     Location struct @ 0x8757d8
+        1:0     Location struct @ 0x875850
+        1:0     Location struct @ 0x8758e8
+        1:0     Location struct @ 0x875960
+      307:34    Location struct @ 0x872568
+  crates/lib/src/late_join_set.rs  (2 sites)
+       79:72    Location struct @ 0x872518
+       86:38    Location struct @ 0x872500
+  crates/lib/src/paths.rs  (1 sites)
+        1:0     Location struct @ 0x875a08
+  crates/lib/src/sources/fs.rs  (14 sites)
+        1:0     Location struct @ 0x873478
+        1:0     Location struct @ 0x874878
+        1:0     Location struct @ 0x8748f0
+        1:0     Location struct @ 0x874988
+        1:0     Location struct @ 0x874a20
+        1:0     Location struct @ 0x874ac8
+        1:0     Location struct @ 0x874b40
+        1:0     Location struct @ 0x874bb8
+        1:0     Location struct @ 0x874c30
+        1:0     Location struct @ 0x874ca8
+        1:0     Location struct @ 0x874d20
+        1:0     Location struct @ 0x875a80
+      112:32    Location struct @ 0x872820
+      186:13    Location struct @ 0x8728b8
+  crates/lib/src/sources/keyboard.rs  (12 sites)
+        1:0     Location struct @ 0x8751f0
+       28:32    Location struct @ 0x872a70
+       40:17    Location struct @ 0x872a88
+      199:32    Location struct @ 0x872a58
+      209:5     Location struct @ 0x872a40
+      226:32    Location struct @ 0x872470
+      230:27    Location struct @ 0x872488
+      230:50    Location struct @ 0x8724a0
+      235:32    Location struct @ 0x8724b8
+      243:5     Location struct @ 0x8724d0
+      244:13    Location struct @ 0x8724e8
+      280:32    Location struct @ 0x872a28
+  crates/lib/src/sources/signal.rs  (19 sites)
+        1:0     Location struct @ 0x874d98
+        1:0     Location struct @ 0x874e10
+        1:0     Location struct @ 0x874e88
+        1:0     Location struct @ 0x874f00
+        1:0     Location struct @ 0x874f78
+        1:0     Location struct @ 0x874ff0
+        1:0     Location struct @ 0x875088
+        1:0     Location struct @ 0x875100
+        1:0     Location struct @ 0x875178
+       43:32    Location struct @ 0x872a10
+       52:32    Location struct @ 0x8729e0
+       66:24    Location struct @ 0x872900
+       67:27    Location struct @ 0x872928
+       68:22    Location struct @ 0x872950
+       69:27    Location struct @ 0x872978
+       70:23    Location struct @ 0x8729a0
+       71:23    Location struct @ 0x8729c8
+       74:19    Location struct @ 0x872458
+      125:32    Location struct @ 0x8729f8
+  crates/lib/src/watchexec.rs  (26 sites)
+        1:0     Location struct @ 0x873600
+        1:0     Location struct @ 0x873678
+        1:0     Location struct @ 0x873710
+        1:0     Location struct @ 0x873788
+        1:0     Location struct @ 0x873800
+        1:0     Location struct @ 0x873878
+        1:0     Location struct @ 0x873910
+        1:0     Location struct @ 0x873988
+        1:0     Location struct @ 0x873a20
+        1:0     Location struct @ 0x8752a8
+        1:0     Location struct @ 0x875320
+        1:0     Location struct @ 0x875398
+        1:0     Location struct @ 0x875410
+        1:0     Location struct @ 0x875488
+        1:0     Location struct @ 0x875500
+      151:22    Location struct @ 0x872cf8
+      151:28    Location struct @ 0x872580
+      156:32    Location struct @ 0x872598
+      160:19    Location struct @ 0x8725b0
+      161:19    Location struct @ 0x8725c8
+      162:19    Location struct @ 0x8725e0
+      165:19    Location struct @ 0x8725f8
+      169:19    Location struct @ 0x872610
+      211:96    Location struct @ 0x878498
+      229:14    Location struct @ 0x872d10
+      236:32    Location struct @ 0x8726c8
+  crates/project-origins/src/lib.rs  (4 sites)
+      198:73    Location struct @ 0x851a18
+      290:75    Location struct @ 0x851a00
+      334:39    Location struct @ 0x852060
+      338:26    Location struct @ 0x851d38
+  crates/supervisor/src/command/conversions.rs  (1 sites)
+        1:0     Location struct @ 0x883d08
+  crates/supervisor/src/errors.rs  (1 sites)
+       15:19    Location struct @ 0x881970
+  crates/supervisor/src/job/job.rs  (2 sites)
+       97:55    Location struct @ 0x881108
+      108:25    Location struct @ 0x8810f0
+  crates/supervisor/src/job/priority.rs  (4 sites)
+       53:92    Location struct @ 0x881630
+       67:13    Location struct @ 0x881478
+       76:13    Location struct @ 0x881460
+      129:9     Location struct @ 0x8817f0
+  crates/supervisor/src/job/state.rs  (4 sites)
+        1:0     Location struct @ 0x883b60
+        1:0     Location struct @ 0x883bd8
+        1:0     Location struct @ 0x883c70
+      139:66    Location struct @ 0x8815d0
+  crates/supervisor/src/job/task.rs  (78 sites)
+        1:0     Location struct @ 0x881a30
+        1:0     Location struct @ 0x881aa8
+        1:0     Location struct @ 0x881b20
+        1:0     Location struct @ 0x881b98
+        1:0     Location struct @ 0x881c30
+        1:0     Location struct @ 0x881cd8
+        1:0     Location struct @ 0x881d50
+        1:0     Location struct @ 0x881dc8
+        1:0     Location struct @ 0x881e40
+        1:0     Location struct @ 0x881eb8
+        1:0     Location struct @ 0x881f30
+        1:0     Location struct @ 0x881fc8
+        1:0     Location struct @ 0x882060
+        1:0     Location struct @ 0x8820d8
+        1:0     Location struct @ 0x882150
+        1:0     Location struct @ 0x8821e8
+        1:0     Location struct @ 0x882260
+        1:0     Location struct @ 0x8822d8
+        1:0     Location struct @ 0x882350
+        1:0     Location struct @ 0x8823c8
+        1:0     Location struct @ 0x882440
+        1:0     Location struct @ 0x8824b8
+        1:0     Location struct @ 0x882530
+        1:0     Location struct @ 0x8825a8
+        1:0     Location struct @ 0x882620
+        1:0     Location struct @ 0x882698
+        1:0     Location struct @ 0x882710
+        1:0     Location struct @ 0x882788
+        1:0     Location struct @ 0x882800
+        1:0     Location struct @ 0x882878
+        1:0     Location struct @ 0x8828f0
+        1:0     Location struct @ 0x882968
+        1:0     Location struct @ 0x8829e0
+        1:0     Location struct @ 0x882a58
+        1:0     Location struct @ 0x882ad0
+        1:0     Location struct @ 0x882b48
+        1:0     Location struct @ 0x882bc0
+        1:0     Location struct @ 0x882c38
+        1:0     Location struct @ 0x882cb0
+        1:0     Location struct @ 0x882d28
+        1:0     Location struct @ 0x882da0
+        1:0     Location struct @ 0x882e18
+        1:0     Location struct @ 0x882e90
+        1:0     Location struct @ 0x882f08
+        1:0     Location struct @ 0x882f80
+        1:0     Location struct @ 0x882ff8
+        1:0     Location struct @ 0x883070
+        1:0     Location struct @ 0x8830e8
+        1:0     Location struct @ 0x883160
+        1:0     Location struct @ 0x8831d8
+        1:0     Location struct @ 0x883250
+        1:0     Location struct @ 0x8832c8
+        1:0     Location struct @ 0x883360
+        1:0     Location struct @ 0x8833d8
+        1:0     Location struct @ 0x883450
+        1:0     Location struct @ 0x8834c8
+        1:0     Location struct @ 0x883540
+        1:0     Location struct @ 0x883780
+        1:0     Location struct @ 0x8837f8
+        1:0     Location struct @ 0x8838e8
+        1:0     Location struct @ 0x883960
+        1:0     Location struct @ 0x8839d8
+        1:0     Location struct @ 0x883a50
+        2:0     Location struct @ 0x8835b8
+        2:0     Location struct @ 0x883630
+        2:0     Location struct @ 0x8836d8
+        2:0     Location struct @ 0x883870
+        2:0     Location struct @ 0x883ac8
+        2:0     Location struct @ 0x883d80
+       55:9     Location struct @ 0x881988
+       55:22    Location struct @ 0x8816e8
+       67:17    Location struct @ 0x8814c8
+       70:31    Location struct @ 0x8815b8
+      133:31    Location struct @ 0x881520
+      467:1     Location struct @ 0x881448
+      474:1     Location struct @ 0x881420
+      477:1     Location struct @ 0x8814b0
+      482:26    Location struct @ 0x8816d0
+
+dep crates by panic site count  (2412 sites across 107 crates):
+  regex-automata@0.4.14                           407
+  tokio@1.49.0                                    247
+  aho-corasick@1.1.4                              207
+  zbus@5.14.0                                     204
+  regex-syntax@0.8.10                             185
+  regex-lite@0.1.9                                90
+  chrono@0.4.44                                   78
+  clap_builder@4.5.60                             63
+  tracing-subscriber@0.3.22                       52
+  crossbeam-channel@0.5.15                        42
+  … 97 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_watchexec-cli.stripped
+functions (from .eh_frame): 9547
+
+attribution breakdown:
+  certain         67  (0.7%)  user-authored (100% precision, DWARF-validated)
+  call closure  1524  (16.0%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       7956  (83.3%)  not attributed
+
+user-authored functions — high confidence (67):
+  0x001d7d80–0x001dbe63  (16611 bytes)
+      panic @ crates/ignore-files/src/filter.rs:68:97
+      panic @ crates/ignore-files/src/filter.rs:80:16
+  0x001dbe70–0x001dff4f  (16607 bytes)
+      panic @ crates/ignore-files/src/filter.rs:68:97
+      panic @ crates/ignore-files/src/filter.rs:80:16
+  0x001dff50–0x001e3b0a  (15290 bytes)
+      panic @ crates/ignore-files/src/discover.rs:158:36
+      panic @ crates/ignore-files/src/discover.rs:161:4
+      panic @ crates/ignore-files/src/discover.rs:504:27
+      panic @ crates/ignore-files/src/discover.rs:537:40
+      panic @ crates/ignore-files/src/discover.rs:547:57
+  0x001e7850–0x001eb0ba  (14442 bytes)
+      panic @ crates/ignore-files/src/discover.rs:546:2
+  0x001ed3d0–0x001edca5  (2261 bytes)
+      panic @ crates/ignore-files/src/discover.rs:442:1
+  0x001ede80–0x001ee0d7  (599 bytes)
+      panic @ crates/cli/src/socket/unix.rs:20:2
+  0x001ee0e0–0x001fee31  (68945 bytes)
+      panic @ crates/cli/src/args.rs:248:51
+      panic @ crates/cli/src/args.rs:257:44
+      panic @ crates/cli/src/args/command.rs:269:57
+      panic @ crates/cli/src/args/logging.rs:91:59
+      panic @ crates/cli/src/lib.rs:32:71
+      panic @ crates/cli/src/lib.rs:45:4
+      panic @ crates/cli/src/lib.rs:71:38
+      panic @ crates/cli/src/lib.rs:91:5
+      panic @ crates/cli/src/lib.rs:116:64
+      panic @ crates/cli/src/lib.rs:136:40
+      panic @ crates/cli/src/lib.rs:148:39
+      panic @ crates/cli/src/socket/unix.rs:21:56
+      panic @ crates/cli/src/state.rs:21:48
+      panic @ crates/lib/src/changeable.rs:37:20
+      panic @ crates/lib/src/watchexec.rs:151:22
+      panic @ crates/lib/src/watchexec.rs:211:96
+  0x001fee40–0x0020818c  (37708 bytes)
+      panic @ crates/cli/src/args/filtering.rs:389:80
+      panic @ crates/cli/src/args/filtering.rs:469:47
+      panic @ crates/cli/src/dirs.rs:22:22
+      panic @ crates/cli/src/dirs.rs:58:35
+      panic @ crates/cli/src/filterer/parse.rs:29:82
+      panic @ crates/cli/src/filterer/parse.rs:30:58
+      panic @ crates/project-origins/src/lib.rs:198:73
+  0x00208b90–0x0020a3d5  (6213 bytes)
+      panic @ crates/ignore-files/src/discover.rs:638:4
+      panic @ crates/ignore-files/src/filter.rs:203:75
+  0x0020a3e0–0x0020b841  (5217 bytes)
+      panic @ crates/project-origins/src/lib.rs:334:39
+      panic @ crates/project-origins/src/lib.rs:338:26
+  0x0020b850–0x0021559c  (40268 bytes)
+      panic @ crates/cli/src/dirs.rs:76:59
+      panic @ crates/cli/src/filterer.rs:72:53
+      panic @ crates/cli/src/filterer.rs:73:62
+      panic @ crates/cli/src/filterer.rs:74:46
+      panic @ crates/cli/src/filterer.rs:161:82
+      panic @ crates/cli/src/filterer/progs.rs:66:20
+      panic @ crates/cli/src/filterer/progs.rs:106:9
+      panic @ crates/filterer/globset/src/lib.rs:73:27
+      panic @ crates/project-origins/src/lib.rs:290:75
+  0x00215c10–0x0021c5a5  (27029 bytes)
+      panic @ crates/cli/src/dirs.rs:86:89
+      panic @ crates/cli/src/dirs.rs:87:53
+      panic @ crates/ignore-files/src/discover.rs:62:59
+      panic @ crates/ignore-files/src/discover.rs:329:87
+  0x0021c5b0–0x0021cc3d  (1677 bytes)
+      panic @ crates/ignore-files/src/discover.rs:450:11
+  0x0021cc40–0x0021d44c  (2060 bytes)
+      panic @ crates/ignore-files/src/discover.rs:473:69
+  0x0021d450–0x0022451a  (28874 bytes)
+      panic @ crates/cli/src/args/logging.rs:103:74
+      panic @ crates/cli/src/args/logging.rs:130:8
+  0x00224930–0x00229b03  (20947 bytes)
+      panic @ crates/cli/src/main.rs:22:10
+      panic @ crates/cli/src/main.rs:23:10
+      panic @ crates/cli/src/main.rs:23:19
+  0x0036e090–0x0037057b  (9451 bytes)
+      panic @ crates/ignore-files/src/filter.rs:355:45
+      panic @ crates/ignore-files/src/filter.rs:373:63
+  0x005d2480–0x005d7263  (19939 bytes)
+      panic @ crates/lib/src/watchexec.rs:151:28
+      panic @ crates/lib/src/watchexec.rs:156:32
+      panic @ crates/lib/src/watchexec.rs:160:19
+      panic @ crates/lib/src/watchexec.rs:161:19
+      panic @ crates/lib/src/watchexec.rs:162:19
+      panic @ crates/lib/src/watchexec.rs:165:19
+      panic @ crates/lib/src/watchexec.rs:169:19
+  0x005dc8e0–0x005de967  (8327 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+      panic @ crates/lib/src/watchexec.rs:236:32
+  0x005e3870–0x005e456c  (3324 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+      panic @ crates/lib/src/sources/keyboard.rs:28:32
+      panic @ crates/lib/src/sources/keyboard.rs:40:17
+  0x005e4790–0x005e52e9  (2905 bytes)
+      panic @ crates/lib/src/config.rs:307:34
+  0x005e6c20–0x005e81de  (5566 bytes)
+      panic @ crates/lib/src/sources/keyboard.rs:199:32
+      panic @ crates/lib/src/sources/keyboard.rs:209:5
+      panic @ crates/lib/src/sources/keyboard.rs:243:5
+      panic @ crates/lib/src/sources/keyboard.rs:244:13
+  0x005e89e0–0x005e95e8  (3080 bytes)
+      panic @ crates/lib/src/sources/keyboard.rs:280:32
+  0x005edae0–0x005ee3a7  (2247 bytes)
+      panic @ crates/lib/src/sources/keyboard.rs:226:32
+      panic @ crates/lib/src/sources/keyboard.rs:230:27
+      panic @ crates/lib/src/sources/keyboard.rs:230:50
+      panic @ crates/lib/src/sources/keyboard.rs:235:32
+  0x005f3380–0x005f7008  (15496 bytes)
+      panic @ crates/lib/src/sources/signal.rs:43:32
+      panic @ crates/lib/src/sources/signal.rs:52:32
+      panic @ crates/lib/src/sources/signal.rs:66:24
+      panic @ crates/lib/src/sources/signal.rs:67:27
+      panic @ crates/lib/src/sources/signal.rs:68:22
+      panic @ crates/lib/src/sources/signal.rs:69:27
+      panic @ crates/lib/src/sources/signal.rs:70:23
+      panic @ crates/lib/src/sources/signal.rs:71:23
+      panic @ crates/lib/src/sources/signal.rs:74:19
+      panic @ crates/lib/src/sources/signal.rs:125:32
+  0x005fa210–0x0060151c  (29452 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+      panic @ crates/lib/src/sources/fs.rs:112:32
+      panic @ crates/lib/src/sources/fs.rs:186:13
+  0x00601800–0x00601a5e  (606 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+  0x00609000–0x0060f953  (26963 bytes)
+      panic @ crates/lib/src/action/worker.rs:33:32
+      panic @ crates/lib/src/action/worker.rs:72:31
+      panic @ crates/lib/src/changeable.rs:45:23
+  0x006109c0–0x00616179  (22457 bytes)
+      panic @ crates/lib/src/action/worker.rs:118:48
+      panic @ crates/lib/src/action/worker.rs:143:31
+  0x00616920–0x0061702d  (1805 bytes)
+      panic @ crates/lib/src/late_join_set.rs:79:72
+      panic @ crates/lib/src/late_join_set.rs:86:38
+  0x00617b80–0x00617c5e  (222 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+  0x00617c60–0x00617d4b  (235 bytes)
+      panic @ crates/lib/src/changeable.rs:45:23
+  0x006193f0–0x0061957d  (397 bytes)
+      panic @ crates/lib/src/action/worker.rs:72:37
+  0x0061dfe0–0x0061e795  (1973 bytes)
+      panic @ crates/lib/src/watchexec.rs:229:14
+  0x00638970–0x00638b36  (454 bytes)
+      panic @ crates/cli/src/state.rs:74:43
+  0x00638b40–0x00638e4a  (778 bytes)
+      panic @ crates/cli/src/state.rs:66:43
+  0x006392e0–0x0063a0e6  (3590 bytes)
+      panic @ crates/cli/src/state.rs:54:24
+  0x006a6980–0x006a884b  (7883 bytes)
+      panic @ crates/cli/src/filterer/proglib/hash.rs:48:51
+  0x006f7a00–0x006f8436  (2614 bytes)
+      panic @ crates/cli/src/filterer/progs.rs:106:22
+  0x006f9ce0–0x006fd1ff  (13599 bytes)
+      panic @ crates/cli/src/filterer/progs.rs:67:63
+  0x007064d0–0x0070c006  (23350 bytes)
+      panic @ crates/cli/src/config.rs:649:5
+      panic @ crates/cli/src/config.rs:689:57
+      panic @ crates/cli/src/config.rs:708:23
+      panic @ crates/lib/src/changeable.rs:37:20
+      panic @ crates/lib/src/changeable.rs:37:26
+  0x0070c200–0x0070c397  (407 bytes)
+      panic @ crates/lib/src/changeable.rs:37:20
+  0x0070dde0–0x007148e2  (27394 bytes)
+      panic @ crates/cli/src/config.rs:217:13
+      panic @ crates/cli/src/config.rs:345:25
+      panic @ crates/cli/src/config.rs:347:33
+      panic @ crates/supervisor/src/job/task.rs:55:9
+  0x00718d80–0x00718fc8  (584 bytes)
+      panic @ crates/cli/src/config.rs:365:57
+      panic @ crates/events/src/process.rs:112:18
+  0x0071d300–0x0071d439  (313 bytes)
+      panic @ crates/cli/src/config.rs:336:38
+      panic @ crates/cli/src/config.rs:337:33
+  0x0071d5e0–0x0071ecf2  (5906 bytes)
+      panic @ crates/cli/src/config.rs:757:5
+  0x007201c0–0x00722703  (9539 bytes)
+      panic @ crates/cli/src/config.rs:760:9
+      panic @ crates/cli/src/config.rs:762:17
+      panic @ crates/cli/src/config.rs:764:25
+      panic @ crates/lib/src/watchexec.rs:211:96
+  0x00723650–0x00723b8e  (1342 bytes)
+      panic @ crates/cli/src/config.rs:783:49
+      panic @ crates/events/src/process.rs:112:18
+  0x00728b10–0x0072aabe  (8110 bytes)
+      panic @ crates/cli/src/config.rs:516:34
+      panic @ crates/cli/src/config.rs:580:45
+  0x0072c1a0–0x0072d198  (4088 bytes)
+      panic @ crates/cli/src/config.rs:584:49
+  0x0072dea0–0x0072dfd9  (313 bytes)
+      panic @ crates/cli/src/config.rs:500:34
+      panic @ crates/cli/src/config.rs:501:29
+  0x0072e240–0x00731932  (14066 bytes)
+      panic @ crates/cli/src/socket/unix.rs:39:41
+  0x00740ae0–0x0074110e  (1582 bytes)
+      panic @ crates/cli/src/config.rs:139:26
+  0x0074d070–0x00751fd8  (20328 bytes)
+      panic @ crates/cli/src/filterer/progs.rs:46:9
+  0x007523b0–0x00753453  (4259 bytes)
+      panic @ crates/cli/src/filterer/progs.rs:48:25
+      panic @ crates/cli/src/filterer/progs.rs:52:18
+  0x00764310–0x007643b4  (164 bytes)
+      panic @ crates/events/src/process.rs:58:17
+  0x0076fee0–0x007702de  (1022 bytes)
+      panic @ crates/supervisor/src/job/job.rs:108:25
+  0x00770920–0x00770af8  (472 bytes)
+      panic @ crates/supervisor/src/job/job.rs:97:55
+  0x00773290–0x007733ac  (284 bytes)
+      panic @ crates/supervisor/src/errors.rs:15:19
+  0x00775010–0x0077a0df  (20687 bytes)
+      panic @ crates/events/src/process.rs:58:17
+      panic @ crates/supervisor/src/job/priority.rs:53:92
+      panic @ crates/supervisor/src/job/priority.rs:67:13
+      panic @ crates/supervisor/src/job/priority.rs:76:13
+      panic @ crates/supervisor/src/job/priority.rs:129:9
+      panic @ crates/supervisor/src/job/state.rs:139:66
+      panic @ crates/supervisor/src/job/task.rs:55:22
+      panic @ crates/supervisor/src/job/task.rs:67:17
+      panic @ crates/supervisor/src/job/task.rs:70:31
+  0x0077a0e0–0x0078238c  (33452 bytes)
+      panic @ crates/supervisor/src/job/task.rs:133:31
+  0x00783320–0x00783880  (1376 bytes)
+      panic @ crates/supervisor/src/job/task.rs:474:1
+  0x00783990–0x00783f99  (1545 bytes)
+      panic @ crates/supervisor/src/job/task.rs:467:1
+  0x0078bce0–0x0078c277  (1431 bytes)
+      panic @ crates/supervisor/src/job/task.rs:467:1
+  0x0078c830–0x0078cdf8  (1480 bytes)
+      panic @ crates/supervisor/src/job/task.rs:474:1
+  0x00791b60–0x0079201f  (1215 bytes)
+      panic @ crates/supervisor/src/job/task.rs:482:26
+  0x00794330–0x007948bd  (1421 bytes)
+      panic @ crates/supervisor/src/job/task.rs:477:1
+
+call closure — reachable from user code, not user-authored (1524):
+  0x001b1117–0x001b115f  (72 bytes)  [inferred]
+  0x001b1160–0x001b11cc  (108 bytes)  [inferred]
+  0x001b11d0–0x001b1278  (168 bytes)  [inferred]
+  0x001b1280–0x001b130c  (140 bytes)  [inferred]
+  0x001b1310–0x001b13a0  (144 bytes)  [inferred]
+  0x001b13a0–0x001b1420  (128 bytes)  [inferred]
+  0x001b1420–0x001b14e8  (200 bytes)  [inferred]
+  0x001b14f0–0x001b157c  (140 bytes)  [inferred]
+  0x001b2650–0x001b2a7b  (1067 bytes)  [inferred]
+  0x001bb210–0x001bb527  (791 bytes)  [inferred]
+  0x001bb530–0x001bb7e8  (696 bytes)  [indeterminate]
+  0x001bb8a0–0x001bb90e  (110 bytes)  [inferred]
+  0x001bb910–0x001bb9ba  (170 bytes)  [inferred]
+  0x001bc070–0x001bc0b0  (64 bytes)  [inferred]
+  0x001bc1a0–0x001bc370  (464 bytes)  [inferred]
+  0x001bc370–0x001bc445  (213 bytes)  [inferred]
+  0x001bc450–0x001bc4b0  (96 bytes)  [inferred]
+  0x001bc540–0x001bc568  (40 bytes)  [indeterminate]
+  0x001bc570–0x001bc5ed  (125 bytes)  [inferred]
+  0x001bc5f0–0x001bc653  (99 bytes)  [inferred]
+  0x001bc740–0x001bc81d  (221 bytes)  [indeterminate]
+  0x001bc8f0–0x001bc9bb  (203 bytes)  [indeterminate]
+  0x001bc9c0–0x001bca93  (211 bytes)  [indeterminate]
+  0x001bcaa0–0x001bcc13  (371 bytes)  [indeterminate]
+  0x001bccf0–0x001bce1a  (298 bytes)  [inferred]
+  0x001bce20–0x001bce68  (72 bytes)  [inferred]
+  0x001bce70–0x001bcebe  (78 bytes)  [indeterminate]
+  0x001bd060–0x001bd11e  (190 bytes)  [inferred]
+  0x001bd120–0x001bd1b0  (144 bytes)  [inferred]
+  0x001bd1b0–0x001bd1fc  (76 bytes)  [inferred]
+  0x001bd200–0x001bd2d3  (211 bytes)  [inferred]
+  0x001bd2e0–0x001bd35c  (124 bytes)  [inferred]
+  0x001bd410–0x001bd47c  (108 bytes)  [inferred]
+  0x001bd480–0x001bd5fd  (381 bytes)  [inferred]
+  0x001bd600–0x001bd74d  (333 bytes)  [inferred]
+  0x001bd750–0x001bd7f3  (163 bytes)  [inferred]
+  0x001bd8b0–0x001bd956  (166 bytes)  [inferred]
+  0x001bd960–0x001bda78  (280 bytes)  [inferred]
+  0x001bda80–0x001bdacc  (76 bytes)  [inferred]
+  0x001bdad0–0x001bdb4c  (124 bytes)  [inferred]
+  0x001bdb90–0x001bdc1a  (138 bytes)  [inferred]
+  0x001bdc20–0x001bdde3  (451 bytes)  [inferred]
+  0x001bddf0–0x001bdf13  (291 bytes)  [inferred]
+  0x001bdf20–0x001be036  (278 bytes)  [inferred]
+  0x001be040–0x001be0be  (126 bytes)  [inferred]
+  0x001be0c0–0x001be137  (119 bytes)  [inferred]
+  0x001be140–0x001be251  (273 bytes)  [inferred]
+  0x001be260–0x001be2db  (123 bytes)  [inferred]
+  0x001be2e0–0x001be40f  (303 bytes)  [inferred]
+  0x001be460–0x001be493  (51 bytes)  [inferred]
+  0x001be4a0–0x001be57f  (223 bytes)  [inferred]
+  0x001be580–0x001be646  (198 bytes)  [inferred]
+  0x001be650–0x001be713  (195 bytes)  [inferred]
+  0x001be720–0x001be764  (68 bytes)  [inferred]
+  0x001bea10–0x001bea7b  (107 bytes)  [inferred]
+  0x001bea80–0x001bebd1  (337 bytes)  [inferred]
+  0x001bebe0–0x001bed31  (337 bytes)  [inferred]
+  0x001bed70–0x001bf052  (738 bytes)  [indeterminate]
+  0x001bf060–0x001bf1a5  (325 bytes)  [indeterminate]
+  0x001bf1b0–0x001bf2fc  (332 bytes)  [indeterminate]
+  0x001bf300–0x001bf677  (887 bytes)  [inferred]
+  0x001bf680–0x001bf9ae  (814 bytes)  [inferred]
+  0x001bf9b0–0x001bfb14  (356 bytes)  [inferred]
+  0x001bfe80–0x001bff55  (213 bytes)  [inferred]
+  0x001bff60–0x001c003b  (219 bytes)  [inferred]
+  0x001c0040–0x001c0136  (246 bytes)  [inferred]
+  0x001c0210–0x001c02e4  (212 bytes)  [inferred]
+  0x001c02f0–0x001c037f  (143 bytes)  [inferred]
+  0x001c0630–0x001c0686  (86 bytes)  [inferred]
+  0x001c0690–0x001c07be  (302 bytes)  [inferred]
+  0x001c07c0–0x001c0afc  (828 bytes)  [indeterminate]
+  0x001c0b00–0x001c0b6c  (108 bytes)  [inferred]
+  0x001c0b70–0x001c0c9d  (301 bytes)  [inferred]
+  0x001c0ca0–0x001c0d03  (99 bytes)  [inferred]
+  0x001c0d10–0x001c0d9d  (141 bytes)  [inferred]
+  0x001c0da0–0x001c0dd1  (49 bytes)  [inferred]
+  0x001c0e20–0x001c0ec4  (164 bytes)  [inferred]
+  0x001c0ed0–0x001c0ef8  (40 bytes)  [indeterminate]
+  0x001c0f00–0x001c0f96  (150 bytes)  [indeterminate]
+  0x001c0fa0–0x001c110c  (364 bytes)  [inferred]
+  0x001c1110–0x001c11d5  (197 bytes)  [inferred]
+  0x001c11e0–0x001c125b  (123 bytes)  [inferred]
+  0x001c1260–0x001c1284  (36 bytes)  [inferred]
+  0x001c1290–0x001c12e5  (85 bytes)  [indeterminate]
+  0x001c12f0–0x001c1477  (391 bytes)  [inferred]
+  0x001c1480–0x001c14d5  (85 bytes)  [inferred]
+  0x001c14e0–0x001c155f  (127 bytes)  [inferred]
+  0x001c1560–0x001c15c3  (99 bytes)  [inferred]
+  0x001c15d0–0x001c163f  (111 bytes)  [inferred]
+  0x001c1640–0x001c1715  (213 bytes)  [inferred]
+  0x001c1720–0x001c1788  (104 bytes)  [inferred]
+  0x001c1790–0x001c181d  (141 bytes)  [inferred]
+  0x001c1820–0x001c18ad  (141 bytes)  [inferred]
+  0x001c19a0–0x001c1ae3  (323 bytes)  [inferred]
+  0x001c1af0–0x001c1c37  (327 bytes)  [inferred]
+  0x001c1c40–0x001c1ccd  (141 bytes)  [inferred]
+  0x001c1cd0–0x001c1dd0  (256 bytes)  [inferred]
+  0x001c1dd0–0x001c1e50  (128 bytes)  [inferred]
+  0x001c1e50–0x001c1eab  (91 bytes)  [inferred]
+  0x001c1eb0–0x001c1f9a  (234 bytes)  [inferred]
+  0x001c1fa0–0x001c2106  (358 bytes)  [inferred]
+  0x001c2110–0x001c21c6  (182 bytes)  [inferred]
+  0x001c21d0–0x001c2396  (454 bytes)  [inferred]
+  0x001c23a0–0x001c240d  (109 bytes)  [inferred]
+  0x001c2410–0x001c24f7  (231 bytes)  [inferred]
+  0x001c2500–0x001c2618  (280 bytes)  [inferred]
+  0x001c2620–0x001c288b  (619 bytes)  [inferred]
+  0x001c28a0–0x001c2990  (240 bytes)  [indeterminate]
+  0x001c2990–0x001c2a7d  (237 bytes)  [indeterminate]
+  0x001c2b70–0x001c2c47  (215 bytes)  [indeterminate]
+  0x001c2c50–0x001c2d43  (243 bytes)  [indeterminate]
+  0x001c2f90–0x001c307c  (236 bytes)  [indeterminate]
+  0x001c32c0–0x001c32e6  (38 bytes)  [inferred]
+  0x001c32f0–0x001c3316  (38 bytes)  [inferred]
+  0x001c3350–0x001c3376  (38 bytes)  [inferred]
+  0x001c3590–0x001c36c0  (304 bytes)  [inferred]
+  0x001c3780–0x001c38bf  (319 bytes)  [inferred]
+  0x001c38c0–0x001c3921  (97 bytes)  [inferred]
+  0x001c3990–0x001c39e8  (88 bytes)  [inferred]
+  0x001c3a50–0x001c3add  (141 bytes)  [inferred]
+  0x001c3ae0–0x001c3b5b  (123 bytes)  [inferred]
+  0x001c3b60–0x001c3fc5  (1125 bytes)  [inferred]
+  0x001c3fd0–0x001c4166  (406 bytes)  [inferred]
+  0x001c4170–0x001c42fd  (397 bytes)  [inferred]
+  0x001c4300–0x001c433a  (58 bytes)  [indeterminate]
+  0x001c4340–0x001c437a  (58 bytes)  [indeterminate]
+  0x001c4400–0x001c476e  (878 bytes)  [inferred]
+  0x001c4770–0x001c4878  (264 bytes)  [inferred]
+  0x001c4880–0x001c4913  (147 bytes)  [inferred]
+  0x001c4920–0x001c49bc  (156 bytes)  [indeterminate]
+  0x001c49c0–0x001c4a01  (65 bytes)  [inferred]
+  0x001c4a10–0x001c4a51  (65 bytes)  [inferred]
+  0x001c4a60–0x001c4c81  (545 bytes)  [inferred]
+  0x001c4c90–0x001c4cfe  (110 bytes)  [inferred]
+  0x001c4d00–0x001c4d91  (145 bytes)  [inferred]
+  0x001c4da0–0x001c4fba  (538 bytes)  [inferred]
+  0x001c4fc0–0x001c5160  (416 bytes)  [inferred]
+  0x001c5160–0x001c5207  (167 bytes)  [indeterminate]
+  0x001c5210–0x001c5254  (68 bytes)  [indeterminate]
+  0x001c5260–0x001c54db  (635 bytes)  [inferred]
+  0x001c54e0–0x001c5693  (435 bytes)  [inferred]
+  0x001c56a0–0x001c56e3  (67 bytes)  [inferred]
+  0x001c56f0–0x001c5788  (152 bytes)  [inferred]
+  0x001c5790–0x001c5837  (167 bytes)  [inferred]
+  0x001c5840–0x001c5901  (193 bytes)  [inferred]
+  0x001c5910–0x001c5a4c  (316 bytes)  [inferred]
+  0x001c5a50–0x001c5b90  (320 bytes)  [inferred]
+  0x001c5b90–0x001c5e33  (675 bytes)  [inferred]
+  0x001c5e40–0x001c5f08  (200 bytes)  [inferred]
+  0x001c5f10–0x001c5f53  (67 bytes)  [inferred]
+  0x001c5f60–0x001c619c  (572 bytes)  [inferred]
+  0x001c61a0–0x001c6295  (245 bytes)  [inferred]
+  0x001c62a0–0x001c657a  (730 bytes)  [inferred]
+  0x001c6580–0x001c667b  (251 bytes)  [inferred]
+  0x001c6680–0x001c66fc  (124 bytes)  [inferred]
+  0x001c6700–0x001c699b  (667 bytes)  [inferred]
+  0x001c69a0–0x001c6a85  (229 bytes)  [inferred]
+  0x001c6a90–0x001c6dab  (795 bytes)  [inferred]
+  0x001c6db0–0x001c6e5a  (170 bytes)  [inferred]
+  0x001c6e60–0x001c6ea7  (71 bytes)  [inferred]
+  0x001c6eb0–0x001c6f2b  (123 bytes)  [inferred]
+  0x001c6f30–0x001c6f54  (36 bytes)  [inferred]
+  0x001c6ff0–0x001c71b4  (452 bytes)  [inferred]
+  0x001c71c0–0x001c72aa  (234 bytes)  [inferred]
+  0x001c72b0–0x001c740d  (349 bytes)  [inferred]
+  0x001c7410–0x001c754c  (316 bytes)  [inferred]
+  0x001c7550–0x001c7578  (40 bytes)  [inferred]
+  0x001c7580–0x001c7651  (209 bytes)  [inferred]
+  0x001c7950–0x001c7a24  (212 bytes)  [inferred]
+  0x001c7a30–0x001c81f7  (1991 bytes)  [inferred]
+  0x001c8200–0x001c826e  (110 bytes)  [inferred]
+  0x001c8270–0x001c8473  (515 bytes)  [indeterminate]
+  0x001c8480–0x001c85c9  (329 bytes)  [inferred]
+  0x001c85d0–0x001c88c3  (755 bytes)  [inferred]
+  0x001c88e0–0x001c89a5  (197 bytes)  [inferred]
+  0x001c89b0–0x001c89d4  (36 bytes)  [indeterminate]
+  0x001c8d70–0x001c8dbb  (75 bytes)  [inferred]
+  0x001c8dc0–0x001c8e84  (196 bytes)  [inferred]
+  0x001c8e90–0x001c901e  (398 bytes)  [inferred]
+  0x001c9020–0x001c90c3  (163 bytes)  [inferred]
+  0x001c90d0–0x001c9284  (436 bytes)  [inferred]
+  0x001c9290–0x001c92b4  (36 bytes)  [inferred]
+  0x001c92c0–0x001c93cd  (269 bytes)  [indeterminate]
+  0x001c93d0–0x001c964c  (636 bytes)  [inferred]
+  0x001c9650–0x001c971d  (205 bytes)  [inferred]
+  0x001c9720–0x001c9b1a  (1018 bytes)  [inferred]
+  0x001c9b20–0x001c9bf3  (211 bytes)  [indeterminate]
+  0x001c9c00–0x001c9e04  (516 bytes)  [inferred]
+  0x001c9e10–0x001ca010  (512 bytes)  [indeterminate]
+  0x001ca010–0x001ca3c4  (948 bytes)  [indeterminate]
+  0x001ca3d0–0x001ca405  (53 bytes)  [inferred]
+  0x001ca410–0x001ca46b  (91 bytes)  [inferred]
+  0x001ca470–0x001ca4ff  (143 bytes)  [inferred]
+  0x001ca500–0x001ca541  (65 bytes)  [inferred]
+  0x001ca940–0x001ca96c  (44 bytes)  [indeterminate]
+  0x001ca970–0x001cab58  (488 bytes)  [inferred]
+  0x001cb360–0x001cb4fe  (414 bytes)  [inferred]
+  0x001cb500–0x001cb645  (325 bytes)  [indeterminate]
+  0x001cb650–0x001cb6a6  (86 bytes)  [inferred]
+  0x001cb6b0–0x001cb72d  (125 bytes)  [inferred]
+  0x001cb7c0–0x001cb8cc  (268 bytes)  [inferred]
+  0x001cb8d0–0x001cb99c  (204 bytes)  [inferred]
+  0x001cb9a0–0x001cb9f5  (85 bytes)  [inferred]
+  0x001cbca0–0x001cbcd3  (51 bytes)  [inferred]
+  0x001cbda0–0x001cbe43  (163 bytes)  [inferred]
+  0x001cc080–0x001cc0d1  (81 bytes)  [inferred]
+  0x001cc0e0–0x001cc108  (40 bytes)  [inferred]
+  0x001cc140–0x001cc4e9  (937 bytes)  [inferred]
+  0x001cc4f0–0x001cc60c  (284 bytes)  [inferred]
+  0x001cc620–0x001ccd92  (1906 bytes)  [inferred]
+  0x001d2990–0x001d2c15  (645 bytes)  [inferred]
+  0x001d2c20–0x001d2c9d  (125 bytes)  [indeterminate]
+  0x001d56b0–0x001d584d  (413 bytes)  [inferred]
+  0x001d6b50–0x001d6c2b  (219 bytes)  [inferred]
+  0x001d6c30–0x001d6f37  (775 bytes)  [inferred]
+  0x001d6f40–0x001d70a9  (361 bytes)  [indeterminate]
+  0x001d73d0–0x001d74d0  (256 bytes)  [inferred]
+  0x001e4cd0–0x001e4ea0  (464 bytes)  [inferred]
+  0x001e4ea0–0x001e5070  (464 bytes)  [inferred]
+  0x001e5070–0x001e5240  (464 bytes)  [inferred]
+  0x001e5240–0x001e5410  (464 bytes)  [inferred]
+  0x001e5410–0x001e55e0  (464 bytes)  [inferred]
+  0x001e55e0–0x001e57b0  (464 bytes)  [inferred]
+  0x001e57b0–0x001e5980  (464 bytes)  [inferred]
+  0x001e5980–0x001e5b50  (464 bytes)  [inferred]
+  0x001e5b50–0x001e5d20  (464 bytes)  [inferred]
+  0x001e5d20–0x001e5ef0  (464 bytes)  [inferred]
+  0x001e5ef0–0x001e60c0  (464 bytes)  [inferred]
+  0x001e60c0–0x001e6290  (464 bytes)  [inferred]
+  0x001e6290–0x001e6460  (464 bytes)  [inferred]
+  0x001e6460–0x001e6630  (464 bytes)  [inferred]
+  0x001e6630–0x001e6800  (464 bytes)  [inferred]
+  0x001e6800–0x001e69d0  (464 bytes)  [inferred]
+  0x001e69d0–0x001e6ba0  (464 bytes)  [inferred]
+  0x001e6ba0–0x001e6d70  (464 bytes)  [inferred]
+  0x001e6d70–0x001e6f40  (464 bytes)  [inferred]
+  0x001e6f40–0x001e7110  (464 bytes)  [inferred]
+  0x001e7110–0x001e72e0  (464 bytes)  [inferred]
+  0x001e72e0–0x001e74b0  (464 bytes)  [inferred]
+  0x001e74b0–0x001e7680  (464 bytes)  [inferred]
+  0x001e7680–0x001e7850  (464 bytes)  [inferred]
+  0x001eb0c0–0x001eb290  (464 bytes)  [inferred]
+  0x001eb290–0x001eb460  (464 bytes)  [inferred]
+  0x001eb460–0x001eb630  (464 bytes)  [inferred]
+  0x001eb630–0x001eb800  (464 bytes)  [inferred]
+  0x001eb800–0x001eb9d0  (464 bytes)  [inferred]
+  0x001eb9d0–0x001ebba0  (464 bytes)  [inferred]
+  0x001ebba0–0x001ebd70  (464 bytes)  [inferred]
+  0x001ebd70–0x001ebf40  (464 bytes)  [inferred]
+  0x001ebf40–0x001ec110  (464 bytes)  [inferred]
+  0x001ec110–0x001ec2e0  (464 bytes)  [inferred]
+  0x001ec2e0–0x001ec4b0  (464 bytes)  [inferred]
+  0x001ec4b0–0x001ec680  (464 bytes)  [inferred]
+  0x001ec680–0x001ec850  (464 bytes)  [inferred]
+  0x001ec850–0x001ec8e5  (149 bytes)  [inferred]
+  0x001ec8f0–0x001ecac0  (464 bytes)  [inferred]
+  0x001ecac0–0x001ecc90  (464 bytes)  [inferred]
+  0x001ecc90–0x001ece60  (464 bytes)  [inferred]
+  0x001ece60–0x001ed030  (464 bytes)  [inferred]
+  0x001ed030–0x001ed200  (464 bytes)  [inferred]
+  0x001ed200–0x001ed3d0  (464 bytes)  [inferred]
+  0x001edcb0–0x001ede80  (464 bytes)  [inferred]
+  0x0022a2d0–0x0022a510  (576 bytes)  [indeterminate]
+  0x0022d560–0x0022d782  (546 bytes)  [inferred]
+  0x0022e520–0x0022e65c  (316 bytes)  [inferred]
+  0x0022e9f0–0x0022ea9f  (175 bytes)  [inferred]
+  0x0022efd0–0x0022f028  (88 bytes)  [inferred]
+  0x00230a60–0x00230db5  (853 bytes)  [inferred]
+  0x00234170–0x00234492  (802 bytes)  [inferred]
+  0x00241160–0x002413fe  (670 bytes)  [inferred]
+  0x00241520–0x002415da  (186 bytes)  [inferred]
+  0x00247f60–0x00248137  (471 bytes)  [indeterminate]
+  0x002485b0–0x002486fd  (333 bytes)  [indeterminate]
+  0x00248700–0x0024885e  (350 bytes)  [indeterminate]
+  0x00248860–0x002489af  (335 bytes)  [indeterminate]
+  0x002489b0–0x00248b1d  (365 bytes)  [inferred]
+  0x00249980–0x00249f4c  (1484 bytes)  [inferred]
+  0x0024cce0–0x0024ce80  (416 bytes)  [indeterminate]
+  0x0024d500–0x0024d60a  (266 bytes)  [inferred]
+  0x00250af0–0x00250bca  (218 bytes)  [inferred]
+  0x002518f0–0x00251be2  (754 bytes)  [indeterminate]
+  0x00251bf0–0x00252089  (1177 bytes)  [inferred]
+  0x00252200–0x002522a0  (160 bytes)  [inferred]
+  0x002528f0–0x00252952  (98 bytes)  [inferred]
+  0x002541e0–0x0025422d  (77 bytes)  [indeterminate]
+  0x00254230–0x002542cd  (157 bytes)  [indeterminate]
+  0x0028172e–0x00281741  (19 bytes)  [indeterminate]
+  0x00281750–0x002817c0  (112 bytes)  [indeterminate]
+  0x002817c0–0x00281842  (130 bytes)  [indeterminate]
+  0x00281842–0x00281854  (18 bytes)  [indeterminate]
+  0x00281860–0x0028187c  (28 bytes)  [indeterminate]
+  0x00281880–0x00281aa4  (548 bytes)  [indeterminate]
+  0x00282370–0x00282437  (199 bytes)  [indeterminate]
+  0x00282511–0x0028254d  (60 bytes)  [indeterminate]
+  0x00282590–0x00282710  (384 bytes)  [indeterminate]
+  0x00282a00–0x00282b7f  (383 bytes)  [indeterminate]
+  0x00282ba0–0x00282dce  (558 bytes)  [inferred]
+  0x00283910–0x00283dd7  (1223 bytes)  [inferred]
+  0x00283de0–0x00283e44  (100 bytes)  [inferred]
+  0x00283e50–0x00283ebc  (108 bytes)  [inferred]
+  0x00283ec0–0x00283f46  (134 bytes)  [inferred]
+  0x002841a0–0x0028421b  (123 bytes)  [indeterminate]
+  0x00284220–0x00284279  (89 bytes)  [indeterminate]
+  0x00284650–0x00284712  (194 bytes)  [inferred]
+  0x00284720–0x002847f6  (214 bytes)  [inferred]
+  0x00284800–0x002848c0  (192 bytes)  [inferred]
+  0x002848c0–0x00284919  (89 bytes)  [indeterminate]
+  0x00285910–0x00285958  (72 bytes)  [indeterminate]
+  0x00285bc0–0x00285e94  (724 bytes)  [inferred]
+  0x00285ea0–0x00285f8f  (239 bytes)  [inferred]
+  0x00285f90–0x00285fe5  (85 bytes)  [indeterminate]
+  0x002887c0–0x00288811  (81 bytes)  [indeterminate]
+  0x00288820–0x0028886e  (78 bytes)  [indeterminate]
+  0x0028cd30–0x0028cee3  (435 bytes)  [indeterminate]
+  0x0028cf60–0x0028cfb6  (86 bytes)  [indeterminate]
+  0x0028ef50–0x0028ef64  (20 bytes)  [indeterminate]
+  0x0028f3e0–0x0028f747  (871 bytes)  [indeterminate]
+  0x0028f750–0x0028f839  (233 bytes)  [inferred]
+  0x0028f840–0x0028f854  (20 bytes)  [indeterminate]
+  0x0028fb10–0x0028fb40  (48 bytes)  [inferred]
+  0x0028fb40–0x0028fc2d  (237 bytes)  [indeterminate]
+  0x0028fc30–0x0028fcc7  (151 bytes)  [inferred]
+  0x00294f80–0x0029501e  (158 bytes)  [indeterminate]
+  0x00298f00–0x00298fc0  (192 bytes)  [indeterminate]
+  0x002990c0–0x002990c6  (6 bytes)  [indeterminate]
+  0x002990d0–0x0029916a  (154 bytes)  [indeterminate]
+  0x00299170–0x00299d9f  (3119 bytes)  [indeterminate]
+  0x00299da0–0x00299e0c  (108 bytes)  [indeterminate]
+  0x00299e10–0x00299e65  (85 bytes)  [indeterminate]
+  0x00299e70–0x00299e9d  (45 bytes)  [indeterminate]
+  0x0029b1a0–0x0029b234  (148 bytes)  [indeterminate]
+  0x0029b280–0x0029b29b  (27 bytes)  [inferred]
+  0x0029b2a0–0x0029b2bb  (27 bytes)  [inferred]
+  0x0029b2c0–0x0029b2cd  (13 bytes)  [indeterminate]
+  0x0029c9a0–0x0029cbef  (591 bytes)  [indeterminate]
+  0x002a2bd0–0x002a2cbd  (237 bytes)  [indeterminate]
+  0x002a58f0–0x002a597a  (138 bytes)  [indeterminate]
+  0x002ab6f0–0x002ab7cd  (221 bytes)  [indeterminate]
+  0x002ab840–0x002ab937  (247 bytes)  [indeterminate]
+  0x002ab940–0x002aba7c  (316 bytes)  [indeterminate]
+  0x002acca0–0x002acd1d  (125 bytes)  [indeterminate]
+  0x002b0520–0x002b0570  (80 bytes)  [indeterminate]
+  0x002b11e0–0x002b1594  (948 bytes)  [indeterminate]
+  0x002b1650–0x002b16f6  (166 bytes)  [indeterminate]
+  0x002b1700–0x002b178c  (140 bytes)  [indeterminate]
+  0x002b1790–0x002b17ee  (94 bytes)  [indeterminate]
+  0x002b17f0–0x002b1814  (36 bytes)  [inferred]
+  0x002b1820–0x002b18f7  (215 bytes)  [indeterminate]
+  0x002b1900–0x002b1980  (128 bytes)  [indeterminate]
+  0x002b1980–0x002b1e2c  (1196 bytes)  [indeterminate]
+  0x002b1e30–0x002b1e9c  (108 bytes)  [indeterminate]
+  0x002b3880–0x002b38e3  (99 bytes)  [indeterminate]
+  0x002b6230–0x002b853c  (8972 bytes)  [indeterminate]
+  0x002b8870–0x002b8bb3  (835 bytes)  [indeterminate]
+  0x002b8bc0–0x002b8c50  (144 bytes)  [inferred]
+  0x002b8c50–0x002b8ce6  (150 bytes)  [inferred]
+  0x002b8cf0–0x002b8d53  (99 bytes)  [inferred]
+  0x002b8d60–0x002b8dbb  (91 bytes)  [inferred]
+  0x002b8dc0–0x002b8e56  (150 bytes)  [inferred]
+  0x002b8e60–0x002b8f24  (196 bytes)  [inferred]
+  0x002b8f30–0x002b91bd  (653 bytes)  [inferred]
+  0x002b91c0–0x002b96a7  (1255 bytes)  [inferred]
+  0x002b96b0–0x002b97ad  (253 bytes)  [inferred]
+  0x002b97b0–0x002b9813  (99 bytes)  [inferred]
+  0x002b9820–0x002ba8ec  (4300 bytes)  [indeterminate]
+  0x002ba8f0–0x002ba953  (99 bytes)  [indeterminate]
+  0x002ba960–0x002ba999  (57 bytes)  [inferred]
+  0x002ba9a0–0x002baa03  (99 bytes)  [inferred]
+  0x002bc360–0x002bc52b  (459 bytes)  [indeterminate]
+  0x002bc5e0–0x002bc700  (288 bytes)  [indeterminate]
+  0x002bc700–0x002bc798  (152 bytes)  [inferred]
+  0x002bc7a0–0x002bc7c8  (40 bytes)  [inferred]
+  0x002bc7d0–0x002bc84c  (124 bytes)  [indeterminate]
+  0x002bea20–0x002bed67  (839 bytes)  [inferred]
+  0x002bed70–0x002bedff  (143 bytes)  [inferred]
+  0x002bee00–0x002bee8f  (143 bytes)  [inferred]
+  0x002bee90–0x002beed0  (64 bytes)  [inferred]
+  0x002bef40–0x002bef75  (53 bytes)  [inferred]
+  0x002cd040–0x002cd579  (1337 bytes)  [inferred]
+  0x002cd580–0x002cd84e  (718 bytes)  [indeterminate]
+  0x002d49c0–0x002d4acc  (268 bytes)  [indeterminate]
+  0x002d4ad0–0x002d4b3d  (109 bytes)  [indeterminate]
+  0x002d4f80–0x002d5034  (180 bytes)  [inferred]
+  0x002d5040–0x002d51b0  (368 bytes)  [indeterminate]
+  0x002d51b0–0x002d5240  (144 bytes)  [indeterminate]
+  0x002d52f0–0x002d53d0  (224 bytes)  [indeterminate]
+  0x002d5b60–0x002d5ba4  (68 bytes)  [inferred]
+  0x0030c7d0–0x0030cb84  (948 bytes)  [inferred]
+  0x0030cb90–0x0030cc36  (166 bytes)  [inferred]
+  0x00315d00–0x00316093  (915 bytes)  [inferred]
+  0x003160a0–0x003186b2  (9746 bytes)  [inferred]
+  0x00318f40–0x00319070  (304 bytes)  [inferred]
+  0x00319070–0x003192ab  (571 bytes)  [inferred]
+  0x003192b0–0x0031972f  (1151 bytes)  [inferred]
+  0x00319730–0x003197f6  (198 bytes)  [inferred]
+  0x00319800–0x00319d22  (1314 bytes)  [inferred]
+  0x00319d30–0x00319ebc  (396 bytes)  [inferred]
+  0x00319ec0–0x00319faf  (239 bytes)  [inferred]
+  0x00319fb0–0x0031a09f  (239 bytes)  [inferred]
+  0x0031a0a0–0x0031a18f  (239 bytes)  [inferred]
+  0x0031a190–0x0031a27f  (239 bytes)  [inferred]
+  0x0031a280–0x0031a36f  (239 bytes)  [inferred]
+  0x0031a370–0x0031a4f0  (384 bytes)  [inferred]
+  0x0031c9e0–0x0031ca94  (180 bytes)  [indeterminate]
+  0x0031d080–0x0031d1bc  (316 bytes)  [indeterminate]
+  0x0031d1c0–0x0031d221  (97 bytes)  [inferred]
+  0x0031d360–0x0031d3d9  (121 bytes)  [indeterminate]
+  0x0031d3e0–0x0031db90  (1968 bytes)  [inferred]
+  0x0031db90–0x0031dbc8  (56 bytes)  [inferred]
+  0x0031dbd0–0x0031dc7b  (171 bytes)  [inferred]
+  0x0031dcad–0x0031dd96  (233 bytes)  [indeterminate]
+  0x0031ddf0–0x0031de1b  (43 bytes)  [indeterminate]
+  0x0031de20–0x0031dfe0  (448 bytes)  [indeterminate]
+  0x0031dfe0–0x0031e409  (1065 bytes)  [indeterminate]
+  0x0031e410–0x0031e8d3  (1219 bytes)  [indeterminate]
+  0x0031ee60–0x0031f0b3  (595 bytes)  [indeterminate]
+  0x0031f0b3–0x0031f0ef  (60 bytes)  [indeterminate]
+  0x0031f4a2–0x0031f4d6  (52 bytes)  [indeterminate]
+  0x0031f5c2–0x0031f5f5  (51 bytes)  [indeterminate]
+  0x0031fe90–0x0031ff55  (197 bytes)  [indeterminate]
+  0x0031ff60–0x0031ff78  (24 bytes)  [indeterminate]
+  0x0031ff80–0x0031ff91  (17 bytes)  [indeterminate]
+  0x0031ffa0–0x00320197  (503 bytes)  [indeterminate]
+  0x00322b70–0x0032308c  (1308 bytes)  [indeterminate]
+  0x00323190–0x00323199  (9 bytes)  [indeterminate]
+  0x003231a0–0x0032350c  (876 bytes)  [inferred]
+  0x003237a0–0x003237ce  (46 bytes)  [indeterminate]
+  0x003237f0–0x0032381e  (46 bytes)  [indeterminate]
+  0x00323840–0x00323873  (51 bytes)  [indeterminate]
+  0x00323880–0x003238d1  (81 bytes)  [indeterminate]
+  0x003238e0–0x003238f7  (23 bytes)  [indeterminate]
+  0x00323900–0x00323933  (51 bytes)  [inferred]
+  0x00323933–0x00323943  (16 bytes)  [indeterminate]
+  0x00323943–0x0032394c  (9 bytes)  [indeterminate]
+  0x00323950–0x00323971  (33 bytes)  [inferred]
+  0x00323a80–0x00323b64  (228 bytes)  [indeterminate]
+  0x00323b70–0x00323c8b  (283 bytes)  [indeterminate]
+  0x00323cb0–0x00323cc8  (24 bytes)  [indeterminate]
+  0x00323d10–0x00323d28  (24 bytes)  [indeterminate]
+  0x00323d30–0x00323d48  (24 bytes)  [indeterminate]
+  0x00324370–0x0032438c  (28 bytes)  [indeterminate]
+  0x00326880–0x00326a0a  (394 bytes)  [indeterminate]
+  0x00329410–0x00329aa0  (1680 bytes)  [inferred]
+  0x0032d520–0x0032d550  (48 bytes)  [indeterminate]
+  0x0032eec0–0x0032f0ac  (492 bytes)  [indeterminate]
+  0x0032f0b0–0x0032f287  (471 bytes)  [inferred]
+  0x0032f780–0x0032f812  (146 bytes)  [inferred]
+  0x0032f820–0x0032f9cd  (429 bytes)  [inferred]
+  0x0032f9d0–0x0032fa29  (89 bytes)  [inferred]
+  0x00331bc0–0x00331c4e  (142 bytes)  [indeterminate]
+  0x003322b0–0x00332345  (149 bytes)  [indeterminate]
+  0x00332350–0x0033237d  (45 bytes)  [indeterminate]
+  0x00333260–0x0033339c  (316 bytes)  [indeterminate]
+  0x00339ff0–0x0033a412  (1058 bytes)  [indeterminate]
+  0x0033d960–0x0033dbd8  (632 bytes)  [indeterminate]
+  0x0033dd80–0x0033ddf7  (119 bytes)  [indeterminate]
+  0x0033de00–0x0033e0b3  (691 bytes)  [indeterminate]
+  0x0033e0c0–0x0033e18e  (206 bytes)  [indeterminate]
+  0x00342c60–0x00342d11  (177 bytes)  [inferred]
+  0x00342d20–0x00343075  (853 bytes)  [inferred]
+  0x00343080–0x003448c6  (6214 bytes)  [indeterminate]
+  0x003448d0–0x00344af4  (548 bytes)  [indeterminate]
+  0x00344b00–0x003451d0  (1744 bytes)  [inferred]
+  0x0034a740–0x0034ab4b  (1035 bytes)  [indeterminate]
+  0x0034be70–0x0034c163  (755 bytes)  [indeterminate]
+  0x0034c170–0x0034c23c  (204 bytes)  [indeterminate]
+  0x0034c240–0x0034c318  (216 bytes)  [indeterminate]
+  0x0034e9b0–0x0034ea53  (163 bytes)  [indeterminate]
+  0x0034ea60–0x0034ebba  (346 bytes)  [indeterminate]
+  0x0034ebc0–0x0034edd6  (534 bytes)  [inferred]
+  0x0034ede0–0x0034eea4  (196 bytes)  [indeterminate]
+  0x0034eeb0–0x0034eee0  (48 bytes)  [indeterminate]
+  0x0035e6e0–0x0035e84b  (363 bytes)  [indeterminate]
+  0x0035e8e0–0x0035e9c8  (232 bytes)  [inferred]
+  0x0035f660–0x0035f6c8  (104 bytes)  [indeterminate]
+  0x003631c0–0x0036322d  (109 bytes)  [indeterminate]
+  0x00364520–0x0036458d  (109 bytes)  [indeterminate]
+  0x00364c10–0x00364f11  (769 bytes)  [indeterminate]
+  0x00364f20–0x00364f8c  (108 bytes)  [indeterminate]
+  0x00365170–0x00365213  (163 bytes)  [inferred]
+  0x00365220–0x003652ac  (140 bytes)  [inferred]
+  0x003652b0–0x003653d9  (297 bytes)  [inferred]
+  0x003653e0–0x003656e6  (774 bytes)  [inferred]
+  0x003656f0–0x00365820  (304 bytes)  [inferred]
+  0x00365940–0x00365983  (67 bytes)  [inferred]
+  0x00365990–0x00365a33  (163 bytes)  [inferred]
+  0x00365a40–0x00365b9a  (346 bytes)  [inferred]
+  0x00365ba0–0x00365db6  (534 bytes)  [inferred]
+  0x00365dc0–0x00365e84  (196 bytes)  [inferred]
+  0x00365e90–0x00365ec0  (48 bytes)  [inferred]
+  0x00365ec0–0x00366a70  (2992 bytes)  [inferred]
+  0x00366af0–0x00366b18  (40 bytes)  [indeterminate]
+  0x00366b40–0x00366c38  (248 bytes)  [inferred]
+  0x00366c40–0x00366d32  (242 bytes)  [inferred]
+  0x0036a0b0–0x0036a145  (149 bytes)  [inferred]
+  0x0036a6d0–0x0036a782  (178 bytes)  [inferred]
+  0x0036a790–0x0036a87e  (238 bytes)  [inferred]
+  0x0036ba10–0x0036bac1  (177 bytes)  [inferred]
+  0x0036bad0–0x0036bb2a  (90 bytes)  [inferred]
+  0x0036cb80–0x0036cc28  (168 bytes)  [inferred]
+  0x0036cc30–0x0036ccf8  (200 bytes)  [inferred]
+  0x0036cd00–0x0036cdbb  (187 bytes)  [indeterminate]
+  0x0036cdc0–0x0036ce36  (118 bytes)  [inferred]
+  0x0036d3f0–0x0036d7e3  (1011 bytes)  [inferred]
+  0x0036d7f0–0x0036d9ef  (511 bytes)  [indeterminate]
+  0x0036d9f0–0x0036db2d  (317 bytes)  [inferred]
+  0x0036db30–0x0036ddf3  (707 bytes)  [inferred]
+  0x0036de00–0x0036de63  (99 bytes)  [inferred]
+  0x0036de70–0x0036dfac  (316 bytes)  [inferred]
+  0x0036dfb0–0x0036e013  (99 bytes)  [inferred]
+  0x0036e020–0x0036e083  (99 bytes)  [inferred]
+  0x00371750–0x003717cd  (125 bytes)  [indeterminate]
+  0x003717d0–0x00371868  (152 bytes)  [inferred]
+  0x00371870–0x003719b7  (327 bytes)  [inferred]
+  0x00371cb0–0x00371e2d  (381 bytes)  [inferred]
+  0x00371e30–0x00371ed3  (163 bytes)  [inferred]
+  0x00371ee0–0x00371fa4  (196 bytes)  [inferred]
+  0x00371fb0–0x0037213e  (398 bytes)  [inferred]
+  0x00372140–0x003730d8  (3992 bytes)  [inferred]
+  0x003730e0–0x00373275  (405 bytes)  [inferred]
+  0x00373280–0x003732a8  (40 bytes)  [inferred]
+  0x00373580–0x003736e7  (359 bytes)  [inferred]
+  0x00373f30–0x0037403d  (269 bytes)  [indeterminate]
+  0x00374040–0x0037533f  (4863 bytes)  [inferred]
+  0x00375380–0x00375544  (452 bytes)  [inferred]
+  0x00375550–0x003759e9  (1177 bytes)  [inferred]
+  0x003759f0–0x00375b3d  (333 bytes)  [inferred]
+  0x00375d70–0x00375e45  (213 bytes)  [inferred]
+  0x00376d90–0x00377383  (1523 bytes)  [inferred]
+  0x00377390–0x003774c0  (304 bytes)  [inferred]
+  0x003774c0–0x00378a6c  (5548 bytes)  [inferred]
+  0x0037a3d0–0x0037a3fe  (46 bytes)  [indeterminate]
+  0x00385d20–0x00385d6f  (79 bytes)  [indeterminate]
+  0x0038cfe0–0x0038d034  (84 bytes)  [indeterminate]
+  0x00392820–0x003928ca  (170 bytes)  [indeterminate]
+  0x003cb422–0x003cb473  (81 bytes)  [indeterminate]
+  0x003cfda0–0x003cfe0e  (110 bytes)  [inferred]
+  0x003cfe10–0x003cfe29  (25 bytes)  [indeterminate]
+  0x003d1890–0x003d198b  (251 bytes)  [indeterminate]
+  0x003d2710–0x003d2864  (340 bytes)  [indeterminate]
+  0x003d8810–0x003d88b2  (162 bytes)  [indeterminate]
+  0x003d9640–0x003d973d  (253 bytes)  [indeterminate]
+  0x003dc6b0–0x003dc750  (160 bytes)  [indeterminate]
+  0x003dd850–0x003dd95c  (268 bytes)  [indeterminate]
+  0x003ddd40–0x003ddfd0  (656 bytes)  [indeterminate]
+  0x003de0c0–0x003de13a  (122 bytes)  [indeterminate]
+  0x003de140–0x003de1a4  (100 bytes)  [indeterminate]
+  0x003de1b0–0x003de1eb  (59 bytes)  [inferred]
+  0x003de1f0–0x003de22f  (63 bytes)  [indeterminate]
+  0x003dfd70–0x003dfea2  (306 bytes)  [inferred]
+  0x003dfeb0–0x003e03f2  (1346 bytes)  [inferred]
+  0x003e0400–0x003e050f  (271 bytes)  [inferred]
+  0x003e0510–0x003e062b  (283 bytes)  [inferred]
+  0x003e0700–0x003e07dd  (221 bytes)  [inferred]
+  0x003e07e0–0x003e0b93  (947 bytes)  [inferred]
+  0x003e29e0–0x003e2a65  (133 bytes)  [indeterminate]
+  0x003e6110–0x003e6231  (289 bytes)  [inferred]
+  0x003e6240–0x003e6392  (338 bytes)  [inferred]
+  0x003e63a0–0x003e6d6f  (2511 bytes)  [inferred]
+  0x003e6d70–0x003e6da3  (51 bytes)  [inferred]
+  0x003e6db0–0x003e6e48  (152 bytes)  [inferred]
+  0x003e6e50–0x003e700f  (447 bytes)  [indeterminate]
+  0x003e7010–0x003e7078  (104 bytes)  [inferred]
+  0x003e7080–0x003e70d6  (86 bytes)  [indeterminate]
+  0x003e70e0–0x003e71af  (207 bytes)  [inferred]
+  0x003e74a0–0x003e751a  (122 bytes)  [inferred]
+  0x003ed0b0–0x003ed3e8  (824 bytes)  [inferred]
+  0x0044bbf0–0x0044bc15  (37 bytes)  [indeterminate]
+  0x0044bc20–0x0044bc91  (113 bytes)  [inferred]
+  0x0044bca0–0x0044bd27  (135 bytes)  [inferred]
+  0x0044e390–0x0044e424  (148 bytes)  [inferred]
+  0x0044e430–0x0044e48d  (93 bytes)  [inferred]
+  0x0044e520–0x0044e567  (71 bytes)  [indeterminate]
+  0x0044f6e0–0x0044f72c  (76 bytes)  [inferred]
+  0x0044f730–0x0044f788  (88 bytes)  [inferred]
+  0x0044f790–0x0044f824  (148 bytes)  [indeterminate]
+  0x0044f830–0x0044f905  (213 bytes)  [inferred]
+  0x0044f910–0x0044f98f  (127 bytes)  [inferred]
+  0x0044f990–0x0044f9f4  (100 bytes)  [inferred]
+  0x0044fa00–0x0044fa7f  (127 bytes)  [inferred]
+  0x00451230–0x004512ce  (158 bytes)  [indeterminate]
+  0x004513a0–0x00451427  (135 bytes)  [indeterminate]
+  0x00451430–0x004514a8  (120 bytes)  [inferred]
+  0x00451d8d–0x00451dbd  (48 bytes)  [indeterminate]
+  0x00451dc0–0x00451ec8  (264 bytes)  [inferred]
+  0x00451ed0–0x00451f1e  (78 bytes)  [indeterminate]
+  0x00451f20–0x00452069  (329 bytes)  [indeterminate]
+  0x00452070–0x00452363  (755 bytes)  [indeterminate]
+  0x00452370–0x00452425  (181 bytes)  [inferred]
+  0x0045d580–0x0045e27e  (3326 bytes)  [inferred]
+  0x0045e280–0x0045e87b  (1531 bytes)  [inferred]
+  0x0045e880–0x0045ea57  (471 bytes)  [inferred]
+  0x0045fa30–0x0045fa4e  (30 bytes)  [indeterminate]
+  0x00467760–0x0046789c  (316 bytes)  [indeterminate]
+  0x00488610–0x00488638  (40 bytes)  [indeterminate]
+  0x0048cef0–0x0048cf16  (38 bytes)  [indeterminate]
+  0x0048cf20–0x0048d147  (551 bytes)  [indeterminate]
+  0x004a4c60–0x004a4cb6  (86 bytes)  [indeterminate]
+  0x004a54e0–0x004a558c  (172 bytes)  [indeterminate]
+  0x004a5590–0x004a55f1  (97 bytes)  [indeterminate]
+  0x004b86b0–0x004b871c  (108 bytes)  [indeterminate]
+  0x004d0910–0x004d0973  (99 bytes)  [indeterminate]
+  0x004d0ce0–0x004d0d74  (148 bytes)  [indeterminate]
+  0x00519410–0x00519490  (128 bytes)  [indeterminate]
+  0x0051a730–0x0051a781  (81 bytes)  [indeterminate]
+  0x0051ab4f–0x0051ab6e  (31 bytes)  [indeterminate]
+  0x0051ab70–0x0051ab79  (9 bytes)  [inferred]
+  0x0051ab80–0x0051abab  (43 bytes)  [inferred]
+  0x0051b14e–0x0051b4ee  (928 bytes)  [inferred]
+  0x0051b4f0–0x0051b684  (404 bytes)  [indeterminate]
+  0x0051b700–0x0051b7ff  (255 bytes)  [indeterminate]
+  0x0051b800–0x0051b88c  (140 bytes)  [indeterminate]
+  0x0051b890–0x0051b899  (9 bytes)  [indeterminate]
+  0x0051b8a0–0x0051b8c7  (39 bytes)  [inferred]
+  0x0051b8d0–0x0051b914  (68 bytes)  [inferred]
+  0x0051b920–0x0051bb1a  (506 bytes)  [inferred]
+  0x0051bb20–0x0051bb2e  (14 bytes)  [indeterminate]
+  0x0051bb30–0x0051bbb0  (128 bytes)  [indeterminate]
+  0x0051bbb0–0x0051bc3a  (138 bytes)  [indeterminate]
+  0x0051bc40–0x0051bd8a  (330 bytes)  [indeterminate]
+  0x0051bd90–0x0051be77  (231 bytes)  [indeterminate]
+  0x0051be80–0x0051beda  (90 bytes)  [inferred]
+  0x0051bee0–0x0051c2c4  (996 bytes)  [inferred]
+  0x0051c510–0x0051c688  (376 bytes)  [indeterminate]
+  0x00521150–0x005212ec  (412 bytes)  [indeterminate]
+  0x005212f0–0x00521412  (290 bytes)  [indeterminate]
+  0x00523540–0x005235e7  (167 bytes)  [indeterminate]
+  0x005236c0–0x00523aed  (1069 bytes)  [indeterminate]
+  0x00523af0–0x00523d44  (596 bytes)  [indeterminate]
+  0x00523d50–0x00523e07  (183 bytes)  [indeterminate]
+  0x00523e10–0x0052404c  (572 bytes)  [indeterminate]
+  0x00524270–0x00524506  (662 bytes)  [indeterminate]
+  0x00536230–0x00536296  (102 bytes)  [indeterminate]
+  0x00539570–0x005395d6  (102 bytes)  [indeterminate]
+  0x0053eb70–0x0053ec88  (280 bytes)  [indeterminate]
+  0x0053edb0–0x0053f0c7  (791 bytes)  [indeterminate]
+  0x0053f0d0–0x0053f398  (712 bytes)  [indeterminate]
+  0x0053f520–0x0053f63f  (287 bytes)  [inferred]
+  0x00540240–0x005402dd  (157 bytes)  [indeterminate]
+  0x005402e0–0x005404c5  (485 bytes)  [indeterminate]
+  0x005405a0–0x00540710  (368 bytes)  [indeterminate]
+  0x00540710–0x00540799  (137 bytes)  [indeterminate]
+  0x005407a0–0x00540a87  (743 bytes)  [indeterminate]
+  0x00540b10–0x00540c73  (355 bytes)  [indeterminate]
+  0x00540c80–0x00540ee4  (612 bytes)  [indeterminate]
+  0x00540ef0–0x00540fe9  (249 bytes)  [inferred]
+  0x00540ff0–0x005410f0  (256 bytes)  [indeterminate]
+  0x005410f0–0x0054114d  (93 bytes)  [indeterminate]
+  0x005425b0–0x005426a8  (248 bytes)  [indeterminate]
+  0x005426b0–0x00542784  (212 bytes)  [indeterminate]
+  0x00542790–0x005427b8  (40 bytes)  [inferred]
+  0x005427c0–0x0054282e  (110 bytes)  [inferred]
+  0x00542830–0x005428c0  (144 bytes)  [inferred]
+  0x005429d0–0x00542a18  (72 bytes)  [indeterminate]
+  0x00542a20–0x00542b4d  (301 bytes)  [inferred]
+  0x00542b50–0x00542c26  (214 bytes)  [indeterminate]
+  0x00542c30–0x00542c3a  (10 bytes)  [inferred]
+  0x00542f62–0x00542fa8  (70 bytes)  [inferred]
+  0x005435c7–0x005435f9  (50 bytes)  [indeterminate]
+  0x005436d2–0x00543703  (49 bytes)  [indeterminate]
+  0x005438e0–0x005438e9  (9 bytes)  [inferred]
+  0x005438f0–0x005438fe  (14 bytes)  [inferred]
+  0x005438fe–0x00543a3d  (319 bytes)  [inferred]
+  0x00543a40–0x00543a49  (9 bytes)  [inferred]
+  0x00543a50–0x00543ae4  (148 bytes)  [inferred]
+  0x00543fd0–0x00543fec  (28 bytes)  [inferred]
+  0x00543ff0–0x0054409e  (174 bytes)  [indeterminate]
+  0x005440a0–0x005440b2  (18 bytes)  [inferred]
+  0x005440c0–0x005440c9  (9 bytes)  [inferred]
+  0x005440d0–0x00544195  (197 bytes)  [indeterminate]
+  0x005441a0–0x00544265  (197 bytes)  [indeterminate]
+  0x00544f20–0x00544f3c  (28 bytes)  [indeterminate]
+  0x00544f40–0x00544f7b  (59 bytes)  [inferred]
+  0x00544f80–0x00544fa3  (35 bytes)  [indeterminate]
+  0x00544fb0–0x0054511e  (366 bytes)  [indeterminate]
+  0x00545510–0x0054560f  (255 bytes)  [indeterminate]
+  0x00545610–0x005457d2  (450 bytes)  [indeterminate]
+  0x00545b20–0x00545c79  (345 bytes)  [indeterminate]
+  0x00545db0–0x00546054  (676 bytes)  [indeterminate]
+  0x00546060–0x00546092  (50 bytes)  [inferred]
+  0x00546270–0x005462ec  (124 bytes)  [indeterminate]
+  0x00546590–0x005465ed  (93 bytes)  [indeterminate]
+  0x00548e20–0x00549062  (578 bytes)  [indeterminate]
+  0x00549090–0x0054914b  (187 bytes)  [indeterminate]
+  0x00549150–0x00549398  (584 bytes)  [indeterminate]
+  0x005496c0–0x00549722  (98 bytes)  [indeterminate]
+  0x00549730–0x005498ee  (446 bytes)  [indeterminate]
+  0x005498f0–0x005499a9  (185 bytes)  [inferred]
+  0x005499b0–0x00549b22  (370 bytes)  [indeterminate]
+  0x00549b30–0x00549b93  (99 bytes)  [indeterminate]
+  0x00549ba0–0x00549c68  (200 bytes)  [indeterminate]
+  0x00549c70–0x00549cd0  (96 bytes)  [indeterminate]
+  0x00549cd0–0x00549f2a  (602 bytes)  [indeterminate]
+  0x00549f30–0x00549fd0  (160 bytes)  [inferred]
+  0x0054a040–0x0054a0a6  (102 bytes)  [indeterminate]
+  0x0054a220–0x0054a2bc  (156 bytes)  [inferred]
+  0x0054a2c0–0x0054a2d4  (20 bytes)  [indeterminate]
+  0x0054a2e0–0x0054a325  (69 bytes)  [inferred]
+  0x0054a330–0x0054a345  (21 bytes)  [inferred]
+  0x0054a350–0x0054a390  (64 bytes)  [inferred]
+  0x0054a7d0–0x0054a8d4  (260 bytes)  [indeterminate]
+  0x0054a980–0x0054a9ca  (74 bytes)  [inferred]
+  0x0054a9d0–0x0054aae2  (274 bytes)  [indeterminate]
+  0x0054ae30–0x0054ae5e  (46 bytes)  [indeterminate]
+  0x0054ae60–0x0054af23  (195 bytes)  [indeterminate]
+  0x0054af30–0x0054aff8  (200 bytes)  [indeterminate]
+  0x0054b0f0–0x0054b1ec  (252 bytes)  [indeterminate]
+  0x0054b240–0x0054b2f5  (181 bytes)  [inferred]
+  0x0054b300–0x0054b377  (119 bytes)  [inferred]
+  0x0054b380–0x0054b459  (217 bytes)  [inferred]
+  0x0054b460–0x0054b596  (310 bytes)  [indeterminate]
+  0x0054b5a0–0x0054c50d  (3949 bytes)  [indeterminate]
+  0x0054c510–0x0054c547  (55 bytes)  [indeterminate]
+  0x0054d2a0–0x0054d384  (228 bytes)  [indeterminate]
+  0x0054d390–0x0054d46a  (218 bytes)  [indeterminate]
+  0x0054d470–0x0054d7ac  (828 bytes)  [indeterminate]
+  0x0054d7b0–0x0054d878  (200 bytes)  [inferred]
+  0x0054d8e0–0x0054d939  (89 bytes)  [inferred]
+  0x0054d940–0x0054fe50  (9488 bytes)  [indeterminate]
+  0x0054fe50–0x005501af  (863 bytes)  [indeterminate]
+  0x005501b0–0x0055026b  (187 bytes)  [inferred]
+  0x00550270–0x005502a8  (56 bytes)  [inferred]
+  0x005502b0–0x005505e4  (820 bytes)  [inferred]
+  0x005505f0–0x0055076b  (379 bytes)  [inferred]
+  0x00550770–0x005507ad  (61 bytes)  [inferred]
+  0x005507b0–0x0055083c  (140 bytes)  [inferred]
+  0x00550d60–0x00550dae  (78 bytes)  [inferred]
+  0x00550db0–0x00550deb  (59 bytes)  [indeterminate]
+  0x005510f0–0x00551282  (402 bytes)  [inferred]
+  0x00551290–0x00551700  (1136 bytes)  [indeterminate]
+  0x00551700–0x005517ce  (206 bytes)  [inferred]
+  0x005517d0–0x00551867  (151 bytes)  [inferred]
+  0x00551870–0x005527d5  (3941 bytes)  [inferred]
+  0x005527e0–0x00552fe1  (2049 bytes)  [inferred]
+  0x00552ff0–0x00553027  (55 bytes)  [inferred]
+  0x00553030–0x00553385  (853 bytes)  [inferred]
+  0x00553390–0x0055340b  (123 bytes)  [inferred]
+  0x00553410–0x005537b4  (932 bytes)  [indeterminate]
+  0x005537c0–0x00553c15  (1109 bytes)  [indeterminate]
+  0x00553c20–0x00553ffc  (988 bytes)  [indeterminate]
+  0x00554000–0x00554086  (134 bytes)  [inferred]
+  0x00554090–0x00554185  (245 bytes)  [inferred]
+  0x00554190–0x0055433d  (429 bytes)  [indeterminate]
+  0x00554340–0x005543b5  (117 bytes)  [indeterminate]
+  0x005543c0–0x00554446  (134 bytes)  [indeterminate]
+  0x00554450–0x00554537  (231 bytes)  [indeterminate]
+  0x00554940–0x00554b08  (456 bytes)  [inferred]
+  0x00554b10–0x00554b86  (118 bytes)  [inferred]
+  0x00554b90–0x00554db9  (553 bytes)  [indeterminate]
+  0x00554dc0–0x0055502c  (620 bytes)  [indeterminate]
+  0x00555030–0x00555376  (838 bytes)  [inferred]
+  0x00555380–0x00555389  (9 bytes)  [indeterminate]
+  0x00555390–0x00555424  (148 bytes)  [inferred]
+  0x00555500–0x00555711  (529 bytes)  [indeterminate]
+  0x00555720–0x005557f9  (217 bytes)  [indeterminate]
+  0x00555800–0x00555835  (53 bytes)  [indeterminate]
+  0x00555ac2–0x00555b15  (83 bytes)  [indeterminate]
+  0x00555cb4–0x00555d07  (83 bytes)  [indeterminate]
+  0x00555d10–0x00555f21  (529 bytes)  [indeterminate]
+  0x00555f30–0x005560d0  (416 bytes)  [indeterminate]
+  0x00556400–0x00556496  (150 bytes)  [indeterminate]
+  0x005564a0–0x00556635  (405 bytes)  [indeterminate]
+  0x00556670–0x005567ee  (382 bytes)  [indeterminate]
+  0x00556d30–0x00558994  (7268 bytes)  [indeterminate]
+  0x005589a0–0x00558ec5  (1317 bytes)  [inferred]
+  0x00558ed0–0x0055916b  (667 bytes)  [indeterminate]
+  0x00559170–0x00559211  (161 bytes)  [inferred]
+  0x0055a140–0x0055a3fb  (699 bytes)  [indeterminate]
+  0x0055a400–0x0055a454  (84 bytes)  [inferred]
+  0x0055a460–0x0055a6c4  (612 bytes)  [indeterminate]
+  0x0055a6c4–0x0055a73c  (120 bytes)  [inferred]
+  0x0055aa60–0x0055aee8  (1160 bytes)  [indeterminate]
+  0x0055aef0–0x0055b140  (592 bytes)  [indeterminate]
+  0x0055b140–0x0055b239  (249 bytes)  [inferred]
+  0x0055c6c0–0x0055c81a  (346 bytes)  [indeterminate]
+  0x0055c820–0x0055c8d4  (180 bytes)  [inferred]
+  0x0055e590–0x0055e5df  (79 bytes)  [indeterminate]
+  0x0055e6c0–0x0055e809  (329 bytes)  [inferred]
+  0x0055e810–0x0055eb43  (819 bytes)  [indeterminate]
+  0x0055eb50–0x0055ec62  (274 bytes)  [indeterminate]
+  0x0055fb50–0x0055fcd8  (392 bytes)  [indeterminate]
+  0x005618f0–0x005619a2  (178 bytes)  [inferred]
+  0x005619b0–0x00561a51  (161 bytes)  [inferred]
+  0x00561d80–0x00561fca  (586 bytes)  [inferred]
+  0x00561fd0–0x0056217b  (427 bytes)  [inferred]
+  0x005621a0–0x00562246  (166 bytes)  [inferred]
+  0x00562250–0x00562342  (242 bytes)  [inferred]
+  0x00562d10–0x00562d73  (99 bytes)  [indeterminate]
+  0x00562d80–0x00562ebc  (316 bytes)  [indeterminate]
+  0x00562fa0–0x005641e8  (4680 bytes)  [inferred]
+  0x005641f0–0x0056426f  (127 bytes)  [inferred]
+  0x00568a00–0x00568b3c  (316 bytes)  [indeterminate]
+  0x00568ea0–0x00568f1d  (125 bytes)  [indeterminate]
+  0x00575ae0–0x00575cb7  (471 bytes)  [indeterminate]
+  0x00576ab0–0x00576b09  (89 bytes)  [indeterminate]
+  0x00576b10–0x00576b66  (86 bytes)  [indeterminate]
+  0x00576bb0–0x00576be5  (53 bytes)  [indeterminate]
+  0x00576d40–0x00576db2  (114 bytes)  [indeterminate]
+  0x00576dc0–0x00576e74  (180 bytes)  [indeterminate]
+  0x00577010–0x00577038  (40 bytes)  [indeterminate]
+  0x00577040–0x005770b3  (115 bytes)  [indeterminate]
+  0x005770c0–0x005772ab  (491 bytes)  [inferred]
+  0x005772b0–0x005772d7  (39 bytes)  [indeterminate]
+  0x005772e0–0x00577310  (48 bytes)  [indeterminate]
+  0x00577310–0x005773d3  (195 bytes)  [inferred]
+  0x005773e0–0x005774d4  (244 bytes)  [inferred]
+  0x005774e0–0x0057759a  (186 bytes)  [inferred]
+  0x005775a0–0x005775f6  (86 bytes)  [indeterminate]
+  0x00577600–0x00577678  (120 bytes)  [inferred]
+  0x00577680–0x00577700  (128 bytes)  [indeterminate]
+  0x00577700–0x00577738  (56 bytes)  [inferred]
+  0x00577740–0x00577a51  (785 bytes)  [inferred]
+  0x00577c40–0x00577d5f  (287 bytes)  [indeterminate]
+  0x00577e70–0x00577f32  (194 bytes)  [indeterminate]
+  0x00577f40–0x00578000  (192 bytes)  [indeterminate]
+  0x005784a0–0x005784f6  (86 bytes)  [indeterminate]
+  0x005786c0–0x005786f0  (48 bytes)  [indeterminate]
+  0x00578860–0x00578886  (38 bytes)  [inferred]
+  0x00578890–0x00578911  (129 bytes)  [indeterminate]
+  0x00578920–0x00578a45  (293 bytes)  [inferred]
+  0x00578a50–0x00578bc1  (369 bytes)  [indeterminate]
+  0x00578bd0–0x00578c95  (197 bytes)  [inferred]
+  0x00578ca0–0x00578d69  (201 bytes)  [indeterminate]
+  0x00579f50–0x0057a12f  (479 bytes)  [indeterminate]
+  0x0057ab60–0x0057abd6  (118 bytes)  [indeterminate]
+  0x0057aca0–0x0057ae1e  (382 bytes)  [indeterminate]
+  0x0057c550–0x0057c6bc  (364 bytes)  [indeterminate]
+  0x0057c6c0–0x0057c6e5  (37 bytes)  [indeterminate]
+  0x0057c94e–0x0057c99f  (81 bytes)  [indeterminate]
+  0x0057d040–0x0057d46a  (1066 bytes)  [indeterminate]
+  0x0057d8e0–0x0057d943  (99 bytes)  [indeterminate]
+  0x0057dda0–0x0057de51  (177 bytes)  [indeterminate]
+  0x0057de60–0x0057dee8  (136 bytes)  [indeterminate]
+  0x0057def0–0x0057df53  (99 bytes)  [indeterminate]
+  0x0057e870–0x0057e8cb  (91 bytes)  [indeterminate]
+  0x0057f4c0–0x0057f4e5  (37 bytes)  [indeterminate]
+  0x0057fd50–0x0057fdbe  (110 bytes)  [indeterminate]
+  0x00581020–0x005813dc  (956 bytes)  [indeterminate]
+  0x00581cb0–0x0058263d  (2445 bytes)  [inferred]
+  0x00582640–0x0058299b  (859 bytes)  [inferred]
+  0x00582b20–0x00582ba5  (133 bytes)  [inferred]
+  0x00582bb0–0x00582c13  (99 bytes)  [inferred]
+  0x00582c20–0x00582c94  (116 bytes)  [inferred]
+  0x00582ca0–0x00582d62  (194 bytes)  [inferred]
+  0x00582d70–0x00582ee1  (369 bytes)  [indeterminate]
+  0x00582ef0–0x00582f61  (113 bytes)  [inferred]
+  0x00582f70–0x00583006  (150 bytes)  [indeterminate]
+  0x00583010–0x00583030  (32 bytes)  [inferred]
+  0x00583030–0x00583093  (99 bytes)  [inferred]
+  0x005830a0–0x005831d4  (308 bytes)  [indeterminate]
+  0x005831e0–0x00583342  (354 bytes)  [inferred]
+  0x00583350–0x00583415  (197 bytes)  [inferred]
+  0x00584310–0x0058438d  (125 bytes)  [indeterminate]
+  0x00584390–0x005843ff  (111 bytes)  [indeterminate]
+  0x00584400–0x00584469  (105 bytes)  [indeterminate]
+  0x00584ab0–0x00584ac4  (20 bytes)  [indeterminate]
+  0x00584b30–0x00584b41  (17 bytes)  [indeterminate]
+  0x00584b70–0x00584bf4  (132 bytes)  [indeterminate]
+  0x00589560–0x00589606  (166 bytes)  [indeterminate]
+  0x0058b570–0x0058b5b2  (66 bytes)  [inferred]
+  0x0058b5c0–0x0058b635  (117 bytes)  [inferred]
+  0x0058b640–0x0058b6bd  (125 bytes)  [inferred]
+  0x0058b6c0–0x0058b6de  (30 bytes)  [inferred]
+  0x0058b6e0–0x0058b72c  (76 bytes)  [inferred]
+  0x0058b730–0x0058b76d  (61 bytes)  [inferred]
+  0x0058b770–0x0058b7d8  (104 bytes)  [inferred]
+  0x0058bce0–0x0058bd30  (80 bytes)  [indeterminate]
+  0x0058bdf0–0x0058bf9e  (430 bytes)  [indeterminate]
+  0x0058bfa0–0x0058c0d1  (305 bytes)  [indeterminate]
+  0x0058cb30–0x0058cdb0  (640 bytes)  [indeterminate]
+  0x0058ded0–0x0058def6  (38 bytes)  [indeterminate]
+  0x0058df00–0x0058e094  (404 bytes)  [inferred]
+  0x0058e950–0x0058e9a0  (80 bytes)  [inferred]
+  0x0058e9a0–0x0058ea94  (244 bytes)  [indeterminate]
+  0x0058eaa0–0x0058eb93  (243 bytes)  [indeterminate]
+  0x0058eba0–0x0058ebc6  (38 bytes)  [inferred]
+  0x0058fcd0–0x0058fd33  (99 bytes)  [indeterminate]
+  0x005901d0–0x00590852  (1666 bytes)  [indeterminate]
+  0x00590860–0x005908b7  (87 bytes)  [indeterminate]
+  0x005908c0–0x00590a18  (344 bytes)  [indeterminate]
+  0x00590b30–0x00590b7e  (78 bytes)  [indeterminate]
+  0x00590b80–0x00590bdb  (91 bytes)  [indeterminate]
+  0x00594a20–0x00594b42  (290 bytes)  [inferred]
+  0x00594b50–0x00594c27  (215 bytes)  [inferred]
+  0x00594c30–0x00594e72  (578 bytes)  [inferred]
+  0x00594e80–0x00594ea9  (41 bytes)  [inferred]
+  0x00594eb0–0x00595000  (336 bytes)  [indeterminate]
+  0x005954b0–0x005954f3  (67 bytes)  [indeterminate]
+  0x00595500–0x005956ce  (462 bytes)  [indeterminate]
+  0x005956d0–0x0059572b  (91 bytes)  [indeterminate]
+  0x00595730–0x005957ec  (188 bytes)  [indeterminate]
+  0x005970c0–0x005970e0  (32 bytes)  [inferred]
+  0x00597f80–0x00597fa0  (32 bytes)  [indeterminate]
+  0x00597fa0–0x00597fc1  (33 bytes)  [inferred]
+  0x005a3540–0x005a45a5  (4197 bytes)  [indeterminate]
+  0x005a45b0–0x005a4657  (167 bytes)  [inferred]
+  0x005a99d0–0x005a9a5b  (139 bytes)  [indeterminate]
+  0x005ae210–0x005ae3b2  (418 bytes)  [inferred]
+  0x005ae3c0–0x005ae428  (104 bytes)  [inferred]
+  0x005b0190–0x005b0390  (512 bytes)  [indeterminate]
+  0x005b0390–0x005b0421  (145 bytes)  [indeterminate]
+  0x005b0430–0x005b0501  (209 bytes)  [indeterminate]
+  0x005b0510–0x005b05a2  (146 bytes)  [indeterminate]
+  0x005b1d00–0x005b1ef0  (496 bytes)  [indeterminate]
+  0x005b1ef0–0x005b1fbc  (204 bytes)  [indeterminate]
+  0x005b1fc0–0x005b20ee  (302 bytes)  [inferred]
+  0x005b20f0–0x005b2153  (99 bytes)  [indeterminate]
+  0x005b2d80–0x005b2ddd  (93 bytes)  [indeterminate]
+  0x005b2de0–0x005b2e5d  (125 bytes)  [indeterminate]
+  0x005b2e60–0x005b2eac  (76 bytes)  [inferred]
+  0x005b2eb0–0x005b2f43  (147 bytes)  [inferred]
+  0x005b2f50–0x005b307f  (303 bytes)  [inferred]
+  0x005b3080–0x005b30d5  (85 bytes)  [inferred]
+  0x005b30e0–0x005b31ea  (266 bytes)  [inferred]
+  0x005b31f0–0x005b3335  (325 bytes)  [inferred]
+  0x005b3340–0x005b34c7  (391 bytes)  [inferred]
+  0x005b34d0–0x005b3605  (309 bytes)  [inferred]
+  0x005b3610–0x005b3745  (309 bytes)  [inferred]
+  0x005b3750–0x005b3968  (536 bytes)  [inferred]
+  0x005b3eb0–0x005b3f72  (194 bytes)  [indeterminate]
+  0x005b3f80–0x005b3fa9  (41 bytes)  [indeterminate]
+  0x005b45f0–0x005b4735  (325 bytes)  [indeterminate]
+  0x005b4a20–0x005b5080  (1632 bytes)  [indeterminate]
+  0x005b5080–0x005b50e3  (99 bytes)  [inferred]
+  0x005b50f0–0x005b5153  (99 bytes)  [inferred]
+  0x005b5160–0x005b51dd  (125 bytes)  [inferred]
+  0x005b51e0–0x005b5248  (104 bytes)  [inferred]
+  0x005bbab0–0x005bbcec  (572 bytes)  [inferred]
+  0x005bbdc0–0x005bbe1d  (93 bytes)  [inferred]
+  0x005ce210–0x005ce5ad  (925 bytes)  [indeterminate]
+  0x005ce5b0–0x005ce787  (471 bytes)  [indeterminate]
+  0x005ced00–0x005cee96  (406 bytes)  [indeterminate]
+  0x005ceea0–0x005cef64  (196 bytes)  [inferred]
+  0x005cef70–0x005cf1db  (619 bytes)  [inferred]
+  0x005cfa70–0x005cfc03  (403 bytes)  [inferred]
+  0x005cfc10–0x005cfc95  (133 bytes)  [inferred]
+  0x005cfca0–0x005cfd03  (99 bytes)  [inferred]
+  0x005cfd10–0x005cfddb  (203 bytes)  [inferred]
+  0x005cfde0–0x005cfed5  (245 bytes)  [indeterminate]
+  0x005cfee0–0x005d0046  (358 bytes)  [indeterminate]
+  0x005d0050–0x005d023d  (493 bytes)  [inferred]
+  0x005d0240–0x005d035b  (283 bytes)  [inferred]
+  0x005d03b0–0x005d0891  (1249 bytes)  [inferred]
+  0x005d08a0–0x005d096e  (206 bytes)  [indeterminate]
+  0x005d0970–0x005d0a3e  (206 bytes)  [indeterminate]
+  0x005d0a40–0x005d0afc  (188 bytes)  [inferred]
+  0x005d0b00–0x005d0b56  (86 bytes)  [inferred]
+  0x005d0b60–0x005d0c1c  (188 bytes)  [inferred]
+  0x005d0c20–0x005d0c46  (38 bytes)  [inferred]
+  0x005d0c50–0x005d0cee  (158 bytes)  [indeterminate]
+  0x005d0cf0–0x005d0d5e  (110 bytes)  [inferred]
+  0x005d0d60–0x005d0f60  (512 bytes)  [indeterminate]
+  0x005d0f60–0x005d105d  (253 bytes)  [indeterminate]
+  0x005d1060–0x005d12f4  (660 bytes)  [indeterminate]
+  0x005d1300–0x005d136c  (108 bytes)  [indeterminate]
+  0x005d7380–0x005d73f6  (118 bytes)  [inferred]
+  0x005d7400–0x005d74c5  (197 bytes)  [inferred]
+  0x005d74d0–0x005d7c24  (1876 bytes)  [indeterminate]
+  0x005d7c30–0x005d7cfe  (206 bytes)  [indeterminate]
+  0x005d7d00–0x005d7dce  (206 bytes)  [indeterminate]
+  0x005d7dd0–0x005d803b  (619 bytes)  [inferred]
+  0x005d8040–0x005d87cc  (1932 bytes)  [indeterminate]
+  0x005d87d0–0x005d889e  (206 bytes)  [indeterminate]
+  0x005d88a0–0x005d896e  (206 bytes)  [indeterminate]
+  0x005d8970–0x005d8b45  (469 bytes)  [inferred]
+  0x005d8b50–0x005d8c1e  (206 bytes)  [indeterminate]
+  0x005d8c20–0x005d8cee  (206 bytes)  [indeterminate]
+  0x005d8cf0–0x005d9188  (1176 bytes)  [inferred]
+  0x005d9190–0x005d925e  (206 bytes)  [indeterminate]
+  0x005d9260–0x005d932e  (206 bytes)  [indeterminate]
+  0x005d9330–0x005d93c8  (152 bytes)  [inferred]
+  0x005d93d0–0x005d949e  (206 bytes)  [indeterminate]
+  0x005d94a0–0x005d956e  (206 bytes)  [indeterminate]
+  0x005d9570–0x005d9856  (742 bytes)  [inferred]
+  0x005d9860–0x005d9928  (200 bytes)  [inferred]
+  0x005da160–0x005da330  (464 bytes)  [inferred]
+  0x005da330–0x005da4c4  (404 bytes)  [indeterminate]
+  0x005da4d0–0x005da5c6  (246 bytes)  [inferred]
+  0x005da5d0–0x005da7a0  (464 bytes)  [inferred]
+  0x005da7a0–0x005daa14  (628 bytes)  [inferred]
+  0x005dabf0–0x005daca5  (181 bytes)  [inferred]
+  0x005dacb0–0x005dad10  (96 bytes)  [indeterminate]
+  0x005db120–0x005db17d  (93 bytes)  [inferred]
+  0x005db2f0–0x005db6ff  (1039 bytes)  [inferred]
+  0x005db700–0x005db7a4  (164 bytes)  [indeterminate]
+  0x005dea80–0x005deae4  (100 bytes)  [inferred]
+  0x005deaf0–0x005deb41  (81 bytes)  [inferred]
+  0x005deb50–0x005debc6  (118 bytes)  [indeterminate]
+  0x005debd0–0x005dec01  (49 bytes)  [inferred]
+  0x005e2690–0x005e2734  (164 bytes)  [indeterminate]
+  0x005e4680–0x005e4787  (263 bytes)  [inferred]
+  0x005e52f0–0x005e536d  (125 bytes)  [inferred]
+  0x005e5370–0x005e5816  (1190 bytes)  [inferred]
+  0x005e5820–0x005e58ee  (206 bytes)  [indeterminate]
+  0x005e58f0–0x005e59be  (206 bytes)  [indeterminate]
+  0x005e59c0–0x005e5a5a  (154 bytes)  [inferred]
+  0x005e5a60–0x005e5afe  (158 bytes)  [indeterminate]
+  0x005e82f0–0x005e83c9  (217 bytes)  [inferred]
+  0x005e83d0–0x005e84fc  (300 bytes)  [indeterminate]
+  0x005e8500–0x005e85da  (218 bytes)  [inferred]
+  0x005e85e0–0x005e8894  (692 bytes)  [inferred]
+  0x005e88a0–0x005e89dc  (316 bytes)  [inferred]
+  0x005e95f0–0x005e9947  (855 bytes)  [inferred]
+  0x005e9b10–0x005e9bdc  (204 bytes)  [inferred]
+  0x005e9be0–0x005e9d74  (404 bytes)  [indeterminate]
+  0x005e9d80–0x005e9dd9  (89 bytes)  [inferred]
+  0x005e9de0–0x005e9f1c  (316 bytes)  [inferred]
+  0x005e9f20–0x005e9fd7  (183 bytes)  [inferred]
+  0x005e9fe0–0x005ea04e  (110 bytes)  [indeterminate]
+  0x005eb890–0x005eb8f3  (99 bytes)  [indeterminate]
+  0x005eb900–0x005eb96e  (110 bytes)  [indeterminate]
+  0x005ed950–0x005ed96e  (30 bytes)  [inferred]
+  0x005ed970–0x005eda58  (232 bytes)  [inferred]
+  0x005eda60–0x005edadc  (124 bytes)  [inferred]
+  0x005ee810–0x005ee983  (371 bytes)  [indeterminate]
+  0x005eebd0–0x005eec4c  (124 bytes)  [indeterminate]
+  0x005ef530–0x005ef623  (243 bytes)  [indeterminate]
+  0x005f2100–0x005f2186  (134 bytes)  [inferred]
+  0x005f2190–0x005f2234  (164 bytes)  [indeterminate]
+  0x005f7120–0x005f72f0  (464 bytes)  [inferred]
+  0x005f72f0–0x005f74c0  (464 bytes)  [inferred]
+  0x005f74c0–0x005f7690  (464 bytes)  [inferred]
+  0x005f7690–0x005f79e7  (855 bytes)  [inferred]
+  0x005f79f0–0x005f7f6d  (1405 bytes)  [inferred]
+  0x005f8d40–0x005f8de4  (164 bytes)  [indeterminate]
+  0x00601520–0x0060160a  (234 bytes)  [inferred]
+  0x00601610–0x006016b3  (163 bytes)  [inferred]
+  0x006016c0–0x006017fa  (314 bytes)  [inferred]
+  0x00601a60–0x00601bf4  (404 bytes)  [inferred]
+  0x00601c00–0x00601c3d  (61 bytes)  [inferred]
+  0x00601c40–0x00601cdc  (156 bytes)  [inferred]
+  0x00601ce0–0x00601e0c  (300 bytes)  [inferred]
+  0x00601e10–0x00601e9a  (138 bytes)  [inferred]
+  0x00601ea0–0x006021f7  (855 bytes)  [inferred]
+  0x00602200–0x0060250b  (779 bytes)  [inferred]
+  0x00602660–0x00602875  (533 bytes)  [inferred]
+  0x00602880–0x006028e3  (99 bytes)  [indeterminate]
+  0x006028f0–0x0060295f  (111 bytes)  [inferred]
+  0x00602960–0x006029cc  (108 bytes)  [inferred]
+  0x006029d0–0x006034cd  (2813 bytes)  [inferred]
+  0x006034d0–0x00603533  (99 bytes)  [indeterminate]
+  0x00603540–0x006035bf  (127 bytes)  [indeterminate]
+  0x006035c0–0x00603663  (163 bytes)  [inferred]
+  0x00603810–0x0060388d  (125 bytes)  [indeterminate]
+  0x006049d0–0x00604b1a  (330 bytes)  [indeterminate]
+  0x00604b20–0x00604c6c  (332 bytes)  [indeterminate]
+  0x00604c70–0x00604cea  (122 bytes)  [indeterminate]
+  0x00607b20–0x00607bc4  (164 bytes)  [indeterminate]
+  0x0060f960–0x0060fa6f  (271 bytes)  [indeterminate]
+  0x0060fc00–0x0060fd14  (276 bytes)  [inferred]
+  0x0060fd20–0x0060fef0  (464 bytes)  [inferred]
+  0x0060fef0–0x006100c0  (464 bytes)  [inferred]
+  0x006100c0–0x0061014e  (142 bytes)  [indeterminate]
+  0x00610150–0x00610281  (305 bytes)  [indeterminate]
+  0x00610290–0x006103c1  (305 bytes)  [indeterminate]
+  0x006103d0–0x006108b4  (1252 bytes)  [inferred]
+  0x006108c0–0x006109b5  (245 bytes)  [inferred]
+  0x00616180–0x00616734  (1460 bytes)  [inferred]
+  0x00616740–0x00616816  (214 bytes)  [inferred]
+  0x00616820–0x00616916  (246 bytes)  [inferred]
+  0x00617030–0x00617200  (464 bytes)  [inferred]
+  0x00617200–0x0061734a  (330 bytes)  [inferred]
+  0x00617350–0x00617417  (199 bytes)  [indeterminate]
+  0x00617420–0x0061749e  (126 bytes)  [inferred]
+  0x006174a0–0x00617501  (97 bytes)  [inferred]
+  0x00617510–0x00617697  (391 bytes)  [indeterminate]
+  0x006176a0–0x006176f6  (86 bytes)  [indeterminate]
+  0x00617700–0x0061780f  (271 bytes)  [inferred]
+  0x006179b0–0x00617b80  (464 bytes)  [inferred]
+  0x00617d50–0x00617db3  (99 bytes)  [inferred]
+  0x00617dc0–0x00617f90  (464 bytes)  [inferred]
+  0x00617f90–0x00618160  (464 bytes)  [inferred]
+  0x00618160–0x006181a3  (67 bytes)  [inferred]
+  0x006181b0–0x00618380  (464 bytes)  [inferred]
+  0x00619370–0x006193e5  (117 bytes)  [indeterminate]
+  0x0061bf30–0x0061bfb3  (131 bytes)  [inferred]
+  0x0061e7a0–0x0061e7f0  (80 bytes)  [inferred]
+  0x0061e810–0x0061e87d  (109 bytes)  [inferred]
+  0x0061e9b0–0x0061ea20  (112 bytes)  [inferred]
+  0x0061eba0–0x0061ec64  (196 bytes)  [inferred]
+  0x0061ec70–0x0061ee24  (436 bytes)  [inferred]
+  0x006208e0–0x0062096d  (141 bytes)  [indeterminate]
+  0x00620ac0–0x00620b7a  (186 bytes)  [inferred]
+  0x00620b80–0x00620cd1  (337 bytes)  [inferred]
+  0x006248f0–0x00624a8a  (410 bytes)  [indeterminate]
+  0x00624a90–0x00624c67  (471 bytes)  [indeterminate]
+  0x00625990–0x00625ceb  (859 bytes)  [indeterminate]
+  0x00626930–0x00626b55  (549 bytes)  [indeterminate]
+  0x006270d0–0x00627256  (390 bytes)  [indeterminate]
+  0x0062bf10–0x0062c01c  (268 bytes)  [indeterminate]
+  0x0062c4d0–0x0062c55f  (143 bytes)  [indeterminate]
+  0x0062da10–0x0062da74  (100 bytes)  [indeterminate]
+  0x0062da80–0x0062dabf  (63 bytes)  [indeterminate]
+  0x0062dac0–0x0062dafb  (59 bytes)  [inferred]
+  0x0062db00–0x0062db1b  (27 bytes)  [indeterminate]
+  0x0062fe00–0x0062fe54  (84 bytes)  [indeterminate]
+  0x00631030–0x0063114f  (287 bytes)  [inferred]
+  0x00631150–0x00631b62  (2578 bytes)  [inferred]
+  0x00631b70–0x00631bdc  (108 bytes)  [indeterminate]
+  0x00631be0–0x00632dfa  (4634 bytes)  [inferred]
+  0x00632e00–0x00633189  (905 bytes)  [inferred]
+  0x00633190–0x006333d9  (585 bytes)  [inferred]
+  0x006333e0–0x00633505  (293 bytes)  [inferred]
+  0x00633510–0x00633c26  (1814 bytes)  [inferred]
+  0x00633c30–0x00633c9c  (108 bytes)  [inferred]
+  0x00633ca0–0x006347fb  (2907 bytes)  [inferred]
+  0x00634800–0x006349b9  (441 bytes)  [inferred]
+  0x006349c0–0x00634af0  (304 bytes)  [inferred]
+  0x00638e50–0x00638ebc  (108 bytes)  [inferred]
+  0x00638ec0–0x00638f40  (128 bytes)  [inferred]
+  0x00638f40–0x00638ff5  (181 bytes)  [indeterminate]
+  0x0063a0f0–0x0063a14e  (94 bytes)  [inferred]
+  0x0063a150–0x0063a360  (528 bytes)  [inferred]
+  0x0063a360–0x0063a5c1  (609 bytes)  [indeterminate]
+  0x0063a5d0–0x0063a984  (948 bytes)  [inferred]
+  0x0063a990–0x0063aa4b  (187 bytes)  [inferred]
+  0x0063aa50–0x0063aa79  (41 bytes)  [inferred]
+  0x0063aa80–0x0063aab0  (48 bytes)  [indeterminate]
+  0x0063aab0–0x0063aba7  (247 bytes)  [indeterminate]
+  0x0063abb0–0x0063ac8d  (221 bytes)  [indeterminate]
+  0x0063ac90–0x0063add2  (322 bytes)  [inferred]
+  0x0063b0e0–0x0063b58c  (1196 bytes)  [indeterminate]
+  0x0063b590–0x0063b636  (166 bytes)  [inferred]
+  0x0063b640–0x0063b6cc  (140 bytes)  [inferred]
+  0x0063b6d0–0x0063b6f4  (36 bytes)  [inferred]
+  0x0063b700–0x0063b7d7  (215 bytes)  [indeterminate]
+  0x0063b7e0–0x00645114  (39220 bytes)  [indeterminate]
+  0x00645120–0x00645159  (57 bytes)  [inferred]
+  0x00645380–0x006453fd  (125 bytes)  [indeterminate]
+  0x00645400–0x0064c88f  (29839 bytes)  [inferred]
+  0x0064c890–0x00653643  (28083 bytes)  [inferred]
+  0x00653650–0x0065e0bb  (43627 bytes)  [inferred]
+  0x0065e0c0–0x0065e1fc  (316 bytes)  [indeterminate]
+  0x0065f8c0–0x0065f92c  (108 bytes)  [indeterminate]
+  0x00669150–0x00669178  (40 bytes)  [indeterminate]
+  0x0066a000–0x0066a063  (99 bytes)  [indeterminate]
+  0x0066a070–0x0066a0d3  (99 bytes)  [indeterminate]
+  0x0066a150–0x0066a1b3  (99 bytes)  [indeterminate]
+  0x0066a230–0x0066a293  (99 bytes)  [indeterminate]
+  0x0066a460–0x0066a4f7  (151 bytes)  [inferred]
+  0x0066a780–0x0066a7d3  (83 bytes)  [indeterminate]
+  0x0066ad60–0x0066afbb  (603 bytes)  [inferred]
+  0x00672ff0–0x00673080  (144 bytes)  [inferred]
+  0x00673080–0x00673109  (137 bytes)  [indeterminate]
+  0x00673110–0x0067312e  (30 bytes)  [inferred]
+  0x006762b0–0x0067631c  (108 bytes)  [indeterminate]
+  0x00677880–0x00677954  (212 bytes)  [indeterminate]
+  0x00677f00–0x00677fa3  (163 bytes)  [indeterminate]
+  0x006780b0–0x006782b0  (512 bytes)  [indeterminate]
+  0x006782b0–0x00678358  (168 bytes)  [indeterminate]
+  0x00678470–0x00678538  (200 bytes)  [inferred]
+  0x00678540–0x006785fb  (187 bytes)  [indeterminate]
+  0x00678600–0x00678676  (118 bytes)  [inferred]
+  0x00679ee0–0x0067a235  (853 bytes)  [indeterminate]
+  0x0067a2a0–0x0067a340  (160 bytes)  [indeterminate]
+  0x0067a340–0x0067a391  (81 bytes)  [indeterminate]
+  0x006add30–0x006add4c  (28 bytes)  [indeterminate]
+  0x006f5d50–0x006f5ec0  (368 bytes)  [inferred]
+  0x006f5ec0–0x006f6030  (368 bytes)  [indeterminate]
+  0x006f6030–0x006f60f9  (201 bytes)  [inferred]
+  0x006f6100–0x006f61ce  (206 bytes)  [indeterminate]
+  0x006f61d0–0x006f6476  (678 bytes)  [inferred]
+  0x006f64d0–0x006f6583  (179 bytes)  [indeterminate]
+  0x006f6590–0x006f6643  (179 bytes)  [indeterminate]
+  0x006f69a0–0x006f6a4a  (170 bytes)  [indeterminate]
+  0x006f8550–0x006f85c3  (115 bytes)  [inferred]
+  0x006f85d0–0x006f879c  (460 bytes)  [inferred]
+  0x006f9410–0x006f95a4  (404 bytes)  [inferred]
+  0x006f95b0–0x006f96aa  (250 bytes)  [inferred]
+  0x006f9890–0x006f996e  (222 bytes)  [inferred]
+  0x006f9970–0x006f9ad6  (358 bytes)  [indeterminate]
+  0x006f9ae0–0x006f9b53  (115 bytes)  [indeterminate]
+  0x006f9b60–0x006f9c48  (232 bytes)  [inferred]
+  0x006f9c50–0x006f9cdf  (143 bytes)  [indeterminate]
+  0x006fd710–0x006fd951  (577 bytes)  [indeterminate]
+  0x00700fb0–0x0070101e  (110 bytes)  [inferred]
+  0x00701020–0x00701098  (120 bytes)  [inferred]
+  0x00702f10–0x00702fc0  (176 bytes)  [indeterminate]
+  0x00702fc0–0x0070302c  (108 bytes)  [indeterminate]
+  0x00703100–0x00703239  (313 bytes)  [indeterminate]
+  0x00703260–0x00703333  (211 bytes)  [inferred]
+  0x00703340–0x00703386  (70 bytes)  [inferred]
+  0x00703390–0x00703415  (133 bytes)  [indeterminate]
+  0x00703420–0x00703614  (500 bytes)  [inferred]
+  0x00703620–0x007036a5  (133 bytes)  [indeterminate]
+  0x007036b0–0x007038a4  (500 bytes)  [inferred]
+  0x007038b0–0x0070391f  (111 bytes)  [inferred]
+  0x00703920–0x0070394e  (46 bytes)  [indeterminate]
+  0x00703950–0x0070399a  (74 bytes)  [indeterminate]
+  0x007039a0–0x00703af8  (344 bytes)  [indeterminate]
+  0x00703b00–0x00703bb0  (176 bytes)  [indeterminate]
+  0x00703bb0–0x00703c5a  (170 bytes)  [inferred]
+  0x00703c60–0x00703daf  (335 bytes)  [indeterminate]
+  0x00703db0–0x00703e59  (169 bytes)  [indeterminate]
+  0x00703e60–0x00703ead  (77 bytes)  [inferred]
+  0x00703ee0–0x00704029  (329 bytes)  [indeterminate]
+  0x00704030–0x00704090  (96 bytes)  [inferred]
+  0x00704090–0x007040ca  (58 bytes)  [inferred]
+  0x007040d0–0x00704230  (352 bytes)  [inferred]
+  0x00704230–0x007042e3  (179 bytes)  [inferred]
+  0x007042f0–0x00704585  (661 bytes)  [inferred]
+  0x00704590–0x007046f7  (359 bytes)  [inferred]
+  0x00704700–0x00704724  (36 bytes)  [inferred]
+  0x00704730–0x00704a32  (770 bytes)  [inferred]
+  0x00704a40–0x00704b18  (216 bytes)  [inferred]
+  0x00704b20–0x00704dd8  (696 bytes)  [inferred]
+  0x00704de0–0x00704e20  (64 bytes)  [inferred]
+  0x00704e20–0x00704e53  (51 bytes)  [inferred]
+  0x00704e60–0x0070508a  (554 bytes)  [inferred]
+  0x00705090–0x00705133  (163 bytes)  [inferred]
+  0x00705140–0x00705204  (196 bytes)  [inferred]
+  0x00705210–0x0070529c  (140 bytes)  [inferred]
+  0x007052a0–0x0070542e  (398 bytes)  [inferred]
+  0x00705430–0x00705a23  (1523 bytes)  [inferred]
+  0x00705a30–0x00705b60  (304 bytes)  [inferred]
+  0x00705c80–0x00705d23  (163 bytes)  [inferred]
+  0x00705d30–0x00705e8a  (346 bytes)  [inferred]
+  0x00705e90–0x00705f54  (196 bytes)  [inferred]
+  0x00705f60–0x00705f90  (48 bytes)  [inferred]
+  0x00705f90–0x007061a6  (534 bytes)  [inferred]
+  0x007061f0–0x00706263  (115 bytes)  [indeterminate]
+  0x00706270–0x0070636a  (250 bytes)  [inferred]
+  0x00706370–0x007063ef  (127 bytes)  [inferred]
+  0x007063f0–0x0070645c  (108 bytes)  [inferred]
+  0x00706460–0x007064cf  (111 bytes)  [inferred]
+  0x0070c010–0x0070c0e2  (210 bytes)  [indeterminate]
+  0x0070c0f0–0x0070c1a4  (180 bytes)  [inferred]
+  0x0070c1b0–0x0070c200  (80 bytes)  [indeterminate]
+  0x0070c3a0–0x0070c41c  (124 bytes)  [indeterminate]
+  0x0070c420–0x0070c55f  (319 bytes)  [inferred]
+  0x0070c560–0x0070c764  (516 bytes)  [indeterminate]
+  0x0070c770–0x0070c7fe  (142 bytes)  [inferred]
+  0x0070c800–0x0070ca36  (566 bytes)  [indeterminate]
+  0x0070ca40–0x0070ca99  (89 bytes)  [inferred]
+  0x007148f0–0x00714983  (147 bytes)  [indeterminate]
+  0x00714990–0x00714b60  (464 bytes)  [inferred]
+  0x00714b60–0x00714d30  (464 bytes)  [inferred]
+  0x00714d30–0x00714ddf  (175 bytes)  [indeterminate]
+  0x00714de0–0x00715044  (612 bytes)  [inferred]
+  0x00715050–0x00715220  (464 bytes)  [inferred]
+  0x00715220–0x0071532a  (266 bytes)  [inferred]
+  0x00715330–0x00715844  (1300 bytes)  [inferred]
+  0x00715850–0x00715a20  (464 bytes)  [inferred]
+  0x00715a20–0x00715ccc  (684 bytes)  [inferred]
+  0x00715cd0–0x00715df6  (294 bytes)  [inferred]
+  0x00715e00–0x00715fd0  (464 bytes)  [inferred]
+  0x00715fd0–0x00716033  (99 bytes)  [inferred]
+  0x00716040–0x00716210  (464 bytes)  [inferred]
+  0x00716210–0x0071626d  (93 bytes)  [inferred]
+  0x00716270–0x007162dd  (109 bytes)  [inferred]
+  0x007162e0–0x007164b0  (464 bytes)  [inferred]
+  0x007164b0–0x0071653b  (139 bytes)  [inferred]
+  0x00716540–0x00716604  (196 bytes)  [indeterminate]
+  0x00716610–0x007167e0  (464 bytes)  [inferred]
+  0x007167e0–0x007169b0  (464 bytes)  [inferred]
+  0x007169b0–0x00716b80  (464 bytes)  [inferred]
+  0x00716b80–0x00716d50  (464 bytes)  [inferred]
+  0x00716d50–0x00716f20  (464 bytes)  [inferred]
+  0x00716f20–0x007170f0  (464 bytes)  [inferred]
+  0x007170f0–0x007172c0  (464 bytes)  [inferred]
+  0x007172c0–0x00717490  (464 bytes)  [inferred]
+  0x00717490–0x00718222  (3474 bytes)  [indeterminate]
+  0x00718230–0x00718400  (464 bytes)  [inferred]
+  0x00718400–0x007184ac  (172 bytes)  [inferred]
+  0x007184b0–0x00718680  (464 bytes)  [inferred]
+  0x00718680–0x00718850  (464 bytes)  [inferred]
+  0x00718850–0x007188b3  (99 bytes)  [inferred]
+  0x007188c0–0x00718a90  (464 bytes)  [inferred]
+  0x00718a90–0x00718b07  (119 bytes)  [indeterminate]
+  0x00718b10–0x00718c06  (246 bytes)  [indeterminate]
+  0x00718c10–0x00718d5a  (330 bytes)  [inferred]
+  0x00718fd0–0x0071aac0  (6896 bytes)  [inferred]
+  0x0071aac0–0x0071ab0e  (78 bytes)  [indeterminate]
+  0x0071ad50–0x0071aff8  (680 bytes)  [inferred]
+  0x0071b000–0x0071b05f  (95 bytes)  [inferred]
+  0x0071b060–0x0071b275  (533 bytes)  [indeterminate]
+  0x0071b280–0x0071b3b4  (308 bytes)  [inferred]
+  0x0071b3c0–0x0071b4e3  (291 bytes)  [inferred]
+  0x0071c0e0–0x0071c2d6  (502 bytes)  [inferred]
+  0x0071c510–0x0071c583  (115 bytes)  [inferred]
+  0x0071d1c0–0x0071d253  (147 bytes)  [inferred]
+  0x0071d260–0x0071d28c  (44 bytes)  [indeterminate]
+  0x0071d440–0x0071d4bb  (123 bytes)  [indeterminate]
+  0x0071ed40–0x0071f194  (1108 bytes)  [indeterminate]
+  0x0071f1a0–0x0071f2d1  (305 bytes)  [indeterminate]
+  0x0071f2e0–0x0071f411  (305 bytes)  [indeterminate]
+  0x00720140–0x007201b5  (117 bytes)  [indeterminate]
+  0x00722710–0x007227a0  (144 bytes)  [inferred]
+  0x007227a0–0x00722970  (464 bytes)  [inferred]
+  0x00722970–0x007229d9  (105 bytes)  [indeterminate]
+  0x00722d30–0x00722d9e  (110 bytes)  [inferred]
+  0x00722da0–0x00722ea0  (256 bytes)  [inferred]
+  0x00722ea0–0x00722fdc  (316 bytes)  [inferred]
+  0x00722fe0–0x007231e0  (512 bytes)  [inferred]
+  0x007231e0–0x007233ac  (460 bytes)  [inferred]
+  0x007233b0–0x00723448  (152 bytes)  [inferred]
+  0x00723550–0x0072357f  (47 bytes)  [indeterminate]
+  0x00727240–0x007274ab  (619 bytes)  [inferred]
+  0x00727ca0–0x007282dd  (1597 bytes)  [inferred]
+  0x00728650–0x0072875d  (269 bytes)  [inferred]
+  0x0072aac0–0x0072ac90  (464 bytes)  [inferred]
+  0x0072ac90–0x0072afa7  (791 bytes)  [indeterminate]
+  0x0072afb0–0x0072b0e1  (305 bytes)  [indeterminate]
+  0x0072b0f0–0x0072b221  (305 bytes)  [indeterminate]
+  0x0072b230–0x0072b400  (464 bytes)  [inferred]
+  0x0072c120–0x0072c195  (117 bytes)  [indeterminate]
+  0x0072d1a0–0x0072d232  (146 bytes)  [indeterminate]
+  0x00731940–0x00735b7d  (16957 bytes)  [inferred]
+  0x00735b80–0x00735c60  (224 bytes)  [inferred]
+  0x00735c60–0x00735def  (399 bytes)  [inferred]
+  0x00735df0–0x00735f48  (344 bytes)  [inferred]
+  0x00735f50–0x00735ff4  (164 bytes)  [inferred]
+  0x00736000–0x007361cc  (460 bytes)  [inferred]
+  0x007361d0–0x0073639c  (460 bytes)  [inferred]
+  0x007363a0–0x0073642d  (141 bytes)  [inferred]
+  0x00736c50–0x00736c8f  (63 bytes)  [inferred]
+  0x00736c90–0x00736d94  (260 bytes)  [inferred]
+  0x00739bd0–0x0073a0ad  (1245 bytes)  [inferred]
+  0x0073a0e0–0x0073a19d  (189 bytes)  [inferred]
+  0x0073a1a0–0x0073a21f  (127 bytes)  [inferred]
+  0x0073a220–0x0073a3f7  (471 bytes)  [inferred]
+  0x0073a400–0x0073a4d5  (213 bytes)  [inferred]
+  0x0073a4e0–0x0073a5e8  (264 bytes)  [inferred]
+  0x0073a5f0–0x0073a66f  (127 bytes)  [inferred]
+  0x0073a670–0x0073a8e8  (632 bytes)  [inferred]
+  0x0073a8f0–0x0073aaa7  (439 bytes)  [inferred]
+  0x0073aab0–0x0073aba2  (242 bytes)  [inferred]
+  0x0073abb0–0x0073ac85  (213 bytes)  [inferred]
+  0x0073ac90–0x0073ad82  (242 bytes)  [inferred]
+  0x0073ad90–0x0073ae0f  (127 bytes)  [inferred]
+  0x0073ae10–0x0073afdb  (459 bytes)  [inferred]
+  0x0073fdd0–0x0073fe7e  (174 bytes)  [indeterminate]
+  0x00741ec0–0x00741f22  (98 bytes)  [inferred]
+  0x00741f30–0x00741fa3  (115 bytes)  [inferred]
+  0x00741fb0–0x00742245  (661 bytes)  [indeterminate]
+  0x00742250–0x00742295  (69 bytes)  [inferred]
+  0x00746df0–0x00746f53  (355 bytes)  [indeterminate]
+  0x00746fc0–0x007470d3  (275 bytes)  [inferred]
+  0x007470e0–0x007471b1  (209 bytes)  [inferred]
+  0x0074b5b0–0x0074b5fe  (78 bytes)  [indeterminate]
+  0x0074c920–0x0074c9b3  (147 bytes)  [inferred]
+  0x0074c9c0–0x0074caf5  (309 bytes)  [inferred]
+  0x0074cb00–0x0074cc35  (309 bytes)  [inferred]
+  0x0074cc40–0x0074cccd  (141 bytes)  [indeterminate]
+  0x0074ccd0–0x0074ce33  (355 bytes)  [inferred]
+  0x0074ce40–0x0074cf0c  (204 bytes)  [inferred]
+  0x0074cf10–0x0074cfd2  (194 bytes)  [inferred]
+  0x0074cfe0–0x0074d03d  (93 bytes)  [inferred]
+  0x0074d040–0x0074d069  (41 bytes)  [inferred]
+  0x00751fe0–0x007521b0  (464 bytes)  [inferred]
+  0x00752270–0x007523a4  (308 bytes)  [indeterminate]
+  0x00753460–0x00753517  (183 bytes)  [inferred]
+  0x00753520–0x0075356b  (75 bytes)  [inferred]
+  0x00753570–0x007535c5  (85 bytes)  [inferred]
+  0x007535d0–0x0075362b  (91 bytes)  [inferred]
+  0x00753630–0x007536ad  (125 bytes)  [inferred]
+  0x007537e0–0x00753864  (132 bytes)  [indeterminate]
+  0x00755840–0x007559b0  (368 bytes)  [indeterminate]
+  0x007559b0–0x00755a90  (224 bytes)  [inferred]
+  0x00765800–0x0076586c  (108 bytes)  [indeterminate]
+  0x0076ac40–0x0076cc72  (8242 bytes)  [inferred]
+  0x0076cc80–0x0076ce50  (464 bytes)  [inferred]
+  0x0076ce50–0x0076cf67  (279 bytes)  [inferred]
+  0x0076d240–0x0076d410  (464 bytes)  [inferred]
+  0x0076d410–0x0076d5e0  (464 bytes)  [inferred]
+  0x0076d5e0–0x0076d7b0  (464 bytes)  [inferred]
+  0x0076d7b0–0x0076d980  (464 bytes)  [inferred]
+  0x0076fead–0x0076fede  (49 bytes)  [indeterminate]
+  0x007702e0–0x0077041d  (317 bytes)  [inferred]
+  0x00770420–0x007704c2  (162 bytes)  [inferred]
+  0x007704d0–0x0077052d  (93 bytes)  [indeterminate]
+  0x00770530–0x007705a3  (115 bytes)  [inferred]
+  0x007705b0–0x00770601  (81 bytes)  [inferred]
+  0x00770610–0x00770662  (82 bytes)  [inferred]
+  0x00770670–0x00770729  (185 bytes)  [inferred]
+  0x00770730–0x0077077f  (79 bytes)  [inferred]
+  0x00770780–0x00770914  (404 bytes)  [inferred]
+  0x00770b00–0x00770b73  (115 bytes)  [inferred]
+  0x00770b80–0x00770bcd  (77 bytes)  [inferred]
+  0x00771890–0x00771b83  (755 bytes)  [indeterminate]
+  0x007720c0–0x0077213f  (127 bytes)  [indeterminate]
+  0x00772140–0x00772181  (65 bytes)  [indeterminate]
+  0x00772410–0x00772518  (264 bytes)  [inferred]
+  0x00772520–0x0077256e  (78 bytes)  [indeterminate]
+  0x00772570–0x007726ac  (316 bytes)  [indeterminate]
+  0x00772b90–0x00772c26  (150 bytes)  [inferred]
+  0x00772c30–0x00772cc6  (150 bytes)  [inferred]
+  0x00772cd0–0x00772d33  (99 bytes)  [inferred]
+  0x00772d40–0x00772e2e  (238 bytes)  [inferred]
+  0x00772e30–0x00772e89  (89 bytes)  [inferred]
+  0x00772e90–0x00772f80  (240 bytes)  [inferred]
+  0x00773130–0x00773283  (339 bytes)  [indeterminate]
+  0x007733ac–0x007733f4  (72 bytes)  [inferred]
+  0x00773400–0x007734ae  (174 bytes)  [inferred]
+  0x007734b0–0x0077361a  (362 bytes)  [inferred]
+  0x00773620–0x00773759  (313 bytes)  [inferred]
+  0x00773760–0x0077382c  (204 bytes)  [inferred]
+  0x00773830–0x00773d11  (1249 bytes)  [indeterminate]
+  0x00773d20–0x00773e51  (305 bytes)  [indeterminate]
+  0x00773e60–0x00773f91  (305 bytes)  [indeterminate]
+  0x00773fa0–0x00773ff2  (82 bytes)  [inferred]
+  0x00774000–0x0077424c  (588 bytes)  [inferred]
+  0x00774f90–0x00775005  (117 bytes)  [indeterminate]
+  0x00782390–0x007824e1  (337 bytes)  [inferred]
+  0x00782aa0–0x00782b33  (147 bytes)  [inferred]
+  0x00782b40–0x00782c0a  (202 bytes)  [inferred]
+  0x00782c10–0x00782cd2  (194 bytes)  [inferred]
+  0x00782ce0–0x00783319  (1593 bytes)  [inferred]
+  0x00783880–0x0078398c  (268 bytes)  [inferred]
+  0x00783fa0–0x0078405e  (190 bytes)  [inferred]
+  0x00784060–0x007872b8  (12888 bytes)  [inferred]
+  0x007872c0–0x00787411  (337 bytes)  [inferred]
+  0x00787420–0x007875e8  (456 bytes)  [inferred]
+  0x007875f0–0x00787ca4  (1716 bytes)  [inferred]
+  0x00787cb0–0x00787e80  (464 bytes)  [inferred]
+  0x00787e80–0x00788050  (464 bytes)  [inferred]
+  0x00788050–0x00788220  (464 bytes)  [inferred]
+  0x00788220–0x007882e2  (194 bytes)  [inferred]
+  0x007882f0–0x00788353  (99 bytes)  [inferred]
+  0x00788360–0x007883bc  (92 bytes)  [inferred]
+  0x007883c0–0x007883e6  (38 bytes)  [inferred]
+  0x007883f0–0x00788526  (310 bytes)  [inferred]
+  0x00788530–0x00788679  (329 bytes)  [indeterminate]
+  0x00788680–0x00788735  (181 bytes)  [inferred]
+  0x0078bb50–0x0078bcde  (398 bytes)  [inferred]
+  0x0078c280–0x0078c2d6  (86 bytes)  [inferred]
+  0x0078c2e0–0x0078c4b0  (464 bytes)  [inferred]
+  0x0078c4b0–0x0078c680  (464 bytes)  [inferred]
+  0x0078c680–0x0078c82f  (431 bytes)  [inferred]
+  0x0078ce00–0x0078ce74  (116 bytes)  [inferred]
+  0x0078ce80–0x0078d050  (464 bytes)  [inferred]
+  0x0078d050–0x0078d220  (464 bytes)  [inferred]
+  0x0078e750–0x0078e7ab  (91 bytes)  [inferred]
+  0x0078e7b0–0x0078e980  (464 bytes)  [inferred]
+  0x0078e980–0x0078eb50  (464 bytes)  [inferred]
+  0x0078eb50–0x0078ed20  (464 bytes)  [inferred]
+  0x0078ed20–0x0078eef0  (464 bytes)  [inferred]
+  0x0078eef0–0x0078f0c0  (464 bytes)  [inferred]
+  0x0078f0c0–0x0078f290  (464 bytes)  [inferred]
+  0x0078f290–0x0078f460  (464 bytes)  [inferred]
+  0x0078f460–0x0078f630  (464 bytes)  [inferred]
+  0x0078f630–0x0078f800  (464 bytes)  [inferred]
+  0x0078f800–0x0078f9d0  (464 bytes)  [inferred]
+  0x0078f9d0–0x0078fba0  (464 bytes)  [inferred]
+  0x0078fba0–0x0078fd70  (464 bytes)  [inferred]
+  0x0078fd70–0x0078ff40  (464 bytes)  [inferred]
+  0x0078ff40–0x0078ff8f  (79 bytes)  [inferred]
+  0x0078ff90–0x00790160  (464 bytes)  [inferred]
+  0x00790160–0x007901a8  (72 bytes)  [inferred]
+  0x007901b0–0x007901ff  (79 bytes)  [inferred]
+  0x00790200–0x007903d0  (464 bytes)  [inferred]
+  0x007903d0–0x007905a0  (464 bytes)  [inferred]
+  0x007905a0–0x00790770  (464 bytes)  [inferred]
+  0x00790770–0x00790940  (464 bytes)  [inferred]
+  0x00790940–0x00790b10  (464 bytes)  [inferred]
+  0x00790b10–0x00790ce0  (464 bytes)  [inferred]
+  0x00790ce0–0x00790eb0  (464 bytes)  [inferred]
+  0x00790eb0–0x00791080  (464 bytes)  [inferred]
+  0x00791080–0x00791250  (464 bytes)  [inferred]
+  0x00791250–0x00791420  (464 bytes)  [inferred]
+  0x00791420–0x007915f0  (464 bytes)  [inferred]
+  0x007915f0–0x007917c0  (464 bytes)  [inferred]
+  0x007917c0–0x00791990  (464 bytes)  [inferred]
+  0x00791990–0x00791b60  (464 bytes)  [inferred]
+  0x00792020–0x0079209b  (123 bytes)  [inferred]
+  0x007920a0–0x00792270  (464 bytes)  [inferred]
+  0x00792270–0x00792440  (464 bytes)  [inferred]
+  0x00792440–0x00792610  (464 bytes)  [inferred]
+  0x00792610–0x007927e0  (464 bytes)  [inferred]
+  0x007927e0–0x007929b0  (464 bytes)  [inferred]
+  0x007929b0–0x00792b80  (464 bytes)  [inferred]
+  0x00792b80–0x00792d50  (464 bytes)  [inferred]
+  0x00792d50–0x00792f20  (464 bytes)  [inferred]
+  0x00792f20–0x007930f0  (464 bytes)  [inferred]
+  0x007930f0–0x007932c0  (464 bytes)  [inferred]
+  0x007932c0–0x00793490  (464 bytes)  [inferred]
+  0x00793490–0x00793660  (464 bytes)  [inferred]
+  0x00793660–0x00793830  (464 bytes)  [inferred]
+  0x00793830–0x00793a00  (464 bytes)  [inferred]
+  0x00793a00–0x00793bd0  (464 bytes)  [inferred]
+  0x00793bd0–0x00793da0  (464 bytes)  [inferred]
+  0x00793da0–0x00793f70  (464 bytes)  [inferred]
+  0x00793f70–0x00794140  (464 bytes)  [inferred]
+  0x00794140–0x00794310  (464 bytes)  [inferred]
+  0x00795c30–0x00795cc1  (145 bytes)  [inferred]
+  0x00796130–0x007961ba  (138 bytes)  [inferred]
+  0x007961c0–0x0079622b  (107 bytes)  [inferred]
+  0x00796230–0x007962a4  (116 bytes)  [inferred]
+  0x00796fe0–0x007971b8  (472 bytes)  [indeterminate]
+  0x00798150–0x00798252  (258 bytes)  [indeterminate]
+  0x00798260–0x0079830f  (175 bytes)  [inferred]
+  0x00798310–0x00798379  (105 bytes)  [indeterminate]
+  0x00799b10–0x00799c2b  (283 bytes)  [inferred]
+  0x00799c30–0x00799d2c  (252 bytes)  [inferred]
+  0x00799d30–0x00799e3d  (269 bytes)  [indeterminate]
+  0x00799e40–0x00799ed1  (145 bytes)  [inferred]
+  0x00799f40–0x00799f95  (85 bytes)  [inferred]
+  0x0079cd80–0x0079cdd6  (86 bytes)  [indeterminate]
+  0x007a7810–0x007a788d  (125 bytes)  [indeterminate]
+  0x007a7890–0x007a79cc  (316 bytes)  [indeterminate]
+  0x007ba770–0x007ba7dc  (108 bytes)  [indeterminate]
+  0x007bb510–0x007bb622  (274 bytes)  [indeterminate]
+  0x007bc4d0–0x007bc625  (341 bytes)  [indeterminate]
+  0x007bc630–0x007bc691  (97 bytes)  [indeterminate]
+  0x007bc6a0–0x007bc6d9  (57 bytes)  [indeterminate]
+  0x007bcda0–0x007bcf13  (371 bytes)  [indeterminate]
+  0x007bcf20–0x007bcf7a  (90 bytes)  [indeterminate]
+  0x007c8990–0x007c8ea6  (1302 bytes)  [indeterminate]
+  0x007c8eb0–0x007c8ef8  (72 bytes)  [indeterminate]
+  0x007c8f00–0x007c8f2d  (45 bytes)  [inferred]
+  0x007c8f30–0x007c904c  (284 bytes)  [inferred]
+  0x007c9050–0x007c90c2  (114 bytes)  [indeterminate]
+  0x007c90d0–0x007c9103  (51 bytes)  [inferred]
+  0x007c9110–0x007c913d  (45 bytes)  [inferred]
+  0x007c9140–0x007c923c  (252 bytes)  [inferred]
+  0x007c9240–0x007c929d  (93 bytes)  [indeterminate]
+  0x007c92a0–0x007c9341  (161 bytes)  [indeterminate]
+  0x007c9350–0x007c938a  (58 bytes)  [indeterminate]
+  0x007c9390–0x007c93ef  (95 bytes)  [indeterminate]
+  0x007c93f0–0x007c94fb  (267 bytes)  [indeterminate]
+  0x0081f360–0x0081f3c4  (100 bytes)  [indeterminate]
+  0x0081f3d0–0x0081f43f  (111 bytes)  [indeterminate]
+  0x0081f5a0–0x0081f5fb  (91 bytes)  [indeterminate]
+  0x00834510–0x0083452e  (30 bytes)  [indeterminate]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 7696 functions mapped (156 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           67 predicted   TP=   48  FP=   8  unknown=  11   precision=85.7%
+  inferred         925 predicted   TP=   21  FP= 772  unknown= 132   precision=2.6%
+  indeterminate    599 predicted   TP=    2  FP= 477  unknown= 120   precision=0.4%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     48  ( 30.8%)  certain          (rock-solid signal)
+     21  ( 13.5%)  inferred         (call-graph reach)
+      2  (  1.3%)  indeterminate    (shared/mixed callers)
+     85  ( 54.5%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x001d7d80  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/filter.rs
+    0x001dbe70  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/filter.rs
+    0x001dff50  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x001e7850  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x001ed3d0  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x001ede80  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/socket/unix.rs
+    0x001ee0e0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/lib.rs
+    0x001fee40  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/filtering.rs
+    0x00208b90  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x0020a3e0  /tmp/unhusk-local-bench/watchexec-cli/crates/project-origins/src/lib.rs
+    0x0020b850  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer.rs
+    0x00215c10  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/dirs.rs
+    0x0021c5b0  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x0021cc40  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/discover.rs
+    0x0021d450  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/logging.rs
+    0x00224930  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/main.rs
+    0x005d2480  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/watchexec.rs
+    0x005e4790  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/config.rs
+    0x005e6c20  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/sources/keyboard.rs
+    0x005e89e0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/sources/keyboard.rs
+    0x005fa210  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/sources/fs.rs
+    0x00609000  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/action/worker.rs
+    0x006109c0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/action/worker.rs
+    0x00616920  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/late_join_set.rs
+    0x006193f0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/action/worker.rs
+    0x006f7a00  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/progs.rs
+    0x007064d0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0070dde0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0071d300  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0071d5e0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x007201c0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00728b10  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0072c1a0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0072dea0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x0072e240  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00740ae0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/config.rs
+    0x0074d070  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer.rs
+    0x007523b0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/progs.rs
+    0x00764310  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/process.rs
+    0x00773290  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/errors.rs
+    0x00775010  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x0077a0e0  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x00783320  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x00783990  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x0078bce0  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x0078c830  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x00791b60  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+    0x00794330  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/task.rs
+  DWARF-user in inferred:
+    0x001cc4f0  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/filter.rs
+    0x001ec850  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/dirs.rs
+    0x0024d500  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/lib.rs
+    0x003730e0  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/filter.rs
+    0x0045d580  /tmp/unhusk-local-bench/watchexec-cli/crates/project-origins/src/lib.rs
+    0x00602660  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/watched_path.rs
+    0x006029d0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/sources/fs.rs
+    0x0061e9b0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/watched_path.rs
+    0x0063a150  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x00645400  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x0064c890  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x00653650  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/filtering.rs
+    0x00715330  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00715a20  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00716270  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/job.rs
+    0x00718fd0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00727ca0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x00731940  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/paths.rs
+    0x00735b80  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/emits.rs
+    0x00735c60  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/emits.rs
+    0x00739bd0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/emits.rs
+  DWARF-user in indeterminate:
+    0x0063b7e0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x00717490  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+  DWARF-user in library (missed):
+    0x001b8950  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/lib.rs
+    0x00231780  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x00232110  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/logging.rs
+    0x00232210  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x002325c0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/runtime.rs
+    0x002338c0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/critical.rs
+    0x002404f0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x00240630  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x002407a0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x002407c0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/runtime.rs
+    0x00240850  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/critical.rs
+    0x00247df0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x00247e10  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/sources/fs.rs
+    0x0024a3d0  /tmp/unhusk-local-bench/watchexec-cli/crates/signals/src/lib.rs
+    0x0024bc00  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x0024d610  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/filter.rs
+    0x0024d630  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x002508d0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/filtering.rs
+    0x002520c0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x002520f0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/output.rs
+    0x00378a90  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/filter.rs
+    0x00378d20  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x00379080  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x005dee40  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/critical.rs
+    0x005dfe30  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/runtime.rs
+    0x005e1120  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/critical.rs
+    0x005e1500  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/runtime.rs
+    0x005ecc80  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/keyboard.rs
+    0x0061cf10  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/filter.rs
+    0x0061d200  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061d3c0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061d580  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061d760  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061d940  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061dc10  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061e880  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/filter.rs
+    0x0061e8f0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/changeable.rs
+    0x0061ea20  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x0061eb20  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x0061eb40  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/watchexec.rs
+    0x0061ee30  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x0061f7c0  /tmp/unhusk-local-bench/watchexec-cli/crates/ignore-files/src/error.rs
+    0x0065ffa0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/output.rs
+    0x00663bb0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x00665520  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x00665f50  /tmp/unhusk-local-bench/watchexec-cli/crates/signals/src/lib.rs
+    0x00666fb0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x00667360  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/socket/parser.rs
+    0x00668f80  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x00677fb0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/parse.rs
+    0x006aee70  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/syncval.rs
+    0x006b0400  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/syncval.rs
+    0x00701110  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/event.rs
+    0x00701df0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/parse.rs
+    0x00701f50  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/parse.rs
+    0x007025e0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/filterer/parse.rs
+    0x0070caf0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/config.rs
+    0x0071cd20  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/process.rs
+    0x00725690  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/state.rs
+    0x00726330  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/command/program.rs
+    0x007268d0  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/command/shell.rs
+    0x00726f20  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/flag.rs
+    0x00727090  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/priority.rs
+    0x0073d5a0  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/runtime.rs
+    0x0073d910  /tmp/unhusk-local-bench/watchexec-cli/crates/lib/src/error/specialised.rs
+    0x0073df30  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/output.rs
+    0x0073e5b0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/filtering.rs
+    0x0073f340  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x0073f6f0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x0073fda0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x0073fe80  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x007404d0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/command.rs
+    0x00741110  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/events.rs
+    0x007413d0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/config.rs
+    0x007550a0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/logging.rs
+    0x00759a50  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args/output.rs
+    0x0075b7c0  /tmp/unhusk-local-bench/watchexec-cli/crates/cli/src/args.rs
+    0x007643c0  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/serde_formats.rs
+    0x00767060  /tmp/unhusk-local-bench/watchexec-cli/crates/filterer/globset/src/lib.rs
+    0x007674e0  /tmp/unhusk-local-bench/watchexec-cli/crates/filterer/ignore/src/lib.rs
+    0x0076ec80  /tmp/unhusk-local-bench/watchexec-cli/crates/signals/src/lib.rs
+    0x0076f830  /tmp/unhusk-local-bench/watchexec-cli/crates/signals/src/lib.rs
+    0x0078d690  /tmp/unhusk-local-bench/watchexec-cli/crates/events/src/process.rs
+    0x00795cd0  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/job/messages.rs
+    0x00795ff0  /tmp/unhusk-local-bench/watchexec-cli/crates/supervisor/src/command/conversions.rs
+
+  total captured :    69  (44.2% of 156 DWARF-user fns)
+  total missed   :    85  (54.5%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 85.7%
+  Certain recall    : 30.8%  (48/156 DWARF-user fns reached by certain)
+  Overall recall    : 44.2%  (certain+inferred)
+
+validation complete.
