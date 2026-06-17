@@ -19,3 +19,60 @@ Cloning into '/tmp/unhusk-local-bench/sad'...
    Compiling anstyle v1.0.14
    Compiling futures-task v0.3.32
    Compiling colorchoice v1.0.5
+=== START sad repo=https://github.com/ms-jpq/sad binname=sad Wednesday 17 June 2026 02:26:43 PM IST ===
+   Compiling getrandom v0.4.2
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rmetagYP1ix"
+
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rustckR2bpc"
+
+error: failed to write `/tmp/unhusk-local-bench/sad/target/release/.fingerprint/futures-sink-188bb1469536fc28/lib-futures_sink`
+
+Caused by:
+  No such file or directory (os error 2)
+warning: build failed, waiting for other jobs to finish...
+error: failed to write /tmp/unhusk-local-bench/sad/target/release/deps/libanstyle_query-42788fb090cbc63e.rmeta: No such file or directory (os error 2)
+
+Cloning into '/tmp/unhusk-local-bench/sad'...
+error: could not write output to /tmp/unhusk-local-bench/sad/target/release/deps/colorchoice-58e592e305a17004.colorchoice.b98a8256782afcd1-cgu.0.rcgu.o: No such file or directory
+
+error: could not compile `anstyle-query` (lib) due to 1 previous error
+error: could not compile `unicode-ident` (lib) due to 1 previous error
+error: could not compile `colorchoice` (lib) due to 1 previous error
+error: could not compile `utf8parse` (lib) due to 1 previous error
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/build/libc-6a419a094f922608/rmetavYS9Lv"
+
+error: error writing dependencies to `/tmp/unhusk-local-bench/sad/target/release/deps/linux_raw_sys-b5a8b44d8fa71e47.d`: No such file or directory (os error 2)
+
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rmetag9BeLA"
+
+error: could not compile `libc` (build script) due to 1 previous error
+error: could not write output to /tmp/unhusk-local-bench/sad/target/release/build/quote-12b5284c354191e7/build_script_build-12b5284c354191e7.build_script_build.10a8e73bf37150b7-cgu.0.rcgu.o: No such file or directory
+
+error: could not compile `linux-raw-sys` (lib) due to 1 previous error
+error: could not compile `futures-core` (lib) due to 1 previous error
+error: could not compile `quote` (build script) due to 1 previous error
+error: error writing dependencies to `/tmp/unhusk-local-bench/sad/target/release/build/getrandom-32349a1c81ce9946/build_script_build-32349a1c81ce9946.d`: No such file or directory (os error 2)
+
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rmetaeciRvo"
+
+error: could not compile `getrandom` (build script) due to 1 previous error
+error: could not write output to /tmp/unhusk-local-bench/sad/target/release/build/proc-macro2-8c5c9a50ee1a2e4a/build_script_build-8c5c9a50ee1a2e4a.build_script_build.9c21d583e54048be-cgu.0.rcgu.o: No such file or directory
+
+error: could not compile `futures-task` (lib) due to 1 previous error
+error: could not compile `proc-macro2` (build script) due to 1 previous error
+error: error writing dependencies to `/tmp/unhusk-local-bench/sad/target/release/deps/memchr-48a6ebdba94cda6f.d`: No such file or directory (os error 2)
+
+error: could not write output to /tmp/unhusk-local-bench/sad/target/release/build/rustix-27a182daef12217f/build_script_build-27a182daef12217f.build_script_build.6f541d31ff590d11-cgu.0.rcgu.o: No such file or directory
+
+error: could not compile `memchr` (lib) due to 1 previous error
+error: could not compile `rustix` (build script) due to 1 previous error
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rmetaBLGRk4"
+
+error: could not compile `bitflags` (lib) due to 1 previous error
+error: couldn't create a temp dir: No such file or directory (os error 2) at path "/tmp/unhusk-local-bench/sad/target/release/deps/rmeta18duKB"
+
+error: could not compile `anstyle` (lib) due to 1 previous error
+BUILD_FAILED
+error: could not lock config file /tmp/unhusk-local-bench/sad/.git/config: No such file or directory
+fatal: could not set 'core.repositoryformatversion' to '0'
+CLONE_FAILED
