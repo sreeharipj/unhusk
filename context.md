@@ -1187,51 +1187,110 @@ within ±0.7pp. The "~94% certain precision" headline is stable.
 - Small/focused utilities (ruplacer 96.5%, lfs 88.3%)
 - Async tools with thin user-layer wrappers (oha 94.8%, prr 89.9%, miniserve 71.3%)
 
+### Batch 13: 4 more local-source builds (76 total, 2026-06-17)
+
+Added jnv, cargo-msrv, sad, yazi (lychee skipped — requires aws-lc-sys native C build).
+
+**Per-binary results (4 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| jnv | 29 | 100.0% | 100.0% | **68.4%** | 7.3% | 81.6% |
+| cargo-msrv | 12 | 100.0% | 75.0% | **61.6%** | 3.5% | 92.6% |
+| sad | 18 | 52.9% | 88.2% | **92.3%** | 20.3% | 83.8% |
+| yazi | 624 | 83.5% | 92.0% | **76.3%** | 20.3% | 86.7% |
+
+**Notable findings:**
+- **jnv** (sym=100%, DWARF=100%, inf=68.4%): JSON interactive navigator. Perfect precision by both
+  GTs. Joins the high-precision inferred cluster at 68.4%. The BFS stays in jnv's own parsing/filtering
+  logic (built on top of jaq's combinators). Low recall (7.3%) — most user logic is in dep-called
+  evaluation pipelines.
+- **cargo-msrv** (DWARF=100%, sym=75%): secondary failure mode. cargo subcommand for finding minimum
+  Rust version; 3 of 12 certain fns are async/closure dispatch shims (DWARF decl_file → user source,
+  nm symbol → core). Joins the high-precision inferred cluster at 61.6%. 5th secondary-mode binary.
+  Very low recall (3.5%) — mostly invoked from cargo internals.
+- **sad** (DWARF=52.9%, sym=88.24%, inf=92.3%): SECOND confirmed reversed-mode binary (after
+  miniserve). DWARF << sym. 9 of 17 classifiable certain fns: nm says user (sad::), DWARF decl_file
+  says dep. sad uses tokio + crossbeam with some macro-generated code, producing the same reversed
+  attribution as miniserve. inf_prec=92.3% is the 2nd highest in the corpus (after ruplacer 96.5%).
+  Note: sad is d=1 net-negative (83.8% vs 92.3% at d∞) — 3rd exception after grex and tokei.
+- **yazi** (n_certain=624, sym=92%, inf=76.3%): TUI file manager with Lua scripting and image preview.
+  **Largest n_certain in the corpus** (previous max: topgrade 272). The 624 panicking assertions span
+  yazi's entire async event loop and Lua integration. Joins the high-precision inferred cluster at 76.3%.
+  d=1 beneficial (86.7% vs 76.3% at d∞, recall 17.4% vs 20.3%).
+
+**Secondary-mode count at N=76:** 5 binaries (viu, prr, binsider, oha, cargo-msrv) with DWARF ≥ 85%
+but sym < 80%.
+
+**Reversed-mode count at N=76:** 2 binaries (miniserve, sad) with DWARF ≪ sym.
+
+**Combined 76 binaries:**
+- Sym precision: median **93.8%** (Δ=0pp from N=72 — 14th successive confirmation ±0.65pp)
+- DWARF precision: median **88.2%** (same as N=72)
+- Inferred prec pooled: **31.5%** (inflated; median ~6% for non-cluster binaries)
+- Recall median: **25.5%** (vs 31.4% at N=72; jnv 7.3%, cargo-msrv 3.5% pull it down)
+- High-precision inferred cluster (>50%): **24/76 (32%)** — grew from 20/72
+
+**Stability conclusion at N=76**: median sym precision 93.8% — confirmed at
+N=13/28/36/41/46/50/53/57/60/63/67/72/76 within ±0.7pp.
+
+**sad as d=1 net-negative exception**: sad's best inferred precision is at d∞ (92.3%). At d=1
+precision drops to 83.8%. This confirms the existing guidance: `--infer-depth 1` should not be used
+blindly; for compact-call-graph tools (sad, grex, tokei), depth truncation eliminates genuine TPs.
+
 ---
 
 ## Benchmark final summary (2026-06-17)
 
-**Status: COMPLETE.** 72 local-source builds across 12 batches. All key findings confirmed.
+**Status: COMPLETE.** 76 local-source builds across 13 batches. All key findings confirmed.
 
-### Headline numbers (N=72, local-source)
+### Headline numbers (N=76, local-source)
 
 | Metric | Value | Notes |
 |--------|-------|-------|
-| Sym precision median | **93.8%** | Confirmed N=13→72, ±0.7pp |
-| DWARF precision median | 88.2% | Improving trend as corpus grows |
+| Sym precision median | **93.8%** | Confirmed N=13→76, ±0.7pp |
+| DWARF precision median | 88.2% | Stable since N=67 |
 | Genuine FP rate (sym) | **~6.2%** | std generics monomorphized w/ user types |
-| Inferred prec pooled | ~29% inflated / ~6% median | Bimodal (see cluster below) |
-| Recall median | 31.4% (certain+inferred) | 15.4% certain-only |
+| Inferred prec pooled | ~32% inflated / ~6% median | Bimodal (see cluster below) |
+| Recall median | 25.5% (certain+inferred) | Declining as low-recall tools added |
 | Performance | 0.06s median, 12 MB median RSS | Linear in FDE count, r=0.94 |
+| Largest n_certain | yazi: 624 | TUI file manager with dense panic assertions |
 
 ### Failure mode taxonomy (finalized)
 
 | Mode | N binaries | Condition | Example |
 |------|-----------|-----------|---------|
 | Primary | 11 | sym < 80% AND DWARF < 85% | ripsecrets (45.5%/55.6%), grex (52.4%/21.4%) |
-| Secondary | 4 | sym < 80% AND DWARF ≥ 85% | oha (68.8%/96.1%), prr (64.7%/100%) |
-| Reversed | 1 | DWARF << sym (actix macro) | miniserve (48.1%/88.9%) |
+| Secondary | 5 | sym < 80% AND DWARF ≥ 85% | oha (68.8%/96.1%), cargo-msrv (75%/100%) |
+| Reversed | 2 | DWARF ≪ sym | miniserve (48.1%/88.9%), sad (52.9%/88.2%) |
 
 Primary = std generics with user types (both metrics agree on FP).
 Secondary = FnOnce/FnMut/async closure dispatch shims (DWARF decl_file says user; nm symbol says core).
-Reversed = actix-web/proc-macro generated handlers (DWARF traces to macro expansion; nm symbol says user crate).
+Reversed = macro-generated handlers (actix-web/tokio macros): DWARF traces to macro expansion in dep; nm symbol says user crate.
 For secondary-mode binaries, DWARF is the correct (higher) precision estimate.
 For reversed-mode binaries, sym is the correct (higher) precision estimate.
 
 ### High-precision inferred cluster
 
-20/72 binaries (28%) have DWARF inferred precision > 50%. Reliable predictors:
-- Cargo subcommands (7/7: all have inf prec 65–96%): BFS stays in tool's own wrapping logic
-- Parser/formatter tools (fend 85.9%, taplo 73.8%, numbat 80.7%): dense intra-tool call graphs
-- Small/focused utilities with compact call graphs (ruplacer 96.5%, lfs 88.3%)
+24/76 binaries (32%) have DWARF inferred precision > 50%. Reliable predictors:
+- Cargo subcommands (8/8: all have inf prec 61–96%): BFS stays in tool's own wrapping logic
+- Parser/formatter/calculator tools (fend 85.9%, taplo 73.8%, numbat 80.7%, yazi 76.3%, jnv 68.4%)
+- Small/focused utilities with compact call graphs (ruplacer 96.5%, lfs 88.3%, sad 92.3%)
 - Async tools with thin user-wrapper layers (oha 94.8%, prr 89.9%, miniserve 71.3%)
 
-For the remaining 52/72 (72%), inferred precision is ~5-15% (BFS fans into std/dep).
+For the remaining 52/76 (68%), inferred precision is ~5-15% (BFS fans into std/dep).
+
+### d=1 net-negative exceptions (3 confirmed)
+
+grex (d1<d∞), tokei (d1<d∞), sad (d1=83.8%<d∞=92.3%). All share compact call graphs where
+depth-1 truncation eliminates genuine TPs faster than FPs. The general guidance (`--infer-depth 2`
+as default) holds; `--infer-depth 1` is beneficial for ~77% of the corpus but harmful for ~4%.
 
 ### What the benchmark adds beyond realval/ (13-binary study)
 
-1. **Scale**: 72 binaries across diverse Rust CLI domains (not just sharkdp tools)
+1. **Scale**: 76 binaries across diverse Rust CLI domains (not just sharkdp tools)
 2. **Failure-mode taxonomy**: three modes (primary/secondary/reversed) with concrete per-binary evidence
-3. **High-inf-prec cluster**: 28% of real binaries achieve high inferred precision; structural predictors refined
+3. **High-inf-prec cluster**: 32% of real binaries achieve high inferred precision; structural predictors refined
 4. **Applicability boundary confirmed**: cargo-install binaries return n_certain=0 (expected — registry path == dep path)
 5. **Performance**: linear scaling to 34K-FDE binaries, throughput quantified at 88 MB/s
+6. **Largest-ever n_certain**: yazi (624 certain fns) confirms the tool scales to dense-panic codebases
