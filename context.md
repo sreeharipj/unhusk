@@ -911,3 +911,40 @@ This doesn't change the general guidance (inferred is noisy), but explains the b
 
 **Stability conclusion at N=50**: median sym precision 93.75% — within 0.65pp of the original 13-binary
 baseline of 94.4%. The headline "~94% certain precision" is stable across N=13/28/36/41/46/50.
+
+### Batch 7: 3 more local-source builds (53 total, 2026-06-17)
+
+Added ruplacer, amber, ox (dog failed: C DNS library deps). Total N=53.
+
+**Per-binary results (3 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| ruplacer | 4 | 100.0% | 100.0% | **96.5%** | 3.1% | 98.4% |
+| amber | 12 | 100.0% | 83.3% | **54.7%** | 10.6% | 63.0% |
+| ox | 127 | 98.3% | 91.7% | **59.6%** | 17.7% | 64.0% |
+
+**Notable findings:**
+- **ruplacer** (inf_prec=96.5%): highest inferred precision in the full corpus. 63 inferred fns,
+  55 TP (6 unknown, 2 FP). ruplacer is a minimal find-replace tool; its certain fns call directly
+  into ruplacer's own code without fanning into std/dep.
+- **amber** (54.7%) and **ox** (59.6%): also in the high-precision cluster.
+- All three have low recall (<18%): small tools with few panic sites relative to codebase size.
+
+**Inferred precision bimodal structure (confirmed at N=53):**
+- High-precision cluster (≥50%): ruplacer 96.5%, cargo-outdated 66%, ox 59.6%, amber 54.7%
+  — small/focused tools whose certain fns call predominantly other tool-authored functions.
+- Low-precision cluster (~5-15%): all other tools — BFS fans into std/alloc/dep libraries.
+- Pooled inf prec (8.84%) is inflated by the high-precision cluster; median (5.7%) is representative.
+- The bimodal structure doesn't change the recommendation: inferred is noisy in general. But
+  for small, self-contained tools with compact call graphs, inferred may achieve 50-96% precision.
+
+**Combined 53 binaries (13 original + 40 new):**
+- Sym precision: median **93.75%** (same as N=50 — 8th successive confirmation near 94%)
+- DWARF precision: median **85.7%** (vs 82.8% at N=50 — improving as more clean binaries added)
+- Inferred prec (pooled, d=∞): **8.84%** (inflated; median 5.7% is representative)
+- Recall median: **44.2%** (vs 46.0% at N=50 — slight dip; new small tools all <18% recall)
+- d=1 prec median: **12.9%**
+
+**Stability conclusion at N=53**: median sym precision 93.75% — within 0.65pp of the original 13-binary
+baseline. The headline "~94% certain precision" is stable across N=13/28/36/41/46/50/53.
