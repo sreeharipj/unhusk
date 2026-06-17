@@ -1,0 +1,1026 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_onefetch.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x004d7e80   8417318 bytes
+  .rodata               vaddr 0x0014f200   2575448 bytes
+  .data.rel.ro          vaddr 0x00ce0000    629360 bytes
+  .rela.dyn             vaddr 0x00001c88    923856 bytes
+  .eh_frame             vaddr 0x003e7308    981832 bytes
+  .rela.dyn entries     38352 R_X86_64_RELATIVE entries
+
+source-path strings: 668  (user=14, std=101, dep=551, unknown=2)
+  distinct dep crates visible: 121
+
+panic/assert sites:  5579  (user=29, std=932, dep=4613, unknown=5)
+
+USER CODE — directly attributed panic/assert sites:
+  ascii/src/lib.rs  (2 sites)
+       80:9     Location struct @ 0xcedea0
+      202:9     Location struct @ 0xcedeb8
+  image/src/kitty.rs  (2 sites)
+       94:14    Location struct @ 0xd667c8
+       95:9     Location struct @ 0xd667e0
+  image/src/sixel.rs  (4 sites)
+       54:37    Location struct @ 0xd66688
+       70:18    Location struct @ 0xd666d0
+       71:18    Location struct @ 0xd666e8
+       94:41    Location struct @ 0xd668c0
+  manifest/src/lib.rs  (3 sites)
+       49:31    Location struct @ 0xd61f48
+       56:31    Location struct @ 0xd61f60
+       57:26    Location struct @ 0xd61f78
+  src/cli.rs  (2 sites)
+      176:41    Location struct @ 0xce0f98
+      384:14    Location struct @ 0xce05e0
+  src/info/authors.rs  (1 sites)
+      142:17    Location struct @ 0xce99f8
+  src/info/churn.rs  (1 sites)
+      114:17    Location struct @ 0xce5e80
+  src/info/git/mod.rs  (2 sites)
+       78:22    Location struct @ 0xce2bf0
+       94:29    Location struct @ 0xce2bd8
+  src/info/langs/language.rs  (5 sites)
+       94:17    Location struct @ 0xce68e8
+      101:18    Location struct @ 0xce68d0
+      138:35    Location struct @ 0xce64a0
+      138:35    Location struct @ 0xce6cc8
+      180:21    Location struct @ 0xce64e8
+  src/info/langs/mod.rs  (1 sites)
+       10:5     Location struct @ 0xce2338
+  src/info/mod.rs  (1 sites)
+      161:93    Location struct @ 0xce2bc0
+  src/info/url.rs  (2 sites)
+       47:54    Location struct @ 0xce0658
+       52:55    Location struct @ 0xce0670
+  src/info/utils/mod.rs  (2 sites)
+       23:32    Location struct @ 0xce6a10
+       29:10    Location struct @ 0xce6f48
+  src/ui/printer/mod.rs  (1 sites)
+       83:47    Location struct @ 0xce0550
+
+dep crates by panic site count  (4613 sites across 123 crates):
+  regex-automata@0.4.14                           460
+  image-webp@0.2.4                                397
+  aho-corasick@1.1.4                              344
+  regex-syntax@0.8.10                             198
+  bstr@1.12.1                                     193
+  jiff@0.2.23                                     193
+  encoding_rs@0.8.35                              181
+  zune-jpeg@0.5.15                                179
+  gix@0.83.0                                      144
+  miniz_oxide@0.8.9                               123
+  … 113 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_onefetch.stripped
+functions (from .eh_frame): 18064
+
+attribution breakdown:
+  certain         17  (0.1%)  user-authored (100% precision, DWARF-validated)
+  call closure   687  (3.8%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library      17360  (96.1%)  not attributed
+
+user-authored functions — high confidence (17):
+  0x004eca20–0x004ed8d3  (3763 bytes)
+      panic @ src/ui/printer/mod.rs:83:47
+  0x004ee470–0x004ee623  (435 bytes)
+      panic @ src/cli.rs:384:14
+  0x004eec20–0x004ef25a  (1594 bytes)
+      panic @ src/info/url.rs:47:54
+      panic @ src/info/url.rs:52:55
+  0x005430c0–0x00543259  (409 bytes)
+      panic @ src/cli.rs:176:41
+  0x005694c0–0x0056cff8  (15160 bytes)
+      panic @ src/info/git/mod.rs:78:22
+      panic @ src/info/git/mod.rs:94:29
+      panic @ src/info/langs/mod.rs:10:5
+      panic @ src/info/mod.rs:161:93
+  0x0057b8c0–0x0057bb27  (615 bytes)
+      panic @ src/info/churn.rs:114:17
+  0x00589600–0x0058a10b  (2827 bytes)
+      panic @ src/info/langs/language.rs:94:17
+      panic @ src/info/langs/language.rs:101:18
+      panic @ src/info/langs/language.rs:138:35
+      panic @ src/info/langs/language.rs:180:21
+  0x0058efb0–0x0058f0f9  (329 bytes)
+      panic @ src/info/langs/language.rs:138:35
+  0x005927f0–0x00592b33  (835 bytes)
+      panic @ src/info/utils/mod.rs:23:32
+      panic @ src/info/utils/mod.rs:29:10
+  0x005c7770–0x005c7a87  (791 bytes)
+      panic @ src/info/authors.rs:142:17
+  0x00607d10–0x00607d35  (37 bytes)
+      panic @ ascii/src/lib.rs:80:9
+  0x00608920–0x00608e7c  (1372 bytes)
+      panic @ ascii/src/lib.rs:202:9
+  0x00a6c9a0–0x00a6d91a  (3962 bytes)
+      panic @ manifest/src/lib.rs:49:31
+      panic @ manifest/src/lib.rs:56:31
+      panic @ manifest/src/lib.rs:57:26
+  0x00b41be0–0x00b42124  (1348 bytes)
+      panic @ image/src/sixel.rs:54:37
+  0x00b424e0–0x00b443a1  (7873 bytes)
+      panic @ image/src/sixel.rs:70:18
+      panic @ image/src/sixel.rs:71:18
+  0x00b45ba0–0x00b46603  (2659 bytes)
+      panic @ image/src/kitty.rs:94:14
+      panic @ image/src/kitty.rs:95:9
+  0x00b466d0–0x00b46990  (704 bytes)
+      panic @ image/src/sixel.rs:94:41
+
+call closure — reachable from user code, not user-authored (687):
+  0x004e3d90–0x004e3e4b  (187 bytes)  [inferred]
+  0x004e4000–0x004e40bf  (191 bytes)  [inferred]
+  0x004e5090–0x004e51d7  (327 bytes)  [inferred]
+  0x004e5ed0–0x004e5f2a  (90 bytes)  [inferred]
+  0x004e61f0–0x004e6375  (389 bytes)  [inferred]
+  0x004e6900–0x004e6ab2  (434 bytes)  [indeterminate]
+  0x004e6ac0–0x004e6b0f  (79 bytes)  [inferred]
+  0x004e6b10–0x004e6bf2  (226 bytes)  [inferred]
+  0x004e6c00–0x004e6c49  (73 bytes)  [inferred]
+  0x004e6c50–0x004e6cc6  (118 bytes)  [inferred]
+  0x004e6d40–0x004e70c0  (896 bytes)  [inferred]
+  0x004e8460–0x004e84e4  (132 bytes)  [indeterminate]
+  0x004e8770–0x004e884d  (221 bytes)  [inferred]
+  0x004e9a70–0x004e9bc9  (345 bytes)  [inferred]
+  0x004e9bd0–0x004e9ce7  (279 bytes)  [inferred]
+  0x004e9e50–0x004e9ecb  (123 bytes)  [inferred]
+  0x004f6520–0x004f6726  (518 bytes)  [indeterminate]
+  0x005052c0–0x005054a2  (482 bytes)  [inferred]
+  0x005054b0–0x005055c5  (277 bytes)  [inferred]
+  0x00505990–0x00505a95  (261 bytes)  [inferred]
+  0x00505aa0–0x00505b5f  (191 bytes)  [inferred]
+  0x00505b60–0x00505c14  (180 bytes)  [inferred]
+  0x00505c20–0x00505c82  (98 bytes)  [inferred]
+  0x00505c90–0x00505d12  (130 bytes)  [indeterminate]
+  0x00505d20–0x00505dff  (223 bytes)  [inferred]
+  0x00505f50–0x00506013  (195 bytes)  [inferred]
+  0x005063f0–0x00506472  (130 bytes)  [inferred]
+  0x00506480–0x0050651e  (158 bytes)  [inferred]
+  0x00506520–0x005065ec  (204 bytes)  [inferred]
+  0x005065f0–0x00506672  (130 bytes)  [inferred]
+  0x005068f0–0x0050694a  (90 bytes)  [inferred]
+  0x00506950–0x00506994  (68 bytes)  [inferred]
+  0x005069a0–0x00506ae7  (327 bytes)  [indeterminate]
+  0x00506e10–0x00506f00  (240 bytes)  [indeterminate]
+  0x00506f00–0x00506f5f  (95 bytes)  [inferred]
+  0x00506f60–0x005070c2  (354 bytes)  [indeterminate]
+  0x00507280–0x00507313  (147 bytes)  [inferred]
+  0x005073b0–0x0050740b  (91 bytes)  [inferred]
+  0x00507410–0x005074d8  (200 bytes)  [inferred]
+  0x005074e0–0x005075cf  (239 bytes)  [inferred]
+  0x005075d0–0x00507698  (200 bytes)  [inferred]
+  0x005076a0–0x00507790  (240 bytes)  [indeterminate]
+  0x00507790–0x0050795e  (462 bytes)  [inferred]
+  0x00507960–0x00507a1f  (191 bytes)  [inferred]
+  0x00507ce0–0x00507d8f  (175 bytes)  [inferred]
+  0x00507d90–0x00507f47  (439 bytes)  [inferred]
+  0x00507f50–0x00507f9f  (79 bytes)  [inferred]
+  0x00507fa0–0x00508082  (226 bytes)  [inferred]
+  0x00508090–0x005080d9  (73 bytes)  [inferred]
+  0x005080e0–0x00508156  (118 bytes)  [inferred]
+  0x00508160–0x005084e4  (900 bytes)  [inferred]
+  0x005084f0–0x00508603  (275 bytes)  [indeterminate]
+  0x00509a50–0x00509a85  (53 bytes)  [inferred]
+  0x00509a90–0x00509db1  (801 bytes)  [inferred]
+  0x00509dc0–0x00509e6a  (170 bytes)  [indeterminate]
+  0x00509fa0–0x0050a00a  (106 bytes)  [inferred]
+  0x0050a0b0–0x0050a146  (150 bytes)  [indeterminate]
+  0x0050a150–0x0050a4f4  (932 bytes)  [inferred]
+  0x0050c970–0x0050cba6  (566 bytes)  [inferred]
+  0x0050cbb0–0x0050cf8f  (991 bytes)  [inferred]
+  0x0050cf90–0x0050d2f6  (870 bytes)  [inferred]
+  0x0050e010–0x0050e229  (537 bytes)  [inferred]
+  0x0050e230–0x0050e449  (537 bytes)  [inferred]
+  0x0050f500–0x0050f685  (389 bytes)  [inferred]
+  0x0050f690–0x0050fb48  (1208 bytes)  [inferred]
+  0x0050fb50–0x00510008  (1208 bytes)  [inferred]
+  0x00510170–0x0051037b  (523 bytes)  [inferred]
+  0x00510380–0x0051050b  (395 bytes)  [inferred]
+  0x00510510–0x00510716  (518 bytes)  [inferred]
+  0x00510720–0x00510926  (518 bytes)  [indeterminate]
+  0x00510930–0x00510a3c  (268 bytes)  [inferred]
+  0x00510e40–0x00511a43  (3075 bytes)  [inferred]
+  0x00511a50–0x00511b43  (243 bytes)  [inferred]
+  0x00511be0–0x00511c9b  (187 bytes)  [indeterminate]
+  0x00511ca0–0x00511d57  (183 bytes)  [inferred]
+  0x00511d60–0x00511da5  (69 bytes)  [indeterminate]
+  0x00511e90–0x00512088  (504 bytes)  [inferred]
+  0x00512250–0x005122e8  (152 bytes)  [inferred]
+  0x005122f0–0x00512367  (119 bytes)  [inferred]
+  0x00512690–0x00513217  (2951 bytes)  [inferred]
+  0x00513220–0x00513d69  (2889 bytes)  [inferred]
+  0x00513d70–0x005143ed  (1661 bytes)  [inferred]
+  0x005143f0–0x00514a7c  (1676 bytes)  [inferred]
+  0x00514a80–0x0051519a  (1818 bytes)  [inferred]
+  0x005151a0–0x0051583a  (1690 bytes)  [inferred]
+  0x00515840–0x00517460  (7200 bytes)  [inferred]
+  0x00517460–0x005196d5  (8821 bytes)  [inferred]
+  0x005196e0–0x0051ab2f  (5199 bytes)  [inferred]
+  0x0051ab30–0x0051cf8e  (9310 bytes)  [inferred]
+  0x00528560–0x005288d5  (885 bytes)  [inferred]
+  0x005288e0–0x0052895f  (127 bytes)  [inferred]
+  0x00528960–0x005289e2  (130 bytes)  [inferred]
+  0x005289f0–0x00528a4c  (92 bytes)  [inferred]
+  0x00528a50–0x00528a8b  (59 bytes)  [inferred]
+  0x00528a90–0x00528c3a  (426 bytes)  [inferred]
+  0x00528cf0–0x00528e1e  (302 bytes)  [inferred]
+  0x00528e20–0x00528ffc  (476 bytes)  [inferred]
+  0x00529000–0x0052911b  (283 bytes)  [inferred]
+  0x00529120–0x005291fb  (219 bytes)  [inferred]
+  0x00529200–0x00529518  (792 bytes)  [inferred]
+  0x00529520–0x00529a4d  (1325 bytes)  [inferred]
+  0x00529a50–0x00529b01  (177 bytes)  [inferred]
+  0x00529b10–0x0052a059  (1353 bytes)  [inferred]
+  0x0052a060–0x0052a8c3  (2147 bytes)  [inferred]
+  0x0052a8d0–0x0052a975  (165 bytes)  [indeterminate]
+  0x0052a980–0x0052ab49  (457 bytes)  [inferred]
+  0x0052ab50–0x0052ad1c  (460 bytes)  [inferred]
+  0x0052adc0–0x0052ae12  (82 bytes)  [inferred]
+  0x00531a90–0x00531bad  (285 bytes)  [indeterminate]
+  0x00531bb0–0x00531d31  (385 bytes)  [indeterminate]
+  0x00531e40–0x00531e9c  (92 bytes)  [inferred]
+  0x00531ff0–0x00532031  (65 bytes)  [indeterminate]
+  0x005321c0–0x00532201  (65 bytes)  [indeterminate]
+  0x00532b30–0x00532de7  (695 bytes)  [inferred]
+  0x00532df0–0x00533101  (785 bytes)  [inferred]
+  0x005332c0–0x005332f6  (54 bytes)  [inferred]
+  0x00537c70–0x00537e80  (528 bytes)  [inferred]
+  0x00538370–0x00538489  (281 bytes)  [inferred]
+  0x00538490–0x0053865c  (460 bytes)  [inferred]
+  0x00538660–0x00538974  (788 bytes)  [inferred]
+  0x00538980–0x00538c25  (677 bytes)  [inferred]
+  0x005394c0–0x005397c8  (776 bytes)  [inferred]
+  0x00539de0–0x0053a2f6  (1302 bytes)  [inferred]
+  0x0053a300–0x0053a648  (840 bytes)  [inferred]
+  0x0053b650–0x0053b777  (295 bytes)  [inferred]
+  0x0053b780–0x0053b87c  (252 bytes)  [inferred]
+  0x0053b9b0–0x0053baac  (252 bytes)  [indeterminate]
+  0x0053bbe0–0x0053bce0  (256 bytes)  [indeterminate]
+  0x0053bce0–0x0053be07  (295 bytes)  [inferred]
+  0x0053c140–0x0053c270  (304 bytes)  [inferred]
+  0x005414b0–0x005415ba  (266 bytes)  [inferred]
+  0x0054bd10–0x0054c185  (1141 bytes)  [indeterminate]
+  0x0054d7f0–0x0054d84e  (94 bytes)  [inferred]
+  0x0054d850–0x0054d9fa  (426 bytes)  [inferred]
+  0x0054db80–0x0054dc3f  (191 bytes)  [inferred]
+  0x0054dc40–0x0054dcc2  (130 bytes)  [inferred]
+  0x0054dd60–0x0054dde2  (130 bytes)  [inferred]
+  0x0054e010–0x0054e0ea  (218 bytes)  [inferred]
+  0x0054e0f0–0x0054e25e  (366 bytes)  [inferred]
+  0x0054e260–0x0054e57c  (796 bytes)  [inferred]
+  0x0054e7a0–0x0054e7f5  (85 bytes)  [inferred]
+  0x0054e800–0x0054e83c  (60 bytes)  [inferred]
+  0x0054eb00–0x0054ec4a  (330 bytes)  [inferred]
+  0x0054ec50–0x0054ed9a  (330 bytes)  [inferred]
+  0x0054f300–0x0054f3a2  (162 bytes)  [inferred]
+  0x0054f670–0x0054f6ed  (125 bytes)  [inferred]
+  0x0054f6f0–0x0054f97b  (651 bytes)  [inferred]
+  0x0054f980–0x0054fc0b  (651 bytes)  [inferred]
+  0x0054fc10–0x0054ff8d  (893 bytes)  [inferred]
+  0x00550070–0x005500d9  (105 bytes)  [inferred]
+  0x005503c0–0x00550429  (105 bytes)  [inferred]
+  0x00550430–0x00550499  (105 bytes)  [inferred]
+  0x005505a0–0x0055061e  (126 bytes)  [inferred]
+  0x00550620–0x00550694  (116 bytes)  [inferred]
+  0x00550a20–0x00550a9e  (126 bytes)  [inferred]
+  0x00557ab0–0x00558391  (2273 bytes)  [inferred]
+  0x0055a140–0x0055a1da  (154 bytes)  [indeterminate]
+  0x0055a2a0–0x0055a335  (149 bytes)  [inferred]
+  0x0055bde0–0x0055bed1  (241 bytes)  [inferred]
+  0x0055bee0–0x0055bf63  (131 bytes)  [inferred]
+  0x0055bf70–0x0055bfd1  (97 bytes)  [inferred]
+  0x0055bfe0–0x0055c041  (97 bytes)  [inferred]
+  0x0055c050–0x0055c7d3  (1923 bytes)  [indeterminate]
+  0x0055c7e0–0x0055c94b  (363 bytes)  [indeterminate]
+  0x0055c950–0x0055c9cb  (123 bytes)  [inferred]
+  0x0055c9d0–0x0055ca75  (165 bytes)  [inferred]
+  0x0055ca80–0x0055cb8a  (266 bytes)  [inferred]
+  0x0055cb90–0x0055cbe3  (83 bytes)  [inferred]
+  0x0055cbf0–0x0055cc59  (105 bytes)  [inferred]
+  0x0055cc60–0x0055cce9  (137 bytes)  [inferred]
+  0x0055ccf0–0x0055cd31  (65 bytes)  [inferred]
+  0x0055cd40–0x0055cdda  (154 bytes)  [inferred]
+  0x0055cde0–0x0055ce3f  (95 bytes)  [inferred]
+  0x0055cea0–0x0055cefc  (92 bytes)  [inferred]
+  0x0055cf00–0x0055cf5c  (92 bytes)  [inferred]
+  0x0055cf60–0x0055d01f  (191 bytes)  [inferred]
+  0x0055d020–0x0055d0df  (191 bytes)  [inferred]
+  0x0055d0e0–0x0055d142  (98 bytes)  [inferred]
+  0x0055d150–0x0055d1d2  (130 bytes)  [inferred]
+  0x0055d1e0–0x0055d2a3  (195 bytes)  [inferred]
+  0x0055d370–0x0055d44e  (222 bytes)  [inferred]
+  0x0055d450–0x0055d56e  (286 bytes)  [inferred]
+  0x0055d570–0x0055d688  (280 bytes)  [inferred]
+  0x0055d690–0x0055d707  (119 bytes)  [inferred]
+  0x0055d710–0x0055d76a  (90 bytes)  [inferred]
+  0x0055d770–0x0055d7ce  (94 bytes)  [inferred]
+  0x0055d7d0–0x0055d82a  (90 bytes)  [inferred]
+  0x0055d880–0x0055d9ca  (330 bytes)  [inferred]
+  0x0055d9d0–0x0055dba1  (465 bytes)  [inferred]
+  0x0055dbb0–0x0055def5  (837 bytes)  [inferred]
+  0x0055df00–0x0055e047  (327 bytes)  [inferred]
+  0x0055e100–0x0055e141  (65 bytes)  [indeterminate]
+  0x0055e150–0x0055e1d8  (136 bytes)  [inferred]
+  0x0055e1e0–0x0055e268  (136 bytes)  [inferred]
+  0x0055e2f0–0x0055e331  (65 bytes)  [indeterminate]
+  0x0055e340–0x0055e577  (567 bytes)  [indeterminate]
+  0x0055e580–0x0055e603  (131 bytes)  [inferred]
+  0x0055e610–0x0055e673  (99 bytes)  [inferred]
+  0x0055e680–0x0055e703  (131 bytes)  [inferred]
+  0x0055e710–0x0055e7bb  (171 bytes)  [indeterminate]
+  0x0055e7c0–0x0055e8f1  (305 bytes)  [indeterminate]
+  0x0055e900–0x0055eb9c  (668 bytes)  [inferred]
+  0x0055ed50–0x0055ee19  (201 bytes)  [inferred]
+  0x0055ee20–0x0055ee7c  (92 bytes)  [inferred]
+  0x0055ee80–0x0055eeb6  (54 bytes)  [indeterminate]
+  0x0055f120–0x0055f220  (256 bytes)  [inferred]
+  0x0055f220–0x0055f4d9  (697 bytes)  [inferred]
+  0x0055f4e0–0x0055f729  (585 bytes)  [inferred]
+  0x0055f790–0x0055f7e5  (85 bytes)  [indeterminate]
+  0x0055f7f0–0x0055fa09  (537 bytes)  [inferred]
+  0x0055fa10–0x0055fa9a  (138 bytes)  [inferred]
+  0x0055faa0–0x0055fb75  (213 bytes)  [inferred]
+  0x0055fbc0–0x0055fd72  (434 bytes)  [indeterminate]
+  0x0055fd80–0x0055fdcf  (79 bytes)  [inferred]
+  0x0055fdd0–0x0055feb2  (226 bytes)  [inferred]
+  0x0055fec0–0x0055ff09  (73 bytes)  [inferred]
+  0x0055ff10–0x0055ff86  (118 bytes)  [inferred]
+  0x0055ff90–0x00560310  (896 bytes)  [inferred]
+  0x00560310–0x005603bf  (175 bytes)  [indeterminate]
+  0x005603c0–0x00560449  (137 bytes)  [inferred]
+  0x00560450–0x0056050b  (187 bytes)  [inferred]
+  0x00560510–0x005605b6  (166 bytes)  [inferred]
+  0x00560600–0x00560693  (147 bytes)  [inferred]
+  0x005606c0–0x00560742  (130 bytes)  [inferred]
+  0x00560750–0x005607ee  (158 bytes)  [inferred]
+  0x005609e0–0x00560b07  (295 bytes)  [inferred]
+  0x00562010–0x00562564  (1364 bytes)  [inferred]
+  0x00562570–0x00562bb6  (1606 bytes)  [inferred]
+  0x00562bc0–0x00563135  (1397 bytes)  [inferred]
+  0x00563660–0x00563824  (452 bytes)  [inferred]
+  0x00564b70–0x00564c89  (281 bytes)  [indeterminate]
+  0x00564c90–0x00564e5c  (460 bytes)  [inferred]
+  0x00566fb0–0x0056713d  (397 bytes)  [inferred]
+  0x00567140–0x005672a7  (359 bytes)  [inferred]
+  0x005672b0–0x005673f2  (322 bytes)  [inferred]
+  0x00567400–0x00567563  (355 bytes)  [inferred]
+  0x00567570–0x00567753  (483 bytes)  [inferred]
+  0x00567760–0x00567905  (421 bytes)  [inferred]
+  0x00567910–0x00567ac1  (433 bytes)  [inferred]
+  0x00567ad0–0x00567c40  (368 bytes)  [inferred]
+  0x00567c40–0x00567e01  (449 bytes)  [inferred]
+  0x00567e10–0x00567f6f  (351 bytes)  [inferred]
+  0x00567f70–0x005680b2  (322 bytes)  [inferred]
+  0x005680c0–0x00568227  (359 bytes)  [inferred]
+  0x00568230–0x005683ce  (414 bytes)  [inferred]
+  0x005683d0–0x00568548  (376 bytes)  [inferred]
+  0x00568550–0x005686eb  (411 bytes)  [inferred]
+  0x005686f0–0x00568b1b  (1067 bytes)  [inferred]
+  0x00568f50–0x005694b6  (1382 bytes)  [inferred]
+  0x0056dfc0–0x0056e103  (323 bytes)  [indeterminate]
+  0x0056e110–0x0056e1d0  (192 bytes)  [indeterminate]
+  0x0056f260–0x0056f2d1  (113 bytes)  [inferred]
+  0x0056f3b0–0x0056f462  (178 bytes)  [inferred]
+  0x0056f470–0x0056f547  (215 bytes)  [inferred]
+  0x0056f550–0x0056f606  (182 bytes)  [indeterminate]
+  0x0056f610–0x0056f6c2  (178 bytes)  [inferred]
+  0x0056f6d0–0x0056f789  (185 bytes)  [inferred]
+  0x0056f790–0x0056f861  (209 bytes)  [inferred]
+  0x0056f870–0x0056f941  (209 bytes)  [inferred]
+  0x0056f950–0x0056fa3b  (235 bytes)  [inferred]
+  0x0056fa40–0x0056fb2b  (235 bytes)  [inferred]
+  0x0056fbf0–0x0056fc8d  (157 bytes)  [inferred]
+  0x0056fc90–0x0056fd4f  (191 bytes)  [inferred]
+  0x0056fd50–0x0056fdf3  (163 bytes)  [inferred]
+  0x0056fe00–0x0056fe9d  (157 bytes)  [inferred]
+  0x0056fea0–0x0056ff52  (178 bytes)  [inferred]
+  0x0056ff60–0x00570003  (163 bytes)  [inferred]
+  0x00570010–0x005700ad  (157 bytes)  [inferred]
+  0x00570160–0x00570249  (233 bytes)  [inferred]
+  0x00570250–0x005702fe  (174 bytes)  [inferred]
+  0x00570300–0x005703e3  (227 bytes)  [inferred]
+  0x005703f0–0x005704c1  (209 bytes)  [inferred]
+  0x00570580–0x0057062e  (174 bytes)  [inferred]
+  0x00570630–0x005706ef  (191 bytes)  [inferred]
+  0x005706f0–0x0057079d  (173 bytes)  [inferred]
+  0x005707a0–0x0057086b  (203 bytes)  [inferred]
+  0x00570870–0x00570937  (199 bytes)  [inferred]
+  0x00570940–0x005709ff  (191 bytes)  [inferred]
+  0x005717a0–0x0057181b  (123 bytes)  [inferred]
+  0x00571880–0x0057190e  (142 bytes)  [inferred]
+  0x00571910–0x00571a1a  (266 bytes)  [inferred]
+  0x00571a20–0x00571a73  (83 bytes)  [inferred]
+  0x00571a80–0x00571ae9  (105 bytes)  [inferred]
+  0x00571b30–0x00571c55  (293 bytes)  [inferred]
+  0x00571c60–0x00571cc0  (96 bytes)  [inferred]
+  0x00571cc0–0x00571cde  (30 bytes)  [inferred]
+  0x00571ce0–0x00571e3b  (347 bytes)  [inferred]
+  0x00571e40–0x00571ef9  (185 bytes)  [inferred]
+  0x00571f60–0x00571fe2  (130 bytes)  [indeterminate]
+  0x00572150–0x00572250  (256 bytes)  [inferred]
+  0x00572660–0x005726a8  (72 bytes)  [inferred]
+  0x005726b0–0x0057274a  (154 bytes)  [inferred]
+  0x00572760–0x005727c0  (96 bytes)  [inferred]
+  0x005727d0–0x00572854  (132 bytes)  [inferred]
+  0x00572870–0x005728df  (111 bytes)  [inferred]
+  0x005728e0–0x00572977  (151 bytes)  [inferred]
+  0x00572980–0x005729c6  (70 bytes)  [inferred]
+  0x00572a50–0x00572af0  (160 bytes)  [inferred]
+  0x00572af0–0x00572b77  (135 bytes)  [inferred]
+  0x00572b80–0x00572bc6  (70 bytes)  [inferred]
+  0x00572bd0–0x00572c62  (146 bytes)  [inferred]
+  0x00572c70–0x00572cb6  (70 bytes)  [inferred]
+  0x00572d10–0x00572d56  (70 bytes)  [inferred]
+  0x00572d60–0x00572da6  (70 bytes)  [inferred]
+  0x00572db0–0x00572e97  (231 bytes)  [inferred]
+  0x00572ea0–0x00572f98  (248 bytes)  [inferred]
+  0x00573030–0x00573070  (64 bytes)  [inferred]
+  0x00573070–0x005730b6  (70 bytes)  [inferred]
+  0x005730c0–0x0057311a  (90 bytes)  [inferred]
+  0x00573120–0x005731af  (143 bytes)  [inferred]
+  0x005731b0–0x00573223  (115 bytes)  [inferred]
+  0x00573230–0x005732d7  (167 bytes)  [inferred]
+  0x005733f0–0x00573478  (136 bytes)  [inferred]
+  0x00573600–0x0057373f  (319 bytes)  [inferred]
+  0x00573740–0x005737cb  (139 bytes)  [inferred]
+  0x005737d0–0x005738a1  (209 bytes)  [inferred]
+  0x005738b0–0x00573b4c  (668 bytes)  [inferred]
+  0x00573b50–0x00573c13  (195 bytes)  [indeterminate]
+  0x00573c20–0x00573c83  (99 bytes)  [inferred]
+  0x00573c90–0x00573d4f  (191 bytes)  [inferred]
+  0x00573f00–0x00573f2f  (47 bytes)  [inferred]
+  0x00574190–0x005741cc  (60 bytes)  [inferred]
+  0x005741d0–0x00574240  (112 bytes)  [inferred]
+  0x00574240–0x005745a3  (867 bytes)  [inferred]
+  0x005745b0–0x0057463a  (138 bytes)  [inferred]
+  0x00574830–0x005748a0  (112 bytes)  [inferred]
+  0x005748e0–0x0057491b  (59 bytes)  [inferred]
+  0x00574b00–0x00574bd6  (214 bytes)  [inferred]
+  0x00574c40–0x00574ca1  (97 bytes)  [inferred]
+  0x00574d10–0x00574dbf  (175 bytes)  [indeterminate]
+  0x00574dc0–0x00574ea9  (233 bytes)  [inferred]
+  0x005751c0–0x00575288  (200 bytes)  [inferred]
+  0x005752b0–0x00575562  (690 bytes)  [inferred]
+  0x00575570–0x005758b6  (838 bytes)  [inferred]
+  0x005758c0–0x00575a5d  (413 bytes)  [inferred]
+  0x00575a60–0x00575b27  (199 bytes)  [inferred]
+  0x00575b30–0x00575c4d  (285 bytes)  [inferred]
+  0x00575c50–0x00575d13  (195 bytes)  [inferred]
+  0x00575f80–0x00576166  (486 bytes)  [indeterminate]
+  0x005761e0–0x0057643b  (603 bytes)  [inferred]
+  0x00576590–0x00576661  (209 bytes)  [inferred]
+  0x005766d0–0x0057687a  (426 bytes)  [inferred]
+  0x005768a0–0x005768e5  (69 bytes)  [inferred]
+  0x005768f0–0x00576940  (80 bytes)  [inferred]
+  0x00576940–0x00576a33  (243 bytes)  [inferred]
+  0x00576a40–0x00576cc9  (649 bytes)  [inferred]
+  0x00576cd0–0x00576cf2  (34 bytes)  [inferred]
+  0x00576d00–0x00576ead  (429 bytes)  [inferred]
+  0x005771b0–0x0057720a  (90 bytes)  [inferred]
+  0x00577840–0x0057791e  (222 bytes)  [inferred]
+  0x00578d30–0x00578ec4  (404 bytes)  [inferred]
+  0x00578ed0–0x005797ef  (2335 bytes)  [inferred]
+  0x005797f0–0x00579ff2  (2050 bytes)  [inferred]
+  0x0057a000–0x0057a586  (1414 bytes)  [inferred]
+  0x0057bb30–0x0057bc2a  (250 bytes)  [inferred]
+  0x0057bc30–0x0057bdd4  (420 bytes)  [inferred]
+  0x0057e250–0x0057e46f  (543 bytes)  [inferred]
+  0x0057e470–0x0057e6cc  (604 bytes)  [inferred]
+  0x0057ede0–0x0057ee1e  (62 bytes)  [inferred]
+  0x0057ee20–0x0057eeae  (142 bytes)  [inferred]
+  0x0057eeb0–0x0057eefd  (77 bytes)  [inferred]
+  0x0057ef00–0x0057ef8e  (142 bytes)  [inferred]
+  0x0057ef90–0x0057f060  (208 bytes)  [inferred]
+  0x0057f060–0x0057f136  (214 bytes)  [inferred]
+  0x0057f1e0–0x0057f265  (133 bytes)  [inferred]
+  0x0057f270–0x0057f2fb  (139 bytes)  [inferred]
+  0x0057f300–0x0057f385  (133 bytes)  [inferred]
+  0x0057f390–0x0057f41b  (139 bytes)  [indeterminate]
+  0x0057f420–0x0057f46d  (77 bytes)  [indeterminate]
+  0x0057f470–0x0057f4f5  (133 bytes)  [inferred]
+  0x0057f5a0–0x0057f63d  (157 bytes)  [inferred]
+  0x0057f640–0x0057f6d6  (150 bytes)  [inferred]
+  0x0057f6e0–0x0057f7ba  (218 bytes)  [inferred]
+  0x0057f7c0–0x0057f854  (148 bytes)  [inferred]
+  0x0057f8f0–0x0057f980  (144 bytes)  [inferred]
+  0x0057f980–0x0057fa0b  (139 bytes)  [inferred]
+  0x0057fa10–0x0057fa9b  (139 bytes)  [inferred]
+  0x0057faa0–0x0057fb58  (184 bytes)  [inferred]
+  0x0057fb60–0x0057fc0c  (172 bytes)  [inferred]
+  0x0057fc10–0x0057fc9b  (139 bytes)  [inferred]
+  0x00581fc0–0x0058229f  (735 bytes)  [inferred]
+  0x005822a0–0x0058247c  (476 bytes)  [inferred]
+  0x00584720–0x00584822  (258 bytes)  [inferred]
+  0x005848c0–0x00584942  (130 bytes)  [inferred]
+  0x00584970–0x005849e6  (118 bytes)  [inferred]
+  0x0058c430–0x0058c471  (65 bytes)  [indeterminate]
+  0x0058c480–0x0058c4c1  (65 bytes)  [indeterminate]
+  0x0058c4d0–0x0058c528  (88 bytes)  [indeterminate]
+  0x0058c890–0x0058c8f9  (105 bytes)  [inferred]
+  0x0058c9c0–0x0058ca6c  (172 bytes)  [inferred]
+  0x0058ca70–0x0058ca9c  (44 bytes)  [inferred]
+  0x0058d130–0x0058d46d  (829 bytes)  [inferred]
+  0x0058d470–0x0058d708  (664 bytes)  [inferred]
+  0x0058f220–0x0058f339  (281 bytes)  [indeterminate]
+  0x00590740–0x0059094b  (523 bytes)  [inferred]
+  0x00594030–0x00594190  (352 bytes)  [inferred]
+  0x005a6060–0x005a6778  (1816 bytes)  [inferred]
+  0x005a7010–0x005a8f4d  (7997 bytes)  [inferred]
+  0x005a9100–0x005aa1bf  (4287 bytes)  [inferred]
+  0x005aa4c0–0x005aaa84  (1476 bytes)  [inferred]
+  0x005aacd0–0x005aada5  (213 bytes)  [inferred]
+  0x005aadb0–0x005aadcc  (28 bytes)  [inferred]
+  0x005aadd0–0x005aae4b  (123 bytes)  [inferred]
+  0x005aae50–0x005aaede  (142 bytes)  [inferred]
+  0x005aaee0–0x005aafea  (266 bytes)  [inferred]
+  0x005aaff0–0x005ab043  (83 bytes)  [inferred]
+  0x005ab050–0x005ab0aa  (90 bytes)  [inferred]
+  0x005ab0b0–0x005ab0d0  (32 bytes)  [inferred]
+  0x005ab160–0x005ab214  (180 bytes)  [inferred]
+  0x005ab220–0x005ab2a2  (130 bytes)  [indeterminate]
+  0x005ab440–0x005ab51e  (222 bytes)  [inferred]
+  0x005ab5f0–0x005ab6fa  (266 bytes)  [inferred]
+  0x005ab700–0x005ab8d1  (465 bytes)  [inferred]
+  0x005ab8e0–0x005ab95b  (123 bytes)  [inferred]
+  0x005abc30–0x005abcc8  (152 bytes)  [inferred]
+  0x005abcd0–0x005abd4e  (126 bytes)  [inferred]
+  0x005ac110–0x005ac1ac  (156 bytes)  [inferred]
+  0x005ac220–0x005ac31b  (251 bytes)  [inferred]
+  0x005ac380–0x005ac55e  (478 bytes)  [inferred]
+  0x005ac560–0x005ac862  (770 bytes)  [inferred]
+  0x005ad160–0x005ad416  (694 bytes)  [inferred]
+  0x005ad8a0–0x005adac6  (550 bytes)  [inferred]
+  0x005adfe0–0x005ae06e  (142 bytes)  [indeterminate]
+  0x005ae070–0x005ae234  (452 bytes)  [inferred]
+  0x005ae380–0x005ae538  (440 bytes)  [inferred]
+  0x005aea00–0x005aed36  (822 bytes)  [inferred]
+  0x005afc60–0x005afebb  (603 bytes)  [inferred]
+  0x005afec0–0x005b0157  (663 bytes)  [inferred]
+  0x005b0320–0x005b03cf  (175 bytes)  [indeterminate]
+  0x005b0b80–0x005b0cbf  (319 bytes)  [indeterminate]
+  0x005b28d0–0x005b2c77  (935 bytes)  [indeterminate]
+  0x005b5c90–0x005b5f54  (708 bytes)  [indeterminate]
+  0x005b5f60–0x005b5fec  (140 bytes)  [inferred]
+  0x005b5ff0–0x005b6144  (340 bytes)  [inferred]
+  0x005b6150–0x005b6288  (312 bytes)  [inferred]
+  0x005b6290–0x005b63c8  (312 bytes)  [inferred]
+  0x005b63d0–0x005b6508  (312 bytes)  [inferred]
+  0x005b6510–0x005b6668  (344 bytes)  [inferred]
+  0x005b6670–0x005b67c8  (344 bytes)  [inferred]
+  0x005b67d0–0x005b6928  (344 bytes)  [inferred]
+  0x005b6b20–0x005b6b7e  (94 bytes)  [inferred]
+  0x005b6b80–0x005b6c3f  (191 bytes)  [inferred]
+  0x005b6c40–0x005b6cc2  (130 bytes)  [inferred]
+  0x005b6cd0–0x005b6d52  (130 bytes)  [indeterminate]
+  0x005b6d60–0x005b6de2  (130 bytes)  [inferred]
+  0x005b6df0–0x005b6e4c  (92 bytes)  [inferred]
+  0x005b6e50–0x005b6ec8  (120 bytes)  [inferred]
+  0x005b6fe0–0x005b7011  (49 bytes)  [inferred]
+  0x005b7020–0x005b733c  (796 bytes)  [inferred]
+  0x005b7340–0x005b73ef  (175 bytes)  [inferred]
+  0x005b7670–0x005b781a  (426 bytes)  [inferred]
+  0x005b7900–0x005b79af  (175 bytes)  [indeterminate]
+  0x005b79b0–0x005b7b1e  (366 bytes)  [inferred]
+  0x005b7b30–0x005b7bb3  (131 bytes)  [inferred]
+  0x005b7bc0–0x005b7dda  (538 bytes)  [inferred]
+  0x005b7de0–0x005b8013  (563 bytes)  [inferred]
+  0x005b8020–0x005b8315  (757 bytes)  [inferred]
+  0x005b8320–0x005b861a  (762 bytes)  [inferred]
+  0x005b8620–0x005b8728  (264 bytes)  [inferred]
+  0x005b8730–0x005b87b0  (128 bytes)  [inferred]
+  0x005b87b0–0x005b9822  (4210 bytes)  [inferred]
+  0x005b9d10–0x005ba1f6  (1254 bytes)  [inferred]
+  0x005ba200–0x005ba414  (532 bytes)  [inferred]
+  0x005ba420–0x005ba5e2  (450 bytes)  [inferred]
+  0x005ba5f0–0x005ba7c5  (469 bytes)  [inferred]
+  0x005ba7d0–0x005ba842  (114 bytes)  [inferred]
+  0x005ba850–0x005ba8c2  (114 bytes)  [inferred]
+  0x005ba9b0–0x005baa23  (115 bytes)  [inferred]
+  0x005baa30–0x005baa99  (105 bytes)  [inferred]
+  0x005bab20–0x005bab92  (114 bytes)  [indeterminate]
+  0x005bae00–0x005bae69  (105 bytes)  [inferred]
+  0x005bae70–0x005baee3  (115 bytes)  [inferred]
+  0x005bb150–0x005bb1ce  (126 bytes)  [inferred]
+  0x005bb1d0–0x005bb244  (116 bytes)  [inferred]
+  0x005bb2d0–0x005bb34d  (125 bytes)  [indeterminate]
+  0x005bb5d0–0x005bb644  (116 bytes)  [inferred]
+  0x005bb650–0x005bb6c4  (116 bytes)  [inferred]
+  0x005bb6d0–0x005bb74e  (126 bytes)  [inferred]
+  0x005bb9d0–0x005bba4e  (126 bytes)  [inferred]
+  0x005bba50–0x005bbac4  (116 bytes)  [inferred]
+  0x005bbb50–0x005bbbcd  (125 bytes)  [indeterminate]
+  0x005bbe50–0x005bbec4  (116 bytes)  [inferred]
+  0x005bbed0–0x005bbf44  (116 bytes)  [inferred]
+  0x005bbf50–0x005bbfce  (126 bytes)  [inferred]
+  0x005bc230–0x005bc2a3  (115 bytes)  [inferred]
+  0x005bc2b0–0x005bc319  (105 bytes)  [inferred]
+  0x005bc3a0–0x005bc412  (114 bytes)  [indeterminate]
+  0x005bc680–0x005bc6e9  (105 bytes)  [inferred]
+  0x005bc6f0–0x005bc763  (115 bytes)  [inferred]
+  0x005bc9b0–0x005bca23  (115 bytes)  [inferred]
+  0x005bca30–0x005bca99  (105 bytes)  [inferred]
+  0x005bcb20–0x005bcb92  (114 bytes)  [indeterminate]
+  0x005bce00–0x005bce69  (105 bytes)  [inferred]
+  0x005bce70–0x005bcee3  (115 bytes)  [inferred]
+  0x005bd130–0x005bd199  (105 bytes)  [inferred]
+  0x005bd220–0x005bd292  (114 bytes)  [indeterminate]
+  0x005bd500–0x005bd569  (105 bytes)  [inferred]
+  0x005bd570–0x005bd5d9  (105 bytes)  [inferred]
+  0x005bd5e0–0x005bd649  (105 bytes)  [inferred]
+  0x005bd890–0x005bd8f9  (105 bytes)  [inferred]
+  0x005bdbe0–0x005bdc49  (105 bytes)  [inferred]
+  0x005bdc50–0x005bdcb9  (105 bytes)  [inferred]
+  0x005bddc0–0x005bde44  (132 bytes)  [inferred]
+  0x005bde50–0x005bdeca  (122 bytes)  [inferred]
+  0x005be2a0–0x005be324  (132 bytes)  [inferred]
+  0x005be5b0–0x005be619  (105 bytes)  [inferred]
+  0x005be900–0x005be969  (105 bytes)  [inferred]
+  0x005be970–0x005be9d9  (105 bytes)  [inferred]
+  0x005beae0–0x005beb5e  (126 bytes)  [inferred]
+  0x005beb60–0x005bebd4  (116 bytes)  [inferred]
+  0x005bef60–0x005befde  (126 bytes)  [inferred]
+  0x005bf240–0x005bf2a9  (105 bytes)  [inferred]
+  0x005bf590–0x005bf5f9  (105 bytes)  [inferred]
+  0x005bf600–0x005bf669  (105 bytes)  [inferred]
+  0x005bf770–0x005bf7f4  (132 bytes)  [inferred]
+  0x005bf800–0x005bf87a  (122 bytes)  [inferred]
+  0x005bfc50–0x005bfcd4  (132 bytes)  [inferred]
+  0x005c03f0–0x005c0c7c  (2188 bytes)  [inferred]
+  0x005c0c80–0x005c0dce  (334 bytes)  [inferred]
+  0x005c0dd0–0x005c13d2  (1538 bytes)  [inferred]
+  0x005c7a90–0x005c7c21  (401 bytes)  [inferred]
+  0x005ce1d0–0x005ce7b9  (1513 bytes)  [inferred]
+  0x005cf010–0x005cf0bc  (172 bytes)  [indeterminate]
+  0x005cf790–0x005cf945  (437 bytes)  [inferred]
+  0x005d2c90–0x005d2d96  (262 bytes)  [inferred]
+  0x005d8b10–0x005d8c06  (246 bytes)  [inferred]
+  0x005dac70–0x005dad1f  (175 bytes)  [indeterminate]
+  0x005ea6e0–0x005ea7fe  (286 bytes)  [indeterminate]
+  0x005f5270–0x005f53db  (363 bytes)  [inferred]
+  0x005f5a10–0x005f5bba  (426 bytes)  [indeterminate]
+  0x005fa580–0x005fa757  (471 bytes)  [indeterminate]
+  0x00607850–0x006078cf  (127 bytes)  [indeterminate]
+  0x00607d40–0x00607def  (175 bytes)  [inferred]
+  0x00a6af00–0x00a6b33e  (1086 bytes)  [inferred]
+  0x00a6b340–0x00a6b3ef  (175 bytes)  [inferred]
+  0x00a6b3f0–0x00a6b57f  (399 bytes)  [inferred]
+  0x00a6b580–0x00a6b746  (454 bytes)  [inferred]
+  0x00a6b750–0x00a6b855  (261 bytes)  [inferred]
+  0x00a6b860–0x00a6b91f  (191 bytes)  [inferred]
+  0x00a6bc00–0x00a6bc5e  (94 bytes)  [inferred]
+  0x00a6bc60–0x00a6c157  (1271 bytes)  [inferred]
+  0x00a6c160–0x00a6c283  (291 bytes)  [inferred]
+  0x00a6c290–0x00a6c346  (182 bytes)  [inferred]
+  0x00a6e210–0x00a6e23d  (45 bytes)  [indeterminate]
+  0x00a6e240–0x00a6e2c2  (130 bytes)  [inferred]
+  0x00a6e2d0–0x00a6e3f3  (291 bytes)  [inferred]
+  0x00a6e570–0x00a6e716  (422 bytes)  [inferred]
+  0x00a6e7d0–0x00a6e7fb  (43 bytes)  [inferred]
+  0x00a70dc0–0x00a70e6b  (171 bytes)  [inferred]
+  0x00a711e0–0x00a712cd  (237 bytes)  [inferred]
+  0x00a712d0–0x00a7140f  (319 bytes)  [indeterminate]
+  0x00a714e0–0x00a71575  (149 bytes)  [inferred]
+  0x00a71580–0x00a71624  (164 bytes)  [inferred]
+  0x00a75a30–0x00a75b40  (272 bytes)  [inferred]
+  0x00a765f0–0x00a766e5  (245 bytes)  [inferred]
+  0x00a767a0–0x00a7685b  (187 bytes)  [inferred]
+  0x00a76e00–0x00a76ed3  (211 bytes)  [inferred]
+  0x00a76f50–0x00a7704c  (252 bytes)  [inferred]
+  0x00a77340–0x00a775ee  (686 bytes)  [inferred]
+  0x00a78bd0–0x00a78d30  (352 bytes)  [inferred]
+  0x00a78d30–0x00a78f07  (471 bytes)  [indeterminate]
+  0x00a78f10–0x00a78f92  (130 bytes)  [inferred]
+  0x00a78fa0–0x00a7910e  (366 bytes)  [inferred]
+  0x00a79110–0x00a7919f  (143 bytes)  [inferred]
+  0x00a791a0–0x00a792c3  (291 bytes)  [indeterminate]
+  0x00a792d0–0x00a794de  (526 bytes)  [inferred]
+  0x00a794e0–0x00a795a8  (200 bytes)  [inferred]
+  0x00a796b0–0x00a796db  (43 bytes)  [indeterminate]
+  0x00a796e0–0x00a79c3f  (1375 bytes)  [indeterminate]
+  0x00a79fe0–0x00a7a0f7  (279 bytes)  [inferred]
+  0x00a7a100–0x00a7a2dd  (477 bytes)  [inferred]
+  0x00a7add0–0x00a7b016  (582 bytes)  [inferred]
+  0x00a7b020–0x00a7b24a  (554 bytes)  [inferred]
+  0x00a7b280–0x00a7b37d  (253 bytes)  [inferred]
+  0x00a7b380–0x00a7b48c  (268 bytes)  [inferred]
+  0x00a7b490–0x00a7b714  (644 bytes)  [inferred]
+  0x00a7b720–0x00a7b759  (57 bytes)  [inferred]
+  0x00a7b760–0x00a7b884  (292 bytes)  [inferred]
+  0x00a7bb30–0x00a7bc01  (209 bytes)  [inferred]
+  0x00a7bcd0–0x00a7bd86  (182 bytes)  [inferred]
+  0x00a7bf30–0x00a7bfb2  (130 bytes)  [indeterminate]
+  0x00a7c140–0x00a7c16b  (43 bytes)  [inferred]
+  0x00a7c1f0–0x00a7c24e  (94 bytes)  [inferred]
+  0x00a7d370–0x00a7d3fe  (142 bytes)  [indeterminate]
+  0x00a7d400–0x00a7d4e4  (228 bytes)  [inferred]
+  0x00a7d4f0–0x00a7d59f  (175 bytes)  [inferred]
+  0x00a7d5a0–0x00a7d642  (162 bytes)  [inferred]
+  0x00a7d9a0–0x00a7db48  (424 bytes)  [inferred]
+  0x00a7db50–0x00a7dcf8  (424 bytes)  [inferred]
+  0x00a7dd00–0x00a7dde0  (224 bytes)  [inferred]
+  0x00a7dde0–0x00a7dec6  (230 bytes)  [inferred]
+  0x00a7ded0–0x00a7dfb8  (232 bytes)  [inferred]
+  0x00a7dfc0–0x00a7e020  (96 bytes)  [inferred]
+  0x00a7e020–0x00a7e1d2  (434 bytes)  [inferred]
+  0x00a7e2b0–0x00a7e596  (742 bytes)  [inferred]
+  0x00a7e5a0–0x00a7e72a  (394 bytes)  [inferred]
+  0x00a7e730–0x00a7e7cc  (156 bytes)  [inferred]
+  0x00a7e7d0–0x00a7e86c  (156 bytes)  [inferred]
+  0x00a7e870–0x00a7e917  (167 bytes)  [inferred]
+  0x00a7e920–0x00a7ea1c  (252 bytes)  [inferred]
+  0x00a7ea20–0x00a7eb0f  (239 bytes)  [inferred]
+  0x00a7eb10–0x00a7ebba  (170 bytes)  [inferred]
+  0x00a7ebc0–0x00a7ed57  (407 bytes)  [inferred]
+  0x00a7ee10–0x00a7ee70  (96 bytes)  [inferred]
+  0x00a7ee70–0x00a7ef93  (291 bytes)  [inferred]
+  0x00a7efa0–0x00a7f0a1  (257 bytes)  [inferred]
+  0x00a7f260–0x00a7f886  (1574 bytes)  [inferred]
+  0x00a7f890–0x00a7ff98  (1800 bytes)  [inferred]
+  0x00a7ffa0–0x00a807a8  (2056 bytes)  [inferred]
+  0x00a807b0–0x00a80961  (433 bytes)  [inferred]
+  0x00a80b60–0x00a80f10  (944 bytes)  [inferred]
+  0x00a80f10–0x00a812f4  (996 bytes)  [indeterminate]
+  0x00a81300–0x00a816b0  (944 bytes)  [inferred]
+  0x00a816b0–0x00a81a94  (996 bytes)  [inferred]
+  0x00a81aa0–0x00a81e84  (996 bytes)  [inferred]
+  0x00a81e90–0x00a82240  (944 bytes)  [inferred]
+  0x00a82240–0x00a82344  (260 bytes)  [inferred]
+  0x00a82350–0x00a82454  (260 bytes)  [inferred]
+  0x00a82460–0x00a825a6  (326 bytes)  [inferred]
+  0x00a825b0–0x00a826bf  (271 bytes)  [inferred]
+  0x00a826c0–0x00a82846  (390 bytes)  [inferred]
+  0x00a82850–0x00a829a3  (339 bytes)  [inferred]
+  0x00a829b0–0x00a82aa6  (246 bytes)  [inferred]
+  0x00a82ab0–0x00a82bc2  (274 bytes)  [inferred]
+  0x00a82bd0–0x00a82c97  (199 bytes)  [inferred]
+  0x00a82ca0–0x00a82d00  (96 bytes)  [inferred]
+  0x00a82d60–0x00a82f5a  (506 bytes)  [inferred]
+  0x00a82f60–0x00a83aae  (2894 bytes)  [inferred]
+  0x00a83ab0–0x00a842dd  (2093 bytes)  [inferred]
+  0x00a842e0–0x00a8465d  (893 bytes)  [inferred]
+  0x00a84660–0x00a84b3b  (1243 bytes)  [inferred]
+  0x00a85ba0–0x00a8647a  (2266 bytes)  [inferred]
+  0x00a86480–0x00a864bb  (59 bytes)  [inferred]
+  0x00a864c0–0x00a86527  (103 bytes)  [inferred]
+  0x00a86530–0x00a865ec  (188 bytes)  [inferred]
+  0x00a865f0–0x00a86713  (291 bytes)  [inferred]
+  0x00a86720–0x00a86821  (257 bytes)  [inferred]
+  0x00a86930–0x00a8695b  (43 bytes)  [inferred]
+  0x00a86990–0x00a86e9b  (1291 bytes)  [inferred]
+  0x00a86ea0–0x00a87412  (1394 bytes)  [inferred]
+  0x00a87420–0x00a886e2  (4802 bytes)  [inferred]
+  0x00a886f0–0x00a887dc  (236 bytes)  [inferred]
+  0x00a887e0–0x00a888c7  (231 bytes)  [inferred]
+  0x00a888d0–0x00a88f3c  (1644 bytes)  [inferred]
+  0x00a88f40–0x00a89031  (241 bytes)  [inferred]
+  0x00a89040–0x00a8af2b  (7915 bytes)  [inferred]
+  0x00a8af30–0x00a8b36e  (1086 bytes)  [inferred]
+  0x00a8b370–0x00a8b41f  (175 bytes)  [inferred]
+  0x00a8b420–0x00a8b5a4  (388 bytes)  [inferred]
+  0x00a8b5b0–0x00a8b6b5  (261 bytes)  [inferred]
+  0x00a8b6c0–0x00a8b77f  (191 bytes)  [inferred]
+  0x00a8b780–0x00a8b802  (130 bytes)  [inferred]
+  0x00a8b810–0x00a8b892  (130 bytes)  [inferred]
+  0x00a8b8a0–0x00a8b8fe  (94 bytes)  [inferred]
+  0x00a8b900–0x00a8ba23  (291 bytes)  [inferred]
+  0x00a8ba30–0x00a8c3b2  (2434 bytes)  [inferred]
+  0x00a8c3c0–0x00a8c476  (182 bytes)  [inferred]
+  0x00a8c480–0x00a8c621  (417 bytes)  [inferred]
+  0x00a8c650–0x00a8c7f6  (422 bytes)  [inferred]
+  0x00a8c800–0x00a8c8ac  (172 bytes)  [inferred]
+  0x00a8c8b0–0x00a8c90b  (91 bytes)  [inferred]
+  0x00a8c910–0x00a8cd60  (1104 bytes)  [inferred]
+  0x00a8cd60–0x00a8e0ce  (4974 bytes)  [inferred]
+  0x00a8e0d0–0x00a8e159  (137 bytes)  [inferred]
+  0x00a8e160–0x00a8e3c6  (614 bytes)  [inferred]
+  0x00b3e4d0–0x00b3e58b  (187 bytes)  [inferred]
+  0x00b3e590–0x00b3e646  (182 bytes)  [inferred]
+  0x00b3e650–0x00b3e714  (196 bytes)  [inferred]
+  0x00b3e810–0x00b3e8ad  (157 bytes)  [inferred]
+  0x00b3e8b0–0x00b3e956  (166 bytes)  [inferred]
+  0x00b3eba0–0x00b3ec00  (96 bytes)  [inferred]
+  0x00b3ec50–0x00b3ec96  (70 bytes)  [inferred]
+  0x00b3eeb0–0x00b3ef5f  (175 bytes)  [inferred]
+  0x00b3ef60–0x00b3efca  (106 bytes)  [indeterminate]
+  0x00b40d70–0x00b40eaf  (319 bytes)  [indeterminate]
+  0x00b41000–0x00b411d7  (471 bytes)  [indeterminate]
+  0x00b41210–0x00b412ad  (157 bytes)  [indeterminate]
+  0x00b41350–0x00b413d5  (133 bytes)  [indeterminate]
+  0x00b413e0–0x00b4142a  (74 bytes)  [indeterminate]
+  0x00b41900–0x00b41992  (146 bytes)  [inferred]
+  0x00b41ae0–0x00b41b49  (105 bytes)  [inferred]
+  0x00b41b50–0x00b41bd5  (133 bytes)  [inferred]
+  0x00b445d0–0x00b44652  (130 bytes)  [indeterminate]
+  0x00b446a0–0x00b44701  (97 bytes)  [indeterminate]
+  0x00b447a0–0x00b4482e  (142 bytes)  [indeterminate]
+  0x00b44ef0–0x00b44f9f  (175 bytes)  [indeterminate]
+  0x00b4bee0–0x00b4bfa8  (200 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 14916 functions mapped (171 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           17 predicted   TP=   11  FP=   1  unknown=   5   precision=91.7%
+  inferred         600 predicted   TP=    3  FP= 478  unknown= 119   precision=0.6%
+  indeterminate     87 predicted   TP=    0  FP=  77  unknown=  10   precision=0.0%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     11  (  6.4%)  certain          (rock-solid signal)
+      3  (  1.8%)  inferred         (call-graph reach)
+      0  (  0.0%)  indeterminate    (shared/mixed callers)
+    157  ( 91.8%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x004eec20  /tmp/unhusk-local-bench/onefetch/src/info/url.rs
+    0x005694c0  /tmp/unhusk-local-bench/onefetch/src/info/mod.rs
+    0x0057b8c0  /tmp/unhusk-local-bench/onefetch/src/info/churn.rs
+    0x00589600  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x0058efb0  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x005927f0  /tmp/unhusk-local-bench/onefetch/src/info/utils/mod.rs
+    0x005c7770  /tmp/unhusk-local-bench/onefetch/src/info/authors.rs
+    0x00608920  /tmp/unhusk-local-bench/onefetch/ascii/src/lib.rs
+    0x00a6c9a0  /tmp/unhusk-local-bench/onefetch/manifest/src/lib.rs
+    0x00b424e0  /tmp/unhusk-local-bench/onefetch/image/src/sixel.rs
+    0x00b45ba0  /tmp/unhusk-local-bench/onefetch/image/src/kitty.rs
+  DWARF-user in inferred:
+    0x00563660  /tmp/unhusk-local-bench/onefetch/src/info/mod.rs
+    0x005ae070  /tmp/unhusk-local-bench/onefetch/src/info/title.rs
+    0x005ae380  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+  DWARF-user in library (missed):
+    0x004da140  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004df1f0  /tmp/unhusk-local-bench/onefetch/src/main.rs
+    0x004ee700  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004eea60  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004eeb40  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004eebb0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004ef260  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004ef3a0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f15d0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f1650  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f1b10  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f38d0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f3a90  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f4e60  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f4f60  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f6380  /tmp/unhusk-local-bench/onefetch/src/info/contributors.rs
+    0x004f63e0  /tmp/unhusk-local-bench/onefetch/src/info/contributors.rs
+    0x004f6450  /tmp/unhusk-local-bench/onefetch/src/info/url.rs
+    0x004f64a0  /tmp/unhusk-local-bench/onefetch/src/info/url.rs
+    0x004f7d50  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f7db0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f8740  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004f9230  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x004fa360  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x005007f0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x00500ca0  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x00502d20  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x00502f60  /tmp/unhusk-local-bench/onefetch/src/cli.rs
+    0x005049a0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00504ae0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00504d50  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00504e70  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00504fb0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005051a0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00542960  /tmp/unhusk-local-bench/onefetch/src/ui/mod.rs
+    0x005436a0  /tmp/unhusk-local-bench/onefetch/src/info/dependencies.rs
+    0x00543700  /tmp/unhusk-local-bench/onefetch/src/info/dependencies.rs
+    0x00543710  /tmp/unhusk-local-bench/onefetch/src/info/loc.rs
+    0x00543780  /tmp/unhusk-local-bench/onefetch/src/info/loc.rs
+    0x0054aa80  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0054abc0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0054add0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0054aef0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0054b040  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0054b290  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00559d20  /tmp/unhusk-local-bench/onefetch/src/info/created.rs
+    0x00559d80  /tmp/unhusk-local-bench/onefetch/src/info/created.rs
+    0x00559e00  /tmp/unhusk-local-bench/onefetch/src/info/version.rs
+    0x0055a4d0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0055a610  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0055a800  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0055a920  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0055aa60  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0055ac50  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00563830  /tmp/unhusk-local-bench/onefetch/src/info/mod.rs
+    0x0056d000  /tmp/unhusk-local-bench/onefetch/src/info/git/mod.rs
+    0x0056d610  /tmp/unhusk-local-bench/onefetch/src/info/langs/mod.rs
+    0x0056dda0  /tmp/unhusk-local-bench/onefetch/src/info/mod.rs
+    0x0056e1d0  /tmp/unhusk-local-bench/onefetch/src/info/size.rs
+    0x0056e1e0  /tmp/unhusk-local-bench/onefetch/src/info/license.rs
+    0x0056e1f0  /tmp/unhusk-local-bench/onefetch/src/info/pending.rs
+    0x0056e200  /tmp/unhusk-local-bench/onefetch/src/info/project.rs
+    0x0056e210  /tmp/unhusk-local-bench/onefetch/src/info/head.rs
+    0x0056eaf0  /tmp/unhusk-local-bench/onefetch/src/info/churn.rs
+    0x0056eb00  /tmp/unhusk-local-bench/onefetch/src/info/authors.rs
+    0x0056eb10  /tmp/unhusk-local-bench/onefetch/src/info/description.rs
+    0x0056eb20  /tmp/unhusk-local-bench/onefetch/src/info/last_change.rs
+    0x0056eb30  /tmp/unhusk-local-bench/onefetch/src/info/contributors.rs
+    0x0056eb40  /tmp/unhusk-local-bench/onefetch/src/info/dependencies.rs
+    0x0056eb50  /tmp/unhusk-local-bench/onefetch/src/info/loc.rs
+    0x0056eb60  /tmp/unhusk-local-bench/onefetch/src/info/url.rs
+    0x0056eb70  /tmp/unhusk-local-bench/onefetch/src/info/commits.rs
+    0x0056eb80  /tmp/unhusk-local-bench/onefetch/src/info/created.rs
+    0x0056eb90  /tmp/unhusk-local-bench/onefetch/src/info/version.rs
+    0x0056ef20  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x0057b510  /tmp/unhusk-local-bench/onefetch/src/info/size.rs
+    0x0057b560  /tmp/unhusk-local-bench/onefetch/src/info/size.rs
+    0x0057b620  /tmp/unhusk-local-bench/onefetch/src/info/pending.rs
+    0x0057b680  /tmp/unhusk-local-bench/onefetch/src/info/pending.rs
+    0x0057b7b0  /tmp/unhusk-local-bench/onefetch/src/info/head.rs
+    0x0057b800  /tmp/unhusk-local-bench/onefetch/src/info/head.rs
+    0x0057e780  /tmp/unhusk-local-bench/onefetch/src/info/churn.rs
+    0x0057e7c0  /tmp/unhusk-local-bench/onefetch/src/info/churn.rs
+    0x005809f0  /tmp/unhusk-local-bench/onefetch/src/info/last_change.rs
+    0x00580a50  /tmp/unhusk-local-bench/onefetch/src/info/last_change.rs
+    0x00580ad0  /tmp/unhusk-local-bench/onefetch/src/info/head.rs
+    0x00580c90  /tmp/unhusk-local-bench/onefetch/src/info/size.rs
+    0x00580dd0  /tmp/unhusk-local-bench/onefetch/src/info/churn.rs
+    0x00581120  /tmp/unhusk-local-bench/onefetch/src/info/pending.rs
+    0x00582b00  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00582c40  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00582e30  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00582f50  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00583080  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00583380  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005834a0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005835d0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005838d0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005839f0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00583b10  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00583e10  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00583f30  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00584070  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00584370  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x00585f80  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x005862e0  /tmp/unhusk-local-bench/onefetch/target/release/build/onefetch-162bd3e627637a47/out/language.rs
+    0x005867d0  /tmp/unhusk-local-bench/onefetch/target/release/build/onefetch-162bd3e627637a47/out/language.rs
+    0x00587790  /tmp/unhusk-local-bench/onefetch/target/release/build/tokei-cf79ce4eba92e355/out/language_type.rs
+    0x0058a110  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x0058a200  /tmp/unhusk-local-bench/onefetch/src/info/langs/language.rs
+    0x0058a2e0  /tmp/unhusk-local-bench/onefetch/target/release/build/onefetch-162bd3e627637a47/out/language.rs
+    0x0058a360  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0058a460  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x0058a760  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005ae240  /tmp/unhusk-local-bench/onefetch/src/info/title.rs
+    0x005ae540  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005b1a70  /tmp/unhusk-local-bench/onefetch/src/info/title.rs
+    0x005b1da0  /tmp/unhusk-local-bench/onefetch/src/info/commits.rs
+    0x005b1e00  /tmp/unhusk-local-bench/onefetch/src/info/commits.rs
+    0x005b57f0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005b5930  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005b5b40  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005c1470  /tmp/unhusk-local-bench/onefetch/src/info/license.rs
+    0x005c14d0  /tmp/unhusk-local-bench/onefetch/src/info/license.rs
+    0x005c1550  /tmp/unhusk-local-bench/onefetch/src/info/project.rs
+    0x005c15b0  /tmp/unhusk-local-bench/onefetch/src/info/project.rs
+    0x005c85c0  /tmp/unhusk-local-bench/onefetch/src/info/authors.rs
+    0x005c86b0  /tmp/unhusk-local-bench/onefetch/src/info/authors.rs
+    0x005c9830  /tmp/unhusk-local-bench/onefetch/src/info/description.rs
+    0x005c9890  /tmp/unhusk-local-bench/onefetch/src/info/description.rs
+    0x005c9c30  /tmp/unhusk-local-bench/onefetch/src/info/authors.rs
+    0x005c9de0  /tmp/unhusk-local-bench/onefetch/src/info/project.rs
+    0x005cc310  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cc450  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cc660  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cc780  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cc880  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005ccb80  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005ccca0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005ccde0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005ccfd0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cd0f0  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cd230  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005cd530  /tmp/unhusk-local-bench/onefetch/src/info/utils/info_field.rs
+    0x005d3a20  /tmp/unhusk-local-bench/onefetch/target/release/build/onefetch-162bd3e627637a47/out/language.rs
+    0x006084c0  /tmp/unhusk-local-bench/onefetch/ascii/src/lib.rs
+    0x006875d0  /tmp/unhusk-local-bench/onefetch/target/release/build/tokei-cf79ce4eba92e355/out/language_type.rs
+    0x00687650  /tmp/unhusk-local-bench/onefetch/target/release/build/tokei-cf79ce4eba92e355/out/language_type.rs
+    0x0068b0b0  /tmp/unhusk-local-bench/onefetch/target/release/build/tokei-cf79ce4eba92e355/out/language_type.rs
+    0x006a5070  /tmp/unhusk-local-bench/onefetch/target/release/build/tokei-cf79ce4eba92e355/out/language_type.rs
+    0x00a6c660  /tmp/unhusk-local-bench/onefetch/manifest/src/lib.rs
+    0x00a6db30  /tmp/unhusk-local-bench/onefetch/manifest/src/lib.rs
+    0x00a6dc20  /tmp/unhusk-local-bench/onefetch/manifest/src/lib.rs
+    0x00b3f150  /tmp/unhusk-local-bench/onefetch/image/src/lib.rs
+    0x00b3f280  /tmp/unhusk-local-bench/onefetch/image/src/lib.rs
+    0x00b40d10  /tmp/unhusk-local-bench/onefetch/image/src/lib.rs
+    0x00b45100  /tmp/unhusk-local-bench/onefetch/image/src/iterm.rs
+
+  total captured :    14  (8.2% of 171 DWARF-user fns)
+  total missed   :   157  (91.8%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 91.7%
+  Certain recall    : 6.4%  (11/171 DWARF-user fns reached by certain)
+  Overall recall    : 8.2%  (certain+inferred)
+
+validation complete.

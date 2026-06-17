@@ -1,0 +1,1144 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_pueue.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x0014d7c0   4853862 bytes
+  .rodata               vaddr 0x00033000    561829 bytes
+  .data.rel.ro          vaddr 0x005ef9a8    124024 bytes
+  .rela.dyn             vaddr 0x00001d58    200712 bytes
+  .eh_frame             vaddr 0x000ed020    391048 bytes
+  .rela.dyn entries     8214 R_X86_64_RELATIVE entries
+
+source-path strings: 454  (user=45, std=90, dep=319, unknown=0)
+  distinct dep crates visible: 60
+
+panic/assert sites:  2410  (user=213, std=594, dep=1603, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  pueue/src/bin/pueue.rs  (8 sites)
+       31:1     Location struct @ 0x5fc1d8
+       51:37    Location struct @ 0x5fc160
+       55:9     Location struct @ 0x5fc178
+       61:9     Location struct @ 0x5fc190
+       90:31    Location struct @ 0x5fc1c0
+       91:18    Location struct @ 0x5fc1a8
+       98:7     Location struct @ 0x5fce00
+      125:27    Location struct @ 0x5fcd98
+  pueue/src/client/cli.rs  (1 sites)
+      624:27    Location struct @ 0x5f8f98
+  pueue/src/client/commands/add.rs  (5 sites)
+       34:17    Location struct @ 0x5fc630
+       42:14    Location struct @ 0x5fc600
+       44:9     Location struct @ 0x5fc618
+       70:5     Location struct @ 0x5fc648
+       73:20    Location struct @ 0x5fc660
+  pueue/src/client/commands/clean.rs  (3 sites)
+       14:17    Location struct @ 0x5fc870
+       15:5     Location struct @ 0x5fc888
+       22:20    Location struct @ 0x5fc8a0
+  pueue/src/client/commands/edit.rs  (32 sites)
+       29:17    Location struct @ 0x5fc708
+       32:5     Location struct @ 0x5fc720
+       34:25    Location struct @ 0x5fc738
+       57:13    Location struct @ 0x5fc750
+       59:28    Location struct @ 0x5fc768
+       72:5     Location struct @ 0x5fc780
+       76:20    Location struct @ 0x5fc798
+       91:30    Location struct @ 0x5f9040
+      122:16    Location struct @ 0x5f90e8
+      127:5     Location struct @ 0x5f90d0
+      133:19    Location struct @ 0x5f90b8
+      135:47    Location struct @ 0x5f90a0
+      170:19    Location struct @ 0x5f9088
+      185:10    Location struct @ 0x5f9058
+      188:9     Location struct @ 0x5f9070
+      205:9     Location struct @ 0x5f9a20
+      210:26    Location struct @ 0x5f9a08
+      212:9     Location struct @ 0x5f99f0
+      217:26    Location struct @ 0x5f99d8
+      220:9     Location struct @ 0x5f99c0
+      225:26    Location struct @ 0x5f99a8
+      229:13    Location struct @ 0x5f9960
+      235:26    Location struct @ 0x5f9990
+      238:9     Location struct @ 0x5f9978
+      253:23    Location struct @ 0x5f9948
+      257:13    Location struct @ 0x5f98a0
+      263:19    Location struct @ 0x5f9930
+      268:13    Location struct @ 0x5f98b8
+      273:13    Location struct @ 0x5f98d0
+      283:21    Location struct @ 0x5f9918
+      293:24    Location struct @ 0x5f9900
+      297:49    Location struct @ 0x5f98e8
+  pueue/src/client/commands/enqueue.rs  (3 sites)
+       15:17    Location struct @ 0x5fcbe8
+       16:5     Location struct @ 0x5fcc00
+       23:20    Location struct @ 0x5fcc18
+  pueue/src/client/commands/env.rs  (3 sites)
+       10:91    Location struct @ 0x5fc678
+       24:5     Location struct @ 0x5fc690
+       26:20    Location struct @ 0x5fc6a8
+  pueue/src/client/commands/follow.rs  (13 sites)
+        1:0     Location struct @ 0x5f96e8
+       32:17    Location struct @ 0x5fcb40
+       53:17    Location struct @ 0x5fca80
+       57:5     Location struct @ 0x5fca98
+       66:24    Location struct @ 0x5fcac8
+       71:42    Location struct @ 0x5fcab0
+       99:17    Location struct @ 0x5fca38
+      114:21    Location struct @ 0x5fca50
+      123:21    Location struct @ 0x5fca68
+      148:17    Location struct @ 0x5fcae0
+      161:9     Location struct @ 0x5fcaf8
+      217:12    Location struct @ 0x5fcb10
+      230:9     Location struct @ 0x5fcb28
+  pueue/src/client/commands/group.rs  (4 sites)
+       15:17    Location struct @ 0x5fc8b8
+       25:5     Location struct @ 0x5fc8d0
+       27:20    Location struct @ 0x5fc8e8
+       42:55    Location struct @ 0x5f9100
+  pueue/src/client/commands/kill.rs  (3 sites)
+       17:17    Location struct @ 0x5fc7b0
+       22:5     Location struct @ 0x5fc7c8
+       29:20    Location struct @ 0x5fc7e0
+  pueue/src/client/commands/log/json.rs  (2 sites)
+       49:55    Location struct @ 0x5f91d8
+       55:49    Location struct @ 0x5f91c0
+  pueue/src/client/commands/log/mod.rs  (6 sites)
+       34:17    Location struct @ 0x5fc6c0
+       38:5     Location struct @ 0x5fc6d8
+       46:20    Location struct @ 0x5fc6f0
+      213:29    Location struct @ 0x5f8ff8
+      219:27    Location struct @ 0x5f9010
+      224:44    Location struct @ 0x5f9028
+  pueue/src/client/commands/log/remote.rs  (1 sites)
+       40:5     Location struct @ 0x5f91f0
+  pueue/src/client/commands/mod.rs  (15 sites)
+        1:0     Location struct @ 0x5f9670
+        1:0     Location struct @ 0x5f9870
+      101:62    Location struct @ 0x5fc450
+      103:5     Location struct @ 0x5fc468
+      106:20    Location struct @ 0x5fc498
+      110:14    Location struct @ 0x5fc480
+      115:84    Location struct @ 0x5fc3f0
+      117:5     Location struct @ 0x5fc408
+      120:20    Location struct @ 0x5fc438
+      124:14    Location struct @ 0x5fc420
+      158:17    Location struct @ 0x5fc3d8
+      293:14    Location struct @ 0x5fc3c0
+      312:9     Location struct @ 0x5f8fe0
+      314:9     Location struct @ 0x5f8fc8
+      316:36    Location struct @ 0x5f8fb0
+  pueue/src/client/commands/parallel.rs  (3 sites)
+       12:17    Location struct @ 0x5fcd08
+       25:5     Location struct @ 0x5fcd20
+       27:20    Location struct @ 0x5fcd38
+  pueue/src/client/commands/pause.rs  (3 sites)
+       16:17    Location struct @ 0x5fc900
+       17:5     Location struct @ 0x5fc918
+       24:20    Location struct @ 0x5fc930
+  pueue/src/client/commands/remove.rs  (3 sites)
+       12:17    Location struct @ 0x5fcb58
+       16:5     Location struct @ 0x5fcb70
+       18:20    Location struct @ 0x5fcb88
+  pueue/src/client/commands/reset.rs  (3 sites)
+       17:17    Location struct @ 0x5fc948
+       47:5     Location struct @ 0x5fc960
+       48:20    Location struct @ 0x5fc978
+  pueue/src/client/commands/restart.rs  (11 sites)
+       34:17    Location struct @ 0x5fcc30
+       71:53    Location struct @ 0x5fc148
+       89:9     Location struct @ 0x5fcc48
+      106:60    Location struct @ 0x5fc130
+      117:50    Location struct @ 0x5fcc60
+      160:9     Location struct @ 0x5fcc90
+      161:45    Location struct @ 0x5fcca8
+      162:13    Location struct @ 0x5fcc78
+      168:9     Location struct @ 0x5fccc0
+      169:45    Location struct @ 0x5fccf0
+      170:13    Location struct @ 0x5fccd8
+  pueue/src/client/commands/send.rs  (3 sites)
+       12:17    Location struct @ 0x5fc7f8
+       13:5     Location struct @ 0x5fc810
+       15:20    Location struct @ 0x5fc828
+  pueue/src/client/commands/shutdown.rs  (3 sites)
+        7:79    Location struct @ 0x5fcd50
+        8:5     Location struct @ 0x5fcd68
+       10:20    Location struct @ 0x5fcd80
+  pueue/src/client/commands/start.rs  (3 sites)
+       18:17    Location struct @ 0x5fc990
+       19:5     Location struct @ 0x5fc9a8
+       25:20    Location struct @ 0x5fc9c0
+  pueue/src/client/commands/stash.rs  (3 sites)
+       15:17    Location struct @ 0x5fc9d8
+       17:5     Location struct @ 0x5fc9f0
+       24:20    Location struct @ 0x5fca08
+  pueue/src/client/commands/state/mod.rs  (8 sites)
+       30:17    Location struct @ 0x5fca20
+       71:56    Location struct @ 0x5f9118
+      137:51    Location struct @ 0x5f9148
+      150:59    Location struct @ 0x5f9160
+      153:51    Location struct @ 0x5f9178
+      175:74    Location struct @ 0x5f9190
+      202:30    Location struct @ 0x5f9130
+      217:49    Location struct @ 0x5f91a8
+  pueue/src/client/commands/state/query/column_selection.rs  (4 sites)
+       11:46    Location struct @ 0x5f9238
+       12:40    Location struct @ 0x5f9250
+       15:49    Location struct @ 0x5f9268
+       52:46    Location struct @ 0x5f8778
+  pueue/src/client/commands/state/query/filters.rs  (19 sites)
+       72:32    Location struct @ 0x5f9460
+       77:34    Location struct @ 0x5f9478
+       81:33    Location struct @ 0x5f9490
+       86:18    Location struct @ 0x5f94f0
+       88:75    Location struct @ 0x5f9508
+       93:18    Location struct @ 0x5f94a8
+       94:73    Location struct @ 0x5f94c0
+       98:18    Location struct @ 0x5f94d8
+      101:14    Location struct @ 0x5f9550
+      161:34    Location struct @ 0x5f8790
+      231:32    Location struct @ 0x5f92f8
+      235:34    Location struct @ 0x5f9310
+      238:33    Location struct @ 0x5f9328
+      265:34    Location struct @ 0x5f93e8
+      269:34    Location struct @ 0x5f9400
+      272:33    Location struct @ 0x5f9418
+      335:33    Location struct @ 0x5f9370
+      339:34    Location struct @ 0x5f9388
+      342:33    Location struct @ 0x5f93a0
+  pueue/src/client/commands/state/query/limit.rs  (5 sites)
+       50:44    Location struct @ 0x5f9280
+       54:14    Location struct @ 0x5f92e0
+       58:41    Location struct @ 0x5f9298
+       62:10    Location struct @ 0x5f92b0
+       65:9     Location struct @ 0x5f92c8
+  pueue/src/client/commands/state/query/mod.rs  (2 sites)
+      163:61    Location struct @ 0x5f9208
+      178:9     Location struct @ 0x5f9220
+  pueue/src/client/commands/state/query/order_by.rs  (3 sites)
+       68:47    Location struct @ 0x5f9568
+       72:52    Location struct @ 0x5f9580
+       73:53    Location struct @ 0x5f9598
+  pueue/src/client/commands/state/table_builder.rs  (1 sites)
+      236:39    Location struct @ 0x5f8b88
+  pueue/src/client/commands/switch.rs  (3 sites)
+       12:17    Location struct @ 0x5fcba0
+       13:5     Location struct @ 0x5fcbb8
+       20:20    Location struct @ 0x5fcbd0
+  pueue/src/client/commands/wait.rs  (2 sites)
+       54:17    Location struct @ 0x5fc840
+      139:9     Location struct @ 0x5fc858
+  pueue/src/process_helper/mod.rs  (4 sites)
+        1:0     Location struct @ 0x5f9760
+        1:0     Location struct @ 0x5f97f8
+       58:17    Location struct @ 0x5f8748
+       64:39    Location struct @ 0x5f8db0
+  pueue/src/tracing.rs  (1 sites)
+       49:10    Location struct @ 0x5f8f50
+  pueue_lib/src/log.rs  (1 sites)
+      166:27    Location struct @ 0x5fdf98
+  pueue_lib/src/network/client.rs  (9 sites)
+        1:0     Location struct @ 0x5fe050
+       81:23    Location struct @ 0x5fc250
+       85:14    Location struct @ 0x5fc268
+       92:14    Location struct @ 0x5fc280
+       97:14    Location struct @ 0x5fc298
+       99:13    Location struct @ 0x5fc2c8
+      104:17    Location struct @ 0x5fc2b0
+      132:5     Location struct @ 0x5fc0b0
+      137:73    Location struct @ 0x5fc238
+  pueue_lib/src/network/protocol.rs  (10 sites)
+        1:0     Location struct @ 0x5fe0c8
+        1:0     Location struct @ 0x5fe140
+        1:0     Location struct @ 0x5fe1b8
+        1:0     Location struct @ 0x5fe230
+       48:1     Location struct @ 0x5fc100
+       64:90    Location struct @ 0x5fc310
+       91:82    Location struct @ 0x5fc328
+      104:29    Location struct @ 0x5fc340
+      163:54    Location struct @ 0x5fc358
+      182:23    Location struct @ 0x5fc118
+  pueue_lib/src/network/socket/mod.rs  (1 sites)
+       85:89    Location struct @ 0x5fc2f8
+  pueue_lib/src/network/socket/unix.rs  (2 sites)
+       27:98    Location struct @ 0x5fc4b0
+       57:62    Location struct @ 0x5fc558
+  pueue_lib/src/settings.rs  (4 sites)
+        1:0     Location struct @ 0x5fe2a8
+        1:0     Location struct @ 0x5fe320
+        1:0     Location struct @ 0x5fe398
+        1:0     Location struct @ 0x5fe410
+
+dep crates by panic site count  (1603 sites across 60 crates):
+  regex-automata@0.4.14                           236
+  regex-syntax@0.8.10                             170
+  tokio@1.52.3                                    162
+  ring@0.17.14                                    118
+  rustls@0.23.40                                  104
+  chrono@0.4.44                                   90
+  rustc-demangle@0.1.27                           78
+  miniz_oxide@0.8.9                               72
+  clap_builder@4.6.0                              70
+  tracing-subscriber@0.3.23                       52
+  … 50 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/bench/bin/local_pueue.stripped
+functions (from .eh_frame): 6925
+
+attribution breakdown:
+  certain         32  (0.5%)  user-authored (100% precision, DWARF-validated)
+  call closure   453  (6.5%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       6440  (93.0%)  not attributed
+
+user-authored functions — high confidence (32):
+  0x002a7fd0–0x002a813c  (364 bytes)
+      panic @ pueue/src/client/commands/edit.rs:297:49
+  0x002b68e0–0x002b6bbf  (735 bytes)
+      panic @ pueue/src/process_helper/mod.rs:58:17
+  0x002b6f10–0x002b726d  (861 bytes)
+      panic @ pueue/src/client/commands/state/query/filters.rs:161:34
+  0x002b9fa0–0x002bdffc  (16476 bytes)
+      panic @ pueue/src/client/commands/state/table_builder.rs:236:39
+  0x002c5c30–0x002c892f  (11519 bytes)
+      panic @ pueue/src/process_helper/mod.rs:64:39
+  0x002c8c70–0x002c9677  (2567 bytes)
+      panic @ pueue/src/tracing.rs:49:10
+  0x002c9ea0–0x002ca2be  (1054 bytes)
+      panic @ pueue/src/client/commands/mod.rs:312:9
+      panic @ pueue/src/client/commands/mod.rs:314:9
+      panic @ pueue/src/client/commands/mod.rs:316:36
+  0x002ca2c0–0x002cca42  (10114 bytes)
+      panic @ pueue/src/client/commands/log/mod.rs:213:29
+      panic @ pueue/src/client/commands/log/mod.rs:219:27
+      panic @ pueue/src/client/commands/log/mod.rs:224:44
+      panic @ pueue/src/client/commands/log/remote.rs:40:5
+  0x002cca50–0x002cfd65  (13077 bytes)
+      panic @ pueue/src/client/commands/edit.rs:91:30
+      panic @ pueue/src/client/commands/edit.rs:122:16
+      panic @ pueue/src/client/commands/edit.rs:127:5
+      panic @ pueue/src/client/commands/edit.rs:133:19
+      panic @ pueue/src/client/commands/edit.rs:135:47
+  0x002cfd70–0x002d137c  (5644 bytes)
+      panic @ pueue/src/client/commands/edit.rs:170:19
+      panic @ pueue/src/client/commands/edit.rs:185:10
+      panic @ pueue/src/client/commands/edit.rs:188:9
+  0x002d35c0–0x002d3eea  (2346 bytes)
+      panic @ pueue/src/client/commands/group.rs:42:55
+  0x002d3ef0–0x002d8143  (16979 bytes)
+      panic @ pueue/src/client/commands/state/mod.rs:71:56
+      panic @ pueue/src/client/commands/state/mod.rs:137:51
+      panic @ pueue/src/client/commands/state/mod.rs:150:59
+      panic @ pueue/src/client/commands/state/mod.rs:153:51
+      panic @ pueue/src/client/commands/state/mod.rs:175:74
+  0x002d8150–0x002d831d  (461 bytes)
+      panic @ pueue/src/client/commands/state/mod.rs:202:30
+  0x002d8320–0x002d8bd4  (2228 bytes)
+      panic @ pueue/src/client/commands/state/mod.rs:217:49
+  0x002d8be0–0x002dc7be  (15326 bytes)
+      panic @ pueue/src/client/commands/log/json.rs:49:55
+      panic @ pueue/src/client/commands/log/json.rs:55:49
+  0x002dc7c0–0x002dfb8f  (13263 bytes)
+      panic @ pueue/src/client/commands/state/query/column_selection.rs:11:46
+      panic @ pueue/src/client/commands/state/query/column_selection.rs:12:40
+      panic @ pueue/src/client/commands/state/query/column_selection.rs:15:49
+      panic @ pueue/src/client/commands/state/query/filters.rs:72:32
+      panic @ pueue/src/client/commands/state/query/filters.rs:77:34
+      panic @ pueue/src/client/commands/state/query/filters.rs:81:33
+      panic @ pueue/src/client/commands/state/query/filters.rs:86:18
+      panic @ pueue/src/client/commands/state/query/filters.rs:88:75
+      panic @ pueue/src/client/commands/state/query/filters.rs:93:18
+      panic @ pueue/src/client/commands/state/query/filters.rs:94:73
+      panic @ pueue/src/client/commands/state/query/filters.rs:98:18
+      panic @ pueue/src/client/commands/state/query/filters.rs:101:14
+      panic @ pueue/src/client/commands/state/query/filters.rs:231:32
+      panic @ pueue/src/client/commands/state/query/filters.rs:235:34
+      panic @ pueue/src/client/commands/state/query/filters.rs:238:33
+      panic @ pueue/src/client/commands/state/query/filters.rs:265:34
+      panic @ pueue/src/client/commands/state/query/filters.rs:269:34
+      panic @ pueue/src/client/commands/state/query/filters.rs:272:33
+      panic @ pueue/src/client/commands/state/query/filters.rs:335:33
+      panic @ pueue/src/client/commands/state/query/filters.rs:339:34
+      panic @ pueue/src/client/commands/state/query/filters.rs:342:33
+      panic @ pueue/src/client/commands/state/query/limit.rs:50:44
+      panic @ pueue/src/client/commands/state/query/limit.rs:54:14
+      panic @ pueue/src/client/commands/state/query/limit.rs:58:41
+      panic @ pueue/src/client/commands/state/query/limit.rs:62:10
+      panic @ pueue/src/client/commands/state/query/limit.rs:65:9
+      panic @ pueue/src/client/commands/state/query/mod.rs:163:61
+      panic @ pueue/src/client/commands/state/query/mod.rs:178:9
+      panic @ pueue/src/client/commands/state/query/order_by.rs:68:47
+      panic @ pueue/src/client/commands/state/query/order_by.rs:72:52
+      panic @ pueue/src/client/commands/state/query/order_by.rs:73:53
+  0x002e26d0–0x002e32f0  (3104 bytes)
+      panic @ pueue/src/client/commands/edit.rs:253:23
+      panic @ pueue/src/client/commands/edit.rs:257:13
+      panic @ pueue/src/client/commands/edit.rs:263:19
+      panic @ pueue/src/client/commands/edit.rs:268:13
+      panic @ pueue/src/client/commands/edit.rs:273:13
+      panic @ pueue/src/client/commands/edit.rs:283:21
+      panic @ pueue/src/client/commands/edit.rs:293:24
+  0x002e32f0–0x002e40f4  (3588 bytes)
+      panic @ pueue/src/client/commands/edit.rs:205:9
+      panic @ pueue/src/client/commands/edit.rs:210:26
+      panic @ pueue/src/client/commands/edit.rs:212:9
+      panic @ pueue/src/client/commands/edit.rs:217:26
+      panic @ pueue/src/client/commands/edit.rs:220:9
+      panic @ pueue/src/client/commands/edit.rs:225:26
+      panic @ pueue/src/client/commands/edit.rs:229:13
+      panic @ pueue/src/client/commands/edit.rs:235:26
+      panic @ pueue/src/client/commands/edit.rs:238:9
+  0x002e94b0–0x002e9686  (470 bytes)
+      panic @ pueue/src/client/commands/state/query/column_selection.rs:52:46
+  0x003392b0–0x0033a5b6  (4870 bytes)
+      panic @ pueue/src/client/cli.rs:624:27
+  0x0038b540–0x0038bab1  (1393 bytes)
+      panic @ pueue_lib/src/network/client.rs:132:5
+      panic @ pueue_lib/src/network/protocol.rs:48:1
+  0x0038bb40–0x0039216a  (26154 bytes)
+      panic @ pueue/src/bin/pueue.rs:31:1
+      panic @ pueue/src/bin/pueue.rs:51:37
+      panic @ pueue/src/bin/pueue.rs:55:9
+      panic @ pueue/src/bin/pueue.rs:61:9
+      panic @ pueue/src/bin/pueue.rs:90:31
+      panic @ pueue/src/bin/pueue.rs:91:18
+      panic @ pueue/src/bin/pueue.rs:125:27
+      panic @ pueue_lib/src/network/client.rs:81:23
+      panic @ pueue_lib/src/network/client.rs:85:14
+      panic @ pueue_lib/src/network/client.rs:92:14
+      panic @ pueue_lib/src/network/client.rs:97:14
+      panic @ pueue_lib/src/network/client.rs:99:13
+      panic @ pueue_lib/src/network/client.rs:104:17
+      panic @ pueue_lib/src/network/socket/mod.rs:85:89
+      panic @ pueue_lib/src/network/socket/unix.rs:27:98
+      panic @ pueue_lib/src/network/socket/unix.rs:57:62
+  0x00392170–0x00392d28  (3000 bytes)
+      panic @ pueue_lib/src/network/client.rs:137:73
+      panic @ pueue_lib/src/network/protocol.rs:182:23
+  0x00392d30–0x0039313d  (1037 bytes)
+      panic @ pueue_lib/src/network/protocol.rs:64:90
+  0x00393140–0x00393ba0  (2656 bytes)
+      panic @ pueue_lib/src/network/protocol.rs:91:82
+      panic @ pueue_lib/src/network/protocol.rs:104:29
+      panic @ pueue_lib/src/network/protocol.rs:163:54
+  0x00393ba0–0x003a4414  (67700 bytes)
+      panic @ pueue/src/client/commands/add.rs:34:17
+      panic @ pueue/src/client/commands/add.rs:42:14
+      panic @ pueue/src/client/commands/add.rs:44:9
+      panic @ pueue/src/client/commands/add.rs:70:5
+      panic @ pueue/src/client/commands/add.rs:73:20
+      panic @ pueue/src/client/commands/clean.rs:14:17
+      panic @ pueue/src/client/commands/clean.rs:15:5
+      panic @ pueue/src/client/commands/clean.rs:22:20
+      panic @ pueue/src/client/commands/edit.rs:29:17
+      panic @ pueue/src/client/commands/edit.rs:32:5
+      panic @ pueue/src/client/commands/edit.rs:34:25
+      panic @ pueue/src/client/commands/edit.rs:57:13
+      panic @ pueue/src/client/commands/edit.rs:59:28
+      panic @ pueue/src/client/commands/edit.rs:72:5
+      panic @ pueue/src/client/commands/edit.rs:76:20
+      panic @ pueue/src/client/commands/enqueue.rs:15:17
+      panic @ pueue/src/client/commands/enqueue.rs:16:5
+      panic @ pueue/src/client/commands/enqueue.rs:23:20
+      panic @ pueue/src/client/commands/env.rs:10:91
+      panic @ pueue/src/client/commands/env.rs:24:5
+      panic @ pueue/src/client/commands/env.rs:26:20
+      panic @ pueue/src/client/commands/group.rs:15:17
+      panic @ pueue/src/client/commands/group.rs:25:5
+      panic @ pueue/src/client/commands/group.rs:27:20
+      panic @ pueue/src/client/commands/kill.rs:17:17
+      panic @ pueue/src/client/commands/kill.rs:22:5
+      panic @ pueue/src/client/commands/kill.rs:29:20
+      panic @ pueue/src/client/commands/log/mod.rs:34:17
+      panic @ pueue/src/client/commands/log/mod.rs:38:5
+      panic @ pueue/src/client/commands/log/mod.rs:46:20
+      panic @ pueue/src/client/commands/mod.rs:158:17
+      panic @ pueue/src/client/commands/mod.rs:293:14
+      panic @ pueue/src/client/commands/parallel.rs:12:17
+      panic @ pueue/src/client/commands/parallel.rs:25:5
+      panic @ pueue/src/client/commands/parallel.rs:27:20
+      panic @ pueue/src/client/commands/pause.rs:16:17
+      panic @ pueue/src/client/commands/pause.rs:17:5
+      panic @ pueue/src/client/commands/pause.rs:24:20
+      panic @ pueue/src/client/commands/remove.rs:12:17
+      panic @ pueue/src/client/commands/remove.rs:16:5
+      panic @ pueue/src/client/commands/remove.rs:18:20
+      panic @ pueue/src/client/commands/reset.rs:17:17
+      panic @ pueue/src/client/commands/reset.rs:47:5
+      panic @ pueue/src/client/commands/reset.rs:48:20
+      panic @ pueue/src/client/commands/send.rs:12:17
+      panic @ pueue/src/client/commands/send.rs:13:5
+      panic @ pueue/src/client/commands/send.rs:15:20
+      panic @ pueue/src/client/commands/shutdown.rs:7:79
+      panic @ pueue/src/client/commands/shutdown.rs:8:5
+      panic @ pueue/src/client/commands/shutdown.rs:10:20
+      panic @ pueue/src/client/commands/start.rs:18:17
+      panic @ pueue/src/client/commands/start.rs:19:5
+      panic @ pueue/src/client/commands/start.rs:25:20
+      panic @ pueue/src/client/commands/stash.rs:15:17
+      panic @ pueue/src/client/commands/stash.rs:17:5
+      panic @ pueue/src/client/commands/stash.rs:24:20
+      panic @ pueue/src/client/commands/state/mod.rs:30:17
+      panic @ pueue/src/client/commands/switch.rs:12:17
+      panic @ pueue/src/client/commands/switch.rs:13:5
+      panic @ pueue/src/client/commands/switch.rs:20:20
+      panic @ pueue/src/client/commands/wait.rs:54:17
+      panic @ pueue/src/client/commands/wait.rs:139:9
+      panic @ pueue_lib/src/network/client.rs:132:5
+      panic @ pueue_lib/src/network/protocol.rs:48:1
+  0x003a4420–0x003a487b  (1115 bytes)
+      panic @ pueue/src/client/commands/mod.rs:115:84
+      panic @ pueue/src/client/commands/mod.rs:117:5
+      panic @ pueue/src/client/commands/mod.rs:120:20
+      panic @ pueue/src/client/commands/mod.rs:124:14
+  0x003a4880–0x003a4c09  (905 bytes)
+      panic @ pueue/src/client/commands/mod.rs:101:62
+      panic @ pueue/src/client/commands/mod.rs:103:5
+      panic @ pueue/src/client/commands/mod.rs:106:20
+      panic @ pueue/src/client/commands/mod.rs:110:14
+  0x003a4c10–0x003a7db9  (12713 bytes)
+      panic @ pueue/src/client/commands/follow.rs:32:17
+      panic @ pueue/src/client/commands/follow.rs:53:17
+      panic @ pueue/src/client/commands/follow.rs:57:5
+      panic @ pueue/src/client/commands/follow.rs:66:24
+      panic @ pueue/src/client/commands/follow.rs:71:42
+      panic @ pueue/src/client/commands/follow.rs:99:17
+      panic @ pueue/src/client/commands/follow.rs:114:21
+      panic @ pueue/src/client/commands/follow.rs:123:21
+      panic @ pueue/src/client/commands/follow.rs:148:17
+      panic @ pueue/src/client/commands/follow.rs:161:9
+      panic @ pueue/src/client/commands/follow.rs:217:12
+      panic @ pueue/src/client/commands/follow.rs:230:9
+      panic @ pueue_lib/src/network/client.rs:132:5
+      panic @ pueue_lib/src/network/protocol.rs:48:1
+  0x003a7dc0–0x003ac0e1  (17185 bytes)
+      panic @ pueue/src/client/commands/restart.rs:34:17
+      panic @ pueue/src/client/commands/restart.rs:71:53
+      panic @ pueue/src/client/commands/restart.rs:89:9
+      panic @ pueue/src/client/commands/restart.rs:106:60
+      panic @ pueue/src/client/commands/restart.rs:117:50
+      panic @ pueue/src/client/commands/restart.rs:160:9
+      panic @ pueue/src/client/commands/restart.rs:161:45
+      panic @ pueue/src/client/commands/restart.rs:162:13
+      panic @ pueue/src/client/commands/restart.rs:168:9
+      panic @ pueue/src/client/commands/restart.rs:169:45
+      panic @ pueue/src/client/commands/restart.rs:170:13
+      panic @ pueue_lib/src/network/client.rs:132:5
+      panic @ pueue_lib/src/network/protocol.rs:48:1
+  0x003ac170–0x003adc7f  (6927 bytes)
+      panic @ pueue/src/bin/pueue.rs:98:7
+  0x003dd490–0x003dd8ab  (1051 bytes)
+      panic @ pueue_lib/src/log.rs:166:27
+
+call closure — reachable from user code, not user-authored (453):
+  0x0014ff90–0x0014ffdd  (77 bytes)  [indeterminate]
+  0x0018a650–0x0018a6cf  (127 bytes)  [indeterminate]
+  0x001a4520–0x001a4570  (80 bytes)  [indeterminate]
+  0x001a65f0–0x001a672c  (316 bytes)  [indeterminate]
+  0x001ba3e0–0x001ba6b4  (724 bytes)  [indeterminate]
+  0x001f1b10–0x001f1b7c  (108 bytes)  [indeterminate]
+  0x001f1e40–0x001f1ebd  (125 bytes)  [inferred]
+  0x001f1fa0–0x001f201f  (127 bytes)  [indeterminate]
+  0x001fa440–0x001fa57c  (316 bytes)  [indeterminate]
+  0x00200200–0x002003cd  (461 bytes)  [indeterminate]
+  0x002003d0–0x00200730  (864 bytes)  [inferred]
+  0x00206af0–0x00206c7d  (397 bytes)  [indeterminate]
+  0x00213340–0x00213391  (81 bytes)  [indeterminate]
+  0x00213690–0x002136de  (78 bytes)  [indeterminate]
+  0x0022fee0–0x00230058  (376 bytes)  [indeterminate]
+  0x00231280–0x0023130a  (138 bytes)  [indeterminate]
+  0x0027ad70–0x0027ae8e  (286 bytes)  [inferred]
+  0x0027ae90–0x0027afb0  (288 bytes)  [inferred]
+  0x0027afb0–0x0027b0ab  (251 bytes)  [inferred]
+  0x0027b0b0–0x0027b347  (663 bytes)  [inferred]
+  0x0027b3b0–0x0027b500  (336 bytes)  [inferred]
+  0x0027b500–0x0027b650  (336 bytes)  [inferred]
+  0x0027b650–0x0027b7ae  (350 bytes)  [inferred]
+  0x0027bcc0–0x0027bdad  (237 bytes)  [inferred]
+  0x0027bf90–0x0027c0e1  (337 bytes)  [indeterminate]
+  0x0027c1f0–0x0027c349  (345 bytes)  [inferred]
+  0x002810c0–0x002814b3  (1011 bytes)  [inferred]
+  0x00281920–0x00281a19  (249 bytes)  [inferred]
+  0x002932c0–0x00293a6d  (1965 bytes)  [inferred]
+  0x00293e20–0x002940a3  (643 bytes)  [indeterminate]
+  0x00294ca0–0x00294ec8  (552 bytes)  [indeterminate]
+  0x00294ed0–0x002954e6  (1558 bytes)  [inferred]
+  0x00295550–0x002955dd  (141 bytes)  [indeterminate]
+  0x00295a70–0x00295b49  (217 bytes)  [inferred]
+  0x00295b50–0x00295c29  (217 bytes)  [inferred]
+  0x00295d00–0x00295d6c  (108 bytes)  [indeterminate]
+  0x00295d70–0x00295e17  (167 bytes)  [indeterminate]
+  0x00295e20–0x00295eb0  (144 bytes)  [inferred]
+  0x00295eb0–0x002960aa  (506 bytes)  [inferred]
+  0x002960b0–0x00296193  (227 bytes)  [inferred]
+  0x00296510–0x002965d3  (195 bytes)  [inferred]
+  0x002965e0–0x00296680  (160 bytes)  [indeterminate]
+  0x002966f0–0x00296797  (167 bytes)  [indeterminate]
+  0x002967a0–0x0029684a  (170 bytes)  [inferred]
+  0x00296850–0x0029689e  (78 bytes)  [indeterminate]
+  0x002968a0–0x002968ee  (78 bytes)  [inferred]
+  0x00296ba0–0x00296c51  (177 bytes)  [inferred]
+  0x00296cf0–0x00296d5a  (106 bytes)  [inferred]
+  0x00296d60–0x00296dfb  (155 bytes)  [inferred]
+  0x00296e00–0x00296f10  (272 bytes)  [indeterminate]
+  0x00296f10–0x00296f65  (85 bytes)  [inferred]
+  0x00296f70–0x0029705b  (235 bytes)  [indeterminate]
+  0x00297060–0x00297136  (214 bytes)  [indeterminate]
+  0x00297140–0x002971db  (155 bytes)  [inferred]
+  0x002971e0–0x0029725c  (124 bytes)  [inferred]
+  0x00297260–0x0029734b  (235 bytes)  [indeterminate]
+  0x00297370–0x00297398  (40 bytes)  [inferred]
+  0x002976b0–0x0029780e  (350 bytes)  [inferred]
+  0x00297810–0x00297928  (280 bytes)  [indeterminate]
+  0x00297930–0x00297b24  (500 bytes)  [inferred]
+  0x00297ec0–0x00297fab  (235 bytes)  [indeterminate]
+  0x00298190–0x002982b6  (294 bytes)  [inferred]
+  0x002982c0–0x00298337  (119 bytes)  [inferred]
+  0x00298340–0x002983e5  (165 bytes)  [inferred]
+  0x00298460–0x002984df  (127 bytes)  [inferred]
+  0x002984e0–0x00298587  (167 bytes)  [inferred]
+  0x00298590–0x002985fc  (108 bytes)  [inferred]
+  0x002986d0–0x00298752  (130 bytes)  [inferred]
+  0x00298760–0x00298794  (52 bytes)  [indeterminate]
+  0x002987a0–0x002987d4  (52 bytes)  [inferred]
+  0x00298980–0x002989b4  (52 bytes)  [inferred]
+  0x00298ba0–0x00298cc2  (290 bytes)  [inferred]
+  0x00298cd0–0x00298de0  (272 bytes)  [inferred]
+  0x00298de0–0x00298f02  (290 bytes)  [inferred]
+  0x00298f10–0x0029929e  (910 bytes)  [inferred]
+  0x002992a0–0x002993bb  (283 bytes)  [inferred]
+  0x002993c0–0x00299485  (197 bytes)  [inferred]
+  0x00299490–0x002994f0  (96 bytes)  [inferred]
+  0x002994f0–0x002995fe  (270 bytes)  [inferred]
+  0x00299600–0x002996c0  (192 bytes)  [inferred]
+  0x002996c0–0x00299780  (192 bytes)  [inferred]
+  0x00299780–0x0029984e  (206 bytes)  [inferred]
+  0x00299850–0x00299961  (273 bytes)  [inferred]
+  0x00299970–0x00299a3d  (205 bytes)  [indeterminate]
+  0x00299a40–0x00299abb  (123 bytes)  [inferred]
+  0x00299ac0–0x00299b6f  (175 bytes)  [indeterminate]
+  0x00299b70–0x00299c98  (296 bytes)  [inferred]
+  0x00299ca0–0x00299dc8  (296 bytes)  [inferred]
+  0x00299dd0–0x00299ef8  (296 bytes)  [inferred]
+  0x00299f50–0x0029a085  (309 bytes)  [inferred]
+  0x0029a090–0x0029a1c5  (309 bytes)  [inferred]
+  0x0029a3d0–0x0029a437  (103 bytes)  [inferred]
+  0x0029a440–0x0029a4e6  (166 bytes)  [inferred]
+  0x0029a4f0–0x0029a80e  (798 bytes)  [inferred]
+  0x0029a810–0x0029a8bf  (175 bytes)  [inferred]
+  0x0029a8c0–0x0029a960  (160 bytes)  [inferred]
+  0x0029a960–0x0029aa36  (214 bytes)  [inferred]
+  0x0029aa40–0x0029aaa2  (98 bytes)  [inferred]
+  0x0029aab0–0x0029ab51  (161 bytes)  [inferred]
+  0x0029ab60–0x0029ac00  (160 bytes)  [inferred]
+  0x0029ac40–0x0029acb7  (119 bytes)  [indeterminate]
+  0x0029acc0–0x0029ad4c  (140 bytes)  [indeterminate]
+  0x0029ad50–0x0029aee5  (405 bytes)  [indeterminate]
+  0x0029aef0–0x0029b087  (407 bytes)  [indeterminate]
+  0x0029b090–0x0029b0cd  (61 bytes)  [indeterminate]
+  0x0029b0d0–0x0029b0f9  (41 bytes)  [inferred]
+  0x0029b100–0x0029b19b  (155 bytes)  [inferred]
+  0x0029b1a0–0x0029b26b  (203 bytes)  [inferred]
+  0x0029b290–0x0029b586  (758 bytes)  [inferred]
+  0x0029b590–0x0029b63d  (173 bytes)  [inferred]
+  0x0029b640–0x0029b781  (321 bytes)  [inferred]
+  0x0029b790–0x0029b847  (183 bytes)  [inferred]
+  0x0029b850–0x0029baea  (666 bytes)  [inferred]
+  0x0029baf0–0x0029bc7b  (395 bytes)  [inferred]
+  0x0029bc80–0x0029bf72  (754 bytes)  [inferred]
+  0x0029bf80–0x0029c1d1  (593 bytes)  [inferred]
+  0x0029c1e0–0x0029c2a2  (194 bytes)  [inferred]
+  0x0029c2b0–0x0029c4de  (558 bytes)  [inferred]
+  0x0029c4e0–0x0029c5d4  (244 bytes)  [inferred]
+  0x0029c5e0–0x0029c6eb  (267 bytes)  [inferred]
+  0x0029c6f0–0x0029c7a0  (176 bytes)  [inferred]
+  0x0029c7a0–0x0029c95d  (445 bytes)  [inferred]
+  0x0029cae0–0x0029cb5d  (125 bytes)  [inferred]
+  0x0029cb60–0x0029cc39  (217 bytes)  [inferred]
+  0x0029cc40–0x0029cc8f  (79 bytes)  [inferred]
+  0x0029cce0–0x0029cdd7  (247 bytes)  [indeterminate]
+  0x0029cde0–0x0029ce10  (48 bytes)  [indeterminate]
+  0x0029ce10–0x0029ced5  (197 bytes)  [inferred]
+  0x0029d1d0–0x0029d25d  (141 bytes)  [indeterminate]
+  0x0029d260–0x0029d295  (53 bytes)  [inferred]
+  0x0029d2a0–0x0029d344  (164 bytes)  [indeterminate]
+  0x0029d350–0x0029d3e3  (147 bytes)  [inferred]
+  0x0029d460–0x0029d726  (710 bytes)  [indeterminate]
+  0x0029d920–0x0029d9fd  (221 bytes)  [indeterminate]
+  0x0029e2c0–0x0029e3ab  (235 bytes)  [inferred]
+  0x0029e600–0x0029e6b5  (181 bytes)  [inferred]
+  0x0029e6c0–0x0029e7d3  (275 bytes)  [inferred]
+  0x0029e7e0–0x0029e8ee  (270 bytes)  [inferred]
+  0x0029e8f0–0x0029e9bc  (204 bytes)  [inferred]
+  0x0029e9c0–0x0029e9e9  (41 bytes)  [inferred]
+  0x0029e9f0–0x0029eac1  (209 bytes)  [inferred]
+  0x0029ead0–0x0029eb6b  (155 bytes)  [inferred]
+  0x0029eb70–0x0029ebee  (126 bytes)  [inferred]
+  0x0029ee80–0x0029eed4  (84 bytes)  [inferred]
+  0x0029eee0–0x0029ef16  (54 bytes)  [inferred]
+  0x0029f440–0x0029f5a4  (356 bytes)  [inferred]
+  0x0029f5b0–0x0029f714  (356 bytes)  [indeterminate]
+  0x0029f720–0x0029f7e4  (196 bytes)  [inferred]
+  0x0029f7f0–0x0029f8a8  (184 bytes)  [inferred]
+  0x0029f900–0x0029f924  (36 bytes)  [inferred]
+  0x0029f970–0x0029f9c8  (88 bytes)  [inferred]
+  0x002a1360–0x002a1481  (289 bytes)  [inferred]
+  0x002a1490–0x002a1661  (465 bytes)  [inferred]
+  0x002a7b50–0x002a7d7e  (558 bytes)  [indeterminate]
+  0x002a7d80–0x002a7dff  (127 bytes)  [indeterminate]
+  0x002a7e00–0x002a7fd0  (464 bytes)  [inferred]
+  0x002a8310–0x002a8428  (280 bytes)  [inferred]
+  0x002b0570–0x002b0cab  (1851 bytes)  [inferred]
+  0x002b2da0–0x002b2e98  (248 bytes)  [indeterminate]
+  0x002b2ea0–0x002b2ffe  (350 bytes)  [inferred]
+  0x002b3000–0x002b30fb  (251 bytes)  [indeterminate]
+  0x002b3ad0–0x002b3bad  (221 bytes)  [indeterminate]
+  0x002b6cc0–0x002b6d3b  (123 bytes)  [inferred]
+  0x002b7270–0x002b7316  (166 bytes)  [inferred]
+  0x002b7320–0x002b73c6  (166 bytes)  [inferred]
+  0x002b73d0–0x002b7476  (166 bytes)  [inferred]
+  0x002b7480–0x002b7526  (166 bytes)  [inferred]
+  0x002b7530–0x002b75d6  (166 bytes)  [inferred]
+  0x002b7f50–0x002b802a  (218 bytes)  [inferred]
+  0x002b8030–0x002b8112  (226 bytes)  [inferred]
+  0x002b8360–0x002b85a4  (580 bytes)  [indeterminate]
+  0x002b9170–0x002b94c9  (857 bytes)  [indeterminate]
+  0x002be430–0x002be724  (756 bytes)  [inferred]
+  0x002be730–0x002bea8b  (859 bytes)  [inferred]
+  0x002bf210–0x002bf34c  (316 bytes)  [indeterminate]
+  0x002c0c30–0x002c1cbf  (4239 bytes)  [inferred]
+  0x002c2b60–0x002c37fa  (3226 bytes)  [inferred]
+  0x002c3880–0x002c3a6d  (493 bytes)  [inferred]
+  0x002c3a70–0x002c3dc7  (855 bytes)  [indeterminate]
+  0x002c3dd0–0x002c4127  (855 bytes)  [indeterminate]
+  0x002c4130–0x002c4487  (855 bytes)  [inferred]
+  0x002c4490–0x002c47e7  (855 bytes)  [inferred]
+  0x002c47f0–0x002c4b47  (855 bytes)  [inferred]
+  0x002c4b50–0x002c4ea7  (855 bytes)  [indeterminate]
+  0x002c4eb0–0x002c5207  (855 bytes)  [inferred]
+  0x002c5210–0x002c5567  (855 bytes)  [inferred]
+  0x002c5570–0x002c58c7  (855 bytes)  [inferred]
+  0x002c58d0–0x002c5c27  (855 bytes)  [inferred]
+  0x002c98a0–0x002c9af0  (592 bytes)  [inferred]
+  0x0031fab0–0x0031fc8f  (479 bytes)  [inferred]
+  0x003203b0–0x00320587  (471 bytes)  [indeterminate]
+  0x00320750–0x00320e72  (1826 bytes)  [inferred]
+  0x00328650–0x003289fa  (938 bytes)  [indeterminate]
+  0x0032ce80–0x0032d187  (775 bytes)  [inferred]
+  0x00330010–0x0033014b  (315 bytes)  [indeterminate]
+  0x0033a600–0x0033aa57  (1111 bytes)  [indeterminate]
+  0x0033aaa0–0x0033abb1  (273 bytes)  [inferred]
+  0x0033b1d0–0x0033b35d  (397 bytes)  [inferred]
+  0x0033fcb0–0x0033fdb7  (263 bytes)  [inferred]
+  0x003402e0–0x00340557  (631 bytes)  [inferred]
+  0x00340560–0x00340882  (802 bytes)  [inferred]
+  0x00340890–0x00340b3f  (687 bytes)  [inferred]
+  0x00340b40–0x00340c5e  (286 bytes)  [inferred]
+  0x00341cf0–0x00341d44  (84 bytes)  [inferred]
+  0x00341db0–0x00341de1  (49 bytes)  [indeterminate]
+  0x00341df0–0x00341e23  (51 bytes)  [inferred]
+  0x00341e30–0x00341e9b  (107 bytes)  [inferred]
+  0x00341ea0–0x00341ed1  (49 bytes)  [inferred]
+  0x00341ee0–0x00341f3e  (94 bytes)  [inferred]
+  0x00341f40–0x00341f69  (41 bytes)  [inferred]
+  0x00341f70–0x00342006  (150 bytes)  [inferred]
+  0x00342010–0x0034209f  (143 bytes)  [indeterminate]
+  0x003420a0–0x00342180  (224 bytes)  [inferred]
+  0x00342180–0x003421ec  (108 bytes)  [inferred]
+  0x003421f0–0x0034225c  (108 bytes)  [inferred]
+  0x00342260–0x00342307  (167 bytes)  [inferred]
+  0x00342310–0x003423a0  (144 bytes)  [indeterminate]
+  0x003424c0–0x00342550  (144 bytes)  [inferred]
+  0x00342550–0x003425bc  (108 bytes)  [inferred]
+  0x003425c0–0x00342667  (167 bytes)  [indeterminate]
+  0x00342740–0x00342820  (224 bytes)  [inferred]
+  0x00342820–0x003428c7  (167 bytes)  [inferred]
+  0x003428d0–0x0034295c  (140 bytes)  [inferred]
+  0x00342a30–0x00342a9c  (108 bytes)  [inferred]
+  0x00342aa0–0x00342b47  (167 bytes)  [inferred]
+  0x00342b80–0x00342e17  (663 bytes)  [inferred]
+  0x00342e20–0x00342eff  (223 bytes)  [inferred]
+  0x00342f50–0x00342f9e  (78 bytes)  [inferred]
+  0x00342fd0–0x00343000  (48 bytes)  [inferred]
+  0x003435e0–0x00343624  (68 bytes)  [inferred]
+  0x00343630–0x003436d1  (161 bytes)  [inferred]
+  0x00343790–0x0034388c  (252 bytes)  [indeterminate]
+  0x00343890–0x00343906  (118 bytes)  [inferred]
+  0x00343910–0x0034398c  (124 bytes)  [inferred]
+  0x00343990–0x00343a7b  (235 bytes)  [indeterminate]
+  0x00343a80–0x00343b1b  (155 bytes)  [inferred]
+  0x00343b20–0x00343b9c  (124 bytes)  [inferred]
+  0x00343ba0–0x00343c8b  (235 bytes)  [indeterminate]
+  0x00343cb0–0x00343cec  (60 bytes)  [inferred]
+  0x00343d60–0x00343e78  (280 bytes)  [indeterminate]
+  0x00343e80–0x00343f90  (272 bytes)  [inferred]
+  0x00343f90–0x00344011  (129 bytes)  [inferred]
+  0x00344020–0x003440bf  (159 bytes)  [inferred]
+  0x003440c0–0x0034413f  (127 bytes)  [inferred]
+  0x00344140–0x003442a6  (358 bytes)  [inferred]
+  0x003442b0–0x00344366  (182 bytes)  [inferred]
+  0x00344370–0x003443ef  (127 bytes)  [inferred]
+  0x003443f0–0x00344500  (272 bytes)  [inferred]
+  0x00344600–0x003446c5  (197 bytes)  [indeterminate]
+  0x00344790–0x0034485e  (206 bytes)  [indeterminate]
+  0x00344860–0x00344981  (289 bytes)  [indeterminate]
+  0x00344990–0x00344a0b  (123 bytes)  [inferred]
+  0x00344a10–0x00344c04  (500 bytes)  [inferred]
+  0x00344c10–0x00344cdf  (207 bytes)  [inferred]
+  0x00344ce0–0x00344d04  (36 bytes)  [inferred]
+  0x00345080–0x003450e2  (98 bytes)  [indeterminate]
+  0x003450f0–0x003451b2  (194 bytes)  [inferred]
+  0x003451c0–0x00345329  (361 bytes)  [inferred]
+  0x00345330–0x0034535e  (46 bytes)  [inferred]
+  0x00345360–0x003453e8  (136 bytes)  [inferred]
+  0x003453f0–0x0034544d  (93 bytes)  [inferred]
+  0x00345450–0x0034549b  (75 bytes)  [inferred]
+  0x003454a0–0x003454ea  (74 bytes)  [inferred]
+  0x003454f0–0x00345586  (150 bytes)  [inferred]
+  0x00345590–0x00345626  (150 bytes)  [inferred]
+  0x00345630–0x0034567f  (79 bytes)  [inferred]
+  0x00345680–0x0034570b  (139 bytes)  [inferred]
+  0x00345710–0x0034575a  (74 bytes)  [inferred]
+  0x00345760–0x003457aa  (74 bytes)  [inferred]
+  0x003457b0–0x003457fb  (75 bytes)  [inferred]
+  0x00345800–0x00345867  (103 bytes)  [inferred]
+  0x00345870–0x00345a0d  (413 bytes)  [inferred]
+  0x00345a10–0x00345a6e  (94 bytes)  [inferred]
+  0x00345a70–0x00345af8  (136 bytes)  [inferred]
+  0x00345b00–0x00345b6c  (108 bytes)  [inferred]
+  0x00345b70–0x00345c1a  (170 bytes)  [inferred]
+  0x00345c20–0x00345cba  (154 bytes)  [inferred]
+  0x00345cc0–0x00345d59  (153 bytes)  [inferred]
+  0x00345d60–0x00345dd5  (117 bytes)  [inferred]
+  0x00345de0–0x00345e55  (117 bytes)  [inferred]
+  0x00345e60–0x00345efe  (158 bytes)  [inferred]
+  0x00345f00–0x00345fdb  (219 bytes)  [inferred]
+  0x00345fe0–0x00346079  (153 bytes)  [inferred]
+  0x00346080–0x00346119  (153 bytes)  [inferred]
+  0x00346120–0x003461ba  (154 bytes)  [inferred]
+  0x003461c0–0x0034621e  (94 bytes)  [inferred]
+  0x00346220–0x00346310  (240 bytes)  [inferred]
+  0x00346310–0x00346365  (85 bytes)  [inferred]
+  0x00346370–0x003463dc  (108 bytes)  [inferred]
+  0x003463e0–0x003466de  (766 bytes)  [inferred]
+  0x003466e0–0x003466fb  (27 bytes)  [inferred]
+  0x00346700–0x00346726  (38 bytes)  [inferred]
+  0x00346730–0x003467ed  (189 bytes)  [inferred]
+  0x003467f0–0x003469bf  (463 bytes)  [inferred]
+  0x003469c0–0x00346a2b  (107 bytes)  [inferred]
+  0x00346a30–0x00346f22  (1266 bytes)  [inferred]
+  0x00346f30–0x0034709e  (366 bytes)  [inferred]
+  0x003470a0–0x00347205  (357 bytes)  [inferred]
+  0x00347210–0x003474d8  (712 bytes)  [inferred]
+  0x003474e0–0x00347a4d  (1389 bytes)  [inferred]
+  0x00347a50–0x00347bfb  (427 bytes)  [inferred]
+  0x00347c00–0x00347fec  (1004 bytes)  [inferred]
+  0x00347ff0–0x0034853c  (1356 bytes)  [inferred]
+  0x00348540–0x003488d2  (914 bytes)  [inferred]
+  0x003488e0–0x003489ea  (266 bytes)  [inferred]
+  0x003489f0–0x00348c5f  (623 bytes)  [inferred]
+  0x00348c60–0x00348d6e  (270 bytes)  [inferred]
+  0x00348d70–0x00348f24  (436 bytes)  [inferred]
+  0x00348f30–0x0034908c  (348 bytes)  [inferred]
+  0x00349090–0x00349364  (724 bytes)  [inferred]
+  0x00349370–0x003494c9  (345 bytes)  [inferred]
+  0x003494d0–0x0034962c  (348 bytes)  [inferred]
+  0x00349630–0x00349927  (759 bytes)  [inferred]
+  0x00349930–0x00349b7b  (587 bytes)  [inferred]
+  0x00349b80–0x00349ca2  (290 bytes)  [inferred]
+  0x00349cb0–0x00349f10  (608 bytes)  [inferred]
+  0x00349f10–0x0034a14b  (571 bytes)  [inferred]
+  0x0034a150–0x0034a47f  (815 bytes)  [inferred]
+  0x0034a480–0x0034a5cc  (332 bytes)  [inferred]
+  0x0034a5d0–0x0034ab70  (1440 bytes)  [inferred]
+  0x0034ab70–0x0034ad24  (436 bytes)  [inferred]
+  0x0034ad30–0x0034ae70  (320 bytes)  [inferred]
+  0x0034aea0–0x0034af17  (119 bytes)  [indeterminate]
+  0x0034af20–0x0034afac  (140 bytes)  [indeterminate]
+  0x0034afb0–0x0034b145  (405 bytes)  [indeterminate]
+  0x0034b150–0x0034b178  (40 bytes)  [inferred]
+  0x0034b180–0x0034b317  (407 bytes)  [indeterminate]
+  0x0034b320–0x0034b35d  (61 bytes)  [indeterminate]
+  0x0034b360–0x0034b3fb  (155 bytes)  [inferred]
+  0x0034b400–0x0034b519  (281 bytes)  [inferred]
+  0x0034b520–0x0034b5fc  (220 bytes)  [inferred]
+  0x0034b610–0x0034b69d  (141 bytes)  [inferred]
+  0x0034b6c0–0x0034b6f9  (57 bytes)  [inferred]
+  0x0034b880–0x0034ba5e  (478 bytes)  [inferred]
+  0x0034ba60–0x0034bc41  (481 bytes)  [inferred]
+  0x0034bc50–0x0034be5b  (523 bytes)  [indeterminate]
+  0x0034be60–0x0034bf6b  (267 bytes)  [inferred]
+  0x0034bf70–0x0034c173  (515 bytes)  [indeterminate]
+  0x0034c1f0–0x0034c20f  (31 bytes)  [inferred]
+  0x0034c210–0x0034c477  (615 bytes)  [inferred]
+  0x0034c480–0x0034c540  (192 bytes)  [inferred]
+  0x0034c5b0–0x0034c84d  (669 bytes)  [inferred]
+  0x0034c850–0x0034c8e3  (147 bytes)  [inferred]
+  0x0034c8f0–0x0034c93e  (78 bytes)  [inferred]
+  0x0034c940–0x0034c9b7  (119 bytes)  [inferred]
+  0x0034c9c0–0x0034ca51  (145 bytes)  [inferred]
+  0x0034ca60–0x0034ca8b  (43 bytes)  [inferred]
+  0x0034ca90–0x0034cc6d  (477 bytes)  [inferred]
+  0x0034cc70–0x0034cd64  (244 bytes)  [inferred]
+  0x0034cd70–0x0034cd9b  (43 bytes)  [indeterminate]
+  0x0034cda0–0x0034cf3f  (415 bytes)  [inferred]
+  0x0034cf40–0x0034cfcd  (141 bytes)  [indeterminate]
+  0x0034d010–0x0034d1c0  (432 bytes)  [indeterminate]
+  0x0034d1c0–0x0034d203  (67 bytes)  [inferred]
+  0x0034d210–0x0034d48a  (634 bytes)  [inferred]
+  0x0034dcb0–0x0034dd5d  (173 bytes)  [indeterminate]
+  0x0034de30–0x0034debc  (140 bytes)  [inferred]
+  0x0034dec0–0x0034e32d  (1133 bytes)  [inferred]
+  0x0034e330–0x0034e354  (36 bytes)  [inferred]
+  0x0034e360–0x0034e737  (983 bytes)  [inferred]
+  0x0034f130–0x0034f19a  (106 bytes)  [inferred]
+  0x0034f1a0–0x0034f25e  (190 bytes)  [inferred]
+  0x0034f260–0x0034f295  (53 bytes)  [inferred]
+  0x0034f2a0–0x0034f347  (167 bytes)  [inferred]
+  0x0034f350–0x0034f45e  (270 bytes)  [inferred]
+  0x0034f460–0x0034f5d1  (369 bytes)  [inferred]
+  0x0034f690–0x0034f78d  (253 bytes)  [inferred]
+  0x0034f900–0x0034f97f  (127 bytes)  [indeterminate]
+  0x0034fdf0–0x0034ff5a  (362 bytes)  [inferred]
+  0x00350270–0x0035cebd  (52301 bytes)  [inferred]
+  0x00362f60–0x003633b4  (1108 bytes)  [inferred]
+  0x00384b80–0x00384fe1  (1121 bytes)  [inferred]
+  0x00384ff0–0x00385384  (916 bytes)  [inferred]
+  0x00385390–0x00385c3b  (2219 bytes)  [inferred]
+  0x00389760–0x003898d3  (371 bytes)  [inferred]
+  0x003adc80–0x003adce3  (99 bytes)  [inferred]
+  0x003adcf0–0x003add1d  (45 bytes)  [inferred]
+  0x003add20–0x003ade65  (325 bytes)  [inferred]
+  0x003ae170–0x003ae28c  (284 bytes)  [inferred]
+  0x003ae2e0–0x003ae548  (616 bytes)  [indeterminate]
+  0x003ae690–0x003aeb14  (1156 bytes)  [indeterminate]
+  0x003aeb20–0x003aed4c  (556 bytes)  [inferred]
+  0x003aed50–0x003aee10  (192 bytes)  [indeterminate]
+  0x003aee10–0x003aef4c  (316 bytes)  [indeterminate]
+  0x003b1c50–0x003b1fa7  (855 bytes)  [indeterminate]
+  0x003b1fb0–0x003b2307  (855 bytes)  [indeterminate]
+  0x003b2310–0x003b2667  (855 bytes)  [indeterminate]
+  0x003b2670–0x003b29c7  (855 bytes)  [indeterminate]
+  0x003b29d0–0x003b2d27  (855 bytes)  [inferred]
+  0x003b2d30–0x003b2daf  (127 bytes)  [inferred]
+  0x003bad00–0x003baedf  (479 bytes)  [inferred]
+  0x003bc800–0x003bc9d7  (471 bytes)  [inferred]
+  0x003bd3b0–0x003bdad2  (1826 bytes)  [inferred]
+  0x003bfc50–0x003bfd70  (288 bytes)  [inferred]
+  0x003bfd70–0x003bfe4b  (219 bytes)  [inferred]
+  0x003bfe50–0x003bff8b  (315 bytes)  [indeterminate]
+  0x003c01a0–0x003c05f7  (1111 bytes)  [inferred]
+  0x003cd800–0x003cd88d  (141 bytes)  [indeterminate]
+  0x004f6a0b–0x004f6a5f  (84 bytes)  [indeterminate]
+  0x004f6ab7–0x004f6b0b  (84 bytes)  [indeterminate]
+  0x004fe090–0x004fe11f  (143 bytes)  [indeterminate]
+  0x004ffec0–0x004fff4a  (138 bytes)  [indeterminate]
+  0x00503130–0x005031da  (170 bytes)  [indeterminate]
+  0x00512580–0x00512646  (198 bytes)  [indeterminate]
+  0x00512650–0x00512719  (201 bytes)  [indeterminate]
+  0x00526d20–0x00526ebd  (413 bytes)  [indeterminate]
+  0x0052b490–0x0052b5c3  (307 bytes)  [indeterminate]
+  0x0052db60–0x0052de28  (712 bytes)  [indeterminate]
+  0x0052ede0–0x0052eeaa  (202 bytes)  [indeterminate]
+  0x00531e90–0x00531ead  (29 bytes)  [indeterminate]
+  0x0053e360–0x0053e462  (258 bytes)  [indeterminate]
+  0x00541a40–0x00541ac5  (133 bytes)  [indeterminate]
+  0x005422b0–0x005422e1  (49 bytes)  [indeterminate]
+  0x00543d90–0x00543de5  (85 bytes)  [indeterminate]
+  0x005447a0–0x005447cb  (43 bytes)  [indeterminate]
+  0x005449c0–0x00544a4d  (141 bytes)  [indeterminate]
+  0x00547cf0–0x0054812e  (1086 bytes)  [inferred]
+  0x00548130–0x005482fd  (461 bytes)  [indeterminate]
+  0x00549100–0x00549245  (325 bytes)  [inferred]
+  0x00558910–0x00558ae7  (471 bytes)  [indeterminate]
+  0x0055b2c0–0x0055b364  (164 bytes)  [indeterminate]
+  0x0055ba10–0x0055baa3  (147 bytes)  [indeterminate]
+  0x00578930–0x00579c07  (4823 bytes)  [inferred]
+  0x00579c10–0x0057ad2c  (4380 bytes)  [inferred]
+  0x0057dc90–0x0057de17  (391 bytes)  [inferred]
+  0x0057dee0–0x0057df6d  (141 bytes)  [inferred]
+  0x0057df70–0x0057dfed  (125 bytes)  [inferred]
+  0x0057e050–0x0057e0ad  (93 bytes)  [inferred]
+  0x0057e140–0x0057e1ac  (108 bytes)  [indeterminate]
+  0x0057e1b0–0x0057e273  (195 bytes)  [indeterminate]
+  0x0057e280–0x0057e2cc  (76 bytes)  [inferred]
+  0x0057e420–0x0057e483  (99 bytes)  [inferred]
+  0x0057e520–0x0057e548  (40 bytes)  [inferred]
+  0x0057e550–0x0057e5a5  (85 bytes)  [inferred]
+  0x0057e5e0–0x0057e648  (104 bytes)  [inferred]
+  0x0057e840–0x0057e975  (309 bytes)  [inferred]
+  0x0057e980–0x0057eab5  (309 bytes)  [inferred]
+  0x0057eb20–0x0057ebb0  (144 bytes)  [indeterminate]
+  0x0057ecb0–0x0057edf6  (326 bytes)  [indeterminate]
+  0x0057eee0–0x0057ef80  (160 bytes)  [indeterminate]
+  0x0057efe0–0x0057f0ac  (204 bytes)  [indeterminate]
+  0x0057f0b0–0x0057f0d9  (41 bytes)  [indeterminate]
+  0x0057f100–0x0057f1d1  (209 bytes)  [indeterminate]
+  0x0057f1e0–0x0057f23d  (93 bytes)  [indeterminate]
+  0x0057f240–0x0057f447  (519 bytes)  [indeterminate]
+  0x0057f450–0x0057f657  (519 bytes)  [indeterminate]
+  0x0057f660–0x0057f6f4  (148 bytes)  [inferred]
+  0x00580e00–0x00580e7f  (127 bytes)  [indeterminate]
+  0x005842b0–0x005843ec  (316 bytes)  [indeterminate]
+  0x00585fa0–0x0058629d  (765 bytes)  [indeterminate]
+  0x00586320–0x005864be  (414 bytes)  [inferred]
+  0x0058c310–0x0058ca0a  (1786 bytes)  [indeterminate]
+  0x00590ff0–0x00591343  (851 bytes)  [inferred]
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 5486 functions mapped (121 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           32 predicted   TP=   28  FP=   3  unknown=   1   precision=90.3%
+  inferred         323 predicted   TP=   14  FP= 272  unknown=  37   precision=4.9%
+  indeterminate    130 predicted   TP=    1  FP= 105  unknown=  24   precision=0.9%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     28  ( 23.1%)  certain          (rock-solid signal)
+     14  ( 11.6%)  inferred         (call-graph reach)
+      1  (  0.8%)  indeterminate    (shared/mixed callers)
+     78  ( 64.5%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x002b68e0  /tmp/unhusk-local-bench/pueue/pueue/src/process_helper/mod.rs
+    0x002b6f10  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/filters.rs
+    0x002c5c30  /tmp/unhusk-local-bench/pueue/pueue/src/process_helper/mod.rs
+    0x002c8c70  /tmp/unhusk-local-bench/pueue/pueue/src/tracing.rs
+    0x002c9ea0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x002ca2c0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/log/mod.rs
+    0x002cca50  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002cfd70  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002d35c0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/group.rs
+    0x002d3ef0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/mod.rs
+    0x002d8150  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/mod.rs
+    0x002d8320  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/mod.rs
+    0x002d8be0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/log/json.rs
+    0x002dc7c0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002e26d0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002e32f0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x0038b540  /tmp/unhusk-local-bench/pueue/pueue_lib/src/network/client.rs
+    0x0038bb40  /tmp/unhusk-local-bench/pueue/pueue/src/bin/pueue.rs
+    0x00392170  /tmp/unhusk-local-bench/pueue/pueue_lib/src/network/client.rs
+    0x00392d30  /tmp/unhusk-local-bench/pueue/pueue_lib/src/network/protocol.rs
+    0x00393140  /tmp/unhusk-local-bench/pueue/pueue_lib/src/network/protocol.rs
+    0x00393ba0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x003a4420  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x003a4880  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x003a4c10  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/follow.rs
+    0x003a7dc0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/restart.rs
+    0x003ac170  /tmp/unhusk-local-bench/pueue/pueue/src/bin/pueue.rs
+    0x003dd490  /tmp/unhusk-local-bench/pueue/pueue_lib/src/log.rs
+  DWARF-user in inferred:
+    0x002b6cc0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002b7270  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002b7320  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002b73d0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002b7480  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002b7530  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/edit.rs
+    0x002c98a0  /tmp/unhusk-local-bench/pueue/pueue/src/client/display_helper.rs
+    0x0031fab0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x00320750  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x0033b1d0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x00350270  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/request.rs
+    0x003bad00  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003bd3b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003c01a0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+  DWARF-user in indeterminate:
+    0x0033a600  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+  DWARF-user in library (missed):
+    0x002a8430  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x002a8ed0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x002b6130  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b6280  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b64f0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b6550  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b6620  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b66f0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002b6d40  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/filters.rs
+    0x002b6de0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/filters.rs
+    0x002b6ea0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/filters.rs
+    0x002b75e0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x002b7660  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x002c8930  /tmp/unhusk-local-bench/pueue/pueue/src/format.rs
+    0x002c9680  /tmp/unhusk-local-bench/pueue/pueue/src/process_helper/unix.rs
+    0x002c9810  /tmp/unhusk-local-bench/pueue/pueue/src/client/display_helper.rs
+    0x002c9af0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x002c9cc0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x002c9d80  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/mod.rs
+    0x002d1380  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/wait.rs
+    0x002d1830  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/wait.rs
+    0x002d2610  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/wait.rs
+    0x002dfb90  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002e0150  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002e0bd0  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002e17b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/error.rs
+    0x002e48e0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x002e9690  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/state/query/mod.rs
+    0x002eb5f0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/request.rs
+    0x002ebf50  /tmp/unhusk-local-bench/pueue/pueue_lib/src/error.rs
+    0x002ec630  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x002ec810  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00320690  /tmp/unhusk-local-bench/pueue/pueue/src/client/commands/wait.rs
+    0x003217e0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00322030  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00325b50  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00328a00  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00329710  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x003354b0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x00336690  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x003366d0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x0034ff60  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003644b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003715e0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/response.rs
+    0x0037dc60  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x0037e570  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x0037e6b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x00383960  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x00386250  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003b2db0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/error.rs
+    0x003b3a20  /tmp/unhusk-local-bench/pueue/pueue_lib/src/error.rs
+    0x003bb7b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/request.rs
+    0x003bccb0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/response.rs
+    0x003bd2f0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/state.rs
+    0x003be1d0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/request.rs
+    0x003c24a0  /tmp/unhusk-local-bench/pueue/pueue/src/client/cli.rs
+    0x003ce910  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003d0510  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003d05e0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003d14e0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003d22e0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003d38c0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003dcde0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/log.rs
+    0x003dced0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/log.rs
+    0x003dd8b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/log.rs
+    0x003dda20  /tmp/unhusk-local-bench/pueue/pueue_lib/src/tls.rs
+    0x003ddf70  /tmp/unhusk-local-bench/pueue/pueue_lib/src/secret.rs
+    0x003de2b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003de5a0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/settings.rs
+    0x003de760  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/mod.rs
+    0x003de920  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/request.rs
+    0x003dead0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/network/socket/mod.rs
+    0x003e2360  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003e26b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003e2e10  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+    0x003e2fe0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/error.rs
+    0x003e35b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/message/response.rs
+    0x003e36b0  /tmp/unhusk-local-bench/pueue/pueue_lib/src/task.rs
+
+  total captured :    42  (34.7% of 121 DWARF-user fns)
+  total missed   :    78  (64.5%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 90.3%
+  Certain recall    : 23.1%  (28/121 DWARF-user fns reached by certain)
+  Overall recall    : 34.7%  (certain+inferred)
+
+validation complete.
