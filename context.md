@@ -1088,3 +1088,47 @@ baseline (94.4%). Confirmed at N=13/28/36/41/46/50/53/57/60/63 within ±0.7pp. T
 The failure-mode taxonomy is now complete: primary (std-generic contamination, DWARF+sym agree)
 vs secondary (async/closure wrappers, DWARF says user but sym says std). Both are documented in
 BENCHMARK_RESULTS.md with concrete per-binary DWARF vs sym breakdowns.
+
+### Batch 11: 4 more local-source builds (67 total, 2026-06-17)
+
+Added cargo-bloat, git-cliff, xplr, prr. Total N=67.
+
+**Per-binary results (4 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) |
+|-------|-----------|------------|---------|------------|-----------|
+| cargo-bloat | 11 | 100.0% | 100.0% | **86.3%** | 20.3% |
+| git-cliff | 47 | 73.2% | 89.4% | 3.5% | 46.8% |
+| xplr | 5 | 100.0% | 80.0% | 30.4% | 3.6% |
+| prr | 20 | 100.0% | 64.7% | **89.9%** | 7.0% |
+
+**Notable findings:**
+- **cargo-bloat** (100% sym, 86% inf): cargo tool for binary size analysis. Perfect sym precision,
+  joins the high-precision inferred cluster at 86.3%. Confirms the cargo-subcommand → high-inf-prec
+  pattern for the 6th time (cargo-nextest 75%, cargo-deny 75%, cargo-audit 67%, cargo-outdated 66%,
+  cargo-geiger 87%, cargo-bloat 86%).
+- **prr** (sym=64.7%, DWARF=100%, inf=89.9%): secondary failure mode (async/closure wrappers — DWARF
+  100% vs sym 64.7%). prr is a GitHub PR review tool with async HTTP. Joins the high-precision inferred
+  cluster at 89.9% — its call graph is compact (GitHub API calls via prr's own wrapping code).
+  4th confirmed secondary-mode binary (after viu, oha, binsider).
+- **xplr** (sym=80.0%, DWARF=100%): TUI file manager with event-loop. At exactly the 80% threshold;
+  the 1 sym-FP is a closure shim (DWARF says user, sym says core). Not counted as a sub-80% outlier
+  but structurally identical to the secondary mode.
+- **git-cliff** (sym=89.4%, DWARF=73.2%): changelog generator. DWARF < sym (FnOnce/FnMut closure
+  shims where DWARF says core but sym says user — typical primary mode where DWARF is penalized).
+  Low inferred (3.5%) — general CLI tool, BFS fans into std/dep.
+
+**Secondary-mode count confirmed:** 4 binaries with DWARF ≥ 85% but sym < 80%:
+  viu (DWARF 100%/sym 50%), prr (DWARF 100%/sym 64.7%), binsider (DWARF 100%/sym 68.4%),
+  oha (DWARF 96.1%/sym 68.8%). xplr at exactly 80% is on the boundary.
+
+**High-precision inferred cluster at N=67:** 17/67 (25%) with DWARF inf prec > 50%.
+
+**Combined 67 binaries:**
+- Sym precision: median **93.8%** (Δ=0pp from N=63 — 12th successive confirmation ±0.65pp)
+- DWARF precision: median **88.2%** (vs 87.5% at N=63; improving as more clean binaries added)
+- Inferred prec pooled: **26.3%** (inflated by cluster; median ~6% for non-cluster binaries)
+- Recall median: **34.0%** (vs 34.7% at N=63; xplr 3.6% and prr 7.0% pull it down)
+
+**Stability conclusion at N=67**: median sym precision 93.8% — confirmed at N=13/28/36/41/46/50/53/57/60/63/67
+within ±0.7pp. The "~94% certain precision" headline is stable across the entire benchmark run.
