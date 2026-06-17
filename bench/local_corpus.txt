@@ -56,3 +56,8 @@ bingrep:https://github.com/m4b/bingrep:bingrep
 choose:https://github.com/theryangeary/choose:choose
 jql:https://github.com/yamafaktory/jql:jql
 cargo-outdated:https://github.com/kbknapp/cargo-outdated:cargo-outdated
+# Batch 7 — further expansion
+dog:https://github.com/ogham/dog:dog
+ruplacer:https://github.com/your-tools/ruplacer:ruplacer
+amber:https://github.com/dalance/amber:ambr
+ox:https://github.com/curlpipe/ox:ox
