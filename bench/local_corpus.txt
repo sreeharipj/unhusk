@@ -74,3 +74,8 @@ cargo-audit:https://github.com/rustsec/rustsec:cargo-audit
 binsider:https://github.com/orhun/binsider:binsider
 numbat:https://github.com/sharkdp/numbat:numbat
 cargo-geiger:https://github.com/geiger-rs/cargo-geiger:cargo-geiger
+# Batch 11 — cargo tools + additional CLIs
+cargo-bloat:https://github.com/RazrFalcon/cargo-bloat:cargo-bloat
+git-cliff:https://github.com/orhun/git-cliff:git-cliff
+xplr:https://github.com/sayanarijit/xplr:xplr
+prr:https://github.com/danobi/prr:prr
