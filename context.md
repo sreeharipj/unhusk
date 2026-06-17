@@ -820,5 +820,18 @@ Added navi, bandwhich, wiki-tui, topgrade, monolith — all built and validated.
 fclones 54.4%, fd-find 58.8%, bandwhich 66.7%, eza 72.4%, git-delta 74.3%, hexyl/csview/gping 75%).
 All fit the pre-characterized std-generic contamination failure mode. No new failure mode.
 
+**Depth-sweep at N=41 (per-binary medians):**
+- d=∞: median recall 46.2%, pooled inf prec 6.4%
+- d=2: median prec 7.7%, median recall 45.1% (−1.1pp vs d=∞ — CONFIRMS 13-binary result)
+- d=1: median prec 9.6%, median recall 38.5% (−7.7pp vs d=∞)
+
+The d=1 recall drop is larger at N=41 (−7.7pp) than the 13-binary study (−3.9pp). The extended
+corpus includes more thin-wrapper binaries (monolith 0.3%, xh 4.3%, onefetch 8.2%) whose
+baseline recall is already near zero; depth truncation eliminates their remaining inferred TPs.
+For binaries with meaningful baseline recall, the d=1 cost remains ~4pp. This does not change
+the recommendation: d=2 is the best balance for most use cases; d=1 for high-precision audits.
+
+**bpftrace profile:** skipped — requires interactive sudo.
+
 **Final stability conclusion**: median 94.5% confirmed independently at N=13, N=28, N=36, N=41
 (each within ±0.1pp of each other). The measurement is stable. The benchmark is complete.
