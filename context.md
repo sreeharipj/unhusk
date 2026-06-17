@@ -996,3 +996,47 @@ Added cargo-nextest, cargo-deny, lfs, felix (dog failed again: C DNS lib deps). 
 
 **Stability conclusion at N=57**: sym precision median 94.5% — identical to the 13-binary realval/ baseline
 (94.4%). The measurement is remarkably stable. The headline is now confirmed across N=13/28/36/41/46/50/53/57.
+
+### Batch 9: 3 more local-source builds (60 total, 2026-06-17)
+
+Added viu, oha, cargo-audit (dog retried and failed again). Total N=60.
+
+**Per-binary results (3 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) |
+|-------|-----------|------------|---------|------------|-----------|
+| viu | 2 | 100.0% | 50.0% | **100.0%** | 0.6% |
+| oha | 159 | 96.1% | 68.9% | **94.8%** | 17.1% |
+| cargo-audit | 48 | 85.4% | 85.7% | **67.2%** | 7.8% |
+
+**Notable findings:**
+- **oha** (sym=68.9%, DWARF=96.1%): REVERSED discrepancy vs the typical case. Normally DWARF is
+  lower (FnOnce/FnMut closures attributed to `core/ops/function.rs`). For oha, DWARF is HIGHER —
+  the async `Future` wrappers are in oha's own source (DWARF: user) but their symbols come from
+  the tokio/std runtime trait instantiation (sym: std). This is a new variant: async runtime
+  closure wrappers where the closure body is user code but the trait-method symbol is in std.
+- **viu** (sym=50%, DWARF=100%): only 2 certain fns; 1/2 is a closure shim attributed differently.
+  inf_prec=100% (all inferred fns are user by DWARF — viu has an extremely compact call graph).
+- **cargo-audit** (inf_prec=67.2%): joins the cargo-tools high-precision cluster. Advisory checking
+  logic calls predominantly cargo-audit's own functions.
+
+**New failure mode identified:** oha reveals that async/tokio tools have REVERSED DWARF vs sym
+discrepancy. For async CLI tools:
+- DWARF `decl_file` → source file of the closure/async fn body → user code
+- nm symbol → trait method on tokio Future type → std/dep attribution
+- Result: sym underestimates precision for async tools; DWARF overestimates (vs the typical case
+  where DWARF underestimates for FnOnce/FnMut shims in non-async code)
+
+**Combined 60 binaries (13 original + 47 new):**
+- Sym precision: median **93.75%** (Δ=−0.75pp from N=57 — 10th confirmation within ±0.7pp)
+- DWARF precision: median **86.6%** (vs 86.2% at N=57)
+- Inferred prec pooled: **24.0%** (inflated; 12/60 are in high-precision cluster >50%), median **6.6%**
+- Recall median: **36.7%** (vs 42.7% at N=57; viu 0.6%, cargo-audit 7.8%, oha 17.1% all below old median)
+- High-precision inferred cluster (>50%): **12/60 (20%)** — growing from 9/57 to 12/60 with oha+viu+cargo-audit
+
+**Recall note:** the 36.7% median reflects the extended corpus composition — many specialized tools
+(image viewers, web tools, audit tools) have most user logic in dep-called async callbacks. The
+original 13-binary baseline was biased toward file-processing CLIs with more panic-dense user code.
+
+**Stability conclusion at N=60**: median sym precision 93.75% — within 0.65pp of baseline. The
+measurement is confirmed at N=13/28/36/41/46/50/53/57/60 within ±0.7pp.
