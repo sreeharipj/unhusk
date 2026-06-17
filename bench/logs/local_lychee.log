@@ -1,0 +1,1493 @@
+=== START lychee repo=https://github.com/lycheeverse/lychee binname=lychee Wednesday 17 June 2026 02:20:33 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/lychee'...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded alloca v0.4.0
+  Downloaded string_cache_codegen v0.6.1
+  Downloaded testing_table v0.3.0
+  Downloaded compression-core v0.4.31
+  Downloaded tabled_derive v0.11.0
+  Downloaded page_size v0.6.0
+  Downloaded markup5ever v0.39.0
+  Downloaded linkify v0.11.0
+  Downloaded criterion-plot v0.8.2
+  Downloaded mailify-lib v0.2.0
+  Downloaded cmake v0.1.57
+  Downloaded string_cache v0.9.0
+  Downloaded nonzero_ext v0.3.0
+  Downloaded zmij v1.0.19
+  Downloaded web_atoms v0.2.3
+  Downloaded criterion v0.8.2
+  Downloaded ip_network v0.4.1
+  Downloaded quanta v0.12.6
+  Downloaded compression-codecs v0.4.36
+  Downloaded jsonwebtoken v10.3.0
+  Downloaded tendril v0.5.0
+  Downloaded spinning_top v0.3.0
+  Downloaded par-stream v0.10.2
+  Downloaded html5ever v0.39.0
+  Downloaded flume v0.10.14
+  Downloaded rustls-webpki v0.103.9
+  Downloaded async-compression v0.4.37
+  Downloaded arc-swap v1.8.1
+  Downloaded cc v1.2.55
+  Downloaded hickory-resolver v0.25.2
+  Downloaded zerocopy-derive v0.8.37
+  Downloaded governor v0.10.4
+  Downloaded numeric-sort v0.1.5
+  Downloaded html5gum v0.8.3
+  Downloaded iri-string v0.7.10
+  Downloaded async-smtp v0.10.2
+  Downloaded papergrid v0.18.0
+  Downloaded rate-limits v0.7.0
+  Downloaded moka v0.12.13
+  Downloaded zerocopy v0.8.37
+  Downloaded quick-xml v0.40.1
+  Downloaded aws-lc-rs v1.15.4
+  Downloaded tabled v0.21.0
+  Downloaded rustls v0.23.36
+  Downloaded hickory-proto v0.25.2
+  Downloaded octocrab v0.53.1
+  Downloaded aws-lc-sys v0.37.0
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.22
+   Compiling libc v0.2.184
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.7.6
+   Compiling zeroize v1.8.2
+   Compiling smallvec v1.15.1
+   Compiling scopeguard v1.2.0
+   Compiling version_check v0.9.5
+   Compiling parking_lot_core v0.9.12
+   Compiling subtle v2.6.1
+   Compiling portable-atomic v1.13.1
+   Compiling serde_core v1.0.228
+   Compiling typenum v1.19.0
+   Compiling pin-project-lite v0.2.16
+   Compiling bytes v1.11.1
+   Compiling lock_api v0.4.14
+   Compiling futures-core v0.3.32
+   Compiling itoa v1.0.17
+   Compiling log v0.4.32
+   Compiling critical-section v1.2.0
+   Compiling const-oid v0.9.6
+   Compiling futures-sink v0.3.32
+   Compiling serde v1.0.228
+   Compiling stable_deref_trait v1.2.1
+   Compiling shlex v1.3.0
+   Compiling generic-array v0.14.9
+   Compiling find-msvc-tools v0.1.9
+   Compiling slab v0.4.12
+   Compiling futures-channel v0.3.32
+   Compiling futures-io v0.3.32
+   Compiling futures-task v0.3.32
+   Compiling thiserror v2.0.18
+   Compiling base64ct v1.8.3
+   Compiling litemap v0.8.1
+   Compiling zerocopy v0.8.37
+   Compiling zmij v1.0.19
+   Compiling heck v0.5.0
+   Compiling crossbeam-utils v0.8.21
+   Compiling writeable v0.6.2
+   Compiling http v1.4.2
+   Compiling equivalent v1.0.2
+   Compiling percent-encoding v2.3.2
+   Compiling pem-rfc7468 v0.7.0
+   Compiling fs_extra v1.3.0
+   Compiling dunce v1.0.5
+   Compiling icu_normalizer_data v2.1.1
+   Compiling icu_properties_data v2.1.2
+   Compiling syn v2.0.117
+   Compiling der v0.7.10
+   Compiling once_cell v1.21.4
+   Compiling autocfg v1.5.0
+   Compiling libm v0.2.16
+   Compiling tracing-core v0.1.36
+   Compiling jobserver v0.1.34
+   Compiling getrandom v0.2.17
+   Compiling errno v0.3.14
+   Compiling socket2 v0.6.3
+   Compiling signal-hook-registry v1.4.8
+   Compiling parking_lot v0.12.5
+   Compiling mio v1.2.0
+   Compiling cc v1.2.55
+   Compiling rand_core v0.6.4
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling num-traits v0.2.19
+   Compiling digest v0.10.7
+   Compiling allocator-api2 v0.2.21
+   Compiling foldhash v0.2.0
+   Compiling base64 v0.22.1
+   Compiling aws-lc-rs v1.15.4
+   Compiling utf8_iter v1.0.4
+   Compiling time-core v0.1.8
+   Compiling hashbrown v0.16.1
+   Compiling fnv v1.0.7
+   Compiling spki v0.7.3
+   Compiling cpufeatures v0.2.17
+   Compiling num-conv v0.2.0
+   Compiling powerfmt v0.2.0
+   Compiling time-macros v0.2.27
+   Compiling cmake v0.1.57
+   Compiling pkcs8 v0.10.2
+   Compiling deranged v0.5.5
+   Compiling hmac v0.12.1
+   Compiling http-body v1.0.1
+   Compiling form_urlencoded v1.2.2
+   Compiling rustls-pki-types v1.14.0
+   Compiling bitflags v2.11.1
+   Compiling siphasher v1.0.2
+   Compiling semver v1.0.27
+   Compiling indexmap v2.13.0
+   Compiling httparse v1.10.1
+   Compiling ipnet v2.11.0
+   Compiling getrandom v0.3.4
+   Compiling aws-lc-sys v0.37.0
+   Compiling untrusted v0.9.0
+   Compiling crc32fast v1.5.0
+   Compiling phf_shared v0.13.1
+   Compiling signature v2.2.0
+   Compiling time v0.3.47
+   Compiling ff v0.13.1
+   Compiling atomic-waker v1.1.2
+   Compiling try-lock v0.2.5
+   Compiling serde_json v1.0.150
+   Compiling tower-service v0.3.3
+   Compiling fastrand v2.3.0
+   Compiling adler2 v2.0.1
+   Compiling getrandom v0.4.1
+   Compiling simd-adler32 v0.3.8
+   Compiling base16ct v0.2.0
+   Compiling rustls v0.23.36
+   Compiling synstructure v0.13.2
+   Compiling phf_generator v0.13.1
+   Compiling group v0.13.0
+   Compiling miniz_oxide v0.8.9
+   Compiling sec1 v0.7.3
+   Compiling want v0.3.1
+   Compiling num-integer v0.1.46
+   Compiling hkdf v0.12.4
+   Compiling crypto-bigint v0.5.5
+   Compiling crossbeam-epoch v0.9.18
+   Compiling spin v0.9.8
+   Compiling unicode-width v0.2.2
+   Compiling flate2 v1.1.9
+   Compiling rand_core v0.9.5
+   Compiling rustc_version v0.4.1
+   Compiling aho-corasick v1.1.4
+   Compiling compression-core v0.4.31
+   Compiling utf8parse v0.2.2
+   Compiling openssl-probe v0.2.1
+   Compiling regex-syntax v0.8.11
+   Compiling camino v1.2.2
+   Compiling curve25519-dalek v4.1.3
+   Compiling rustls-native-certs v0.8.3
+   Compiling anstyle-parse v1.0.0
+   Compiling compression-codecs v0.4.36
+   Compiling uuid v1.23.3
+   Compiling phf_codegen v0.13.1
+   Compiling string_cache_codegen v0.6.1
+   Compiling rfc6979 v0.4.0
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.228
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.1
+   Compiling tokio-macros v2.7.0
+   Compiling zerovec-derive v0.11.2
+   Compiling displaydoc v0.2.5
+   Compiling futures-macro v0.3.32
+   Compiling tokio v1.52.3
+   Compiling tracing-attributes v0.1.31
+   Compiling thiserror-impl v2.0.18
+   Compiling zerocopy-derive v0.8.37
+   Compiling elliptic-curve v0.13.8
+   Compiling futures-util v0.3.32
+   Compiling pin-project-internal v1.1.10
+   Compiling regex-automata v0.4.14
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.8.1
+   Compiling tracing v0.1.44
+   Compiling zerovec v0.11.5
+   Compiling zerotrie v0.2.3
+   Compiling crossbeam-channel v0.5.15
+   Compiling cookie v0.18.1
+   Compiling sync_wrapper v1.0.2
+   Compiling colorchoice v1.0.4
+   Compiling anstyle v1.0.13
+   Compiling new_debug_unreachable v1.0.6
+   Compiling tinystr v0.8.2
+   Compiling potential_utf v0.1.4
+   Compiling anstyle-query v1.1.5
+   Compiling pin-project v1.1.10
+   Compiling tower-layer v0.3.3
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling icu_collections v2.1.1
+   Compiling ident_case v1.0.1
+   Compiling num-bigint-dig v0.8.6
+   Compiling icu_locale_core v2.1.1
+   Compiling strsim v0.11.1
+   Compiling anstream v1.0.0
+   Compiling darling_core v0.23.0
+   Compiling ecdsa v0.16.9
+   Compiling primeorder v0.13.6
+   Compiling web_atoms v0.2.3
+   Compiling async-trait v0.1.89
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling icu_provider v2.1.1
+   Compiling lazy_static v1.5.0
+   Compiling num-iter v0.1.45
+   Compiling cargo-platform v0.3.2
+   Compiling http-body-util v0.1.3
+   Compiling futures-executor v0.3.32
+   Compiling icu_normalizer v2.1.1
+   Compiling icu_properties v2.1.2
+   Compiling psl-types v2.0.11
+   Compiling futures v0.3.32
+   Compiling syn v1.0.109
+   Compiling iri-string v0.7.10
+   Compiling anyhow v1.0.102
+   Compiling mime v0.3.17
+   Compiling hashbrown v0.14.5
+   Compiling tinyvec_macros v0.1.1
+   Compiling precomputed-hash v0.1.1
+   Compiling litrs v1.0.0
+   Compiling rustversion v1.0.22
+   Compiling string_cache v0.9.0
+   Compiling idna_adapter v1.2.1
+   Compiling tinyvec v1.10.0
+   Compiling cargo_metadata v0.23.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling document-features v0.2.12
+   Compiling darling_macro v0.23.0
+   Compiling publicsuffix v2.3.0
+   Compiling phf v0.13.1
+   Compiling ppv-lite86 v0.2.21
+   Compiling enum-as-inner v0.6.1
+   Compiling crossbeam-deque v0.8.6
+   Compiling num-bigint v0.4.6
+   Compiling ed25519 v2.2.3
+   Compiling ring v0.17.14
+   Compiling tokio-util v0.7.18
+   Compiling rand_chacha v0.3.1
+   Compiling rand_chacha v0.9.0
+   Compiling rand v0.9.2
+   Compiling h2 v0.4.14
+   Compiling tower v0.5.3
+   Compiling rand v0.8.5
+   Compiling async-compression v0.4.37
+   Compiling pkcs1 v0.7.5
+   Compiling clap_lex v1.0.0
+   Compiling tower-http v0.6.8
+   Compiling jetscii v0.5.3
+   Compiling tagptr v0.2.0
+   Compiling data-encoding v2.10.0
+   Compiling option-ext v0.2.0
+   Compiling iana-time-zone v0.1.65
+   Compiling utf-8 v0.7.6
+   Compiling ryu v1.0.22
+   Compiling tendril v0.5.0
+   Compiling hickory-proto v0.25.2
+   Compiling chrono v0.4.44
+   Compiling clap_builder v4.6.0
+   Compiling rsa v0.9.10
+   Compiling dirs-sys v0.5.0
+   Compiling moka v0.12.13
+   Compiling simple_asn1 v0.6.3
+   Compiling octocrab v0.53.1
+   Compiling ed25519-dalek v2.2.0
+   Compiling cookie_store v0.22.1
+   Compiling darling v0.23.0
+error: could not compile `anyhow` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name anyhow --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/anyhow-1.0.102/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("backtrace", "default", "std"))' -C metadata=9db898a6c545edbb -C extra-filename=-c5660ad9ad3af803 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --cap-lints allow --cfg tokio_unstable --check-cfg 'cfg(anyhow_build_probe)' --check-cfg 'cfg(anyhow_nightly_testing)' --check-cfg 'cfg(anyhow_no_clippy_format_args)' --check-cfg 'cfg(anyhow_no_core_error)' --check-cfg 'cfg(error_generic_member_access)'` (signal: 15, SIGTERM: termination signal)
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `syn` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name syn --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/syn-1.0.109/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C debug-assertions=off --cfg 'feature="clone-impls"' --cfg 'feature="default"' --cfg 'feature="derive"' --cfg 'feature="extra-traits"' --cfg 'feature="parsing"' --cfg 'feature="printing"' --cfg 'feature="proc-macro"' --cfg 'feature="quote"' --cfg 'feature="visit"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("clone-impls", "default", "derive", "extra-traits", "fold", "full", "parsing", "printing", "proc-macro", "quote", "test", "visit", "visit-mut"))' -C metadata=bd405de02c438c71 -C extra-filename=-5d068617cee9515a --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern proc_macro2=/tmp/unhusk-local-bench/lychee/target/release/deps/libproc_macro2-b6bfbb7e7d7ae55c.rmeta --extern quote=/tmp/unhusk-local-bench/lychee/target/release/deps/libquote-c19c6fc86c48ee4a.rmeta --extern unicode_ident=/tmp/unhusk-local-bench/lychee/target/release/deps/libunicode_ident-3cc305b4eb7dd826.rmeta --cap-lints allow --cfg tokio_unstable --cfg syn_disable_nightly_tests` (signal: 15, SIGTERM: termination signal)
+error: could not compile `simple_asn1` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name simple_asn1 --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/simple_asn1-0.6.3/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=8b8b8d3054708ffc -C extra-filename=-34d0366269e89eca --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern num_bigint=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_bigint-7959588f9d2bc0fb.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --extern thiserror=/tmp/unhusk-local-bench/lychee/target/release/deps/libthiserror-a03eca94b74ee103.rmeta --extern time=/tmp/unhusk-local-bench/lychee/target/release/deps/libtime-fd09627182fef009.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `web_atoms` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name web_atoms --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/web_atoms-0.2.3/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("serde"))' -C metadata=b73ff66dfb5cd137 -C extra-filename=-8a5abe6c5218683e --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern phf=/tmp/unhusk-local-bench/lychee/target/release/deps/libphf-aa0aaac917e69ffd.rmeta --extern string_cache=/tmp/unhusk-local-bench/lychee/target/release/deps/libstring_cache-27e9aa6c1ded623f.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `num-bigint-dig` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name num_bigint_dig --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-dig-0.8.6/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="i128"' --cfg 'feature="prime"' --cfg 'feature="rand"' --cfg 'feature="u64_digit"' --cfg 'feature="zeroize"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("arbitrary", "default", "fuzz", "i128", "nightly", "prime", "rand", "serde", "std", "u64_digit", "zeroize"))' -C metadata=fc7e074956738a74 -C extra-filename=-40df4e5610084ad7 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern lazy_static=/tmp/unhusk-local-bench/lychee/target/release/deps/liblazy_static-eb2d017363405523.rmeta --extern libm=/tmp/unhusk-local-bench/lychee/target/release/deps/liblibm-10b0d62a2ae01b7c.rmeta --extern num_integer=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_integer-d67119d1f8833340.rmeta --extern num_iter=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_iter-f49c709cf4896bef.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --extern rand=/tmp/unhusk-local-bench/lychee/target/release/deps/librand-4fec0f93e0173bf2.rmeta --extern smallvec=/tmp/unhusk-local-bench/lychee/target/release/deps/libsmallvec-54914cb8ee1ba2de.rmeta --extern zeroize=/tmp/unhusk-local-bench/lychee/target/release/deps/libzeroize-2082f6528d7918d4.rmeta --cap-lints allow --cfg tokio_unstable --cfg has_i128` (signal: 15, SIGTERM: termination signal)
+error: could not compile `rsa` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name rsa --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rsa-0.9.10/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="pem"' --cfg 'feature="std"' --cfg 'feature="u64_digit"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "getrandom", "hazmat", "nightly", "pem", "pkcs5", "serde", "sha1", "sha2", "std", "u64_digit"))' -C metadata=7fff57900fbfe5b8 -C extra-filename=-0704bd5a31a3d1c9 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern const_oid=/tmp/unhusk-local-bench/lychee/target/release/deps/libconst_oid-eb80e1f999e2a180.rmeta --extern digest=/tmp/unhusk-local-bench/lychee/target/release/deps/libdigest-c9d2bc4663fc4dd6.rmeta --extern num_bigint=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_bigint_dig-40df4e5610084ad7.rmeta --extern num_integer=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_integer-d67119d1f8833340.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --extern pkcs1=/tmp/unhusk-local-bench/lychee/target/release/deps/libpkcs1-f01a710d6439f6b3.rmeta --extern pkcs8=/tmp/unhusk-local-bench/lychee/target/release/deps/libpkcs8-6b24a099403fa0d4.rmeta --extern rand_core=/tmp/unhusk-local-bench/lychee/target/release/deps/librand_core-b4d1a0becfb648da.rmeta --extern signature=/tmp/unhusk-local-bench/lychee/target/release/deps/libsignature-b9cda86d7ba87e29.rmeta --extern spki=/tmp/unhusk-local-bench/lychee/target/release/deps/libspki-88d76335b7d960a6.rmeta --extern subtle=/tmp/unhusk-local-bench/lychee/target/release/deps/libsubtle-f21142e66186367c.rmeta --extern zeroize=/tmp/unhusk-local-bench/lychee/target/release/deps/libzeroize-2082f6528d7918d4.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `chrono` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name chrono --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/chrono-0.4.44/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="alloc"' --cfg 'feature="clock"' --cfg 'feature="iana-time-zone"' --cfg 'feature="js-sys"' --cfg 'feature="now"' --cfg 'feature="serde"' --cfg 'feature="std"' --cfg 'feature="wasm-bindgen"' --cfg 'feature="wasmbind"' --cfg 'feature="winapi"' --cfg 'feature="windows-link"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("__internal_bench", "alloc", "arbitrary", "clock", "core-error", "default", "defmt", "iana-time-zone", "js-sys", "libc", "now", "oldtime", "pure-rust-locales", "rkyv", "rkyv-16", "rkyv-32", "rkyv-64", "rkyv-validation", "serde", "std", "unstable-locales", "wasm-bindgen", "wasmbind", "winapi", "windows-link"))' -C metadata=cbd1881de0027431 -C extra-filename=-9c1ec181ffd78002 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern iana_time_zone=/tmp/unhusk-local-bench/lychee/target/release/deps/libiana_time_zone-561bffa425e810ca.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --extern serde=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde-d4c7c637fbbf1d29.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `cookie_store` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name cookie_store --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cookie_store-0.22.1/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="public_suffix"' --cfg 'feature="serde"' --cfg 'feature="serde_json"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "log_secure_cookie_values", "preserve_order", "public_suffix", "serde", "serde_json", "serde_ron", "wasm-bindgen"))' -C metadata=77d4117209376e89 -C extra-filename=-2c7c89f931103369 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern cookie=/tmp/unhusk-local-bench/lychee/target/release/deps/libcookie-5eef51d469dde293.rmeta --extern document_features=/tmp/unhusk-local-bench/lychee/target/release/deps/libdocument_features-4a2ce027a7fbf2fe.so --extern idna=/tmp/unhusk-local-bench/lychee/target/release/deps/libidna-a92d712b51d86faa.rmeta --extern log=/tmp/unhusk-local-bench/lychee/target/release/deps/liblog-05cca97b6fe752af.rmeta --extern publicsuffix=/tmp/unhusk-local-bench/lychee/target/release/deps/libpublicsuffix-e567eebed611352f.rmeta --extern serde=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde-d4c7c637fbbf1d29.rmeta --extern serde_derive=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde_derive-39aac7e9e43d2823.so --extern serde_json=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde_json-9c8b921cb9e1155f.rmeta --extern time=/tmp/unhusk-local-bench/lychee/target/release/deps/libtime-fd09627182fef009.rmeta --extern url=/tmp/unhusk-local-bench/lychee/target/release/deps/liburl-768efb8067e5e51c.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `data-encoding` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name data_encoding --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/data-encoding-2.10.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unused-results --warn=unsafe-op-in-unsafe-fn --warn=unreachable-pub '--warn=clippy::undocumented-unsafe-blocks' --warn=missing-docs --warn=missing-debug-implementations --warn=let-underscore-drop --warn=elided-lifetimes-in-paths --cfg 'feature="alloc"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("alloc", "default", "std"))' -C metadata=faded93825490e53 -C extra-filename=-1ff2bded8c99deb4 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `clap_builder` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name clap_builder --edition=2024 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clap_builder-4.6.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=rust_2018_idioms '--warn=clippy::zero_sized_map_values' '--warn=clippy::verbose_file_reads' --warn=unused_qualifications --warn=unused_macro_rules --warn=unused_lifetimes --warn=unsafe_op_in_unsafe_fn --warn=unreachable_pub --allow=unnameable_types '--warn=clippy::uninlined_format_args' '--warn=clippy::trait_duplication_in_bounds' '--warn=clippy::todo' '--warn=clippy::string_lit_as_bytes' '--warn=clippy::string_add_assign' '--warn=clippy::semicolon_if_nothing_returned' '--warn=clippy::self_named_module_files' '--warn=clippy::same_functions_in_if_condition' '--allow=clippy::result_large_err' '--warn=clippy::rest_pat_in_fully_bound_structs' '--warn=clippy::ref_option_ref' '--warn=clippy::redundant_feature_names' '--warn=clippy::rc_mutex' '--warn=clippy::ptr_as_ptr' '--warn=clippy::path_buf_push_overwrite' '--warn=clippy::negative_feature_names' '--warn=clippy::needless_for_each' '--allow=clippy::needless_continue' '--warn=clippy::mutex_integer' '--allow=clippy::multiple_bound_locations' '--warn=clippy::mem_forget' '--warn=clippy::macro_use_imports' '--warn=clippy::lossy_float_literal' '--warn=clippy::linkedlist' '--allow=clippy::let_and_return' '--warn=clippy::large_types_passed_by_value' '--warn=clippy::large_stack_arrays' '--warn=clippy::large_digit_groups' '--warn=clippy::invalid_upcast_comparisons' '--warn=clippy::infinite_loop' '--warn=clippy::inefficient_to_string' '--warn=clippy::inconsistent_struct_constructor' '--warn=clippy::imprecise_flops' '--warn=clippy::implicit_clone' '--allow=clippy::if_same_then_else' '--warn=clippy::from_iter_instead_of_collect' '--warn=clippy::fn_params_excessive_bools' '--warn=clippy::float_cmp_const' '--warn=clippy::flat_map_option' '--warn=clippy::filter_map_next' '--warn=clippy::fallible_impl_from' '--warn=clippy::explicit_into_iter_loop' '--warn=clippy::explicit_deref_methods' '--warn=clippy::expl_impl_clone_on_copy' '--warn=clippy::enum_glob_use' '--warn=clippy::empty_enums' '--warn=clippy::doc_markdown' '--warn=clippy::debug_assert_with_mut_call' '--warn=clippy::dbg_macro' '--warn=clippy::create_dir' '--allow=clippy::collapsible_else_if' '--warn=clippy::checked_conversions' '--allow=clippy::branches_sharing_code' '--allow=clippy::bool_assert_comparison' '--allow=clippy::blocks_in_conditions' '--allow=clippy::assigning_clones' --cfg 'feature="cargo"' --cfg 'feature="color"' --cfg 'feature="env"' --cfg 'feature="error-context"' --cfg 'feature="help"' --cfg 'feature="std"' --cfg 'feature="string"' --cfg 'feature="suggestions"' --cfg 'feature="usage"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("cargo", "color", "debug", "default", "deprecated", "env", "error-context", "help", "std", "string", "suggestions", "unicode", "unstable-doc", "unstable-ext", "unstable-styles", "unstable-v5", "usage", "wrap_help"))' -C metadata=95853044927028da -C extra-filename=-63874bfecc6c8578 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern anstream=/tmp/unhusk-local-bench/lychee/target/release/deps/libanstream-e993e5ea2d3e8e14.rmeta --extern anstyle=/tmp/unhusk-local-bench/lychee/target/release/deps/libanstyle-c419d1ad40395c80.rmeta --extern clap_lex=/tmp/unhusk-local-bench/lychee/target/release/deps/libclap_lex-4a7cde3015782a06.rmeta --extern strsim=/tmp/unhusk-local-bench/lychee/target/release/deps/libstrsim-a16577cf6c773f34.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `hickory-proto` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name hickory_proto --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/hickory-proto-0.25.2/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(nightly)' --cfg 'feature="futures-io"' --cfg 'feature="std"' --cfg 'feature="tokio"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("__dnssec", "__h3", "__https", "__quic", "__tls", "backtrace", "default", "dnssec-aws-lc-rs", "dnssec-ring", "futures-io", "h3-aws-lc-rs", "h3-ring", "https-aws-lc-rs", "https-ring", "mdns", "no-std-rand", "quic-aws-lc-rs", "quic-ring", "rustls-platform-verifier", "serde", "socket2", "std", "testing", "text-parsing", "tls-aws-lc-rs", "tls-ring", "tokio", "wasm-bindgen", "webpki-roots"))' -C metadata=0287e73278f76cb3 -C extra-filename=-9de094ba815eb35a --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern async_trait=/tmp/unhusk-local-bench/lychee/target/release/deps/libasync_trait-5b339d9fb12944f2.so --extern cfg_if=/tmp/unhusk-local-bench/lychee/target/release/deps/libcfg_if-0a8e3684d3a40bf6.rmeta --extern data_encoding=/tmp/unhusk-local-bench/lychee/target/release/deps/libdata_encoding-1ff2bded8c99deb4.rmeta --extern enum_as_inner=/tmp/unhusk-local-bench/lychee/target/release/deps/libenum_as_inner-0808e931a61b0207.so --extern futures_channel=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_channel-83ff7476386e3d9d.rmeta --extern futures_io=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_io-6280f32ca049b8e9.rmeta --extern futures_util=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_util-07d5a90677063301.rmeta --extern idna=/tmp/unhusk-local-bench/lychee/target/release/deps/libidna-a92d712b51d86faa.rmeta --extern ipnet=/tmp/unhusk-local-bench/lychee/target/release/deps/libipnet-5a2e9b0de50696cb.rmeta --extern once_cell=/tmp/unhusk-local-bench/lychee/target/release/deps/libonce_cell-fd406d77c0f484f3.rmeta --extern rand=/tmp/unhusk-local-bench/lychee/target/release/deps/librand-c3d551fd6beca105.rmeta --extern thiserror=/tmp/unhusk-local-bench/lychee/target/release/deps/libthiserror-a03eca94b74ee103.rmeta --extern tinyvec=/tmp/unhusk-local-bench/lychee/target/release/deps/libtinyvec-94379054c6997183.rmeta --extern tokio=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio-cd2947e301a705db.rmeta --extern tracing=/tmp/unhusk-local-bench/lychee/target/release/deps/libtracing-f363f5a260bebf56.rmeta --extern url=/tmp/unhusk-local-bench/lychee/target/release/deps/liburl-768efb8067e5e51c.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `regex-automata` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name regex_automata --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-automata-0.4.14/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --allow=unexpected_cfgs --check-cfg 'cfg(docsrs_regex)' --cfg 'feature="alloc"' --cfg 'feature="dfa-onepass"' --cfg 'feature="hybrid"' --cfg 'feature="meta"' --cfg 'feature="nfa"' --cfg 'feature="nfa-backtrack"' --cfg 'feature="nfa-pikevm"' --cfg 'feature="nfa-thompson"' --cfg 'feature="perf"' --cfg 'feature="perf-inline"' --cfg 'feature="perf-literal"' --cfg 'feature="perf-literal-multisubstring"' --cfg 'feature="perf-literal-substring"' --cfg 'feature="std"' --cfg 'feature="syntax"' --cfg 'feature="unicode"' --cfg 'feature="unicode-age"' --cfg 'feature="unicode-bool"' --cfg 'feature="unicode-case"' --cfg 'feature="unicode-gencat"' --cfg 'feature="unicode-perl"' --cfg 'feature="unicode-script"' --cfg 'feature="unicode-segment"' --cfg 'feature="unicode-word-boundary"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("alloc", "default", "dfa", "dfa-build", "dfa-onepass", "dfa-search", "hybrid", "internal-instrument", "internal-instrument-pikevm", "logging", "meta", "nfa", "nfa-backtrack", "nfa-pikevm", "nfa-thompson", "perf", "perf-inline", "perf-literal", "perf-literal-multisubstring", "perf-literal-substring", "std", "syntax", "unicode", "unicode-age", "unicode-bool", "unicode-case", "unicode-gencat", "unicode-perl", "unicode-script", "unicode-segment", "unicode-word-boundary"))' -C metadata=d1e15be161ac63ed -C extra-filename=-d9af94d73c6b1ad3 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern aho_corasick=/tmp/unhusk-local-bench/lychee/target/release/deps/libaho_corasick-67e1b7193ecd4f22.rmeta --extern memchr=/tmp/unhusk-local-bench/lychee/target/release/deps/libmemchr-cb5ddf0237437ac3.rmeta --extern regex_syntax=/tmp/unhusk-local-bench/lychee/target/release/deps/libregex_syntax-f401b8c1811f1154.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `h2` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name h2 --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/h2-0.4.14/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(fuzzing)' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("stream", "unstable"))' -C metadata=9c3eff590a5b14af -C extra-filename=-50fc11038c34ec2f --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern atomic_waker=/tmp/unhusk-local-bench/lychee/target/release/deps/libatomic_waker-42f6b8b83a463242.rmeta --extern bytes=/tmp/unhusk-local-bench/lychee/target/release/deps/libbytes-130f49657b5a8d2b.rmeta --extern fnv=/tmp/unhusk-local-bench/lychee/target/release/deps/libfnv-59e9f19d2cc5b5fe.rmeta --extern futures_core=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_core-a6caab51717e378a.rmeta --extern futures_sink=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_sink-e83f332d65ec1fd7.rmeta --extern http=/tmp/unhusk-local-bench/lychee/target/release/deps/libhttp-aae6c6ac2a3f5951.rmeta --extern indexmap=/tmp/unhusk-local-bench/lychee/target/release/deps/libindexmap-697d2296acf0481d.rmeta --extern slab=/tmp/unhusk-local-bench/lychee/target/release/deps/libslab-71a5e0e7ed51ed2a.rmeta --extern tokio=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio-cd2947e301a705db.rmeta --extern tokio_util=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio_util-683b339b994fd355.rmeta --extern tracing=/tmp/unhusk-local-bench/lychee/target/release/deps/libtracing-f363f5a260bebf56.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `tokio` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name tokio --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(fuzzing)' --check-cfg 'cfg(loom)' --check-cfg 'cfg(mio_unsupported_force_poll_poll)' --check-cfg 'cfg(tokio_allow_from_blocking_fd)' --check-cfg 'cfg(tokio_internal_mt_counters)' --check-cfg 'cfg(tokio_no_parking_lot)' --check-cfg 'cfg(tokio_no_tuning_tests)' --check-cfg 'cfg(tokio_unstable)' --check-cfg 'cfg(target_os, values("cygwin"))' --cfg 'feature="bytes"' --cfg 'feature="default"' --cfg 'feature="fs"' --cfg 'feature="full"' --cfg 'feature="io-std"' --cfg 'feature="io-util"' --cfg 'feature="libc"' --cfg 'feature="macros"' --cfg 'feature="mio"' --cfg 'feature="net"' --cfg 'feature="parking_lot"' --cfg 'feature="process"' --cfg 'feature="rt"' --cfg 'feature="rt-multi-thread"' --cfg 'feature="signal"' --cfg 'feature="signal-hook-registry"' --cfg 'feature="socket2"' --cfg 'feature="sync"' --cfg 'feature="time"' --cfg 'feature="tokio-macros"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("bytes", "default", "fs", "full", "io-std", "io-uring", "io-util", "libc", "macros", "mio", "net", "parking_lot", "process", "rt", "rt-multi-thread", "signal", "signal-hook-registry", "socket2", "sync", "taskdump", "test-util", "time", "tokio-macros", "tracing", "windows-sys"))' -C metadata=81c97ab4a6b21f7e -C extra-filename=-cd2947e301a705db --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern bytes=/tmp/unhusk-local-bench/lychee/target/release/deps/libbytes-130f49657b5a8d2b.rmeta --extern libc=/tmp/unhusk-local-bench/lychee/target/release/deps/liblibc-032d327d572df5e8.rmeta --extern mio=/tmp/unhusk-local-bench/lychee/target/release/deps/libmio-8da8b95dd49e7e4f.rmeta --extern parking_lot=/tmp/unhusk-local-bench/lychee/target/release/deps/libparking_lot-22f926e6783671d9.rmeta --extern pin_project_lite=/tmp/unhusk-local-bench/lychee/target/release/deps/libpin_project_lite-76cf43cb96c9a6f1.rmeta --extern signal_hook_registry=/tmp/unhusk-local-bench/lychee/target/release/deps/libsignal_hook_registry-e55dbf606e1aaacc.rmeta --extern socket2=/tmp/unhusk-local-bench/lychee/target/release/deps/libsocket2-8b073f96c443a62e.rmeta --extern tokio_macros=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio_macros-e9555ab950546eaa.so --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: failed to run custom build command for `ring v0.17.14`
+
+Caused by:
+  process didn't exit successfully: `/tmp/unhusk-local-bench/lychee/target/release/build/ring-017eab68b3012126/build-script-build` (signal: 15, SIGTERM: termination signal)
+  --- stdout
+  cargo:rerun-if-env-changed=CARGO_MANIFEST_DIR
+  cargo:rerun-if-env-changed=CARGO_PKG_NAME
+  cargo:rerun-if-env-changed=CARGO_PKG_VERSION_MAJOR
+  cargo:rerun-if-env-changed=CARGO_PKG_VERSION_MINOR
+  cargo:rerun-if-env-changed=CARGO_PKG_VERSION_PATCH
+  cargo:rerun-if-env-changed=CARGO_PKG_VERSION_PRE
+  cargo:rerun-if-env-changed=CARGO_MANIFEST_LINKS
+  cargo:rerun-if-env-changed=RING_PREGENERATE_ASM
+  cargo:rerun-if-env-changed=OUT_DIR
+  cargo:rerun-if-env-changed=CARGO_CFG_TARGET_ARCH
+  cargo:rerun-if-env-changed=CARGO_CFG_TARGET_OS
+  cargo:rerun-if-env-changed=CARGO_CFG_TARGET_ENV
+  cargo:rerun-if-env-changed=CARGO_CFG_TARGET_ENDIAN
+  OPT_LEVEL = Some(3)
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/ring-ea5000fe493f8a0f/out)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+warning: aws-lc-sys@0.37.0: Environment Variable found 'CARGO_ENCODED_RUSTFLAGS': '--cfgtokio_unstable'
+warning: aws-lc-sys@0.37.0: Emitting configuration: cargo:rustc-cfg=universal
+warning: aws-lc-sys@0.37.0: Building with: CC
+warning: aws-lc-sys@0.37.0: Symbol Prefix: Some("aws_lc_0_37_0")
+warning: aws-lc-sys@0.37.0: Target platform: 'x86_64-unknown-linux-gnu'
+warning: aws-lc-sys@0.37.0: Compilation of 'c11.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-c11/7dfda64fdf5a526c-c11.o"]).
+warning: aws-lc-sys@0.37.0: Using flag: -ffile-prefix-map=/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aws-lc-sys-0.37.0=
+warning: aws-lc-sys@0.37.0: Compilation of 'stdalign_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-stdalign_check/7dfda64fdf5a526c-stdalign_check.o"]).
+warning: aws-lc-sys@0.37.0: Compilation of 'builtin_swap_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-builtin_swap_check/7dfda64fdf5a526c-builtin_swap_check.o"]).
+warning: aws-lc-sys@0.37.0: Compilation of 'linux_random_h.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-linux_random_h/7dfda64fdf5a526c-linux_random_h.o"]).
+error: failed to run custom build command for `aws-lc-sys v0.37.0`
+
+Caused by:
+  process didn't exit successfully: `/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6470c6a43d201067/build-script-main` (signal: 15, SIGTERM: termination signal)
+  --- stdout
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREFIX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREFIX
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREGENERATING_BINDINGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREGENERATING_BINDINGS
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EXTERNAL_BINDGEN_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EXTERNAL_BINDGEN
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_ASM_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_ASM
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CFLAGS
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CFLAGS
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREBUILT_NASM_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREBUILT_NASM
+  cargo:rerun-if-env-changed=AWS_LC_SYS_C_STD_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_C_STD
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CMAKE_BUILDER_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CMAKE_BUILDER
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREGENERATED_SRC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREGENERATED_SRC
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EFFECTIVE_TARGET_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EFFECTIVE_TARGET
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_JITTER_ENTROPY_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_JITTER_ENTROPY
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_U1_BINDINGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_U1_BINDINGS
+  cargo:rerun-if-env-changed=CARGO_ENCODED_RUSTFLAGS
+  cargo:warning=Environment Variable found 'CARGO_ENCODED_RUSTFLAGS': '--cfgtokio_unstable'
+  cargo:warning=Emitting configuration: cargo:rustc-cfg=universal
+  cargo:rustc-cfg=universal
+  cargo:rerun-if-env-changed=AWS_LC_SYS_STATIC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_STATIC
+  cargo:rerun-if-env-changed=CARGO_FEATURE_SSL
+  cargo:warning=Building with: CC
+  cargo:warning=Symbol Prefix: Some("aws_lc_0_37_0")
+  cargo:rerun-if-env-changed=CARGO_FEATURE_SSL
+  cargo:warning=Target platform: 'x86_64-unknown-linux-gnu'
+  cargo:root=/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out
+  OPT_LEVEL = Some(3)
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'c11.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-c11/7dfda64fdf5a526c-c11.o"]).
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CC
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CC
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CXX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CXX
+  cargo:rerun-if-env-changed=CXX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CXX
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Using flag: -ffile-prefix-map=/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aws-lc-sys-0.37.0=
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'stdalign_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-stdalign_check/7dfda64fdf5a526c-stdalign_check.o"]).
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'builtin_swap_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-builtin_swap_check/7dfda64fdf5a526c-builtin_swap_check.o"]).
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'linux_random_h.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-linux_random_h/7dfda64fdf5a526c-linux_random_h.o"]).
+  OPT_LEVEL = Some(3)
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CFLAGS
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+BUILD_FAILED
+=== START lychee repo=https://github.com/lycheeverse/lychee binname=lychee Wednesday 17 June 2026 02:22:22 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/lychee'...
+   Compiling proc-macro2 v1.0.106
+   Compiling unicode-ident v1.0.22
+   Compiling quote v1.0.45
+   Compiling libc v0.2.184
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.7.6
+   Compiling zeroize v1.8.2
+   Compiling smallvec v1.15.1
+   Compiling scopeguard v1.2.0
+   Compiling version_check v0.9.5
+   Compiling parking_lot_core v0.9.12
+   Compiling subtle v2.6.1
+   Compiling serde_core v1.0.228
+   Compiling portable-atomic v1.13.1
+   Compiling bytes v1.11.1
+   Compiling typenum v1.19.0
+   Compiling pin-project-lite v0.2.16
+   Compiling itoa v1.0.17
+   Compiling lock_api v0.4.14
+   Compiling futures-core v0.3.32
+   Compiling const-oid v0.9.6
+   Compiling critical-section v1.2.0
+   Compiling log v0.4.32
+   Compiling generic-array v0.14.9
+   Compiling futures-sink v0.3.32
+   Compiling stable_deref_trait v1.2.1
+   Compiling serde v1.0.228
+   Compiling shlex v1.3.0
+   Compiling find-msvc-tools v0.1.9
+   Compiling slab v0.4.12
+   Compiling futures-channel v0.3.32
+   Compiling futures-io v0.3.32
+   Compiling futures-task v0.3.32
+   Compiling base64ct v1.8.3
+   Compiling thiserror v2.0.18
+   Compiling http v1.4.2
+   Compiling writeable v0.6.2
+   Compiling crossbeam-utils v0.8.21
+   Compiling zmij v1.0.19
+   Compiling equivalent v1.0.2
+   Compiling heck v0.5.0
+   Compiling litemap v0.8.1
+   Compiling zerocopy v0.8.37
+   Compiling dunce v1.0.5
+   Compiling fs_extra v1.3.0
+   Compiling icu_properties_data v2.1.2
+   Compiling pem-rfc7468 v0.7.0
+   Compiling icu_normalizer_data v2.1.1
+   Compiling percent-encoding v2.3.2
+   Compiling der v0.7.10
+   Compiling libm v0.2.16
+   Compiling syn v2.0.117
+   Compiling once_cell v1.21.4
+   Compiling autocfg v1.5.0
+   Compiling tracing-core v0.1.36
+   Compiling foldhash v0.2.0
+   Compiling allocator-api2 v0.2.21
+   Compiling jobserver v0.1.34
+   Compiling base64 v0.22.1
+   Compiling getrandom v0.2.17
+   Compiling errno v0.3.14
+   Compiling mio v1.2.0
+   Compiling signal-hook-registry v1.4.8
+   Compiling socket2 v0.6.3
+   Compiling parking_lot v0.12.5
+   Compiling crypto-common v0.1.6
+   Compiling block-buffer v0.10.4
+   Compiling cc v1.2.55
+   Compiling rand_core v0.6.4
+   Compiling digest v0.10.7
+   Compiling num-traits v0.2.19
+   Compiling hashbrown v0.16.1
+   Compiling aws-lc-rs v1.15.4
+   Compiling powerfmt v0.2.0
+   Compiling num-conv v0.2.0
+   Compiling cpufeatures v0.2.17
+   Compiling spki v0.7.3
+   Compiling time-core v0.1.8
+   Compiling fnv v1.0.7
+   Compiling utf8_iter v1.0.4
+   Compiling deranged v0.5.5
+   Compiling hmac v0.12.1
+   Compiling pkcs8 v0.10.2
+   Compiling time-macros v0.2.27
+   Compiling http-body v1.0.1
+   Compiling form_urlencoded v1.2.2
+   Compiling rustls-pki-types v1.14.0
+   Compiling cmake v0.1.57
+   Compiling bitflags v2.11.1
+   Compiling indexmap v2.13.0
+   Compiling httparse v1.10.1
+   Compiling getrandom v0.3.4
+   Compiling crc32fast v1.5.0
+   Compiling untrusted v0.9.0
+   Compiling aws-lc-sys v0.37.0
+   Compiling siphasher v1.0.2
+   Compiling ipnet v2.11.0
+   Compiling signature v2.2.0
+   Compiling ff v0.13.1
+   Compiling semver v1.0.27
+   Compiling phf_shared v0.13.1
+   Compiling fastrand v2.3.0
+   Compiling simd-adler32 v0.3.8
+   Compiling serde_json v1.0.150
+   Compiling atomic-waker v1.1.2
+   Compiling tower-service v0.3.3
+   Compiling try-lock v0.2.5
+   Compiling base16ct v0.2.0
+   Compiling rustls v0.23.36
+   Compiling adler2 v2.0.1
+   Compiling getrandom v0.4.1
+   Compiling miniz_oxide v0.8.9
+   Compiling phf_generator v0.13.1
+   Compiling sec1 v0.7.3
+   Compiling want v0.3.1
+   Compiling group v0.13.0
+   Compiling num-integer v0.1.46
+   Compiling hkdf v0.12.4
+   Compiling crypto-bigint v0.5.5
+   Compiling time v0.3.47
+   Compiling crossbeam-epoch v0.9.18
+   Compiling spin v0.9.8
+   Compiling unicode-width v0.2.2
+   Compiling flate2 v1.1.9
+   Compiling rand_core v0.9.5
+   Compiling rustc_version v0.4.1
+   Compiling aho-corasick v1.1.4
+   Compiling camino v1.2.2
+   Compiling openssl-probe v0.2.1
+   Compiling compression-core v0.4.31
+   Compiling regex-syntax v0.8.11
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-parse v1.0.0
+   Compiling compression-codecs v0.4.36
+   Compiling curve25519-dalek v4.1.3
+   Compiling rustls-native-certs v0.8.3
+   Compiling synstructure v0.13.2
+   Compiling uuid v1.23.3
+   Compiling string_cache_codegen v0.6.1
+   Compiling phf_codegen v0.13.1
+   Compiling rfc6979 v0.4.0
+   Compiling sha2 v0.10.9
+   Compiling crossbeam-channel v0.5.15
+   Compiling sync_wrapper v1.0.2
+   Compiling cookie v0.18.1
+   Compiling strsim v0.11.1
+   Compiling elliptic-curve v0.13.8
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.13
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.4
+   Compiling ident_case v1.0.1
+   Compiling tower-layer v0.3.3
+   Compiling new_debug_unreachable v1.0.6
+   Compiling num-bigint-dig v0.8.6
+   Compiling anstream v1.0.0
+   Compiling darling_core v0.23.0
+   Compiling web_atoms v0.2.3
+   Compiling primeorder v0.13.6
+   Compiling ecdsa v0.16.9
+   Compiling lazy_static v1.5.0
+   Compiling num-iter v0.1.45
+   Compiling cargo-platform v0.3.2
+   Compiling http-body-util v0.1.3
+   Compiling hashbrown v0.14.5
+   Compiling mime v0.3.17
+   Compiling tinyvec_macros v0.1.1
+   Compiling rustversion v1.0.22
+   Compiling syn v1.0.109
+   Compiling anyhow v1.0.102
+   Compiling iri-string v0.7.10
+   Compiling psl-types v2.0.11
+   Compiling litrs v1.0.0
+   Compiling serde_derive v1.0.228
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.1
+   Compiling tokio-macros v2.7.0
+   Compiling zerovec-derive v0.11.2
+   Compiling displaydoc v0.2.5
+   Compiling futures-macro v0.3.32
+   Compiling tokio v1.52.3
+   Compiling tracing-attributes v0.1.31
+   Compiling zerocopy-derive v0.8.37
+   Compiling thiserror-impl v2.0.18
+   Compiling pin-project-internal v1.1.10
+   Compiling futures-util v0.3.32
+   Compiling zerofrom v0.1.6
+   Compiling regex-automata v0.4.14
+   Compiling yoke v0.8.1
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling zerovec v0.11.5
+   Compiling zerotrie v0.2.3
+   Compiling tracing v0.1.44
+   Compiling pin-project v1.1.10
+   Compiling async-trait v0.1.89
+   Compiling precomputed-hash v0.1.1
+   Compiling string_cache v0.9.0
+   Compiling tinystr v0.8.2
+   Compiling potential_utf v0.1.4
+   Compiling icu_collections v2.1.1
+   Compiling darling_macro v0.23.0
+   Compiling document-features v0.2.12
+   Compiling icu_locale_core v2.1.1
+   Compiling enum-as-inner v0.6.1
+   Compiling tinyvec v1.10.0
+   Compiling phf v0.13.1
+   Compiling crossbeam-deque v0.8.6
+   Compiling num-bigint v0.4.6
+   Compiling ed25519 v2.2.3
+   Compiling icu_provider v2.1.1
+   Compiling cargo_metadata v0.23.1
+   Compiling ring v0.17.14
+   Compiling icu_properties v2.1.2
+   Compiling icu_normalizer v2.1.1
+   Compiling pkcs1 v0.7.5
+   Compiling futures-executor v0.3.32
+   Compiling futures v0.3.32
+   Compiling option-ext v0.2.0
+   Compiling utf-8 v0.7.6
+   Compiling ryu v1.0.22
+   Compiling idna_adapter v1.2.1
+   Compiling tagptr v0.2.0
+   Compiling idna v1.1.0
+   Compiling data-encoding v2.10.0
+   Compiling jetscii v0.5.3
+   Compiling iana-time-zone v0.1.65
+   Compiling clap_lex v1.0.0
+   Compiling url v2.5.8
+   Compiling publicsuffix v2.3.0
+   Compiling clap_builder v4.6.0
+   Compiling chrono v0.4.44
+   Compiling moka v0.12.13
+   Compiling octocrab v0.53.1
+   Compiling tendril v0.5.0
+   Compiling dirs-sys v0.5.0
+   Compiling ppv-lite86 v0.2.21
+   Compiling tokio-util v0.7.18
+   Compiling async-compression v0.4.37
+   Compiling cookie_store v0.22.1
+warning: aws-lc-sys@0.37.0: Environment Variable found 'CARGO_ENCODED_RUSTFLAGS': '--cfgtokio_unstable'
+warning: aws-lc-sys@0.37.0: Emitting configuration: cargo:rustc-cfg=universal
+warning: aws-lc-sys@0.37.0: Building with: CC
+warning: aws-lc-sys@0.37.0: Symbol Prefix: Some("aws_lc_0_37_0")
+warning: aws-lc-sys@0.37.0: Target platform: 'x86_64-unknown-linux-gnu'
+warning: aws-lc-sys@0.37.0: Compilation of 'c11.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-c11/7dfda64fdf5a526c-c11.o"]).
+warning: aws-lc-sys@0.37.0: Using flag: -ffile-prefix-map=/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aws-lc-sys-0.37.0=
+warning: aws-lc-sys@0.37.0: Compilation of 'stdalign_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-stdalign_check/7dfda64fdf5a526c-stdalign_check.o"]).
+warning: aws-lc-sys@0.37.0: Compilation of 'builtin_swap_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-builtin_swap_check/7dfda64fdf5a526c-builtin_swap_check.o"]).
+warning: aws-lc-sys@0.37.0: Compilation of 'linux_random_h.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-linux_random_h/7dfda64fdf5a526c-linux_random_h.o"]).
+error: failed to run custom build command for `aws-lc-sys v0.37.0`
+
+Caused by:
+  process didn't exit successfully: `/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6470c6a43d201067/build-script-main` (signal: 15, SIGTERM: termination signal)
+  --- stdout
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREFIX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREFIX
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREGENERATING_BINDINGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREGENERATING_BINDINGS
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EXTERNAL_BINDGEN_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EXTERNAL_BINDGEN
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_ASM_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_ASM
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CFLAGS
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CFLAGS
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREBUILT_NASM_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_PREBUILT_NASM
+  cargo:rerun-if-env-changed=AWS_LC_SYS_C_STD_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_C_STD
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CMAKE_BUILDER_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CMAKE_BUILDER
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREGENERATED_SRC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_PREGENERATED_SRC
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EFFECTIVE_TARGET_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_EFFECTIVE_TARGET
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_JITTER_ENTROPY_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_JITTER_ENTROPY
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_U1_BINDINGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_NO_U1_BINDINGS
+  cargo:rerun-if-env-changed=CARGO_ENCODED_RUSTFLAGS
+  cargo:warning=Environment Variable found 'CARGO_ENCODED_RUSTFLAGS': '--cfgtokio_unstable'
+  cargo:warning=Emitting configuration: cargo:rustc-cfg=universal
+  cargo:rustc-cfg=universal
+  cargo:rerun-if-env-changed=AWS_LC_SYS_STATIC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_STATIC
+  cargo:rerun-if-env-changed=CARGO_FEATURE_SSL
+  cargo:warning=Building with: CC
+  cargo:warning=Symbol Prefix: Some("aws_lc_0_37_0")
+  cargo:rerun-if-env-changed=CARGO_FEATURE_SSL
+  cargo:warning=Target platform: 'x86_64-unknown-linux-gnu'
+  cargo:root=/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out
+  OPT_LEVEL = Some(3)
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'c11.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-c11/7dfda64fdf5a526c-c11.o"]).
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CC
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CC
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CXX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=AWS_LC_SYS_CXX
+  cargo:rerun-if-env-changed=CXX_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CXX
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Using flag: -ffile-prefix-map=/home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aws-lc-sys-0.37.0=
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'stdalign_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-stdalign_check/7dfda64fdf5a526c-stdalign_check.o"]).
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'builtin_swap_check.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-builtin_swap_check/7dfda64fdf5a526c-builtin_swap_check.o"]).
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:warning=Compilation of 'linux_random_h.c' succeeded - Ok(["/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out/out-linux_random_h/7dfda64fdf5a526c-linux_random_h.o"]).
+  OPT_LEVEL = Some(3)
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=CFLAGS
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  OUT_DIR = Some(/tmp/unhusk-local-bench/lychee/target/release/build/aws-lc-sys-6be4ffee32739b29/out)
+  OPT_LEVEL = Some(3)
+  TARGET = Some(x86_64-unknown-linux-gnu)
+  CARGO_ENCODED_RUSTFLAGS = Some(--cfgtokio_unstable)
+  HOST = Some(x86_64-unknown-linux-gnu)
+  cargo:rerun-if-env-changed=CC_x86_64-unknown-linux-gnu
+  CC_x86_64-unknown-linux-gnu = None
+  cargo:rerun-if-env-changed=CC_x86_64_unknown_linux_gnu
+  CC_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=HOST_CC
+  HOST_CC = None
+  cargo:rerun-if-env-changed=CC
+  CC = None
+  cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+  RUSTC_WRAPPER = None
+  cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+  CRATE_CC_NO_DEFAULTS = None
+  DEBUG = Some(true)
+  CARGO_CFG_TARGET_FEATURE = Some(fxsr,sse,sse2)
+  cargo:rerun-if-env-changed=CFLAGS
+  CFLAGS = None
+  cargo:rerun-if-env-changed=HOST_CFLAGS
+  HOST_CFLAGS = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64_unknown_linux_gnu
+  CFLAGS_x86_64_unknown_linux_gnu = None
+  cargo:rerun-if-env-changed=CFLAGS_x86_64-unknown-linux-gnu
+  CFLAGS_x86_64-unknown-linux-gnu = None
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+  exit status: 0
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `tokio-util` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name tokio_util --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-util-0.7.18/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(fuzzing)' --check-cfg 'cfg(loom)' --check-cfg 'cfg(mio_unsupported_force_poll_poll)' --check-cfg 'cfg(tokio_allow_from_blocking_fd)' --check-cfg 'cfg(tokio_internal_mt_counters)' --check-cfg 'cfg(tokio_no_parking_lot)' --check-cfg 'cfg(tokio_no_tuning_tests)' --check-cfg 'cfg(tokio_unstable)' --check-cfg 'cfg(target_os, values("cygwin"))' --cfg 'feature="codec"' --cfg 'feature="default"' --cfg 'feature="io"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("__docs_rs", "codec", "compat", "default", "full", "futures-io", "futures-util", "hashbrown", "io", "io-util", "join-map", "net", "rt", "slab", "time", "tracing"))' -C metadata=ab6ac102225c853f -C extra-filename=-683b339b994fd355 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern bytes=/tmp/unhusk-local-bench/lychee/target/release/deps/libbytes-130f49657b5a8d2b.rmeta --extern futures_core=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_core-a6caab51717e378a.rmeta --extern futures_sink=/tmp/unhusk-local-bench/lychee/target/release/deps/libfutures_sink-e83f332d65ec1fd7.rmeta --extern pin_project_lite=/tmp/unhusk-local-bench/lychee/target/release/deps/libpin_project_lite-76cf43cb96c9a6f1.rmeta --extern tokio=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio-cd2947e301a705db.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `cookie_store` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name cookie_store --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cookie_store-0.22.1/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="public_suffix"' --cfg 'feature="serde"' --cfg 'feature="serde_json"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "log_secure_cookie_values", "preserve_order", "public_suffix", "serde", "serde_json", "serde_ron", "wasm-bindgen"))' -C metadata=77d4117209376e89 -C extra-filename=-2c7c89f931103369 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern cookie=/tmp/unhusk-local-bench/lychee/target/release/deps/libcookie-5eef51d469dde293.rmeta --extern document_features=/tmp/unhusk-local-bench/lychee/target/release/deps/libdocument_features-4a2ce027a7fbf2fe.so --extern idna=/tmp/unhusk-local-bench/lychee/target/release/deps/libidna-a92d712b51d86faa.rmeta --extern log=/tmp/unhusk-local-bench/lychee/target/release/deps/liblog-05cca97b6fe752af.rmeta --extern publicsuffix=/tmp/unhusk-local-bench/lychee/target/release/deps/libpublicsuffix-e567eebed611352f.rmeta --extern serde=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde-d4c7c637fbbf1d29.rmeta --extern serde_derive=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde_derive-39aac7e9e43d2823.so --extern serde_json=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde_json-9c8b921cb9e1155f.rmeta --extern time=/tmp/unhusk-local-bench/lychee/target/release/deps/libtime-fd09627182fef009.rmeta --extern url=/tmp/unhusk-local-bench/lychee/target/release/deps/liburl-768efb8067e5e51c.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `async-compression` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name async_compression --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/async-compression-0.4.37/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --deny=missing_debug_implementations --deny=rust_2018_idioms --cfg 'feature="gzip"' --cfg 'feature="tokio"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("all", "all-algorithms", "all-implementations", "brotli", "bzip2", "deflate", "deflate64", "futures-io", "gzip", "lz4", "lzma", "tokio", "xz", "xz-parallel", "xz2", "zlib", "zstd", "zstdmt"))' -C metadata=a8e9b27b82235730 -C extra-filename=-f4c460729fbfaaa6 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern compression_codecs=/tmp/unhusk-local-bench/lychee/target/release/deps/libcompression_codecs-6f2d1292d33e3658.rmeta --extern compression_core=/tmp/unhusk-local-bench/lychee/target/release/deps/libcompression_core-d4a49f7efff056e7.rmeta --extern pin_project_lite=/tmp/unhusk-local-bench/lychee/target/release/deps/libpin_project_lite-76cf43cb96c9a6f1.rmeta --extern tokio=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio-cd2947e301a705db.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `ppv-lite86` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name ppv_lite86 --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ppv-lite86-0.2.21/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="simd"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "no_simd", "simd", "std"))' -C metadata=2bdc233db94e0499 -C extra-filename=-e85ae12a4eacef77 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern zerocopy=/tmp/unhusk-local-bench/lychee/target/release/deps/libzerocopy-899542bde6d339e8.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `moka` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name moka --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/moka-0.12.13/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(armv5te)' --check-cfg 'cfg(beta_clippy)' --check-cfg 'cfg(kani)' --check-cfg 'cfg(moka_loom)' --check-cfg 'cfg(mips)' --check-cfg 'cfg(skip_large_mem_tests)' --check-cfg 'cfg(trybuild)' --cfg 'feature="default"' --cfg 'feature="sync"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("async-lock", "atomic64", "default", "event-listener", "future", "futures-util", "log", "logging", "quanta", "sync", "unstable-debug-counters"))' -C metadata=11594fc56c8759cd -C extra-filename=-85521b9f19d50f65 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern crossbeam_channel=/tmp/unhusk-local-bench/lychee/target/release/deps/libcrossbeam_channel-91bc8abf6fe46e23.rmeta --extern crossbeam_epoch=/tmp/unhusk-local-bench/lychee/target/release/deps/libcrossbeam_epoch-7a27c931508b65a4.rmeta --extern crossbeam_utils=/tmp/unhusk-local-bench/lychee/target/release/deps/libcrossbeam_utils-c898f2de3f60f9ef.rmeta --extern equivalent=/tmp/unhusk-local-bench/lychee/target/release/deps/libequivalent-dd46c2f44b40caf7.rmeta --extern parking_lot=/tmp/unhusk-local-bench/lychee/target/release/deps/libparking_lot-22f926e6783671d9.rmeta --extern portable_atomic=/tmp/unhusk-local-bench/lychee/target/release/deps/libportable_atomic-50e57311cbcfff6e.rmeta --extern smallvec=/tmp/unhusk-local-bench/lychee/target/release/deps/libsmallvec-54914cb8ee1ba2de.rmeta --extern tagptr=/tmp/unhusk-local-bench/lychee/target/release/deps/libtagptr-b5c00ea0d65c93f9.rmeta --extern uuid=/tmp/unhusk-local-bench/lychee/target/release/deps/libuuid-d95c4235acd0ffd0.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `clap_builder` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name clap_builder --edition=2024 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clap_builder-4.6.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=rust_2018_idioms '--warn=clippy::zero_sized_map_values' '--warn=clippy::verbose_file_reads' --warn=unused_qualifications --warn=unused_macro_rules --warn=unused_lifetimes --warn=unsafe_op_in_unsafe_fn --warn=unreachable_pub --allow=unnameable_types '--warn=clippy::uninlined_format_args' '--warn=clippy::trait_duplication_in_bounds' '--warn=clippy::todo' '--warn=clippy::string_lit_as_bytes' '--warn=clippy::string_add_assign' '--warn=clippy::semicolon_if_nothing_returned' '--warn=clippy::self_named_module_files' '--warn=clippy::same_functions_in_if_condition' '--allow=clippy::result_large_err' '--warn=clippy::rest_pat_in_fully_bound_structs' '--warn=clippy::ref_option_ref' '--warn=clippy::redundant_feature_names' '--warn=clippy::rc_mutex' '--warn=clippy::ptr_as_ptr' '--warn=clippy::path_buf_push_overwrite' '--warn=clippy::negative_feature_names' '--warn=clippy::needless_for_each' '--allow=clippy::needless_continue' '--warn=clippy::mutex_integer' '--allow=clippy::multiple_bound_locations' '--warn=clippy::mem_forget' '--warn=clippy::macro_use_imports' '--warn=clippy::lossy_float_literal' '--warn=clippy::linkedlist' '--allow=clippy::let_and_return' '--warn=clippy::large_types_passed_by_value' '--warn=clippy::large_stack_arrays' '--warn=clippy::large_digit_groups' '--warn=clippy::invalid_upcast_comparisons' '--warn=clippy::infinite_loop' '--warn=clippy::inefficient_to_string' '--warn=clippy::inconsistent_struct_constructor' '--warn=clippy::imprecise_flops' '--warn=clippy::implicit_clone' '--allow=clippy::if_same_then_else' '--warn=clippy::from_iter_instead_of_collect' '--warn=clippy::fn_params_excessive_bools' '--warn=clippy::float_cmp_const' '--warn=clippy::flat_map_option' '--warn=clippy::filter_map_next' '--warn=clippy::fallible_impl_from' '--warn=clippy::explicit_into_iter_loop' '--warn=clippy::explicit_deref_methods' '--warn=clippy::expl_impl_clone_on_copy' '--warn=clippy::enum_glob_use' '--warn=clippy::empty_enums' '--warn=clippy::doc_markdown' '--warn=clippy::debug_assert_with_mut_call' '--warn=clippy::dbg_macro' '--warn=clippy::create_dir' '--allow=clippy::collapsible_else_if' '--warn=clippy::checked_conversions' '--allow=clippy::branches_sharing_code' '--allow=clippy::bool_assert_comparison' '--allow=clippy::blocks_in_conditions' '--allow=clippy::assigning_clones' --cfg 'feature="cargo"' --cfg 'feature="color"' --cfg 'feature="env"' --cfg 'feature="error-context"' --cfg 'feature="help"' --cfg 'feature="std"' --cfg 'feature="string"' --cfg 'feature="suggestions"' --cfg 'feature="usage"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("cargo", "color", "debug", "default", "deprecated", "env", "error-context", "help", "std", "string", "suggestions", "unicode", "unstable-doc", "unstable-ext", "unstable-styles", "unstable-v5", "usage", "wrap_help"))' -C metadata=95853044927028da -C extra-filename=-63874bfecc6c8578 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern anstream=/tmp/unhusk-local-bench/lychee/target/release/deps/libanstream-e993e5ea2d3e8e14.rmeta --extern anstyle=/tmp/unhusk-local-bench/lychee/target/release/deps/libanstyle-c419d1ad40395c80.rmeta --extern clap_lex=/tmp/unhusk-local-bench/lychee/target/release/deps/libclap_lex-4a7cde3015782a06.rmeta --extern strsim=/tmp/unhusk-local-bench/lychee/target/release/deps/libstrsim-a16577cf6c773f34.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `data-encoding` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name data_encoding --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/data-encoding-2.10.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unused-results --warn=unsafe-op-in-unsafe-fn --warn=unreachable-pub '--warn=clippy::undocumented-unsafe-blocks' --warn=missing-docs --warn=missing-debug-implementations --warn=let-underscore-drop --warn=elided-lifetimes-in-paths --cfg 'feature="alloc"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("alloc", "default", "std"))' -C metadata=faded93825490e53 -C extra-filename=-1ff2bded8c99deb4 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `num-bigint` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name num_bigint --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.4.6/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("arbitrary", "default", "quickcheck", "rand", "serde", "std"))' -C metadata=7dea71f0db2f0ad3 -C extra-filename=-7959588f9d2bc0fb --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern num_integer=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_integer-d67119d1f8833340.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `idna` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name idna --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/idna-1.1.0/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="alloc"' --cfg 'feature="compiled_data"' --cfg 'feature="default"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("alloc", "compiled_data", "default", "std"))' -C metadata=bb398bb6a1bb870b -C extra-filename=-a92d712b51d86faa --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern idna_adapter=/tmp/unhusk-local-bench/lychee/target/release/deps/libidna_adapter-db63b093e36289ac.rmeta --extern smallvec=/tmp/unhusk-local-bench/lychee/target/release/deps/libsmallvec-54914cb8ee1ba2de.rmeta --extern utf8_iter=/tmp/unhusk-local-bench/lychee/target/release/deps/libutf8_iter-95f37e765026d534.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `chrono` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name chrono --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/chrono-0.4.44/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="alloc"' --cfg 'feature="clock"' --cfg 'feature="iana-time-zone"' --cfg 'feature="js-sys"' --cfg 'feature="now"' --cfg 'feature="serde"' --cfg 'feature="std"' --cfg 'feature="wasm-bindgen"' --cfg 'feature="wasmbind"' --cfg 'feature="winapi"' --cfg 'feature="windows-link"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("__internal_bench", "alloc", "arbitrary", "clock", "core-error", "default", "defmt", "iana-time-zone", "js-sys", "libc", "now", "oldtime", "pure-rust-locales", "rkyv", "rkyv-16", "rkyv-32", "rkyv-64", "rkyv-validation", "serde", "std", "unstable-locales", "wasm-bindgen", "wasmbind", "winapi", "windows-link"))' -C metadata=cbd1881de0027431 -C extra-filename=-9c1ec181ffd78002 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern iana_time_zone=/tmp/unhusk-local-bench/lychee/target/release/deps/libiana_time_zone-561bffa425e810ca.rmeta --extern num_traits=/tmp/unhusk-local-bench/lychee/target/release/deps/libnum_traits-bbd2f90d9cdbd87a.rmeta --extern serde=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde-d4c7c637fbbf1d29.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `url` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name url --edition=2018 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/url-2.5.8/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="serde"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("debugger_visualizer", "default", "expose_internals", "serde", "std"))' -C metadata=fe453e300bf53b0f -C extra-filename=-768efb8067e5e51c --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern form_urlencoded=/tmp/unhusk-local-bench/lychee/target/release/deps/libform_urlencoded-1d6bc992b35f1253.rmeta --extern idna=/tmp/unhusk-local-bench/lychee/target/release/deps/libidna-a92d712b51d86faa.rmeta --extern percent_encoding=/tmp/unhusk-local-bench/lychee/target/release/deps/libpercent_encoding-8f390be89014dc11.rmeta --extern serde=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde-d4c7c637fbbf1d29.rmeta --extern serde_derive=/tmp/unhusk-local-bench/lychee/target/release/deps/libserde_derive-39aac7e9e43d2823.so --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `aho-corasick` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name aho_corasick --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aho-corasick-1.1.4/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --cfg 'feature="default"' --cfg 'feature="perf-literal"' --cfg 'feature="std"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("default", "logging", "perf-literal", "std"))' -C metadata=3708dbab058bb007 -C extra-filename=-67e1b7193ecd4f22 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern memchr=/tmp/unhusk-local-bench/lychee/target/release/deps/libmemchr-cb5ddf0237437ac3.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `regex-syntax` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name regex_syntax --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-syntax-0.8.11/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --allow=unexpected_cfgs --check-cfg 'cfg(docsrs_regex)' --cfg 'feature="default"' --cfg 'feature="std"' --cfg 'feature="unicode"' --cfg 'feature="unicode-age"' --cfg 'feature="unicode-bool"' --cfg 'feature="unicode-case"' --cfg 'feature="unicode-gencat"' --cfg 'feature="unicode-perl"' --cfg 'feature="unicode-script"' --cfg 'feature="unicode-segment"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("arbitrary", "default", "std", "unicode", "unicode-age", "unicode-bool", "unicode-case", "unicode-gencat", "unicode-perl", "unicode-script", "unicode-segment"))' -C metadata=a9af2ccfed7b4821 -C extra-filename=-f401b8c1811f1154 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `regex-automata` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name regex_automata --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/regex-automata-0.4.14/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --allow=unexpected_cfgs --check-cfg 'cfg(docsrs_regex)' --cfg 'feature="alloc"' --cfg 'feature="dfa-onepass"' --cfg 'feature="hybrid"' --cfg 'feature="meta"' --cfg 'feature="nfa"' --cfg 'feature="nfa-backtrack"' --cfg 'feature="nfa-pikevm"' --cfg 'feature="nfa-thompson"' --cfg 'feature="perf"' --cfg 'feature="perf-inline"' --cfg 'feature="perf-literal"' --cfg 'feature="perf-literal-multisubstring"' --cfg 'feature="perf-literal-substring"' --cfg 'feature="std"' --cfg 'feature="syntax"' --cfg 'feature="unicode"' --cfg 'feature="unicode-age"' --cfg 'feature="unicode-bool"' --cfg 'feature="unicode-case"' --cfg 'feature="unicode-gencat"' --cfg 'feature="unicode-perl"' --cfg 'feature="unicode-script"' --cfg 'feature="unicode-segment"' --cfg 'feature="unicode-word-boundary"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("alloc", "default", "dfa", "dfa-build", "dfa-onepass", "dfa-search", "hybrid", "internal-instrument", "internal-instrument-pikevm", "logging", "meta", "nfa", "nfa-backtrack", "nfa-pikevm", "nfa-thompson", "perf", "perf-inline", "perf-literal", "perf-literal-multisubstring", "perf-literal-substring", "std", "syntax", "unicode", "unicode-age", "unicode-bool", "unicode-case", "unicode-gencat", "unicode-perl", "unicode-script", "unicode-segment", "unicode-word-boundary"))' -C metadata=d1e15be161ac63ed -C extra-filename=-d9af94d73c6b1ad3 --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern aho_corasick=/tmp/unhusk-local-bench/lychee/target/release/deps/libaho_corasick-67e1b7193ecd4f22.rmeta --extern memchr=/tmp/unhusk-local-bench/lychee/target/release/deps/libmemchr-cb5ddf0237437ac3.rmeta --extern regex_syntax=/tmp/unhusk-local-bench/lychee/target/release/deps/libregex_syntax-f401b8c1811f1154.rmeta --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)
+error: could not compile `tokio` (lib)
+
+Caused by:
+  process didn't exit successfully: `/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-name tokio --edition=2021 /home/user/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type lib --emit=dep-info,metadata,link -C opt-level=3 -C embed-bitcode=no -C debuginfo=2 --warn=unexpected_cfgs --check-cfg 'cfg(fuzzing)' --check-cfg 'cfg(loom)' --check-cfg 'cfg(mio_unsupported_force_poll_poll)' --check-cfg 'cfg(tokio_allow_from_blocking_fd)' --check-cfg 'cfg(tokio_internal_mt_counters)' --check-cfg 'cfg(tokio_no_parking_lot)' --check-cfg 'cfg(tokio_no_tuning_tests)' --check-cfg 'cfg(tokio_unstable)' --check-cfg 'cfg(target_os, values("cygwin"))' --cfg 'feature="bytes"' --cfg 'feature="default"' --cfg 'feature="fs"' --cfg 'feature="full"' --cfg 'feature="io-std"' --cfg 'feature="io-util"' --cfg 'feature="libc"' --cfg 'feature="macros"' --cfg 'feature="mio"' --cfg 'feature="net"' --cfg 'feature="parking_lot"' --cfg 'feature="process"' --cfg 'feature="rt"' --cfg 'feature="rt-multi-thread"' --cfg 'feature="signal"' --cfg 'feature="signal-hook-registry"' --cfg 'feature="socket2"' --cfg 'feature="sync"' --cfg 'feature="time"' --cfg 'feature="tokio-macros"' --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values("bytes", "default", "fs", "full", "io-std", "io-uring", "io-util", "libc", "macros", "mio", "net", "parking_lot", "process", "rt", "rt-multi-thread", "signal", "signal-hook-registry", "socket2", "sync", "taskdump", "test-util", "time", "tokio-macros", "tracing", "windows-sys"))' -C metadata=81c97ab4a6b21f7e -C extra-filename=-cd2947e301a705db --out-dir /tmp/unhusk-local-bench/lychee/target/release/deps -L dependency=/tmp/unhusk-local-bench/lychee/target/release/deps --extern bytes=/tmp/unhusk-local-bench/lychee/target/release/deps/libbytes-130f49657b5a8d2b.rmeta --extern libc=/tmp/unhusk-local-bench/lychee/target/release/deps/liblibc-032d327d572df5e8.rmeta --extern mio=/tmp/unhusk-local-bench/lychee/target/release/deps/libmio-8da8b95dd49e7e4f.rmeta --extern parking_lot=/tmp/unhusk-local-bench/lychee/target/release/deps/libparking_lot-22f926e6783671d9.rmeta --extern pin_project_lite=/tmp/unhusk-local-bench/lychee/target/release/deps/libpin_project_lite-76cf43cb96c9a6f1.rmeta --extern signal_hook_registry=/tmp/unhusk-local-bench/lychee/target/release/deps/libsignal_hook_registry-e55dbf606e1aaacc.rmeta --extern socket2=/tmp/unhusk-local-bench/lychee/target/release/deps/libsocket2-8b073f96c443a62e.rmeta --extern tokio_macros=/tmp/unhusk-local-bench/lychee/target/release/deps/libtokio_macros-e9555ab950546eaa.so --cap-lints allow --cfg tokio_unstable` (signal: 15, SIGTERM: termination signal)

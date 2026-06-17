@@ -1,0 +1,7 @@
+=== START cargo-msrv repo=https://github.com/foresterre/cargo-msrv binname=cargo-msrv Wednesday 17 June 2026 02:26:33 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/cargo-msrv'...
+=== START cargo-msrv repo=https://github.com/foresterre/cargo-msrv binname=cargo-msrv Wednesday 17 June 2026 02:26:33 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/cargo-msrv'...
+    Updating crates.io index
+fatal: shallow file has changed since we read it
+CLONE_FAILED
