@@ -99,3 +99,6 @@
 {"crate":"jnv","binname":"jnv","error":"clone_failed","source":"local"}
 {"crate":"cargo-msrv","binname":"cargo-msrv","error":"clone_failed","source":"local"}
 {"crate":"cargo-msrv","binname":"cargo-msrv","error":"build_failed","source":"local"}
+{"crate":"sad","binname":"sad","error":"build_failed","source":"local"}
+{"crate":"sad","binname":"sad","error":"clone_failed","source":"local"}
+{"crate":"yazi","binname":"yazi","error":"clone_failed","source":"local"}
