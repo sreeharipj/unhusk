@@ -51,3 +51,8 @@ genact:https://github.com/svenstaro/genact:genact
 difftastic:https://github.com/Wilfred/difftastic:difft
 cargo-expand:https://github.com/dtolnay/cargo-expand:cargo-expand
 watchexec-cli:https://github.com/watchexec/watchexec:watchexec
+# Batch 6 — further expansion
+bingrep:https://github.com/m4b/bingrep:bingrep
+choose:https://github.com/theryangeary/choose:choose
+jql:https://github.com/yamafaktory/jql:jql
+cargo-outdated:https://github.com/kbknapp/cargo-outdated:cargo-outdated
