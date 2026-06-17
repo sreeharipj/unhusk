@@ -1,0 +1,21 @@
+=== START sad repo=https://github.com/ms-jpq/sad binname=sad Wednesday 17 June 2026 02:26:34 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/sad'...
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling proc-macro2 v1.0.106
+   Compiling libc v0.2.186
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.45
+   Compiling memchr v2.8.0
+   Compiling rustix v1.1.4
+   Compiling futures-core v0.3.32
+   Compiling bitflags v2.11.1
+   Compiling linux-raw-sys v0.12.1
+   Compiling futures-sink v0.3.32
+   Compiling pin-project-lite v0.2.17
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling futures-task v0.3.32
+   Compiling colorchoice v1.0.5

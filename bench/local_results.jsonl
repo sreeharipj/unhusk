@@ -98,3 +98,4 @@
 {"crate":"jnv","binname":"jnv","error":"build_failed","source":"local"}
 {"crate":"jnv","binname":"jnv","error":"clone_failed","source":"local"}
 {"crate":"cargo-msrv","binname":"cargo-msrv","error":"clone_failed","source":"local"}
+{"crate":"cargo-msrv","binname":"cargo-msrv","error":"build_failed","source":"local"}
