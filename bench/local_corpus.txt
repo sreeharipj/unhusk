@@ -85,3 +85,9 @@ taplo:https://github.com/tamasfe/taplo:taplo
 skim:https://github.com/skim-rs/skim:sk
 cargo-watch:https://github.com/watchexec/cargo-watch:cargo-watch
 miniserve:https://github.com/svenstaro/miniserve:miniserve
+# Batch 13 — interactive TUIs, cargo tools, text processors
+# lychee: SKIP — requires aws-lc-sys (native C build, no cmake)
+jnv:https://github.com/ynqa/jnv:jnv
+cargo-msrv:https://github.com/foresterre/cargo-msrv:cargo-msrv
+sad:https://github.com/ms-jpq/sad:sad
+yazi:https://github.com/sxyazi/yazi:yazi
