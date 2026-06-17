@@ -5,3 +5,52 @@ Cloning into '/tmp/unhusk-local-bench/yazi'...
     Updating git repository `https://github.com/yazi-rs/ratatui.git`
 fatal: shallow file has changed since we read it
 CLONE_FAILED
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded fdlimit v0.3.0
+  Downloaded bcrypt-pbkdf v0.11.0
+  Downloaded md5 v0.8.0
+  Downloaded blowfish v0.10.0
+  Downloaded bon v3.9.2
+  Downloaded ff v0.14.0
+  Downloaded password-hash v0.6.1
+  Downloaded group v0.14.0
+  Downloaded argon2 v0.6.0-rc.8
+  Downloaded phc v0.6.1
+  Downloaded blake2 v0.11.0-rc.6
+  Downloaded ecdsa v0.17.0-rc.18
+  Downloaded ml-kem v0.3.2
+  Downloaded primeorder v0.14.0-rc.10
+  Downloaded signal-hook-tokio v0.4.0
+  Downloaded primefield v0.14.0-rc.10
+  Downloaded russh-cryptovec v0.61.0
+  Downloaded des v0.9.0
+  Downloaded poly1305 v0.9.0
+  Downloaded elliptic-curve v0.14.0-rc.33
+  Downloaded pkcs5 v0.8.0
+  Downloaded ssh-cipher v0.3.0-rc.9
+  Downloaded ssh-encoding v0.3.0-rc.9
+  Downloaded p256 v0.14.0-rc.10
+  Downloaded p384 v0.14.0-rc.10
+  Downloaded quantette v0.6.0
+  Downloaded vergen-gitcl v10.0.0
+  Downloaded bon-macros v3.9.2
+  Downloaded vergen-lib v10.0.0
+  Downloaded ed25519-dalek v3.0.0-rc.0
+  Downloaded vergen v10.0.0
+  Downloaded safe_arch v1.0.0
+  Downloaded p521 v0.14.0-rc.10
+  Downloaded rsa v0.10.0-rc.18
+  Downloaded crypto-primes v0.7.0
+  Downloaded ssh-key v0.7.0-rc.10
+  Downloaded wide v1.5.0
+  Downloaded crypto-bigint v0.7.3
+  Downloaded curve25519-dalek v5.0.0-rc.0
+  Downloaded russh v0.61.2
+  Downloaded yazi-prebuilt v0.1.0
+  Downloaded aes-gcm v0.11.0-rc.4
+error: process didn't exit successfully: `rustc -vV` (exit status: 1)
+--- stderr
+error: Unable to proceed. Could not locate working directory.: No such file or directory (os error 2)
+
+BUILD_FAILED

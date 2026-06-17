@@ -102,3 +102,4 @@
 {"crate":"sad","binname":"sad","error":"build_failed","source":"local"}
 {"crate":"sad","binname":"sad","error":"clone_failed","source":"local"}
 {"crate":"yazi","binname":"yazi","error":"clone_failed","source":"local"}
+{"crate":"yazi","binname":"yazi","error":"build_failed","source":"local"}
