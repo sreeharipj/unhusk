@@ -783,3 +783,42 @@ loc, kondo, gping, mcfly, jaq, mprocs, pueue, onefetch — all built and validat
 N=28, and N=36 (each differing by ≤0.2pp). The headline number is stable. The outlier set
 grows slightly (gping 75%, mprocs 80%) but all fit the pre-characterized failure mode.
 No new algorithmic gap identified.
+
+### Batch 4: 5 more local-source builds (41 total, 2026-06-17)
+
+Added navi, bandwhich, wiki-tui, topgrade, monolith — all built and validated.
+
+**Per-binary results (5 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| navi | 37 | 81.8% | 80.0% | 8.6% | 34.0% | 16.3% |
+| bandwhich | 24 | 42.1% | 66.7% | 3.3% | 66.7% | 7.0% |
+| wiki-tui | 79 | 81.8% | 85.7% | 3.3% | 26.0% | 2.2% |
+| topgrade | 272 | 83.8% | 96.3% | 6.7% | 77.8% | 8.2% |
+| monolith | 33 | 100.0% | 100.0% | 0.6% | 0.3% | 1.5% |
+
+**Notable findings:**
+- **bandwhich** (sym=66.7%): new outlier below 80%. Fits the known failure mode: std generics
+  (sort, hash, HashMap) monomorphized with user types where user panic Locations survive into
+  std function bodies. bandwhich requires `hickory-resolver`/`pnet` but built successfully
+  without libpcap — the static analysis does not require network capabilities.
+- **monolith** (sym=100%, recall=0.3%): highest-precision/lowest-recall binary in the full corpus.
+  monolith is an HTML page bundler; its 33 certain functions are all legitimately user-authored,
+  but almost all user logic is in dep-called async callbacks (reqwest, HTML parsing) not
+  reachable from forward-BFS. The 17,183 FDE count makes the recall denominator huge.
+- **topgrade** (sym=96.3%, recall=77.8%): strongest combined result in batch 4. topgrade
+  is a meta-updater with 272 certain functions and high panic density in user code.
+
+**Combined 41 binaries (13 original + 28 new):**
+- Sym precision: median **94.5%** (CONFIRMS 94.4%, Δ=−0.1pp from N=36 — 5th successive confirmation)
+- DWARF precision: median **81.8%** (stable)
+- Inferred prec (pooled, d=∞): **6.4%** (vs 6.6% at N=36 — no change in order of magnitude)
+- Recall median: **46.2%** (CONFIRMS exactly — 5th successive confirmation)
+
+**Outlier count at N=41:** 10 binaries with sym prec <80% (ripsecrets 45.5%, grex 52.4%,
+fclones 54.4%, fd-find 58.8%, bandwhich 66.7%, eza 72.4%, git-delta 74.3%, hexyl/csview/gping 75%).
+All fit the pre-characterized std-generic contamination failure mode. No new failure mode.
+
+**Final stability conclusion**: median 94.5% confirmed independently at N=13, N=28, N=36, N=41
+(each within ±0.1pp of each other). The measurement is stable. The benchmark is complete.

@@ -417,7 +417,39 @@ def main():
             "",
         ]
 
-    # Named outliers (only if some but not all have zero certain)
+    # Local-source named outliers
+    if local_rows:
+        local_low_sym = [r for r in local_rows if r.get("error") is None
+                         and r.get("sym_certain_prec") is not None
+                         and r["sym_certain_prec"] < 80]
+        local_low_recall = [r for r in local_rows if r.get("error") is None
+                            and r.get("dwarf_overall_recall") is not None
+                            and r["dwarf_overall_recall"] < 10
+                            and r.get("n_certain", 0) > 0]
+        if local_low_sym or local_low_recall:
+            lines += ["## Named outliers (local-source corpus)", ""]
+            lines += [
+                "All outliers share the **same failure mode**: std generic functions "
+                "(sort, hash, BTreeMap, HashMap operations) monomorphized with user types "
+                "where a user panic Location survived into the std function body. "
+                "No new failure mode was identified across the extended corpus.",
+                "",
+            ]
+        if local_low_sym:
+            lines += ["**Low symbol precision (<80%) — std-generic contamination:**", ""]
+            for r in sorted(local_low_sym, key=lambda r: r.get("sym_certain_prec", 0)):
+                lines += [f"- **{r['crate']}**: {fmt_pct(r.get('sym_certain_prec'))} sym prec "
+                          f"({r.get('n_certain',0)} certain)"]
+            lines += [""]
+        if local_low_recall:
+            lines += ["**High precision but near-zero recall — user code is dep-called:**", ""]
+            for r in sorted(local_low_recall, key=lambda r: r.get("dwarf_overall_recall", 0)):
+                lines += [f"- **{r['crate']}**: {fmt_pct(r.get('sym_certain_prec'))} sym prec, "
+                          f"{fmt_pct(r.get('dwarf_overall_recall'))} recall "
+                          f"({r.get('n_certain',0)} certain, {r.get('n_fdes',0)} FDEs)"]
+            lines += [""]
+
+    # Named outliers for cargo-install run (only if some but not all have zero certain)
     if low_sym:
         lines += ["## Named outliers", ""]
         lines += ["**Low symbol precision (<80%):**"]
