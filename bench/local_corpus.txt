@@ -97,3 +97,9 @@ atuin:https://github.com/atuinsh/atuin:atuin
 cargo-semver-checks:https://github.com/obi1kenobi/cargo-semver-checks:cargo-semver-checks
 sheldon:https://github.com/rossmacarthur/sheldon:sheldon
 gitoxide:https://github.com/GitoxideLabs/gitoxide:gix
+# Batch 15 — version managers, cargo tools, async cli
+fnm:https://github.com/Schniz/fnm:fnm
+bacon:https://github.com/Canop/bacon:bacon
+cargo-about:https://github.com/EmbarkStudios/cargo-about:cargo-about
+mise:https://github.com/jdx/mise:mise
+zellij:https://github.com/zellij-org/zellij:zellij
