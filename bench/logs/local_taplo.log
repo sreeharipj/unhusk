@@ -1,0 +1,362 @@
+=== START taplo repo=https://github.com/tamasfe/taplo binname=taplo Wednesday 17 June 2026 02:06:15 PM IST ===
+Cloning into '/tmp/unhusk-local-bench/taplo'...
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded cpufeatures v0.2.12
+  Downloaded async-ctrlc v1.2.0
+  Downloaded futures-sink v0.3.30
+  Downloaded dyn-clone v1.0.16
+  Downloaded countme v3.0.1
+  Downloaded futures-task v0.3.30
+  Downloaded futures-core v0.3.30
+  Downloaded futures-io v0.3.30
+  Downloaded lru v0.11.1
+  Downloaded wasm-bindgen-shared v0.2.100
+  Downloaded thiserror-impl v1.0.57
+  Downloaded sync_wrapper v0.1.2
+  Downloaded serde_spanned v0.6.5
+  Downloaded tower-service v0.3.2
+  Downloaded toml_datetime v0.6.5
+  Downloaded pad v0.1.6
+  Downloaded json_value_merge v2.0.0
+  Downloaded wasm-bindgen-futures v0.4.45
+  Downloaded async-recursion v1.0.5
+  Downloaded tokio-macros v2.2.0
+  Downloaded wasm-bindgen-macro v0.2.100
+  Downloaded text-size v1.1.1
+  Downloaded allocator-api2 v0.2.18
+  Downloaded async-trait v0.1.77
+  Downloaded bytecount v0.6.7
+  Downloaded futures-channel v0.3.30
+  Downloaded futures-executor v0.3.30
+  Downloaded futures-macro v0.3.30
+  Downloaded sct v0.7.1
+  Downloaded serde_derive_internals v0.26.0
+  Downloaded serde_repr v0.1.18
+  Downloaded rustversion v1.0.19
+  Downloaded schemars_derive v0.8.16
+  Downloaded serde-wasm-bindgen v0.6.5
+  Downloaded thiserror v1.0.57
+  Downloaded rustls-pemfile v1.0.4
+  Downloaded wasm-bindgen-backend v0.2.100
+  Downloaded tracing-attributes v0.1.27
+  Downloaded ipnet v2.9.0
+  Downloaded hyper-rustls v0.24.2
+  Downloaded clap_complete v4.5.3
+  Downloaded anyhow v1.0.79
+  Downloaded pin-project-lite v0.2.13
+  Downloaded wasm-bindgen-macro-support v0.2.100
+  Downloaded getrandom v0.2.12
+  Downloaded smallvec v1.13.1
+  Downloaded tokio-rustls v0.24.1
+  Downloaded iso8601 v0.6.1
+  Downloaded wasm-bindgen v0.2.100
+  Downloaded rowan v0.15.15
+  Downloaded codespan-reporting v0.11.1
+  Downloaded futures v0.3.30
+  Downloaded js-sys v0.3.72
+  Downloaded lsp-types v0.93.2
+  Downloaded httparse v1.8.0
+  Downloaded socket2 v0.5.5
+  Downloaded schemars v0.8.16
+  Downloaded uuid v1.7.0
+  Downloaded tracing-core v0.1.32
+  Downloaded unicode-bidi v0.3.15
+  Downloaded figment v0.10.14
+  Downloaded tracing v0.1.40
+  Downloaded prettydiff v0.6.4
+  Downloaded indexmap v2.2.1
+  Downloaded arc-swap v1.6.0
+  Downloaded fraction v0.13.1
+  Downloaded jsonschema v0.17.1
+  Downloaded tokio-util v0.7.11
+  Downloaded reqwest v0.11.27
+  Downloaded rustls-webpki v0.101.7
+  Downloaded tracing-subscriber v0.3.18
+  Downloaded rayon v1.8.1
+  Downloaded h2 v0.3.26
+  Downloaded futures-util v0.3.30
+  Downloaded hyper v0.14.30
+  Downloaded webpki-roots v0.25.4
+  Downloaded rustls v0.21.12
+  Downloaded console_error_panic_hook v0.1.7
+  Downloaded tokio v1.36.0
+  Downloaded ring v0.17.7
+   Compiling unicode-ident v1.0.12
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.44
+   Compiling cfg-if v1.0.0
+   Compiling libc v0.2.161
+   Compiling autocfg v1.1.0
+   Compiling version_check v0.9.4
+   Compiling once_cell v1.20.2
+   Compiling serde v1.0.196
+   Compiling crossbeam-utils v0.8.19
+   Compiling memchr v2.7.1
+   Compiling zerocopy v0.7.32
+   Compiling rayon-core v1.12.1
+   Compiling allocator-api2 v0.2.18
+   Compiling either v1.10.0
+   Compiling itoa v1.0.10
+   Compiling equivalent v1.0.1
+   Compiling pin-project-lite v0.2.13
+   Compiling smallvec v1.13.1
+   Compiling parking_lot_core v0.9.9
+   Compiling futures-core v0.3.30
+   Compiling scopeguard v1.2.0
+   Compiling bytes v1.5.0
+   Compiling futures-sink v0.3.30
+   Compiling tinyvec_macros v0.1.1
+   Compiling ryu v1.0.16
+   Compiling serde_json v1.0.113
+   Compiling ahash v0.8.11
+   Compiling tinyvec v1.6.0
+   Compiling lock_api v0.4.11
+   Compiling num-traits v0.2.19
+   Compiling slab v0.4.9
+   Compiling tracing-core v0.1.32
+   Compiling percent-encoding v2.3.1
+   Compiling futures-channel v0.3.30
+   Compiling pin-utils v0.1.0
+   Compiling form_urlencoded v1.2.1
+   Compiling futures-task v0.3.30
+   Compiling futures-io v0.3.30
+   Compiling syn v1.0.109
+   Compiling unicode-bidi v0.3.15
+   Compiling log v0.4.20
+   Compiling aho-corasick v1.1.2
+   Compiling typenum v1.17.0
+   Compiling crossbeam-epoch v0.9.18
+   Compiling untrusted v0.9.0
+   Compiling cc v1.0.83
+   Compiling regex-syntax v0.8.5
+   Compiling syn v2.0.117
+   Compiling spin v0.9.8
+   Compiling crossbeam-deque v0.8.5
+   Compiling generic-array v0.14.7
+   Compiling fnv v1.0.7
+   Compiling wasm-bindgen-shared v0.2.100
+   Compiling http v0.2.12
+   Compiling unicode-normalization v0.1.22
+   Compiling memoffset v0.9.0
+   Compiling num-integer v0.1.46
+   Compiling httparse v1.8.0
+   Compiling rustls v0.21.12
+   Compiling num-conv v0.1.0
+   Compiling bumpalo v3.14.0
+   Compiling num-bigint v0.4.6
+   Compiling getrandom v0.2.12
+   Compiling socket2 v0.5.5
+   Compiling rayon v1.8.1
+   Compiling num_cpus v1.16.0
+   Compiling parking_lot v0.12.1
+   Compiling mio v0.8.11
+   Compiling ring v0.17.7
+   Compiling idna v0.5.0
+   Compiling time-core v0.1.2
+   Compiling lazy_static v1.4.0
+   Compiling anyhow v1.0.79
+   Compiling powerfmt v0.2.0
+   Compiling try-lock v0.2.5
+   Compiling want v0.3.1
+   Compiling time-macros v0.2.18
+   Compiling http-body v0.4.6
+   Compiling regex-automata v0.4.5
+   Compiling num-iter v0.1.45
+   Compiling num-complex v0.4.6
+   Compiling async-trait v0.1.77
+   Compiling num-rational v0.4.2
+   Compiling utf8parse v0.2.2
+   Compiling schemars v0.8.16
+   Compiling rustversion v1.0.19
+   Compiling text-size v1.1.1
+   Compiling bit-vec v0.6.3
+   Compiling rustc-hash v1.1.0
+   Compiling regex-syntax v0.6.29
+   Compiling minimal-lexical v0.2.1
+   Compiling beef v0.5.2
+   Compiling thiserror v1.0.57
+   Compiling tower-service v0.3.2
+   Compiling base64 v0.21.7
+   Compiling httpdate v1.0.3
+   Compiling serde_derive_internals v0.26.0
+   Compiling countme v3.0.1
+   Compiling nom v7.1.3
+   Compiling bit-set v0.5.3
+   Compiling num v0.4.3
+   Compiling anstyle-parse v0.2.6
+   Compiling wasm-bindgen-backend v0.2.100
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.6
+   Compiling bstr v1.9.0
+   Compiling uncased v0.9.10
+   Compiling dyn-clone v1.0.16
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling anstyle v1.0.10
+   Compiling semver v1.0.21
+   Compiling anstyle-query v1.1.1
+   Compiling colorchoice v1.0.3
+   Compiling wasm-bindgen v0.2.100
+   Compiling overload v0.1.1
+   Compiling nu-ansi-term v0.46.0
+   Compiling anstream v0.6.15
+   Compiling digest v0.10.7
+   Compiling fraction v0.13.1
+   Compiling regex-automata v0.1.10
+   Compiling wasm-bindgen-macro-support v0.2.100
+   Compiling regex v1.10.3
+   Compiling globset v0.4.14
+   Compiling schemars_derive v0.8.16
+   Compiling logos-derive v0.12.1
+   Compiling rustls-pemfile v1.0.4
+   Compiling sharded-slab v0.1.7
+   Compiling iso8601 v0.6.1
+   Compiling serde_derive v1.0.196
+   Compiling tracing-attributes v0.1.27
+   Compiling futures-macro v0.3.30
+   Compiling tokio-macros v2.2.0
+   Compiling thiserror-impl v1.0.57
+   Compiling matchers v0.1.0
+   Compiling wasm-bindgen-macro v0.2.100
+   Compiling futures-util v0.3.30
+   Compiling tokio v1.36.0
+   Compiling fancy-regex v0.11.0
+   Compiling logos v0.12.1
+   Compiling tracing v0.1.40
+   Compiling serde_repr v0.1.18
+   Compiling tracing-log v0.2.0
+   Compiling figment v0.10.14
+   Compiling itertools v0.10.5
+   Compiling thread_local v1.1.7
+   Compiling encoding_rs v0.8.34
+   Compiling sync_wrapper v0.1.2
+   Compiling bytecount v0.6.7
+   Compiling unicode-width v0.1.11
+   Compiling ipnet v2.9.0
+   Compiling winnow v0.5.40
+   Compiling strsim v0.11.1
+   Compiling bitflags v1.3.2
+   Compiling arc-swap v1.6.0
+   Compiling mime v0.3.17
+   Compiling heck v0.5.0
+   Compiling webpki-roots v0.25.4
+   Compiling uuid v1.7.0
+   Compiling num-cmp v0.1.0
+   Compiling bitflags v2.4.2
+   Compiling sct v0.7.1
+   Compiling rustls-webpki v0.101.7
+   Compiling clap_lex v0.7.4
+   Compiling cpufeatures v0.2.12
+   Compiling sha1 v0.10.6
+   Compiling nix v0.27.1
+   Compiling clap_derive v4.5.28
+   Compiling futures-executor v0.3.30
+   Compiling clap_builder v4.5.31
+   Compiling tracing-subscriber v0.3.18
+   Compiling futures v0.3.30
+   Compiling async-recursion v1.0.5
+   Compiling tap v1.0.1
+   Compiling hex v0.4.3
+   Compiling glob v0.3.1
+   Compiling pad v0.1.6
+   Compiling ansi_term v0.12.1
+   Compiling termcolor v1.4.1
+   Compiling prettydiff v0.6.4
+   Compiling codespan-reporting v0.11.1
+   Compiling url v2.5.0
+   Compiling tokio-util v0.7.11
+   Compiling deranged v0.3.11
+   Compiling hashbrown v0.14.3
+   Compiling serde_spanned v0.6.5
+   Compiling serde_urlencoded v0.7.1
+   Compiling toml_datetime v0.6.5
+   Compiling ctrlc v3.4.2
+   Compiling js-sys v0.3.72
+   Compiling async-ctrlc v1.2.0
+   Compiling console_error_panic_hook v0.1.7
+   Compiling indexmap v2.2.1
+   Compiling rowan v0.15.15
+   Compiling lru v0.11.1
+   Compiling time v0.3.36
+   Compiling tokio-rustls v0.24.1
+   Compiling clap v4.5.31
+   Compiling clap_complete v4.5.3
+   Compiling h2 v0.3.26
+   Compiling toml_edit v0.19.15
+   Compiling json_value_merge v2.0.0
+   Compiling jsonschema v0.17.1
+   Compiling lsp-types v0.93.2
+   Compiling wasm-bindgen-futures v0.4.45
+   Compiling toml v0.7.8
+   Compiling serde-wasm-bindgen v0.6.5
+   Compiling taplo v0.14.0 (/tmp/unhusk-local-bench/taplo/crates/taplo)
+   Compiling hyper v0.14.30
+   Compiling hyper-rustls v0.24.2
+   Compiling reqwest v0.11.27
+warning: method `syntax` is never used
+    --> crates/taplo/src/formatter/mod.rs:1216:8
+     |
+1215 | trait FormattedItem {
+     |       ------------- method in this trait
+1216 |     fn syntax(&self) -> SyntaxElement;
+     |        ^^^^^^
+     |
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling taplo-common v0.6.0 (/tmp/unhusk-local-bench/taplo/crates/taplo-common)
+   Compiling lsp-async-stub v0.7.0 (/tmp/unhusk-local-bench/taplo/crates/lsp-async-stub)
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/taplo-common/src/util.rs:111:32
+    |
+111 | pub(crate) fn normalize_str(s: &str) -> Cow<str> {
+    |                                ^^^^     ^^^^^^^^ the same lifetime is hidden here
+    |                                |
+    |                                the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+111 | pub(crate) fn normalize_str(s: &str) -> Cow<'_, str> {
+    |                                             +++
+
+warning: method `method` is never used
+  --> crates/lsp-async-stub/src/handler.rs:11:8
+   |
+10 | pub(crate) trait Handler<W: Clone> {
+   |                  ------- method in this trait
+11 |     fn method(&self) -> &'static str;
+   |        ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> crates/lsp-async-stub/src/lib.rs:70:19
+   |
+70 |     pub fn as_err(&mut self) -> CancelTokenErr {
+   |                   ^^^^^^^^^     ^^^^^^^^^^^^^^ the same lifetime is hidden here
+   |                   |
+   |                   the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+70 |     pub fn as_err(&mut self) -> CancelTokenErr<'_> {
+   |                                               ++++
+
+warning: `lsp-async-stub` (lib) generated 2 warnings (run `cargo fix --lib -p lsp-async-stub` to apply 1 suggestion)
+warning: `taplo-common` (lib) generated 1 warning (run `cargo fix --lib -p taplo-common` to apply 1 suggestion)
+warning: `taplo` (lib) generated 1 warning
+   Compiling taplo-lsp v0.8.0 (/tmp/unhusk-local-bench/taplo/crates/taplo-lsp)
+   Compiling taplo-cli v0.10.0 (/tmp/unhusk-local-bench/taplo/crates/taplo-cli)
+   Compiling taplo-wasm v0.2.1 (/tmp/unhusk-local-bench/taplo/crates/taplo-wasm)
+    Finished `release` profile [optimized + debuginfo] target(s) in 3m 12s
+file: /tmp/unhusk-local-bench/taplo/target/release/taplo: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=3982a8c9d48fcb2d1e4f32a475ce92bfab2a056c, with debug_info, not stripped
+bin_size: 11848320 bytes
+metrics: {"n_fdes": 11878, "n_certain": 224, "n_call_closure": 1619, "n_locations": 606, "dwarf_certain_n": 224, "dwarf_certain_tp": 159, "dwarf_certain_fp": 15, "dwarf_certain_prec": 91.4, "dwarf_inferred_n": 1290, "dwarf_inferred_tp": 843, "dwarf_inferred_fp": 300, "dwarf_inferred_prec": 73.8, "dwarf_certain_prec_hl": 91.4, "dwarf_certain_recall": 3.0, "dwarf_overall_recall": 18.9, "sym_user": 210, "sym_std": 5, "sym_dep": 2, "sym_unknown": 7, "sym_certain_prec": 96.77, "n_certain_addrs_parsed": 224}
+d1: inf_prec=85.5 recall=13.5
+d2: inf_prec=79.5 recall=16.8
+perf: wall=0.31s rss=26184kb
+APPENDED: {"n_fdes": 11878, "n_certain": 224, "n_call_closure": 1619, "n_locations": 606, "dwarf_certain_n": 224, "dwarf_certain_tp": 159, "dwarf_certain_fp": 15, "dwarf_certain_prec": 91.4, "dwarf_inferred_n": 1290, "dwarf_inferred_tp": 843, "dwarf_inferred_fp": 300, "dwarf_inferred_prec": 73.8, "dwarf_certain_prec_hl": 91.4, "dwarf_certain_recall": 3.0, "dwarf_overall_recall": 18.9, "sym_user": 210, "sym_std": 5, "sym_dep": 2, "sym_unknown": 7, "sym_certain_prec": 96.77, "n_certain_addrs_parsed": 224, "crate": "taplo", "binname": "taplo", "bin_size": 11848320, "d1_inf_prec": 85.5, "d1_recall": 13.5, "d2_inf_prec": 79.5, "d2_recall": 16.8, "wall_sec": 0.31, "peak_rss_kb": 26184, "source": "local"}
+=== END taplo Wednesday 17 June 2026 02:09:32 PM IST status=ok ===
