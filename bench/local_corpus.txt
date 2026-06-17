@@ -70,3 +70,7 @@ felix:https://github.com/kyoheiu/felix:felix
 viu:https://github.com/atanunq/viu:viu
 oha:https://github.com/hatoo/oha:oha
 cargo-audit:https://github.com/rustsec/rustsec:cargo-audit
+# Batch 10 — further expansion
+binsider:https://github.com/orhun/binsider:binsider
+numbat:https://github.com/sharkdp/numbat:numbat
+cargo-geiger:https://github.com/geiger-rs/cargo-geiger:cargo-geiger
