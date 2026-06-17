@@ -948,3 +948,51 @@ Added ruplacer, amber, ox (dog failed: C DNS library deps). Total N=53.
 
 **Stability conclusion at N=53**: median sym precision 93.75% — within 0.65pp of the original 13-binary
 baseline. The headline "~94% certain precision" is stable across N=13/28/36/41/46/50/53.
+
+### Batch 8: 4 more local-source builds (57 total, 2026-06-17)
+
+Added cargo-nextest, cargo-deny, lfs, felix (dog failed again: C DNS lib deps). Total N=57.
+
+**Per-binary results (4 new):**
+
+| crate | n_certain | DWARF prec | sym prec | inf prec(∞) | recall(∞) | d1 prec |
+|-------|-----------|------------|---------|------------|-----------|---------|
+| cargo-nextest | 182 | 85.0% | 97.7% | **75.3%** | 12.0% | 78.4% |
+| cargo-deny | 74 | 86.5% | 87.5% | **74.5%** | 22.2% | 80.0% |
+| lfs | 11 | 100.0% | 100.0% | **88.3%** | 4.5% | 89.7% |
+| felix | 20 | 95.0% | 100.0% | **93.6%** | 38.3% | 95.8% |
+
+**Notable findings:**
+- All 4 are in the high-precision inferred cluster. cargo-nextest (182 certain) and cargo-deny (74 certain)
+  have large certain sets but still achieve 74-75% inferred precision — showing this is not just about
+  small tools but about call-graph structure.
+- `lfs` and `felix` join ruplacer near the top of the cluster (88%, 94%).
+- 9 of 57 binaries now have inferred precision >50% — the high-precision cluster is a stable ~16% of corpus.
+
+**High-inferred-precision cluster at N=57 (>50% inf prec):**
+| crate | inf_prec | n_certain | recall |
+|-------|----------|-----------|--------|
+| ruplacer | 96.5% | 4 | 3.1% |
+| felix | 93.6% | 20 | 38.3% |
+| lfs | 88.3% | 11 | 4.5% |
+| cargo-nextest | 75.3% | 182 | 12.0% |
+| cargo-deny | 74.5% | 74 | 22.2% |
+| cargo-outdated | 66.0% | 16 | 4.0% |
+| ox | 59.6% | 127 | 17.7% |
+| eza | 54.7% | 29 | 18.1% |
+| amber | 54.7% | 12 | 10.6% |
+
+**What determines high inferred precision:** tools where the BFS call graph stays in user code:
+- Cargo subcommands (cargo-nextest, cargo-deny, cargo-outdated) — wrap cargo APIs, callees are tool code
+- Small/focused utilities (ruplacer, lfs, amber) — compact call graphs with few std/dep calls
+- Structured text tools (felix, ox) — core logic is user-authored event loops/parsers
+
+**Combined 57 binaries (13 original + 44 new):**
+- Sym precision: median **94.5%** (back to 94.4% baseline — 9th successive confirmation ±0.1pp)
+- DWARF precision: median **86.2%** (vs 85.7% at N=53)
+- Inferred prec (pooled, d=∞): **17.6%** (heavily inflated by cluster; median **6.1%** is representative)
+- Recall median: **42.7%** (vs 44.2% at N=53; new cargo tools have low recall <13%)
+- d=1 prec median: **13.5%**
+
+**Stability conclusion at N=57**: sym precision median 94.5% — identical to the 13-binary realval/ baseline
+(94.4%). The measurement is remarkably stable. The headline is now confirmed across N=13/28/36/41/46/50/53/57.

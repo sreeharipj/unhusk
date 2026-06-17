@@ -1,0 +1,74 @@
+[SKIP] pastel
+[SKIP] zoxide
+[SKIP] hexyl
+[SKIP] hyperfine
+[SKIP] sd
+[SKIP] du-dust
+[SKIP] grex
+[SKIP] xsv
+[SKIP] tokei
+[SKIP] just
+[SKIP] fd-find
+[SKIP] bat
+[SKIP] ripgrep
+[SKIP] ripsecrets
+[SKIP] htmlq
+[SKIP] csview
+[SKIP] tealdeer
+[SKIP] dua-cli
+[SKIP] ouch
+[SKIP] procs
+[SKIP] fclones
+[SKIP] xh
+[SKIP] lsd
+[SKIP] eza
+[SKIP] hgrep
+[SKIP] git-delta
+[SKIP] bottom
+[SKIP] broot
+[SKIP] loc
+[SKIP] kondo
+[SKIP] gping
+[SKIP] mcfly
+[SKIP] jaq
+[SKIP] mprocs
+[SKIP] pueue
+[SKIP] onefetch
+[SKIP] navi
+[SKIP] bandwhich
+[SKIP] wiki-tui
+[SKIP] topgrade
+[SKIP] monolith
+[SKIP] typos-cli
+[SKIP] genact
+[SKIP] difftastic
+[SKIP] cargo-expand
+[SKIP] watchexec-cli
+[SKIP] bingrep
+[SKIP] choose
+[SKIP] jql
+[SKIP] cargo-outdated
+[RUN] dog ...
+[FAIL] dog
+[SKIP] ruplacer
+[SKIP] amber
+[SKIP] ox
+[RUN] cargo-nextest ...
+[OK]   cargo-nextest
+[RUN] cargo-deny ...
+[OK]   cargo-deny
+[CHECKPOINT] 3 done
+[bench-20260616 e30d7d5] bench: local-source checkpoint (70 results)
+ 5 files changed, 782 insertions(+)
+ create mode 100644 bench/logs/local_cargo-deny.log
+ create mode 100644 bench/logs/local_cargo-nextest.log
+[RUN] lfs ...
+[OK]   lfs
+[RUN] felix ...
+[OK]   felix
+
+=== DONE: processed=5, results=72 ===
+[bench-20260616 945b41d] bench: local-source run complete (72 results)
+ 3 files changed, 307 insertions(+)
+ create mode 100644 bench/logs/local_felix.log
+ create mode 100644 bench/logs/local_lfs.log
