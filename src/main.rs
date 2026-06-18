@@ -136,6 +136,15 @@ fn main() -> Result<()> {
         }
     }
 
+    // DIAGNOSTIC (env-gated): dump every FDE-backed function address so callers
+    // can build a symbol-based recall denominator.
+    // Format: ALLFNS\t0xADDR  (one line per function, all attributions)
+    if std::env::var_os("UNHUSK_DUMP_ALL_FNS").is_some() {
+        for f in &attributed {
+            println!("ALLFNS\t0x{:x}", f.start);
+        }
+    }
+
     // DIAGNOSTIC (env-gated): dump, for each certain function, the distinct
     // Location-provenance edge counts (user/std/dep/unknown) the scan saw, plus
     // its DWARF ground-truth label.  Exposes existing data only; does not change
