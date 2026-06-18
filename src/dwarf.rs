@@ -314,10 +314,15 @@ pub struct ValidationReport {
     pub certain: BucketMetrics,
     pub inferred: BucketMetrics,
     pub indeterminate: BucketMetrics,
+    /// Precision metrics for the certain_by_backtrace bucket (flag-gated).
+    pub backtrace: BucketMetrics,
     pub dwarf_user_in_certain: usize,
     pub dwarf_user_in_inferred: usize,
     pub dwarf_user_in_indeterminate: usize,
     pub dwarf_user_in_library: usize,
+    /// DWARF-user functions in backtrace that are NOT already in certain or inferred.
+    /// This is the marginal recall gain from the backward BFS.
+    pub dwarf_user_in_backtrace_only: usize,
     /// DWARF-user functions that fell into each bucket: (addr, source_path).
     pub dwarf_user_certain_list: Vec<(u64, String)>,
     pub dwarf_user_inferred_list: Vec<(u64, String)>,
@@ -329,6 +334,7 @@ impl ValidationReport {
     pub fn compute(
         attributed: &[crate::classify::AttributedFn],
         ground_truth: &DwarfGroundTruth,
+        backtrace: &std::collections::HashSet<u64>,
     ) -> Self {
         use crate::classify::Attribution;
         use std::collections::HashSet;
@@ -404,16 +410,36 @@ impl ValidationReport {
         dwarf_user_indeterminate_list.sort_by_key(|(a, _)| *a);
         dwarf_user_library_list.sort_by_key(|(a, _)| *a);
 
+        // ── Score certain_by_backtrace bucket ────────────────────────────────
+        let mut bt = BucketMetrics::default();
+        let mut dwarf_user_in_backtrace_only = 0usize;
+        for &addr in backtrace {
+            bt.predicted += 1;
+            match ground_truth.get(&addr) {
+                Some((Origin::User, _)) => {
+                    bt.true_positive += 1;
+                    // Marginal recall: user AND not already captured by certain/inferred.
+                    if !certain_addrs.contains(&addr) && !inferred_addrs.contains(&addr) {
+                        dwarf_user_in_backtrace_only += 1;
+                    }
+                }
+                Some(_) => bt.false_positive += 1,
+                None => bt.dwarf_unknown += 1,
+            }
+        }
+
         ValidationReport {
             dwarf_total,
             dwarf_user_total,
             certain,
             inferred,
             indeterminate,
+            backtrace: bt,
             dwarf_user_in_certain,
             dwarf_user_in_inferred,
             dwarf_user_in_indeterminate,
             dwarf_user_in_library,
+            dwarf_user_in_backtrace_only,
             dwarf_user_certain_list,
             dwarf_user_inferred_list,
             dwarf_user_indeterminate_list,

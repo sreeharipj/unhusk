@@ -322,7 +322,7 @@ fn certain_precision_never_drops_below_100_pct() {
 
     let unstripped = elf::ParsedElf::load(Path::new(UNSTRIPPED)).unwrap();
     let ground_truth = dwarf::read_function_sources(&unstripped, &fn_map);
-    let report = dwarf::ValidationReport::compute(&attributed, &ground_truth);
+    let report = dwarf::ValidationReport::compute(&attributed, &ground_truth, &std::collections::HashSet::new());
 
     // If there are certain predictions, every one must be a true positive.
     if let Some(prec) = report.certain.precision() {
