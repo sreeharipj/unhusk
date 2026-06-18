@@ -31,6 +31,13 @@ struct Args {
     #[arg(long, value_name = "N")]
     infer_depth: Option<usize>,
 
+    /// Walk backward from certain functions up to N hops via the reverse call graph.
+    /// Finds callers-of-certain-callers that have no direct panic evidence.
+    /// Results go into a strictly separate low-confidence bucket (certain_by_backtrace).
+    /// Default 0 = off. Use --validate to measure precision of the backtrace bucket.
+    #[arg(long, value_name = "N", default_value = "0")]
+    backtrace_depth: usize,
+
     /// Recover struct/field names from #[derive(Debug)] artifacts in .rodata/.data.rel.ro.
     /// Outputs three tiers: user (cross-ref confirms), non-std, std.
     #[arg(long)]
@@ -60,8 +67,28 @@ fn main() -> Result<()> {
         &scan.dep_boundary,
         args.infer_depth,
     );
-    let score = unhusk::classify::Score::from(&attributed);
-    unhusk::report::print_phase2_report(&elf, &attributed, &score, &locations, &scan.certain_locs, args.show_call_closure);
+    let mut score = unhusk::classify::Score::from(&attributed);
+
+    // Backward BFS: callers of certain functions (flag-gated, default off).
+    let backtrace: std::collections::HashSet<u64> = if args.backtrace_depth > 0 {
+        let rev = unhusk::classify::build_rev_call_graph(&scan.calls);
+        let bt = unhusk::classify::backtrace_walk(
+            &fn_map,
+            &scan.certain,
+            &rev,
+            &scan.dep_boundary,
+            args.backtrace_depth,
+        );
+        score.certain_by_backtrace = bt.len();
+        bt
+    } else {
+        std::collections::HashSet::new()
+    };
+
+    unhusk::report::print_phase2_report(
+        &elf, &attributed, &score, &locations, &scan.certain_locs,
+        args.show_call_closure, &backtrace, args.backtrace_depth,
+    );
 
     // Optional type-name recovery from #[derive(Debug)] artifacts.
     if args.types {
@@ -73,7 +100,7 @@ fn main() -> Result<()> {
     let ground_truth = if let Some(ref unstripped_path) = args.validate {
         let unstripped = unhusk::elf::ParsedElf::load(unstripped_path)?;
         let gt = unhusk::dwarf::read_function_sources(&unstripped, &fn_map);
-        let report = unhusk::dwarf::ValidationReport::compute(&attributed, &gt);
+        let report = unhusk::dwarf::ValidationReport::compute(&attributed, &gt, &backtrace);
         unhusk::report::print_validation_report(&report);
         Some(gt)
     } else {

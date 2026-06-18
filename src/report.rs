@@ -146,6 +146,8 @@ pub fn print_phase2_report(
     locations: &[crate::locate::PanicLocation],
     certain_locs: &crate::xref::CertainLocs,
     show_call_closure: bool,
+    backtrace: &std::collections::HashSet<u64>,
+    backtrace_depth: usize,
 ) {
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
@@ -235,6 +237,33 @@ pub fn print_phase2_report(
         }
     }
 
+    // certain_by_backtrace — backward-reachable callers (low confidence, flag-gated).
+    if backtrace_depth > 0 && !backtrace.is_empty() {
+        const MAX_SHOWN: usize = 20;
+        println!();
+        println!("certain_by_backtrace — backward-reachable callers, low confidence ({}):", backtrace.len());
+        println!("  depth: {}  |  no direct panic evidence — use --validate to measure precision", backtrace_depth);
+        // attributed is sorted by start; build a quick addr→end map for display.
+        let end_by_start: std::collections::HashMap<u64, u64> =
+            attributed.iter().map(|f| (f.start, f.end)).collect();
+        let mut sorted_bt: Vec<u64> = backtrace.iter().cloned().collect();
+        sorted_bt.sort_unstable();
+        let show = sorted_bt.len().min(MAX_SHOWN);
+        for &addr in &sorted_bt[..show] {
+            if let Some(&end) = end_by_start.get(&addr) {
+                println!(
+                    "  0x{:08x}–0x{:08x}  ({} bytes)",
+                    addr, end, end.saturating_sub(addr),
+                );
+            } else {
+                println!("  0x{:08x}", addr);
+            }
+        }
+        if sorted_bt.len() > MAX_SHOWN {
+            println!("  … {} more", sorted_bt.len() - MAX_SHOWN);
+        }
+    }
+
     println!();
     println!("phase 2 complete.");
 }
@@ -260,9 +289,12 @@ pub fn print_validation_report(report: &ValidationReport) {
         );
     };
 
-    fmt_bucket("certain",       &report.certain);
-    fmt_bucket("inferred",      &report.inferred);
-    fmt_bucket("indeterminate", &report.indeterminate);
+    fmt_bucket("certain",              &report.certain);
+    fmt_bucket("inferred",             &report.inferred);
+    fmt_bucket("indeterminate",        &report.indeterminate);
+    if report.backtrace.predicted > 0 {
+        fmt_bucket("backtrace (low-conf)", &report.backtrace);
+    }
 
     println!();
     println!("── Recall (where do DWARF-first-party functions land?) ─────────────────");
@@ -274,6 +306,9 @@ pub fn print_validation_report(report: &ValidationReport) {
     fmt_recall("inferred         (call-graph reach)", report.dwarf_user_in_inferred);
     fmt_recall("indeterminate    (shared/mixed callers)", report.dwarf_user_in_indeterminate);
     fmt_recall("library          (MISSED)", report.dwarf_user_in_library);
+    if report.backtrace.predicted > 0 {
+        fmt_recall("backtrace-only   (backward-reach, NEW)", report.dwarf_user_in_backtrace_only);
+    }
 
     // Per-bucket DWARF-user function lists for diagnostic detail.
     let print_fn_list = |label: &str, list: &[(u64, String)]| {
@@ -298,6 +333,13 @@ pub fn print_validation_report(report: &ValidationReport) {
     println!();
     println!("  total captured : {:>5}  ({:.1}% of {} DWARF-user fns)",
         captured, pct(captured, u), u);
+    if report.backtrace.predicted > 0 {
+        let with_bt = captured + report.dwarf_user_in_backtrace_only;
+        println!("  +backtrace     : {:>5}  ({:.1}%)  (+{}pp recall gain, {} new fns)",
+            with_bt, pct(with_bt, u),
+            format!("{:.1}", pct(with_bt, u) - pct(captured, u)),
+            report.dwarf_user_in_backtrace_only);
+    }
     println!("  total missed   : {:>5}  ({:.1}%)",
         report.dwarf_user_in_library, pct(report.dwarf_user_in_library, u));
 
