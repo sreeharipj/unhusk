@@ -107,6 +107,35 @@ fn main() -> Result<()> {
         None
     };
 
+    // DIAGNOSTIC (env-gated): dump every certain/inferred/backtrace function address
+    // with its DWARF ground-truth label.  Used by realval/backtrace_sweep.py to
+    // compute marginal precision without re-scanning.
+    // Format: ATTRDUMP\t0xADDR\tbucket\tDWARF_LABEL  (TP / FP / UNK)
+    if std::env::var_os("UNHUSK_DUMP_ATTRS").is_some() {
+        use unhusk::strings::Origin;
+        for f in &attributed {
+            let bucket = match f.attribution {
+                unhusk::classify::Attribution::Certain    => "certain",
+                unhusk::classify::Attribution::Inferred   => "inferred",
+                _ => continue,
+            };
+            let dwarf = match ground_truth.as_ref().and_then(|g| g.get(&f.start)) {
+                Some((Origin::User, _)) => "TP",
+                Some(_)                 => "FP",
+                None                    => "UNK",
+            };
+            println!("ATTRDUMP\t0x{:x}\t{}\t{}", f.start, bucket, dwarf);
+        }
+        for &addr in &backtrace {
+            let dwarf = match ground_truth.as_ref().and_then(|g| g.get(&addr)) {
+                Some((Origin::User, _)) => "TP",
+                Some(_)                 => "FP",
+                None                    => "UNK",
+            };
+            println!("ATTRDUMP\t0x{:x}\tbacktrace\t{}", addr, dwarf);
+        }
+    }
+
     // DIAGNOSTIC (env-gated): dump, for each certain function, the distinct
     // Location-provenance edge counts (user/std/dep/unknown) the scan saw, plus
     // its DWARF ground-truth label.  Exposes existing data only; does not change
