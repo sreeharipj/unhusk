@@ -20,9 +20,12 @@
 use std::collections::{HashMap, HashSet, VecDeque};
 
 use crate::frame::FunctionMap;
-use crate::xref::{CallGraph, CertainSet};
+use crate::xref::{CallGraph, CertainSet, DepBoundarySet};
 
 // ── Types ─────────────────────────────────────────────────────────────────────
+
+/// Reverse call graph: callee → set of callers.
+pub type RevCallGraph = HashMap<u64, HashSet<u64>>;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Attribution {
@@ -180,6 +183,7 @@ pub struct Score {
     pub inferred: usize,
     pub indeterminate: usize,
     pub library: usize,
+    pub certain_by_backtrace: usize,
 }
 
 impl Score {
@@ -208,5 +212,153 @@ impl Score {
     /// not a user-code attribution.
     pub fn user_total(&self) -> usize {
         self.certain
+    }
+}
+
+// ── Reverse call graph + backward BFS ────────────────────────────────────────
+
+/// Build the reverse call graph (callee → callers) from a forward call graph.
+pub fn build_rev_call_graph(calls: &CallGraph) -> RevCallGraph {
+    let mut rev: RevCallGraph = HashMap::new();
+    for (&caller, callees) in calls {
+        for &callee in callees {
+            rev.entry(callee).or_default().insert(caller);
+        }
+    }
+    rev
+}
+
+/// Walk backward from the certain set, returning callers reachable within
+/// `depth` hops via the reverse call graph.
+///
+/// The returned set is STRICTLY separate from `certain`:
+/// - Functions already in `certain` are the BFS seeds and are never returned.
+/// - Functions in `dep_boundary` are hard barriers: not added, not recursed through.
+///   This mirrors the forward dep-boundary barrier exactly.
+/// - Returns an empty set when `depth == 0`.
+pub fn backtrace_walk(
+    fns: &FunctionMap,
+    certain: &CertainSet,
+    rev: &RevCallGraph,
+    dep_boundary: &DepBoundarySet,
+    depth: usize,
+) -> HashSet<u64> {
+    if depth == 0 {
+        return HashSet::new();
+    }
+    let mut result: HashSet<u64> = HashSet::new();
+    // visited is seeded with certain so we never re-enqueue or add them.
+    let mut visited: HashSet<u64> = certain.iter().cloned().collect();
+    let mut frontier: VecDeque<(u64, usize)> = VecDeque::new();
+    for &start in certain {
+        if fns.contains_key(&start) {
+            frontier.push_back((start, 0));
+        }
+    }
+    while let Some((node, d)) = frontier.pop_front() {
+        if d >= depth {
+            continue;
+        }
+        let callers = match rev.get(&node) {
+            Some(s) => s,
+            None => continue,
+        };
+        for &caller in callers {
+            if !fns.contains_key(&caller) { continue; }
+            if visited.contains(&caller) { continue; }
+            visited.insert(caller);
+            // dep-boundary barrier: stop here, don't add, don't recurse.
+            if dep_boundary.contains(&caller) { continue; }
+            result.insert(caller);
+            frontier.push_back((caller, d + 1));
+        }
+    }
+    result
+}
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::frame::FunctionRange;
+
+    fn make_fns(addrs: &[u64]) -> FunctionMap {
+        addrs.iter().map(|&a| (a, FunctionRange { start: a, end: a + 16 })).collect()
+    }
+
+    #[test]
+    fn build_rev_graph_empty() {
+        let calls: CallGraph = HashMap::new();
+        let rev = build_rev_call_graph(&calls);
+        assert!(rev.is_empty());
+    }
+
+    #[test]
+    fn build_rev_graph_simple() {
+        // A → B, A → C
+        let mut calls: CallGraph = HashMap::new();
+        calls.entry(0xA).or_default().insert(0xB);
+        calls.entry(0xA).or_default().insert(0xC);
+        let rev = build_rev_call_graph(&calls);
+        assert_eq!(rev[&0xB], [0xA].into_iter().collect());
+        assert_eq!(rev[&0xC], [0xA].into_iter().collect());
+        assert!(!rev.contains_key(&0xA));
+    }
+
+    #[test]
+    fn backtrace_walk_depth_zero_returns_empty() {
+        let fns = make_fns(&[0x10, 0x20, 0x30]);
+        let certain: CertainSet = [0x10].into_iter().collect();
+        let mut calls: CallGraph = HashMap::new();
+        calls.entry(0x20).or_default().insert(0x10);
+        let rev = build_rev_call_graph(&calls);
+        let dep: DepBoundarySet = HashSet::new();
+        assert!(backtrace_walk(&fns, &certain, &rev, &dep, 0).is_empty());
+    }
+
+    #[test]
+    fn backtrace_walk_depth_one() {
+        // caller 0x20 → certain 0x10; grandcaller 0x30 → 0x20
+        let fns = make_fns(&[0x10, 0x20, 0x30]);
+        let certain: CertainSet = [0x10].into_iter().collect();
+        let mut calls: CallGraph = HashMap::new();
+        calls.entry(0x20).or_default().insert(0x10);
+        calls.entry(0x30).or_default().insert(0x20);
+        let rev = build_rev_call_graph(&calls);
+        let dep: DepBoundarySet = HashSet::new();
+        let bt = backtrace_walk(&fns, &certain, &rev, &dep, 1);
+        assert!(bt.contains(&0x20), "direct caller should be in depth-1 result");
+        assert!(!bt.contains(&0x30), "grandcaller should NOT be in depth-1 result");
+        assert!(!bt.contains(&0x10), "certain seed must never be in result");
+    }
+
+    #[test]
+    fn backtrace_walk_depth_two() {
+        let fns = make_fns(&[0x10, 0x20, 0x30]);
+        let certain: CertainSet = [0x10].into_iter().collect();
+        let mut calls: CallGraph = HashMap::new();
+        calls.entry(0x20).or_default().insert(0x10);
+        calls.entry(0x30).or_default().insert(0x20);
+        let rev = build_rev_call_graph(&calls);
+        let dep: DepBoundarySet = HashSet::new();
+        let bt = backtrace_walk(&fns, &certain, &rev, &dep, 2);
+        assert!(bt.contains(&0x20));
+        assert!(bt.contains(&0x30));
+    }
+
+    #[test]
+    fn backtrace_walk_dep_boundary_is_barrier() {
+        // 0x30 (dep) → certain 0x10; 0x40 → 0x30
+        let fns = make_fns(&[0x10, 0x30, 0x40]);
+        let certain: CertainSet = [0x10].into_iter().collect();
+        let mut calls: CallGraph = HashMap::new();
+        calls.entry(0x30).or_default().insert(0x10);
+        calls.entry(0x40).or_default().insert(0x30);
+        let rev = build_rev_call_graph(&calls);
+        let dep: DepBoundarySet = [0x30].into_iter().collect();
+        let bt = backtrace_walk(&fns, &certain, &rev, &dep, 10);
+        assert!(!bt.contains(&0x30), "dep barrier must not be added");
+        assert!(!bt.contains(&0x40), "caller of dep barrier must not recurse through");
     }
 }
