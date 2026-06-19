@@ -251,7 +251,7 @@ fn main() -> Result<()> {
     let rodata = elf.section(".rodata").cloned();
 
     // ── unhusk's own pipeline → the `certain` set (bucket A) ─────────────────
-    let rs_strings = strings::classify(&elf);
+    let rs_strings = strings::classify(&elf, &[]);
     let locations: Vec<PanicLocation> = locate::find_locations(&elf, &rs_strings);
     let scan = unhusk::xref::scan(&elf, &fns, &locations);
     let certain: &HashSet<u64> = &scan.certain;
@@ -301,7 +301,7 @@ fn main() -> Result<()> {
             Err(_) => continue,
         };
         if s.ends_with(".rs") {
-            match classify_path(s) {
+            match classify_path(s, &[]) {
                 Origin::User => {
                     user_rs_str_vaddrs.insert(str_vaddr);
                     if !panic_slots.contains(&slot) {
