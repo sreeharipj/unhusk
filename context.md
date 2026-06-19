@@ -244,6 +244,16 @@ measured on 3 fixtures (unhusk, scored, medium). Subsequently swept across all
 | medium  | ∞     | 4        | 0  | 3  | 1   | 0%        | 100%   |
 | medium  | 1     | 3        | 0  | 3  | 0   | 0%        | 100%   |
 
+> **Recall metric: which denominator.** All recall figures in this section and throughout
+> this document are scored against the DWARF `decl_file` user-function set — the *ceiling*:
+> DWARF undercounts by dropping FnOnce/FnMut closure-dispatch shims and failing to map some
+> monomorphized generics, so the denominator is smaller and the recall % higher than the true
+> value. On the same 13-binary realval set the symbol-denominator floor (nm -C leading-crate)
+> is **19.0% median** vs the DWARF **46.2% median**. Neither is clean: DWARF undercounts by
+> dropping closures; symbol overcounts by including every `<UserType as Debug/Clone/Serialize>::method`
+> instantiation the tool cannot find. True user-logic recall lies between the two.
+> See `realval/BACKTRACE_SWEEP.md` for the floor/ceiling derivation.
+
 ### 13-real-binary sweep (depth_sweep.py, DWARF GT)
 
 | binary | inf-prec(∞) | inf-prec(1) | delta | TP(∞) | TP(1) | recall(∞) | recall(1) |
@@ -263,13 +273,13 @@ measured on 3 fixtures (unhusk, scored, medium). Subsequently swept across all
 | zoxide | 6.5% | 14.3% | +7.8% | 9 | 8 | 63.2% | 57.9% |
 
 **Aggregate (pooled):** d=∞ 5.1% → d=1 9.3% precision (1.8×); TPs retained: 162/215 (75%);
-median overall recall: 46.2% → 42.3% (−3.9 pp).
+median overall recall: 46.2% → 42.3% (−3.9 pp) — DWARF-denominator (ceiling; see recall-metric note above).
 
 **Correction to "0% recall loss":** The unhusk fixture result was unrepresentative.
 Across 13 real binaries, depth-1 loses ~25% of inferred TPs and ~4pp recall.
 grex and tokei are net losers at depth-1 (their TPs are at depth 2).
 
-**Revised guidance:**
+**Revised guidance** (all recall figures are DWARF-denominator — ceiling; symbol-denominator floor 19.0%):
 - `--infer-depth 1`: 1.8× precision gain, ~4pp recall loss. Best for high-precision audits.
 - `--infer-depth 2`: 6.4% pooled precision (1.3× vs ∞), median recall 45.1% (−1.1pp). Best balance.
 - Default (unlimited): 5.1% precision, 46.2% median recall. No truncation.
@@ -368,8 +378,10 @@ Alternatively: the tool is now fully characterized for the stated goals.
 
 ## Anchor-headroom diagnostic (2026-06-15) — `realval/ANCHOR_HEADROOM.md`
 
-**Question:** the binding constraint is recall (median certain-recall 15.8%). Would
-broadening the user anchor beyond panic `Location`s — to `module_path!`, `file!` (bare),
+**Question:** the binding constraint is recall (median certain-recall 15.8%,
+DWARF-denominator — the ceiling; symbol-denominator overall recall is 19.0% on the same
+13 binaries; see recall-metric note in depth-sweep section above). Would broadening the
+user anchor beyond panic `Location`s — to `module_path!`, `file!` (bare),
 `type_name::<UserType>()` — materially raise recall, and at what precision cost?
 
 **Tool:** `src/bin/anchor_headroom.rs` (diagnostic only; classifier UNCHANGED). Reuses
@@ -566,7 +578,7 @@ Ran `realval/depth_sweep.py` — `--infer-depth 1` sweep across all 13 real bina
 DWARF GT. Corrects the "0% recall loss" claim from the earlier 1-binary measurement:
 
 - Pooled inferred precision: 5.1% → 9.3% (+1.8×) at depth-1
-- Median overall recall: 46.2% → 42.3% (−3.9pp) — recall does drop
+- Median overall recall: 46.2% → 42.3% (−3.9pp, DWARF-denom.) — recall does drop
 - 25% of inferred TPs are at depth 2+ and are lost at depth-1
 - grex and tokei are net-negative at depth-1 (precision and recall both fall)
 - `--infer-depth 2` is a better default balance for most use cases
