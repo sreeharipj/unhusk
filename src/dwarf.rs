@@ -40,9 +40,10 @@ use crate::strings::{classify_path, Origin};
 /// project-relative paths as `User`.  In the DWARF context any path that is neither
 /// std (`/rustc/…/library/`) nor a dep (cargo registry / `rust/deps/`) was compiled
 /// from the project under analysis and counts as first-party.
-fn classify_path_for_dwarf(path: &str) -> Origin {
-    // DWARF paths are absolute build-time paths — no root-crate promotion needed.
-    match classify_path(path, &[]) {
+fn classify_path_for_dwarf(path: &str, root_crates: &[String]) -> Origin {
+    // DWARF source paths are absolute build-time paths.  For cargo-install binaries
+    // they are registry paths too, so root-crate promotion applies here as well.
+    match classify_path(path, root_crates) {
         Origin::Unknown => Origin::User,
         other => other,
     }
@@ -53,8 +54,16 @@ pub type DwarfGroundTruth = HashMap<u64, (Origin, String)>;
 
 /// Extract function-to-source-file mapping from DWARF `.debug_info`.
 ///
+/// `root_crates`: same set passed to `strings::classify`; registry paths for
+/// these crates are promoted to User in the ground truth (required for
+/// cargo-install binaries where DWARF paths are also registry paths).
+///
 /// Returns an empty map if the binary has no `.debug_info` section.
-pub fn read_function_sources(elf: &ParsedElf, fn_map: &FunctionMap) -> DwarfGroundTruth {
+pub fn read_function_sources(
+    elf: &ParsedElf,
+    fn_map: &FunctionMap,
+    root_crates: &[String],
+) -> DwarfGroundTruth {
     if elf.section(".debug_info").is_none() || fn_map.is_empty() {
         return HashMap::new();
     }
@@ -136,7 +145,7 @@ pub fn read_function_sources(elf: &ParsedElf, fn_map: &FunctionMap) -> DwarfGrou
             };
 
             if let Some(path) = direct_file_path {
-                result.insert(low_pc, (classify_path_for_dwarf(&path), path));
+                result.insert(low_pc, (classify_path_for_dwarf(&path, root_crates), path));
                 continue;
             }
 
@@ -163,7 +172,7 @@ pub fn read_function_sources(elf: &ParsedElf, fn_map: &FunctionMap) -> DwarfGrou
             };
 
             if let Some(path) = ao_path {
-                result.insert(low_pc, (classify_path_for_dwarf(&path), path));
+                result.insert(low_pc, (classify_path_for_dwarf(&path, root_crates), path));
             }
         }
     }
@@ -465,7 +474,7 @@ mod tests {
 
         let elf = crate::elf::ParsedElf::load(std::path::Path::new(debug_path)).unwrap();
         let fn_map = crate::frame::parse_eh_frame(&elf).unwrap();
-        let gt = read_function_sources(&elf, &fn_map);
+        let gt = read_function_sources(&elf, &fn_map, &[]);
 
         let user_fns: Vec<_> = gt.iter().filter(|(_, (o, _))| *o == Origin::User).collect();
         eprintln!("Total FDEs: {} | DWARF entries: {} | User by DWARF: {}",

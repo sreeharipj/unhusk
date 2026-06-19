@@ -373,7 +373,7 @@ fn main() -> Result<()> {
     bare_fns.extend(f_ident.iter().copied());
 
     // ── DWARF ground truth ───────────────────────────────────────────────────
-    let gt = unhusk::dwarf::read_function_sources(&dbg, &fns);
+    let gt = unhusk::dwarf::read_function_sources(&dbg, &fns, &[]);
     let dwarf_user: Vec<u64> = gt
         .iter()
         .filter(|(_, (o, _))| *o == Origin::User)
