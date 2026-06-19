@@ -41,7 +41,8 @@ use crate::strings::{classify_path, Origin};
 /// std (`/rustc/…/library/`) nor a dep (cargo registry / `rust/deps/`) was compiled
 /// from the project under analysis and counts as first-party.
 fn classify_path_for_dwarf(path: &str) -> Origin {
-    match classify_path(path) {
+    // DWARF paths are absolute build-time paths — no root-crate promotion needed.
+    match classify_path(path, &[]) {
         Origin::Unknown => Origin::User,
         other => other,
     }

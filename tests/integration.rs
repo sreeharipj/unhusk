@@ -30,7 +30,7 @@ fn tiny_no_user_locations() {
     if skip_if_missing(TINY_STRIPPED) { return; }
 
     let elf = elf::ParsedElf::load(Path::new(TINY_STRIPPED)).unwrap();
-    let strs = strings::classify(&elf);
+    let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
 
     let user_count = locs.iter().filter(|l| l.origin == Origin::User).count();
@@ -56,7 +56,7 @@ fn medium_finds_two_user_locations() {
     if skip_if_missing(MEDIUM_STRIPPED) { return; }
 
     let elf = elf::ParsedElf::load(Path::new(MEDIUM_STRIPPED)).unwrap();
-    let strs = strings::classify(&elf);
+    let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
 
     // Exactly one unique user source file.
@@ -117,7 +117,7 @@ fn rustup_user_source_files() {
     if skip_if_missing(RUSTUP_STRIPPED) { return; }
 
     let elf = elf::ParsedElf::load(Path::new(RUSTUP_STRIPPED)).unwrap();
-    let strs = strings::classify(&elf);
+    let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
 
     // Source-file strings.
@@ -189,15 +189,15 @@ fn rustup_user_source_files() {
 fn classifier_unit_round_trip() {
     use unhusk::strings::classify_path;
 
-    assert_eq!(classify_path("src/main.rs"), Origin::User);
-    assert_eq!(classify_path("tests/foo.rs"), Origin::User);
+    assert_eq!(classify_path("src/main.rs", &[]), Origin::User);
+    assert_eq!(classify_path("tests/foo.rs", &[]), Origin::User);
     assert_eq!(
-        classify_path("/rustc/abc123/library/core/src/fmt.rs"),
+        classify_path("/rustc/abc123/library/core/src/fmt.rs", &[]),
         Origin::Std
     );
-    assert_eq!(classify_path("library/alloc/src/vec/mod.rs"), Origin::Std);
+    assert_eq!(classify_path("library/alloc/src/vec/mod.rs", &[]), Origin::Std);
     assert_eq!(
-        classify_path("/cargo/registry/src/index.crates.io-abc/tokio-1.28.0/src/lib.rs"),
+        classify_path("/cargo/registry/src/index.crates.io-abc/tokio-1.28.0/src/lib.rs", &[]),
         Origin::Dep { crate_name: "tokio".into(), version: "1.28.0".into() }
     );
 }
@@ -213,7 +213,7 @@ fn scored_phase2_attribution() {
     if skip_if_missing(SCORED_STRIPPED) { return; }
 
     let elf = elf::ParsedElf::load(std::path::Path::new(SCORED_STRIPPED)).unwrap();
-    let strs = strings::classify(&elf);
+    let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
 
     // Phase 1: must find 8 user panic sites
@@ -314,7 +314,7 @@ fn certain_precision_never_drops_below_100_pct() {
     if skip_if_missing(STRIPPED) || skip_if_missing(UNSTRIPPED) { return; }
 
     let elf = elf::ParsedElf::load(Path::new(STRIPPED)).unwrap();
-    let strs = strings::classify(&elf);
+    let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
     let fn_map = frame::parse_eh_frame(&elf).unwrap();
     let scan = xref::scan(&elf, &fn_map, &locs);
