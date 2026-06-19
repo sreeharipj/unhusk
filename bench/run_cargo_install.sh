@@ -71,7 +71,8 @@ install_fixture() {
     echo "════════════════════════════════════════════"
 
     local unstripped="$BIN_DIR/${crate}_debug"
-    local stripped="$BIN_DIR/${crate}_stripped"
+    # Use <binname>.stripped so file_stem() == binname → auto-detect stem-match works.
+    local stripped="$BIN_DIR/${binname}.stripped"
 
     if [[ -f "$unstripped" && -f "$stripped" ]]; then
         echo "[SKIP] fixtures already present"
