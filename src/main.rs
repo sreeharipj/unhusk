@@ -13,6 +13,17 @@ struct Args {
     /// Path to the stripped ELF binary to analyze.
     binary: PathBuf,
 
+    /// Root crate name(s) to promote from registry paths to User attribution.
+    ///
+    /// Required for binaries installed via `cargo install` (source lives under
+    /// ~/.cargo/registry/src/<hash>/<crate>-<ver>/).  Without this flag every
+    /// panic Location is classified Dep → n_certain = 0.
+    ///
+    /// Repeatable and comma-separated: --crate bat  or  --crate fd-find,bat
+    /// Uses the crate name as it appears in Cargo.toml, not the binary filename.
+    #[arg(long = "crate", value_name = "NAME", value_delimiter = ',')]
+    root_crates: Vec<String>,
+
     /// Optional unstripped companion binary for DWARF ground-truth validation.
     ///
     /// When provided, unhusk reads .debug_info from this binary and reports
@@ -48,7 +59,41 @@ fn main() -> Result<()> {
     let args = Args::parse();
 
     let elf = unhusk::elf::ParsedElf::load(&args.binary)?;
-    let strings = unhusk::strings::classify(&elf);
+
+    // Determine which crate(s) to promote from registry → User.
+    // Explicit --crate always wins; otherwise auto-detect from embedded paths.
+    let root_crates: Vec<String> = if !args.root_crates.is_empty() {
+        args.root_crates.clone()
+    } else {
+        let paths = unhusk::strings::extract_rs_paths(&elf);
+        let binary_stem = args.binary
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("")
+            .to_string();
+        match unhusk::strings::auto_detect_root(&paths, &binary_stem) {
+            unhusk::strings::DetectOutcome::Detected(names) => {
+                eprintln!(
+                    "unhusk: auto-detected root crate(s): {} (pass --crate to override)",
+                    names.join(", ")
+                );
+                names
+            }
+            unhusk::strings::DetectOutcome::Fallback => {
+                // Only warn if there are registry paths present (cargo-install binary).
+                let has_registry = paths.iter().any(|p| p.contains("cargo/registry/src/"));
+                if has_registry {
+                    eprintln!(
+                        "unhusk: could not auto-detect root crate; \
+                         pass --crate <name> for registry builds (n_certain may be 0)"
+                    );
+                }
+                vec![]
+            }
+        }
+    };
+
+    let strings = unhusk::strings::classify(&elf, &root_crates);
     let locations = unhusk::locate::find_locations(&elf, &strings);
 
     unhusk::report::print_report(&elf, &strings, &locations);
