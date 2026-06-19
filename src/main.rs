@@ -80,9 +80,12 @@ fn main() -> Result<()> {
                 names
             }
             unhusk::strings::DetectOutcome::Fallback => {
-                // Only warn if there are registry paths present (cargo-install binary).
+                // Warn only when the binary looks like a registry build (has registry
+                // dep paths) AND has NO relative User paths (which would indicate a
+                // local-source build where the root paths are already relative → User).
                 let has_registry = paths.iter().any(|p| p.contains("cargo/registry/src/"));
-                if has_registry {
+                let has_relative_user = paths.iter().any(|p| !p.starts_with('/'));
+                if has_registry && !has_relative_user {
                     eprintln!(
                         "unhusk: could not auto-detect root crate; \
                          pass --crate <name> for registry builds (n_certain may be 0)"
@@ -144,7 +147,7 @@ fn main() -> Result<()> {
     // Optional DWARF validation.
     let ground_truth = if let Some(ref unstripped_path) = args.validate {
         let unstripped = unhusk::elf::ParsedElf::load(unstripped_path)?;
-        let gt = unhusk::dwarf::read_function_sources(&unstripped, &fn_map);
+        let gt = unhusk::dwarf::read_function_sources(&unstripped, &fn_map, &root_crates);
         let report = unhusk::dwarf::ValidationReport::compute(&attributed, &gt, &backtrace);
         unhusk::report::print_validation_report(&report);
         Some(gt)
