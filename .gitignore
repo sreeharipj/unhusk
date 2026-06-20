@@ -1,0 +1,19 @@
+/target
+
+realval/out/*.debug
+realval/out/*.stripped
+claude_run.log
+
+__pycache__/
+*.pyc
+
+# internal experiment notes / working docs
+context.md
+FINDINGS.md
+HARNESS_VALIDATION_FINDINGS.md
+bench/BENCHMARK_RESULTS.md
+bench/CARGO_INSTALL_FIX.md
+realval/ANCHOR_HEADROOM.md
+realval/DEPTH_SWEEP.md
+realval/RATIO_SEPARATION.md
+realval/TYPE_RECOVERY.md

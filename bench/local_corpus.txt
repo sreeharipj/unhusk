@@ -1,0 +1,105 @@
+# Local-source corpus: baseline + extended binaries rebuilt from git clone
+# format: crate_key:repo_url:binname
+# Ordered smallest → largest (by FDE count) for fast early results
+pastel:https://github.com/sharkdp/pastel:pastel
+zoxide:https://github.com/ajeetdsouza/zoxide:zoxide
+hexyl:https://github.com/sharkdp/hexyl:hexyl
+hyperfine:https://github.com/sharkdp/hyperfine:hyperfine
+sd:https://github.com/chmln/sd:sd
+du-dust:https://github.com/bootandy/dust:dust
+grex:https://github.com/pemistahl/grex:grex
+xsv:https://github.com/BurntSushi/xsv:xsv
+tokei:https://github.com/XAMPPRocky/tokei:tokei
+just:https://github.com/casey/just:just
+fd-find:https://github.com/sharkdp/fd:fd
+bat:https://github.com/sharkdp/bat:bat
+ripgrep:https://github.com/BurntSushi/ripgrep:rg
+# Extended corpus — additional pure-Rust CLI tools (ordered small→large)
+ripsecrets:https://github.com/sirwart/ripsecrets:ripsecrets
+htmlq:https://github.com/mgdm/htmlq:htmlq
+csview:https://github.com/wfxr/csview:csview
+tealdeer:https://github.com/dbrgn/tealdeer:tldr
+dua-cli:https://github.com/Byron/dua-cli:dua
+ouch:https://github.com/ouch-org/ouch:ouch
+procs:https://github.com/dalance/procs:procs
+fclones:https://github.com/pkolaczk/fclones:fclones
+xh:https://github.com/ducaale/xh:xh
+lsd:https://github.com/lsd-rs/lsd:lsd
+eza:https://github.com/eza-community/eza:eza
+hgrep:https://github.com/rhysd/hgrep:hgrep
+git-delta:https://github.com/dandavison/delta:delta
+bottom:https://github.com/ClementTsang/bottom:btm
+broot:https://github.com/Canop/broot:broot
+# Batch 3 — further expansion (ordered small→large by cargo-install FDE count)
+loc:https://github.com/cgag/loc:loc
+kondo:https://github.com/tbillington/kondo:kondo
+gping:https://github.com/orf/gping:gping
+mcfly:https://github.com/cantino/mcfly:mcfly
+jaq:https://github.com/01mf02/jaq:jaq
+mprocs:https://github.com/pvolok/mprocs:mprocs
+pueue:https://github.com/Nukesor/pueue:pueue
+onefetch:https://github.com/o2sh/onefetch:onefetch
+# Batch 4 — further expansion
+navi:https://github.com/denisidoro/navi:navi
+bandwhich:https://github.com/imsnif/bandwhich:bandwhich
+wiki-tui:https://github.com/Builditluc/wiki-tui:wiki-tui
+topgrade:https://github.com/topgrade-rs/topgrade:topgrade
+monolith:https://github.com/Y2Z/monolith:monolith
+# Batch 5 — further expansion (from cargo-install success list)
+typos-cli:https://github.com/crate-ci/typos:typos
+genact:https://github.com/svenstaro/genact:genact
+difftastic:https://github.com/Wilfred/difftastic:difft
+cargo-expand:https://github.com/dtolnay/cargo-expand:cargo-expand
+watchexec-cli:https://github.com/watchexec/watchexec:watchexec
+# Batch 6 — further expansion
+bingrep:https://github.com/m4b/bingrep:bingrep
+choose:https://github.com/theryangeary/choose:choose
+jql:https://github.com/yamafaktory/jql:jql
+cargo-outdated:https://github.com/kbknapp/cargo-outdated:cargo-outdated
+# Batch 7 — further expansion
+dog:https://github.com/ogham/dog:dog
+ruplacer:https://github.com/your-tools/ruplacer:ruplacer
+amber:https://github.com/dalance/amber:ambr
+ox:https://github.com/curlpipe/ox:ox
+# Batch 8 — further expansion
+cargo-nextest:https://github.com/nextest-rs/nextest:cargo-nextest
+cargo-deny:https://github.com/EmbarkStudios/cargo-deny:cargo-deny
+lfs:https://github.com/Canop/lfs:lfs
+felix:https://github.com/kyoheiu/felix:felix
+# Batch 9 — further expansion
+viu:https://github.com/atanunq/viu:viu
+oha:https://github.com/hatoo/oha:oha
+cargo-audit:https://github.com/rustsec/rustsec:cargo-audit
+# Batch 10 — further expansion
+binsider:https://github.com/orhun/binsider:binsider
+numbat:https://github.com/sharkdp/numbat:numbat
+cargo-geiger:https://github.com/geiger-rs/cargo-geiger:cargo-geiger
+# Batch 11 — cargo tools + additional CLIs
+cargo-bloat:https://github.com/RazrFalcon/cargo-bloat:cargo-bloat
+git-cliff:https://github.com/orhun/git-cliff:git-cliff
+xplr:https://github.com/sayanarijit/xplr:xplr
+prr:https://github.com/danobi/prr:prr
+# Batch 12 — parsers, formatters, new tool categories
+fend:https://github.com/printfn/fend:fend
+taplo:https://github.com/tamasfe/taplo:taplo
+skim:https://github.com/skim-rs/skim:sk
+cargo-watch:https://github.com/watchexec/cargo-watch:cargo-watch
+miniserve:https://github.com/svenstaro/miniserve:miniserve
+# Batch 13 — interactive TUIs, cargo tools, text processors
+# lychee: SKIP — requires aws-lc-sys (native C build, no cmake)
+jnv:https://github.com/ynqa/jnv:jnv
+cargo-msrv:https://github.com/foresterre/cargo-msrv:cargo-msrv
+sad:https://github.com/ms-jpq/sad:sad
+yazi:https://github.com/sxyazi/yazi:yazi
+# Batch 14 — shell tools, git impl, more cargo
+starship:https://github.com/starship/starship:starship
+atuin:https://github.com/atuinsh/atuin:atuin
+cargo-semver-checks:https://github.com/obi1kenobi/cargo-semver-checks:cargo-semver-checks
+sheldon:https://github.com/rossmacarthur/sheldon:sheldon
+gitoxide:https://github.com/GitoxideLabs/gitoxide:gix
+# Batch 15 — version managers, cargo tools, async cli
+fnm:https://github.com/Schniz/fnm:fnm
+bacon:https://github.com/Canop/bacon:bacon
+cargo-about:https://github.com/EmbarkStudios/cargo-about:cargo-about
+mise:https://github.com/jdx/mise:mise
+zellij:https://github.com/zellij-org/zellij:zellij

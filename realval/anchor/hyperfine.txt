@@ -1,0 +1,10 @@
+==== hyperfine ====
+user-crates derived (4): bufferstd,fmt,process,thread
+panic-anchor slots (user Locations): 27   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=0  distinct-ident-strings=0  union=0
+ground-truth user fns:  DWARF decl_file=32   symbol-name(complement)=95
+RECALL HEADROOM [DWARF]:   A(certain)=10  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=22  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=15  B(bare-reachable)=0  C(residue)=80  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=0  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=0  unmapped=0  precision=0.0%
+SUMMARY	hyperfine	32	10	0	22	0.0	0	0	0	0	0.0	95	15	0	80	0.0	0	0	0	0.0	0	0

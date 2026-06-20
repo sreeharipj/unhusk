@@ -1,0 +1,13 @@
+==== bat ====
+user-crates derived (12): contiguous,cursor,dfa,fe80,ff9b,fmt,pkg,process,stdoutstderrstd,terminal,thompson,thread
+panic-anchor slots (user Locations): 58   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=9  distinct-ident-strings=4  union=9
+ground-truth user fns:  DWARF decl_file=70   symbol-name(complement)=293
+RECALL HEADROOM [DWARF]:   A(certain)=11  B(bare-reachable)=2 [rs=0, ident=2]  C(residue)=57  B/(A+B+C)=2.9%
+RECALL HEADROOM [symbol]:  A(certain)=132  B(bare-reachable)=2  C(residue)=159  B/(A+B+C)=0.7%
+BARE-ANCHOR PRECISION [DWARF]:  user=5  nonuser=4  unmapped=0  precision=55.6%
+BARE-ANCHOR PRECISION [symbol]: user=5  nonuser=4  unmapped=0  precision=55.6%
+  [DWARF] non-user decl_file breakdown:
+       3  dependency crate
+       1  std generic
+SUMMARY	bat	70	11	2	57	2.9	9	5	4	0	55.6	293	132	2	159	0.7	5	4	0	55.6	0	2

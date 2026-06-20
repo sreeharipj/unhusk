@@ -1,0 +1,12 @@
+==== hexyl ====
+user-crates derived (4): bufferstd,crate,fmt,process
+panic-anchor slots (user Locations): 20   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=3  distinct-ident-strings=1  union=3
+ground-truth user fns:  DWARF decl_file=26   symbol-name(complement)=72
+RECALL HEADROOM [DWARF]:   A(certain)=4  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=22  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=12  B(bare-reachable)=0  C(residue)=60  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=1  nonuser=2  unmapped=0  precision=33.3%
+BARE-ANCHOR PRECISION [symbol]: user=1  nonuser=2  unmapped=0  precision=33.3%
+  [DWARF] non-user decl_file breakdown:
+       2  dependency crate
+SUMMARY	hexyl	26	4	0	22	0.0	3	1	2	0	33.3	72	12	0	60	0.0	1	2	0	33.3	0	0
