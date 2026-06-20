@@ -1,0 +1,10 @@
+==== zoxide ====
+user-crates derived (5): bufferstd,fmt,process,serde,thread
+panic-anchor slots (user Locations): 12   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=0  distinct-ident-strings=0  union=0
+ground-truth user fns:  DWARF decl_file=19   symbol-name(complement)=64
+RECALL HEADROOM [DWARF]:   A(certain)=3  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=16  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=8  B(bare-reachable)=0  C(residue)=56  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=0  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=0  unmapped=0  precision=0.0%
+SUMMARY	zoxide	19	3	0	16	0.0	0	0	0	0	0.0	64	8	0	56	0.0	0	0	0	0.0	0	0

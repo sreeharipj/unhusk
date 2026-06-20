@@ -1,0 +1,12 @@
+==== grex ====
+user-crates derived (7): bufferstd,contiguous,dfa,fmt,noncontiguous,process,thompson
+panic-anchor slots (user Locations): 46   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=4  distinct-ident-strings=4  union=4
+ground-truth user fns:  DWARF decl_file=34   symbol-name(complement)=86
+RECALL HEADROOM [DWARF]:   A(certain)=3  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=31  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=11  B(bare-reachable)=0  C(residue)=75  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=4  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=4  unmapped=0  precision=0.0%
+  [DWARF] non-user decl_file breakdown:
+       4  dependency crate
+SUMMARY	grex	34	3	0	31	0.0	4	0	4	0	0.0	86	11	0	75	0.0	0	4	0	0.0	0	0

@@ -1,0 +1,12 @@
+==== dust ====
+user-crates derived (7): bufferstd,contiguous,dfa,fmt,process,thompson,thread
+panic-anchor slots (user Locations): 35   bare .rs slots: 0
+bare-anchor fns:  file!(.rs)=0  module_path/type_name(ident)=3  distinct-ident-strings=3  union=3
+ground-truth user fns:  DWARF decl_file=33   symbol-name(complement)=78
+RECALL HEADROOM [DWARF]:   A(certain)=15  B(bare-reachable)=0 [rs=0, ident=0]  C(residue)=18  B/(A+B+C)=0.0%
+RECALL HEADROOM [symbol]:  A(certain)=15  B(bare-reachable)=0  C(residue)=63  B/(A+B+C)=0.0%
+BARE-ANCHOR PRECISION [DWARF]:  user=0  nonuser=3  unmapped=0  precision=0.0%
+BARE-ANCHOR PRECISION [symbol]: user=0  nonuser=3  unmapped=0  precision=0.0%
+  [DWARF] non-user decl_file breakdown:
+       3  dependency crate
+SUMMARY	dust	33	15	0	18	0.0	3	0	3	0	0.0	78	15	0	63	0.0	0	3	0	0.0	0	0

@@ -1,0 +1,5 @@
+bin/
+*.stripped
+*.debug
+target/
+install/
