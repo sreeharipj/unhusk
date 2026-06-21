@@ -96,13 +96,18 @@ fn main() -> Result<()> {
         }
     };
 
-    let strings = unhusk::strings::classify(&elf, &root_crates);
-    let locations = unhusk::locate::find_locations(&elf, &strings);
+    // Classify source strings and parse .eh_frame in parallel — they only need
+    // a shared &elf reference and are fully independent of each other.
+    let (strings, fn_map_result) = rayon::join(
+        || unhusk::strings::classify(&elf, &root_crates),
+        || unhusk::frame::parse_eh_frame(&elf),
+    );
 
+    let locations = unhusk::locate::find_locations(&elf, &strings);
     unhusk::report::print_report(&elf, &strings, &locations);
 
     // Phase 2: function attribution via .eh_frame + xref scan.
-    let fn_map = unhusk::frame::parse_eh_frame(&elf)?;
+    let fn_map = fn_map_result?;
     if fn_map.is_empty() {
         return Ok(());
     }
