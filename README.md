@@ -1,5 +1,10 @@
 # unhusk
 
+> **Branch `turbo.1` — highly experimental.**  
+> This branch contains aggressive performance optimisations that have not been
+> validated at the same level as `main`. Results are expected to be identical
+> but the implementation is new. See [`TURBO.md`](TURBO.md) for details.
+
 Identifies user-authored functions in stripped Rust release binaries using panic metadata — no disassembly, no symbol tables, no signature databases.
 
 ## What it does
