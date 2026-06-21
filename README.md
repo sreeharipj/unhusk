@@ -137,4 +137,8 @@ Integration tests require fixture binaries under `/tmp/unhusk-research/` (see `t
 
 ## License
 
-MIT OR Apache-2.0
+This project is dual-licensed:
+1. **GNU Affero General Public License v3.0 (AGPLv3)**: For open-source projects and general use.
+2. **Commercial License**: For use in proprietary or commercial environments where AGPLv3 restrictions are not applicable.
+
+See the `LICENSE` file for details.

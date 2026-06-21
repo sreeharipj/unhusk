@@ -1,0 +1,28 @@
+unhusk main vs turbo.1 — benchmark results
+==========================================
+Date    : 2026-06-21
+Runs    : 10 per binary
+Machine : x86-64 Linux
+Binaries: freshly built from HEAD of each project (cargo build --release)
+
+  binary       size   user_locs    orig     turbo    saved   speedup
+  ─────────────────────────────────────────────────────────────────
+  ripgrep       30M        38     93ms      53ms     40ms     1.8x
+  bat          6.4M        15     62ms      28ms     34ms     2.2x
+  fd           3.9M         9     43ms      21ms     22ms     2.0x
+  tokei        5.3M        10     54ms      22ms     32ms     2.5x
+  just         5.7M        32     62ms      26ms     36ms     2.4x
+  ─────────────────────────────────────────────────────────────────
+  TOTAL                          314ms     150ms    164ms     2.1x
+
+user_locs = number of user-code panic/assert Location structs in the binary.
+Speedup scales with this number — projects that aggressively eliminate panics
+via LTO show smaller gains; panic-heavy codebases (e.g. rust-analyzer, 44MB)
+show 8-9x.
+
+Binaries tested:
+  ripgrep  https://github.com/BurntSushi/ripgrep  (rg)
+  bat      https://github.com/sharkdp/bat
+  fd       https://github.com/sharkdp/fd
+  tokei    https://github.com/XAMPPRocky/tokei
+  just     https://github.com/casey/just
