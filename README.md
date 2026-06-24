@@ -1,9 +1,5 @@
 # unhusk
 
-> **Note:** The performance optimisations from `turbo.1` have been merged into
-> `main`. See [`TURBO.md`](TURBO.md) for details. More testing needed before
-> these are considered fully validated.
-
 Identifies user-authored functions in stripped Rust release binaries using panic metadata — no disassembly, no symbol tables, no signature databases.
 
 ## What it does
