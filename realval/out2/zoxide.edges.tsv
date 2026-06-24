@@ -1,8 +1,0 @@
-EDGEDUMP	0x3db50	user=1	std=0	dep=0	unk=0	dwarf=TP	path=/home/user/Videos/unhusk/realval/work/zoxide/src/util.rs
-EDGEDUMP	0x48630	user=1	std=0	dep=0	unk=0	dwarf=UNK	path=
-EDGEDUMP	0x4aad0	user=1	std=1	dep=0	unk=0	dwarf=UNK	path=
-EDGEDUMP	0x4be60	user=1	std=0	dep=0	unk=0	dwarf=UNK	path=
-EDGEDUMP	0x4e9e0	user=5	std=0	dep=0	unk=0	dwarf=UNK	path=
-EDGEDUMP	0x4fad0	user=1	std=0	dep=0	unk=0	dwarf=UNK	path=
-EDGEDUMP	0x511b0	user=2	std=2	dep=0	unk=0	dwarf=TP	path=/home/user/Videos/unhusk/realval/work/zoxide/src/cmd/mod.rs
-EDGEDUMP	0x5d220	user=1	std=3	dep=0	unk=0	dwarf=TP	path=/home/user/Videos/unhusk/realval/work/zoxide/src/cmd/import.rs

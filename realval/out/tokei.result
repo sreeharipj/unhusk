@@ -1,2 +1,0 @@
-STATUS=ok
-PROFILE=lto = "thin";panic = "abort";;
