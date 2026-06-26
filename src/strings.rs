@@ -23,10 +23,7 @@ pub enum Origin {
     /// Rust standard library / core / alloc.
     Std,
     /// A third-party crate from the Cargo registry or an embedded toolchain dep.
-    Dep {
-        crate_name: String,
-        version: String,
-    },
+    Dep { crate_name: String, version: String },
     /// Unrecognised path pattern — should not appear in practice.
     Unknown,
 }
@@ -36,7 +33,10 @@ impl Origin {
         match self {
             Origin::User => "user".to_string(),
             Origin::Std => "std".to_string(),
-            Origin::Dep { crate_name, version } => {
+            Origin::Dep {
+                crate_name,
+                version,
+            } => {
                 if version.is_empty() {
                     format!("dep:{}", crate_name)
                 } else {
@@ -150,9 +150,15 @@ pub fn extract_rs_paths(elf: &ParsedElf) -> Vec<String> {
     let mut seen: HashSet<u64> = HashSet::new();
     let mut result = Vec::new();
     for entry in &elf.rela_relative {
-        if !dro.contains_vaddr(entry.offset) { continue; }
-        if !rodata.contains_vaddr(entry.addend) { continue; }
-        if !seen.insert(entry.addend) { continue; }
+        if !dro.contains_vaddr(entry.offset) {
+            continue;
+        }
+        if !rodata.contains_vaddr(entry.addend) {
+            continue;
+        }
+        if !seen.insert(entry.addend) {
+            continue;
+        }
         let str_len = match dro.read_u64_le(entry.offset + 8) {
             Some(l) if l > 0 && l <= 512 => l as usize,
             _ => continue,
@@ -271,7 +277,10 @@ pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
     if let Some(rest) = path.strip_prefix("/rust/deps/") {
         let dir = rest.split('/').next().unwrap_or("");
         if let Some((name, ver)) = split_crate_ver(dir) {
-            return Origin::Dep { crate_name: name, version: ver };
+            return Origin::Dep {
+                crate_name: name,
+                version: ver,
+            };
         }
     }
 
@@ -294,7 +303,10 @@ pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
                 if root_crates.contains(&name) {
                     return Origin::User;
                 }
-                return Origin::Dep { crate_name: name, version: ver };
+                return Origin::Dep {
+                    crate_name: name,
+                    version: ver,
+                };
             }
         }
     }
@@ -373,7 +385,10 @@ mod tests {
             ),
             Origin::Std
         );
-        assert_eq!(classify_path("library/alloc/src/vec/mod.rs", &[]), Origin::Std);
+        assert_eq!(
+            classify_path("library/alloc/src/vec/mod.rs", &[]),
+            Origin::Std
+        );
     }
 
     #[test]
@@ -422,11 +437,15 @@ mod tests {
 
     #[test]
     fn dep_crate_stays_dep_when_root_set() {
-        let dep_path = "/home/user/.cargo/registry/src/index.crates.io-abc/ansi_term-0.12.1/src/lib.rs";
+        let dep_path =
+            "/home/user/.cargo/registry/src/index.crates.io-abc/ansi_term-0.12.1/src/lib.rs";
         let root = vec!["bat".to_string()];
         assert_eq!(
             classify_path(dep_path, &root),
-            Origin::Dep { crate_name: "ansi_term".into(), version: "0.12.1".into() }
+            Origin::Dep {
+                crate_name: "ansi_term".into(),
+                version: "0.12.1".into()
+            }
         );
     }
 
@@ -440,10 +459,7 @@ mod tests {
     fn std_stays_std_when_root_set() {
         let root = vec!["bat".to_string()];
         assert_eq!(
-            classify_path(
-                "/rustc/abc123/library/core/src/panicking.rs",
-                &root,
-            ),
+            classify_path("/rustc/abc123/library/core/src/panicking.rs", &root,),
             Origin::Std
         );
     }
@@ -459,11 +475,15 @@ mod tests {
     #[test]
     fn hyphenated_root_dep_stays_dep() {
         // A dep crate with a hyphenated name that is NOT the root stays Dep.
-        let dep_path = "/home/user/.cargo/registry/src/index.crates.io-abc/aho-corasick-1.1.4/src/lib.rs";
+        let dep_path =
+            "/home/user/.cargo/registry/src/index.crates.io-abc/aho-corasick-1.1.4/src/lib.rs";
         let root = vec!["fd-find".to_string()];
         assert_eq!(
             classify_path(dep_path, &root),
-            Origin::Dep { crate_name: "aho-corasick".into(), version: "1.1.4".into() }
+            Origin::Dep {
+                crate_name: "aho-corasick".into(),
+                version: "1.1.4".into()
+            }
         );
     }
 

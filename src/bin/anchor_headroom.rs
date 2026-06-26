@@ -41,14 +41,49 @@ use unhusk::locate::{self, PanicLocation};
 use unhusk::strings::{self, classify_path, Origin};
 
 const STD_CRATES: &[&str] = &[
-    "core", "alloc", "std", "proc_macro", "test", "panic_abort", "panic_unwind",
-    "unwind", "compiler_builtins", "rustc_std_workspace_core",
-    "rustc_std_workspace_alloc", "rustc_std_workspace_std", "rustc_demangle",
-    "std_detect", "addr2line", "gimli", "object", "miniz_oxide", "hashbrown",
-    "libc", "adler", "adler2", "cfg_if", "getopts", "unwinding",
+    "core",
+    "alloc",
+    "std",
+    "proc_macro",
+    "test",
+    "panic_abort",
+    "panic_unwind",
+    "unwind",
+    "compiler_builtins",
+    "rustc_std_workspace_core",
+    "rustc_std_workspace_alloc",
+    "rustc_std_workspace_std",
+    "rustc_demangle",
+    "std_detect",
+    "addr2line",
+    "gimli",
+    "object",
+    "miniz_oxide",
+    "hashbrown",
+    "libc",
+    "adler",
+    "adler2",
+    "cfg_if",
+    "getopts",
+    "unwinding",
     // primitive type names (type_name::<u32>() etc.) — not crate roots.
-    "u8", "u16", "u32", "u64", "u128", "usize", "i8", "i16", "i32", "i64",
-    "i128", "isize", "f32", "f64", "bool", "char", "str",
+    "u8",
+    "u16",
+    "u32",
+    "u64",
+    "u128",
+    "usize",
+    "i8",
+    "i16",
+    "i32",
+    "i64",
+    "i128",
+    "isize",
+    "f32",
+    "f64",
+    "bool",
+    "char",
+    "str",
 ];
 
 fn is_ident_byte(b: u8) -> bool {
@@ -155,7 +190,10 @@ fn symbol_ground_truth(
     use std::process::Command;
     let std: HashSet<&str> = STD_CRATES.iter().copied().collect();
     let mut out = HashMap::new();
-    let output = match Command::new("nm").args(["-C", "--defined-only", debug_path]).output() {
+    let output = match Command::new("nm")
+        .args(["-C", "--defined-only", debug_path])
+        .output()
+    {
         Ok(o) => o,
         Err(_) => return out,
     };
@@ -163,7 +201,10 @@ fn symbol_ground_truth(
     for line in text.lines() {
         // "<hexaddr> <type> <name...>"
         let mut it = line.splitn(3, ' ');
-        let addr = match it.next().and_then(|a| u64::from_str_radix(a.trim(), 16).ok()) {
+        let addr = match it
+            .next()
+            .and_then(|a| u64::from_str_radix(a.trim(), 16).ok())
+        {
             Some(a) => a,
             None => continue,
         };
@@ -237,8 +278,12 @@ fn fp_category(path: &str) -> &'static str {
 
 fn main() -> Result<()> {
     let mut args = std::env::args().skip(1);
-    let stripped = args.next().expect("usage: anchor_headroom <stripped> <debug>");
-    let debug = args.next().expect("usage: anchor_headroom <stripped> <debug>");
+    let stripped = args
+        .next()
+        .expect("usage: anchor_headroom <stripped> <debug>");
+    let debug = args
+        .next()
+        .expect("usage: anchor_headroom <stripped> <debug>");
     let name = std::path::Path::new(&stripped)
         .file_stem()
         .and_then(|s| s.to_str())
@@ -443,7 +488,11 @@ fn main() -> Result<()> {
 
     // ── Emit ─────────────────────────────────────────────────────────────────
     let denom = a + b + c;
-    let b_ratio = if denom > 0 { b as f64 / denom as f64 * 100.0 } else { 0.0 };
+    let b_ratio = if denom > 0 {
+        b as f64 / denom as f64 * 100.0
+    } else {
+        0.0
+    };
     let prec_denom = p_user + p_nonuser;
     let prec = if prec_denom > 0 {
         p_user as f64 / prec_denom as f64 * 100.0
@@ -472,8 +521,16 @@ fn main() -> Result<()> {
         bare_fns.len()
     );
     let s_denom = s_user + s_nonuser;
-    let s_prec = if s_denom > 0 { s_user as f64 / s_denom as f64 * 100.0 } else { 0.0 };
-    let sb_ratio = if (sa + sb + sc) > 0 { sb as f64 / (sa + sb + sc) as f64 * 100.0 } else { 0.0 };
+    let s_prec = if s_denom > 0 {
+        s_user as f64 / s_denom as f64 * 100.0
+    } else {
+        0.0
+    };
+    let sb_ratio = if (sa + sb + sc) > 0 {
+        sb as f64 / (sa + sb + sc) as f64 * 100.0
+    } else {
+        0.0
+    };
 
     println!(
         "ground-truth user fns:  DWARF decl_file={}   symbol-name(complement)={}",
@@ -514,7 +571,11 @@ fn main() -> Result<()> {
                 Some((_, p)) => format!("NONUSER\t{}", p),
                 None => "UNMAPPED\t".to_string(),
             };
-            let cert = if certain.contains(&f) { "certain" } else { "missed" };
+            let cert = if certain.contains(&f) {
+                "certain"
+            } else {
+                "missed"
+            };
             println!("BAREFN\t0x{:x}\t{}\t{}\t{}", f, kind, cert, dw);
         }
     }

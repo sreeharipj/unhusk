@@ -48,10 +48,14 @@ pub struct ScanResult {
 // ── Location lookup table ─────────────────────────────────────────────────────
 
 #[derive(Clone, Copy, PartialEq, Eq)]
-enum LocKind { User, Dep, Other }
+enum LocKind {
+    User,
+    Dep,
+    Other,
+}
 
 struct LocEntry {
-    start: u64,   // struct_vaddr (first byte of the 24-byte Location struct)
+    start: u64, // struct_vaddr (first byte of the 24-byte Location struct)
     kind: LocKind,
 }
 
@@ -80,7 +84,11 @@ fn lookup_loc(table: &[LocEntry], addr: u64) -> Option<&LocEntry> {
         return None;
     }
     let entry = &table[idx - 1];
-    if addr < entry.start + 24 { Some(entry) } else { None }
+    if addr < entry.start + 24 {
+        Some(entry)
+    } else {
+        None
+    }
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -154,14 +162,14 @@ pub fn scan(elf: &ParsedElf, fns: &FunctionMap, locations: &[PanicLocation]) -> 
                 let ea = instr.memory_displacement64();
                 if ea != 0 {
                     if let Some(entry) = lookup_loc(&loc_table, ea) {
-                        all_loc_hits.entry(fn_start).or_default().insert(entry.start);
+                        all_loc_hits
+                            .entry(fn_start)
+                            .or_default()
+                            .insert(entry.start);
                         match entry.kind {
                             LocKind::User => {
                                 certain.insert(fn_start);
-                                certain_locs
-                                    .entry(fn_start)
-                                    .or_default()
-                                    .push(entry.start);
+                                certain_locs.entry(fn_start).or_default().push(entry.start);
                             }
                             LocKind::Dep => {
                                 dep_boundary.insert(fn_start);
@@ -191,7 +199,13 @@ pub fn scan(elf: &ParsedElf, fns: &FunctionMap, locations: &[PanicLocation]) -> 
         locs.dedup();
     }
 
-    ScanResult { certain, calls, dep_boundary, certain_locs, all_loc_hits }
+    ScanResult {
+        certain,
+        calls,
+        dep_boundary,
+        certain_locs,
+        all_loc_hits,
+    }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

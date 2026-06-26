@@ -15,7 +15,11 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
     println!(
         "arch    : {}   {}",
         elf.arch,
-        if elf.is_pie { "PIE (ET_DYN)" } else { "non-PIE (ET_EXEC)" }
+        if elf.is_pie {
+            "PIE (ET_DYN)"
+        } else {
+            "non-PIE (ET_EXEC)"
+        }
     );
 
     // ── Section overview ──────────────────────────────────────────────────────
@@ -109,7 +113,11 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
     if !dep_locs.is_empty() {
         let mut counts: BTreeMap<String, usize> = BTreeMap::new();
         for loc in &dep_locs {
-            if let Origin::Dep { crate_name, version } = &loc.origin {
+            if let Origin::Dep {
+                crate_name,
+                version,
+            } = &loc.origin
+            {
                 let key = if version.is_empty() {
                     crate_name.clone()
                 } else {
@@ -159,16 +167,20 @@ pub fn print_phase2_report(
     println!("functions (from .eh_frame): {}", fn_count);
     println!();
     println!("attribution breakdown:");
-    println!("  certain      {:>5}  ({:.1}%)  user-authored (100% precision, DWARF-validated)",
+    println!(
+        "  certain      {:>5}  ({:.1}%)  user-authored (100% precision, DWARF-validated)",
         score.certain,
-        pct(score.certain, fn_count));
+        pct(score.certain, fn_count)
+    );
     let call_closure = score.inferred + score.indeterminate;
     println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5% precision)",
         call_closure,
         pct(call_closure, fn_count));
-    println!("  library      {:>5}  ({:.1}%)  not attributed",
+    println!(
+        "  library      {:>5}  ({:.1}%)  not attributed",
         score.library,
-        pct(score.library, fn_count));
+        pct(score.library, fn_count)
+    );
 
     // Index locations by struct_vaddr for annotation of certain functions.
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
@@ -180,14 +192,22 @@ pub fn print_phase2_report(
         .collect();
     let call_closure_fns: Vec<&AttributedFn> = attributed
         .iter()
-        .filter(|f| matches!(f.attribution, Attribution::Inferred | Attribution::Indeterminate))
+        .filter(|f| {
+            matches!(
+                f.attribution,
+                Attribution::Inferred | Attribution::Indeterminate
+            )
+        })
         .collect();
 
     // Primary output: certain functions — user-authored, 100% DWARF-validated precision.
     // Each is annotated with the panic-site evidence that established it.
     if !certain_fns.is_empty() {
         println!();
-        println!("user-authored functions — high confidence ({}):", certain_fns.len());
+        println!(
+            "user-authored functions — high confidence ({}):",
+            certain_fns.len()
+        );
         for f in &certain_fns {
             println!(
                 "  0x{:08x}–0x{:08x}  ({} bytes)",
@@ -219,8 +239,15 @@ pub fn print_phase2_report(
     if !call_closure_fns.is_empty() {
         const MAX_SHOWN: usize = 20;
         println!();
-        println!("call closure — reachable from user code, not user-authored ({}):", call_closure_fns.len());
-        let show = if show_call_closure { call_closure_fns.len() } else { call_closure_fns.len().min(MAX_SHOWN) };
+        println!(
+            "call closure — reachable from user code, not user-authored ({}):",
+            call_closure_fns.len()
+        );
+        let show = if show_call_closure {
+            call_closure_fns.len()
+        } else {
+            call_closure_fns.len().min(MAX_SHOWN)
+        };
         for f in &call_closure_fns[..show] {
             println!(
                 "  0x{:08x}–0x{:08x}  ({} bytes)  [{}]",
@@ -242,8 +269,14 @@ pub fn print_phase2_report(
     if backtrace_depth > 0 && !backtrace.is_empty() {
         const MAX_SHOWN: usize = 20;
         println!();
-        println!("certain_by_backtrace — backward-reachable callers, low confidence ({}):", backtrace.len());
-        println!("  depth: {}  |  no direct panic evidence — use --validate to measure precision", backtrace_depth);
+        println!(
+            "certain_by_backtrace — backward-reachable callers, low confidence ({}):",
+            backtrace.len()
+        );
+        println!(
+            "  depth: {}  |  no direct panic evidence — use --validate to measure precision",
+            backtrace_depth
+        );
         // attributed is sorted by start; build a quick addr→end map for display.
         let end_by_start: std::collections::HashMap<u64, u64> =
             attributed.iter().map(|f| (f.start, f.end)).collect();
@@ -254,7 +287,9 @@ pub fn print_phase2_report(
             if let Some(&end) = end_by_start.get(&addr) {
                 println!(
                     "  0x{:08x}–0x{:08x}  ({} bytes)",
-                    addr, end, end.saturating_sub(addr),
+                    addr,
+                    end,
+                    end.saturating_sub(addr),
                 );
             } else {
                 println!("  0x{:08x}", addr);
@@ -274,14 +309,17 @@ pub fn print_validation_report(report: &ValidationReport) {
     println!();
     println!("=== unhusk — DWARF ground-truth validation ===");
     println!();
-    println!("DWARF coverage : {} functions mapped ({} user-first-party)",
-        report.dwarf_total, report.dwarf_user_total);
+    println!(
+        "DWARF coverage : {} functions mapped ({} user-first-party)",
+        report.dwarf_total, report.dwarf_user_total
+    );
 
     println!();
     println!("── Precision (of unhusk's user-attributed predictions) ─────────────────");
 
     let fmt_bucket = |name: &str, b: &crate::dwarf::BucketMetrics| {
-        let prec = b.precision()
+        let prec = b
+            .precision()
             .map(|p| format!("{:.1}%", p * 100.0))
             .unwrap_or_else(|| "n/a".into());
         println!(
@@ -290,9 +328,9 @@ pub fn print_validation_report(report: &ValidationReport) {
         );
     };
 
-    fmt_bucket("certain",              &report.certain);
-    fmt_bucket("inferred",             &report.inferred);
-    fmt_bucket("indeterminate",        &report.indeterminate);
+    fmt_bucket("certain", &report.certain);
+    fmt_bucket("inferred", &report.inferred);
+    fmt_bucket("indeterminate", &report.indeterminate);
     if report.backtrace.predicted > 0 {
         fmt_bucket("backtrace (low-conf)", &report.backtrace);
     }
@@ -303,17 +341,31 @@ pub fn print_validation_report(report: &ValidationReport) {
     let fmt_recall = |label: &str, n: usize| {
         println!("  {:>5}  ({:5.1}%)  {}", n, pct(n, u), label);
     };
-    fmt_recall("certain          (rock-solid signal)", report.dwarf_user_in_certain);
-    fmt_recall("inferred         (call-graph reach)", report.dwarf_user_in_inferred);
-    fmt_recall("indeterminate    (shared/mixed callers)", report.dwarf_user_in_indeterminate);
+    fmt_recall(
+        "certain          (rock-solid signal)",
+        report.dwarf_user_in_certain,
+    );
+    fmt_recall(
+        "inferred         (call-graph reach)",
+        report.dwarf_user_in_inferred,
+    );
+    fmt_recall(
+        "indeterminate    (shared/mixed callers)",
+        report.dwarf_user_in_indeterminate,
+    );
     fmt_recall("library          (MISSED)", report.dwarf_user_in_library);
     if report.backtrace.predicted > 0 {
-        fmt_recall("backtrace-only   (backward-reach, NEW)", report.dwarf_user_in_backtrace_only);
+        fmt_recall(
+            "backtrace-only   (backward-reach, NEW)",
+            report.dwarf_user_in_backtrace_only,
+        );
     }
 
     // Per-bucket DWARF-user function lists for diagnostic detail.
     let print_fn_list = |label: &str, list: &[(u64, String)]| {
-        if list.is_empty() { return; }
+        if list.is_empty() {
+            return;
+        }
         println!("  {}:", label);
         for (addr, path) in list {
             println!("    0x{:08x}  {}", addr, path);
@@ -323,38 +375,62 @@ pub fn print_validation_report(report: &ValidationReport) {
         println!();
         print_fn_list("DWARF-user in certain", &report.dwarf_user_certain_list);
         print_fn_list("DWARF-user in inferred", &report.dwarf_user_inferred_list);
-        print_fn_list("DWARF-user in indeterminate", &report.dwarf_user_indeterminate_list);
-        print_fn_list("DWARF-user in library (missed)", &report.dwarf_user_library_list);
+        print_fn_list(
+            "DWARF-user in indeterminate",
+            &report.dwarf_user_indeterminate_list,
+        );
+        print_fn_list(
+            "DWARF-user in library (missed)",
+            &report.dwarf_user_library_list,
+        );
     }
 
     // Recall: only count functions in buckets we call "user-attributed" (certain+inferred).
     // Indeterminate is a diagnostic bucket; DWARF confirms 0% precision there.
-    let captured = report.dwarf_user_in_certain
-        + report.dwarf_user_in_inferred;
+    let captured = report.dwarf_user_in_certain + report.dwarf_user_in_inferred;
     println!();
-    println!("  total captured : {:>5}  ({:.1}% of {} DWARF-user fns)",
-        captured, pct(captured, u), u);
+    println!(
+        "  total captured : {:>5}  ({:.1}% of {} DWARF-user fns)",
+        captured,
+        pct(captured, u),
+        u
+    );
     if report.backtrace.predicted > 0 {
         let with_bt = captured + report.dwarf_user_in_backtrace_only;
-        println!("  +backtrace     : {:>5}  ({:.1}%)  (+{:.1}pp recall gain, {} new fns)",
-            with_bt, pct(with_bt, u),
+        println!(
+            "  +backtrace     : {:>5}  ({:.1}%)  (+{:.1}pp recall gain, {} new fns)",
+            with_bt,
+            pct(with_bt, u),
             pct(with_bt, u) - pct(captured, u),
-            report.dwarf_user_in_backtrace_only);
+            report.dwarf_user_in_backtrace_only
+        );
     }
-    println!("  total missed   : {:>5}  ({:.1}%)",
-        report.dwarf_user_in_library, pct(report.dwarf_user_in_library, u));
+    println!(
+        "  total missed   : {:>5}  ({:.1}%)",
+        report.dwarf_user_in_library,
+        pct(report.dwarf_user_in_library, u)
+    );
 
     println!();
     println!("── Headline numbers ─────────────────────────────────────────────────────");
-    println!("  Certain precision : {}",
-        report.certain.precision()
+    println!(
+        "  Certain precision : {}",
+        report
+            .certain
+            .precision()
             .map(|p| format!("{:.1}%", p * 100.0))
-            .unwrap_or_else(|| "n/a (no certain predictions)".into()));
-    println!("  Certain recall    : {:.1}%  ({}/{} DWARF-user fns reached by certain)",
+            .unwrap_or_else(|| "n/a (no certain predictions)".into())
+    );
+    println!(
+        "  Certain recall    : {:.1}%  ({}/{} DWARF-user fns reached by certain)",
         pct(report.dwarf_user_in_certain, u),
-        report.dwarf_user_in_certain, u);
-    println!("  Overall recall    : {:.1}%  (certain+inferred)",
-        pct(captured, u));
+        report.dwarf_user_in_certain,
+        u
+    );
+    println!(
+        "  Overall recall    : {:.1}%  (certain+inferred)",
+        pct(captured, u)
+    );
 
     println!();
     println!("validation complete.");
@@ -365,10 +441,16 @@ pub fn print_types_report(types: &[RecoveredType]) {
     println!();
     println!("=== unhusk — type-name recovery (#[derive(Debug)]) ===");
     println!();
-    let n_user    = types.iter().filter(|t| t.tier == TypeTier::User).count();
-    let n_nonstd  = types.iter().filter(|t| t.tier == TypeTier::NonStd).count();
-    let n_std     = types.iter().filter(|t| t.tier == TypeTier::Std).count();
-    println!("recovered: {} total  (user={}, non-std={}, std={})", types.len(), n_user, n_nonstd, n_std);
+    let n_user = types.iter().filter(|t| t.tier == TypeTier::User).count();
+    let n_nonstd = types.iter().filter(|t| t.tier == TypeTier::NonStd).count();
+    let n_std = types.iter().filter(|t| t.tier == TypeTier::Std).count();
+    println!(
+        "recovered: {} total  (user={}, non-std={}, std={})",
+        types.len(),
+        n_user,
+        n_nonstd,
+        n_std
+    );
 
     if n_user > 0 {
         println!();
@@ -394,7 +476,10 @@ pub fn print_types_report(types: &[RecoveredType]) {
 
     if n_std > 0 {
         println!();
-        println!("std structs ({}) — expected noise from core/alloc/std:", n_std);
+        println!(
+            "std structs ({}) — expected noise from core/alloc/std:",
+            n_std
+        );
         for t in types.iter().filter(|t| t.tier == TypeTier::Std) {
             println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
         }
@@ -405,7 +490,11 @@ pub fn print_types_report(types: &[RecoveredType]) {
 }
 
 fn pct(n: usize, total: usize) -> f64 {
-    if total == 0 { 0.0 } else { n as f64 / total as f64 * 100.0 }
+    if total == 0 {
+        0.0
+    } else {
+        n as f64 / total as f64 * 100.0
+    }
 }
 
 // ── Tally helpers ─────────────────────────────────────────────────────────────
@@ -419,7 +508,13 @@ struct Tally {
 }
 
 fn tally_strings(strings: &[SourceString]) -> Tally {
-    let mut t = Tally { user: 0, std: 0, dep: 0, unknown: 0, dep_crates: 0 };
+    let mut t = Tally {
+        user: 0,
+        std: 0,
+        dep: 0,
+        unknown: 0,
+        dep_crates: 0,
+    };
     let mut crate_names = std::collections::BTreeSet::new();
     for s in strings {
         match &s.origin {
@@ -437,7 +532,13 @@ fn tally_strings(strings: &[SourceString]) -> Tally {
 }
 
 fn tally_locations(locations: &[PanicLocation]) -> Tally {
-    let mut t = Tally { user: 0, std: 0, dep: 0, unknown: 0, dep_crates: 0 };
+    let mut t = Tally {
+        user: 0,
+        std: 0,
+        dep: 0,
+        unknown: 0,
+        dep_crates: 0,
+    };
     for l in locations {
         match &l.origin {
             Origin::User => t.user += 1,
