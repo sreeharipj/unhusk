@@ -291,7 +291,7 @@ pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
             let crate_ver_dir = &after[s1 + 1..];
             let end = crate_ver_dir.find('/').unwrap_or(crate_ver_dir.len());
             if let Some((name, ver)) = split_crate_ver(&crate_ver_dir[..end]) {
-                if root_crates.iter().any(|r| *r == name) {
+                if root_crates.contains(&name) {
                     return Origin::User;
                 }
                 return Origin::Dep { crate_name: name, version: ver };

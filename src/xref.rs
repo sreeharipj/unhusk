@@ -74,7 +74,7 @@ fn build_loc_table(locations: &[PanicLocation]) -> Vec<LocEntry> {
 /// O(log n): find the LocEntry whose 24-byte range [start, start+24) contains
 /// `addr`.  Returns None if no entry covers `addr`.
 #[inline]
-fn lookup_loc<'a>(table: &'a [LocEntry], addr: u64) -> Option<&'a LocEntry> {
+fn lookup_loc(table: &[LocEntry], addr: u64) -> Option<&LocEntry> {
     let idx = table.partition_point(|e| e.start <= addr);
     if idx == 0 {
         return None;
