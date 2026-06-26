@@ -35,7 +35,7 @@ use std::collections::{HashMap, HashSet};
 
 use iced_x86::{Decoder, DecoderOptions, Instruction, Mnemonic, OpKind, Register};
 
-use crate::classify::{Attribution, AttributedFn};
+use crate::classify::{AttributedFn, Attribution};
 use crate::elf::{ParsedElf, Section};
 use crate::frame::FunctionMap;
 
@@ -71,18 +71,56 @@ pub struct RecoveredType {
 
 const STD_TYPE_NAMES: &[&str] = &[
     // core
-    "Option", "Result", "Ordering", "Range", "RangeFrom", "RangeTo",
-    "RangeFull", "RangeInclusive", "Pin", "ManuallyDrop", "PhantomData",
-    "Formatter", "Arguments", "DebugStruct", "DebugTuple", "DebugList",
-    "DebugSet", "DebugMap", "Error",
+    "Option",
+    "Result",
+    "Ordering",
+    "Range",
+    "RangeFrom",
+    "RangeTo",
+    "RangeFull",
+    "RangeInclusive",
+    "Pin",
+    "ManuallyDrop",
+    "PhantomData",
+    "Formatter",
+    "Arguments",
+    "DebugStruct",
+    "DebugTuple",
+    "DebugList",
+    "DebugSet",
+    "DebugMap",
+    "Error",
     // alloc
-    "Vec", "String", "Box", "Arc", "Rc", "Cow",
-    "HashMap", "HashSet", "BTreeMap", "BTreeSet", "LinkedList", "VecDeque",
+    "Vec",
+    "String",
+    "Box",
+    "Arc",
+    "Rc",
+    "Cow",
+    "HashMap",
+    "HashSet",
+    "BTreeMap",
+    "BTreeSet",
+    "LinkedList",
+    "VecDeque",
     // std
-    "Mutex", "RwLock", "Condvar", "Thread", "ThreadId", "OnceLock", "Once",
-    "Path", "PathBuf", "OsStr", "OsString", "File", "Stdin", "Stdout",
+    "Mutex",
+    "RwLock",
+    "Condvar",
+    "Thread",
+    "ThreadId",
+    "OnceLock",
+    "Once",
+    "Path",
+    "PathBuf",
+    "OsStr",
+    "OsString",
+    "File",
+    "Stdin",
+    "Stdout",
     // serde internals
-    "Visitor", "Expected",
+    "Visitor",
+    "Expected",
     // anyhow/thiserror
     "Context",
 ];
@@ -174,11 +212,7 @@ pub fn find_type_names(
 
 /// Build a map of `.data.rel.ro` slot address → string content for every
 /// fat-pointer slot that points to a non-`.rs` identifier string in `.rodata`.
-fn collect_dro_strings(
-    elf: &ParsedElf,
-    dro: &Section,
-    rodata: &Section,
-) -> HashMap<u64, String> {
+fn collect_dro_strings(elf: &ParsedElf, dro: &Section, rodata: &Section) -> HashMap<u64, String> {
     let mut out = HashMap::new();
     for entry in &elf.rela_relative {
         if !dro.contains_vaddr(entry.offset) {
@@ -191,9 +225,8 @@ fn collect_dro_strings(
         if slot_off + 16 > dro.data.len() {
             continue;
         }
-        let str_len = u64::from_le_bytes(
-            dro.data[slot_off + 8..slot_off + 16].try_into().unwrap(),
-        ) as usize;
+        let str_len =
+            u64::from_le_bytes(dro.data[slot_off + 8..slot_off + 16].try_into().unwrap()) as usize;
         if str_len == 0 || str_len > 128 {
             continue;
         }
@@ -231,12 +264,7 @@ fn scan_text(
 ) -> HashMap<u64, Vec<String>> {
     let mut fn_strings: HashMap<u64, Vec<String>> = HashMap::new();
 
-    let mut decoder = Decoder::with_ip(
-        64,
-        text.data.as_slice(),
-        text.vaddr,
-        DecoderOptions::NONE,
-    );
+    let mut decoder = Decoder::with_ip(64, text.data.as_slice(), text.vaddr, DecoderOptions::NONE);
     let mut instr = Instruction::default();
 
     // Sliding window: recent rodata addresses from LEA instructions.
@@ -273,13 +301,13 @@ fn scan_text(
         // ── Phase B-1 continued: MOV reg, imm → try pairing with recent LEAs ─
         if instr.mnemonic() == Mnemonic::Mov {
             let imm: u64 = match instr.op_kind(1) {
-                OpKind::Immediate8          => instr.immediate8()      as u64,
-                OpKind::Immediate16         => instr.immediate16()     as u64,
-                OpKind::Immediate32         => instr.immediate32()     as u64,
-                OpKind::Immediate64         => instr.immediate64(),
-                OpKind::Immediate8to32      => instr.immediate8to32()  as u64,
-                OpKind::Immediate8to64      => instr.immediate8to64()  as u64,
-                OpKind::Immediate32to64     => instr.immediate32to64() as u64,
+                OpKind::Immediate8 => instr.immediate8() as u64,
+                OpKind::Immediate16 => instr.immediate16() as u64,
+                OpKind::Immediate32 => instr.immediate32() as u64,
+                OpKind::Immediate64 => instr.immediate64(),
+                OpKind::Immediate8to32 => instr.immediate8to32() as u64,
+                OpKind::Immediate8to64 => instr.immediate8to64() as u64,
+                OpKind::Immediate32to64 => instr.immediate32to64() as u64,
                 _ => 0,
             };
             if (2..=100).contains(&imm) {
@@ -287,8 +315,7 @@ fn scan_text(
                 // Try every recent LEA in the current function.
                 let count = lea_count.min(WIN);
                 for k in 0..count {
-                    let (lea_fn, rodata_vaddr) =
-                        lea_win[(lea_idx.wrapping_sub(1 + k)) % WIN];
+                    let (lea_fn, rodata_vaddr) = lea_win[(lea_idx.wrapping_sub(1 + k)) % WIN];
                     if lea_fn != fn_start {
                         break;
                     }
@@ -411,6 +438,5 @@ fn is_snake_case(s: &str) -> bool {
         return false;
     }
     let b = s.as_bytes();
-    b[0].is_ascii_lowercase()
-        && s.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'_')
+    b[0].is_ascii_lowercase() && s.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'_')
 }

@@ -264,11 +264,17 @@ pub fn backtrace_walk(
             None => continue,
         };
         for &caller in callers {
-            if !fns.contains_key(&caller) { continue; }
-            if visited.contains(&caller) { continue; }
+            if !fns.contains_key(&caller) {
+                continue;
+            }
+            if visited.contains(&caller) {
+                continue;
+            }
             visited.insert(caller);
             // dep-boundary barrier: stop here, don't add, don't recurse.
-            if dep_boundary.contains(&caller) { continue; }
+            if dep_boundary.contains(&caller) {
+                continue;
+            }
             result.insert(caller);
             frontier.push_back((caller, d + 1));
         }
@@ -284,7 +290,18 @@ mod tests {
     use crate::frame::FunctionRange;
 
     fn make_fns(addrs: &[u64]) -> FunctionMap {
-        addrs.iter().map(|&a| (a, FunctionRange { start: a, end: a + 16 })).collect()
+        addrs
+            .iter()
+            .map(|&a| {
+                (
+                    a,
+                    FunctionRange {
+                        start: a,
+                        end: a + 16,
+                    },
+                )
+            })
+            .collect()
     }
 
     #[test]
@@ -328,8 +345,14 @@ mod tests {
         let rev = build_rev_call_graph(&calls);
         let dep: DepBoundarySet = HashSet::new();
         let bt = backtrace_walk(&fns, &certain, &rev, &dep, 1);
-        assert!(bt.contains(&0x20), "direct caller should be in depth-1 result");
-        assert!(!bt.contains(&0x30), "grandcaller should NOT be in depth-1 result");
+        assert!(
+            bt.contains(&0x20),
+            "direct caller should be in depth-1 result"
+        );
+        assert!(
+            !bt.contains(&0x30),
+            "grandcaller should NOT be in depth-1 result"
+        );
         assert!(!bt.contains(&0x10), "certain seed must never be in result");
     }
 
@@ -359,6 +382,9 @@ mod tests {
         let dep: DepBoundarySet = [0x30].into_iter().collect();
         let bt = backtrace_walk(&fns, &certain, &rev, &dep, 10);
         assert!(!bt.contains(&0x30), "dep barrier must not be added");
-        assert!(!bt.contains(&0x40), "caller of dep barrier must not recurse through");
+        assert!(
+            !bt.contains(&0x40),
+            "caller of dep barrier must not recurse through"
+        );
     }
 }
