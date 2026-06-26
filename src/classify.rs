@@ -108,7 +108,7 @@ pub fn attribute(
 
     while let Some((caller_start, depth)) = frontier.pop_front() {
         // Honour depth limit: don't expand further if we've hit the cap.
-        if max_infer_depth.map_or(false, |max| depth >= max) {
+        if max_infer_depth.is_some_and(|max| depth >= max) {
             continue;
         }
         if let Some(callees) = calls.get(&caller_start) {

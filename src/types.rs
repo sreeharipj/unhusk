@@ -214,7 +214,7 @@ fn looks_like_ident(s: &str) -> bool {
     !s.is_empty()
         && s.len() >= 2
         && s.as_bytes()[0].is_ascii_alphabetic()
-        && s.bytes().all(|b| is_ident_byte(b))
+        && s.bytes().all(is_ident_byte)
         && !s.bytes().all(|b| b.is_ascii_uppercase() || b == b'_')
 }
 
@@ -282,7 +282,7 @@ fn scan_text(
                 OpKind::Immediate32to64     => instr.immediate32to64() as u64,
                 _ => 0,
             };
-            if imm >= 2 && imm <= 100 {
+            if (2..=100).contains(&imm) {
                 let len = imm as usize;
                 // Try every recent LEA in the current function.
                 let count = lea_count.min(WIN);
