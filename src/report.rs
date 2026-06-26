@@ -139,6 +139,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
 }
 
 /// Print the Phase 2 function-attribution report.
+#[allow(clippy::too_many_arguments)]
 pub fn print_phase2_report(
     elf: &ParsedElf,
     attributed: &[AttributedFn],
@@ -335,9 +336,9 @@ pub fn print_validation_report(report: &ValidationReport) {
         captured, pct(captured, u), u);
     if report.backtrace.predicted > 0 {
         let with_bt = captured + report.dwarf_user_in_backtrace_only;
-        println!("  +backtrace     : {:>5}  ({:.1}%)  (+{}pp recall gain, {} new fns)",
+        println!("  +backtrace     : {:>5}  ({:.1}%)  (+{:.1}pp recall gain, {} new fns)",
             with_bt, pct(with_bt, u),
-            format!("{:.1}", pct(with_bt, u) - pct(captured, u)),
+            pct(with_bt, u) - pct(captured, u),
             report.dwarf_user_in_backtrace_only);
     }
     println!("  total missed   : {:>5}  ({:.1}%)",
