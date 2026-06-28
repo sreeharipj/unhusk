@@ -51,9 +51,17 @@ CATEGORIES = {
 
 
 def leading_crate(sym):
+    # Pure-forwarding std wrappers whose BODY is the inner user function — by any
+    # authorship notion these bytes belong to the inner crate. Unwrap them.
+    #   __rust_begin_short_backtrace::<F>   thread/task entry trampoline
+    #   LocalKey::with::<F>                 TLS accessor (body ~= the closure F)
     m = re.search(r"__rust_begin_short_backtrace::<(.+)", sym)
     if m:
         sym = m.group(1)
+    if "LocalKey" in sym:
+        m = re.search(r"::with::<(.+)", sym)
+        if m:
+            sym = m.group(1)
     s = sym.lstrip("<")
     m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
     return m.group(1) if m else None
@@ -69,12 +77,17 @@ def nm_table(debug):
     return t
 
 
-def classify(sym, deps):
+def classify(sym, deps, stem=None):
     if sym is None:
         return "unk"
     lc = leading_crate(sym)
     if lc is None:
         return "unk"
+    # The author's own library crate, when the binary is `cargo install`ed, is pulled
+    # from the registry and looks like a dep (e.g. lib `typos` under bin `typos`/crate
+    # `typos-cli`). If the dep crate name IS the binary stem, treat it as author code.
+    if stem and lc == stem.replace("-", "_"):
+        return "user"
     return "nonuser" if (lc in STD_CRATES or lc in deps) else "user"
 
 
@@ -93,7 +106,7 @@ def precision(tp, fp):
     return 100.0 * tp / (tp + fp) if (tp + fp) else float("nan")
 
 
-def measure(strp, dbg):
+def measure(strp, dbg, stem=None):
     env = dict(os.environ, UNHUSK_DUMP_TIERS="1", UNHUSK_DUMP_DEPS="1")
     out = subprocess.run([UNHUSK, strp], capture_output=True, text=True, env=env, timeout=400).stdout
     deps = set(m.group(1).replace("-", "_") for m in re.finditer(r"DEPCRATE\t(.+)", out))
@@ -104,7 +117,7 @@ def measure(strp, dbg):
         if not m:
             continue
         sym = nm.get(int(m.group(1), 16))
-        rows.append((int(m.group(3)), m.group(2), classify(sym, deps), sym))
+        rows.append((int(m.group(3)), m.group(2), classify(sym, deps, stem), sym))
     return rows
 
 
@@ -128,7 +141,7 @@ def main():
     print(f"{'binary':12} {'cat':10} {'STRONG':>12} {'SINGLE':>12}")
     print("-" * 50)
     for name, strp, dbg in sorted(targets, key=lambda t: (CATEGORIES.get(t[0], "cli"), t[0])):
-        rows = measure(strp, dbg)
+        rows = measure(strp, dbg, name)
         cat = CATEGORIES.get(name, "cli")
         s = [0, 0]; g = [0, 0]
         for n, tier, c, sym in rows:
