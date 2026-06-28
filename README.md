@@ -45,7 +45,7 @@ thin-LTO through `lto=true, codegen-units=1`). Pooled across 13 binaries + a ful
 A function with multiple distinct user panic Locations is almost always genuine user code; a
 monomorphized library generic typically inlines just one user closure (one Location). **`--precision`
 emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is
-the precision dial: 1 → 94.9%, 2 → 97.8%, 3 → 99.5% (recall falls 100→42→24%).
+the precision dial: 1 → 94.3%, 2 → 97.8%, 3 → 99.5% (recall falls 100→42→24%).
 
 Two signals were evaluated as further refinements and **both rejected** as measurement artifacts /
 non-signals: `#[derive(Debug)]` cross-confirmation (nearly disjoint from `certain`; type layouts
@@ -106,7 +106,7 @@ unhusk <stripped-elf> --show-call-closure
 unhusk <stripped-elf> --precision
 
 # Precision dial: STRONG tier requires N distinct user Locations
-#   1 → 94.8% precision (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)
+#   1 → 94.3% precision (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)
 unhusk <stripped-elf> --min-anchors 3
 
 # JSON feed for a downstream signature/YARA generator (suppresses human report)

@@ -10,8 +10,9 @@ Precision first, recall second.
 - **Ruler:** symbol-name (nm leading-crate), not DWARF — DWARF mislabels user FnOnce/FnMut
   closure shims to core, a ~30pp measurement artifact.
 - **The one robust lever is user-Location multiplicity**, exposed as `--min-anchors N` (default 2):
-  pooled symbol precision **1 → 94.8% (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)**.
-  Two output tiers: **STRONG** (≥N Locations, ~98%) / **SINGLE** (1 Location, ~93%).
+  pooled symbol precision **1 → 94.3% (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)**
+  (13-binary corpus, classifier using the complete dep list — see the rigor note below).
+  Two output tiers: **STRONG** (≥N Locations, ~98%) / **SINGLE** (1 Location, ~92%).
 - **Optimization-invariant:** holds across thin-LTO, `lto=true`, `opt-level=z`, `panic=abort`,
   `-C force-unwind-tables=no` (the signal keys on Location structure, not inlining).
 - **Rejected (both documented below):** source-file coherence (a contaminated-harness artifact —
@@ -20,7 +21,7 @@ Precision first, recall second.
 - **Shipped:** `--precision` (STRONG only), `--min-anchors`, `--json` backend feed, an
   `.eh_frame`-free call-target fallback map, the `UNHUSK_DUMP_TIERS` diagnostic, `tier_eval.py`.
 - **Recall is the open problem:** no robust SINGLE-tier refinement found; the honest lever is the
-  `--min-anchors` threshold (drop to 1 for full certain recall at 94.8%).
+  `--min-anchors` threshold (drop to 1 for full certain recall at 94.3%).
 
 ## Motivating observation: "LTO increases precision" is a measurement artifact
 
@@ -221,19 +222,33 @@ split.
 tier assignment over `certain` functions only — never call-closure) shows single-anchor functions
 are **~93% precision regardless of file coherence**:
 
-| tier (TIERDUMP, symbol GT, 13 binaries) | symbol precision | TP / FP |
+| tier (TIERDUMP, symbol GT, 13 binaries, complete dep list) | symbol precision | TP / FP |
 |---|---:|---:|
 | STRONG (≥2 user Locations) | **97.8%** | 315 / 7 |
-| SINGLE, file hosts a STRONG fn | 93.0% | ~ |
-| SINGLE, file never hosts a STRONG fn | **92.9%** | ~ |
-| SINGLE (all single-anchor) | 92.7% | 444 / 35 |
-| all certain | 94.8% | 759 / 42 |
+| SINGLE, file hosts a STRONG fn | ~93% | (no separation) |
+| SINGLE, file never hosts a STRONG fn | ~93% | (no separation) |
+| SINGLE (all single-anchor) | 91.9% | 440 / 39 |
+| all certain | 94.3% | 755 / 46 |
 
-Coherent vs incoherent single-anchor: **93.0% vs 92.9% — no separation.** Source-file coherence
-was removed; unhusk ships a two-tier model, **STRONG (≥N Locations, ~98%) / SINGLE (1 Location,
-~93%)**, with `--precision` emitting STRONG only. The lesson is methodological: measure tiers from
-the tool's own assignment, never by re-parsing human output that mixes function classes.
-`realval/tier_eval.py` was rewritten to consume TIERDUMP.
+Coherent vs incoherent single-anchor showed **93.0% vs 92.9% — no separation** (measured with the
+earlier top-10 classifier; the gap is zero either way). Source-file coherence was removed; unhusk
+ships a two-tier model, **STRONG (≥N Locations, ~98%) / SINGLE (1 Location, ~92%)**, with
+`--precision` emitting STRONG only. The lesson is methodological: measure tiers from the tool's own
+assignment, never by re-parsing human output that mixes function classes. `realval/tier_eval.py`
+was rewritten to consume TIERDUMP.
+
+## Rigor note — symbol classifier uses the complete dependency list
+
+The symbol ground-truth classifies a function as user vs non-user by the leading crate of its
+demangled name (non-user = leading crate ∈ std/runtime ∪ the binary's dependency crates). Earlier
+runs parsed only the **top-10** dep crates from the human report, so deps beyond the top 10
+(e.g. `serde_json` in just, `rayon` in tokei) leaked in as false "user" hits, inflating precision by
+~0.5pp. The `UNHUSK_DUMP_DEPS` diagnostic now emits every dep crate name; `tier_eval.py` uses it.
+Effect: all-certain 94.8% → **94.3%**, single 92.7% → **91.9%**; **STRONG is unchanged at 97.8%**
+(the leaked deps were all single-anchor — further evidence the STRONG tier is robust to measurement
+noise). Note also that workspace-member crates built from source (e.g. ripgrep's `grep_searcher`,
+`ignore`, `globset`) are counted as user — correct for authorship attribution, since they are the
+same author's code in the same repository.
 
 ## Negative result — `#[derive(Debug)]` cross-confirmation does NOT help precision
 
