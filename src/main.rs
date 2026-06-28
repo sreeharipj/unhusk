@@ -67,6 +67,12 @@ struct Args {
     #[arg(long)]
     precision: bool,
 
+    /// Emit tiered user-authored functions as JSON on stdout (machine-readable feed
+    /// for a downstream signature/YARA generator).  Suppresses the human-readable
+    /// phase reports.  Honors --precision (STRONG+CONFIRMED only) and --min-anchors.
+    #[arg(long)]
+    json: bool,
+
     /// Distinct user panic Locations a function needs to enter the STRONG tier.
     ///
     /// This is the precision dial.  Pooled symbol precision across 13 real binaries
@@ -129,7 +135,9 @@ fn main() -> Result<()> {
     );
 
     let locations = unhusk::locate::find_locations(&elf, &strings);
-    unhusk::report::print_report(&elf, &strings, &locations);
+    if !args.json {
+        unhusk::report::print_report(&elf, &strings, &locations);
+    }
 
     // Phase 2: function attribution via .eh_frame + xref scan.
     let mut fn_map = fn_map_result?;
@@ -138,6 +146,9 @@ fn main() -> Result<()> {
         // a call-target-derived function map so Phase 2 degrades instead of dying.
         fn_map = unhusk::frame::fallback_function_map(&elf);
         if fn_map.is_empty() {
+            if args.json {
+                println!("{{\"binary\": null, \"functions\": []}}");
+            }
             return Ok(());
         }
         eprintln!(
@@ -172,6 +183,18 @@ fn main() -> Result<()> {
     } else {
         std::collections::HashSet::new()
     };
+
+    if args.json {
+        unhusk::report::print_json_report(
+            &elf,
+            &attributed,
+            &locations,
+            &scan.certain_locs,
+            args.min_anchors,
+            args.precision,
+        );
+        return Ok(());
+    }
 
     unhusk::report::print_phase2_report(
         &elf,

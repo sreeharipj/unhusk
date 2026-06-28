@@ -151,6 +151,132 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
     certain_locs.get(&fn_start).map_or(0, |v| v.len())
 }
 
+/// Confidence tier of a certain (user-Location-anchored) function.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Tier {
+    /// ≥ min_anchors distinct user Locations (~98% symbol precision).
+    Strong,
+    /// 1 user Location, but in a file that hosts a Strong function (~93%).
+    Confirmed,
+    /// 1 user Location in a never-confirmed file (~51% — noise zone).
+    Weak,
+}
+
+impl Tier {
+    pub fn label(self) -> &'static str {
+        match self {
+            Tier::Strong => "strong",
+            Tier::Confirmed => "confirmed",
+            Tier::Weak => "weak",
+        }
+    }
+}
+
+/// Distinct user source files anchoring a certain function.
+fn anchor_files<'a>(
+    certain_locs: &crate::xref::CertainLocs,
+    loc_by_struct: &std::collections::HashMap<u64, &'a crate::locate::PanicLocation>,
+    fn_start: u64,
+) -> std::collections::BTreeSet<&'a str> {
+    certain_locs
+        .get(&fn_start)
+        .into_iter()
+        .flatten()
+        .filter_map(|sv| loc_by_struct.get(sv).map(|l| l.file.as_str()))
+        .collect()
+}
+
+/// Assign each certain function a confidence tier (multiplicity + file coherence).
+///
+/// Shared by the human and JSON reporters so they never disagree.  Returns the
+/// per-function tier keyed by start address.
+pub fn tier_certain(
+    attributed: &[AttributedFn],
+    certain_locs: &crate::xref::CertainLocs,
+    loc_by_struct: &std::collections::HashMap<u64, &crate::locate::PanicLocation>,
+    min_anchors: usize,
+) -> std::collections::HashMap<u64, Tier> {
+    let strong_tier_min = min_anchors.max(1);
+    let certain: Vec<&AttributedFn> = attributed
+        .iter()
+        .filter(|f| f.attribution == Attribution::Certain)
+        .collect();
+
+    // STRONG: ≥ threshold distinct user Locations. Their files become "confirmed".
+    let confirmed_files: std::collections::HashSet<&str> = certain
+        .iter()
+        .filter(|f| user_anchor_count(certain_locs, f.start) >= strong_tier_min)
+        .flat_map(|f| anchor_files(certain_locs, loc_by_struct, f.start))
+        .collect();
+
+    certain
+        .iter()
+        .map(|f| {
+            let tier = if user_anchor_count(certain_locs, f.start) >= strong_tier_min {
+                Tier::Strong
+            } else if anchor_files(certain_locs, loc_by_struct, f.start)
+                .iter()
+                .any(|x| confirmed_files.contains(x))
+            {
+                Tier::Confirmed
+            } else {
+                Tier::Weak
+            };
+            (f.start, tier)
+        })
+        .collect()
+}
+
+/// Emit the tiered certain functions as JSON for downstream signature tooling.
+///
+/// Hand-rolled (no serde dep).  Suppresses the human report; this is the
+/// machine-readable feed for a YARA-rule generator.
+pub fn print_json_report(
+    elf: &ParsedElf,
+    attributed: &[AttributedFn],
+    locations: &[crate::locate::PanicLocation],
+    certain_locs: &crate::xref::CertainLocs,
+    min_anchors: usize,
+    precision_mode: bool,
+) {
+    let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
+        locations.iter().map(|l| (l.struct_vaddr, l)).collect();
+    let tiers = tier_certain(attributed, certain_locs, &loc_by_struct, min_anchors);
+
+    let esc = |s: &str| s.replace('\\', "\\\\").replace('"', "\\\"");
+    println!("{{");
+    println!("  \"binary\": \"{}\",", esc(&elf.path.display().to_string()));
+    println!("  \"arch\": \"{}\",", esc(elf.arch));
+    println!("  \"min_anchors\": {},", min_anchors.max(1));
+    println!("  \"functions\": [");
+
+    let mut rows: Vec<&AttributedFn> = attributed
+        .iter()
+        .filter(|f| tiers.contains_key(&f.start))
+        .collect();
+    rows.sort_by_key(|f| f.start);
+    // In precision mode, emit only STRONG + CONFIRMED (drop the noise tier).
+    rows.retain(|f| !precision_mode || tiers[&f.start] != Tier::Weak);
+
+    for (i, f) in rows.iter().enumerate() {
+        let files = anchor_files(certain_locs, &loc_by_struct, f.start);
+        let files_json: Vec<String> = files.iter().map(|s| format!("\"{}\"", esc(s))).collect();
+        let comma = if i + 1 < rows.len() { "," } else { "" };
+        println!(
+            "    {{\"start\": \"0x{:x}\", \"end\": \"0x{:x}\", \"size\": {}, \"tier\": \"{}\", \"anchor_count\": {}, \"anchor_files\": [{}]}}{}",
+            f.start,
+            f.end,
+            f.end.saturating_sub(f.start),
+            tiers[&f.start].label(),
+            user_anchor_count(certain_locs, f.start),
+            files_json.join(", "),
+            comma,
+        );
+    }
+    println!("  ]");
+    println!("}}");
+}
+
 /// Print the Phase 2 function-attribution report.
 #[allow(clippy::too_many_arguments)]
 pub fn print_phase2_report(
@@ -192,36 +318,19 @@ pub fn print_phase2_report(
         })
         .collect();
 
-    // User source files referenced by a certain function (via its anchor Locations).
-    let fn_user_files = |fn_start: u64| -> std::collections::BTreeSet<&str> {
-        certain_locs
-            .get(&fn_start)
-            .into_iter()
-            .flatten()
-            .filter_map(|sv| loc_by_struct.get(sv).map(|l| l.file.as_str()))
+    // Tier each certain function (multiplicity + file coherence) via the shared
+    // helper, so this human report and the --json feed never disagree.
+    let tiers = tier_certain(attributed, certain_locs, &loc_by_struct, min_anchors);
+    let by_tier = |want: Tier| -> Vec<&AttributedFn> {
+        certain_fns
+            .iter()
+            .filter(|f| tiers.get(&f.start) == Some(&want))
+            .copied()
             .collect()
     };
-
-    // Tier 1 — STRONG: ≥strong_tier_min distinct user Locations.
-    let (strong_fns, single_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = certain_fns
-        .iter()
-        .partition(|f| user_anchor_count(certain_locs, f.start) >= strong_tier_min);
-
-    // A source file is "confirmed user" once it hosts any STRONG function.  Single-
-    // anchor functions in a confirmed file are coherent with proven user code; the
-    // monomorphization false positives concentrate in files that are NEVER confirmed.
-    // Measured (13 binaries + full-LTO, symbol GT): coherent singles ~93% precision,
-    // incoherent singles ~51%.  Uses only Location/file data → optimization-invariant.
-    let confirmed_files: std::collections::HashSet<&str> = strong_fns
-        .iter()
-        .flat_map(|f| fn_user_files(f.start))
-        .collect();
-
-    // Tier 2 — CONFIRMED: single-anchor, but its file hosts a STRONG function.
-    // Tier 3 — WEAK: single-anchor in a never-confirmed file (the noise zone).
-    let (confirmed_fns, weak_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = single_fns
-        .iter()
-        .partition(|f| fn_user_files(f.start).iter().any(|x| confirmed_files.contains(x)));
+    let strong_fns = by_tier(Tier::Strong);
+    let confirmed_fns = by_tier(Tier::Confirmed);
+    let weak_fns = by_tier(Tier::Weak);
 
     let fn_count = attributed.len();
     println!("functions (from .eh_frame): {}", fn_count);
