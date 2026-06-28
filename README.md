@@ -34,20 +34,25 @@ The gap between symbol and DWARF precision is not primarily algorithm error: ~80
 
 For a precision-first backend, the `certain` set is split into confidence tiers using only
 Location structure — **no symbols, no DWARF, and optimization-invariant** (verified stable from
-thin-LTO through `lto=true, codegen-units=1`, `opt-level=z`, `panic=abort`). Pooled symbol precision
-across a **21-binary** corpus (13 source-built + 8 `cargo install` tools):
+thin-LTO through `lto=true, codegen-units=1`, `opt-level=z`, `panic=abort`). Symbol precision on a
+**34-binary** corpus (13 source-built + 8 `cargo install` + 13 deliberately-adversarial), with the
+key caveat that **precision depends on workload**:
 
-| Tier | Rule | Symbol precision |
-|---|---|---|
-| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~97% |
-| **SINGLE** | exactly 1 user Location | ~88% |
+| Tier | Rule | CLI/systems | async/web-framework | broad pooled |
+|---|---|---|---|---|
+| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~98% | ~87% | **~94%** |
+| **SINGLE** | exactly 1 user Location | ~90% | ~75% | ~80% |
 
 A function with multiple distinct user panic Locations is almost always genuine user code; a
 monomorphized library generic typically inlines just one user closure (one Location). **`--precision`
-emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is
-the precision dial: 1 → 91.5%, 2 → 96.7%, 3 → 97.8% (recall falls 100→45→27%). The residual STRONG
-false positives are async/futures combinators and dep parallel/compression generics that inline a
-user closure — async-heavy binaries are the weak spot.
+emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is the
+precision dial: pooled **1 → 86%, 2 → 94%, 3 → 96%** (recall falls as it rises).
+
+**The weak spot is async / web-framework code** (futures combinators like `Pin<Box<closure>>` /
+`PollFn` / `tokio::Timeout`, and framework handler-adapters that inline a user closure). This matters
+for malware, which is disproportionately async (C2, scanners, network) — expect the ~87% end there,
+and use `--min-anchors 3` (async → ~91%) when false seeds are costly. See `realval/CORPUS_STRESS.md`
+for the pre-registered stress test and the two classifier confounds it controlled for.
 
 Two signals were evaluated as further refinements and **both rejected** as measurement artifacts /
 non-signals: `#[derive(Debug)]` cross-confirmation (nearly disjoint from `certain`; type layouts

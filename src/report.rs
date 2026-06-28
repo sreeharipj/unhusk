@@ -334,12 +334,12 @@ pub fn print_phase2_report(
         pct(score.certain, fn_count)
     );
     println!(
-        "    ├─ strong  {:>5}          ≥{} user Locations  (~97% symbol precision)",
+        "    ├─ strong  {:>5}          ≥{} user Locations  (~94% symbol precision; CLI ~98% / async ~87%)",
         strong_fns.len(),
         strong_tier_min,
     );
     println!(
-        "    └─ single  {:>5}          1 user Location    (~88% symbol precision)",
+        "    └─ single  {:>5}          1 user Location    (~80% symbol precision)",
         single_fns.len(),
     );
     let call_closure = score.inferred + score.indeterminate;
