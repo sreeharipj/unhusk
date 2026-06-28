@@ -151,11 +151,19 @@ fn main() -> Result<()> {
             }
             return Ok(());
         }
-        eprintln!(
-            "unhusk: no .eh_frame — using call-target fallback function map \
-             ({} entries, approximate; tier precision is degraded)",
-            fn_map.len()
-        );
+        if elf.section(".eh_frame_hdr").is_some() {
+            eprintln!(
+                "unhusk: no .eh_frame — recovered {} function starts from .eh_frame_hdr \
+                 (near-complete; results comparable to an intact binary)",
+                fn_map.len()
+            );
+        } else {
+            eprintln!(
+                "unhusk: no .eh_frame or .eh_frame_hdr — using call-target fallback map \
+                 ({} entries, approximate; tier precision is degraded)",
+                fn_map.len()
+            );
+        }
     }
 
     let scan = unhusk::xref::scan(&elf, &fn_map, &locations);
