@@ -69,7 +69,7 @@ struct Args {
 
     /// Emit tiered user-authored functions as JSON on stdout (machine-readable feed
     /// for a downstream signature/YARA generator).  Suppresses the human-readable
-    /// phase reports.  Honors --precision (STRONG+CONFIRMED only) and --min-anchors.
+    /// phase reports.  Honors --precision (STRONG tier only) and --min-anchors.
     #[arg(long)]
     json: bool,
 
@@ -77,8 +77,8 @@ struct Args {
     ///
     /// This is the precision dial.  Pooled symbol precision across 13 real binaries
     /// plus a full-LTO build (recall = fraction of all certain user fns retained):
-    /// N=1 → 94.9% precision at 100% recall (same as the full `certain` set);
-    /// N=2 → 97.9% at 41% (default; rejects 1-closure monomorphizations);
+    /// N=1 → 94.8% precision at 100% recall (same as the full `certain` set);
+    /// N=2 → 97.8% at 42% (default; rejects 1-closure monomorphizations);
     /// N=3 → 99.5% at 24% (near-max precision).
     /// The lever is optimization-invariant: it keys on Location structure, not inlining.
     #[arg(long, value_name = "N", default_value = "2")]
@@ -183,6 +183,17 @@ fn main() -> Result<()> {
     } else {
         std::collections::HashSet::new()
     };
+
+    // DIAGNOSTIC (env-gated): per-certain-function confidence tier.  This is the
+    // authoritative tier source — it runs on the real tier assignment, not a parse
+    // of the human listing (which conflates call-closure functions).
+    // Format: TIERDUMP\t0xADDR\ttier
+    if std::env::var_os("UNHUSK_DUMP_TIERS").is_some() {
+        let tiers = unhusk::report::tier_certain(&attributed, &scan.certain_locs, args.min_anchors);
+        for (&addr, &tier) in &tiers {
+            println!("TIERDUMP\t0x{:x}\t{}", addr, tier.label());
+        }
+    }
 
     if args.json {
         unhusk::report::print_json_report(

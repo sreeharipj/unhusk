@@ -152,22 +152,26 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
 }
 
 /// Confidence tier of a certain (user-Location-anchored) function.
+///
+/// Only user-Location *multiplicity* separates the tiers — measured (13 binaries +
+/// a full-LTO build, symbol GT, via the TIERDUMP diagnostic): Strong ~98%, Single
+/// ~93%.  An earlier "source-file coherence" sub-tier was REMOVED after the authoritative
+/// measurement showed coherent vs incoherent single-anchor functions are 93.0% vs 92.9% —
+/// i.e. coherence separates nothing.  (The apparent 51% "noise" came from a contaminated
+/// listing parser that swept call-closure functions into the single bucket.)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tier {
     /// ≥ min_anchors distinct user Locations (~98% symbol precision).
     Strong,
-    /// 1 user Location, but in a file that hosts a Strong function (~93%).
-    Confirmed,
-    /// 1 user Location in a never-confirmed file (~51% — noise zone).
-    Weak,
+    /// 1 user Location (~93% symbol precision).
+    Single,
 }
 
 impl Tier {
     pub fn label(self) -> &'static str {
         match self {
             Tier::Strong => "strong",
-            Tier::Confirmed => "confirmed",
-            Tier::Weak => "weak",
+            Tier::Single => "single",
         }
     }
 }
@@ -186,41 +190,24 @@ fn anchor_files<'a>(
         .collect()
 }
 
-/// Assign each certain function a confidence tier (multiplicity + file coherence).
+/// Assign each certain function a confidence tier by user-Location multiplicity.
 ///
 /// Shared by the human and JSON reporters so they never disagree.  Returns the
 /// per-function tier keyed by start address.
 pub fn tier_certain(
     attributed: &[AttributedFn],
     certain_locs: &crate::xref::CertainLocs,
-    loc_by_struct: &std::collections::HashMap<u64, &crate::locate::PanicLocation>,
     min_anchors: usize,
 ) -> std::collections::HashMap<u64, Tier> {
     let strong_tier_min = min_anchors.max(1);
-    let certain: Vec<&AttributedFn> = attributed
+    attributed
         .iter()
         .filter(|f| f.attribution == Attribution::Certain)
-        .collect();
-
-    // STRONG: ≥ threshold distinct user Locations. Their files become "confirmed".
-    let confirmed_files: std::collections::HashSet<&str> = certain
-        .iter()
-        .filter(|f| user_anchor_count(certain_locs, f.start) >= strong_tier_min)
-        .flat_map(|f| anchor_files(certain_locs, loc_by_struct, f.start))
-        .collect();
-
-    certain
-        .iter()
         .map(|f| {
             let tier = if user_anchor_count(certain_locs, f.start) >= strong_tier_min {
                 Tier::Strong
-            } else if anchor_files(certain_locs, loc_by_struct, f.start)
-                .iter()
-                .any(|x| confirmed_files.contains(x))
-            {
-                Tier::Confirmed
             } else {
-                Tier::Weak
+                Tier::Single
             };
             (f.start, tier)
         })
@@ -241,7 +228,7 @@ pub fn print_json_report(
 ) {
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
         locations.iter().map(|l| (l.struct_vaddr, l)).collect();
-    let tiers = tier_certain(attributed, certain_locs, &loc_by_struct, min_anchors);
+    let tiers = tier_certain(attributed, certain_locs, min_anchors);
 
     let esc = |s: &str| s.replace('\\', "\\\\").replace('"', "\\\"");
     println!("{{");
@@ -258,8 +245,8 @@ pub fn print_json_report(
         .filter(|f| tiers.contains_key(&f.start))
         .collect();
     rows.sort_by_key(|f| f.start);
-    // In precision mode, emit only STRONG + CONFIRMED (drop the noise tier).
-    rows.retain(|f| !precision_mode || tiers[&f.start] != Tier::Weak);
+    // In precision mode, emit only the STRONG tier (~98%); drop single-anchor (~93%).
+    rows.retain(|f| !precision_mode || tiers[&f.start] == Tier::Strong);
 
     for (i, f) in rows.iter().enumerate() {
         let files = anchor_files(certain_locs, &loc_by_struct, f.start);
@@ -321,9 +308,9 @@ pub fn print_phase2_report(
         })
         .collect();
 
-    // Tier each certain function (multiplicity + file coherence) via the shared
+    // Tier each certain function by user-Location multiplicity via the shared
     // helper, so this human report and the --json feed never disagree.
-    let tiers = tier_certain(attributed, certain_locs, &loc_by_struct, min_anchors);
+    let tiers = tier_certain(attributed, certain_locs, min_anchors);
     let by_tier = |want: Tier| -> Vec<&AttributedFn> {
         certain_fns
             .iter()
@@ -332,15 +319,12 @@ pub fn print_phase2_report(
             .collect()
     };
     let strong_fns = by_tier(Tier::Strong);
-    let confirmed_fns = by_tier(Tier::Confirmed);
-    let weak_fns = by_tier(Tier::Weak);
+    let single_fns = by_tier(Tier::Single);
 
     let fn_count = attributed.len();
     println!("functions (from .eh_frame): {}", fn_count);
     if precision_mode {
-        println!(
-            "mode    : --precision (STRONG + CONFIRMED tiers; weak + call closure suppressed)"
-        );
+        println!("mode    : --precision (STRONG tier only; single + call closure suppressed)");
     }
     println!();
     println!("attribution breakdown:");
@@ -350,17 +334,13 @@ pub fn print_phase2_report(
         pct(score.certain, fn_count)
     );
     println!(
-        "    ├─ strong    {:>5}        ≥{} user Locations               (~98% symbol precision)",
+        "    ├─ strong  {:>5}          ≥{} user Locations  (~98% symbol precision)",
         strong_fns.len(),
         strong_tier_min,
     );
     println!(
-        "    ├─ confirmed {:>5}        1 Location, file hosts a strong fn (~93% symbol precision)",
-        confirmed_fns.len(),
-    );
-    println!(
-        "    └─ weak      {:>5}        1 Location, file never confirmed   (~51% — noise zone)",
-        weak_fns.len(),
+        "    └─ single  {:>5}          1 user Location    (~93% symbol precision)",
+        single_fns.len(),
     );
     let call_closure = score.inferred + score.indeterminate;
     println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5-10% precision)",
@@ -415,36 +395,22 @@ pub fn print_phase2_report(
         }
     }
 
-    // Tier 2 — CONFIRMED: single-anchor in a file proven user by a STRONG function.
-    // Included in --precision output (the STRONG+CONFIRMED set is ~95% precision /
-    // ~77% recall vs STRONG-only ~98% / ~41%).
-    if !confirmed_fns.is_empty() {
-        println!();
-        println!(
-            "user-authored functions — CONFIRMED tier, file-coherent single-anchor ({}):",
-            confirmed_fns.len()
-        );
-        for f in &confirmed_fns {
-            print_fn(f);
-        }
-    }
-
-    // Tier 3 — WEAK: single-anchor in a never-confirmed file. The noise zone where
-    // monomorphized-generic false positives concentrate. Suppressed in precision mode.
-    if !weak_fns.is_empty() {
+    // Tier 2 — SINGLE: one user Location (~93%). Suppressed in precision mode,
+    // where only the ~98% STRONG tier is wanted.
+    if !single_fns.is_empty() {
         if precision_mode {
             println!();
             println!(
-                "user-authored functions — WEAK tier: {} hidden (--precision; ~51% precision)",
-                weak_fns.len()
+                "user-authored functions — single-anchor tier: {} hidden (--precision; ~93% precision)",
+                single_fns.len()
             );
         } else {
             println!();
             println!(
-                "user-authored functions — WEAK tier, single-anchor / unconfirmed file ({}):",
-                weak_fns.len()
+                "user-authored functions — single-anchor tier, 1 user Location ({}):",
+                single_fns.len()
             );
-            for f in &weak_fns {
+            for f in &single_fns {
                 print_fn(f);
             }
         }
@@ -781,8 +747,6 @@ fn tally_locations(locations: &[PanicLocation]) -> Tally {
 mod tests {
     use super::*;
     use crate::classify::Attribution;
-    use crate::locate::PanicLocation;
-    use crate::strings::Origin;
 
     fn cert(start: u64) -> AttributedFn {
         AttributedFn {
@@ -792,57 +756,31 @@ mod tests {
         }
     }
 
-    fn loc(struct_vaddr: u64, file: &str) -> PanicLocation {
-        PanicLocation {
-            struct_vaddr,
-            file: file.to_string(),
-            file_vaddr: 0,
-            line: 1,
-            col: 1,
-            origin: Origin::User,
-        }
-    }
-
-    /// STRONG (≥2 Locations), CONFIRMED (1 Location in a strong-hosting file),
-    /// WEAK (1 Location in a never-confirmed file).
+    /// STRONG = ≥2 distinct user Locations; SINGLE = exactly 1.
     #[test]
-    fn tiering_multiplicity_and_file_coherence() {
-        // fn A: 2 Locations from a.rs → Strong (and confirms a.rs).
-        // fn B: 1 Location from a.rs → Confirmed (file hosts a strong fn).
-        // fn C: 1 Location from b.rs → Weak (b.rs never hosts a strong fn).
+    fn tiering_by_multiplicity() {
+        // fn A: 2 Locations → Strong.  fn B, fn C: 1 Location → Single.
         let attributed = [cert(0x100), cert(0x200), cert(0x300)];
-        let locs = [
-            loc(0x10, "a.rs"),
-            loc(0x11, "a.rs"),
-            loc(0x20, "a.rs"),
-            loc(0x30, "b.rs"),
-        ];
-        let loc_by_struct: std::collections::HashMap<u64, &PanicLocation> =
-            locs.iter().map(|l| (l.struct_vaddr, l)).collect();
-
         let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
         certain_locs.insert(0x100, vec![0x10, 0x11]);
         certain_locs.insert(0x200, vec![0x20]);
         certain_locs.insert(0x300, vec![0x30]);
 
-        let tiers = tier_certain(&attributed, &certain_locs, &loc_by_struct, 2);
+        let tiers = tier_certain(&attributed, &certain_locs, 2);
         assert_eq!(tiers[&0x100], Tier::Strong);
-        assert_eq!(tiers[&0x200], Tier::Confirmed);
-        assert_eq!(tiers[&0x300], Tier::Weak);
+        assert_eq!(tiers[&0x200], Tier::Single);
+        assert_eq!(tiers[&0x300], Tier::Single);
     }
 
     /// min_anchors=1 collapses everything into Strong (no single-anchor tier).
     #[test]
     fn min_anchors_one_makes_all_strong() {
         let attributed = [cert(0x100), cert(0x200)];
-        let locs = [loc(0x10, "a.rs"), loc(0x20, "b.rs")];
-        let loc_by_struct: std::collections::HashMap<u64, &PanicLocation> =
-            locs.iter().map(|l| (l.struct_vaddr, l)).collect();
         let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
         certain_locs.insert(0x100, vec![0x10]);
         certain_locs.insert(0x200, vec![0x20]);
 
-        let tiers = tier_certain(&attributed, &certain_locs, &loc_by_struct, 1);
+        let tiers = tier_certain(&attributed, &certain_locs, 1);
         assert_eq!(tiers[&0x100], Tier::Strong);
         assert_eq!(tiers[&0x200], Tier::Strong);
     }

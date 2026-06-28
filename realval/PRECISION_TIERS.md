@@ -72,7 +72,7 @@ FPs carry only *std* Locations, which never entered `dep_boundary`). Multiplicit
 
 **Recall cost:** the strong tier retains ~41% of certain user functions (322/784 by symbol).
 The low-precision binaries (bat, grex, fd) lose the most — exactly where the noise was. For
-the precision-first/YARA goal this is the right trade, and a strong-tier function (≥2 coherent
+the precision-first/YARA goal this is the right trade, and a strong-tier function (≥2 distinct
 user Locations) is also a *better* seed: more author-specific bytes.
 
 ## Verdict on the non-certain buckets — keep, demote, or chuck
@@ -135,17 +135,17 @@ filtering, unlike threshold tuning. Flagged for the next iteration.
 ## Optimization-level robustness sweep (tokei, same source)
 
 The adversary picks the compiler flags, so the tier model was validated across the build matrix.
-It holds everywhere — the multiplicity + coherence signals key on Location structure, which every
+It holds everywhere — the multiplicity signal keys on Location structure, which every
 configuration preserves:
 
-| build config | user panic sites | certain (strong/conf/weak) | certain precision (DWARF) |
+| build config | user panic sites | certain (strong/single) | certain precision (DWARF) |
 |---|---:|---:|---:|
-| `lto=thin` (native) | 71 | 39 (15/10/14) | 95.7% |
-| `lto=true, cgu=1` | 70 | 28 (8/8/12) | 90.9% |
-| `opt-level=z, lto=true` | **94** | 33 (12/8/13) | 95.8% |
-| `-C force-unwind-tables=no` | 71 | 39 (15/6/3*) | 95.7% |
+| `lto=thin` (native) | 71 | 39 (15/24) | 95.7% |
+| `lto=true, cgu=1` | 70 | 28 (8/20) | 90.9% |
+| `opt-level=z, lto=true` | **94** | 33 (12/21) | 95.8% |
+| `-C force-unwind-tables=no` | 71 | 39 (15/24) | 95.7% |
 
-`*` fallback-map run (see below). Notable: **`opt-level=z` *increases* the signal** — size
+Notable: **`opt-level=z` *increases* the signal** — size
 optimization inlines panic Locations less aggressively, so more user functions keep their own
 anchors (94 sites vs 70 at `opt-level=3`). Aggressive inlining (full LTO) is the *only* direction
 that erodes recall, and even there precision and the tier shape are preserved. There is no opt
@@ -187,31 +187,36 @@ warning and exists so Phase 2 yields useful output instead of nothing. Remaining
 fold in `.eh_frame_hdr` (separate section, may survive) and function-prologue scanning to
 sharpen boundaries.
 
-## Recall recovery — source-file coherence (the CONFIRMED tier)
+## RETRACTED — source-file coherence does not separate single-anchor functions
 
-The `--min-anchors 2` STRONG tier buys precision by discarding 59% of certain user functions —
-most of them genuine single-panic user functions thrown out with the monomorphization noise.
-**Source-file coherence recovers most of them at high precision, with no new signal:** a source
-file that hosts any STRONG (multi-panic) function is "confirmed user." Single-anchor functions
-split sharply on whether their file is confirmed (pooled, 13 binaries + full-LTO, symbol GT):
+An earlier version of this work claimed a "CONFIRMED" middle tier: single-anchor functions whose
+source file also hosts a STRONG (multi-panic) function were reported at 93% precision vs 51% for
+single-anchor functions in "never-confirmed" files, yielding a 95.5%-precision / 77%-recall
+operating point. **That result was a measurement artifact and has been retracted.**
 
-| bucket | symbol precision | TP / FP |
+**The bug:** the evaluation parsed the human Phase-2 *listing* and bucketed every `0x..–0x..`
+line. But the listing also prints the call-closure (`inferred`/`indeterminate`) functions in that
+same format, with no `panic @` annotations. The parser swept those ~5–10%-precision functions
+into the "never-confirmed single-anchor" bucket, manufacturing the 51% figure and the apparent
+split.
+
+**The authoritative measurement** (the `UNHUSK_DUMP_TIERS` diagnostic, which runs on the real
+tier assignment over `certain` functions only — never call-closure) shows single-anchor functions
+are **~93% precision regardless of file coherence**:
+
+| tier (TIERDUMP, symbol GT, 13 binaries) | symbol precision | TP / FP |
 |---|---:|---:|
-| STRONG (≥2 Locations) | 97.9% | 322 / 7 |
-| single-anchor, file **confirmed** | **93.0%** | 279 / 21 |
-| single-anchor, file **never confirmed** | **51.3%** | 221 / 210 |
-| **STRONG + confirmed (the `--precision` set)** | **95.5%** | **601 / 28** |
+| STRONG (≥2 user Locations) | **97.8%** | 315 / 7 |
+| SINGLE, file hosts a STRONG fn | 93.0% | ~ |
+| SINGLE, file never hosts a STRONG fn | **92.9%** | ~ |
+| SINGLE (all single-anchor) | 92.7% | 444 / 35 |
+| all certain | 94.8% | 759 / 42 |
 
-210 of the 231 single-anchor false positives fall in the never-confirmed bucket. Promoting
-only the file-coherent singles lifts recall from 41% (STRONG-only) to **77%** while holding
-~95.5% precision — a strictly better operating point than either the raw certain set (94.9% /
-100%) or STRONG-only (97.9% / 41%).
-
-**Shipped as a three-tier model:** STRONG (≥N Locations) / CONFIRMED (single-anchor, file hosts
-a STRONG fn) / WEAK (single-anchor, unconfirmed file — the noise zone). `--precision` now emits
-STRONG + CONFIRMED and suppresses WEAK + call closure. Like multiplicity, coherence keys only on
-Location/file structure, so it is optimization-invariant (verified identical-shape split on the
-full-LTO build).
+Coherent vs incoherent single-anchor: **93.0% vs 92.9% — no separation.** Source-file coherence
+was removed; unhusk ships a two-tier model, **STRONG (≥N Locations, ~98%) / SINGLE (1 Location,
+~93%)**, with `--precision` emitting STRONG only. The lesson is methodological: measure tiers from
+the tool's own assignment, never by re-parsing human output that mixes function classes.
+`realval/tier_eval.py` was rewritten to consume TIERDUMP.
 
 ## Negative result — `#[derive(Debug)]` cross-confirmation does NOT help precision
 
@@ -223,19 +228,20 @@ It fails on two counts, both first-principles:
   is almost never in `certain`. Cross-confirmation can't boost a set it doesn't intersect.
 - **Type recovery is not a clean recall channel either.** Its own user-tier is just 4 functions
   corpus-wide (and is defined circularly from attribution); its non-std tier is 12 user / 15
-  non-user = **44% precision** — coin-flip. Plus, as noted, compiled type layouts are not
-  ABI-stable across compiler versions, so the signal is inherently fragile.
+  non-user = **44% precision** — coin-flip. Plus compiled type layouts are not ABI-stable across
+  compiler versions, so the signal is inherently fragile.
 
-Conclusion: no `--types`-based precision flag was shipped; source-file coherence (above) is the
-independent signal that actually pays off, and it has no stability caveat.
+Conclusion: no `--types`-based precision flag was shipped. After the coherence retraction, the
+only robust precision lever is user-Location **multiplicity** (the `--min-anchors` dial).
 
 ## Open threads (recall, the next phase)
 
-- The STRONG tier is the precision floor; recovering the single-anchor TPs (genuine 1-panic
-  user functions) without readmitting monomorphizations is the recall problem. Candidate
-  signal: **source-file coherence** — a single-anchor function whose one Location shares a
-  file with a STRONG-tier function is more likely genuine user code.
-- `.eh_frame` dependence: a malware author can drop unwind tables
-  (`-C force-unwind-tables=no` + `panic=abort`), erasing the FDE function map. Phase 1
-  (Location strings) survives; Phase 2 function attribution would need a fallback boundary
-  source (symbol-free function-start detection). Untested — flag for robustness work.
+- Recovering the SINGLE-tier TPs (genuine 1-panic user functions, ~93% precision) at higher
+  confidence is the recall problem. Coherence is ruled out (above); call-graph adjacency was
+  also tested and **rejected** — single-anchor functions *called by* a STRONG function are 76%
+  precision vs 95% for those that aren't (a user fn calling a monomorphized helper makes the
+  helper look adjacent-to-user, the inferred-bucket failure again). No robust SINGLE-tier
+  refinement has been found; the honest recall lever remains the `--min-anchors` threshold.
+- `.eh_frame` removal (physical `objcopy --remove-section`) is the one hardening that breaks
+  Phase 2. The call-target fallback map (shipped) degrades gracefully; sharpening its boundaries
+  with `.eh_frame_hdr` + prologue scanning is the remaining robustness work.
