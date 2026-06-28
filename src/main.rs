@@ -184,14 +184,17 @@ fn main() -> Result<()> {
         std::collections::HashSet::new()
     };
 
-    // DIAGNOSTIC (env-gated): per-certain-function confidence tier.  This is the
-    // authoritative tier source — it runs on the real tier assignment, not a parse
-    // of the human listing (which conflates call-closure functions).
-    // Format: TIERDUMP\t0xADDR\ttier
+    // DIAGNOSTIC (env-gated): per-certain-function confidence tier + raw anchor count.
+    // This is the authoritative tier source — it runs on the real tier assignment, not a
+    // parse of the human listing (which conflates call-closure functions).  The anchor
+    // count (distinct user Locations) lets a harness compute any --min-anchors threshold
+    // from a single run.
+    // Format: TIERDUMP\t0xADDR\ttier\tanchor_count
     if std::env::var_os("UNHUSK_DUMP_TIERS").is_some() {
         let tiers = unhusk::report::tier_certain(&attributed, &scan.certain_locs, args.min_anchors);
         for (&addr, &tier) in &tiers {
-            println!("TIERDUMP\t0x{:x}\t{}", addr, tier.label());
+            let n = scan.certain_locs.get(&addr).map_or(0, |v| v.len());
+            println!("TIERDUMP\t0x{:x}\t{}\t{}", addr, tier.label(), n);
         }
     }
 
