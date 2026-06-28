@@ -141,7 +141,7 @@ impl ParsedElf {
 
         // Diagnostics the operator needs.  These are honest "we may be blind here"
         // flags, surfaced loudly rather than silently returning empty results.
-        if sections.get(".text").map_or(true, |s| s.data.is_empty()) {
+        if !sections.get(".text").is_some_and(|s| !s.data.is_empty()) {
             warnings.push(
                 "no readable .text — binary is likely PACKED or has no code section; \
                  static analysis cannot proceed (consider unpacking first)"
