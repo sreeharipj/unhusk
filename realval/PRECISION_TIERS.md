@@ -163,6 +163,48 @@ survive) and prologue-pattern scanning, Phase 2 could degrade gracefully instead
 nothing. Misses leaf/indirect-only functions and exact end boundaries. Recommended next
 robustness work.
 
+## Recall recovery — source-file coherence (the CONFIRMED tier)
+
+The `--min-anchors 2` STRONG tier buys precision by discarding 59% of certain user functions —
+most of them genuine single-panic user functions thrown out with the monomorphization noise.
+**Source-file coherence recovers most of them at high precision, with no new signal:** a source
+file that hosts any STRONG (multi-panic) function is "confirmed user." Single-anchor functions
+split sharply on whether their file is confirmed (pooled, 13 binaries + full-LTO, symbol GT):
+
+| bucket | symbol precision | TP / FP |
+|---|---:|---:|
+| STRONG (≥2 Locations) | 97.9% | 322 / 7 |
+| single-anchor, file **confirmed** | **93.0%** | 279 / 21 |
+| single-anchor, file **never confirmed** | **51.3%** | 221 / 210 |
+| **STRONG + confirmed (the `--precision` set)** | **95.5%** | **601 / 28** |
+
+210 of the 231 single-anchor false positives fall in the never-confirmed bucket. Promoting
+only the file-coherent singles lifts recall from 41% (STRONG-only) to **77%** while holding
+~95.5% precision — a strictly better operating point than either the raw certain set (94.9% /
+100%) or STRONG-only (97.9% / 41%).
+
+**Shipped as a three-tier model:** STRONG (≥N Locations) / CONFIRMED (single-anchor, file hosts
+a STRONG fn) / WEAK (single-anchor, unconfirmed file — the noise zone). `--precision` now emits
+STRONG + CONFIRMED and suppresses WEAK + call closure. Like multiplicity, coherence keys only on
+Location/file structure, so it is optimization-invariant (verified identical-shape split on the
+full-LTO build).
+
+## Negative result — `#[derive(Debug)]` cross-confirmation does NOT help precision
+
+Tested the idea of confirming certain functions that also construct a `derive(Debug)` struct.
+It fails on two counts, both first-principles:
+
+- **Signals are disjoint.** Only 3 of 826 certain functions across the corpus also carry
+  type-construction evidence — `derive(Debug)::fmt` is generated code that rarely panics, so it
+  is almost never in `certain`. Cross-confirmation can't boost a set it doesn't intersect.
+- **Type recovery is not a clean recall channel either.** Its own user-tier is just 4 functions
+  corpus-wide (and is defined circularly from attribution); its non-std tier is 12 user / 15
+  non-user = **44% precision** — coin-flip. Plus, as noted, compiled type layouts are not
+  ABI-stable across compiler versions, so the signal is inherently fragile.
+
+Conclusion: no `--types`-based precision flag was shipped; source-file coherence (above) is the
+independent signal that actually pays off, and it has no stability caveat.
+
 ## Open threads (recall, the next phase)
 
 - The STRONG tier is the precision floor; recovering the single-anchor TPs (genuine 1-panic
