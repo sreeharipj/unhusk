@@ -192,31 +192,61 @@ pub fn print_phase2_report(
         })
         .collect();
 
-    // Tier the certain set by user-Location multiplicity.
+    // User source files referenced by a certain function (via its anchor Locations).
+    let fn_user_files = |fn_start: u64| -> std::collections::BTreeSet<&str> {
+        certain_locs
+            .get(&fn_start)
+            .into_iter()
+            .flatten()
+            .filter_map(|sv| loc_by_struct.get(sv).map(|l| l.file.as_str()))
+            .collect()
+    };
+
+    // Tier 1 — STRONG: ≥strong_tier_min distinct user Locations.
     let (strong_fns, single_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = certain_fns
         .iter()
         .partition(|f| user_anchor_count(certain_locs, f.start) >= strong_tier_min);
 
+    // A source file is "confirmed user" once it hosts any STRONG function.  Single-
+    // anchor functions in a confirmed file are coherent with proven user code; the
+    // monomorphization false positives concentrate in files that are NEVER confirmed.
+    // Measured (13 binaries + full-LTO, symbol GT): coherent singles ~93% precision,
+    // incoherent singles ~51%.  Uses only Location/file data → optimization-invariant.
+    let confirmed_files: std::collections::HashSet<&str> = strong_fns
+        .iter()
+        .flat_map(|f| fn_user_files(f.start))
+        .collect();
+
+    // Tier 2 — CONFIRMED: single-anchor, but its file hosts a STRONG function.
+    // Tier 3 — WEAK: single-anchor in a never-confirmed file (the noise zone).
+    let (confirmed_fns, weak_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = single_fns
+        .iter()
+        .partition(|f| fn_user_files(f.start).iter().any(|x| confirmed_files.contains(x)));
+
     let fn_count = attributed.len();
     println!("functions (from .eh_frame): {}", fn_count);
     if precision_mode {
-        println!("mode    : --precision (strong tier only; call closure suppressed)");
+        println!("mode    : --precision (STRONG + CONFIRMED tiers; weak + call closure suppressed)");
     }
     println!();
     println!("attribution breakdown:");
     println!(
-        "  certain      {:>5}  ({:.1}%)  direct user panic-Location anchor  (~95% symbol precision)",
+        "  certain      {:>5}  ({:.1}%)  direct user panic-Location anchor",
         score.certain,
         pct(score.certain, fn_count)
     );
     println!(
-        "    ├─ strong  {:>5}          ≥{} distinct user Locations  (~98% symbol precision)",
+        "    ├─ strong    {:>5}        ≥{} user Locations               (~98% symbol precision)",
         strong_fns.len(),
         strong_tier_min,
     );
     println!(
-        "    └─ single  {:>5}          1 user Location  (monomorphization risk zone)",
-        single_fns.len(),
+        "    ├─ confirmed {:>5}        1 Location, file hosts a strong fn (~93% symbol precision)",
+        confirmed_fns.len(),
+    );
+    println!(
+        "    └─ weak      {:>5}        1 Location, file never confirmed   (~51% — noise zone)",
+        weak_fns.len(),
     );
     let call_closure = score.inferred + score.indeterminate;
     println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5-10% precision)",
@@ -252,7 +282,7 @@ pub fn print_phase2_report(
         print_sites(f);
     };
 
-    // Primary output: STRONG tier — best YARA-seed candidates.
+    // Tier 1 — STRONG: best YARA-seed candidates.
     println!();
     if strong_fns.is_empty() {
         println!("user-authored functions — STRONG tier: none");
@@ -268,22 +298,36 @@ pub fn print_phase2_report(
         }
     }
 
-    // Single-anchor tier: higher recall, slightly lower precision. Hidden in
-    // precision mode (these are where monomorphized-generic false positives live).
-    if !single_fns.is_empty() {
+    // Tier 2 — CONFIRMED: single-anchor in a file proven user by a STRONG function.
+    // Included in --precision output (the STRONG+CONFIRMED set is ~95% precision /
+    // ~77% recall vs STRONG-only ~98% / ~41%).
+    if !confirmed_fns.is_empty() {
+        println!();
+        println!(
+            "user-authored functions — CONFIRMED tier, file-coherent single-anchor ({}):",
+            confirmed_fns.len()
+        );
+        for f in &confirmed_fns {
+            print_fn(f);
+        }
+    }
+
+    // Tier 3 — WEAK: single-anchor in a never-confirmed file. The noise zone where
+    // monomorphized-generic false positives concentrate. Suppressed in precision mode.
+    if !weak_fns.is_empty() {
         if precision_mode {
             println!();
             println!(
-                "user-authored functions — single-anchor tier: {} hidden (--precision; drop the flag to list)",
-                single_fns.len()
+                "user-authored functions — WEAK tier: {} hidden (--precision; ~51% precision)",
+                weak_fns.len()
             );
         } else {
             println!();
             println!(
-                "user-authored functions — single-anchor tier, 1 user Location ({}):",
-                single_fns.len()
+                "user-authored functions — WEAK tier, single-anchor / unconfirmed file ({}):",
+                weak_fns.len()
             );
-            for f in &single_fns {
+            for f in &weak_fns {
                 print_fn(f);
             }
         }
