@@ -272,6 +272,28 @@ pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
     if path.starts_with("library/") {
         return Origin::Std;
     }
+    // Pre-2018 rustc std layout: src/libcore/…, src/liballoc/…, src/libstd/… etc.
+    // Seen in older Rust malware (e.g. BlackCat built on an old toolchain).  These
+    // are relative `src/…` paths, so without this they fall through to the User
+    // branch below and inflate the user-code count.  `src/lib.rs` (a real user file)
+    // is NOT matched — only `src/lib<stdcrate>/`.
+    for libname in [
+        "libcore/",
+        "liballoc/",
+        "libstd/",
+        "libpanic_abort/",
+        "libpanic_unwind/",
+        "libunwind/",
+        "libbacktrace/",
+        "libtest/",
+        "libproc_macro/",
+        "libcompiler_builtins/",
+    ] {
+        if path.starts_with(&format!("src/{libname}")) || path.contains(&format!("/src/{libname}"))
+        {
+            return Origin::Std;
+        }
+    }
 
     // ── Dep crate: embedded in toolchain (/rust/deps/CRATE-VER/...) ──
     if let Some(rest) = path.strip_prefix("/rust/deps/") {
@@ -308,6 +330,29 @@ pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
                     version: ver,
                 };
             }
+        }
+    }
+
+    // ── Vendored / remapped registry layout ──
+    // "crates.io/<crate>-<ver>/..." (or ".../crates.io/<crate>-<ver>/...").
+    // Seen in real malware (e.g. BlackCat/Sphynx) built with vendored dependencies
+    // or `--remap-path-prefix` mapping the registry cache to a short prefix.  Without
+    // this, these dep paths fall through to the relative-path User branch below and
+    // inflate the user-code count.  Matches "crates.io/" (slash), not the
+    // "index.crates.io-<hash>" cargo-cache form already handled above.
+    if let Some(idx) = path.find("crates.io/") {
+        let seg = path[idx + "crates.io/".len()..]
+            .split('/')
+            .next()
+            .unwrap_or("");
+        if let Some((name, ver)) = split_crate_ver(seg) {
+            if root_crates.contains(&name) {
+                return Origin::User;
+            }
+            return Origin::Dep {
+                crate_name: name,
+                version: ver,
+            };
         }
     }
 

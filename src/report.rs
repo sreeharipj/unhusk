@@ -22,6 +22,29 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
         }
     );
 
+    // ── Diagnostics ───────────────────────────────────────────────────────────
+    // Loud, up-front flags for degraded modes / fallbacks / likely evasion, so a
+    // sparse result is never silently mistaken for "this binary has no user code".
+    let user_strings = locations
+        .iter()
+        .filter(|l| l.origin == Origin::User)
+        .count();
+    let mut diags: Vec<String> = elf.warnings.clone();
+    if user_strings == 0 {
+        diags.push(
+            "NO user source paths found — panic-Location strings carry no `src/…` paths. \
+             Likely `--remap-path-prefix` scrubbing, `panic_immediate_abort`, or a non-Rust/packed binary."
+                .into(),
+        );
+    }
+    if !diags.is_empty() {
+        println!();
+        println!("⚠ diagnostics ({}):", diags.len());
+        for d in &diags {
+            println!("  ⚠ {}", d);
+        }
+    }
+
     // ── Section overview ──────────────────────────────────────────────────────
     println!();
     println!("sections:");
