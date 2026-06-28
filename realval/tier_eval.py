@@ -41,6 +41,12 @@ STD_CRATES = {
 
 
 def leading_crate(sym):
+    # Thread/task entry trampolines wrap a user function as a generic parameter; the
+    # authored crate is the INNER one, not the std wrapper. Unwrap it (same correction
+    # the FnOnce-shim case needs — by authorship these bytes belong to the inner crate).
+    m = re.search(r"__rust_begin_short_backtrace::<(.+)", sym)
+    if m:
+        sym = m.group(1)
     s = sym.lstrip("<")
     m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
     return m.group(1) if m else None
