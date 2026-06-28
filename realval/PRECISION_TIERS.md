@@ -5,6 +5,23 @@
 how they were compiled* (any LTO / opt level), for use as a malware → signature backend.
 Precision first, recall second.
 
+## Summary (current state)
+
+- **Ruler:** symbol-name (nm leading-crate), not DWARF — DWARF mislabels user FnOnce/FnMut
+  closure shims to core, a ~30pp measurement artifact.
+- **The one robust lever is user-Location multiplicity**, exposed as `--min-anchors N` (default 2):
+  pooled symbol precision **1 → 94.8% (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)**.
+  Two output tiers: **STRONG** (≥N Locations, ~98%) / **SINGLE** (1 Location, ~93%).
+- **Optimization-invariant:** holds across thin-LTO, `lto=true`, `opt-level=z`, `panic=abort`,
+  `-C force-unwind-tables=no` (the signal keys on Location structure, not inlining).
+- **Rejected (both documented below):** source-file coherence (a contaminated-harness artifact —
+  93.0% vs 92.9%, no separation) and `#[derive(Debug)]` cross-confirmation (disjoint from certain;
+  type layouts not ABI-stable). Call-graph adjacency rescue of SINGLE also rejected (anti-correlated).
+- **Shipped:** `--precision` (STRONG only), `--min-anchors`, `--json` backend feed, an
+  `.eh_frame`-free call-target fallback map, the `UNHUSK_DUMP_TIERS` diagnostic, `tier_eval.py`.
+- **Recall is the open problem:** no robust SINGLE-tier refinement found; the honest lever is the
+  `--min-anchors` threshold (drop to 1 for full certain recall at 94.8%).
+
 ## Motivating observation: "LTO increases precision" is a measurement artifact
 
 On the SAME binary (tokei), DWARF-measured certain precision flips with opt level:
