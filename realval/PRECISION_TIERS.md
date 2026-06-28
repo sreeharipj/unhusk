@@ -104,6 +104,65 @@ profiles + a `lto=true,codegen-units=1` tokei twin built with
 `CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 CARGO_PROFILE_RELEASE_DEBUG=true CARGO_PROFILE_RELEASE_STRIP=false`.
 
+## Precision ladder — the `--min-anchors` dial
+
+The multiplicity threshold is now exposed as `--min-anchors N` (default 2). Pooled symbol
+precision across 13 native-profile binaries + a full-LTO build, with recall measured as the
+fraction of all 784 certain user functions retained:
+
+| `--min-anchors` | symbol precision | user TP / FP | recall retained |
+|---:|---:|---:|---:|
+| 1 (= full certain) | 94.9% | 784 / 42 | 100% |
+| **2 (default)** | **97.9%** | 322 / 7 | 41% |
+| 3 | **99.5%** | 188 / 1 | 24% |
+| 4 | 99.2% | 120 / 1 | 15% |
+
+The 7 residual FPs at `min-anchors=2` are a characterizable class, not random noise:
+**5 are `core::iter::adapters` monomorphizations** (`FilterMap<Walk, rg::…::closure>`,
+`GenericShunt<Map<…>>`, `Copied<SkipWhile<…>>`) — library iterator scaffolding with a user
+closure inlined; **2 are `std::sys::backtrace::__rust_begin_short_backtrace::<user::closure>`**
+thread-spawn trampolines whose body *is* the user's closure (borderline — arguably acceptable
+YARA seeds). Raising to `min-anchors=3` kills 6 of the 7 (only the u=7 dust trampoline survives)
+at a steep recall cost. There is no cheaper symbol-free discriminator that separates the 5 true
+iter-adapter FPs from genuine single-file multi-Location user functions at n=14 without
+overfitting — threshold escalation is the honest lever.
+
+**Orthogonal precision idea (untested, no recall cost):** cross-confirm with the `--types`
+`#[derive(Debug)]` signal — a function that both carries user Locations *and* constructs a
+user-named struct is doubly attested. Adding independent evidence raises confidence without
+filtering, unlike threshold tuning. Flagged for the next iteration.
+
+## Robustness across compilation — the `.eh_frame` dependency (tested)
+
+The attacker controls compilation, so we probed the worst cases on tokei (`panic=abort`):
+
+| build | `.eh_frame` | Phase 1 (source attribution) | Phase 2 (function tiers) |
+|---|---|---|---|
+| native `lto=thin` | present | works (71 user sites) | works (39 certain / 15 strong) |
+| `-C force-unwind-tables=no` | **survives** (273 KB) | works (71 user sites) | works (39 certain / 15 strong) |
+| `.eh_frame` physically removed (`objcopy`) | absent | **still works** (71 user sites) | **dies** (no FDEs → no tiers) |
+
+Findings:
+
+- **The common hardening flag `-C force-unwind-tables=no` does NOT defeat unhusk.** Precompiled
+  std/deps and CRT objects retain their FDEs; `.eh_frame` survives intact and Phase 2 is
+  unaffected. Fully erasing it needs `-Z build-std ... panic_immediate_abort` (nightly, exotic,
+  and it also strips panic Locations → would kill Phase 1 too) or a deliberate post-build
+  `objcopy --remove-section`.
+- **Phase 1 is robust by construction** — it reads only `.rela.dyn` + `.rodata` + `.data.rel.ro`.
+  It survives both unwind-table stripping and physical `.eh_frame` removal. You always get the
+  user source-file list and panic-site map.
+- **Phase 2 is the single point of failure**: it depends entirely on `.eh_frame` FDEs for
+  function boundaries. Remove the section and all function-level attribution (including the
+  STRONG tier) collapses.
+
+**Degraded-mode fallback (feasible, not yet built):** direct `call rel32` targets in `.text`
+recover **2413 of 5088** function starts (~47%) on the `.eh_frame`-stripped tokei — a symbol-free
+lower bound on function entries. Combined with `.eh_frame_hdr` (a separate section that may
+survive) and prologue-pattern scanning, Phase 2 could degrade gracefully instead of returning
+nothing. Misses leaf/indirect-only functions and exact end boundaries. Recommended next
+robustness work.
+
 ## Open threads (recall, the next phase)
 
 - The STRONG tier is the precision floor; recovering the single-anchor TPs (genuine 1-panic
