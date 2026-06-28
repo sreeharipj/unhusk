@@ -1,85 +1,82 @@
 # unhusk
 
-Identifies user-authored functions in stripped Rust release binaries using panic metadata and call-graph inference — no symbol tables, no signature databases, no debug info required.
+**Recovering author-written code from stripped Rust binaries via panic metadata** — no symbols, no debug info, no signature database.
 
-## What it does
+> ⚗️ **Experimental security-research project.** A single-author research vehicle, not a product.
+> Validated on 34 open-source Rust binaries; **not yet tested on live malware**. x86-64 ELF only.
+> Numbers and interfaces move as evidence accumulates. Expect sharp edges.
 
-A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds user-authored functions in two phases.
+A stripped, LTO-optimized Rust release binary is a wall of anonymous machine code in which 90%+ of the functions belong to the standard library and Cargo dependencies. unhusk finds the slice the *author* actually wrote, by exploiting a structural quirk of the Rust panic machinery.
 
-**Phase 1 — string classification:** Rust embeds a `core::panic::Location` struct in `.data.rel.ro` for every reachable `panic!`, `assert!`, bounds-check, and `.unwrap()` call site. Each struct holds a source-path string pointer. `unhusk` classifies every such path as `User`, `Std`, or `Dep` and prints a location-level breakdown.
+**The trick.** Rust bakes a `core::panic::Location` (source file + line + column) into the binary for every reachable `panic!` / `.unwrap()` / bounds-check, so a crash can print `panicked at src/main.rs:42`. These survive `strip` because they are *data*, not symbols. unhusk reconstructs them, classifies each path (`src/…` → author, `…/cargo/registry/…` → dependency, `/rustc/…/library/…` → std), ties them back to function bodies via `.eh_frame`, and ranks confidence by how many distinct author panic-sites each function carries.
 
-**Phase 2 — function attribution:** `.eh_frame` FDEs give exact function ranges. An x86-64 xref scan identifies functions that directly reference user `Location` structs (`certain`). A BFS over the call graph propagates attribution outward (`inferred`). An optional reverse BFS finds callers-of-certain-callers (`certain_by_backtrace`). An optional scan recovers struct/field names from `#[derive(Debug)]` artifacts (`--types`).
+**Why it might matter.** The primitive — *"which bytes in this stripped Rust binary are the author's?"* — feeds malware fingerprinting (YARA-seed extraction), reverse-engineering triage (label the ~3% of functions worth reading), and binary SBOM / dependency provenance. The headline target is a Rust-malware → YARA-X rule generator (a separate project); unhusk is the standalone, independently-testable backend behind a JSON contract.
 
-**Attribution buckets:**
+## Status & scope
 
-| Bucket | How | Precision |
-|---|---|---|
-| `certain` | Direct reference to a user panic Location | ~94% by symbol, ~67% by DWARF `decl_file` |
-| `inferred` | Reachable from certain; all callers are user | ~9–10% |
-| `certain_by_backtrace` | Callers of certain functions (reverse BFS, flag-gated) | ~72% by symbol |
-| `indeterminate` | Reachable from both user and library — diagnostic only | ~0% |
-
-The gap between symbol and DWARF precision is not primarily algorithm error: ~80% of the DWARF-scored false positives are user closures dispatched through `FnOnce`/`FnMut` whose `decl_file` DWARF attributes to `core/src/ops/function.rs`. By symbol name, those functions belong to the user crate. The irreducible error (~6% by symbol) is std/dep generics monomorphized with user types — indistinguishable in a stripped binary.
-
-**Measured on 13 real-world Rust binaries** (ripgrep, bat, fd, just, dust, hyperfine, xsv, pastel, grex, hexyl, tokei, sd, zoxide):
-
-| Precision ruler | Median | Mean | Genuine FP rate |
-|---|---|---|---|
-| Symbol name (crate ownership) | **94.4%** | 88.7% | **5.2%** |
-| DWARF `decl_file` | 66.7% | 64.1% | — |
-
-**Certain recall** (DWARF denominator): median **15.8%**, range 0.4%–45.5%. Recall tracks panic density and how much user code survives as standalone functions after inlining. Combined certain+inferred recall: median **46.2%** (DWARF upper bound), **19.0%** (symbol denominator — more honest, larger denominator).
-
-## Precision tiers (for signature / YARA-seed extraction)
-
-For a precision-first backend, the `certain` set is split into confidence tiers using only
-Location structure — **no symbols, no DWARF, and optimization-invariant** (verified stable from
-thin-LTO through `lto=true, codegen-units=1`, `opt-level=z`, `panic=abort`). Symbol precision on a
-**34-binary** corpus (13 source-built + 8 `cargo install` + 13 deliberately-adversarial), with the
-key caveat that **precision depends on workload**:
-
-| Tier | Rule | CLI/systems | async/web-framework | broad pooled |
-|---|---|---|---|---|
-| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~98% | ~87% | **~94%** |
-| **SINGLE** | exactly 1 user Location | ~90% | ~75% | ~80% |
-
-A function with multiple distinct user panic Locations is almost always genuine user code; a
-monomorphized library generic typically inlines just one user closure (one Location). **`--precision`
-emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is the
-precision dial: pooled **1 → 86%, 2 → 94%, 3 → 96%** (recall falls as it rises).
-
-**The weak spot is async / web-framework code** (futures combinators like `Pin<Box<closure>>` /
-`PollFn` / `tokio::Timeout`, and framework handler-adapters that inline a user closure). This matters
-for malware, which is disproportionately async (C2, scanners, network) — expect the ~87% end there,
-and use `--min-anchors 3` (async → ~91%) when false seeds are costly. See `realval/CORPUS_STRESS.md`
-for the pre-registered stress test and the two classifier confounds it controlled for.
-
-Two signals were evaluated as further refinements and **both rejected** as measurement artifacts /
-non-signals: `#[derive(Debug)]` cross-confirmation (nearly disjoint from `certain`; type layouts
-aren't ABI-stable) and source-file coherence (single-anchor precision is ~93% whether or not the
-file hosts a STRONG function — 93.0% vs 92.9%). Multiplicity is the only robust lever. See
-`realval/PRECISION_TIERS.md` for the full derivation, including the retraction.
+- **Experimental research.** Built to find out *whether* this works and *how well*, not to ship.
+- **x86-64 ELF only** (PIE and non-PIE). No PE / Mach-O / aarch64.
+- **Validated on benign open-source tools, not live malware** — the single largest validity gap.
+- Pure Rust, no C dependencies, no network, no runtime tools.
 
 ## How it works
 
+**Phase 1 — panic-site source attribution** (robust; needs no unwind info). Rust embeds a `Location` struct in `.data.rel.ro` for every reachable panic site; the file-pointer field is filled by a `R_X86_64_RELATIVE` relocation pointing at the source-path string in `.rodata`:
+
 ```
-.rela.dyn  R_X86_64_RELATIVE { offset, addend }
-    │   offset  → slot in .data.rel.ro  (the file-ptr field of the Location)
-    └── addend  → string in .rodata     ("src/main.rs", "/rustc/…", …)
+.rela.dyn   R_X86_64_RELATIVE { offset, addend }
+   │  offset → slot in .data.rel.ro  (the file-ptr field of a Location)
+   └  addend → string in .rodata      ("src/main.rs", "/rustc/…/library/…", …)
 
 .data.rel.ro  [ ptr(reloc) | len(u64) | line(u32) | col(u32) ]
 ```
 
-Source-path classification (deterministic, no heuristics):
+Path classification is deterministic — no heuristics:
 
-| Pattern | Attribution |
+| Pattern | Origin |
 |---|---|
-| `src/*.rs`, `tests/*.rs`, `examples/*.rs` | **User code** |
-| `/rustc/HASH/library/…` or `library/…` | std/core/alloc |
-| `/rust/deps/CRATE-VER/…` | toolchain-embedded dep |
-| `*/cargo/registry/src/*/CRATE-VER/…` | Cargo registry dep |
+| `src/*.rs`, `tests/*.rs`, `examples/*.rs` | **User** |
+| `/rustc/HASH/library/…`, `library/…` | std/core/alloc |
+| `*/cargo/registry/src/*/CRATE-VER/…`, `/rust/deps/…` | dependency crate |
 
-For binaries installed via `cargo install`, source paths live under `~/.cargo/registry/src/…`. Pass `--crate <name>` to promote those paths from `Dep` to `User`, or let unhusk auto-detect the root crate from the binary filename and embedded paths.
+(For `cargo install` binaries, paths live under `~/.cargo/registry/`; pass `--crate <name>` or rely on auto-detection to promote the root crate Dep → User.)
+
+**Phase 2 — function attribution.** `.eh_frame` FDEs give exact `[start, end)` function ranges. An x86-64 xref scan (iced-x86) finds every function that directly references a **user** `Location` → `certain`. The `certain` set is then split into confidence tiers by **user-Location multiplicity** (below). A forward call-graph BFS (`inferred`) and reverse BFS (`certain_by_backtrace`) exist but are *not* user-authored output — they measure reachability, which is the wrong signal for precision, so they are demoted to diagnostics.
+
+## The core finding: multiplicity is the one robust precision lever
+
+A monomorphized library generic (e.g. `core::iter::FilterMap<…, user::closure>`) inlines **exactly one** user closure → one user Location. A genuine user function carries **several** of its own panic sites. So requiring ≥ N distinct user Locations cleanly rejects the single-closure monomorphizations that are the dominant false positive — and it does so **identically at every optimization level**, because it keys on Location structure, not on inlining.
+
+Symbol-ground-truth precision on a **34-binary** corpus (13 source-built + 8 `cargo install` + 13 deliberately-adversarial), with the key caveat that **precision is workload-dependent**:
+
+| Tier | Rule | CLI/systems | async/web-framework | broad pooled |
+|---|---|---:|---:|---:|
+| **STRONG** | ≥ N distinct user Locations (`--min-anchors`, default 2) | ~98% | ~87% | **~94%** |
+| **SINGLE** | exactly 1 user Location | ~90% | ~75% | ~80% |
+
+`--min-anchors` is the precision dial — pooled **1 → ~86% (full recall) · 2 → ~94% · 3 → ~96%** (recall falls as it rises). `--precision` emits the STRONG tier only.
+
+**The weak spot is async / web-framework code:** futures combinators (`Pin<Box<closure>>`, `PollFn`, `tokio::Timeout`) and framework handler-adapters inline a *multi-panic* user closure → a library function with ≥2 user Locations → an irreducible false positive (no in-stripped-binary signal separates it from a real user function). This is **malware-relevant** — malware skews async (C2, scanners, network) — so expect the ~87% end there and use `--min-anchors 3` (async → ~91%) when false seeds are costly.
+
+## On rigor — how honestly these numbers were earned
+
+This is the part worth reading. The validation methodology is deliberately adversarial toward its own conclusions:
+
+- **Two ground-truth rulers, on purpose.** Each prediction is scored against both DWARF `decl_file` and `nm -C` symbol leading-crate. They disagree by ~30pp — because DWARF homes user `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs`, a *measurement artifact*, not a real error. Symbol is the correct ruler for authorship; using only DWARF would have understated precision and hidden the real failure mode.
+- **A pre-registered stress test.** The corpus that produced the headline was *designed to break the claim* (async / parallel / framework / macro categories), with hypotheses and kill criteria fixed in writing before any data. See `realval/CORPUS_STRESS.md`.
+- **The method caught its own mistakes — and they're documented, not buried.** A "source-file coherence" tier was shipped, then **retracted** when a cleaner measurement showed it was a harness artifact (the eval had been re-parsing human output and mixing in call-closure functions). A headline ~97% precision was **corrected to ~94%** when the stress corpus added async-heavy binaries the earlier corpus lacked. Two `cargo install`-specific classifier confounds (std forwarding wrappers, an author's own library crate pulled from the registry as a "dep") were identified and controlled for. Full derivations and retractions: `realval/PRECISION_TIERS.md`, `realval/CORPUS_STRESS.md`.
+
+Rejected refinements (do not re-add without new evidence): `#[derive(Debug)]` cross-confirmation (disjoint from `certain`; type layouts aren't ABI-stable) and call-graph adjacency rescue (anti-correlated — "called by a STRONG function" *is* the monomorphized-helper pattern).
+
+## Robustness against section stripping
+
+The adversary picks the compiler flags, so this was tested:
+
+- **Phase 1 is unconditionally robust** — it needs only `.rela.dyn` + `.rodata` + `.data.rel.ro`. It survives `-C force-unwind-tables=no`, `panic=abort`, and even physical removal of `.eh_frame`.
+- **`.eh_frame` removed but `.eh_frame_hdr` intact** (the realistic `objcopy --remove-section .eh_frame`): unhusk parses the hdr's function-address table → **results identical to an intact binary**.
+- **Both removed:** falls back to a CALL-target-derived function map (degraded; still recovers ~93% of STRONG functions).
+
+So an adversary must strip *both* sections to degrade Phase 2 at all. Optimization-invariance verified across thin-LTO, `lto=true,cgu=1`, `opt-level=z`, `panic=abort`, `-C force-unwind-tables=no`.
 
 ## Usage
 
@@ -87,112 +84,50 @@ For binaries installed via `cargo install`, source paths live under `~/.cargo/re
 # Identify user-authored functions in a stripped binary
 unhusk <stripped-elf>
 
-# Specify the root crate (required for `cargo install` binaries, auto-detected otherwise)
-unhusk <stripped-elf> --crate ripgrep
+# PRECISION MODE — emit only the STRONG tier (best signature seeds)
+unhusk <stripped-elf> --precision
+
+# Precision dial — STRONG requires N distinct user Locations
+#   pooled  1 → ~86% (full recall) · 2 → ~94% · 3 → ~96%   (CLI ~98%, async ~87%)
+unhusk <stripped-elf> --min-anchors 3
+
+# JSON feed for downstream tooling (suppresses the human report)
+#   emits {start, end, size, tier, anchor_count, anchor_files} per function
+unhusk <stripped-elf> --precision --json
 
 # Validate precision/recall against DWARF ground truth from an unstripped twin
 unhusk <stripped-elf> --validate <unstripped-elf>
 
-# Cap call-graph BFS at N hops from certain functions:
-#   --infer-depth 1: 1.8× precision gain (~9.3%), -4pp recall — high-precision audits
-#   --infer-depth 2: 1.3× precision gain (~6.4%), -1pp recall — best balance
-unhusk <stripped-elf> --infer-depth 2
+# Specify the root crate (cargo-install binaries; auto-detected otherwise)
+unhusk <stripped-elf> --crate ripgrep
 
-# Walk back N hops from certain functions via the reverse call graph (default off):
-#   depth=1 recommended; deeper gains are negligible on real binaries
-#   ~72% marginal symbol precision, +0.9pp median symbol recall
-unhusk <stripped-elf> --backtrace-depth 1
-
-# Recover struct/field names from #[derive(Debug)] artifacts in .rodata/.data.rel.ro
+# Recover struct/field names from #[derive(Debug)] artifacts (diagnostic)
 unhusk <stripped-elf> --types
-
-# Show full call-closure list instead of capping at 20
-unhusk <stripped-elf> --show-call-closure
-
-# PRECISION MODE — emit only the STRONG tier, suppress single-anchor + call closure
-unhusk <stripped-elf> --precision
-
-# Precision dial: STRONG tier requires N distinct user Locations
-#   1 → 91.5% precision (100% recall) · 2 → 96.7% (45%) · 3 → 97.8% (27%)  [21-binary corpus]
-unhusk <stripped-elf> --min-anchors 3
-
-# JSON feed for a downstream signature/YARA generator (suppresses human report)
-#   honors --precision and --min-anchors; emits start/end/size/tier/anchor_files
-unhusk <stripped-elf> --precision --json
 ```
-
-When `.eh_frame` is absent (e.g. an adversary ran `objcopy --remove-section`), unhusk recovers
-function boundaries from the separate `.eh_frame_hdr` table — which survives that strip — giving
-results identical to an intact binary. Only if *both* sections are removed does it fall to a
-call-target map (degraded, still ~93% of STRONG). Phase 1 source attribution needs no unwind info
-at all.
-
-## Precision and recall — key findings
-
-Validation methodology: 13 popular pure-Rust CLI tools, each built twice (`CARGO_PROFILE_RELEASE_DEBUG=true CARGO_PROFILE_RELEASE_STRIP=false` for the debug twin, default release for the stripped copy), then `unhusk <bin>.stripped --validate <bin>.debug`. Two ground-truth rulers were applied: DWARF `decl_file` and `nm -C` symbol-name leading-crate classification.
-
-**Why the two rulers diverge:** 67% of all DWARF-scored false positives are `FnOnce`/`FnMut` closure shims — user closures whose monomorphized `call_once` body is the user's code but whose DWARF `decl_file` points to `core/src/ops/function.rs:250`. Symbol-name GT correctly attributes these to the user crate; DWARF does not. The 80% of the symbol/DWARF disputed set that falls into this category represents genuine user logic recovery, not algorithm failure.
-
-**Depth-limit guidance for `--infer-depth`** (pooled across 13 binaries):
-
-| depth | inferred precision | inferred count | recall loss vs ∞ |
-|---|---|---|---|
-| 1 | 9.3% | −59% fewer predictions | −3.9pp |
-| 2 | 6.4% | −30% fewer predictions | −1.1pp |
-| ∞ (default) | 5.1% | — | — |
-
-**Backward BFS (`--backtrace-depth`):** Marginal symbol precision 72% at depth=1. Median recall gain +0.9pp (symbol), bimodal — 6 of 13 binaries gain >1pp; the other 7 gain near zero. Depth=1 converges on all 13 binaries; deeper sweeps are redundant. Off by default because DWARF recall can't confirm the gain for the FnOnce-heavy binaries.
 
 ## Limitations
 
-**Closure shims and generic monomorphizations reduce certain precision.** When user code is a closure invoked through `Fn*`, or when user types are passed to std/dep generics (sort, iter adapters, lazy-init), the resulting monomorphized function may contain a user-path panic Location even though DWARF attributes the function to core/std. These account for most false positives on real binaries and are indistinguishable from real user functions in a stripped binary — no available signal separates them.
+- **Functions with no reachable panic site are not found.** Pure computation, getters, and code where the optimizer proved every panic unreachable have nothing to anchor on. Recall is partial by construction (~15–46% of user functions on the test set) — fine for signature generation, which needs a handful of good seeds, not every function.
+- **async / generic-heavy code degrades precision** (the ~87% weak spot above) — irreducible in a stripped binary.
+- **User code reached only through trait objects / function pointers / library dispatch** appears as `library`; the xref scan follows only static call edges.
+- **Never validated on live malware.** Every number here is from benign open-source tools, which may not be representative.
+- **x86-64 ELF only.**
 
-**Functions with no reachable panic site are not found.** Pure computation, getters, and code where the optimizer proved every panic unreachable have zero Location structs — nothing to anchor on.
-
-**User code invoked only through trait objects, function pointers, or library dispatch** appears as `library`. The xref scan only follows static call edges.
-
-**x86-64 ELF only.** PIE (`ET_DYN`, default for `cargo build --release`) and non-PIE (`ET_EXEC`) are both supported.
-
-## Type name recovery (`--types`)
-
-`#[derive(Debug)]` generates `fmt` functions that call `f.debug_struct("Name").field("field", …)`. The string literals live in `.rodata`; `unhusk` locates them via RIP-relative LEA/MOV pairs in the function body. Results are tiered:
-
-- **user** — struct/field name appears in a `certain` or `inferred` function
-- **non-std** — name found in an unattributed function (dep or unconfirmed)
-- **std** — name matches a known std/core/alloc type
-
-## Build
+## Build & test
 
 ```sh
-cargo build --release
+cargo build --release      # Rust 1.70+, no C deps
+cargo test                 # unit tests run without fixtures;
+                           # integration tests need fixtures under /tmp/unhusk-research/
 ```
 
-Requires Rust 1.70+. No C library deps, no external tools at runtime.
-
-## Docker
+Docker:
 
 ```sh
 docker build -t unhusk .
-
-# Mount the current directory and analyze a binary
 docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
-
-# Validate against an unstripped binary
-docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf> --validate <unstripped-elf>
 ```
-
-## Tests
-
-```sh
-cargo test
-```
-
-Integration tests require fixture binaries under `/tmp/unhusk-research/` (see `tests/integration.rs`). Unit tests for the string classifier run without fixtures.
 
 ## License
 
-Dual-licensed:
-1. **GNU Affero General Public License v3.0 (AGPLv3)** — for open-source and general use.
-2. **Commercial License** — for proprietary or commercial use where AGPLv3 restrictions are not applicable.
-
-See the `LICENSE` file for details.
+Dual-licensed: **AGPL-3.0** for open-source/general use, or a **commercial license** for proprietary use. See `LICENSE`.
