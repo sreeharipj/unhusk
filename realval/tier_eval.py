@@ -3,24 +3,24 @@
 tier_eval.py — Evaluate unhusk's precision tiers against symbol ground truth.
 
 Reproduces the numbers in realval/PRECISION_TIERS.md. For each binary it reads the
-authoritative per-function tier from the UNHUSK_DUMP_TIERS diagnostic (which runs on
-the real tier assignment) and joins it with an nm -C symbol classifier (leading crate
-= authorship). It reports pooled precision for the STRONG and SINGLE tiers and the
-multiplicity-gate ladder (min-anchors 1/2/3).
+authoritative per-function (tier, anchor_count) from the UNHUSK_DUMP_TIERS diagnostic
+— a SINGLE run, since the anchor count lets any --min-anchors threshold be computed
+offline — and joins it with an nm -C symbol classifier (leading crate = authorship).
+
+It reports, pooled AND per-binary:
+  • the multiplicity-gate ladder (anchor_count >= 1 / 2 / 3)
+  • the two-tier split STRONG (>=2) / SINGLE (==1)
 
 IMPORTANT: use the TIERDUMP diagnostic, NOT a parse of the human Phase-2 listing.
 The listing also prints call-closure (inferred/indeterminate) functions in the same
-"0x..–0x.." format; parsing it conflates them into the single-anchor bucket and
-fabricates a low-precision "weak" tier. That bug is what made an earlier version of
-this script report ~51% for incoherent single-anchor functions; the authoritative
-TIERDUMP shows single-anchor functions are ~93% regardless of file coherence — which
-is why the "source-file coherence" tier was removed from unhusk.
+"0x..-0x.." format; parsing it conflates them into the single-anchor bucket and
+fabricates a low-precision tier (see the RETRACTION in PRECISION_TIERS.md).
 
 Symbol GT — not DWARF — is the right ruler: DWARF homes user FnOnce/FnMut closure
 shims to core/ops/function.rs, depressing precision ~30pp on a measurement artifact.
 
 Usage:
-  realval/tier_eval.py [BIN_DIR]      # default: realval/out
+  realval/tier_eval.py [BIN_DIR ...]   # default: realval/out
 Each binary needs <name>.stripped + <name>.debug (the unstripped twin for nm).
 """
 import glob
@@ -84,72 +84,67 @@ def precision(tp, fp):
     return 100.0 * tp / (tp + fp) if (tp + fp) else float("nan")
 
 
-def run(strp, min_anchors):
+def measure(strp, dbg):
+    """Return list of (anchor_count, symbol_class) for each certain function."""
     env = dict(os.environ, UNHUSK_DUMP_TIERS="1")
-    return subprocess.run(
-        [UNHUSK, strp, "--min-anchors", str(min_anchors)],
-        capture_output=True, text=True, env=env, timeout=300,
-    ).stdout
+    out = subprocess.run([UNHUSK, strp], capture_output=True, text=True, env=env, timeout=300).stdout
+    deps = dep_crates(out)
+    nm = nm_table(dbg)
+    rows = []
+    for line in out.splitlines():
+        m = re.match(r"TIERDUMP\t0x([0-9a-f]+)\t\w+\t(\d+)", line)
+        if not m:
+            continue
+        rows.append((int(m.group(2)), classify(nm.get(int(m.group(1), 16)), deps)))
+    return rows
+
+
+def tp_fp(rows, pred):
+    tp = sum(1 for n, c in rows if pred(n) and c == "user")
+    fp = sum(1 for n, c in rows if pred(n) and c == "nonuser")
+    return tp, fp
 
 
 def main():
-    bin_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "out")
+    bin_dirs = sys.argv[1:] or [os.path.join(HERE, "out")]
     targets = []
-    for dbg in sorted(glob.glob(os.path.join(bin_dir, "*.debug"))):
-        name = os.path.basename(dbg)[:-6]
-        strp = os.path.join(bin_dir, name + ".stripped")
-        if os.path.exists(strp):
-            targets.append((name, strp, dbg))
+    for bd in bin_dirs:
+        for dbg in sorted(glob.glob(os.path.join(bd, "*.debug"))):
+            name = os.path.basename(dbg)[:-6]
+            strp = os.path.join(bd, name + ".stripped")
+            if os.path.exists(strp):
+                targets.append((name, strp, dbg))
     if not targets:
-        print("no <name>.stripped/<name>.debug pairs in", bin_dir, file=sys.stderr)
+        print("no <name>.stripped/<name>.debug pairs found", file=sys.stderr)
         return 1
 
-    gate = {1: [0, 0], 2: [0, 0], 3: [0, 0]}      # min-anchors -> [tp, fp]
-    tier = {"strong": [0, 0], "single": [0, 0]}    # at default min-anchors=2
-
+    gate = {1: [0, 0], 2: [0, 0], 3: [0, 0]}
+    print(f"binaries: {len(targets)}\n")
+    print(f"{'binary':14} {'strong(>=2)':>14} {'single(==1)':>14}")
+    print("-" * 46)
+    strong_tot, single_tot = [0, 0], [0, 0]
     for name, strp, dbg in targets:
-        nm = nm_table(dbg)
-        # dep crates: read from a plain run (TIERDUMP run omits the dep section header? it
-        # is printed in phase 1, which TIERDUMP run still includes). Reuse the min2 output.
-        out2 = run(strp, 2)
-        deps = dep_crates(out2)
-
-        # Two-tier split at the default threshold.
-        for line in out2.splitlines():
-            m = re.match(r"TIERDUMP\t0x([0-9a-f]+)\t(\w+)", line)
-            if not m:
-                continue
-            c = classify(nm.get(int(m.group(1), 16)), deps)
-            if c == "unk":
-                continue
-            tier[m.group(2)][0 if c == "user" else 1] += 1
-
-        # Gate ladder: a function is "≥k" iff it is STRONG at min-anchors=k.
+        rows = measure(strp, dbg)
         for k in (1, 2, 3):
-            out = out2 if k == 2 else run(strp, k)
-            for line in out.splitlines():
-                m = re.match(r"TIERDUMP\t0x([0-9a-f]+)\tstrong", line)
-                if not m:
-                    continue
-                c = classify(nm.get(int(m.group(1), 16)), deps)
-                if c == "unk":
-                    continue
-                gate[k][0 if c == "user" else 1] += 1
+            tp, fp = tp_fp(rows, lambda n, k=k: n >= k)
+            gate[k][0] += tp
+            gate[k][1] += fp
+        s_tp, s_fp = tp_fp(rows, lambda n: n >= 2)
+        g_tp, g_fp = tp_fp(rows, lambda n: n == 1)
+        strong_tot[0] += s_tp; strong_tot[1] += s_fp
+        single_tot[0] += g_tp; single_tot[1] += g_fp
+        print(f"{name:14} {f'{s_tp}/{s_fp} {precision(s_tp,s_fp):.0f}%':>14} "
+              f"{f'{g_tp}/{g_fp} {precision(g_tp,g_fp):.0f}%':>14}")
+    print("-" * 46)
+    print(f"{'POOLED':14} {f'{strong_tot[0]}/{strong_tot[1]} {precision(*strong_tot):.1f}%':>14} "
+          f"{f'{single_tot[0]}/{single_tot[1]} {precision(*single_tot):.1f}%':>14}")
 
-    print(f"binaries: {len(targets)}  ({bin_dir})\n")
-    print("=== multiplicity gate (--min-anchors = strong threshold), symbol GT ===")
+    print("\n=== multiplicity gate ladder (anchor_count >= N), symbol GT, pooled ===")
     base = gate[1][0]
     for k in (1, 2, 3):
         tp, fp = gate[k]
         rec = 100.0 * tp / base if base else float("nan")
-        print(f"  min-anchors {k}: TP={tp:>4} FP={fp:>3} prec={precision(tp, fp):5.1f}%  recall-retained={rec:4.0f}%")
-    print("\n=== two-tier split at min-anchors=2 (authoritative TIERDUMP), symbol GT ===")
-    for k in ("strong", "single"):
-        tp, fp = tier[k]
-        print(f"  {k:8} TP={tp:>4} FP={fp:>3} prec={precision(tp, fp):5.1f}%")
-    a_tp = tier["strong"][0] + tier["single"][0]
-    a_fp = tier["strong"][1] + tier["single"][1]
-    print(f"  {'all':8} TP={a_tp:>4} FP={a_fp:>3} prec={precision(a_tp, a_fp):5.1f}%")
+        print(f"  >= {k}: TP={tp:>4} FP={fp:>3} prec={precision(tp, fp):5.1f}%  recall-retained={rec:4.0f}%")
     return 0
 
 
