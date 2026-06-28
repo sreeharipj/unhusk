@@ -766,3 +766,76 @@ fn tally_locations(locations: &[PanicLocation]) -> Tally {
     }
     t
 }
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::classify::Attribution;
+    use crate::locate::PanicLocation;
+    use crate::strings::Origin;
+
+    fn cert(start: u64) -> AttributedFn {
+        AttributedFn {
+            start,
+            end: start + 64,
+            attribution: Attribution::Certain,
+        }
+    }
+
+    fn loc(struct_vaddr: u64, file: &str) -> PanicLocation {
+        PanicLocation {
+            struct_vaddr,
+            file: file.to_string(),
+            file_vaddr: 0,
+            line: 1,
+            col: 1,
+            origin: Origin::User,
+        }
+    }
+
+    /// STRONG (≥2 Locations), CONFIRMED (1 Location in a strong-hosting file),
+    /// WEAK (1 Location in a never-confirmed file).
+    #[test]
+    fn tiering_multiplicity_and_file_coherence() {
+        // fn A: 2 Locations from a.rs → Strong (and confirms a.rs).
+        // fn B: 1 Location from a.rs → Confirmed (file hosts a strong fn).
+        // fn C: 1 Location from b.rs → Weak (b.rs never hosts a strong fn).
+        let attributed = vec![cert(0x100), cert(0x200), cert(0x300)];
+        let locs = vec![
+            loc(0x10, "a.rs"),
+            loc(0x11, "a.rs"),
+            loc(0x20, "a.rs"),
+            loc(0x30, "b.rs"),
+        ];
+        let loc_by_struct: std::collections::HashMap<u64, &PanicLocation> =
+            locs.iter().map(|l| (l.struct_vaddr, l)).collect();
+
+        let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+        certain_locs.insert(0x100, vec![0x10, 0x11]);
+        certain_locs.insert(0x200, vec![0x20]);
+        certain_locs.insert(0x300, vec![0x30]);
+
+        let tiers = tier_certain(&attributed, &certain_locs, &loc_by_struct, 2);
+        assert_eq!(tiers[&0x100], Tier::Strong);
+        assert_eq!(tiers[&0x200], Tier::Confirmed);
+        assert_eq!(tiers[&0x300], Tier::Weak);
+    }
+
+    /// min_anchors=1 collapses everything into Strong (no single-anchor tier).
+    #[test]
+    fn min_anchors_one_makes_all_strong() {
+        let attributed = vec![cert(0x100), cert(0x200)];
+        let locs = vec![loc(0x10, "a.rs"), loc(0x20, "b.rs")];
+        let loc_by_struct: std::collections::HashMap<u64, &PanicLocation> =
+            locs.iter().map(|l| (l.struct_vaddr, l)).collect();
+        let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+        certain_locs.insert(0x100, vec![0x10]);
+        certain_locs.insert(0x200, vec![0x20]);
+
+        let tiers = tier_certain(&attributed, &certain_locs, &loc_by_struct, 1);
+        assert_eq!(tiers[&0x100], Tier::Strong);
+        assert_eq!(tiers[&0x200], Tier::Strong);
+    }
+}
