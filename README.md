@@ -68,15 +68,28 @@ This is the part worth reading. The validation methodology is deliberately adver
 
 Rejected refinements (do not re-add without new evidence): `#[derive(Debug)]` cross-confirmation (disjoint from `certain`; type layouts aren't ABI-stable) and call-graph adjacency rescue (anti-correlated — "called by a STRONG function" *is* the monomorphized-helper pattern).
 
-## Robustness against section stripping
+## Validated on real Rust malware
+
+unhusk has been run against in-the-wild Rust malware (KrustyLoader, Akira, BlackCat/ALPHV, 01flip,
+P2PInfect — samples from [decoderloop/rust-malware-gallery](https://github.com/decoderloop/rust-malware-gallery),
+**static analysis only, never executed**). On the current generation it reads the author's source
+files, **module structure** (Akira's `lock.rs`/`path_finder.rs`/`prng.rs`), and a dependency-derived
+**capability profile** (KrustyLoader = async HTTP downloader + AES) straight off a stripped binary.
+Real Rust malware is **async-heavy**, so the ~87% weak spot is the common case. Two evasions showed
+up — `--remap-path-prefix` (01flip) and packing (P2PInfect) — both now flagged loudly rather than
+silently returning empty. Full writeup, hashes, and the evasion-effort gradient:
+[`writeups/2026-06-29-unhusk-vs-real-rust-malware.md`](writeups/2026-06-29-unhusk-vs-real-rust-malware.md).
+
+## Robustness against stripping & evasion
 
 The adversary picks the compiler flags, so this was tested:
 
 - **Phase 1 is unconditionally robust** — it needs only `.rela.dyn` + `.rodata` + `.data.rel.ro`. It survives `-C force-unwind-tables=no`, `panic=abort`, and even physical removal of `.eh_frame`.
-- **`.eh_frame` removed but `.eh_frame_hdr` intact** (the realistic `objcopy --remove-section .eh_frame`): unhusk parses the hdr's function-address table → **results identical to an intact binary**.
-- **Both removed:** falls back to a CALL-target-derived function map (degraded; still recovers ~93% of STRONG functions).
+- **`.eh_frame` removed but `.eh_frame_hdr` intact** (the realistic `objcopy --remove-section .eh_frame`): unhusk parses the hdr's function-address table → **results identical to an intact binary**. Both removed → CALL-target fallback (degraded; still ~93% of STRONG).
+- **Section headers stripped** (`sstrip`): regions are recovered from the **program headers** (PT_LOAD / PT_GNU_RELRO / PT_DYNAMIC), so Phase 1 + 2 still run.
+- **Loud diagnostics, not silence.** Degraded or evaded inputs emit `⚠` flags — *no user paths (likely `--remap-path-prefix`)*, *no `.text` (packed)*, *no `.rela.dyn` (static)* — so a sparse result is never mistaken for "no user code," and downstream tooling can branch on them.
 
-So an adversary must strip *both* sections to degrade Phase 2 at all. Optimization-invariance verified across thin-LTO, `lto=true,cgu=1`, `opt-level=z`, `panic=abort`, `-C force-unwind-tables=no`.
+Optimization-invariance verified across thin-LTO, `lto=true,cgu=1`, `opt-level=z`, `panic=abort`, `-C force-unwind-tables=no`.
 
 ## Usage
 
