@@ -161,9 +161,9 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
 /// listing parser that swept call-closure functions into the single bucket.)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tier {
-    /// ≥ min_anchors distinct user Locations (~98% symbol precision).
+    /// ≥ min_anchors distinct user Locations (~97% symbol precision).
     Strong,
-    /// 1 user Location (~93% symbol precision).
+    /// 1 user Location (~88% symbol precision).
     Single,
 }
 
@@ -334,12 +334,12 @@ pub fn print_phase2_report(
         pct(score.certain, fn_count)
     );
     println!(
-        "    ├─ strong  {:>5}          ≥{} user Locations  (~98% symbol precision)",
+        "    ├─ strong  {:>5}          ≥{} user Locations  (~97% symbol precision)",
         strong_fns.len(),
         strong_tier_min,
     );
     println!(
-        "    └─ single  {:>5}          1 user Location    (~93% symbol precision)",
+        "    └─ single  {:>5}          1 user Location    (~88% symbol precision)",
         single_fns.len(),
     );
     let call_closure = score.inferred + score.indeterminate;
