@@ -153,12 +153,12 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
 
 /// Confidence tier of a certain (user-Location-anchored) function.
 ///
-/// Only user-Location *multiplicity* separates the tiers — measured (13 binaries +
-/// a full-LTO build, symbol GT, via the TIERDUMP diagnostic): Strong ~98%, Single
-/// ~93%.  An earlier "source-file coherence" sub-tier was REMOVED after the authoritative
-/// measurement showed coherent vs incoherent single-anchor functions are 93.0% vs 92.9% —
-/// i.e. coherence separates nothing.  (The apparent 51% "noise" came from a contaminated
-/// listing parser that swept call-closure functions into the single bucket.)
+/// Only user-Location *multiplicity* separates the tiers — measured on a 21-binary corpus
+/// (symbol GT, via the TIERDUMP diagnostic): Strong ~97%, Single ~88%.  An earlier
+/// "source-file coherence" sub-tier was REMOVED after the authoritative measurement showed
+/// coherent vs incoherent single-anchor functions are ~93% either way — i.e. coherence
+/// separates nothing.  (The apparent "noise" came from a contaminated listing parser that
+/// swept call-closure functions into the single bucket.)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tier {
     /// ≥ min_anchors distinct user Locations (~97% symbol precision).
