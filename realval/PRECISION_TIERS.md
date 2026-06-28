@@ -10,14 +10,16 @@ Precision first, recall second.
 - **Ruler:** symbol-name (nm leading-crate), not DWARF — DWARF mislabels user FnOnce/FnMut
   closure shims to core, a ~30pp measurement artifact.
 - **The one robust lever is user-Location multiplicity**, exposed as `--min-anchors N` (default 2).
-  Pooled symbol precision on a **21-binary** corpus (the original 13 + 8 `cargo install` tools):
-  **1 → 91.5% (100% recall) · 2 → 96.7% (45%) · 3 → 97.8% (27%)**.
-  Two output tiers: **STRONG** (≥N Locations, ~97%) / **SINGLE** (1 Location, ~88%).
-- **The 13-binary subset was ~1pp optimistic** (it read 94.3/97.8/99.5). Expanding to 21 binaries
-  pulled STRONG to 96.7% and exposed a real weak spot: **async/tokio-heavy binaries** (the residual
-  STRONG false positives are futures combinators — `Pin<Box<closure>>`, `PollFn`, `tokio::Timeout`
-  — and dep parallel/compression generics like rayon/sevenz, all genuinely library bodies wrapping
-  user closures).
+  Symbol precision on a **34-binary** corpus (13 source-built + 8 `cargo install` + 13 adversarial),
+  pooled: **1 → ~86% (100% recall) · 2 → ~94% (45%) · 3 → ~96% (27%)**. Two output tiers: **STRONG**
+  (≥N Locations) / **SINGLE** (1 Location).
+- **Precision is workload-dependent** (this is the headline correction): STRONG is **~98% on
+  CLI/systems tools but ~87% on async/web-framework code**, ~94% blended. The smaller 13- and
+  21-binary corpora (which read ~97–98%) were light on async and thus optimistic. The async residual
+  is irreducible — futures combinators (`Pin<Box<closure>>`, `PollFn`, `tokio::Timeout`,
+  `FuturesUnordered`) and framework handler-adapters that inline a multi-panic user closure.
+  **Relevant to malware, which is disproportionately async** — use `--min-anchors 3` there (~91%).
+  Full pre-registered stress test + the two classifier confounds it controlled for: `CORPUS_STRESS.md`.
 - **Optimization-invariant:** holds across thin-LTO, `lto=true`, `opt-level=z`, `panic=abort`,
   `-C force-unwind-tables=no` (the signal keys on Location structure, not inlining).
 - **Rejected (documented below):** source-file coherence (a contaminated-harness artifact —
