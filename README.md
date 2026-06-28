@@ -40,18 +40,18 @@ thin-LTO through `lto=true, codegen-units=1`). Pooled across 13 binaries + a ful
 | Tier | Rule | Symbol precision |
 |---|---|---|
 | **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~98% |
-| **CONFIRMED** | 1 Location, but its source file also hosts a STRONG function | ~93% |
-| **WEAK** | 1 Location in a file that never hosts a STRONG function | ~51% (noise) |
+| **SINGLE** | exactly 1 user Location | ~93% |
 
-A source file containing any multi-panic function is "confirmed user"; single-panic functions in
-it are genuine, while single-panic functions in never-confirmed files are mostly monomorphized
-library generics (the false-positive concentrate). **`--precision` emits STRONG + CONFIRMED**
-(≈95.5% precision at ≈77% of certain recall) and suppresses WEAK + the call closure.
-`--min-anchors` is the precision dial: 1 → 94.9%, 2 → 97.9%, 3 → 99.5% (recall falls 100→41→24%).
+A function with multiple distinct user panic Locations is almost always genuine user code; a
+monomorphized library generic typically inlines just one user closure (one Location). **`--precision`
+emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is
+the precision dial: 1 → 94.9%, 2 → 97.8%, 3 → 99.5% (recall falls 100→42→24%).
 
-The `--types` `#[derive(Debug)]` signal was evaluated as a cross-confirmation booster and
-**rejected** — it is nearly disjoint from `certain` (fmt functions rarely panic) and compiled type
-layouts are not ABI-stable. Source-file coherence is the independent signal that pays off.
+Two signals were evaluated as further refinements and **both rejected** as measurement artifacts /
+non-signals: `#[derive(Debug)]` cross-confirmation (nearly disjoint from `certain`; type layouts
+aren't ABI-stable) and source-file coherence (single-anchor precision is ~93% whether or not the
+file hosts a STRONG function — 93.0% vs 92.9%). Multiplicity is the only robust lever. See
+`realval/PRECISION_TIERS.md` for the full derivation, including the retraction.
 
 ## How it works
 
@@ -102,11 +102,11 @@ unhusk <stripped-elf> --types
 # Show full call-closure list instead of capping at 20
 unhusk <stripped-elf> --show-call-closure
 
-# PRECISION MODE — emit only STRONG + CONFIRMED tiers, suppress weak + call closure
+# PRECISION MODE — emit only the STRONG tier, suppress single-anchor + call closure
 unhusk <stripped-elf> --precision
 
 # Precision dial: STRONG tier requires N distinct user Locations
-#   1 → 94.9% precision (100% recall) · 2 → 97.9% (41%) · 3 → 99.5% (24%)
+#   1 → 94.8% precision (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)
 unhusk <stripped-elf> --min-anchors 3
 
 # JSON feed for a downstream signature/YARA generator (suppresses human report)
