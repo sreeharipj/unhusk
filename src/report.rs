@@ -810,8 +810,8 @@ mod tests {
         // fn A: 2 Locations from a.rs → Strong (and confirms a.rs).
         // fn B: 1 Location from a.rs → Confirmed (file hosts a strong fn).
         // fn C: 1 Location from b.rs → Weak (b.rs never hosts a strong fn).
-        let attributed = vec![cert(0x100), cert(0x200), cert(0x300)];
-        let locs = vec![
+        let attributed = [cert(0x100), cert(0x200), cert(0x300)];
+        let locs = [
             loc(0x10, "a.rs"),
             loc(0x11, "a.rs"),
             loc(0x20, "a.rs"),
@@ -834,8 +834,8 @@ mod tests {
     /// min_anchors=1 collapses everything into Strong (no single-anchor tier).
     #[test]
     fn min_anchors_one_makes_all_strong() {
-        let attributed = vec![cert(0x100), cert(0x200)];
-        let locs = vec![loc(0x10, "a.rs"), loc(0x20, "b.rs")];
+        let attributed = [cert(0x100), cert(0x200)];
+        let locs = [loc(0x10, "a.rs"), loc(0x20, "b.rs")];
         let loc_by_struct: std::collections::HashMap<u64, &PanicLocation> =
             locs.iter().map(|l| (l.struct_vaddr, l)).collect();
         let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
