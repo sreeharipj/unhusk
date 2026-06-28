@@ -1,0 +1,148 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/sd.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x000b23b0   1536474 bytes
+  .rodata               vaddr 0x000393c0    335912 bytes
+  .data.rel.ro          vaddr 0x0022a628    153320 bytes
+  .rela.dyn             vaddr 0x00001210    185712 bytes
+  .eh_frame             vaddr 0x0008fe08    136616 bytes
+  .rela.dyn entries     7655 R_X86_64_RELATIVE entries
+
+source-path strings: 173  (user=3, std=57, dep=113, unknown=0)
+  distinct dep crates visible: 19
+
+panic/assert sites:  1097  (user=16, std=145, dep=936, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  sd/src/lib.rs  (5 sites)
+       75:22    Location struct @ 0x24e740
+      113:22    Location struct @ 0x24e788
+      125:22    Location struct @ 0x24e7a0
+      158:32    Location struct @ 0x24e770
+      161:46    Location struct @ 0x24e758
+  sd/src/replacer/mod.rs  (3 sites)
+      112:32    Location struct @ 0x24e2a8
+      113:44    Location struct @ 0x24e2d8
+      120:40    Location struct @ 0x24e2c0
+  sd/src/replacer/validate.rs  (8 sites)
+       68:61    Location struct @ 0x24e4d8
+      154:9     Location struct @ 0x24e400
+      159:11    Location struct @ 0x24e418
+      179:9     Location struct @ 0x24e430
+      235:48    Location struct @ 0x24e490
+      237:67    Location struct @ 0x24e4a8
+      266:41    Location struct @ 0x24e460
+      267:10    Location struct @ 0x24e448
+
+dep crates by panic site count  (936 sites across 19 crates):
+  regex-automata@0.4.13                           314
+  aho-corasick@1.1.4                              209
+  regex-syntax@0.8.8                              189
+  clap_builder@4.4.6                              58
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               36
+  memchr@2.7.6                                    23
+  rayon-core@1.12.0                               22
+  addr2line@0.25.1                                10
+  gimli@0.32.3                                    7
+  … 9 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/sd.stripped
+functions (from .eh_frame): 2366
+
+attribution breakdown:
+  certain          5  (0.2%)  user-authored (100% precision, DWARF-validated)
+  call closure   276  (11.7%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library       2085  (88.1%)  not attributed
+
+user-authored functions — high confidence (5):
+  0x000b35c0–0x000b8688  (20680 bytes)
+      panic @ sd/src/lib.rs:75:22
+      panic @ sd/src/lib.rs:113:22
+      panic @ sd/src/lib.rs:125:22
+  0x001dc130–0x001df2dc  (12716 bytes)
+      panic @ sd/src/replacer/validate.rs:154:9
+      panic @ sd/src/replacer/validate.rs:179:9
+      panic @ sd/src/replacer/validate.rs:235:48
+      panic @ sd/src/replacer/validate.rs:237:67
+      panic @ sd/src/replacer/validate.rs:266:41
+      panic @ sd/src/replacer/validate.rs:267:10
+  0x001df380–0x001e09c6  (5702 bytes)
+      panic @ sd/src/replacer/mod.rs:112:32
+      panic @ sd/src/replacer/mod.rs:113:44
+      panic @ sd/src/replacer/mod.rs:120:40
+  0x001e6300–0x001e6995  (1685 bytes)
+      panic @ sd/src/replacer/validate.rs:68:61
+      panic @ sd/src/replacer/validate.rs:154:9
+      panic @ sd/src/replacer/validate.rs:159:11
+      panic @ sd/src/replacer/validate.rs:179:9
+  0x001ea7e0–0x001eacbf  (1247 bytes)
+      panic @ sd/src/lib.rs:158:32
+      panic @ sd/src/lib.rs:161:46
+
+call closure — reachable from user code, not user-authored (276):
+  0x000b24a0–0x000b26c3  (547 bytes)  [inferred]
+  0x000b2a70–0x000b2bbb  (331 bytes)  [inferred]
+  0x000b2bc0–0x000b2c0c  (76 bytes)  [inferred]
+  0x000b2c10–0x000b2c7d  (109 bytes)  [inferred]
+  0x000b2c80–0x000b2d26  (166 bytes)  [inferred]
+  0x000b2d30–0x000b2e00  (208 bytes)  [inferred]
+  0x000b2e00–0x000b2ec4  (196 bytes)  [indeterminate]
+  0x000b2ed0–0x000b2f00  (48 bytes)  [indeterminate]
+  0x000b2f00–0x000b3164  (612 bytes)  [inferred]
+  0x000b3170–0x000b321c  (172 bytes)  [inferred]
+  0x000b3220–0x000b35be  (926 bytes)  [indeterminate]
+  0x000b8690–0x000b86b9  (41 bytes)  [inferred]
+  0x000b86c0–0x000bb059  (10649 bytes)  [inferred]
+  0x000e4360–0x000e43e0  (128 bytes)  [indeterminate]
+  0x000ed218–0x000ed22b  (19 bytes)  [indeterminate]
+  0x000ed2a0–0x000ed316  (118 bytes)  [indeterminate]
+  0x000ed316–0x000ed328  (18 bytes)  [indeterminate]
+  0x000ed330–0x000ed34c  (28 bytes)  [indeterminate]
+  0x000ed580–0x000ed5da  (90 bytes)  [indeterminate]
+  0x000ed600–0x000ed6c7  (199 bytes)  [inferred]
+  … 256 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 1814 functions mapped (6 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain            5 predicted   TP=    2  FP=   1  unknown=   2   precision=66.7%
+  inferred         143 predicted   TP=    2  FP= 121  unknown=  20   precision=1.6%
+  indeterminate    133 predicted   TP=    0  FP= 115  unknown=  18   precision=0.0%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+      2  ( 33.3%)  certain          (rock-solid signal)
+      2  ( 33.3%)  inferred         (call-graph reach)
+      0  (  0.0%)  indeterminate    (shared/mixed callers)
+      2  ( 33.3%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x000b35c0  /home/user/Videos/unhusk/realval/work/sd/sd-cli/src/main.rs
+    0x001ea7e0  /home/user/Videos/unhusk/realval/work/sd/sd/src/lib.rs
+  DWARF-user in inferred:
+    0x001e95f0  /home/user/Videos/unhusk/realval/work/sd/sd/src/input.rs
+    0x001e9940  /home/user/Videos/unhusk/realval/work/sd/sd/src/input.rs
+  DWARF-user in library (missed):
+    0x001ea520  /home/user/Videos/unhusk/realval/work/sd/sd/src/error.rs
+    0x001eb140  /home/user/Videos/unhusk/realval/work/sd/sd-cli/src/cli.rs
+
+  total captured :     4  (66.7% of 6 DWARF-user fns)
+  total missed   :     2  (33.3%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 66.7%
+  Certain recall    : 33.3%  (2/6 DWARF-user fns reached by certain)
+  Overall recall    : 66.7%  (certain+inferred)
+
+validation complete.
