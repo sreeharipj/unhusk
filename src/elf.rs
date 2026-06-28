@@ -82,6 +82,9 @@ pub struct ParsedElf {
     pub sections: HashMap<String, Section>,
     /// All R_X86_64_RELATIVE entries from `.rela.dyn`.
     pub rela_relative: Vec<RelaRelative>,
+    /// Load-time diagnostics: degraded modes, fallbacks, and likely-evasion signals
+    /// the operator should know about (e.g. stripped section headers, packing).
+    pub warnings: Vec<String>,
 }
 
 impl ParsedElf {
@@ -96,6 +99,7 @@ impl ParsedElf {
         };
 
         let is_pie = matches!(file.kind(), object::ObjectKind::Dynamic);
+        let mut warnings: Vec<String> = Vec::new();
 
         let mut sections: HashMap<String, Section> = HashMap::new();
         for sec in file.sections() {
@@ -116,7 +120,41 @@ impl ParsedElf {
             );
         }
 
+        // FALLBACK: a section-header table that is absent or missing the regions we
+        // need (a real evasion — `objcopy --strip-section-headers` / `sstrip`) leaves
+        // the data in PT_LOAD segments.  Recover what we can from the program headers.
+        if !sections.contains_key(".text") || !sections.contains_key(".rodata") {
+            let (recovered, n) = recover_sections_from_program_headers(&raw);
+            if n > 0 {
+                for (name, sec) in recovered {
+                    sections.entry(name).or_insert(sec);
+                }
+                warnings.push(format!(
+                    "section headers absent or incomplete — recovered {} region(s) from \
+                     program headers (boundaries are approximate)",
+                    n
+                ));
+            }
+        }
+
         let rela_relative = parse_rela_relative(&sections)?;
+
+        // Diagnostics the operator needs.  These are honest "we may be blind here"
+        // flags, surfaced loudly rather than silently returning empty results.
+        if sections.get(".text").map_or(true, |s| s.data.is_empty()) {
+            warnings.push(
+                "no readable .text — binary is likely PACKED or has no code section; \
+                 static analysis cannot proceed (consider unpacking first)"
+                    .into(),
+            );
+        }
+        if rela_relative.is_empty() && !sections.contains_key(".rela.dyn") {
+            warnings.push(
+                "no .rela.dyn relocation table — statically linked / non-PIE build; \
+                 panic-Location reconstruction (which follows R_X86_64_RELATIVE) may find nothing"
+                    .into(),
+            );
+        }
 
         Ok(ParsedElf {
             path: path.to_owned(),
@@ -124,12 +162,156 @@ impl ParsedElf {
             is_pie,
             sections,
             rela_relative,
+            warnings,
         })
     }
 
     pub fn section(&self, name: &str) -> Option<&Section> {
         self.sections.get(name)
     }
+}
+
+// ── Program-header fallback (stripped section headers) ──────────────────────────
+
+/// Recover the regions we need directly from the ELF program (segment) header table,
+/// for binaries whose section-header table was stripped (`sstrip` / `objcopy
+/// --strip-section-headers`).  Hand-parsed (no section names to trust):
+///   • executable PT_LOAD            → `.text`
+///   • read-only non-exec PT_LOAD    → `.rodata`
+///   • PT_GNU_RELRO                  → `.data.rel.ro`
+///   • PT_GNU_EH_FRAME               → `.eh_frame_hdr`
+///   • PT_DYNAMIC → DT_RELA/DT_RELASZ → `.rela.dyn`
+/// Boundaries are coarser than real sections (a LOAD segment may hold more than one),
+/// but enough for Phase 1 + Phase 2 to operate. Returns (sections, count_recovered).
+fn recover_sections_from_program_headers(raw: &[u8]) -> (HashMap<String, Section>, usize) {
+    let mut out: HashMap<String, Section> = HashMap::new();
+    // Elf64 header: e_phoff@0x20, e_phentsize@0x36, e_phnum@0x38. Require ELF64 LE.
+    if raw.len() < 0x40 || &raw[0..4] != b"\x7fELF" || raw[4] != 2 {
+        return (out, 0);
+    }
+    let rd_u64 =
+        |o: usize| -> Option<u64> { raw.get(o..o + 8)?.try_into().ok().map(u64::from_le_bytes) };
+    let rd_u16 =
+        |o: usize| -> Option<u16> { raw.get(o..o + 2)?.try_into().ok().map(u16::from_le_bytes) };
+    let rd_u32 =
+        |o: usize| -> Option<u32> { raw.get(o..o + 4)?.try_into().ok().map(u32::from_le_bytes) };
+
+    let phoff = match rd_u64(0x20) {
+        Some(v) => v as usize,
+        None => return (out, 0),
+    };
+    let phentsize = rd_u16(0x36).unwrap_or(56) as usize;
+    let phnum = rd_u16(0x38).unwrap_or(0) as usize;
+    if phentsize < 56 {
+        return (out, 0);
+    }
+
+    // Collect PT_LOAD segments first (needed to map any vaddr → file offset).
+    let mut loads: Vec<(u64, u64, usize, usize)> = Vec::new(); // (vaddr, memsz, file_off, file_sz)
+    let mut phdrs: Vec<(u32, u32, usize, u64, usize)> = Vec::new(); // (type, flags, off, vaddr, filesz)
+    for i in 0..phnum {
+        let b = phoff + i * phentsize;
+        let (p_type, p_flags, p_off, p_vaddr, p_filesz) = match (
+            rd_u32(b),
+            rd_u32(b + 4),
+            rd_u64(b + 8),
+            rd_u64(b + 16),
+            rd_u64(b + 32),
+        ) {
+            (Some(t), Some(f), Some(o), Some(v), Some(s)) => (t, f, o as usize, v, s as usize),
+            _ => continue,
+        };
+        phdrs.push((p_type, p_flags, p_off, p_vaddr, p_filesz));
+        if p_type == 1 {
+            loads.push((p_vaddr, rd_u64(b + 40).unwrap_or(0), p_off, p_filesz));
+        }
+    }
+    let vaddr_to_off = |vaddr: u64| -> Option<usize> {
+        for &(lv, _ms, lo, lf) in &loads {
+            if vaddr >= lv && (vaddr - lv) < lf as u64 {
+                return Some(lo + (vaddr - lv) as usize);
+            }
+        }
+        None
+    };
+    let slice =
+        |off: usize, len: usize| -> Vec<u8> { raw.get(off..off + len).unwrap_or(&[]).to_vec() };
+
+    const PT_DYNAMIC: u32 = 2;
+    const PT_GNU_EH_FRAME: u32 = 0x6474_e550;
+    const PT_GNU_RELRO: u32 = 0x6474_e552;
+    const PF_X: u32 = 1;
+    const PF_W: u32 = 2;
+
+    for &(p_type, p_flags, p_off, p_vaddr, p_filesz) in &phdrs {
+        match p_type {
+            1 => {
+                // PT_LOAD: executable → .text; read-only-non-exec → .rodata.
+                if p_flags & PF_X != 0 {
+                    out.entry(".text".into()).or_insert(Section {
+                        vaddr: p_vaddr,
+                        data: slice(p_off, p_filesz),
+                    });
+                } else if p_flags & PF_W == 0 {
+                    out.entry(".rodata".into()).or_insert(Section {
+                        vaddr: p_vaddr,
+                        data: slice(p_off, p_filesz),
+                    });
+                }
+            }
+            PT_GNU_RELRO => {
+                out.insert(
+                    ".data.rel.ro".into(),
+                    Section {
+                        vaddr: p_vaddr,
+                        data: slice(p_off, p_filesz),
+                    },
+                );
+            }
+            PT_GNU_EH_FRAME => {
+                out.insert(
+                    ".eh_frame_hdr".into(),
+                    Section {
+                        vaddr: p_vaddr,
+                        data: slice(p_off, p_filesz),
+                    },
+                );
+            }
+            PT_DYNAMIC => {
+                // Walk DT_* entries (16 bytes each) for DT_RELA(7) addr + DT_RELASZ(8).
+                let (mut rela_addr, mut rela_sz) = (0u64, 0u64);
+                let mut k = 0usize;
+                while let (Some(tag), Some(val)) =
+                    (rd_u64(p_off + k * 16), rd_u64(p_off + k * 16 + 8))
+                {
+                    match tag {
+                        0 => break, // DT_NULL
+                        7 => rela_addr = val,
+                        8 => rela_sz = val,
+                        _ => {}
+                    }
+                    k += 1;
+                    if k > 4096 {
+                        break;
+                    }
+                }
+                if rela_addr != 0 && rela_sz != 0 {
+                    if let Some(off) = vaddr_to_off(rela_addr) {
+                        out.insert(
+                            ".rela.dyn".into(),
+                            Section {
+                                vaddr: rela_addr,
+                                data: slice(off, rela_sz as usize),
+                            },
+                        );
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    let n = out.len();
+    (out, n)
 }
 
 // ── Relocation parser ─────────────────────────────────────────────────────────
