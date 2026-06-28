@@ -245,7 +245,10 @@ pub fn print_json_report(
 
     let esc = |s: &str| s.replace('\\', "\\\\").replace('"', "\\\"");
     println!("{{");
-    println!("  \"binary\": \"{}\",", esc(&elf.path.display().to_string()));
+    println!(
+        "  \"binary\": \"{}\",",
+        esc(&elf.path.display().to_string())
+    );
     println!("  \"arch\": \"{}\",", esc(elf.arch));
     println!("  \"min_anchors\": {},", min_anchors.max(1));
     println!("  \"functions\": [");
@@ -335,7 +338,9 @@ pub fn print_phase2_report(
     let fn_count = attributed.len();
     println!("functions (from .eh_frame): {}", fn_count);
     if precision_mode {
-        println!("mode    : --precision (STRONG + CONFIRMED tiers; weak + call closure suppressed)");
+        println!(
+            "mode    : --precision (STRONG + CONFIRMED tiers; weak + call closure suppressed)"
+        );
     }
     println!();
     println!("attribution breakdown:");
@@ -395,7 +400,10 @@ pub fn print_phase2_report(
     println!();
     if strong_fns.is_empty() {
         println!("user-authored functions — STRONG tier: none");
-        println!("  (no function carries ≥{} distinct user Locations)", strong_tier_min);
+        println!(
+            "  (no function carries ≥{} distinct user Locations)",
+            strong_tier_min
+        );
     } else {
         println!(
             "user-authored functions — STRONG tier, ≥{} user Locations ({}):",
