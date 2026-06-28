@@ -1,31 +1,59 @@
 # unhusk
 
-Identifies user-authored functions in stripped Rust release binaries using panic metadata — no disassembly, no symbol tables, no signature databases.
+Identifies user-authored functions in stripped Rust release binaries using panic metadata and call-graph inference — no symbol tables, no signature databases, no debug info required.
 
 ## What it does
 
-A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds the user-authored functions by exploiting a structural property of the Rust panic machinery.
+A stripped, LTO release Rust binary is dominated by the standard library and Cargo dependencies. The author's code is a small fraction. `unhusk` finds user-authored functions in two phases.
 
-**Primary output — `certain` functions:** functions that directly reference a `core::panic::Location` struct in `.data.rel.ro` whose source path resolves to user code (`src/`, `tests/`, `examples/`). Every such function contains user-path panic metadata.
+**Phase 1 — string classification:** Rust embeds a `core::panic::Location` struct in `.data.rel.ro` for every reachable `panic!`, `assert!`, bounds-check, and `.unwrap()` call site. Each struct holds a source-path string pointer. `unhusk` classifies every such path as `User`, `Std`, or `Dep` and prints a location-level breakdown.
 
-**Measured precision on 60 real-world Rust binaries (ripgrep, bat, fd, just, dust, broot, topgrade, …):**
+**Phase 2 — function attribution:** `.eh_frame` FDEs give exact function ranges. An x86-64 xref scan identifies functions that directly reference user `Location` structs (`certain`). A BFS over the call graph propagates attribution outward (`inferred`). An optional reverse BFS finds callers-of-certain-callers (`certain_by_backtrace`). An optional scan recovers struct/field names from `#[derive(Debug)]` artifacts (`--types`).
 
-| Ground-truth method | Median precision | Mean | Genuine FP rate |
+**Attribution buckets:**
+
+| Bucket | How | Precision |
+|---|---|---|
+| `certain` | Direct reference to a user panic Location | ~94% by symbol, ~67% by DWARF `decl_file` |
+| `inferred` | Reachable from certain; all callers are user | ~9–10% |
+| `certain_by_backtrace` | Callers of certain functions (reverse BFS, flag-gated) | ~72% by symbol |
+| `indeterminate` | Reachable from both user and library — diagnostic only | ~0% |
+
+The gap between symbol and DWARF precision is not primarily algorithm error: ~80% of the DWARF-scored false positives are user closures dispatched through `FnOnce`/`FnMut` whose `decl_file` DWARF attributes to `core/src/ops/function.rs`. By symbol name, those functions belong to the user crate. The irreducible error (~6% by symbol) is std/dep generics monomorphized with user types — indistinguishable in a stripped binary.
+
+**Measured on 13 real-world Rust binaries** (ripgrep, bat, fd, just, dust, hyperfine, xsv, pastel, grex, hexyl, tokei, sd, zoxide):
+
+| Precision ruler | Median | Mean | Genuine FP rate |
 |---|---|---|---|
-| Symbol name (crate ownership) | **93.8%** | 88.1% | **6.2%** |
-| DWARF `decl_file` | 86.6% | 77.5% | — |
+| Symbol name (crate ownership) | **94.4%** | 88.7% | **5.2%** |
+| DWARF `decl_file` | 66.7% | 64.1% | — |
 
-The symbol-name figure (93.8%) is the more honest measurement. The DWARF figure is lower because DWARF attributes `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs` even when the closure body is entirely user code; these account for ~67% of DWARF-scored false positives. The irreducible 6.2% error comes from std/dep generic functions monomorphized with user types — unhusk cannot distinguish these from real user functions in a stripped binary.
+**Certain recall** (DWARF denominator): median **15.8%**, range 0.4%–45.5%. Recall tracks panic density and how much user code survives as standalone functions after inlining. Combined certain+inferred recall: median **46.2%** (DWARF upper bound), **19.0%** (symbol denominator — more honest, larger denominator).
 
-**Measured recall (DWARF-denominator — the ceiling):** certain catches roughly 15% of user functions on real binaries (median 15.8%, range 0.4%–45.5%). On the 13-binary realval set the overall recall (certain+inferred, d=∞) is **46.2% by DWARF denominator** (ceiling) and **19.0% by symbol denominator** (the floor): DWARF undercounts by dropping FnOnce/FnMut closure shims and unmapped monomorphizations; symbol overcounts by including `<UserType as Debug/Clone/Serialize>::method` boilerplate the tool cannot find. True user-logic recall lies between the two. See `realval/BACKTRACE_SWEEP.md` for the derivation. The structural ceiling is explained in Limitations below.
+## Precision tiers (for signature / YARA-seed extraction)
 
-**Call closure (not user code):** `inferred` functions are reachable from user code via call edges. DWARF precision ~5% on real binaries (mostly std/dep glue transitively called from user panic sites). Labelled separately.
+For a precision-first backend, the `certain` set is split into confidence tiers using only
+Location structure — **no symbols, no DWARF, and optimization-invariant** (verified stable from
+thin-LTO through `lto=true, codegen-units=1`). Pooled across 13 binaries + a full-LTO build
+(symbol ground truth):
+
+| Tier | Rule | Symbol precision |
+|---|---|---|
+| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~98% |
+| **CONFIRMED** | 1 Location, but its source file also hosts a STRONG function | ~93% |
+| **WEAK** | 1 Location in a file that never hosts a STRONG function | ~51% (noise) |
+
+A source file containing any multi-panic function is "confirmed user"; single-panic functions in
+it are genuine, while single-panic functions in never-confirmed files are mostly monomorphized
+library generics (the false-positive concentrate). **`--precision` emits STRONG + CONFIRMED**
+(≈95.5% precision at ≈77% of certain recall) and suppresses WEAK + the call closure.
+`--min-anchors` is the precision dial: 1 → 94.9%, 2 → 97.9%, 3 → 99.5% (recall falls 100→41→24%).
+
+The `--types` `#[derive(Debug)]` signal was evaluated as a cross-confirmation booster and
+**rejected** — it is nearly disjoint from `certain` (fmt functions rarely panic) and compiled type
+layouts are not ABI-stable. Source-file coherence is the independent signal that pays off.
 
 ## How it works
-
-Rust embeds a `core::panic::Location` struct in `.data.rel.ro` for every reachable `panic!`, `assert!`, bounds-check, and `.unwrap()` call site. Each struct holds a fat `&'static str` pointer (via a PIE relocation in `.rela.dyn`) into the source-path string in `.rodata`, plus the line and column numbers.
-
-**Phase 1** — reconstruct every Location struct and classify its source path:
 
 ```
 .rela.dyn  R_X86_64_RELATIVE { offset, addend }
@@ -44,35 +72,85 @@ Source-path classification (deterministic, no heuristics):
 | `/rust/deps/CRATE-VER/…` | toolchain-embedded dep |
 | `*/cargo/registry/src/*/CRATE-VER/…` | Cargo registry dep |
 
-**Phase 2** — `.eh_frame` FDE-based function range map + RIP-relative xref scan. Any function that contains a reference to a user Location struct is marked `certain`.
+For binaries installed via `cargo install`, source paths live under `~/.cargo/registry/src/…`. Pass `--crate <name>` to promote those paths from `Dep` to `User`, or let unhusk auto-detect the root crate from the binary filename and embedded paths.
 
-## Precision validation
-
-The `--validate <UNSTRIPPED>` flag compares unhusk's attribution against DWARF `.debug_info` ground truth from a companion unstripped binary:
+## Usage
 
 ```sh
-unhusk binary.stripped --validate binary.unstripped
+# Identify user-authored functions in a stripped binary
+unhusk <stripped-elf>
+
+# Specify the root crate (required for `cargo install` binaries, auto-detected otherwise)
+unhusk <stripped-elf> --crate ripgrep
+
+# Validate precision/recall against DWARF ground truth from an unstripped twin
+unhusk <stripped-elf> --validate <unstripped-elf>
+
+# Cap call-graph BFS at N hops from certain functions:
+#   --infer-depth 1: 1.8× precision gain (~9.3%), -4pp recall — high-precision audits
+#   --infer-depth 2: 1.3× precision gain (~6.4%), -1pp recall — best balance
+unhusk <stripped-elf> --infer-depth 2
+
+# Walk back N hops from certain functions via the reverse call graph (default off):
+#   depth=1 recommended; deeper gains are negligible on real binaries
+#   ~72% marginal symbol precision, +0.9pp median symbol recall
+unhusk <stripped-elf> --backtrace-depth 1
+
+# Recover struct/field names from #[derive(Debug)] artifacts in .rodata/.data.rel.ro
+unhusk <stripped-elf> --types
+
+# Show full call-closure list instead of capping at 20
+unhusk <stripped-elf> --show-call-closure
+
+# PRECISION MODE — emit only STRONG + CONFIRMED tiers, suppress weak + call closure
+unhusk <stripped-elf> --precision
+
+# Precision dial: STRONG tier requires N distinct user Locations
+#   1 → 94.9% precision (100% recall) · 2 → 97.9% (41%) · 3 → 99.5% (24%)
+unhusk <stripped-elf> --min-anchors 3
+
+# JSON feed for a downstream signature/YARA generator (suppresses human report)
+#   honors --precision and --min-anchors; emits start/end/size/tier/anchor_files
+unhusk <stripped-elf> --precision --json
 ```
 
-Measured results across three small/synthetic fixtures (where user functions are standalone, non-inlined):
+When `.eh_frame` is absent (e.g. an adversary ran `objcopy --remove-section`), unhusk falls back
+to a call-target-derived function map so Phase 2 degrades (recovering ~93% of STRONG functions)
+instead of producing nothing. Phase 1 source attribution is unaffected — it needs no unwind info.
 
-| Fixture | FDEs | DWARF-user fns | Certain precision | Certain recall |
-|---|---|---|---|---|
-| medium_debug (synthetic) | 541 | 1 | 100% (1/1) | 100% |
-| unhusk-on-unhusk | 1490 | 8 | 100% (3/3) | 37.5% |
-| scored_debug (designed) | 529 | 19 | 100% (6/6) | ~84% |
+## Precision and recall — key findings
 
-On real-world binaries, precision drops (median 86.2% by DWARF, 94.5% by symbol) because user code expressed as closures or library-generic instantiations is attributed by DWARF to its definition site in core/std. See `REAL_BINARY_VALIDATION.md` for full results.
+Validation methodology: 13 popular pure-Rust CLI tools, each built twice (`CARGO_PROFILE_RELEASE_DEBUG=true CARGO_PROFILE_RELEASE_STRIP=false` for the debug twin, default release for the stripped copy), then `unhusk <bin>.stripped --validate <bin>.debug`. Two ground-truth rulers were applied: DWARF `decl_file` and `nm -C` symbol-name leading-crate classification.
+
+**Why the two rulers diverge:** 67% of all DWARF-scored false positives are `FnOnce`/`FnMut` closure shims — user closures whose monomorphized `call_once` body is the user's code but whose DWARF `decl_file` points to `core/src/ops/function.rs:250`. Symbol-name GT correctly attributes these to the user crate; DWARF does not. The 80% of the symbol/DWARF disputed set that falls into this category represents genuine user logic recovery, not algorithm failure.
+
+**Depth-limit guidance for `--infer-depth`** (pooled across 13 binaries):
+
+| depth | inferred precision | inferred count | recall loss vs ∞ |
+|---|---|---|---|
+| 1 | 9.3% | −59% fewer predictions | −3.9pp |
+| 2 | 6.4% | −30% fewer predictions | −1.1pp |
+| ∞ (default) | 5.1% | — | — |
+
+**Backward BFS (`--backtrace-depth`):** Marginal symbol precision 72% at depth=1. Median recall gain +0.9pp (symbol), bimodal — 6 of 13 binaries gain >1pp; the other 7 gain near zero. Depth=1 converges on all 13 binaries; deeper sweeps are redundant. Off by default because DWARF recall can't confirm the gain for the FnOnce-heavy binaries.
 
 ## Limitations
 
-**Closure shims and generic monomorphizations reduce precision.** When user code is a closure invoked through `Fn*`, or when user types are passed to std/dep generics (sort, iter adapters, lazy-init), the resulting monomorphized function may contain a user-path panic Location even though the bulk of the function body is library logic. unhusk marks these `certain`; they account for most false positives in real binaries.
+**Closure shims and generic monomorphizations reduce certain precision.** When user code is a closure invoked through `Fn*`, or when user types are passed to std/dep generics (sort, iter adapters, lazy-init), the resulting monomorphized function may contain a user-path panic Location even though DWARF attributes the function to core/std. These account for most false positives on real binaries and are indistinguishable from real user functions in a stripped binary — no available signal separates them.
 
-**Functions with no reachable panic site** are not found. Pure computation, getters, and code compiled with `lto = true` where the optimizer proved every panic unreachable will have zero panic Location structs in the binary — nothing to anchor on.
+**Functions with no reachable panic site are not found.** Pure computation, getters, and code where the optimizer proved every panic unreachable have zero Location structs — nothing to anchor on.
 
-**User code invoked through std machinery or indirect dispatch** is not found. Functions called only via trait objects, function pointers, or callbacks that pass through std/dep dispatch layers appear as `library`.
+**User code invoked only through trait objects, function pointers, or library dispatch** appears as `library`. The xref scan only follows static call edges.
 
 **x86-64 ELF only.** PIE (`ET_DYN`, default for `cargo build --release`) and non-PIE (`ET_EXEC`) are both supported.
+
+## Type name recovery (`--types`)
+
+`#[derive(Debug)]` generates `fmt` functions that call `f.debug_struct("Name").field("field", …)`. The string literals live in `.rodata`; `unhusk` locates them via RIP-relative LEA/MOV pairs in the function body. Results are tiered:
+
+- **user** — struct/field name appears in a `certain` or `inferred` function
+- **non-std** — name found in an unattributed function (dep or unconfirmed)
+- **std** — name matches a known std/core/alloc type
 
 ## Build
 
@@ -84,42 +162,14 @@ Requires Rust 1.70+. No C library deps, no external tools at runtime.
 
 ## Docker
 
-You can easily build and run `unhusk` using Docker, which provides an isolated environment without needing to install the Rust toolchain.
-
-### Build the Image
-
 ```sh
 docker build -t unhusk .
-```
 
-### Run the Container
-
-When running via Docker, you need to mount the directory containing your binaries as a volume so the container can access them.
-
-```sh
 # Mount the current directory and analyze a binary
 docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
 
 # Validate against an unstripped binary
 docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf> --validate <unstripped-elf>
-```
-
-## Usage
-
-```sh
-# Identify user-authored functions in a stripped binary
-unhusk <stripped-elf>
-
-# Also report DWARF-validated precision/recall numbers
-unhusk <stripped-elf> --validate <unstripped-elf>
-
-# Show full call-closure list (reachable from user, mostly dep/std)
-unhusk <stripped-elf> --show-call-closure
-
-# Cap call-graph BFS at N hops (measured on 13 real binaries):
-#   depth 1: 9.3% inferred precision (+1.8x), -3.9pp recall — high-precision audits
-#   depth 2: 6.4% inferred precision (+1.3x), -1.1pp recall — best balance
-unhusk <stripped-elf> --infer-depth 2
 ```
 
 ## Tests
@@ -132,8 +182,8 @@ Integration tests require fixture binaries under `/tmp/unhusk-research/` (see `t
 
 ## License
 
-This project is dual-licensed:
-1. **GNU Affero General Public License v3.0 (AGPLv3)**: For open-source projects and general use.
-2. **Commercial License**: For use in proprietary or commercial environments where AGPLv3 restrictions are not applicable.
+Dual-licensed:
+1. **GNU Affero General Public License v3.0 (AGPLv3)** — for open-source and general use.
+2. **Commercial License** — for proprietary or commercial use where AGPLv3 restrictions are not applicable.
 
 See the `LICENSE` file for details.
