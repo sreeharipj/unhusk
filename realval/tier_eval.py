@@ -57,17 +57,12 @@ def nm_table(debug):
 
 
 def dep_crates(out):
-    deps, indep = set(), False
+    """Complete dep-crate set from the DEPCRATE diagnostic (not the top-10 display)."""
+    deps = set()
     for line in out.splitlines():
-        if "dep crates by panic site" in line:
-            indep = True
-            continue
-        if indep:
-            m = re.match(r"\s+([\w-]+)@", line)
-            if m:
-                deps.add(m.group(1).replace("-", "_"))
-            elif re.match(r"\s*phase|\s*===|\s*$", line):
-                break
+        m = re.match(r"DEPCRATE\t(.+)", line)
+        if m:
+            deps.add(m.group(1).replace("-", "_"))
     return deps
 
 
@@ -86,7 +81,7 @@ def precision(tp, fp):
 
 def measure(strp, dbg):
     """Return list of (anchor_count, symbol_class) for each certain function."""
-    env = dict(os.environ, UNHUSK_DUMP_TIERS="1")
+    env = dict(os.environ, UNHUSK_DUMP_TIERS="1", UNHUSK_DUMP_DEPS="1")
     out = subprocess.run([UNHUSK, strp], capture_output=True, text=True, env=env, timeout=300).stdout
     deps = dep_crates(out)
     nm = nm_table(dbg)
