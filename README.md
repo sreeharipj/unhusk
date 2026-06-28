@@ -34,18 +34,20 @@ The gap between symbol and DWARF precision is not primarily algorithm error: ~80
 
 For a precision-first backend, the `certain` set is split into confidence tiers using only
 Location structure — **no symbols, no DWARF, and optimization-invariant** (verified stable from
-thin-LTO through `lto=true, codegen-units=1`). Pooled across 13 binaries + a full-LTO build
-(symbol ground truth):
+thin-LTO through `lto=true, codegen-units=1`, `opt-level=z`, `panic=abort`). Pooled symbol precision
+across a **21-binary** corpus (13 source-built + 8 `cargo install` tools):
 
 | Tier | Rule | Symbol precision |
 |---|---|---|
-| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~98% |
-| **SINGLE** | exactly 1 user Location | ~93% |
+| **STRONG** | ≥ N distinct user Locations (N = `--min-anchors`, default 2) | ~97% |
+| **SINGLE** | exactly 1 user Location | ~88% |
 
 A function with multiple distinct user panic Locations is almost always genuine user code; a
 monomorphized library generic typically inlines just one user closure (one Location). **`--precision`
 emits the STRONG tier only** and suppresses single-anchor + the call closure. `--min-anchors` is
-the precision dial: 1 → 94.3%, 2 → 97.8%, 3 → 99.5% (recall falls 100→42→24%).
+the precision dial: 1 → 91.5%, 2 → 96.7%, 3 → 97.8% (recall falls 100→45→27%). The residual STRONG
+false positives are async/futures combinators and dep parallel/compression generics that inline a
+user closure — async-heavy binaries are the weak spot.
 
 Two signals were evaluated as further refinements and **both rejected** as measurement artifacts /
 non-signals: `#[derive(Debug)]` cross-confirmation (nearly disjoint from `certain`; type layouts
@@ -106,7 +108,7 @@ unhusk <stripped-elf> --show-call-closure
 unhusk <stripped-elf> --precision
 
 # Precision dial: STRONG tier requires N distinct user Locations
-#   1 → 94.3% precision (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)
+#   1 → 91.5% precision (100% recall) · 2 → 96.7% (45%) · 3 → 97.8% (27%)  [21-binary corpus]
 unhusk <stripped-elf> --min-anchors 3
 
 # JSON feed for a downstream signature/YARA generator (suppresses human report)

@@ -9,19 +9,47 @@ Precision first, recall second.
 
 - **Ruler:** symbol-name (nm leading-crate), not DWARF — DWARF mislabels user FnOnce/FnMut
   closure shims to core, a ~30pp measurement artifact.
-- **The one robust lever is user-Location multiplicity**, exposed as `--min-anchors N` (default 2):
-  pooled symbol precision **1 → 94.3% (100% recall) · 2 → 97.8% (42%) · 3 → 99.5% (24%)**
-  (13-binary corpus, classifier using the complete dep list — see the rigor note below).
-  Two output tiers: **STRONG** (≥N Locations, ~98%) / **SINGLE** (1 Location, ~92%).
+- **The one robust lever is user-Location multiplicity**, exposed as `--min-anchors N` (default 2).
+  Pooled symbol precision on a **21-binary** corpus (the original 13 + 8 `cargo install` tools):
+  **1 → 91.5% (100% recall) · 2 → 96.7% (45%) · 3 → 97.8% (27%)**.
+  Two output tiers: **STRONG** (≥N Locations, ~97%) / **SINGLE** (1 Location, ~88%).
+- **The 13-binary subset was ~1pp optimistic** (it read 94.3/97.8/99.5). Expanding to 21 binaries
+  pulled STRONG to 96.7% and exposed a real weak spot: **async/tokio-heavy binaries** (the residual
+  STRONG false positives are futures combinators — `Pin<Box<closure>>`, `PollFn`, `tokio::Timeout`
+  — and dep parallel/compression generics like rayon/sevenz, all genuinely library bodies wrapping
+  user closures).
 - **Optimization-invariant:** holds across thin-LTO, `lto=true`, `opt-level=z`, `panic=abort`,
   `-C force-unwind-tables=no` (the signal keys on Location structure, not inlining).
-- **Rejected (both documented below):** source-file coherence (a contaminated-harness artifact —
-  93.0% vs 92.9%, no separation) and `#[derive(Debug)]` cross-confirmation (disjoint from certain;
-  type layouts not ABI-stable). Call-graph adjacency rescue of SINGLE also rejected (anti-correlated).
-- **Shipped:** `--precision` (STRONG only), `--min-anchors`, `--json` backend feed, an
-  `.eh_frame`-free call-target fallback map, the `UNHUSK_DUMP_TIERS` diagnostic, `tier_eval.py`.
+- **Rejected (documented below):** source-file coherence (a contaminated-harness artifact —
+  no separation) and `#[derive(Debug)]` cross-confirmation (disjoint from certain; type layouts
+  not ABI-stable). Call-graph adjacency rescue of SINGLE also rejected (anti-correlated).
+- **Shipped:** `--precision` (STRONG only), `--min-anchors`, `--json` backend feed, `.eh_frame_hdr`
+  + call-target fallback maps, the `UNHUSK_DUMP_TIERS`/`UNHUSK_DUMP_DEPS` diagnostics, `tier_eval.py`,
+  `build_corpus2.sh`.
 - **Recall is the open problem:** no robust SINGLE-tier refinement found; the honest lever is the
-  `--min-anchors` threshold (drop to 1 for full certain recall at 94.3%).
+  `--min-anchors` threshold (drop to 1 for full certain recall at 91.5%).
+
+## Corpus expansion (13 → 21 binaries) — the honest precision
+
+Every number above the original 13 was at risk of corpus bias, so the corpus was expanded with 8
+diverse `cargo install` tools (`xh gping eza ouch bandwhich oha procs tealdeer`; `bottom` excluded —
+binary `btm` ≠ crate, auto-detect misses it). Two things came out:
+
+1. **A flaw in the *measurement*, not the tool.** The nm classifier took the leading crate of the
+   demangled name, but thread/task entry trampolines are named
+   `std::sys::backtrace::__rust_begin_short_backtrace::<crate::user_fn>` — the wrapper crate is std,
+   the authored body is the inner crate. It now unwraps that generic (same correction the FnOnce
+   case needs). This alone lifted bandwhich STRONG 60% → 100% and pooled STRONG 94.2% → 96.7%.
+2. **A genuine weak spot: async.** After the fix, the 15 residual STRONG FPs (of 449) are
+   irreducible monomorphizations — oha's `Pin<Box<{async closure}>>` / `PollFn` / `tokio::Timeout`
+   futures combinators (7), ouch's `rayon::bridge_producer_consumer` and `sevenz_rust2::decompress`
+   dep generics (2), and the original `core::iter`/`slice` residue (6). The function body is genuine
+   library code; the user's closure is inlined and contributes the ≥2 Locations. There is no
+   in-stripped-binary signal that separates these from real user functions.
+
+Net: **STRONG precision is ~97% (not ~98%) and degrades on async-heavy code**, but the multiplicity
+ordering and optimization-invariance hold on the larger, more diverse corpus. Reproduce with
+`realval/build_corpus2.sh && realval/tier_eval.py realval/out /tmp/corpus2`.
 
 ## Motivating observation: "LTO increases precision" is a measurement artifact
 
