@@ -193,17 +193,23 @@ Findings:
   function boundaries. Remove the section and all function-level attribution (including the
   STRONG tier) collapses.
 
-**Degraded-mode fallback (SHIPPED — `frame::fallback_function_map`):** when `parse_eh_frame`
-yields an empty map, unhusk reconstructs an approximate function map from direct `call rel32`
-targets in `.text` (+ the `.text` start), with each entry's end = the next entry's start. On the
-`.eh_frame`-stripped tokei it recovers **2412 function entries** and, crucially, **14 of 15
-STRONG functions (93%)** — strong functions are richly called and panic-anchored, so they survive
-the boundary approximation. Measured cost (validated vs the debug twin): certain precision
-95.7% → **75.0% DWARF** with eh_frame removed (approximate boundaries merge adjacent functions
-and miss leaf/indirect-only entries, raising both FP and unknown counts). The mode prints a
-warning and exists so Phase 2 yields useful output instead of nothing. Remaining headroom:
-fold in `.eh_frame_hdr` (separate section, may survive) and function-prologue scanning to
-sharpen boundaries.
+**Fallback (SHIPPED — `frame::fallback_function_map`), two-stage:**
+
+1. **`.eh_frame_hdr` recovery (near-complete).** `.eh_frame_hdr` is a *separate* section carrying a
+   binary-search table of every FDE's `initial_location` — i.e. every function start. It survives
+   the realistic `objcopy --remove-section .eh_frame` (which leaves the hdr intact). unhusk parses
+   the table (datarel/pcrel sdata4/udata4 — the universal Linux x86-64 encodings). On the
+   `.eh_frame`-only-stripped tokei it recovers **5125 starts and reproduces the intact-binary result
+   exactly**: 39 certain (15 strong / 24 single), **certain precision 95.7% — identical to the
+   binary with `.eh_frame` present.** No degradation.
+2. **CALL-target fallback (degraded), only if `.eh_frame_hdr` is also gone.** Reconstructs entries
+   from direct `call rel32` targets in `.text` (+ the `.text` start), ends = next start. On the
+   tokei with *both* sections stripped it recovers **2412 entries and 14 of 15 STRONG functions
+   (93%)**; certain precision degrades to 75.0% DWARF (approximate boundaries merge adjacent
+   functions). Phase 2 still yields useful output instead of nothing.
+
+So an adversary must strip **both** `.eh_frame` *and* `.eh_frame_hdr` to degrade unhusk at all, and
+even then the STRONG tier largely survives. Phase 1 (source attribution) is unaffected by either.
 
 ## RETRACTED — source-file coherence does not separate single-anchor functions
 
