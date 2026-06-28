@@ -10,9 +10,7 @@
 use std::collections::BTreeMap;
 
 use anyhow::Result;
-use gimli::{
-    BaseAddresses, CieOrFde, EhFrame, EndianSlice, LittleEndian, UnwindSection,
-};
+use gimli::{BaseAddresses, CieOrFde, EhFrame, EndianSlice, LittleEndian, UnwindSection};
 
 use crate::elf::ParsedElf;
 

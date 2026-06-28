@@ -127,20 +127,18 @@ pub fn read_function_sources(
             if matches!(
                 inline_val,
                 Some(gimli::AttributeValue::Inline(
-                    gimli::constants::DW_INL_inlined
-                    | gimli::constants::DW_INL_declared_inlined
+                    gimli::constants::DW_INL_inlined | gimli::constants::DW_INL_declared_inlined
                 ))
             ) {
                 continue;
             }
 
             // Case A: concrete instance has DW_AT_decl_file directly.
-            let direct_file_path = match entry.attr_value(constants::DW_AT_decl_file).ok().flatten() {
-                Some(gimli::AttributeValue::FileIndex(idx)) => {
-                    lp_header.as_ref().and_then(|h| {
-                        h.file(idx).and_then(|f| resolve_file(&dwarf, &unit, h, f))
-                    })
-                }
+            let direct_file_path = match entry.attr_value(constants::DW_AT_decl_file).ok().flatten()
+            {
+                Some(gimli::AttributeValue::FileIndex(idx)) => lp_header
+                    .as_ref()
+                    .and_then(|h| h.file(idx).and_then(|f| resolve_file(&dwarf, &unit, h, f))),
                 _ => None,
             };
 
@@ -150,7 +148,11 @@ pub fn read_function_sources(
             }
 
             // Case B: follow DW_AT_abstract_origin to get the decl_file.
-            let ao_path = match entry.attr_value(constants::DW_AT_abstract_origin).ok().flatten() {
+            let ao_path = match entry
+                .attr_value(constants::DW_AT_abstract_origin)
+                .ok()
+                .flatten()
+            {
                 Some(gimli::AttributeValue::UnitRef(offset)) => {
                     abstract_files.get(&offset.0).cloned()
                 }
@@ -203,7 +205,8 @@ fn collect_abstract_files(
 
         // Get the resolved path from the line-program file table.
         let path = match lp_header.as_ref().and_then(|h| {
-            h.file(file_idx).and_then(|f| resolve_file(dwarf, unit, h, f))
+            h.file(file_idx)
+                .and_then(|f| resolve_file(dwarf, unit, h, f))
         }) {
             Some(p) => p,
             None => continue,
@@ -288,7 +291,10 @@ fn load_sections(elf: &ParsedElf) -> HashMap<&'static str, Vec<u8>> {
     NAMES
         .iter()
         .map(|&name| {
-            let data = elf.section(name).map(|s| s.data.clone()).unwrap_or_default();
+            let data = elf
+                .section(name)
+                .map(|s| s.data.clone())
+                .unwrap_or_default();
             (name, data)
         })
         .collect()
@@ -350,7 +356,10 @@ impl ValidationReport {
         use std::collections::HashSet;
 
         let dwarf_total = ground_truth.len();
-        let dwarf_user_total = ground_truth.values().filter(|(o, _)| *o == Origin::User).count();
+        let dwarf_user_total = ground_truth
+            .values()
+            .filter(|(o, _)| *o == Origin::User)
+            .count();
 
         let mut certain = BucketMetrics::default();
         let mut inferred = BucketMetrics::default();
@@ -477,8 +486,12 @@ mod tests {
         let gt = read_function_sources(&elf, &fn_map, &[]);
 
         let user_fns: Vec<_> = gt.iter().filter(|(_, (o, _))| *o == Origin::User).collect();
-        eprintln!("Total FDEs: {} | DWARF entries: {} | User by DWARF: {}",
-            fn_map.len(), gt.len(), user_fns.len());
+        eprintln!(
+            "Total FDEs: {} | DWARF entries: {} | User by DWARF: {}",
+            fn_map.len(),
+            gt.len(),
+            user_fns.len()
+        );
         let mut user_addrs: Vec<u64> = user_fns.iter().map(|(a, _)| **a).collect();
         user_addrs.sort();
         for a in &user_addrs {
@@ -496,4 +509,3 @@ mod tests {
         );
     }
 }
-

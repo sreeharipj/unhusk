@@ -146,6 +146,20 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
     println!("phase 1 complete.");
 }
 
+/// Minimum distinct user panic Locations for a certain function to be STRONG tier.
+///
+/// Empirically (13 real binaries + a full-LTO build, symbol ground truth) the
+/// strong tier holds ~98% precision vs ~95% for the full certain set, and — unlike
+/// raw certain — is stable across optimization levels.  A monomorphized library
+/// generic typically inlines exactly ONE user closure (one user Location); genuine
+/// user functions carry several of their own panic/unwrap sites.
+const STRONG_TIER_MIN: usize = 2;
+
+/// Number of distinct user panic Locations anchoring a certain function.
+fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> usize {
+    certain_locs.get(&fn_start).map_or(0, |v| v.len())
+}
+
 /// Print the Phase 2 function-attribution report.
 #[allow(clippy::too_many_arguments)]
 pub fn print_phase2_report(
@@ -157,30 +171,12 @@ pub fn print_phase2_report(
     show_call_closure: bool,
     backtrace: &std::collections::HashSet<u64>,
     backtrace_depth: usize,
+    precision_mode: bool,
 ) {
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
     println!();
     println!("binary  : {}", elf.path.display());
-
-    let fn_count = attributed.len();
-    println!("functions (from .eh_frame): {}", fn_count);
-    println!();
-    println!("attribution breakdown:");
-    println!(
-        "  certain      {:>5}  ({:.1}%)  user-authored (100% precision, DWARF-validated)",
-        score.certain,
-        pct(score.certain, fn_count)
-    );
-    let call_closure = score.inferred + score.indeterminate;
-    println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5% precision)",
-        call_closure,
-        pct(call_closure, fn_count));
-    println!(
-        "  library      {:>5}  ({:.1}%)  not attributed",
-        score.library,
-        pct(score.library, fn_count)
-    );
 
     // Index locations by struct_vaddr for annotation of certain functions.
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
@@ -200,43 +196,115 @@ pub fn print_phase2_report(
         })
         .collect();
 
-    // Primary output: certain functions — user-authored, 100% DWARF-validated precision.
-    // Each is annotated with the panic-site evidence that established it.
-    if !certain_fns.is_empty() {
-        println!();
-        println!(
-            "user-authored functions — high confidence ({}):",
-            certain_fns.len()
-        );
-        for f in &certain_fns {
-            println!(
-                "  0x{:08x}–0x{:08x}  ({} bytes)",
-                f.start,
-                f.end,
-                f.end.saturating_sub(f.start),
-            );
-            if let Some(struct_vaddrs) = certain_locs.get(&f.start) {
-                let mut sites: Vec<_> = struct_vaddrs
-                    .iter()
-                    .filter_map(|sv| loc_by_struct.get(sv))
-                    .collect();
-                sites.sort_by_key(|l| (l.file.as_str(), l.line, l.col));
-                sites.dedup_by_key(|l| (l.file.as_str(), l.line, l.col));
-                for loc in sites {
-                    println!("      panic @ {}:{}:{}", loc.file, loc.line, loc.col);
-                }
+    // Tier the certain set by user-Location multiplicity.
+    let (strong_fns, single_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = certain_fns
+        .iter()
+        .partition(|f| user_anchor_count(certain_locs, f.start) >= STRONG_TIER_MIN);
+
+    let fn_count = attributed.len();
+    println!("functions (from .eh_frame): {}", fn_count);
+    if precision_mode {
+        println!("mode    : --precision (strong tier only; call closure suppressed)");
+    }
+    println!();
+    println!("attribution breakdown:");
+    println!(
+        "  certain      {:>5}  ({:.1}%)  direct user panic-Location anchor  (~95% symbol precision)",
+        score.certain,
+        pct(score.certain, fn_count)
+    );
+    println!(
+        "    ├─ strong  {:>5}          ≥{} distinct user Locations  (~98% symbol precision)",
+        strong_fns.len(),
+        STRONG_TIER_MIN,
+    );
+    println!(
+        "    └─ single  {:>5}          1 user Location  (monomorphization risk zone)",
+        single_fns.len(),
+    );
+    let call_closure = score.inferred + score.indeterminate;
+    println!("  call closure {:>5}  ({:.1}%)  reachable from user code, mostly dep/std glue (~5-10% precision)",
+        call_closure,
+        pct(call_closure, fn_count));
+    println!(
+        "  library      {:>5}  ({:.1}%)  not attributed",
+        score.library,
+        pct(score.library, fn_count)
+    );
+
+    // Annotate one certain function with its panic-site evidence.
+    let print_sites = |f: &AttributedFn| {
+        if let Some(struct_vaddrs) = certain_locs.get(&f.start) {
+            let mut sites: Vec<_> = struct_vaddrs
+                .iter()
+                .filter_map(|sv| loc_by_struct.get(sv))
+                .collect();
+            sites.sort_by_key(|l| (l.file.as_str(), l.line, l.col));
+            sites.dedup_by_key(|l| (l.file.as_str(), l.line, l.col));
+            for loc in sites {
+                println!("      panic @ {}:{}:{}", loc.file, loc.line, loc.col);
             }
         }
+    };
+    let print_fn = |f: &AttributedFn| {
+        println!(
+            "  0x{:08x}–0x{:08x}  ({} bytes)",
+            f.start,
+            f.end,
+            f.end.saturating_sub(f.start),
+        );
+        print_sites(f);
+    };
+
+    // Primary output: STRONG tier — best YARA-seed candidates.
+    println!();
+    if strong_fns.is_empty() {
+        println!("user-authored functions — STRONG tier: none");
+        println!("  (no function carries ≥{} distinct user Locations)", STRONG_TIER_MIN);
     } else {
-        println!();
-        println!("user-authored functions: none");
-        println!("  (no functions with direct user panic-site references found)");
+        println!(
+            "user-authored functions — STRONG tier, ≥{} user Locations ({}):",
+            STRONG_TIER_MIN,
+            strong_fns.len()
+        );
+        for f in &strong_fns {
+            print_fn(f);
+        }
+    }
+
+    // Single-anchor tier: higher recall, slightly lower precision. Hidden in
+    // precision mode (these are where monomorphized-generic false positives live).
+    if !single_fns.is_empty() {
+        if precision_mode {
+            println!();
+            println!(
+                "user-authored functions — single-anchor tier: {} hidden (--precision; drop the flag to list)",
+                single_fns.len()
+            );
+        } else {
+            println!();
+            println!(
+                "user-authored functions — single-anchor tier, 1 user Location ({}):",
+                single_fns.len()
+            );
+            for f in &single_fns {
+                print_fn(f);
+            }
+        }
     }
 
     // Call closure: functions reachable from user code via call graph.
-    // NOT user-authored — DWARF shows ~5% precision (mostly dep/std glue).
-    // Available for inspection; use --show-call-closure to list all.
-    if !call_closure_fns.is_empty() {
+    // NOT user-authored — ~5-10% precision (mostly dep/std glue). Suppressed
+    // entirely in precision mode; it is the dominant source of false seeds.
+    if precision_mode {
+        if !call_closure_fns.is_empty() {
+            println!();
+            println!(
+                "call closure: {} functions suppressed (--precision)",
+                call_closure_fns.len()
+            );
+        }
+    } else if !call_closure_fns.is_empty() {
         const MAX_SHOWN: usize = 20;
         println!();
         println!(

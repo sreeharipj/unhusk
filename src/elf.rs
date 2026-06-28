@@ -86,11 +86,9 @@ pub struct ParsedElf {
 
 impl ParsedElf {
     pub fn load(path: &Path) -> Result<Self> {
-        let raw = std::fs::read(path)
-            .with_context(|| format!("reading {}", path.display()))?;
+        let raw = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
 
-        let file = object::File::parse(raw.as_slice())
-            .with_context(|| "not a valid ELF binary")?;
+        let file = object::File::parse(raw.as_slice()).with_context(|| "not a valid ELF binary")?;
 
         let arch = match file.architecture() {
             object::Architecture::X86_64 => "x86-64",
@@ -150,9 +148,9 @@ fn parse_rela_relative(sections: &HashMap<String, Section>) -> Result<Vec<RelaRe
     let mut out = Vec::new();
     for chunk in data.chunks_exact(RELA_SZ) {
         let r_offset = u64::from_le_bytes(chunk[0..8].try_into().unwrap());
-        let r_info   = u64::from_le_bytes(chunk[8..16].try_into().unwrap());
+        let r_info = u64::from_le_bytes(chunk[8..16].try_into().unwrap());
         let r_addend = i64::from_le_bytes(chunk[16..24].try_into().unwrap());
-        let r_type   = (r_info & 0xffff_ffff) as u32;
+        let r_type = (r_info & 0xffff_ffff) as u32;
 
         // Only RELATIVE relocations with a non-negative addend (virtual address).
         if r_type == R_X86_64_RELATIVE && r_addend >= 0 {

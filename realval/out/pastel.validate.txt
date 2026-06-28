@@ -1,0 +1,354 @@
+=== unhusk — phase 1: panic-site attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/pastel.stripped
+arch    : x86-64   PIE (ET_DYN)
+
+sections:
+  .text                 vaddr 0x00030990    989109 bytes
+  .rodata               vaddr 0x0000cbe0     80000 bytes
+  .data.rel.ro          vaddr 0x001231e8     15848 bytes
+  .rela.dyn             vaddr 0x000016d0     21576 bytes
+  .eh_frame             vaddr 0x00022590     54268 bytes
+  .rela.dyn entries     786 R_X86_64_RELATIVE entries
+
+source-path strings: 116  (user=17, std=62, dep=37, unknown=0)
+  distinct dep crates visible: 12
+
+panic/assert sites:  418  (user=66, std=176, dep=176, unknown=0)
+
+USER CODE — directly attributed panic/assert sites:
+  src/ansi.rs  (1 sites)
+      105:14    Location struct @ 0x1259b8
+  src/cli/colorspace.rs  (1 sites)
+       15:14    Location struct @ 0x123970
+  src/cli/commands/color_commands.rs  (11 sites)
+       72:14    Location struct @ 0x123db0
+       80:14    Location struct @ 0x123dc8
+       90:10    Location struct @ 0x123de0
+       99:13    Location struct @ 0x123df8
+      109:10    Location struct @ 0x123e10
+      129:22    Location struct @ 0x123ea0
+      145:22    Location struct @ 0x123e88
+      161:22    Location struct @ 0x123e70
+      177:22    Location struct @ 0x123e58
+      190:22    Location struct @ 0x123e40
+      200:13    Location struct @ 0x123e28
+  src/cli/commands/distinct.rs  (3 sites)
+      136:14    Location struct @ 0x123cb8
+      147:14    Location struct @ 0x123cd0
+      152:18    Location struct @ 0x123ce8
+  src/cli/commands/format.rs  (3 sites)
+       19:14    Location struct @ 0x123b88
+       62:44    Location struct @ 0x123bb8
+       64:17    Location struct @ 0x123ba0
+  src/cli/commands/gradient.rs  (4 sites)
+       13:14    Location struct @ 0x123d50
+       26:18    Location struct @ 0x123d68
+       31:14    Location struct @ 0x123d80
+       50:60    Location struct @ 0x123d98
+  src/cli/commands/io.rs  (1 sites)
+       14:53    Location struct @ 0x123af8
+  src/cli/commands/list.rs  (1 sites)
+       13:14    Location struct @ 0x123b28
+  src/cli/commands/mod.rs  (1 sites)
+       67:18    Location struct @ 0x123540
+  src/cli/commands/paint.rs  (1 sites)
+       16:14    Location struct @ 0x123b70
+  src/cli/commands/pick.rs  (1 sites)
+       11:14    Location struct @ 0x123b40
+  src/cli/commands/random.rs  (3 sites)
+       12:14    Location struct @ 0x123bd0
+       16:14    Location struct @ 0x123be8
+       26:18    Location struct @ 0x123c00
+  src/cli/commands/sort.rs  (2 sites)
+       12:14    Location struct @ 0x123b10
+       20:14    Location struct @ 0x123b58
+  src/cli/hdcanvas.rs  (11 sites)
+       18:9     Location struct @ 0x123868
+       71:9     Location struct @ 0x123910
+      123:9     Location struct @ 0x123898
+      125:21    Location struct @ 0x1238b0
+      129:9     Location struct @ 0x123928
+      130:9     Location struct @ 0x123940
+      131:25    Location struct @ 0x123958
+      137:20    Location struct @ 0x123880
+      141:9     Location struct @ 0x1238c8
+      142:9     Location struct @ 0x1238e0
+      143:24    Location struct @ 0x1238f8
+  src/cli/main.rs  (3 sites)
+       70:14    Location struct @ 0x1234f8
+       96:18    Location struct @ 0x123510
+      115:9     Location struct @ 0x123528
+  src/distinct.rs  (8 sites)
+      140:22    Location struct @ 0x1257f0
+      161:45    Location struct @ 0x125808
+      165:75    Location struct @ 0x125820
+      241:16    Location struct @ 0x1259a0
+      253:5     Location struct @ 0x125988
+      315:31    Location struct @ 0x125838
+      320:22    Location struct @ 0x125850
+      329:45    Location struct @ 0x125868
+  src/parser.rs  (11 sites)
+       15:33    Location struct @ 0x125880
+       88:48    Location struct @ 0x125898
+       89:48    Location struct @ 0x1258b0
+       95:48    Location struct @ 0x1258c8
+       96:48    Location struct @ 0x1258e0
+      105:48    Location struct @ 0x1258f8
+      106:48    Location struct @ 0x125910
+      107:48    Location struct @ 0x125928
+      113:48    Location struct @ 0x125940
+      114:48    Location struct @ 0x125958
+      115:48    Location struct @ 0x125970
+
+dep crates by panic site count  (176 sites across 12 crates):
+  clap_builder@4.5.60                             60
+  rustc-demangle@0.1.27                           40
+  miniz_oxide@0.8.9                               36
+  addr2line@0.25.1                                10
+  gimli@0.32.3                                    7
+  clap_lex@1.0.0                                  6
+  anstyle@1.0.10                                  5
+  anstream@0.6.20                                 4
+  once_cell@1.21.3                                3
+  strsim@0.11.1                                   3
+  … 2 more crates
+
+phase 1 complete.
+
+=== unhusk — phase 2: function attribution ===
+
+binary  : /home/user/Videos/unhusk/realval/out/pastel.stripped
+functions (from .eh_frame): 1056
+
+attribution breakdown:
+  certain         27  (2.6%)  user-authored (100% precision, DWARF-validated)
+  call closure   287  (27.2%)  reachable from user code, mostly dep/std glue (~5% precision)
+  library        742  (70.3%)  not attributed
+
+user-authored functions — high confidence (27):
+  0x0004ea10–0x00050b5a  (8522 bytes)
+      panic @ src/cli/commands/mod.rs:67:18
+      panic @ src/cli/main.rs:70:14
+      panic @ src/cli/main.rs:96:18
+      panic @ src/cli/main.rs:115:9
+  0x00050fd0–0x00052aec  (6940 bytes)
+      panic @ src/cli/hdcanvas.rs:129:9
+      panic @ src/cli/hdcanvas.rs:130:9
+      panic @ src/cli/hdcanvas.rs:131:25
+  0x00052af0–0x00052d62  (626 bytes)
+      panic @ src/cli/hdcanvas.rs:18:9
+  0x00052d70–0x0005389c  (2860 bytes)
+      panic @ src/cli/hdcanvas.rs:123:9
+      panic @ src/cli/hdcanvas.rs:125:21
+      panic @ src/cli/hdcanvas.rs:137:20
+  0x000538a0–0x00053a53  (435 bytes)
+      panic @ src/cli/hdcanvas.rs:129:9
+      panic @ src/cli/hdcanvas.rs:130:9
+      panic @ src/cli/hdcanvas.rs:131:25
+  0x00053a60–0x00053c07  (423 bytes)
+      panic @ src/cli/hdcanvas.rs:71:9
+      panic @ src/cli/hdcanvas.rs:141:9
+      panic @ src/cli/hdcanvas.rs:142:9
+      panic @ src/cli/hdcanvas.rs:143:24
+  0x000564b0–0x0005660a  (346 bytes)
+      panic @ src/cli/colorspace.rs:15:14
+  0x00056610–0x000576e5  (4309 bytes)
+      panic @ src/cli/hdcanvas.rs:129:9
+      panic @ src/cli/hdcanvas.rs:130:9
+      panic @ src/cli/hdcanvas.rs:131:25
+  0x00073000–0x00073152  (338 bytes)
+      panic @ src/cli/commands/io.rs:14:53
+  0x00073160–0x000737ac  (1612 bytes)
+      panic @ src/cli/commands/sort.rs:12:14
+  0x000760b0–0x00076dda  (3370 bytes)
+      panic @ src/cli/commands/list.rs:13:14
+  0x00076de0–0x0007743d  (1629 bytes)
+      panic @ src/cli/commands/pick.rs:11:14
+  0x00077460–0x00077de8  (2440 bytes)
+      panic @ src/cli/commands/sort.rs:20:14
+  0x00077df0–0x00078f7e  (4494 bytes)
+      panic @ src/cli/commands/paint.rs:16:14
+  0x00078f80–0x0007bf62  (12258 bytes)
+      panic @ src/cli/commands/format.rs:19:14
+      panic @ src/cli/commands/format.rs:62:44
+      panic @ src/cli/commands/format.rs:64:17
+  0x0007bf70–0x0007c373  (1027 bytes)
+      panic @ src/cli/commands/random.rs:12:14
+      panic @ src/cli/commands/random.rs:16:14
+      panic @ src/cli/commands/random.rs:26:18
+  0x0007c380–0x0007d0fd  (3453 bytes)
+      panic @ src/cli/commands/distinct.rs:136:14
+      panic @ src/cli/commands/distinct.rs:147:14
+      panic @ src/cli/commands/distinct.rs:152:18
+  0x0007d100–0x0007da89  (2441 bytes)
+      panic @ src/cli/commands/gradient.rs:13:14
+      panic @ src/cli/commands/gradient.rs:26:18
+      panic @ src/cli/commands/gradient.rs:31:14
+      panic @ src/cli/commands/gradient.rs:50:60
+  0x0007e370–0x0007e67a  (778 bytes)
+      panic @ src/cli/commands/color_commands.rs:72:14
+      panic @ src/cli/commands/color_commands.rs:80:14
+  0x0007e680–0x0007ebc6  (1350 bytes)
+      panic @ src/cli/commands/color_commands.rs:90:10
+      panic @ src/cli/commands/color_commands.rs:99:13
+  0x0007ebd0–0x0007fbbf  (4079 bytes)
+      panic @ src/cli/commands/color_commands.rs:109:10
+      panic @ src/cli/commands/color_commands.rs:129:22
+      panic @ src/cli/commands/color_commands.rs:145:22
+      panic @ src/cli/commands/color_commands.rs:161:22
+      panic @ src/cli/commands/color_commands.rs:177:22
+      panic @ src/cli/commands/color_commands.rs:190:22
+      panic @ src/cli/commands/color_commands.rs:200:13
+  0x000d6e20–0x000d705e  (574 bytes)
+      panic @ src/ansi.rs:105:14
+  0x000d7980–0x000d7e8c  (1292 bytes)
+      panic @ src/distinct.rs:315:31
+      panic @ src/distinct.rs:320:22
+      panic @ src/distinct.rs:329:45
+  0x000d8530–0x000db737  (12807 bytes)
+      panic @ src/parser.rs:15:33
+      panic @ src/parser.rs:88:48
+      panic @ src/parser.rs:89:48
+      panic @ src/parser.rs:95:48
+      panic @ src/parser.rs:96:48
+      panic @ src/parser.rs:105:48
+      panic @ src/parser.rs:106:48
+      panic @ src/parser.rs:107:48
+      panic @ src/parser.rs:113:48
+      panic @ src/parser.rs:114:48
+      panic @ src/parser.rs:115:48
+  0x000dd0d0–0x000dd93b  (2155 bytes)
+      panic @ src/distinct.rs:253:5
+  0x000dd940–0x000df1f4  (6324 bytes)
+      panic @ src/distinct.rs:140:22
+      panic @ src/distinct.rs:161:45
+      panic @ src/distinct.rs:165:75
+  0x000df3c0–0x000e0b95  (6101 bytes)
+      panic @ src/distinct.rs:241:16
+
+call closure — reachable from user code, not user-authored (287):
+  0x00030a80–0x00030d17  (663 bytes)  [indeterminate]
+  0x00031160–0x000311b0  (80 bytes)  [inferred]
+  0x000311b0–0x00031200  (80 bytes)  [indeterminate]
+  0x00031250–0x00031459  (521 bytes)  [inferred]
+  0x00031460–0x0003155c  (252 bytes)  [inferred]
+  0x00031560–0x000316b5  (341 bytes)  [indeterminate]
+  0x000316c0–0x0003186f  (431 bytes)  [inferred]
+  0x00031870–0x000319c1  (337 bytes)  [inferred]
+  0x000319d0–0x00031b00  (304 bytes)  [inferred]
+  0x00032020–0x000320d8  (184 bytes)  [inferred]
+  0x000320e0–0x0003216f  (143 bytes)  [inferred]
+  0x00032170–0x00032250  (224 bytes)  [inferred]
+  0x00032250–0x00032328  (216 bytes)  [inferred]
+  0x00032330–0x0003239c  (108 bytes)  [indeterminate]
+  0x000323a0–0x0003240c  (108 bytes)  [inferred]
+  0x00032410–0x000324e7  (215 bytes)  [inferred]
+  0x00032570–0x00032616  (166 bytes)  [inferred]
+  0x00032620–0x000326ac  (140 bytes)  [inferred]
+  0x000326b0–0x000326fe  (78 bytes)  [inferred]
+  0x00032700–0x0003274e  (78 bytes)  [inferred]
+  … 267 more (use --show-call-closure to list them)
+
+phase 2 complete.
+
+=== unhusk — DWARF ground-truth validation ===
+
+DWARF coverage : 822 functions mapped (71 user-first-party)
+
+── Precision (of unhusk's user-attributed predictions) ─────────────────
+  certain           27 predicted   TP=   19  FP=   1  unknown=   7   precision=95.0%
+  inferred         186 predicted   TP=   14  FP= 129  unknown=  43   precision=9.8%
+  indeterminate    101 predicted   TP=    5  FP=  80  unknown=  16   precision=5.9%
+
+── Recall (where do DWARF-first-party functions land?) ─────────────────
+     19  ( 26.8%)  certain          (rock-solid signal)
+     14  ( 19.7%)  inferred         (call-graph reach)
+      5  (  7.0%)  indeterminate    (shared/mixed callers)
+     33  ( 46.5%)  library          (MISSED)
+
+  DWARF-user in certain:
+    0x0004ea10  /home/user/Videos/unhusk/realval/work/pastel/src/cli/main.rs
+    0x000564b0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x00056610  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorpicker.rs
+    0x00073000  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/io.rs
+    0x00073160  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/sort.rs
+    0x000760b0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/list.rs
+    0x00076de0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/pick.rs
+    0x00077460  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/sort.rs
+    0x00077df0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/paint.rs
+    0x00078f80  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/format.rs
+    0x0007bf70  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/random.rs
+    0x0007c380  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/distinct.rs
+    0x0007d100  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/gradient.rs
+    0x0007e370  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007e680  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007ebd0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x000d6e20  /home/user/Videos/unhusk/realval/work/pastel/src/ansi.rs
+    0x000dd0d0  /home/user/Videos/unhusk/realval/work/pastel/src/distinct.rs
+    0x000df3c0  /home/user/Videos/unhusk/realval/work/pastel/src/distinct.rs
+  DWARF-user in inferred:
+    0x0004c440  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorpicker.rs
+    0x0004e420  /home/user/Videos/unhusk/realval/work/pastel/src/cli/main.rs
+    0x000576f0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorpicker.rs
+    0x00072760  /home/user/Videos/unhusk/realval/work/pastel/src/cli/utility.rs
+    0x000737b0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/distinct.rs
+    0x0007fbc0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/error.rs
+    0x000801b0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/io.rs
+    0x000d4a30  /home/user/Videos/unhusk/realval/work/pastel/src/delta_e.rs
+    0x000d8140  /home/user/Videos/unhusk/realval/work/pastel/src/ansi.rs
+    0x000d8230  /home/user/Videos/unhusk/realval/work/pastel/src/parser.rs
+    0x000dc320  /home/user/Videos/unhusk/realval/work/pastel/src/parser.rs
+    0x000dc730  /home/user/Videos/unhusk/realval/work/pastel/src/parser.rs
+    0x000e0cc0  /home/user/Videos/unhusk/realval/work/pastel/src/lib.rs
+    0x000e1200  /home/user/Videos/unhusk/realval/work/pastel/src/ansi.rs
+  DWARF-user in indeterminate:
+    0x000d1f40  /home/user/Videos/unhusk/realval/work/pastel/src/lib.rs
+    0x000d21c0  /home/user/Videos/unhusk/realval/work/pastel/src/lib.rs
+    0x000d2f70  /home/user/Videos/unhusk/realval/work/pastel/src/lib.rs
+    0x000d5420  /home/user/Videos/unhusk/realval/work/pastel/src/lib.rs
+    0x000d75a0  /home/user/Videos/unhusk/realval/work/pastel/src/ansi.rs
+  DWARF-user in library (missed):
+    0x0004acd0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004b100  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004b3a0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004b8d0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004bc20  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004c1f0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorspace.rs
+    0x0004c4c0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/distinct.rs
+    0x0004c4d0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/distinct.rs
+    0x00057f00  /home/user/Videos/unhusk/realval/work/pastel/src/cli/colorpicker_tools.rs
+    0x00058590  /home/user/Videos/unhusk/realval/work/pastel/src/cli/cli.rs
+    0x00072e90  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/colorcheck.rs
+    0x00075bc0  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/colorcheck.rs
+    0x00075f00  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x00076010  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/gray.rs
+    0x00077440  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/show.rs
+    0x0007dc30  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007dd40  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007df50  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007e060  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007e120  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x0007e300  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x00080090  /home/user/Videos/unhusk/realval/work/pastel/src/cli/commands/color_commands.rs
+    0x00082170  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x00082470  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x000825d0  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x00082770  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x000d2950  /home/user/Videos/unhusk/realval/work/pastel/src/helper.rs
+    0x000dbf50  /home/user/Videos/unhusk/realval/work/pastel/src/parser.rs
+    0x000dc620  /home/user/Videos/unhusk/realval/work/pastel/src/parser.rs
+    0x000e0ba0  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x000e0c70  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x000e1170  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+    0x000e14e0  /home/user/Videos/unhusk/realval/work/pastel/src/random.rs
+
+  total captured :    33  (46.5% of 71 DWARF-user fns)
+  total missed   :    33  (46.5%)
+
+── Headline numbers ─────────────────────────────────────────────────────
+  Certain precision : 95.0%
+  Certain recall    : 26.8%  (19/71 DWARF-user fns reached by certain)
+  Overall recall    : 46.5%  (certain+inferred)
+
+validation complete.
