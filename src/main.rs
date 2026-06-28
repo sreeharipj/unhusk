@@ -132,9 +132,19 @@ fn main() -> Result<()> {
     unhusk::report::print_report(&elf, &strings, &locations);
 
     // Phase 2: function attribution via .eh_frame + xref scan.
-    let fn_map = fn_map_result?;
+    let mut fn_map = fn_map_result?;
     if fn_map.is_empty() {
-        return Ok(());
+        // No usable .eh_frame (absent, or stripped by an adversary). Fall back to
+        // a call-target-derived function map so Phase 2 degrades instead of dying.
+        fn_map = unhusk::frame::fallback_function_map(&elf);
+        if fn_map.is_empty() {
+            return Ok(());
+        }
+        eprintln!(
+            "unhusk: no .eh_frame — using call-target fallback function map \
+             ({} entries, approximate; tier precision is degraded)",
+            fn_map.len()
+        );
     }
 
     let scan = unhusk::xref::scan(&elf, &fn_map, &locations);

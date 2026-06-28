@@ -156,12 +156,17 @@ Findings:
   function boundaries. Remove the section and all function-level attribution (including the
   STRONG tier) collapses.
 
-**Degraded-mode fallback (feasible, not yet built):** direct `call rel32` targets in `.text`
-recover **2413 of 5088** function starts (~47%) on the `.eh_frame`-stripped tokei — a symbol-free
-lower bound on function entries. Combined with `.eh_frame_hdr` (a separate section that may
-survive) and prologue-pattern scanning, Phase 2 could degrade gracefully instead of returning
-nothing. Misses leaf/indirect-only functions and exact end boundaries. Recommended next
-robustness work.
+**Degraded-mode fallback (SHIPPED — `frame::fallback_function_map`):** when `parse_eh_frame`
+yields an empty map, unhusk reconstructs an approximate function map from direct `call rel32`
+targets in `.text` (+ the `.text` start), with each entry's end = the next entry's start. On the
+`.eh_frame`-stripped tokei it recovers **2412 function entries** and, crucially, **14 of 15
+STRONG functions (93%)** — strong functions are richly called and panic-anchored, so they survive
+the boundary approximation. Measured cost (validated vs the debug twin): certain precision
+95.7% → **75.0% DWARF** with eh_frame removed (approximate boundaries merge adjacent functions
+and miss leaf/indirect-only entries, raising both FP and unknown counts). The mode prints a
+warning and exists so Phase 2 yields useful output instead of nothing. Remaining headroom:
+fold in `.eh_frame_hdr` (separate section, may survive) and function-prologue scanning to
+sharpen boundaries.
 
 ## Recall recovery — source-file coherence (the CONFIRMED tier)
 

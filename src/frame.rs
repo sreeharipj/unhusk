@@ -81,6 +81,62 @@ pub fn parse_eh_frame(elf: &ParsedElf) -> Result<FunctionMap> {
     Ok(map)
 }
 
+/// Degraded-mode function map for binaries with no usable `.eh_frame`.
+///
+/// An adversary can strip `.eh_frame` post-build (`objcopy --remove-section`),
+/// erasing the FDE function boundaries Phase 2 depends on.  Phase 1 (panic-site
+/// source attribution) still works — it reads only relocations + `.rodata` — but
+/// function-level attribution collapses.  This fallback reconstructs an
+/// approximate function map without symbols or unwind tables:
+///
+///   • every direct `call rel32` target inside `.text` is a function entry;
+///   • the `.text` start is an entry;
+///   • each entry's end is the next entry's start (last runs to section end).
+///
+/// This recovers ~half of true function starts (measured 2413/5088 on a stripped
+/// tokei) and over-estimates sizes where an entry was missed, so tier precision
+/// degrades — but Phase 2 produces useful output instead of nothing.  It is only
+/// engaged when `parse_eh_frame` yields an empty map.
+pub fn fallback_function_map(elf: &ParsedElf) -> FunctionMap {
+    use iced_x86::{Decoder, DecoderOptions, Instruction, Mnemonic, OpKind};
+
+    let text = match elf.section(".text") {
+        Some(s) => s,
+        None => return FunctionMap::new(),
+    };
+    let text_base = text.vaddr;
+    let text_end = text_base + text.data.len() as u64;
+
+    let mut starts: std::collections::BTreeSet<u64> = std::collections::BTreeSet::new();
+    starts.insert(text_base);
+
+    let mut decoder = Decoder::with_ip(64, text.data.as_slice(), text_base, DecoderOptions::NONE);
+    let mut instr = Instruction::default();
+    while decoder.can_decode() {
+        decoder.decode_out(&mut instr);
+        if instr.mnemonic() == Mnemonic::Call
+            && instr.op_count() == 1
+            && instr.op_kind(0) == OpKind::NearBranch64
+        {
+            let target = instr.near_branch64();
+            if target >= text_base && target < text_end {
+                starts.insert(target);
+            }
+        }
+    }
+
+    // Build ranges: each start runs to the next start (last to section end).
+    let sorted: Vec<u64> = starts.into_iter().collect();
+    let mut map = FunctionMap::new();
+    for (i, &start) in sorted.iter().enumerate() {
+        let end = sorted.get(i + 1).copied().unwrap_or(text_end);
+        if end > start {
+            map.insert(start, FunctionRange { start, end });
+        }
+    }
+    map
+}
+
 /// Given a virtual address, find the function range that contains it.
 pub fn find_function(map: &FunctionMap, addr: u64) -> Option<FunctionRange> {
     // Binary search: find the largest start <= addr.
