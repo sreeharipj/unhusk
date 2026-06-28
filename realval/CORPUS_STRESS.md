@@ -57,4 +57,62 @@ optimization-invariance beyond the single tokei case.
 
 ## Results
 
-(filled in below once the corpus builds)
+### The kill criteria fired — and the controls earned their keep
+
+34 binaries (13 source-built + 8 cargo-install + 13 stress; gitui failed to build, framework
+category stayed empty). Symbol GT, complete dep list.
+
+Raw (before the measurement controls): pooled STRONG **90.3%**, with **parallel 51%** and
+**macro 82.7%** — both under the pre-registered 85% line, which by the rules means "refine the
+method." But Control 1/2 showed the drop was **mostly measurement error, not the tool**:
+
+- **`fclones` 21 of 22 STRONG "FPs"** were `std::thread::local::LocalKey::with::<fclones::closure>`
+  — a TLS accessor whose *body is the fclones closure*. Same pure-forwarding-wrapper class as
+  `__rust_begin_short_backtrace`, which the classifier already unwraps. It hadn't unwrapped `with`.
+- **`typos` all 4 STRONG "FPs"** were `typos::run` etc. — the author's **own library crate** (`typos`),
+  pulled from crates.io as a dependency of the `typos-cli` binary, so the classifier mislabeled it.
+
+Both are clear-cut authorship (not borderline), so correcting them is principled, not p-hacking.
+After the two corrections:
+
+| category | raw STRONG | corrected STRONG | verdict |
+|---|---:|---:|---|
+| cli | 98.2% | **98.2%** | clean |
+| parallel | 51.1% | **97.8%** | was ~all `LocalKey` artifact |
+| macro | 82.7% | **90.4%** | was the `typos` own-lib artifact |
+| crypto | 87.5% | **87.5%** | genuine (ouch: rayon, sevenz) |
+| **async** | 87.3% | **87.3%** | **genuine weak spot** — no artifact to blame |
+| **POOLED** | 90.3% | **94.4%** | — |
+
+### Threshold ladder, full 34-binary corpus (corrected)
+
+| `--min-anchors` | ALL | ASYNC only |
+|---:|---:|---:|
+| 1 (all certain) | 85.8% | 79.9% |
+| 2 (STRONG, default) | **94.4%** | 87.3% |
+| 3 | 96.1% | 90.9% |
+
+The genuine residual STRONG FPs (34): async-wrappers 12 (`PollFn`, `Pin<Box<closure>>`,
+`tokio::Timeout`, `FuturesUnordered`, actix `handler_service`), other framework/dep 12, `core::iter`
+6, rayon 4. All are library bodies that inlined a multi-panic user closure — irreducible.
+
+## Verdict
+
+**P1 (async) confirmed.** async/web-framework binaries sit at ~87% STRONG vs ~98% for CLI tools —
+a real ~10pp gap, driven by futures combinators and framework handler-adapters. **P2 (parallel)
+and the macro drop were measurement artifacts**, not the mechanism failing — exactly the failure
+mode the pre-registered controls existed to catch. **P4 (macro) null held** once the typos confound
+was removed.
+
+**Decision: the parent branch's headline was corpus-optimistic, not wrong.** Honest STRONG precision
+is **~94% on a broad corpus (not ~97%)**, and **~87% on async-heavy code** — which matters because
+malware is disproportionately async (C2, scanners, network). This is a **documentation refinement**,
+not a method change: the async FPs are irreducible in a stripped binary, so no unhusk code fixes them.
+
+**Actionable guidance that came out of it:** for async-heavy targets, `--min-anchors 3` lifts async
+STRONG to ~91% (overall 96.1%) at a recall cost — a real knob. And the multiplicity gate matters
+*more* on async code (all-certain async is only 80%; STRONG is 87%), so the tier system earns its
+place precisely where the malware use case needs it.
+
+→ This branch becomes a follow-up PR that corrects the precision figures and documents the async
+weak spot + the two classifier confounds. No change to unhusk's attribution logic.
