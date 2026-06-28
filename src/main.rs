@@ -57,15 +57,26 @@ struct Args {
     /// Precision-first mode for malware/YARA-seed extraction.
     ///
     /// Restricts the user-authored output to the STRONG tier — functions anchored
-    /// by ≥2 distinct user panic Locations — and suppresses the call-closure
-    /// (inferred/indeterminate) buckets entirely.  Measured on 13 real binaries +
-    /// a full-LTO build: strong-tier symbol precision is ~98% and, unlike the raw
-    /// `certain` set, holds steady across opt levels (the multiplicity requirement
-    /// rejects single-Location monomorphized library generics).  Trades recall for
-    /// precision; intended for downstream signature generation where a false seed
-    /// is more costly than a missed one.
+    /// by ≥N distinct user panic Locations (see --min-anchors) — and suppresses the
+    /// call-closure (inferred/indeterminate) buckets entirely.  Measured on 13 real
+    /// binaries + a full-LTO build: strong-tier symbol precision is ~98% and, unlike
+    /// the raw `certain` set, holds steady across opt levels (the multiplicity
+    /// requirement rejects single-Location monomorphized library generics).  Trades
+    /// recall for precision; intended for downstream signature generation where a
+    /// false seed is more costly than a missed one.
     #[arg(long)]
     precision: bool,
+
+    /// Distinct user panic Locations a function needs to enter the STRONG tier.
+    ///
+    /// This is the precision dial.  Pooled symbol precision across 13 real binaries
+    /// + a full-LTO build (recall = fraction of all certain user fns retained):
+    ///   1 → 94.9% precision (100% recall)   — same as the full `certain` set
+    ///   2 → 97.9% precision ( 41% recall)   — default; rejects 1-closure monomorphizations
+    ///   3 → 99.5% precision ( 24% recall)   — near-max precision
+    /// The lever is optimization-invariant: it keys on Location structure, not inlining.
+    #[arg(long, value_name = "N", default_value = "2")]
+    min_anchors: usize,
 }
 
 fn main() -> Result<()> {
@@ -162,6 +173,7 @@ fn main() -> Result<()> {
         &backtrace,
         args.backtrace_depth,
         args.precision,
+        args.min_anchors,
     );
 
     // Optional type-name recovery from #[derive(Debug)] artifacts.

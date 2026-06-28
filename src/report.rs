@@ -146,15 +146,6 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
     println!("phase 1 complete.");
 }
 
-/// Minimum distinct user panic Locations for a certain function to be STRONG tier.
-///
-/// Empirically (13 real binaries + a full-LTO build, symbol ground truth) the
-/// strong tier holds ~98% precision vs ~95% for the full certain set, and — unlike
-/// raw certain — is stable across optimization levels.  A monomorphized library
-/// generic typically inlines exactly ONE user closure (one user Location); genuine
-/// user functions carry several of their own panic/unwrap sites.
-const STRONG_TIER_MIN: usize = 2;
-
 /// Number of distinct user panic Locations anchoring a certain function.
 fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> usize {
     certain_locs.get(&fn_start).map_or(0, |v| v.len())
@@ -172,7 +163,12 @@ pub fn print_phase2_report(
     backtrace: &std::collections::HashSet<u64>,
     backtrace_depth: usize,
     precision_mode: bool,
+    min_anchors: usize,
 ) {
+    // Distinct user Locations a function needs to enter the STRONG tier.
+    // Empirically (13 binaries + a full-LTO build, symbol GT): 1→94.9%, 2→97.9%,
+    // 3→99.5% pooled precision. Optimization-invariant (keys on Location structure).
+    let strong_tier_min = min_anchors.max(1);
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
     println!();
@@ -199,7 +195,7 @@ pub fn print_phase2_report(
     // Tier the certain set by user-Location multiplicity.
     let (strong_fns, single_fns): (Vec<&AttributedFn>, Vec<&AttributedFn>) = certain_fns
         .iter()
-        .partition(|f| user_anchor_count(certain_locs, f.start) >= STRONG_TIER_MIN);
+        .partition(|f| user_anchor_count(certain_locs, f.start) >= strong_tier_min);
 
     let fn_count = attributed.len();
     println!("functions (from .eh_frame): {}", fn_count);
@@ -216,7 +212,7 @@ pub fn print_phase2_report(
     println!(
         "    ├─ strong  {:>5}          ≥{} distinct user Locations  (~98% symbol precision)",
         strong_fns.len(),
-        STRONG_TIER_MIN,
+        strong_tier_min,
     );
     println!(
         "    └─ single  {:>5}          1 user Location  (monomorphization risk zone)",
@@ -260,11 +256,11 @@ pub fn print_phase2_report(
     println!();
     if strong_fns.is_empty() {
         println!("user-authored functions — STRONG tier: none");
-        println!("  (no function carries ≥{} distinct user Locations)", STRONG_TIER_MIN);
+        println!("  (no function carries ≥{} distinct user Locations)", strong_tier_min);
     } else {
         println!(
             "user-authored functions — STRONG tier, ≥{} user Locations ({}):",
-            STRONG_TIER_MIN,
+            strong_tier_min,
             strong_fns.len()
         );
         for f in &strong_fns {
