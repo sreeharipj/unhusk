@@ -7,6 +7,8 @@ claude_run.log
 __pycache__/
 *.pyc
 
+architecture.md
+
 # internal experiment notes / working docs
 context.md
 FINDINGS.md

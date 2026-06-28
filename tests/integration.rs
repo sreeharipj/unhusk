@@ -4,12 +4,12 @@
 /// Each test is skipped with an explanatory message if the fixture is missing.
 use std::path::Path;
 
-use unhusk::{classify, dwarf, elf, frame, locate, strings, xref};
 use unhusk::strings::Origin;
+use unhusk::{classify, dwarf, elf, frame, locate, strings, xref};
 
 // ── Fixture paths ─────────────────────────────────────────────────────────────
 
-const TINY_STRIPPED:   &str = "/tmp/unhusk-research/tiny_stripped";
+const TINY_STRIPPED: &str = "/tmp/unhusk-research/tiny_stripped";
 const MEDIUM_STRIPPED: &str = "/tmp/unhusk-research/medium_dyn_stripped";
 const RUSTUP_STRIPPED: &str = "/tmp/unhusk-research/cargo_stripped";
 
@@ -27,7 +27,9 @@ fn skip_if_missing(path: &str) -> bool {
 /// Expect: zero user-attributed Location structs.
 #[test]
 fn tiny_no_user_locations() {
-    if skip_if_missing(TINY_STRIPPED) { return; }
+    if skip_if_missing(TINY_STRIPPED) {
+        return;
+    }
 
     let elf = elf::ParsedElf::load(Path::new(TINY_STRIPPED)).unwrap();
     let strs = strings::classify(&elf, &[]);
@@ -42,7 +44,10 @@ fn tiny_no_user_locations() {
     // ELF must load and have the expected sections.
     assert!(elf.section(".rodata").is_some());
     assert!(elf.section(".data.rel.ro").is_some());
-    assert!(!elf.rela_relative.is_empty(), ".rela.dyn should have RELATIVE entries");
+    assert!(
+        !elf.rela_relative.is_empty(),
+        ".rela.dyn should have RELATIVE entries"
+    );
 }
 
 // ── Fixture 2: medium_dyn (two reachable user panic sites) ───────────────────
@@ -53,7 +58,9 @@ fn tiny_no_user_locations() {
 ///   • src/main.rs:38:5   — data[idx] bounds check    in get_element
 #[test]
 fn medium_finds_two_user_locations() {
-    if skip_if_missing(MEDIUM_STRIPPED) { return; }
+    if skip_if_missing(MEDIUM_STRIPPED) {
+        return;
+    }
 
     let elf = elf::ParsedElf::load(Path::new(MEDIUM_STRIPPED)).unwrap();
     let strs = strings::classify(&elf, &[]);
@@ -65,12 +72,17 @@ fn medium_finds_two_user_locations() {
         .filter(|l| l.origin == Origin::User)
         .map(|l| l.file.as_str())
         .collect();
-    assert_eq!(user_files.len(), 1, "expected 1 user source file, got {user_files:?}");
+    assert_eq!(
+        user_files.len(),
+        1,
+        "expected 1 user source file, got {user_files:?}"
+    );
     assert!(user_files.contains("src/main.rs"), "expected src/main.rs");
 
     let user_locs: Vec<_> = locs.iter().filter(|l| l.origin == Origin::User).collect();
     assert_eq!(
-        user_locs.len(), 2,
+        user_locs.len(),
+        2,
         "expected 2 user Location structs, got {}",
         user_locs.len()
     );
@@ -97,15 +109,29 @@ fn medium_finds_two_user_locations() {
     assert!(!fn_map.is_empty(), "medium_dyn should have FDE entries");
 
     let scan = xref::scan(&elf, &fn_map, &locs);
-    assert!(!scan.certain.is_empty(),
-        "medium_dyn: expected ≥1 certain user function, got 0");
+    assert!(
+        !scan.certain.is_empty(),
+        "medium_dyn: expected ≥1 certain user function, got 0"
+    );
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
+    let attributed = classify::attribute(
+        &fn_map,
+        &scan.certain,
+        &scan.calls,
+        &scan.dep_boundary,
+        None,
+    );
     let score = classify::Score::from(&attributed);
-    assert!(score.certain >= 1,
-        "medium_dyn Phase 2: expected ≥1 certain, got {}", score.certain);
-    assert!(score.inferred >= 1,
-        "medium_dyn Phase 2: expected ≥1 call-closure (inferred), got {}", score.inferred);
+    assert!(
+        score.certain >= 1,
+        "medium_dyn Phase 2: expected ≥1 certain, got {}",
+        score.certain
+    );
+    assert!(
+        score.inferred >= 1,
+        "medium_dyn Phase 2: expected ≥1 call-closure (inferred), got {}",
+        score.inferred
+    );
 }
 
 // ── Fixture 3: rustup (14 user source files, ~76+ user panic sites) ──────────
@@ -114,7 +140,9 @@ fn medium_finds_two_user_locations() {
 /// toolchain upgrades; the assertions are lower-bounded.
 #[test]
 fn rustup_user_source_files() {
-    if skip_if_missing(RUSTUP_STRIPPED) { return; }
+    if skip_if_missing(RUSTUP_STRIPPED) {
+        return;
+    }
 
     let elf = elf::ParsedElf::load(Path::new(RUSTUP_STRIPPED)).unwrap();
     let strs = strings::classify(&elf, &[]);
@@ -131,11 +159,7 @@ fn rustup_user_source_files() {
     // Known rustup source files that must be present.
     let user_paths: std::collections::BTreeSet<&str> =
         user_strs.iter().map(|s| s.content.as_str()).collect();
-    for expected in &[
-        "src/settings.rs",
-        "src/errors.rs",
-        "src/diskio/mod.rs",
-    ] {
+    for expected in &["src/settings.rs", "src/errors.rs", "src/diskio/mod.rs"] {
         assert!(
             user_paths.contains(expected),
             "expected user source file '{expected}' not found"
@@ -157,30 +181,57 @@ fn rustup_user_source_files() {
     );
 
     // Dep crates must be visible.
-    let dep_count = locs.iter().filter(|l| matches!(&l.origin, Origin::Dep { .. })).count();
-    assert!(dep_count > 100, "expected >100 dep panic sites, got {dep_count}");
+    let dep_count = locs
+        .iter()
+        .filter(|l| matches!(&l.origin, Origin::Dep { .. }))
+        .count();
+    assert!(
+        dep_count > 100,
+        "expected >100 dep panic sites, got {dep_count}"
+    );
 
     // Phase 2: rustup has many user functions — expect substantial certain + inferred sets.
     let fn_map = frame::parse_eh_frame(&elf).unwrap();
-    assert!(fn_map.len() >= 10_000,
-        "rustup: expected ≥10K FDE entries, got {}", fn_map.len());
+    assert!(
+        fn_map.len() >= 10_000,
+        "rustup: expected ≥10K FDE entries, got {}",
+        fn_map.len()
+    );
 
     let scan = xref::scan(&elf, &fn_map, &locs);
-    assert!(scan.certain.len() >= 30,
-        "rustup Phase 2: expected ≥30 certain user functions, got {}", scan.certain.len());
+    assert!(
+        scan.certain.len() >= 30,
+        "rustup Phase 2: expected ≥30 certain user functions, got {}",
+        scan.certain.len()
+    );
     let total_edges: usize = scan.calls.values().map(|s| s.len()).sum();
-    assert!(total_edges >= 5_000,
-        "rustup Phase 2: expected ≥5K call edges, got {}", total_edges);
+    assert!(
+        total_edges >= 5_000,
+        "rustup Phase 2: expected ≥5K call edges, got {}",
+        total_edges
+    );
 
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
+    let attributed = classify::attribute(
+        &fn_map,
+        &scan.certain,
+        &scan.calls,
+        &scan.dep_boundary,
+        None,
+    );
     let score = classify::Score::from(&attributed);
     // user_total() == certain only: the only bucket with 100% DWARF-validated precision.
-    assert!(score.certain >= 30,
-        "rustup Phase 2: certain={}", score.certain);
+    assert!(
+        score.certain >= 30,
+        "rustup Phase 2: certain={}",
+        score.certain
+    );
     // Call closure (inferred + indeterminate): reachable from user code, mostly dep/std.
     // 500 is a safe floor for the inferred bucket alone.
-    assert!(score.inferred >= 500,
-        "rustup Phase 2: inferred={}", score.inferred);
+    assert!(
+        score.inferred >= 500,
+        "rustup Phase 2: inferred={}",
+        score.inferred
+    );
 }
 
 // ── Smoke test: string classifier ────────────────────────────────────────────
@@ -195,10 +246,19 @@ fn classifier_unit_round_trip() {
         classify_path("/rustc/abc123/library/core/src/fmt.rs", &[]),
         Origin::Std
     );
-    assert_eq!(classify_path("library/alloc/src/vec/mod.rs", &[]), Origin::Std);
     assert_eq!(
-        classify_path("/cargo/registry/src/index.crates.io-abc/tokio-1.28.0/src/lib.rs", &[]),
-        Origin::Dep { crate_name: "tokio".into(), version: "1.28.0".into() }
+        classify_path("library/alloc/src/vec/mod.rs", &[]),
+        Origin::Std
+    );
+    assert_eq!(
+        classify_path(
+            "/cargo/registry/src/index.crates.io-abc/tokio-1.28.0/src/lib.rs",
+            &[]
+        ),
+        Origin::Dep {
+            crate_name: "tokio".into(),
+            version: "1.28.0".into()
+        }
     );
 }
 
@@ -210,21 +270,32 @@ const SCORED_STRIPPED: &str = "/tmp/unhusk-research/scored_stripped";
 /// and check xref scanner finds user Location structs.
 #[test]
 fn scored_phase2_attribution() {
-    if skip_if_missing(SCORED_STRIPPED) { return; }
+    if skip_if_missing(SCORED_STRIPPED) {
+        return;
+    }
 
     let elf = elf::ParsedElf::load(std::path::Path::new(SCORED_STRIPPED)).unwrap();
     let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
 
     // Phase 1: must find 8 user panic sites
-    let user_locs: Vec<_> = locs.iter().filter(|l| l.origin == unhusk::strings::Origin::User).collect();
-    assert!(user_locs.len() >= 6,
-        "expected ≥6 user panic sites, got {}", user_locs.len());
+    let user_locs: Vec<_> = locs
+        .iter()
+        .filter(|l| l.origin == unhusk::strings::Origin::User)
+        .collect();
+    assert!(
+        user_locs.len() >= 6,
+        "expected ≥6 user panic sites, got {}",
+        user_locs.len()
+    );
 
     // Phase 2: function map
     let fn_map = unhusk::frame::parse_eh_frame(&elf).unwrap();
-    assert!(fn_map.len() >= 18,
-        "expected ≥18 FDE entries (got {})", fn_map.len());
+    assert!(
+        fn_map.len() >= 18,
+        "expected ≥18 FDE entries (got {})",
+        fn_map.len()
+    );
 
     // Check that the known panicking function addresses appear in fn_map
     let known_panicking: &[u64] = &[
@@ -236,25 +307,38 @@ fn scored_phase2_attribution() {
         0x14290, // validate_range
     ];
     for &addr in known_panicking {
-        assert!(fn_map.contains_key(&addr),
-            "FDE missing for user fn at 0x{:x}", addr);
+        assert!(
+            fn_map.contains_key(&addr),
+            "FDE missing for user fn at 0x{:x}",
+            addr
+        );
     }
 
     // Xref scan: must find user panicking functions as "certain"
     let scan_result = unhusk::xref::scan(&elf, &fn_map, &locs);
     eprintln!("certain set size: {}", scan_result.certain.len());
     for addr in known_panicking {
-        eprintln!("  0x{:x} in certain: {}", addr, scan_result.certain.contains(addr));
+        eprintln!(
+            "  0x{:x} in certain: {}",
+            addr,
+            scan_result.certain.contains(addr)
+        );
     }
-    assert!(!scan_result.certain.is_empty(),
-        "certain set is empty — xref scanner found no user Location references");
+    assert!(
+        !scan_result.certain.is_empty(),
+        "certain set is empty — xref scanner found no user Location references"
+    );
 
     // At least half the panicking functions must be "certain"
-    let found_certain = known_panicking.iter()
+    let found_certain = known_panicking
+        .iter()
         .filter(|&&a| scan_result.certain.contains(&a))
         .count();
-    assert!(found_certain >= 3,
-        "expected ≥3 panicking functions as certain, got {}", found_certain);
+    assert!(
+        found_certain >= 3,
+        "expected ≥3 panicking functions as certain, got {}",
+        found_certain
+    );
 
     // Call graph: must have edges from panicking to pure-compute
     let known_callees: &[u64] = &[
@@ -265,37 +349,65 @@ fn scored_phase2_attribution() {
     ];
     let total_call_edges: usize = scan_result.calls.values().map(|s| s.len()).sum();
     assert!(total_call_edges > 0, "call graph is empty");
-    eprintln!("call graph: {} functions with outgoing edges", scan_result.calls.len());
+    eprintln!(
+        "call graph: {} functions with outgoing edges",
+        scan_result.calls.len()
+    );
     eprintln!("call graph: {} total edges", total_call_edges);
 
     // Attribution: must attribute at least the certain + a few inferred
-    let attributed = unhusk::classify::attribute(&fn_map, &scan_result.certain, &scan_result.calls, &scan_result.dep_boundary, None);
+    let attributed = unhusk::classify::attribute(
+        &fn_map,
+        &scan_result.certain,
+        &scan_result.calls,
+        &scan_result.dep_boundary,
+        None,
+    );
     let score = unhusk::classify::Score::from(&attributed);
-    eprintln!("score: certain={} inferred={} indeterminate={} library={}",
-        score.certain, score.inferred, score.indeterminate, score.library);
+    eprintln!(
+        "score: certain={} inferred={} indeterminate={} library={}",
+        score.certain, score.inferred, score.indeterminate, score.library
+    );
 
-    assert!(score.certain >= 3,
-        "expected ≥3 certain, got {}", score.certain);
+    assert!(
+        score.certain >= 3,
+        "expected ≥3 certain, got {}",
+        score.certain
+    );
 
     // Pure-compute functions reachable from panicking ones should be inferred
-    let inferred_addrs: std::collections::HashSet<u64> = attributed.iter()
+    let inferred_addrs: std::collections::HashSet<u64> = attributed
+        .iter()
         .filter(|f| f.attribution == unhusk::classify::Attribution::Inferred)
         .map(|f| f.start)
         .collect();
-    let found_inferred = known_callees.iter()
+    let found_inferred = known_callees
+        .iter()
         .filter(|&&a| inferred_addrs.contains(&a))
         .count();
-    eprintln!("known callees found as inferred: {}/{}", found_inferred, known_callees.len());
-    assert!(found_inferred >= 2,
-        "expected ≥2 pure-compute callees as inferred, got {}", found_inferred);
+    eprintln!(
+        "known callees found as inferred: {}/{}",
+        found_inferred,
+        known_callees.len()
+    );
+    assert!(
+        found_inferred >= 2,
+        "expected ≥2 pure-compute callees as inferred, got {}",
+        found_inferred
+    );
 
     // Dead functions must NOT be in certain or inferred
     let dead_addrs = [0x14050u64, 0x14070]; // dead_combine, dead_transform
     for addr in &dead_addrs {
         let entry = attributed.iter().find(|f| f.start == *addr);
         if let Some(f) = entry {
-            assert_eq!(f.attribution, unhusk::classify::Attribution::Library,
-                "dead fn 0x{:x} should be library, got {:?}", addr, f.attribution);
+            assert_eq!(
+                f.attribution,
+                unhusk::classify::Attribution::Library,
+                "dead fn 0x{:x} should be library, got {:?}",
+                addr,
+                f.attribution
+            );
         }
     }
 }
@@ -309,25 +421,38 @@ fn scored_phase2_attribution() {
 /// Fixture: medium_debug (541 FDEs, 1 DWARF-user fn, measured 1 certain prediction).
 #[test]
 fn certain_precision_never_drops_below_100_pct() {
-    const STRIPPED:   &str = "/tmp/unhusk-research/medium_debug_stripped";
+    const STRIPPED: &str = "/tmp/unhusk-research/medium_debug_stripped";
     const UNSTRIPPED: &str = "/tmp/unhusk-research/medium_debug_unstripped";
-    if skip_if_missing(STRIPPED) || skip_if_missing(UNSTRIPPED) { return; }
+    if skip_if_missing(STRIPPED) || skip_if_missing(UNSTRIPPED) {
+        return;
+    }
 
     let elf = elf::ParsedElf::load(Path::new(STRIPPED)).unwrap();
     let strs = strings::classify(&elf, &[]);
     let locs = locate::find_locations(&elf, &strs);
     let fn_map = frame::parse_eh_frame(&elf).unwrap();
     let scan = xref::scan(&elf, &fn_map, &locs);
-    let attributed = classify::attribute(&fn_map, &scan.certain, &scan.calls, &scan.dep_boundary, None);
+    let attributed = classify::attribute(
+        &fn_map,
+        &scan.certain,
+        &scan.calls,
+        &scan.dep_boundary,
+        None,
+    );
 
     let unstripped = elf::ParsedElf::load(Path::new(UNSTRIPPED)).unwrap();
     let ground_truth = dwarf::read_function_sources(&unstripped, &fn_map, &[]);
-    let report = dwarf::ValidationReport::compute(&attributed, &ground_truth, &std::collections::HashSet::new());
+    let report = dwarf::ValidationReport::compute(
+        &attributed,
+        &ground_truth,
+        &std::collections::HashSet::new(),
+    );
 
     // If there are certain predictions, every one must be a true positive.
     if let Some(prec) = report.certain.precision() {
         assert_eq!(
-            prec, 1.0,
+            prec,
+            1.0,
             "certain precision={:.1}%  TP={}  FP={} — a false positive was introduced",
             prec * 100.0,
             report.certain.true_positive,
