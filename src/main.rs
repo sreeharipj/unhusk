@@ -77,7 +77,7 @@ struct Args {
     ///
     /// This is the precision dial.  Pooled symbol precision across 13 real binaries
     /// plus a full-LTO build (recall = fraction of all certain user fns retained):
-    /// N=1 → 94.8% precision at 100% recall (same as the full `certain` set);
+    /// N=1 → 94.3% precision at 100% recall (same as the full `certain` set);
     /// N=2 → 97.8% at 42% (default; rejects 1-closure monomorphizations);
     /// N=3 → 99.5% at 24% (near-max precision).
     /// The lever is optimization-invariant: it keys on Location structure, not inlining.
@@ -183,6 +183,23 @@ fn main() -> Result<()> {
     } else {
         std::collections::HashSet::new()
     };
+
+    // DIAGNOSTIC (env-gated): every distinct dependency crate name unhusk classified
+    // from embedded source paths.  A symbol-GT harness needs the COMPLETE list (the
+    // human report truncates to the top 10 by panic count) to avoid miscounting deps
+    // beyond the top 10 as user code.
+    // Format: DEPCRATE\t<name>  (one per line)
+    if std::env::var_os("UNHUSK_DUMP_DEPS").is_some() {
+        let mut names: std::collections::BTreeSet<&str> = std::collections::BTreeSet::new();
+        for s in &strings {
+            if let unhusk::strings::Origin::Dep { crate_name, .. } = &s.origin {
+                names.insert(crate_name.as_str());
+            }
+        }
+        for name in names {
+            println!("DEPCRATE\t{}", name);
+        }
+    }
 
     // DIAGNOSTIC (env-gated): per-certain-function confidence tier + raw anchor count.
     // This is the authoritative tier source — it runs on the real tier assignment, not a
