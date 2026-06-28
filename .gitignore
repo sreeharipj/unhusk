@@ -7,7 +7,10 @@ claude_run.log
 __pycache__/
 *.pyc
 
-architecture.md
+# local build clones, stale batch outputs, and reference PDFs (not project artifacts)
+realval/work/
+realval/out2/
+references/
 
 # internal experiment notes / working docs
 context.md
