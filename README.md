@@ -3,8 +3,9 @@
 **Recovering author-written code from stripped Rust binaries via panic metadata** — no symbols, no debug info, no signature database.
 
 > ⚗️ **Experimental security-research project.** A single-author research vehicle, not a product.
-> Validated on 34 open-source Rust binaries; **not yet tested on live malware**. x86-64 ELF only.
-> Numbers and interfaces move as evidence accumulates. Expect sharp edges.
+> Validated on 34 open-source Rust binaries and a first batch of **real in-the-wild Rust malware**
+> (static analysis only — see below). x86-64 ELF only. Numbers and interfaces move as evidence
+> accumulates. Expect sharp edges.
 
 A stripped, LTO-optimized Rust release binary is a wall of anonymous machine code in which 90%+ of the functions belong to the standard library and Cargo dependencies. unhusk finds the slice the *author* actually wrote, by exploiting a structural quirk of the Rust panic machinery.
 
@@ -123,7 +124,8 @@ unhusk <stripped-elf> --types
 - **Functions with no reachable panic site are not found.** Pure computation, getters, and code where the optimizer proved every panic unreachable have nothing to anchor on. Recall is partial by construction (~15–46% of user functions on the test set) — fine for signature generation, which needs a handful of good seeds, not every function.
 - **async / generic-heavy code degrades precision** (the ~87% weak spot above) — irreducible in a stripped binary.
 - **User code reached only through trait objects / function pointers / library dispatch** appears as `library`; the xref scan follows only static call edges.
-- **Never validated on live malware.** Every number here is from benign open-source tools, which may not be representative.
+- **Defeated by packing, `--remap-path-prefix`, or `-Z build-std panic_immediate_abort`.** Real malware uses the first two (unhusk flags them loudly); the last removes the panic metadata entirely but is nightly-only and behavior-changing. See the [malware writeup](writeups/2026-06-29-unhusk-vs-real-rust-malware.md) for the full evasion-effort gradient.
+- **The precision numbers are from benign tools + a handful of malware samples** — a start, not a representative study. Windows PE Rust malware is unsupported.
 - **x86-64 ELF only.**
 
 ## Build & test
