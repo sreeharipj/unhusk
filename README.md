@@ -114,9 +114,11 @@ unhusk <stripped-elf> --min-anchors 3
 unhusk <stripped-elf> --precision --json
 ```
 
-When `.eh_frame` is absent (e.g. an adversary ran `objcopy --remove-section`), unhusk falls back
-to a call-target-derived function map so Phase 2 degrades (recovering ~93% of STRONG functions)
-instead of producing nothing. Phase 1 source attribution is unaffected — it needs no unwind info.
+When `.eh_frame` is absent (e.g. an adversary ran `objcopy --remove-section`), unhusk recovers
+function boundaries from the separate `.eh_frame_hdr` table — which survives that strip — giving
+results identical to an intact binary. Only if *both* sections are removed does it fall to a
+call-target map (degraded, still ~93% of STRONG). Phase 1 source attribution needs no unwind info
+at all.
 
 ## Precision and recall — key findings
 
