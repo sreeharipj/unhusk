@@ -58,12 +58,12 @@ struct Args {
     ///
     /// Restricts the user-authored output to the STRONG tier — functions anchored
     /// by ≥N distinct user panic Locations (see --min-anchors) — and suppresses the
-    /// call-closure (inferred/indeterminate) buckets entirely.  Measured on a 21-binary
-    /// corpus: strong-tier symbol precision is ~97% and, unlike the raw `certain` set,
-    /// holds steady across opt levels (the multiplicity requirement rejects most
+    /// call-closure (inferred/indeterminate) buckets entirely.  Measured on a 34-binary
+    /// corpus: strong-tier symbol precision is ~94% pooled (CLI/systems ~98%, async/web
+    /// ~87%) and holds across opt levels (the multiplicity requirement rejects most
     /// single-Location monomorphized library generics).  Trades recall for precision;
     /// intended for downstream signature generation where a false seed is more costly
-    /// than a missed one.
+    /// than a missed one.  Async-heavy targets (common in malware): consider --min-anchors 3.
     #[arg(long)]
     precision: bool,
 
@@ -75,13 +75,13 @@ struct Args {
 
     /// Distinct user panic Locations a function needs to enter the STRONG tier.
     ///
-    /// This is the precision dial.  Pooled symbol precision across a 21-binary corpus
+    /// This is the precision dial.  Pooled symbol precision across a 34-binary corpus
     /// (recall = fraction of all certain user fns retained):
-    /// N=1 → 91.5% precision at 100% recall (same as the full `certain` set);
-    /// N=2 → 96.7% at 45% (default; rejects 1-closure monomorphizations);
-    /// N=3 → 97.8% at 27% (near-max precision).
+    /// N=1 → ~86% precision at 100% recall (same as the full `certain` set);
+    /// N=2 → ~94% (default; rejects 1-closure monomorphizations);
+    /// N=3 → ~96% (near-max precision).
+    /// Precision is workload-dependent: CLI/systems ~98%, async/web-framework ~87%.
     /// The lever is optimization-invariant: it keys on Location structure, not inlining.
-    /// Async/futures-heavy binaries are the weak spot (combinators inline user closures).
     #[arg(long, value_name = "N", default_value = "2")]
     min_anchors: usize,
 }
