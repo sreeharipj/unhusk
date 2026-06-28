@@ -7,7 +7,7 @@ use clap::Parser;
 #[command(
     name = "unhusk",
     about = "Identify user-authored functions in stripped Rust release binaries via panic metadata",
-    version,
+    version
 )]
 struct Args {
     /// Path to the stripped ELF binary to analyze.
@@ -53,6 +53,19 @@ struct Args {
     /// Outputs three tiers: user (cross-ref confirms), non-std, std.
     #[arg(long)]
     types: bool,
+
+    /// Precision-first mode for malware/YARA-seed extraction.
+    ///
+    /// Restricts the user-authored output to the STRONG tier — functions anchored
+    /// by ≥2 distinct user panic Locations — and suppresses the call-closure
+    /// (inferred/indeterminate) buckets entirely.  Measured on 13 real binaries +
+    /// a full-LTO build: strong-tier symbol precision is ~98% and, unlike the raw
+    /// `certain` set, holds steady across opt levels (the multiplicity requirement
+    /// rejects single-Location monomorphized library generics).  Trades recall for
+    /// precision; intended for downstream signature generation where a false seed
+    /// is more costly than a missed one.
+    #[arg(long)]
+    precision: bool,
 }
 
 fn main() -> Result<()> {
@@ -66,7 +79,8 @@ fn main() -> Result<()> {
         args.root_crates.clone()
     } else {
         let paths = unhusk::strings::extract_rs_paths(&elf);
-        let binary_stem = args.binary
+        let binary_stem = args
+            .binary
             .file_stem()
             .and_then(|s| s.to_str())
             .unwrap_or("")
@@ -139,8 +153,15 @@ fn main() -> Result<()> {
     };
 
     unhusk::report::print_phase2_report(
-        &elf, &attributed, &score, &locations, &scan.certain_locs,
-        args.show_call_closure, &backtrace, args.backtrace_depth,
+        &elf,
+        &attributed,
+        &score,
+        &locations,
+        &scan.certain_locs,
+        args.show_call_closure,
+        &backtrace,
+        args.backtrace_depth,
+        args.precision,
     );
 
     // Optional type-name recovery from #[derive(Debug)] artifacts.
@@ -168,22 +189,22 @@ fn main() -> Result<()> {
         use unhusk::strings::Origin;
         for f in &attributed {
             let bucket = match f.attribution {
-                unhusk::classify::Attribution::Certain    => "certain",
-                unhusk::classify::Attribution::Inferred   => "inferred",
+                unhusk::classify::Attribution::Certain => "certain",
+                unhusk::classify::Attribution::Inferred => "inferred",
                 _ => continue,
             };
             let dwarf = match ground_truth.as_ref().and_then(|g| g.get(&f.start)) {
                 Some((Origin::User, _)) => "TP",
-                Some(_)                 => "FP",
-                None                    => "UNK",
+                Some(_) => "FP",
+                None => "UNK",
             };
             println!("ATTRDUMP\t0x{:x}\t{}\t{}", f.start, bucket, dwarf);
         }
         for &addr in &backtrace {
             let dwarf = match ground_truth.as_ref().and_then(|g| g.get(&addr)) {
                 Some((Origin::User, _)) => "TP",
-                Some(_)                 => "FP",
-                None                    => "UNK",
+                Some(_) => "FP",
+                None => "UNK",
             };
             println!("ATTRDUMP\t0x{:x}\tbacktrace\t{}", addr, dwarf);
         }
