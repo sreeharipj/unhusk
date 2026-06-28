@@ -132,6 +132,25 @@ overfitting — threshold escalation is the honest lever.
 user-named struct is doubly attested. Adding independent evidence raises confidence without
 filtering, unlike threshold tuning. Flagged for the next iteration.
 
+## Optimization-level robustness sweep (tokei, same source)
+
+The adversary picks the compiler flags, so the tier model was validated across the build matrix.
+It holds everywhere — the multiplicity + coherence signals key on Location structure, which every
+configuration preserves:
+
+| build config | user panic sites | certain (strong/conf/weak) | certain precision (DWARF) |
+|---|---:|---:|---:|
+| `lto=thin` (native) | 71 | 39 (15/10/14) | 95.7% |
+| `lto=true, cgu=1` | 70 | 28 (8/8/12) | 90.9% |
+| `opt-level=z, lto=true` | **94** | 33 (12/8/13) | 95.8% |
+| `-C force-unwind-tables=no` | 71 | 39 (15/6/3*) | 95.7% |
+
+`*` fallback-map run (see below). Notable: **`opt-level=z` *increases* the signal** — size
+optimization inlines panic Locations less aggressively, so more user functions keep their own
+anchors (94 sites vs 70 at `opt-level=3`). Aggressive inlining (full LTO) is the *only* direction
+that erodes recall, and even there precision and the tier shape are preserved. There is no opt
+level at which unhusk's precision collapses; the lever is genuinely optimization-invariant.
+
 ## Robustness across compilation — the `.eh_frame` dependency (tested)
 
 The attacker controls compilation, so we probed the worst cases on tokei (`panic=abort`):

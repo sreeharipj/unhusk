@@ -76,10 +76,10 @@ struct Args {
     /// Distinct user panic Locations a function needs to enter the STRONG tier.
     ///
     /// This is the precision dial.  Pooled symbol precision across 13 real binaries
-    /// + a full-LTO build (recall = fraction of all certain user fns retained):
-    ///   1 → 94.9% precision (100% recall)   — same as the full `certain` set
-    ///   2 → 97.9% precision ( 41% recall)   — default; rejects 1-closure monomorphizations
-    ///   3 → 99.5% precision ( 24% recall)   — near-max precision
+    /// plus a full-LTO build (recall = fraction of all certain user fns retained):
+    /// N=1 → 94.9% precision at 100% recall (same as the full `certain` set);
+    /// N=2 → 97.9% at 41% (default; rejects 1-closure monomorphizations);
+    /// N=3 → 99.5% at 24% (near-max precision).
     /// The lever is optimization-invariant: it keys on Location structure, not inlining.
     #[arg(long, value_name = "N", default_value = "2")]
     min_anchors: usize,
