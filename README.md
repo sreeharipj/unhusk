@@ -115,6 +115,12 @@ unhusk <stripped-elf> --types
 - The precision numbers come from benign tools plus a handful of malware samples. That is a start, not a representative study. Windows PE Rust malware is not supported.
 - x86-64 ELF only.
 
+## Prior work
+
+The core insight, that Rust embeds `panic!` source-location metadata that survives `strip` and can be mined to recover authorship and dependencies, is not original to unhusk. SentinelLabs' Project 0xA11C ("Deoxidizing the Rust Hive", RECON 2024) demonstrated it as an IDAPython workflow: reconstruct the `Location`/slice structs, recover `src/*.rs` panic paths, and mine `registry/src/…` strings for crate dependencies. Cindy Xiao's ["Using panic metadata to recover source code information from Rust binaries"](https://cxiao.net/posts/2023-12-08-rust-reversing-panic-metadata/) is the write-up unhusk's Phase 1 is built on (archived in `references/`). unhusk automates the same idea for x86-64 ELF without IDA, and adds the part those do not, a precision-ranked authorship classifier (the multiplicity lever and confidence tiers) with a measured false-positive story and a JSON output contract for downstream tooling.
+
+Microsoft's RIFT ("advanced pattern matching for Rust libraries") solves the same separation problem from the opposite direction: it recognizes *library* code by recompiling the exact dependencies and compiler and matching them with FLIRT signatures and Diaphora binary diffing, so the author's code is the unlabeled residue. unhusk is additive rather than subtractive: it marks the author directly from intrinsic panic metadata, needs only the binary (no recompilation, network, or signature corpus), and treats author bytes as a positive signal rather than a by-elimination remainder, which is the better fit for YARA-seed extraction. Full contrast in [`references/rift-vs-unhusk.md`](references/rift-vs-unhusk.md).
+
 ## Build and test
 
 ```sh
