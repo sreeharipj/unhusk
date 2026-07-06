@@ -132,13 +132,11 @@ pub fn find_type_names(
     fns: &FunctionMap,
     attributed: &[AttributedFn],
 ) -> Vec<RecoveredType> {
-    let text = match elf.section(".text") {
-        Some(s) => s,
-        None => return Vec::new(),
+    let Some(text) = elf.section(".text") else {
+        return Vec::new();
     };
-    let rodata = match elf.section(".rodata") {
-        Some(s) => s,
-        None => return Vec::new(),
+    let Some(rodata) = elf.section(".rodata") else {
+        return Vec::new();
     };
 
     // Build attribution map for tiering.

@@ -176,17 +176,13 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
 
 /// Confidence tier of a certain (user-Location-anchored) function.
 ///
-/// Only user-Location *multiplicity* separates the tiers — measured on a 21-binary corpus
-/// (symbol GT, via the TIERDUMP diagnostic): Strong ~97%, Single ~88%.  An earlier
-/// "source-file coherence" sub-tier was REMOVED after the authoritative measurement showed
-/// coherent vs incoherent single-anchor functions are ~93% either way — i.e. coherence
-/// separates nothing.  (The apparent "noise" came from a contaminated listing parser that
-/// swept call-closure functions into the single bucket.)
+/// The tiers are split purely by user-Location multiplicity (see `--min-anchors`).
+/// Pooled symbol-GT precision on the 34-binary corpus: Strong ~94%, Single ~80%.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tier {
-    /// ≥ min_anchors distinct user Locations (~97% symbol precision).
+    /// ≥ min_anchors distinct user Locations (~94% pooled precision).
     Strong,
-    /// 1 user Location (~88% symbol precision).
+    /// 1 user Location (~80% pooled precision).
     Single,
 }
 
@@ -268,7 +264,7 @@ pub fn print_json_report(
         .filter(|f| tiers.contains_key(&f.start))
         .collect();
     rows.sort_by_key(|f| f.start);
-    // In precision mode, emit only the STRONG tier (~98%); drop single-anchor (~93%).
+    // In precision mode, emit only the STRONG tier (~94%); drop single-anchor (~80%).
     rows.retain(|f| !precision_mode || tiers[&f.start] == Tier::Strong);
 
     for (i, f) in rows.iter().enumerate() {
@@ -305,8 +301,8 @@ pub fn print_phase2_report(
     min_anchors: usize,
 ) {
     // Distinct user Locations a function needs to enter the STRONG tier.
-    // Empirically (13 binaries + a full-LTO build, symbol GT): 1→94.9%, 2→97.9%,
-    // 3→99.5% pooled precision. Optimization-invariant (keys on Location structure).
+    // Pooled symbol-GT precision by threshold: 1 ~86%, 2 ~94%, 3 ~96%. The lever
+    // keys on Location structure, so it holds across optimization levels.
     let strong_tier_min = min_anchors.max(1);
     println!();
     println!("=== unhusk — phase 2: function attribution ===");
@@ -418,13 +414,13 @@ pub fn print_phase2_report(
         }
     }
 
-    // Tier 2 — SINGLE: one user Location (~93%). Suppressed in precision mode,
-    // where only the ~98% STRONG tier is wanted.
+    // Tier 2 — SINGLE: one user Location (~80%). Suppressed in precision mode,
+    // where only the STRONG tier is wanted.
     if !single_fns.is_empty() {
         if precision_mode {
             println!();
             println!(
-                "user-authored functions — single-anchor tier: {} hidden (--precision; ~93% precision)",
+                "user-authored functions — single-anchor tier: {} hidden (--precision; ~80% precision)",
                 single_fns.len()
             );
         } else {

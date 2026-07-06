@@ -1,27 +1,16 @@
 /// Single-pass instruction scanner: RIP-relative xrefs + CALL edge collection.
 ///
-/// turbo.1 optimisations vs main:
+/// For each function we build an `iced_x86::Decoder` over its exact `.text`
+/// slice (function bounds come from the FDE map), so `fn_start` is known from
+/// the loop and never needs a range lookup. Two things are checked per
+/// instruction:
 ///
-/// 1. **Per-function decoding** — instead of scanning all of `.text` as a flat
-///    stream and calling `find_function` (BTreeMap range query) for every
-///    instruction, we iterate the sorted FDE list and create one
-///    `iced_x86::Decoder` per function over its exact byte slice.
-///    `fn_start` is known from the loop variable — zero BTreeMap lookups in
-///    the hot path.
-///
-/// 2. **Binary-search location table** — all `PanicLocation` entries are
-///    sorted by `struct_vaddr` into a `Vec<LocEntry>`.  A hit check becomes
-///    a single `partition_point` binary search (O(log n)) instead of three
-///    separate O(n) linear scans.  For a binary with 300 locations this is a
-///    ~33× improvement; for 3 000 locations ~250×.
-///
-/// 3. **Early RIP filter** — we test `memory_base() == Register::RIP` once
-///    per instruction instead of looping over every operand and calling
-///    `effective_address`.
-///
-/// 4. **Single combined lookup** — one `lookup_loc` call returns
-///    `(LocKind, struct_start)`, replacing three separate scans
-///    (`all`, `user`, `dep`) and two `location_struct_start` calls.
+///   - RIP-relative memory operands: the effective address is looked up in a
+///     `struct_vaddr`-sorted `Vec<LocEntry>` via one `partition_point` binary
+///     search. A hit against a user Location marks the function `certain`; a hit
+///     against a dep Location marks it a dep boundary.
+///   - CALL edges: direct near-branch targets that resolve to a known function
+///     are recorded in the call graph.
 use std::collections::{HashMap, HashSet};
 
 use iced_x86::{Decoder, DecoderOptions, Instruction, Mnemonic, OpKind, Register};
@@ -94,17 +83,14 @@ fn lookup_loc(table: &[LocEntry], addr: u64) -> Option<&LocEntry> {
 // ── Public API ────────────────────────────────────────────────────────────────
 
 pub fn scan(elf: &ParsedElf, fns: &FunctionMap, locations: &[PanicLocation]) -> ScanResult {
-    let text = match elf.section(".text") {
-        Some(s) => s,
-        None => {
-            return ScanResult {
-                certain: HashSet::new(),
-                calls: HashMap::new(),
-                dep_boundary: HashSet::new(),
-                certain_locs: HashMap::new(),
-                all_loc_hits: HashMap::new(),
-            }
-        }
+    let Some(text) = elf.section(".text") else {
+        return ScanResult {
+            certain: HashSet::new(),
+            calls: HashMap::new(),
+            dep_boundary: HashSet::new(),
+            certain_locs: HashMap::new(),
+            all_loc_hits: HashMap::new(),
+        };
     };
 
     let loc_table = build_loc_table(locations);

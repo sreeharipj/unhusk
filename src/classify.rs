@@ -14,9 +14,9 @@
 ///   functions resolve to std/dep by DWARF). Kept as a diagnostic label only.
 /// - **Library**: reached only from library functions, or not reached at all.
 ///
-/// Attribution is propagated with a BFS from the certain set.  We keep a
-/// "taint" pass that marks functions called from known library code so we can
-/// downgrade BFS candidates to Indeterminate.
+/// Attribution is propagated with a BFS from the certain set.  A candidate the
+/// BFS reaches is downgraded to Indeterminate if it also has a caller outside
+/// the user set (certain + inferred), i.e. it is shared with library code.
 use std::collections::{HashMap, HashSet, VecDeque};
 
 use crate::frame::FunctionMap;
@@ -70,37 +70,24 @@ pub fn attribute(
     max_infer_depth: Option<usize>,
 ) -> Vec<AttributedFn> {
     // ── Step 1: build reverse call graph (callee → set of callers) ───────────
-    let mut callers: HashMap<u64, HashSet<u64>> = HashMap::new();
-    for (&caller, callees) in calls {
-        for &callee in callees {
-            callers.entry(callee).or_default().insert(caller);
-        }
-    }
+    let callers = build_rev_call_graph(calls);
 
-    // ── Step 2: seed the BFS from certain functions ──────────────────────────
+    // ── Step 2: BFS from the certain set, propagating "inferred" through callees ─
+    // Follow CALL edges: if a user-attributed function calls F and F is not
+    // already certain, mark F inferred (tentatively). Two barriers apply:
+    //   - dep_boundary functions are dependency boundaries; we neither mark nor
+    //     recurse through them, so user attribution can't leak across a dep.
+    //   - max_infer_depth, if set, caps the number of hops from a certain seed.
+    // frontier holds (function_start, hops_from_certain); visited prevents
+    // re-expansion; result records the final attribution as we go.
     let mut result: HashMap<u64, Attribution> = HashMap::new();
-    let mut queue: VecDeque<u64> = VecDeque::new();
+    let mut tentative_inferred: HashSet<u64> = HashSet::new();
+    let mut visited_in_bfs: HashSet<u64> = HashSet::new();
+    let mut frontier: VecDeque<(u64, usize)> = VecDeque::new();
 
     for &start in certain {
         if fns.contains_key(&start) {
             result.insert(start, Attribution::Certain);
-            queue.push_back(start);
-        }
-    }
-
-    // ── Step 3: BFS — propagate "inferred" through callees ───────────────────
-    // We follow CALL edges: if a user-attributed function calls F, and F has
-    // not yet been attributed as certain, mark it as inferred (tentatively).
-    // HARD BARRIER: stop BFS propagation at dep_boundary functions (they are
-    // dependency boundaries — don't propagate user attribution through them).
-    // DEPTH LIMIT: if max_infer_depth is Some(n), stop BFS after n hops from certain.
-    let mut tentative_inferred: HashSet<u64> = HashSet::new();
-    let mut visited_in_bfs: HashSet<u64> = HashSet::new();
-
-    // Seed BFS: (function_start, depth_from_certain)
-    let mut frontier: VecDeque<(u64, usize)> = VecDeque::new();
-    for &start in certain {
-        if fns.contains_key(&start) {
             frontier.push_back((start, 0));
             visited_in_bfs.insert(start);
         }
@@ -120,8 +107,7 @@ pub fn attribute(
                     continue;
                 }
                 visited_in_bfs.insert(callee);
-                // HARD BARRIER: functions with dep Location anchors are dependency boundaries.
-                // Do NOT mark as inferred; do NOT propagate. They block the inference wave.
+                // Dep boundary: block the inference wave here (see Step 2).
                 if dep_boundary.contains(&callee) {
                     continue;
                 }
@@ -156,9 +142,8 @@ pub fn attribute(
     }
 
     // ── Step 5: Everything else is Library ───────────────────────────────────
-    for (&start, range) in fns {
+    for &start in fns.keys() {
         result.entry(start).or_insert(Attribution::Library);
-        let _ = range; // used below
     }
 
     // ── Assemble output ───────────────────────────────────────────────────────
