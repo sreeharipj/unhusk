@@ -62,76 +62,68 @@ pub struct SourceString {
 
 // ── classify ─────────────────────────────────────────────────────────────────
 
+/// Walk the PIE relocation table and return every `(rodata_vaddr, path)` whose
+/// fat-pointer slot lives in `.data.rel.ro`, points into `.rodata`, and holds a
+/// `.rs` source path. Each rodata address is yielded once (multiple Location
+/// structs can share one path string), in relocation-table order.
+fn rs_path_strings(elf: &ParsedElf) -> Vec<(u64, String)> {
+    let (rodata, dro) = match (elf.section(".rodata"), elf.section(".data.rel.ro")) {
+        (Some(r), Some(d)) => (r, d),
+        _ => return Vec::new(),
+    };
+
+    let mut seen: HashSet<u64> = HashSet::new();
+    let mut out: Vec<(u64, String)> = Vec::new();
+
+    for entry in &elf.rela_relative {
+        // Slot in .data.rel.ro, pointee in .rodata, and each pointee only once.
+        if !dro.contains_vaddr(entry.offset) || !rodata.contains_vaddr(entry.addend) {
+            continue;
+        }
+        if !seen.insert(entry.addend) {
+            continue;
+        }
+
+        // The length lives in the second word of the fat-pointer slot (slot+8);
+        // extract exactly that many bytes from .rodata.
+        let str_len = match dro.read_u64_le(entry.offset + 8) {
+            Some(l) if l > 0 && l <= 512 => l as usize,
+            _ => continue,
+        };
+        let bytes = match rodata.slice_at(entry.addend, str_len) {
+            Some(b) => b,
+            None => continue,
+        };
+        let s = match std::str::from_utf8(bytes) {
+            Ok(s) => s,
+            Err(_) => continue,
+        };
+        if s.ends_with(".rs") {
+            out.push((entry.addend, s.to_string()));
+        }
+    }
+
+    out
+}
+
 /// Discover and classify all `.rs` source-path strings reachable through the
 /// PIE relocation table.
 ///
 /// `root_crates`: crate names (e.g. `["bat", "fd-find"]`) whose registry paths
 /// should be promoted from Dep to User.  Pass `&[]` for local-source builds
 /// (paths are already relative → User without promotion).
-///
-/// Strategy:
-/// 1. Iterate R_X86_64_RELATIVE entries where the slot (`entry.offset`) is in
-///    `.data.rel.ro` and the pointee (`entry.addend`) is in `.rodata`.
-/// 2. Read the adjacent `len` field (bytes 8–15 of the fat-pointer slot) to
-///    extract the exact string from `.rodata`.
-/// 3. Keep strings that end in `.rs` with a plausible path length.
-/// 4. Deduplicate by `(vaddr, content)` — multiple Location structs can share
-///    one string.
 pub fn classify(elf: &ParsedElf, root_crates: &[String]) -> Vec<SourceString> {
-    let rodata = match elf.section(".rodata") {
-        Some(s) => s,
-        None => return Vec::new(),
-    };
-    let dro = match elf.section(".data.rel.ro") {
-        Some(s) => s,
-        None => return Vec::new(),
-    };
-
-    let mut seen: HashSet<u64> = HashSet::new();
-    let mut result: Vec<SourceString> = Vec::new();
-
-    for entry in &elf.rela_relative {
-        // Slot must be in .data.rel.ro, pointee in .rodata.
-        if !dro.contains_vaddr(entry.offset) {
-            continue;
-        }
-        if !rodata.contains_vaddr(entry.addend) {
-            continue;
-        }
-        // Avoid re-classifying the same string (multiple Location structs can
-        // point to the same file-path string).
-        if !seen.insert(entry.addend) {
-            continue;
-        }
-
-        // Read the `len` field at slot+8 (the second word of the fat pointer).
-        let str_len = match dro.read_u64_le(entry.offset + 8) {
-            Some(l) if l > 0 && l <= 512 => l as usize,
-            _ => continue,
-        };
-
-        // Extract the string from .rodata.
-        let bytes = match rodata.slice_at(entry.addend, str_len) {
-            Some(b) => b,
-            None => continue,
-        };
-        let s = match std::str::from_utf8(bytes) {
-            Ok(s) => s.to_string(),
-            Err(_) => continue,
-        };
-
-        if !s.ends_with(".rs") {
-            continue;
-        }
-
-        let origin = classify_path(&s, root_crates);
-        result.push(SourceString {
-            vaddr: entry.addend,
-            content: s,
-            origin,
-        });
-    }
-
+    let mut result: Vec<SourceString> = rs_path_strings(elf)
+        .into_iter()
+        .map(|(vaddr, content)| {
+            let origin = classify_path(&content, root_crates);
+            SourceString {
+                vaddr,
+                content,
+                origin,
+            }
+        })
+        .collect();
     result.sort_by_key(|s| s.vaddr);
     result
 }
@@ -139,43 +131,10 @@ pub fn classify(elf: &ParsedElf, root_crates: &[String]) -> Vec<SourceString> {
 /// Extract all `.rs` path strings embedded in the binary (raw, unclassified).
 /// Used by auto-detect to identify the root crate before classification.
 pub fn extract_rs_paths(elf: &ParsedElf) -> Vec<String> {
-    let rodata = match elf.section(".rodata") {
-        Some(s) => s,
-        None => return Vec::new(),
-    };
-    let dro = match elf.section(".data.rel.ro") {
-        Some(s) => s,
-        None => return Vec::new(),
-    };
-    let mut seen: HashSet<u64> = HashSet::new();
-    let mut result = Vec::new();
-    for entry in &elf.rela_relative {
-        if !dro.contains_vaddr(entry.offset) {
-            continue;
-        }
-        if !rodata.contains_vaddr(entry.addend) {
-            continue;
-        }
-        if !seen.insert(entry.addend) {
-            continue;
-        }
-        let str_len = match dro.read_u64_le(entry.offset + 8) {
-            Some(l) if l > 0 && l <= 512 => l as usize,
-            _ => continue,
-        };
-        let bytes = match rodata.slice_at(entry.addend, str_len) {
-            Some(b) => b,
-            None => continue,
-        };
-        let s = match std::str::from_utf8(bytes) {
-            Ok(s) => s.to_string(),
-            Err(_) => continue,
-        };
-        if s.ends_with(".rs") {
-            result.push(s);
-        }
-    }
-    result
+    rs_path_strings(elf)
+        .into_iter()
+        .map(|(_, path)| path)
+        .collect()
 }
 
 /// Outcome of the auto-detect heuristic.

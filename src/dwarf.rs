@@ -502,7 +502,7 @@ mod tests {
         // the other user functions (get_element, Config::new, …) are inlined into main
         // and don't appear as independent FDE ranges.
         assert!(
-            user_fns.len() >= 1,
+            !user_fns.is_empty(),
             "Expected ≥1 user function from DWARF, got {}: {:?}",
             user_fns.len(),
             user_addrs

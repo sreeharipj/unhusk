@@ -32,9 +32,8 @@ pub type FunctionMap = BTreeMap<u64, FunctionRange>;
 
 /// Parse `.eh_frame` and return a map of all FDEs found.
 pub fn parse_eh_frame(elf: &ParsedElf) -> Result<FunctionMap> {
-    let eh_section = match elf.section(".eh_frame") {
-        Some(s) => s,
-        None => return Ok(BTreeMap::new()),
+    let Some(eh_section) = elf.section(".eh_frame") else {
+        return Ok(BTreeMap::new());
     };
 
     let eh_hdr = elf.section(".eh_frame_hdr");
@@ -100,9 +99,8 @@ pub fn parse_eh_frame(elf: &ParsedElf) -> Result<FunctionMap> {
 pub fn fallback_function_map(elf: &ParsedElf) -> FunctionMap {
     use iced_x86::{Decoder, DecoderOptions, Instruction, Mnemonic, OpKind};
 
-    let text = match elf.section(".text") {
-        Some(s) => s,
-        None => return FunctionMap::new(),
+    let Some(text) = elf.section(".text") else {
+        return FunctionMap::new();
     };
     let text_base = text.vaddr;
     let text_end = text_base + text.data.len() as u64;
@@ -157,9 +155,8 @@ pub fn fallback_function_map(elf: &ParsedElf) -> FunctionMap {
 /// `.eh_frame_hdr` section base.  We handle the 4-byte sdata4/udata4 datarel and pcrel
 /// cases (which cover essentially all real binaries) and bail otherwise.
 fn function_starts_from_eh_frame_hdr(elf: &ParsedElf) -> Vec<u64> {
-    let hdr = match elf.section(".eh_frame_hdr") {
-        Some(s) => s,
-        None => return Vec::new(),
+    let Some(hdr) = elf.section(".eh_frame_hdr") else {
+        return Vec::new();
     };
     let d = &hdr.data;
     if d.len() < 12 || d[0] != 1 {

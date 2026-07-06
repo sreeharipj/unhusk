@@ -39,9 +39,8 @@ pub fn find_locations(elf: &ParsedElf, strings: &[SourceString]) -> Vec<PanicLoc
     // Index source strings by their virtual address.
     let str_by_vaddr: HashMap<u64, &SourceString> = strings.iter().map(|s| (s.vaddr, s)).collect();
 
-    let dro = match elf.section(".data.rel.ro") {
-        Some(s) => s,
-        None => return Vec::new(),
+    let Some(dro) = elf.section(".data.rel.ro") else {
+        return Vec::new();
     };
 
     let mut locations: Vec<PanicLocation> = Vec::new();

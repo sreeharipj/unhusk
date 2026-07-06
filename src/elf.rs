@@ -322,10 +322,10 @@ fn parse_rela_relative(sections: &HashMap<String, Section>) -> Result<Vec<RelaRe
     const RELA_SZ: usize = 24;
     const R_X86_64_RELATIVE: u32 = 8;
 
-    let data = match sections.get(".rela.dyn") {
-        Some(s) => &s.data,
-        None => return Ok(Vec::new()),
+    let Some(rela_dyn) = sections.get(".rela.dyn") else {
+        return Ok(Vec::new());
     };
+    let data = &rela_dyn.data;
 
     let mut out = Vec::new();
     for chunk in data.chunks_exact(RELA_SZ) {
