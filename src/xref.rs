@@ -120,7 +120,7 @@ pub fn scan(elf: &ParsedElf, fns: &FunctionMap, locations: &[PanicLocation]) -> 
     let mut merged = fn_ranges
         .par_iter()
         .fold(Partial::default, |mut acc, &(fn_start, fn_end)| {
-            scan_one(&mut acc, elf, fns, &loc_table, text, text_base, fn_start, fn_end);
+            scan_one(&mut acc, fns, &loc_table, text, text_base, fn_start, fn_end);
             acc
         })
         .reduce(Partial::default, |mut a, b| {
@@ -172,7 +172,6 @@ impl Partial {
 #[allow(clippy::too_many_arguments)]
 fn scan_one(
     part: &mut Partial,
-    elf: &ParsedElf,
     fns: &FunctionMap,
     loc_table: &[LocEntry],
     text: &crate::elf::Section,
@@ -232,11 +231,13 @@ fn scan_one(
         }
 
         // ── CALL edge collection ─────────────────────────────────────────
+        // A target is an edge iff it has an FDE. Rarely that admits a PLT stub
+        // that carries its own FDE; excluding those would change the call graph,
+        // so it is deliberately not done here.
         if instr.mnemonic() == Mnemonic::Call {
             if let Some(target) = call_target(&instr) {
-                let resolved = resolve_plt(target, elf).unwrap_or(target);
-                if fns.contains_key(&resolved) {
-                    part.calls.entry(fn_start).or_default().insert(resolved);
+                if fns.contains_key(&target) {
+                    part.calls.entry(fn_start).or_default().insert(target);
                 }
             }
         }
@@ -253,12 +254,4 @@ fn call_target(instr: &Instruction) -> Option<u64> {
     }
 }
 
-fn resolve_plt(addr: u64, elf: &ParsedElf) -> Option<u64> {
-    let plt = elf.section(".plt")?;
-    if plt.contains_vaddr(addr) {
-        None
-    } else {
-        Some(addr)
-    }
-}
 
