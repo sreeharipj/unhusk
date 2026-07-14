@@ -8,6 +8,57 @@ Rust stores a `core::panic::Location` (source file, line, column) for every reac
 
 The primitive question, "which bytes in this stripped Rust binary are the author's," is useful for malware fingerprinting (YARA-seed extraction), reverse-engineering triage (labelling the few functions worth reading), and dependency/SBOM recovery. The motivating use case is a Rust-malware to YARA-X rule generator, which is a separate project; unhusk is the backend behind a JSON contract.
 
+## Install
+
+```sh
+cargo build --release      # Rust 1.70+, no C deps
+```
+
+Docker:
+
+```sh
+docker build -t unhusk .
+docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
+```
+
+## Usage
+
+```sh
+# Identify user-authored functions in a stripped binary
+unhusk <stripped-elf>
+
+# Emit only the STRONG tier (best signature seeds)
+unhusk <stripped-elf> --precision
+
+# Precision dial: STRONG requires N distinct user Locations
+#   pooled  1 -> ~86% (full recall),  2 -> ~94%,  3 -> ~96%   (CLI ~98%, async ~87%)
+unhusk <stripped-elf> --min-anchors 3
+
+# JSON for downstream tooling (suppresses the human report)
+#   emits {start, end, size, tier, anchor_count, anchor_files} per function
+unhusk <stripped-elf> --precision --json
+
+# Score against DWARF ground truth from an unstripped twin
+unhusk <stripped-elf> --validate <unstripped-elf>
+
+# Set the root crate (cargo-install binaries; auto-detected otherwise)
+unhusk <stripped-elf> --crate ripgrep
+
+# Recover struct/field names from #[derive(Debug)] artifacts (diagnostic)
+unhusk <stripped-elf> --types
+```
+
+## Example output
+
+Run with `--precision --json` against a real, stripped Akira ransomware sample:
+
+```json
+{"start": "0xd25af", "end": "0xd38a5", "size": 4854, "tier": "strong", "anchor_count": 6,
+ "anchor_files": ["akiranew/src/path_finder.rs"]}
+```
+
+Six distinct author panic sites in one function, from `akiranew`'s own source tree — a STRONG-tier seed, no symbols or debug info required. This is one of the functions [winnow](https://github.com/sreeharipj/winnow) later builds a Tier 1 YARA-X rule from; see its [example rule](https://github.com/sreeharipj/winnow/blob/main/examples/akira_v2_x_tier1.yar).
+
 ## Status and scope
 
 - x86-64 ELF only (PIE and non-PIE). No PE, Mach-O, or aarch64.
@@ -42,30 +93,15 @@ Phase 2, function attribution. `.eh_frame` FDEs give exact `[start, end)` functi
 
 A monomorphized library generic (say `core::iter::FilterMap<…, user::closure>`) inlines exactly one user closure, so it references one user Location. A real user function references several of its own panic sites. Requiring at least N distinct user Locations rejects the single-closure monomorphizations that cause most false positives, and it behaves the same at every optimization level because it keys on Location structure rather than inlining.
 
-Symbol-ground-truth precision on a 34-binary corpus (13 source-built, 8 `cargo install`, 13 chosen to be adversarial). Precision depends on the kind of binary:
-
-| Tier | Rule | CLI/systems | async/web | pooled |
-|---|---|---:|---:|---:|
-| STRONG | >= N distinct user Locations (`--min-anchors`, default 2) | ~98% | ~87% | ~94% |
-| SINGLE | exactly 1 user Location | ~90% | ~75% | ~80% |
-
-`--min-anchors` is the precision dial: pooled 1 -> ~86% (full recall), 2 -> ~94%, 3 -> ~96%, with recall dropping as it rises. `--precision` emits the STRONG tier only.
-
-The weak spot is async and web-framework code. Futures combinators (`Pin<Box<closure>>`, `PollFn`, `tokio::Timeout`) and framework handler-adapters inline a user closure that itself has several panic sites, producing a library function with >= 2 user Locations and no way to tell it apart from a real user function. This matters for malware, which skews async (C2, scanners, network), so expect the ~87% end there. `--min-anchors 3` raises async precision to ~91% at the cost of recall.
+Pooled symbol-ground-truth precision on a 34-binary corpus (13 source-built, 8 `cargo install`, 13 chosen to be adversarial): STRONG (>= 2 Locations, default) ~94%, SINGLE (1 Location) ~80%. Precision is workload-dependent — STRONG is ~98% on CLI/systems tools but ~87% on async/web-framework code, which matters because malware skews async (C2, scanners, network). `--min-anchors 3` raises async to ~91% at a recall cost. Full derivation, the pre-registered stress test, and two corrected measurement artifacts: [`docs/validation.md`](docs/validation.md).
 
 ## How the numbers were measured
 
-The validation tries to disprove its own conclusions:
-
-- Two ground-truth rulers. Each prediction is scored against both DWARF `decl_file` and `nm -C` symbol leading-crate. They disagree by about 30 points, because DWARF attributes user `FnOnce`/`FnMut` closure shims to `core/src/ops/function.rs`. That is a measurement artifact, not a real error. Symbol is the correct ruler for authorship; scoring only against DWARF would have understated precision and hidden the actual failure mode.
-- A pre-registered stress test. The corpus that produced the headline numbers was built to break the claim (async, parallel, framework, macro categories), with hypotheses and pass/fail criteria written down before any data. See `realval/CORPUS_STRESS.md`.
-- The method has corrected itself. A "source-file coherence" tier was shipped and then removed once a cleaner measurement showed it was a harness artifact (the eval had been re-parsing human output and mixing in call-closure functions). A headline of ~97% precision was corrected to ~94% after the stress corpus added async-heavy binaries the earlier corpus lacked. Two `cargo install`-specific classifier confounds (std forwarding wrappers, and an author's own library crate pulled from the registry as a dependency) were found and controlled for. Derivations are in `realval/PRECISION_TIERS.md` and `realval/CORPUS_STRESS.md`.
-
-Two refinements were tried and dropped: `#[derive(Debug)]` cross-confirmation (disjoint from `certain`, and type layouts are not ABI-stable) and call-graph adjacency rescue (anti-correlated, since "called by a STRONG function" is itself the monomorphized-helper pattern).
+The validation tries to disprove its own conclusions: two independent ground-truth rulers (DWARF and symbol) that disagree by ~30 points for a diagnosed reason, a pre-registered stress test with hypotheses written down before the data, and a headline correction (~97% to ~94%) once that stress test added async-heavy binaries the earlier corpus lacked. Two `cargo install`-specific classifier confounds were found and controlled for, and a "source-file coherence" tier was shipped and then retracted once a cleaner measurement showed it was a harness artifact. Full write-up: [`docs/validation.md`](docs/validation.md).
 
 ## Real Rust malware
 
-unhusk has been run against in-the-wild Rust malware (KrustyLoader, Akira, BlackCat/ALPHV, 01flip, P2PInfect; samples from [decoderloop/rust-malware-gallery](https://github.com/decoderloop/rust-malware-gallery), static analysis only, never executed). On current samples it reads the author's source files, the module structure (Akira's `lock.rs`, `path_finder.rs`, `prng.rs`), and a dependency-derived capability profile (KrustyLoader is an async HTTP downloader with AES) off a stripped binary. Real Rust malware tends to be async-heavy, so the ~87% weak spot is the common case. Two evasions showed up, `--remap-path-prefix` (01flip) and packing (P2PInfect); both are now flagged instead of returning empty. Writeup, hashes, and the evasion-effort analysis: [`writeups/2026-06-29-unhusk-vs-real-rust-malware.md`](writeups/2026-06-29-unhusk-vs-real-rust-malware.md).
+unhusk has been run against in-the-wild Rust malware (KrustyLoader, Akira, BlackCat/ALPHV, 01flip, P2PInfect; samples from [decoderloop/rust-malware-gallery](https://github.com/decoderloop/rust-malware-gallery), static analysis only, never executed). On current samples it reads the author's source files, the module structure (Akira's `lock.rs`, `path_finder.rs`, `prng.rs`), and a dependency-derived capability profile (KrustyLoader is an async HTTP downloader with AES) off a stripped binary. Real Rust malware tends to be async-heavy, so the ~87% weak spot is the common case. Two evasions showed up, `--remap-path-prefix` (01flip) and packing (P2PInfect); both are now flagged instead of returning empty. Case study, hashes, and the evasion-effort analysis: [`docs/case-study-real-malware.md`](docs/case-study-real-malware.md).
 
 ## Robustness against stripping and evasion
 
@@ -76,39 +112,12 @@ unhusk has been run against in-the-wild Rust malware (KrustyLoader, Akira, Black
 
 Optimization-invariance was checked across thin-LTO, `lto=true,codegen-units=1`, `opt-level=z`, `panic=abort`, and `-C force-unwind-tables=no`.
 
-## Usage
-
-```sh
-# Identify user-authored functions in a stripped binary
-unhusk <stripped-elf>
-
-# Emit only the STRONG tier (best signature seeds)
-unhusk <stripped-elf> --precision
-
-# Precision dial: STRONG requires N distinct user Locations
-#   pooled  1 -> ~86% (full recall),  2 -> ~94%,  3 -> ~96%   (CLI ~98%, async ~87%)
-unhusk <stripped-elf> --min-anchors 3
-
-# JSON for downstream tooling (suppresses the human report)
-#   emits {start, end, size, tier, anchor_count, anchor_files} per function
-unhusk <stripped-elf> --precision --json
-
-# Score against DWARF ground truth from an unstripped twin
-unhusk <stripped-elf> --validate <unstripped-elf>
-
-# Set the root crate (cargo-install binaries; auto-detected otherwise)
-unhusk <stripped-elf> --crate ripgrep
-
-# Recover struct/field names from #[derive(Debug)] artifacts (diagnostic)
-unhusk <stripped-elf> --types
-```
-
 ## Limitations
 
 - Functions with no reachable panic site are not found. Pure computation, getters, and code where the optimizer proved every panic unreachable have nothing to anchor on. Recall is partial by design (about 15-46% of user functions on the test set), which is fine for signature generation since that needs a few good seeds, not every function.
 - async and generic-heavy code lowers precision (the ~87% weak spot), and this is irreducible in a stripped binary.
 - User code reached only through trait objects, function pointers, or library dispatch shows up as `library`; the xref scan follows static call edges only.
-- Defeated by packing, `--remap-path-prefix`, and `-Z build-std panic_immediate_abort`. Real malware uses the first two (both flagged); the last removes the panic metadata entirely but is nightly-only and changes runtime behavior. The malware writeup covers the full evasion-effort gradient.
+- Defeated by packing, `--remap-path-prefix`, and `-Z build-std panic_immediate_abort`. Real malware uses the first two (both flagged); the last removes the panic metadata entirely but is nightly-only and changes runtime behavior. The case study covers the full evasion-effort gradient.
 - The precision numbers come from benign tools plus a handful of malware samples. That is a start, not a representative study. Windows PE Rust malware is not supported.
 - x86-64 ELF only.
 
@@ -117,21 +126,6 @@ unhusk <stripped-elf> --types
 The core insight, that Rust embeds `panic!` source-location metadata that survives `strip` and can be mined to recover authorship and dependencies, is not original to unhusk. SentinelLabs' Project 0xA11C ("Deoxidizing the Rust Hive", RECON 2024) demonstrated it as an IDAPython workflow: reconstruct the `Location`/slice structs, recover `src/*.rs` panic paths, and mine `registry/src/…` strings for crate dependencies. Cindy Xiao's ["Using panic metadata to recover source code information from Rust binaries"](https://cxiao.net/posts/2023-12-08-rust-reversing-panic-metadata/) is the write-up unhusk's Phase 1 is built on (archived in `references/`). unhusk automates the same idea for x86-64 ELF without IDA, and adds the part those do not, a precision-ranked authorship classifier (the multiplicity lever and confidence tiers) with a measured false-positive story and a JSON output contract for downstream tooling.
 
 Microsoft's RIFT ("advanced pattern matching for Rust libraries") solves the same separation problem from the opposite direction: it recognizes *library* code by recompiling the exact dependencies and compiler and matching them with FLIRT signatures and Diaphora binary diffing, so the author's code is the unlabeled residue. unhusk is additive rather than subtractive: it marks the author directly from intrinsic panic metadata, needs only the binary (no recompilation, network, or signature corpus), and treats author bytes as a positive signal rather than a by-elimination remainder, which is the better fit for YARA-seed extraction. Full contrast in [`references/rift-vs-unhusk.md`](references/rift-vs-unhusk.md).
-
-## Build and test
-
-```sh
-cargo build --release      # Rust 1.70+, no C deps
-cargo test                 # unit tests run without fixtures;
-                           # integration tests need fixtures under /tmp/unhusk-research/
-```
-
-Docker:
-
-```sh
-docker build -t unhusk .
-docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
-```
 
 ## License
 

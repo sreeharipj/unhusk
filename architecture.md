@@ -73,7 +73,7 @@ Location structure rather than inlining; this was checked across thin-LTO, `lto=
 `opt-level=z`, `panic=abort`, and `-C force-unwind-tables=no`.
 
 Precision is workload-dependent, measured on a 34-binary, deliberately adversarial corpus
-(`realval/CORPUS_STRESS.md`). CLI and systems tools sit around 98%; async and web-framework code
+(`docs/validation.md`). CLI and systems tools sit around 98%; async and web-framework code
 around 87% (the weak spot, below). Earlier 13- and 21-binary corpora read ~97% because they were
 light on async. For malware, which is mostly async, expect the lower end and prefer `--min-anchors 3`.
 
@@ -123,7 +123,7 @@ controlled for: std forwarding wrappers (`__rust_begin_short_backtrace::<user>`,
 ## Real-malware validation (2026-06-29)
 
 First run against in-the-wild Rust malware (decoderloop/rust-malware-gallery, static only). Full
-writeup in `writeups/2026-06-29-unhusk-vs-real-rust-malware.md`. Findings that shaped the code:
+writeup in `docs/case-study-real-malware.md`. Findings that shaped the code:
 
 - Works on the current generation. KrustyLoader yields `linux/src/main.rs` plus an
   async-HTTP-downloader-with-AES dependency profile; Akira yields its module map (`lock.rs`,
@@ -163,10 +163,9 @@ writeup in `writeups/2026-06-29-unhusk-vs-real-rust-malware.md`. Findings that s
 
 ## Validation and layout
 
-- `realval/` holds the symbol-GT precision harnesses (`tier_eval.py`, `stress_analyze.py`), corpus
-  builders, and the running record of findings and retractions (`PRECISION_TIERS.md`,
-  `CORPUS_STRESS.md`).
-- `bench/` holds performance benchmarking, not `realval/`.
+- `docs/validation.md` is the curated record of findings and retractions from the symbol-GT
+  precision harnesses; the harnesses and raw corpus data themselves are local-only and not committed.
+- `bench/` holds performance benchmarking.
 - Scope: x86-64 ELF only (PIE and non-PIE).
 
 ## Open problems
