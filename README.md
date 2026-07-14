@@ -2,8 +2,6 @@
 
 Finds author-written functions in stripped Rust binaries using panic metadata. No symbols, debug info, or signature databases.
 
-> Experimental research project, single author. Validated on 34 open-source Rust binaries and a first batch of real in-the-wild Rust malware (static analysis only, see below). x86-64 ELF only. Numbers and interfaces change as evidence accumulates.
-
 In a stripped, LTO-optimized Rust release binary, most functions come from the standard library and Cargo dependencies. The author's own code is a small fraction, and nothing labels it. unhusk identifies that fraction by reading the panic metadata Rust embeds.
 
 Rust stores a `core::panic::Location` (source file, line, column) for every reachable `panic!`, `.unwrap()`, and bounds-check, so a crash can print `panicked at src/main.rs:42`. These strings survive `strip` because they are data, not symbols. unhusk reconstructs them, classifies each path (`src/…` is the author, `…/cargo/registry/…` is a dependency, `/rustc/…/library/…` is std), maps them back to functions via `.eh_frame`, and ranks each function by how many distinct author panic sites it references.
