@@ -100,3 +100,25 @@ library mass so a human can read what is left; unhusk positively marks the
 author core so a generator can sign it. For the YARA-seed job the additive,
 intrinsic-signal design is the right shape, and it is the reason a project with
 no reconstruction infrastructure can compete on this one narrow axis.
+
+## Related work (decompilation and demangling, not authorship attribution)
+
+Two further papers address adjacent problems in Rust reverse engineering —
+recovering readable structure from a Rust binary, rather than separating
+author from library code — and are cited here rather than hosted, since they
+are third-party published work:
+
+- Yibo Liu, Zion Leonahenehe Basque, Arvind S Raj, Chavin Udomwongsa, Chang
+  Zhu, Jie Hu, Changyu Zhao, Fangzhou Dong, Adam Doupé, Tiffany Bao, Yan
+  Shoshitaishvili, Ruoyu Wang. **"Oxidizer: Toward Concise and High-fidelity
+  Rust Decompilation."** IEEE Symposium on Security and Privacy (S&P), 2026.
+  Arizona State University / Stanford. Recovers Rust-specific abstractions
+  (enums, pattern matching) that C-oriented decompilers lose; a decompilation
+  quality problem, not an authorship/library separation problem.
+- Meirambek Dinmukhammed. **"Bridging the Rust Reverse Engineering Gap:
+  Automated Demangling and Function Identification in Ghidra."** Proceedings
+  of the 13th International Scientific Conference, p. 352. Astana IT
+  University. A Ghidra plugin for Rust v0 symbol demangling and
+  FunctionID-based standard-library identification — complementary tooling
+  for the *unstripped* or symbol-partial case, versus unhusk's fully-stripped,
+  symbol-free target.
