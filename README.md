@@ -10,7 +10,6 @@ The primitive question, "which bytes in this stripped Rust binary are the author
 
 ## Status and scope
 
-- Research code, written to find out whether this works and how well, not to ship.
 - x86-64 ELF only (PIE and non-PIE). No PE, Mach-O, or aarch64.
 - Most validation is on benign open-source tools; live-malware testing has only just started.
 - Pure Rust, no C dependencies, no network, no runtime tools.
