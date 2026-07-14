@@ -138,4 +138,4 @@ docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
 
 ## License
 
-Dual-licensed: AGPL-3.0 for open-source and general use, or a commercial license for proprietary use. See `LICENSE`.
+Licensed under the Apache License, Version 2.0. See `LICENSE`.
