@@ -194,12 +194,28 @@ Two caveats, stated rather than buried:
   `docs/validation.md` applies exactly those wrapper corrections — but it means the
   headline inherits the authorship convention questioned in §5d. Under the strict ruler the
   same corpus reads 86.3% / 69.9%.
-- **`parallel` does not replicate: 80.8% measured vs ~97.8% documented, and n = 1 binary.**
-  A single binary supports no interval, so this is a discrepancy to investigate, not a
-  refutation. `docs/validation.md`'s 97.8% came from unwrapping 21 of 22
-  `LocalKey::with::<fclones::closure>` FPs; this build of fclones has only 5 STRONG FPs
-  total and unwrapping moves none of them, so it is likely a different fclones version
-  rather than a contradiction. **Unresolved — flagged for the audit pass.**
+- **`parallel` does not replicate: 80.8% measured vs ~97.8% documented, n = 1 binary —
+  RESOLVED as a version difference, not a contradiction.** `docs/validation.md`'s 97.8%
+  came from unwrapping 21 of 22 `LocalKey::with::<fclones::closure>` FPs. **This build of
+  fclones contains zero symbols mentioning `LocalKey` anywhere** (checked directly, not
+  inferred): the pattern that correction was built on does not exist in this version, so
+  the correction has nothing to apply to and the two numbers are measuring different code.
+  n = 1 supports no interval regardless. Not evidence against `docs/validation.md`; also
+  not a replication of it.
+
+  All 5 of this build's STRONG FPs are author-parameterized:
+
+  ```
+  rayon_core::job::HeapJob<spawn_job<fclones::group::rehash<fclones::group::group_by_prefix::{closure#0}, …>>>
+  rayon::iter::plumbing::bridge_producer_consumer::helper::<rayon::vec::DrainProducer<fclones::dedupe::FsCommand>, …>
+  nom::branch::alt<…, fclones::transform::re_fi…>
+  core::ptr::drop_glue::<fclones::cache::HashCache>
+  ```
+
+  `core::ptr::drop_glue::<fclones::cache::HashCache>` is worth noting on its own: it is
+  **compiler-synthesized** drop glue for an author type. Not author-written under any
+  reading, yet wholly specific to the author's data structures — a third category the
+  user/non-user dichotomy does not really have a slot for.
 
 ## 5d. What the async false attributions actually ARE (the main finding)
 
