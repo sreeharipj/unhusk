@@ -284,6 +284,24 @@ def main():
             table(f"SINGLE (1 anchor) — {strat.upper()}", sub, lambda r: r["anchors"] == 1)
     table("SINGLE (1 anchor) — COMBINED", names_all, lambda r: r["anchors"] == 1)
 
+    # Per-domain breakdown. This is docs/validation.md's OWN partition (parallel kept
+    # separate from async, rather than folded into it as the task's definition requires),
+    # and it is what makes the replication comparison reproducible from this script
+    # instead of an ad-hoc one-off.
+    w("\n## Per-domain breakdown — `docs/validation.md`'s partition\n")
+    w("Rule B folds `parallel` into async (the task defines async to include rayon "
+      "generics). `docs/validation.md` keeps `parallel` as its own category, so its "
+      "published async figure is the `async` row here, NOT the async stratum above. "
+      "Quoted for comparison against the docs; both are the same underlying data cut "
+      "differently.\n")
+    for dom in ("cli", "async", "parallel", "macro", "crypto", "framework"):
+        sub = [n for n in names_all if data[n]["domain"] == dom]
+        if not sub:
+            w(f"\n**domain `{dom}`**: no binaries in the corpus.\n")
+            continue
+        table(f"STRONG (>= {K}) — domain `{dom}`", sub, lambda r: r["anchors"] >= K)
+        table(f"SINGLE (1) — domain `{dom}`", sub, lambda r: r["anchors"] == 1)
+
     w("\n## Exploratory stratification (Rule A-prime, POST-HOC — not a headline claim)\n")
     w("Rule A-prime: ASYNC iff a runtime generic is monomorphized over an author crate "
       "(i.e. the combinator actually inlines author code), not merely linked. Written "
