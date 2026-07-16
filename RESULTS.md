@@ -95,6 +95,37 @@ binary**: ripgrep alone contributes 345 of 801 certain functions (~43%). Functio
 Wilson is therefore **too narrow**. The cluster bootstrap (20k iterations, resampling
 whole binaries) is the honest interval. Where they disagree, trust the bootstrap.
 
+## 5b. PROVISIONAL — async stratum, first signal (inherited DEPCRATE oracle)
+
+10 source-built async/parallel binaries, all provenance-PASS. Inherited oracle
+(`realval/tier_eval.py`), so directly comparable to `docs/validation.md`. **The
+cargo-metadata oracle and Wilson/bootstrap intervals are pending §8** — this is signal,
+not the final number.
+
+| binary | STRONG TP/FP | STRONG precision |
+|---|---:|---:|
+| miniserve | 7/7 | 50% |
+| gping | 3/1 | 75% |
+| rustscan | 3/1 | 75% |
+| fclones | 21/5 | 81% |
+| oha | 68/8 | 89% |
+| bandwhich | 10/1 | 91% |
+| rage | 30/3 | 91% |
+| dufs | 14/0 | 100% |
+| trippy | 37/0 | 100% |
+| xh | 12/0 | 100% |
+| **pooled** | **205/26** | **88.7%** |
+
+**The async gap replicates.** Async pooled STRONG 88.7% (n = 231) vs the 13-binary CLI
+corpus's 98.4% (n = 322) — a ~10pp gap, closely reproducing `docs/validation.md`'s
+87.3% async vs 98.2% CLI, on a *freshly built, source-only* corpus with none of the
+`cargo install` binaries that number was originally computed over. That is an
+independent replication of the headline claim, not a re-print of it.
+
+Threshold ladder on the async corpus (inherited oracle): `>=1` 75.7%, `>=2` 88.7%,
+`>=3` 90.1% — consistent with `--min-anchors 3` being the documented async precision
+dial (~91%), at 33% recall retained.
+
 ## 6. Rule A (pre-registered primary stratification) FAILED — reported, not quietly swapped
 
 Both stratification rules were frozen in commit `63d48e0` **before** any data was
