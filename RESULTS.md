@@ -162,14 +162,44 @@ independent coin flips…"). They are 9 binaries whose per-binary SINGLE precisi
 fclones' 28% to dufs' 100%. The honest summary is: **async SINGLE precision is not
 determined by this corpus.** n = 223 functions is not n = 223; it is n = 9 clusters.
 
-**2. It is below the documented ~75%, but this is not (yet) a contradiction.**
-`docs/validation.md` reports async SINGLE ~75%. The gap is most likely **stratum
-definition, not disagreement**: this run follows the task's definition, in which async
-includes *rayon generics*, so `fclones` (28% SINGLE) and `oha` (43%) sit inside the async
-stratum. `docs/validation.md` keeps `parallel` as its own category, outside async. Same
-underlying data, different partition. Flagged rather than resolved — resolving it means
-re-running with `parallel` split out, which is a corpus-composition question, not a
-measurement error. **Do not quote 56.5% as a correction to 75% without that check.**
+**2. It is below the documented ~75% — and that gap is fully explained by the partition.**
+It is **not** a correction to `docs/validation.md`. See §5g: splitting `parallel` back out
+recovers 74.5%.
+
+## 5g. Replication of `docs/validation.md` under its own partition — the headline
+
+The task's definition folds *rayon generics* into async, so `fclones` (27% SINGLE) lands in
+the async stratum. `docs/validation.md` keeps `parallel` as its own category. Re-cutting
+the same data along **its** partition — async = the 8 futures/framework binaries, parallel
+separate:
+
+| stratum | tier | ruler | n | precision | Wilson 95% | cluster bootstrap 95% | `docs/validation.md` |
+|---|---|---|---:|---:|---|---|---:|
+| async (8) | STRONG | unwrapped | 204 | **88.7%** | [83.7, 92.4] | [76.5, 97.7] | ~87.3% |
+| async (8) | STRONG | strict | 204 | 86.3% | [80.9, 90.3] | [67.2, 94.8] | — |
+| async (8) | SINGLE | unwrapped | 153 | **74.5%** | [67.1, 80.8] | [57.2, 95.7] | ~75% |
+| async (8) | SINGLE | strict | 153 | 69.9% | [62.3, 76.6] | [50.3, 93.9] | — |
+| parallel (1) | STRONG | unwrapped | 26 | 80.8% | [62.1, 91.5] | n = 1, no CI | ~97.8% |
+| parallel (1) | SINGLE | unwrapped | 70 | 28.6% | [19.3, 40.1] | n = 1, no CI | — |
+
+**Both published async figures replicate, closely, on an independent corpus.** Documented
+87.3% / ~75%; measured **88.7% / 74.5%** on binaries rebuilt from source today,
+provenance-gated, with none of the 8 `cargo install` binaries the original number was
+computed over, under a corrected demangler and a stricter authorship oracle. The published
+async numbers are sound.
+
+Two caveats, stated rather than buried:
+
+- The matching ruler is **unwrapped**, not strict. That is the correct comparison —
+  `docs/validation.md` applies exactly those wrapper corrections — but it means the
+  headline inherits the authorship convention questioned in §5d. Under the strict ruler the
+  same corpus reads 86.3% / 69.9%.
+- **`parallel` does not replicate: 80.8% measured vs ~97.8% documented, and n = 1 binary.**
+  A single binary supports no interval, so this is a discrepancy to investigate, not a
+  refutation. `docs/validation.md`'s 97.8% came from unwrapping 21 of 22
+  `LocalKey::with::<fclones::closure>` FPs; this build of fclones has only 5 STRONG FPs
+  total and unwrapping moves none of them, so it is likely a different fclones version
+  rather than a contradiction. **Unresolved — flagged for the audit pass.**
 
 ## 5d. What the async false attributions actually ARE (the main finding)
 
