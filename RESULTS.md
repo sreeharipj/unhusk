@@ -348,6 +348,43 @@ Everything else built on rustc 1.98.0-nightly. This is not necessarily bad for v
 spread mildly tests that — but it is a property of the corpus that must be disclosed, not
 assumed away. It is also the direct cause of the `rage` mangling issue in §5e.3.
 
+## 5h. Cross-check against the Black Hat Arsenal submission
+
+Each claim in the submission, against this run's measurements. Async figures are the
+async-only stratum (8 binaries, `docs/validation.md` partition), cargo-metadata oracle,
+unwrapped ruler.
+
+| submission claim | measured | verdict |
+|---|---|---|
+| STRONG CLI/systems ~98% | 98.4%, n=322, Wilson [96.4, 99.3] | **holds** |
+| STRONG async/web ~87% | 88.7%, n=204, Wilson [83.7, 92.4] | **holds** |
+| STRONG ~94% pooled | pending full corpus (§8) | pending |
+| `--min-anchors 3` lifts async STRONG to ~91% | 90.2%, n=123, Wilson [83.7, 94.3] | **point estimate holds — see caveat** |
+| async weakness driven by futures combinators / handler-adapters inlining user closures | confirmed, and mechanism now shown directly: 33/33 async FPs are author-parameterized (§5d) | **holds, strengthened** |
+| STRONG validated against symbol names (`nm`) | valid, but `nm -C` alone has the v0 bug (§5e.2) | **holds, with a caveat** |
+
+### The `--min-anchors` ladder, async-only (8 binaries)
+
+| `--min-anchors` | n | precision | Wilson 95% | cluster bootstrap 95% | recall retained |
+|---:|---:|---:|---|---|---:|
+| 1 | 357 | 82.6% | [78.4, 86.2] | [73.0, 96.2] | 100% |
+| 2 (default) | 204 | 88.7% | [83.7, 92.4] | [76.5, 97.7] | 57.1% |
+| 3 | 123 | 90.2% | [83.7, 94.3] | [78.0, 96.2] | 34.5% |
+| 4 | 84 | 94.0% | [86.8, 97.4] | [79.4, 98.1] | 23.5% |
+
+**Caveat worth having before someone asks it on stage: the 2→3 precision gain is not
+statistically established by this corpus.** 88.7% → 90.2% is a 1.5pp move whose intervals
+overlap almost completely (Wilson [83.7, 92.4] vs [83.7, 94.3] — the lower bounds are
+identical; bootstrap [76.5, 97.7] vs [78.0, 96.2]). With 8 binaries there is not enough
+data to call it a real improvement.
+
+The **recall cost, by contrast, is certain and large**: 57.1% → 34.5% retained. So the
+honest framing of `--min-anchors 3` is *"buys a definite recall loss for a precision gain
+this corpus cannot confirm"* — not *"lifts async to 91%"*. `--min-anchors 4` (94.0%,
+[86.8, 97.4]) is the first rung that separates from the default, and it keeps only 23.5%
+of recall. Recommend softening the submission's phrasing, or widening the corpus before
+defending it.
+
 ## 6. Rule A (pre-registered primary stratification) FAILED — reported, not quietly swapped
 
 Both stratification rules were frozen in commit `63d48e0` **before** any data was
