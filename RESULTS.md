@@ -1,13 +1,62 @@
 # unhusk attribution precision — measurement run 2026-07-17
 
-**Status: IN PROGRESS (overnight run). Numbers below are marked as either FINAL or
-PROVISIONAL. Nothing here is interpolated or estimated — every figure is produced by a
-committed script over binaries on disk. Where a number is not yet measurable, this file
-says so rather than guessing.**
+Goal: pin unhusk's symbol-based attribution precision to a defensible point estimate with
+a confidence interval, split sync vs async. Measurement only — no attribution logic, no
+winnow, was modified.
 
-Goal: pin unhusk's symbol-based attribution precision to a defensible point estimate
-with a confidence interval, split sync vs async. Measurement only — no attribution
-logic, no winnow, was modified.
+**Nothing here is interpolated or estimated.** Every figure is produced by a committed
+script over binaries on disk. Where a number is not measurable, this file says so.
+
+---
+
+## TL;DR — read this first
+
+**1. The published async numbers replicate. `docs/validation.md` is sound on async.**
+On a corpus rebuilt from source today, provenance-gated, with a corrected demangler and a
+stricter authorship oracle — none of it shared with the original measurement:
+
+| | documented | measured (unwrapped ruler) | Wilson 95% | cluster bootstrap 95% |
+|---|---:|---:|---|---|
+| async STRONG | ~87.3% | **88.7%** (n=204) | [83.7, 92.4] | [76.5, 97.7] |
+| async SINGLE | ~75% | **74.5%** (n=153) | [67.1, 80.8] | [57.2, 95.7] |
+| CLI/sync STRONG | ~98.2% | **98.4%** (n=322) | [96.4, 99.3] | [97.2, 100.0] |
+
+**2. Quote the cluster bootstrap, not Wilson.** Wilson assumes independent trials. These
+are binaries, not trials: ripgrep alone is ~43% of the CLI corpus, and async per-binary
+precision runs 50%–100%. For async SINGLE, Wilson says [49.9, 62.8] while the bootstrap
+says [38.2, 89.7] — a 13-point band vs a **51-point** band. **The bootstrap is the honest
+number. Do not put a bare Wilson interval on a slide.**
+
+**3. The most interesting result: the async gap is not what the number implies.** Every
+single one of the 33 STRONG false attributions in the async stratum is a library generic
+**monomorphized over the author's own code** — `actix_web::handler::handler_service::
+<miniserve::api, …>`, `tokio::LocalSet::run_until::<miniserve::run::{closure#0}>`. **Zero
+are stock dependency code.** So the async FPs are still *author-discriminative bytes*: a
+seed built on them does not fire on unrelated software that merely links actix-web. The
+gap is real under a strict authorship ruler, but it is "author-parameterized adapter code",
+not "random library code" (§5d).
+
+**4. Found and fixed a real bug in the inherited harness: `nm -C` cannot demangle Rust v0.**
+It silently dropped 32 of 230 async STRONG functions (14%) — nearly all of oha's own code —
+into an excluded `unknown` bucket. The whole inherited harness (`tier_eval.py`,
+`stress_analyze.py`, `symbol_precision.py`) has this bug. **Effect on precision: none**
+(85.9% → 85.7%); the dropped rows were representative. It understated `n`, not the
+headline. Fix: `nm --defined-only | rustfilt` (§5e.2).
+
+**5. Three of my own claims were falsified by measurement and are kept in §5e**, including
+one manufactured finding (calling rage's FPs "genuine dependency code" when rage is
+legacy-mangled and the evidence literally cannot exist). Read §5e before trusting anything
+else here.
+
+**6. Caveat that matters for the talk.** The replication holds under the **unwrapped**
+ruler, which is the right comparison but embeds an unexamined authorship convention:
+`docs/validation.md` unwraps `LocalKey::with::<user::closure>` as user, but not
+`handler_service::<user::handler, …>` — structurally the same thing. Under the strict
+ruler the same corpus reads 86.3% / 69.9%. **The async headline moves ~2.4pp on a
+judgment call that is currently implicit** (§5d).
+
+**Status:** async stratum FINAL. Sync/combined regenerating over the full ~32-binary
+corpus via `realval/run_all.sh`; generated tables splice in below the marker.
 
 ---
 
