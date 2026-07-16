@@ -1,0 +1,23 @@
+# Validation corpus artifacts: binaries, build trees, raw logs. Multi-GB, rebuildable
+# from build_corpus_src.sh. Only the harness scripts and the written-up results are
+# tracked.
+unhusk
+work/
+src/
+corpus_src/
+out/
+out2/
+__pycache__/
+*.log
+*.out
+*.debug
+*.stripped
+*.full.txt
+*.tsv
+*.err
+*.json
+!corpus_manifest.json
+BATCH_DONE
+BATCH2_DONE
+BUILD_DONE
+*.FAILED
