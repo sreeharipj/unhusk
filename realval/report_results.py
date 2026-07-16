@@ -149,14 +149,18 @@ def fp_kind(sym):
         return "core generic (iter/sort/fn-shim over user closure)"
     if re.search(r"serde|Deserialize|Serialize", s):
         return "serde generic (derive/monomorph over user type)"
-    return "genuine dependency code"
+    # Fallback: no recognized adapter shape. NOT a verdict that the bytes are stock
+    # library code -- author_parameterized() decides that, and disagrees with this
+    # bucket often (many rows here still name an author crate in their generic args).
+    return "unclassified library generic (no recognized adapter pattern)"
 
 
 def author_parameterized(sym, rec):
     """
-    True iff a library symbol names an AUTHOR crate inside its generic arguments -- i.e.
-    the library generic was monomorphized over author code (actix_web::handler::
-    handler_service::<miniserve::api, ...>), rather than being stock library code.
+    Was this library generic monomorphized over AUTHOR code?
+      True  -> yes (actix_web::handler::handler_service::<miniserve::api, ...>)
+      False -> no; stock library bytes
+      None  -> UNDETERMINABLE (see below)
 
     This is the distinction that decides what a false attribution actually COSTS. Both
     classes are "not author-written" under a leading-crate ruler, but:
@@ -164,13 +168,23 @@ def author_parameterized(sym, rec):
         The instantiation is specific to this binary, so as a signature seed it is still
         author-discriminative -- a rule built on it is not prone to firing on unrelated
         software.
-      - genuine dependency code: stock library bytes, present in anything linking that
-        crate. A signature seed here is a real cross-project false-positive risk.
-    Reported separately rather than pooled, because they are not the same failure.
+      - stock dependency code: bytes present in anything linking that crate. A signature
+        seed here is a real cross-project false-positive risk.
+
+    THE None CASE IS LOAD-BEARING. Legacy Rust mangling does not encode generic
+    ARGUMENTS -- it mangles the definition path, so a monomorphized instance still reads
+    `<nom::internal::MapOpt<F,G> as nom::internal::Parser<I>>::process` with placeholder
+    params. On a legacy-mangled binary the substitution is simply not in the symbol, so
+    "no author crate appears" is NOT evidence of stock library code -- it is evidence of
+    nothing. Returning False there would have manufactured a finding: it is exactly how
+    rage's 4 FPs were briefly, wrongly, called "genuine dependency code". v0 mangling does
+    encode arguments, so the test is valid there and only there.
     """
+    if rec.get("mangling") != "v0":
+        return None
     author = set(rec.get("author_crates", []))
     if not author or not sym:
-        return False
+        return None
     lead = leading_crate(sym, unwrap=False)
     inner = {m.group(1) for m in re.finditer(r"([a-zA-Z_][a-zA-Z0-9_]*)::", sym)}
     inner.discard(lead)
@@ -318,27 +332,31 @@ def main():
             kinds[kind] += 1
             ap = author_parameterized(r["sym"], rec)
             ap_counts[ap] += 1
+            ap_label = {True: "**yes**", False: "no",
+                        None: "*undeterminable (legacy mangling)*"}[ap]
             rescued = classify(r["sym"], rec, "meta", True) == "user"
             note = kind + (" *(rescued by unwrapped)*" if rescued else "")
             sym = (r["sym"] or "(no symbol)").replace("|", "\\|")
             if len(sym) > 150:
                 sym = sym[:150] + "…"
             w(f"| {n} | {rec['stratum_b']} | `{r['addr']}` | {r['anchors']} | "
-              f"{'**yes**' if ap else 'no'} | {note} | `{sym}` |")
+              f"{ap_label} | {note} | `{sym}` |")
     if total_fp == 0:
         w("| — | — | — | — | — | no STRONG false attributions under this ruler | — |")
     w(f"\n**{total_fp} STRONG false attributions total.** By cause:\n")
     for k, c in kinds.most_common():
         w(f"- {c} — {k}")
-    w(f"\n**By author-parameterization** (see `author_parameterized()` for why this "
-      f"split, not the cause split, is the one that decides what a false attribution "
-      f"costs):\n")
+    w(f"\n**By author-parameterization** (see `author_parameterized()` — this split, not "
+      f"the cause split above, is what decides the *cost* of a false attribution):\n")
     w(f"- **{ap_counts[True]}** are library generics *monomorphized over author code* — "
       f"these bytes exist only because the author's code does, so the instantiation is "
-      f"specific to this binary and remains author-discriminative as a signature seed.")
-    w(f"- **{ap_counts[False]}** are **genuine dependency code** — stock library bytes "
-      f"present in anything linking that crate. These are the ones that would put a "
-      f"cross-project false positive into a generated rule.")
+      f"specific to this binary and stays author-discriminative as a signature seed.")
+    w(f"- **{ap_counts[False]}** are **stock dependency code** — bytes present in "
+      f"anything linking that crate. These are the ones that would put a cross-project "
+      f"false positive into a generated rule.")
+    w(f"- **{ap_counts[None]}** are **undeterminable**: legacy-mangled binaries do not "
+      f"encode generic arguments, so whether the generic was instantiated over author "
+      f"code is not recoverable from the symbol. Counted, never guessed.")
 
     w(f"\n## Unknown-authorship functions (excluded from both numerator and denominator)\n")
     w("| binary | count | note |")

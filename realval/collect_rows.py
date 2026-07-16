@@ -168,16 +168,24 @@ def nm_table(debug):
     keeps the `addr type name` shape, so split(None, 2) still works even though demangled
     names contain spaces.
     """
-    nm = subprocess.Popen(["nm", "--defined-only", debug], stdout=subprocess.PIPE)
-    r = subprocess.run(["rustfilt"], stdin=nm.stdout, capture_output=True,
-                       text=True, timeout=900)
-    nm.wait()
+    raw = subprocess.run(["nm", "--defined-only", debug],
+                         capture_output=True, text=True, timeout=900).stdout
+    # Which mangling scheme? This decides whether generic ARGUMENTS are recoverable at
+    # all: v0 encodes them (`handler_service::<miniserve::api, ...>`), legacy does NOT --
+    # it mangles the definition path, so a monomorphized instance still reads
+    # `MapOpt<F,G>` with placeholder params. Any analysis of what a generic was
+    # instantiated WITH is therefore blind on legacy binaries and must say so.
+    n_v0 = len(re.findall(r"\s_R\w", raw))
+    n_legacy = len(re.findall(r"\s_ZN\w", raw))
+    mangling = "v0" if n_v0 > n_legacy else ("legacy" if n_legacy else "none")
+
+    r = subprocess.run(["rustfilt"], input=raw, capture_output=True, text=True, timeout=900)
     t = {}
     for line in r.stdout.splitlines():
         p = line.split(None, 2)
         if len(p) == 3 and re.match(r"^[0-9a-f]{16}$", p[0]):
             t[int(p[0], 16)] = p[2]
-    return t
+    return t, mangling, n_v0, n_legacy
 
 
 def collect(name, strp, dbg, repo):
@@ -185,7 +193,7 @@ def collect(name, strp, dbg, repo):
     r = subprocess.run([UNHUSK, strp], capture_output=True, text=True, env=env, timeout=2400)
     out = r.stdout
     depcrate = sorted({norm(m.group(1)) for m in re.finditer(r"DEPCRATE\t(.+)", out)})
-    nm = nm_table(dbg)
+    nm, mangling, n_v0, n_legacy = nm_table(dbg)
 
     rows = []
     for line in out.splitlines():
@@ -227,6 +235,9 @@ def collect(name, strp, dbg, repo):
         "meta_error": meta_err,
         "author_crates": sorted(author),
         "dep_crates": sorted(dep),
+        "mangling": mangling,
+        "n_v0_symbols": n_v0,
+        "n_legacy_symbols": n_legacy,
         "async_symbols": dict(async_syms.most_common()),
         "async_mech_symbols": dict(mech.most_common()),
         "n_symbols": len(nm),
@@ -268,6 +279,7 @@ def main():
             print(f"  {name:12} certain={len(rec['rows']):<5} "
                   f"depcrate={len(rec['depcrate_deps']):<4} "
                   f"author={len(rec['author_crates']):<3} dep={len(rec['dep_crates']):<4} "
+                  f"mangle={rec['mangling']:<6} "
                   f"{'META_ERR:' + str(rec['meta_error'])[:40] if rec['meta_error'] else 'ok'}",
                   file=sys.stderr)
 

@@ -126,6 +126,108 @@ Threshold ladder on the async corpus (inherited oracle): `>=1` 75.7%, `>=2` 88.7
 `>=3` 90.1% — consistent with `--min-anchors 3` being the documented async precision
 dial (~91%), at 33% recall retained.
 
+## 5c. Async stratum, corrected oracle — n = 230, 9 binaries
+
+Rule B (pre-registered) async stratum: bandwhich, dufs, fclones, gping, miniserve, oha,
+rustscan, trippy, xh. `rage` is domain `crypto` => sync stratum, per the inherited map.
+
+| ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---:|---:|---:|---:|---:|---|---|
+| strict | 230 | 197 | 33 | 0 | **85.7%** | [80.5, 89.6] | [70.9, 93.1] |
+| unwrapped | 230 | 202 | 28 | 0 | **87.8%** | [83.0, 91.4] | [77.5, 95.5] |
+
+The cargo-metadata oracle and the inherited DEPCRATE oracle score this **identically**
+(197/33). Combined with the ripgrep result in §7, the DEPCRATE undercount is a latent
+hole with **zero measured effect** anywhere in this corpus.
+
+Note the intervals disagree, and the disagreement is the point: Wilson says [80.5, 89.6],
+the cluster bootstrap says [70.9, 93.1] — **more than twice as wide**. Wilson is wrong
+here because it assumes 230 independent trials, and they are not independent: they are 9
+binaries, and per-binary precision ranges from miniserve's 50% to three binaries at 100%.
+The honest statement is the bootstrap.
+
+## 5d. What the async false attributions actually ARE (the main finding)
+
+Auditing every STRONG false attribution in the async-side corpus (37 across 10 binaries):
+
+| class | count |
+|---|---:|
+| library generic **monomorphized over author code** | **33** |
+| **stock dependency code** | **0** |
+| undeterminable (legacy mangling erases generic args) | 4 (all `rage`) |
+
+**Not one false attribution in the async stratum is stock library code.** Every one is a
+framework adapter or combinator instantiated with the author's own functions. miniserve —
+the worst binary at 50% — is the cleanest illustration; all 7 of its STRONG "FPs" name
+`miniserve::` in their own generic arguments:
+
+```
+actix_web::handler::handler_service::<miniserve::file_op::upload_file, ...>
+actix_web::handler::handler_service::<miniserve::api, (Json<miniserve::ApiCommand>, ...)>
+tokio::task::local::LocalSet::run_until::<miniserve::run::{closure#0}>
+actix_web_httpauth::middleware::AuthenticationMiddleware<..., miniserve::auth::handle_auth, ...>
+```
+
+**Why this matters for the tool's actual purpose.** These bytes are "not author-written"
+under a leading-crate ruler, which is why they score as FPs. But they exist *only because
+the author's code exists*: the instantiation is specific to this binary. As a signature
+seed they remain author-discriminative — a rule built on
+`handler_service::<miniserve::api, ...>` does not fire on unrelated software that merely
+links actix-web. Stock dependency bytes would be a genuine cross-project false-positive
+risk; **there are none in the async stratum.**
+
+So the ~12pp async precision gap is real under a strict authorship ruler, but it is **not**
+the failure mode a reader would assume from the number. It is not "the tool attributes
+random library code to the author". It is "the tool attributes author-parameterized
+adapter code to the author".
+
+**This also exposes a tension in the inherited methodology, which should be resolved
+before the number is quoted again.** `docs/validation.md` *unwraps*
+`LocalKey::with::<fclones::closure>` and counts it as user ("a TLS accessor whose body is
+the fclones closure"), but does *not* unwrap
+`actix_web::handler::handler_service::<miniserve::api, ...>` — structurally the same
+thing: a library generic whose body is the author's function. The distinction is
+defensible (`LocalKey::with` is pure forwarding; a handler adapter does real framework
+work around the call, so its bytes are a genuine mix) but it is currently **implicit**,
+and the async gap is materially sensitive to it. It should be stated as an explicit
+authorship convention, not left as an unexamined asymmetry. **Recorded, not acted on** —
+this run is measurement-only.
+
+## 5e. Corrections to claims made earlier in this run
+
+Kept deliberately, so the reasoning can be audited rather than trusted.
+
+1. **"The DEPCRATE oracle defect inflates the published precision."** FALSIFIED. The hole
+   is real (ripgrep: 21 crates named vs 47 resolved) but both oracles score identically
+   on every binary measured so far. It is latent, not actual. Fixed as defence in depth.
+2. **"The v0-demangling bug drops author code and understates precision."** FALSIFIED. It
+   did drop 32 of 230 async STRONG rows (14%), nearly all oha's own code — but recovering
+   them split 27 TP / 5 FP (84.4% user), close to the stratum's 85.7%. Precision moved
+   85.9% → 85.7%. The fix restores `n` and removes an arbitrary exclusion; it rescues
+   nothing.
+3. **"4 of the FPs are genuine dependency code."** WRONG, and it was the dangerous kind of
+   wrong — a manufactured finding. All 4 are in `rage`, which is **legacy-mangled**, and
+   legacy mangling does not encode generic arguments. "No author crate appears in the
+   symbol" there is evidence of *nothing*. They are now reported as **undeterminable**.
+   `author_parameterized()` is gated on v0 mangling for exactly this reason.
+
+## 5f. Corpus is NOT toolchain-homogeneous (disclosure)
+
+An earlier claim in this file — that rebuilding from source puts the whole corpus on one
+toolchain — is **false**. Three crates pin their own via `rust-toolchain.toml`, which
+rustup honours:
+
+| crate | pinned toolchain | consequence |
+|---|---|---|
+| `rage` | 1.85.0 | legacy mangling ⇒ generic args unrecoverable ⇒ FP class undeterminable |
+| `eza` | 1.90 | — |
+| `dprint` | 1.91.1 | — |
+
+Everything else built on rustc 1.98.0-nightly. This is not necessarily bad for validity —
+`docs/validation.md` claims precision holds across optimization levels, and toolchain
+spread mildly tests that — but it is a property of the corpus that must be disclosed, not
+assumed away. It is also the direct cause of the `rage` mangling issue in §5e.3.
+
 ## 6. Rule A (pre-registered primary stratification) FAILED — reported, not quietly swapped
 
 Both stratification rules were frozen in commit `63d48e0` **before** any data was
