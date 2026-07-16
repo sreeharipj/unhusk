@@ -146,6 +146,31 @@ here because it assumes 230 independent trials, and they are not independent: th
 binaries, and per-binary precision ranges from miniserve's 50% to three binaries at 100%.
 The honest statement is the bootstrap.
 
+### SINGLE tier, async — and why the CI width is the result
+
+| ruler | n | TP | FP | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---:|---:|---:|---:|---|---|
+| strict | 223 | 126 | 97 | 56.5% | [49.9, 62.8] | **[38.2, 89.7]** |
+| unwrapped | 223 | 134 | 89 | 60.1% | [53.5, 66.3] | **[41.5, 92.1]** |
+
+Two things worth stating plainly.
+
+**1. This is the clearest case for not quoting Wilson.** Wilson reports [49.9, 62.8] — a
+tight, confident-looking 13-point band. The cluster bootstrap reports [38.2, 89.7] — a
+**51-point** band. Wilson is answering a question nobody asked ("if these were 223
+independent coin flips…"). They are 9 binaries whose per-binary SINGLE precision runs from
+fclones' 28% to dufs' 100%. The honest summary is: **async SINGLE precision is not
+determined by this corpus.** n = 223 functions is not n = 223; it is n = 9 clusters.
+
+**2. It is below the documented ~75%, but this is not (yet) a contradiction.**
+`docs/validation.md` reports async SINGLE ~75%. The gap is most likely **stratum
+definition, not disagreement**: this run follows the task's definition, in which async
+includes *rayon generics*, so `fclones` (28% SINGLE) and `oha` (43%) sit inside the async
+stratum. `docs/validation.md` keeps `parallel` as its own category, outside async. Same
+underlying data, different partition. Flagged rather than resolved — resolving it means
+re-running with `parallel` split out, which is a corpus-composition question, not a
+measurement error. **Do not quote 56.5% as a correction to 75% without that check.**
+
 ## 5d. What the async false attributions actually ARE (the main finding)
 
 Auditing every STRONG false attribution in the async-side corpus (37 across 10 binaries):
