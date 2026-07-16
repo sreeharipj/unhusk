@@ -466,17 +466,18 @@ as a side effect.
 - [x] async false-attribution audit — every FP classified (§5d)
 - [x] v0-demangling bug found and fixed (§5e.2); `unknown` bucket now 0
 - [x] fclones/parallel discrepancy resolved as a version difference (§5g)
-- [ ] CLI corpus rebuild on today's toolchain (13 targets) — **running**;
-      `realval/run_all.sh` is blocked on it and will splice results in automatically
-- [ ] final combined + sync-stratum numbers over the full ~32-binary corpus
-- [ ] full machine-generated false-attribution list for every binary (splices in below)
+- [x] CLI corpus rebuilt on today's toolchain (13 targets)
+- [x] final combined + sync-stratum numbers over the full 32-binary corpus (TL;DR)
+- [x] full machine-generated false-attribution list — 67 rows, below the marker
+- [x] threshold ladder replicates: `>=3` 96.1% vs documented 96.1%; `>=2` 94.2% vs 94.4%
+
+**The measurement is complete.** Nothing computational is outstanding.
 
 ### For whoever picks this up (incl. the 04:00 session)
 
-The pipeline is autonomous: `realval/run_all.sh` waits for the builds, gates provenance,
-collects, reports, splices into this file below the marker, and commits. If it completed,
-**the numbers already exist — do not re-derive them.** The remaining work is judgment, not
-computation:
+**The pipeline already ran to completion (32/32 binaries, 2225 certain functions) and the
+numbers are in this file. Do NOT re-run it and do NOT re-derive them.** The remaining work
+is judgment, not computation:
 
 1. **Audit the generated false-attribution list** below the marker, function by function.
    The `author-param?` column is the one that matters; anything marked
