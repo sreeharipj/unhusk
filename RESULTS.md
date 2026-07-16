@@ -75,6 +75,16 @@ judgment call that is currently implicit** (§5d).
 Generated tables, the threshold ladder and the complete false-attribution list are below
 the marker, produced by `realval/report_results.py` from `realval/rows_src.json`.
 
+**Audited 04:00.** The 67-row false-attribution list was re-derived and checked row by row
+against the full untruncated symbols, including the nested-module collision that could have
+faked an author-parameterized verdict. **Every verdict holds; no number changed** (§8c).
+Four errors were found and fixed, all in the **prose**, none in the generated data: §5f
+undercounted the toolchain pins (three → **four**; `ouch`/1.93.0 was missing) and confined
+their consequence to `rage` when it is really **18 of the 67 FPs across 4 binaries**; §7
+still asserted, as fact, the one-toolchain claim §5f exists to retract; §5h carried a
+`pending` row for a number the file already reports (94.2%) and quoted a superseded CLI
+corpus; §5g said "all 5" over a list of 4.
+
 ---
 
 ## 1. Where the harness came from (step 2)
@@ -275,7 +285,8 @@ Two caveats, stated rather than buried:
   ```
   rayon_core::job::HeapJob<spawn_job<fclones::group::rehash<fclones::group::group_by_prefix::{closure#0}, …>>>
   rayon::iter::plumbing::bridge_producer_consumer::helper::<rayon::vec::DrainProducer<fclones::dedupe::FsCommand>, …>
-  nom::branch::alt<…, fclones::transform::re_fi…>
+  nom::branch::alt<…, fclones::transform::re_find<…>::{closure#0}, …>
+  nom::sequence::tuple<…, (nom::bytes::complete::tag<…>::{closure#0}, fclones::transform::re_find<…>::{closure#0})>
   core::ptr::drop_glue::<fclones::cache::HashCache>
   ```
 
@@ -352,34 +363,55 @@ Kept deliberately, so the reasoning can be audited rather than trusted.
 ## 5f. Corpus is NOT toolchain-homogeneous (disclosure)
 
 An earlier claim in this file — that rebuilding from source puts the whole corpus on one
-toolchain — is **false**. Three crates pin their own via `rust-toolchain.toml`, which
+toolchain — is **false**. **Four** crates pin their own via `rust-toolchain.toml`, which
 rustup honours:
 
-| crate | pinned toolchain | consequence |
-|---|---|---|
-| `rage` | 1.85.0 | legacy mangling ⇒ generic args unrecoverable ⇒ FP class undeterminable |
-| `eza` | 1.90 | — |
-| `dprint` | 1.91.1 | — |
+| crate | pinned toolchain | mangling | consequence |
+|---|---|---|---:|
+| `rage` | 1.85.0 | legacy | 4 STRONG FPs undeterminable |
+| `eza` | 1.90 | legacy | 1 STRONG FP undeterminable |
+| `dprint` | 1.91.1 | legacy | 10 STRONG FPs undeterminable |
+| `ouch` | 1.93.0 | legacy | 3 STRONG FPs undeterminable |
 
 Everything else built on rustc 1.98.0-nightly. This is not necessarily bad for validity —
 `docs/validation.md` claims precision holds across optimization levels, and toolchain
 spread mildly tests that — but it is a property of the corpus that must be disclosed, not
-assumed away. It is also the direct cause of the `rage` mangling issue in §5e.3.
+assumed away.
+
+**The pin is the direct cause of the undeterminable FP class (§5e.3), and it is not
+confined to `rage`.** The four pinned crates are *exactly* the four legacy-mangled binaries
+in the corpus, and every other binary is v0 — a 4/4 correlation. The mechanism: the build
+scripts pass no `symbol-mangling-version` flag, so mangling follows the toolchain default;
+the four pins are all older *stable* releases, which default to legacy, while
+1.98.0-nightly defaults to v0. Legacy mangling does not encode generic arguments, so for
+these four binaries the author-parameterization test cannot be run at all.
+
+**Scale of the consequence: 18 of the 67 STRONG false attributions (27%) are
+unclassifiable for this reason** — dprint 10, rage 4, ouch 3, eza 1. Every FP in these
+four binaries is undeterminable; every FP in the other 28 is decidable. This is a property
+of the *corpus*, not of unhusk: rebuilding these four on the nightly would decide all 18.
+Recorded, not acted on — this run is measurement-only, and re-pinning them would rebuild a
+finished corpus.
 
 ## 5h. Cross-check against the Black Hat Arsenal submission
 
-Each claim in the submission, against this run's measurements. Async figures are the
-async-only stratum (8 binaries, `docs/validation.md` partition), cargo-metadata oracle,
-unwrapped ruler.
+Each claim in the submission, against this run's measurements. All figures are the final
+32-binary corpus, cargo-metadata oracle, unwrapped ruler; async is the async-only stratum
+(8 binaries, `docs/validation.md` partition).
 
 | submission claim | measured | verdict |
 |---|---|---|
-| STRONG CLI/systems ~98% | 98.4%, n=322, Wilson [96.4, 99.3] | **holds** |
+| STRONG CLI/systems ~98% | 97.9%, n=379, Wilson [95.9, 98.9] | **holds** |
 | STRONG async/web ~87% | 88.7%, n=204, Wilson [83.7, 92.4] | **holds** |
-| STRONG ~94% pooled | pending full corpus (§8) | pending |
+| STRONG ~94% pooled | 94.2%, n=1027, Wilson [92.6, 95.4] | **holds** |
 | `--min-anchors 3` lifts async STRONG to ~91% | 90.2%, n=123, Wilson [83.7, 94.3] | **point estimate holds — see caveat** |
 | async weakness driven by futures combinators / handler-adapters inlining user closures | confirmed, and mechanism now shown directly: 33/33 async FPs are author-parameterized (§5d) | **holds, strengthened** |
 | STRONG validated against symbol names (`nm`) | valid, but `nm -C` alone has the v0 bug (§5e.2) | **holds, with a caveat** |
+
+The CLI/systems row is the final corpus's `cli` domain (16 binaries, n=379). The
+superseded 13-binary corpus in §5 reads 98.4%, n=322, under the inherited DEPCRATE oracle;
+both round to ~98% and the verdict is the same either way, but this table quotes one corpus
+and one oracle throughout rather than mixing them.
 
 ### The `--min-anchors` ladder, async-only (8 binaries)
 
@@ -459,8 +491,11 @@ has been shown to. The corpus-wide comparison of both oracles is pending §8; if
 stricter oracle lowers the headline anywhere, that is a correction to publish.
 
 The oracle requires metadata that matches the binary, so the whole corpus is rebuilt from
-source on one toolchain (rustc 1.98.0-nightly) today, removing a mixed-toolchain confound
-as a side effect.
+source today. ~~On one toolchain (rustc 1.98.0-nightly), removing a mixed-toolchain
+confound as a side effect.~~ **RETRACTED — see §5f.** Four crates (`rage`, `eza`,
+`dprint`, `ouch`) pin their own toolchain via `rust-toolchain.toml`, which rustup honours,
+so the rebuild did *not* homogenize the toolchain and the confound is still there. It is
+disclosed in §5f, not removed.
 
 ## 8. Still outstanding
 
@@ -477,20 +512,70 @@ as a side effect.
 
 **The measurement is complete.** Nothing computational is outstanding.
 
+### Logged, not acted on — reporting limitations found while auditing
+
+Neither affects any number in this file; both are recorded rather than fixed, because
+fixing them means editing `report_results.py` and regenerating a finished deliverable.
+
+- The generated **"Unknown-authorship functions"** table filters `anchors >= K` (K=2), so
+  it is **STRONG-only** despite an unqualified heading. It lists 2 rows (pastel 1, tokei 1)
+  = the 2 STRONG unknowns; the **7 SINGLE-tier unknowns are not itemized**, though they are
+  correctly counted in the SINGLE tables' `unknown` columns and correctly excluded from n.
+  The full-list contract in this file covers *false attributions* (all 67 are listed), so
+  this is a completeness gap in a supplementary table, not in the deliverable.
+- That table's note column renders as `0 with no symbol at all; rest: …` for every row,
+  which is technically true but reads oddly at count=1.
+
 ### For whoever picks this up (incl. the 04:00 session)
 
 **The pipeline already ran to completion (32/32 binaries, 2225 certain functions) and the
 numbers are in this file. Do NOT re-run it and do NOT re-derive them.** The remaining work
 is judgment, not computation:
 
-1. **Audit the generated false-attribution list** below the marker, function by function.
-   The `author-param?` column is the one that matters; anything marked
-   *undeterminable (legacy mangling)* cannot be classified from the symbol — say so, do
-   not guess (see §5e.3 for how that exact mistake was made once already).
+1. ~~**Audit the generated false-attribution list**~~ — **DONE, 04:00 session. It holds;
+   no row's verdict changed.** See §8c for what was checked and how. The four errors that
+   audit *did* find were all in the surrounding prose (§5f, §5h, §7, §5g), not in the
+   generated data.
 2. **Resolve the §5d authorship asymmetry**, or explicitly declare it open. The async
    headline moves ~2.4pp on it. It is a convention question, not a measurement — it needs
    a human decision, and it is the single most quotable soft spot in the current claim.
+   **Still open — it is now the only substantive item left in this file.**
 3. **Do not "fix" unhusk.** Measurement only. Log anything tempting instead.
+
+## 8c. Audit of the generated false-attribution list — 04:00 session
+
+The 67-row STRONG false-attribution table below the marker was audited row by row against
+the **full, untruncated** symbols in `realval/rows_src.json`, re-deriving the FP set and
+the `author-param?` verdict independently with `report_results.py`'s own
+`classify()` / `author_parameterized()`. **Every verdict holds. Nothing was changed.**
+
+What was checked, and why each check could have failed:
+
+- **The FP set reproduces exactly**: 67 rows (async 33 + sync 34), matching the generated
+  STRONG/strict/meta rows (230→33 FP, 797→34 FP, 1027→67 FP). The per-binary FP counts
+  reconcile with §5b/§5c/§5e.2 (inherited 9-binary n=198 + 32 recovered v0 rows = 230).
+- **The 49/0/18 split reproduces exactly.**
+- **The truncated display hides the evidence for 9 of the 49 "yes" verdicts** — the table
+  cuts symbols at ~150 chars, and for these the author crate appears only *past* the cut
+  (e.g. starship `0x910ec0` reads as pure `std::sync::once` for 150 chars, then names
+  `starship::modules::git_status::GitStatusInfo::get_stashed`). All 9 were checked against
+  the full symbol; **all 9 are genuinely author-parameterized.** The table is right; it is
+  just not auditable from the rendered column alone. Do not re-audit from the rendering.
+- **Nested-module collision — the way this classifier could have lied.**
+  `author_parameterized()` matches any `ident::` in the symbol against the author-crate
+  set, so an author crate whose name collides with a *module* segment inside a dependency's
+  path (`some_dep::config::Foo` where an author crate is named `config`) would produce a
+  spurious "yes". This is a live risk here: the corpus has crates named `grep`, `ignore`,
+  `age`, `trip`, `varcon`, `pinger`, `dictgen`. **Checked: 0 of the 49 rest on a
+  nested-module match** — every one has the author crate at a genuine crate-root position
+  (an occurrence of `crate::` not preceded by `::`). The verdict survives the stricter test.
+- **The 18 undeterminable are exactly the legacy-mangled binaries**, and every FP in those
+  binaries is undeterminable — dprint 10, rage 4, ouch 3, eza 1 (§5f). `nm`/`rustfilt`
+  confirms 0 v0 symbols in rage and only a handful in the others. **No undeterminable row
+  was guessed at, and none should be**: §5e.3 is the record of that exact error.
+
+The one thing this audit does **not** establish: that the 49 "yes" rows are the *right*
+call for the tool's purpose. That is the §5d convention question, and it is still open.
 
 ## 9. How to reproduce
 
