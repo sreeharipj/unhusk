@@ -95,6 +95,119 @@
 | depcrate | strict | 1192 | 960 | 232 | 4 | 80.5% | [78.2, 82.7] | [68.9, 89.5] |
 | depcrate | unwrapped | 1192 | 970 | 222 | 4 | 81.4% | [79.1, 83.5] | [70.4, 89.9] |
 
+## Per-domain breakdown — `docs/validation.md`'s partition
+
+Rule B folds `parallel` into async (the task defines async to include rayon generics). `docs/validation.md` keeps `parallel` as its own category, so its published async figure is the `async` row here, NOT the async stratum above. Quoted for comparison against the docs; both are the same underlying data cut differently.
+
+
+**STRONG (>= 2) — domain `cli`** — 16 binaries: 16 binaries
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 379 | 369 | 10 | 2 | 97.4% | [95.2, 98.6] | [94.5, 98.5] |
+| meta | unwrapped | 379 | 371 | 8 | 2 | 97.9% | [95.9, 98.9] | [95.8, 99.2] |
+| depcrate | strict | 379 | 369 | 10 | 2 | 97.4% | [95.2, 98.6] | [94.5, 98.5] |
+| depcrate | unwrapped | 379 | 371 | 8 | 2 | 97.9% | [95.9, 98.9] | [95.8, 99.2] |
+
+**SINGLE (1) — domain `cli`** — 16 binaries: 16 binaries
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 553 | 506 | 47 | 2 | 91.5% | [88.9, 93.5] | [79.5, 96.2] |
+| meta | unwrapped | 553 | 507 | 46 | 2 | 91.7% | [89.1, 93.7] | [80.0, 96.3] |
+| depcrate | strict | 553 | 506 | 47 | 2 | 91.5% | [88.9, 93.5] | [79.5, 96.2] |
+| depcrate | unwrapped | 553 | 507 | 46 | 2 | 91.7% | [89.1, 93.7] | [80.0, 96.3] |
+
+**STRONG (>= 2) — domain `async`** — 8 binaries: bandwhich, dufs, gping, miniserve, oha, rustscan, trippy, xh
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 204 | 176 | 28 | 0 | 86.3% | [80.9, 90.3] | [67.2, 94.8] |
+| meta | unwrapped | 204 | 181 | 23 | 0 | 88.7% | [83.7, 92.4] | [76.5, 97.7] |
+| depcrate | strict | 204 | 176 | 28 | 0 | 86.3% | [80.9, 90.3] | [67.2, 94.8] |
+| depcrate | unwrapped | 204 | 181 | 23 | 0 | 88.7% | [83.7, 92.4] | [76.5, 97.7] |
+
+**SINGLE (1) — domain `async`** — 8 binaries: bandwhich, dufs, gping, miniserve, oha, rustscan, trippy, xh
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 153 | 107 | 46 | 0 | 69.9% | [62.3, 76.6] | [50.3, 93.9] |
+| meta | unwrapped | 153 | 114 | 39 | 0 | 74.5% | [67.1, 80.8] | [57.2, 95.7] |
+| depcrate | strict | 153 | 107 | 46 | 0 | 69.9% | [62.3, 76.6] | [50.3, 93.9] |
+| depcrate | unwrapped | 153 | 114 | 39 | 0 | 74.5% | [67.1, 80.8] | [57.2, 95.7] |
+
+**STRONG (>= 2) — domain `parallel`** — 1 binaries: fclones
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 26 | 21 | 5 | 0 | 80.8% | [62.1, 91.5] | n too small |
+| meta | unwrapped | 26 | 21 | 5 | 0 | 80.8% | [62.1, 91.5] | n too small |
+| depcrate | strict | 26 | 21 | 5 | 0 | 80.8% | [62.1, 91.5] | n too small |
+| depcrate | unwrapped | 26 | 21 | 5 | 0 | 80.8% | [62.1, 91.5] | n too small |
+
+**SINGLE (1) — domain `parallel`** — 1 binaries: fclones
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 70 | 19 | 51 | 2 | 27.1% | [18.1, 38.5] | n too small |
+| meta | unwrapped | 70 | 20 | 50 | 2 | 28.6% | [19.3, 40.1] | n too small |
+| depcrate | strict | 70 | 19 | 51 | 2 | 27.1% | [18.1, 38.5] | n too small |
+| depcrate | unwrapped | 70 | 20 | 50 | 2 | 28.6% | [19.3, 40.1] | n too small |
+
+**STRONG (>= 2) — domain `macro`** — 4 binaries: dprint, starship, taplo, typos
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 342 | 325 | 17 | 0 | 95.0% | [92.2, 96.9] | [91.2, 96.9] |
+| meta | unwrapped | 342 | 325 | 17 | 0 | 95.0% | [92.2, 96.9] | [91.2, 96.9] |
+| depcrate | strict | 342 | 326 | 16 | 0 | 95.3% | [92.5, 97.1] | [91.2, 97.7] |
+| depcrate | unwrapped | 342 | 326 | 16 | 0 | 95.3% | [92.5, 97.1] | [91.2, 97.7] |
+
+**SINGLE (1) — domain `macro`** — 4 binaries: dprint, starship, taplo, typos
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 348 | 267 | 81 | 2 | 76.7% | [72.0, 80.9] | [63.0, 84.4] |
+| meta | unwrapped | 348 | 268 | 80 | 2 | 77.0% | [72.3, 81.1] | [65.2, 84.4] |
+| depcrate | strict | 350 | 270 | 80 | 0 | 77.1% | [72.5, 81.2] | [63.0, 85.5] |
+| depcrate | unwrapped | 350 | 271 | 79 | 0 | 77.4% | [72.8, 81.5] | [65.2, 85.5] |
+
+**STRONG (>= 2) — domain `crypto`** — 2 binaries: ouch, rage
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 51 | 44 | 7 | 0 | 86.3% | [74.3, 93.2] | [78.6, 89.2] |
+| meta | unwrapped | 51 | 44 | 7 | 0 | 86.3% | [74.3, 93.2] | [78.6, 89.2] |
+| depcrate | strict | 51 | 44 | 7 | 0 | 86.3% | [74.3, 93.2] | [78.6, 89.2] |
+| depcrate | unwrapped | 51 | 44 | 7 | 0 | 86.3% | [74.3, 93.2] | [78.6, 89.2] |
+
+**SINGLE (1) — domain `crypto`** — 2 binaries: ouch, rage
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 44 | 38 | 6 | 1 | 86.4% | [73.3, 93.6] | [85.7, 88.9] |
+| meta | unwrapped | 44 | 38 | 6 | 1 | 86.4% | [73.3, 93.6] | [85.7, 88.9] |
+| depcrate | strict | 45 | 39 | 6 | 0 | 86.7% | [73.8, 93.7] | [86.1, 88.9] |
+| depcrate | unwrapped | 45 | 39 | 6 | 0 | 86.7% | [73.8, 93.7] | [86.1, 88.9] |
+
+**STRONG (>= 2) — domain `framework`** — 1 binaries: bottom
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 25 | 25 | 0 | 0 | 100.0% | [86.7, 100.0] | n too small |
+| meta | unwrapped | 25 | 25 | 0 | 0 | 100.0% | [86.7, 100.0] | n too small |
+| depcrate | strict | 25 | 25 | 0 | 0 | 100.0% | [86.7, 100.0] | n too small |
+| depcrate | unwrapped | 25 | 25 | 0 | 0 | 100.0% | [86.7, 100.0] | n too small |
+
+**SINGLE (1) — domain `framework`** — 1 binaries: bottom
+
+| oracle | ruler | n | TP | FP | unknown | precision | Wilson 95% | cluster bootstrap 95% |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| meta | strict | 21 | 19 | 2 | 0 | 90.5% | [71.1, 97.3] | n too small |
+| meta | unwrapped | 21 | 19 | 2 | 0 | 90.5% | [71.1, 97.3] | n too small |
+| depcrate | strict | 21 | 19 | 2 | 0 | 90.5% | [71.1, 97.3] | n too small |
+| depcrate | unwrapped | 21 | 19 | 2 | 0 | 90.5% | [71.1, 97.3] | n too small |
+
 ## Exploratory stratification (Rule A-prime, POST-HOC — not a headline claim)
 
 Rule A-prime: ASYNC iff a runtime generic is monomorphized over an author crate (i.e. the combinator actually inlines author code), not merely linked. Written after Rule A was refuted; reported for transparency only.
