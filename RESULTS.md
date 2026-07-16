@@ -409,14 +409,32 @@ as a side effect.
 
 ## 8. Still outstanding
 
-- [x] async corpus built (10 binaries, all provenance-PASS)
+- [x] async corpus built (19 of 20 targets; `mprocs` failed, §4). All provenance-PASS.
 - [x] cargo-metadata authorship oracle; both oracles reported (they agree everywhere)
-- [x] async stratum with Wilson + cluster bootstrap (§5c)
-- [x] async false-attribution audit (§5d)
-- [ ] CLI corpus rebuild on today's toolchain, with lockfiles — queued behind the
-      async build; `realval/run_all.sh` is waiting on it
-- [ ] final combined + sync stratum numbers over the full corpus
-- [ ] full machine-generated false-attribution list for every binary (spliced in below)
+- [x] async stratum, Wilson + cluster bootstrap (§5c), replication vs docs (§5g)
+- [x] async false-attribution audit — every FP classified (§5d)
+- [x] v0-demangling bug found and fixed (§5e.2); `unknown` bucket now 0
+- [x] fclones/parallel discrepancy resolved as a version difference (§5g)
+- [ ] CLI corpus rebuild on today's toolchain (13 targets) — **running**;
+      `realval/run_all.sh` is blocked on it and will splice results in automatically
+- [ ] final combined + sync-stratum numbers over the full ~32-binary corpus
+- [ ] full machine-generated false-attribution list for every binary (splices in below)
+
+### For whoever picks this up (incl. the 04:00 session)
+
+The pipeline is autonomous: `realval/run_all.sh` waits for the builds, gates provenance,
+collects, reports, splices into this file below the marker, and commits. If it completed,
+**the numbers already exist — do not re-derive them.** The remaining work is judgment, not
+computation:
+
+1. **Audit the generated false-attribution list** below the marker, function by function.
+   The `author-param?` column is the one that matters; anything marked
+   *undeterminable (legacy mangling)* cannot be classified from the symbol — say so, do
+   not guess (see §5e.3 for how that exact mistake was made once already).
+2. **Resolve the §5d authorship asymmetry**, or explicitly declare it open. The async
+   headline moves ~2.4pp on it. It is a convention question, not a measurement — it needs
+   a human decision, and it is the single most quotable soft spot in the current claim.
+3. **Do not "fix" unhusk.** Measurement only. Log anything tempting instead.
 
 ## 9. How to reproduce
 
