@@ -52,7 +52,12 @@ def norm(n):
 def leading_crate(sym):
     if not sym:
         return None
-    s = sym.lstrip("<")
+    # Strip angle brackets and reference/pointer sigils so that
+    # `<&&trippy_packet::ipv4::Ipv4Packet as core::fmt::Debug>::fmt` reads as
+    # trippy_packet (the crate owning the impl'd type), matching the ruler's intent.
+    # Without this, `&` fails the identifier match and the row is silently dropped.
+    s = re.sub(r"^[<&*\s]+", "", sym)
+    s = re.sub(r"^(?:mut|dyn|impl)\s+", "", s)
     m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
     return m.group(1) if m else None
 
@@ -86,33 +91,44 @@ CODE_KINDS = {"lib", "rlib", "dylib", "cdylib", "staticlib", "proc-macro", "bin"
 
 def authorship_map(repo):
     """
-    (author_crates, dep_crates) via `cargo metadata` — the authoritative ruler.
+    (author_crates, dep_crates, error) — the authorship ruler.
 
-    Uses CRATE names (target names), not package names: package `fd-find` builds a bin
-    target `fd`, and the symbol table says `fd::...`. Parsing Cargo.lock alone would look
-    for `fd_find`, find nothing, and drop every one of fd's user functions to `unknown`.
+    AUTHOR side: `cargo metadata --no-deps --offline`. Uses CRATE names (target names),
+    not package names: package `fd-find` builds a bin target `fd` and the symbol table
+    says `fd::...`. A Cargo.lock parse would look for `fd_find`, find nothing, and drop
+    every one of fd's user functions to `unknown`. --no-deps is also what makes this work
+    offline: a full resolve wants dev-dependencies, which `cargo build --release` never
+    downloaded, so plain `cargo metadata --offline` fails outright.
 
-    Author membership WINS over dep membership. That is deliberate: an author crate that
-    is also published to crates.io can be pulled in as a dependency of its own CLI (the
-    `typos` lib under the `typos-cli` bin). By authorship those bytes are the author's,
-    which is the same correction docs/validation.md applies by hand.
+    DEP side: Cargo.lock packages carrying a `source` field. Offline and exact, and it
+    cannot contend with the concurrent corpus builds for the cargo package-cache lock.
+    Package names here, so a dep whose crate name differs from its package name lands in
+    `unknown` rather than `nonuser` -- reported, never silently folded into a side.
+
+    Author membership WINS over dep membership: an author crate published to crates.io can
+    be pulled in as a dependency of its own CLI (the `typos` lib under the `typos-cli`
+    bin). By authorship those bytes are the author's -- the same correction
+    docs/validation.md applies by hand, derived here instead of hand-listed.
     """
-    r = subprocess.run(["cargo", "metadata", "--format-version", "1"],
-                       cwd=repo, capture_output=True, text=True, timeout=600)
+    r = subprocess.run(
+        ["cargo", "metadata", "--format-version", "1", "--no-deps", "--offline"],
+        cwd=repo, capture_output=True, text=True, timeout=300)
     if r.returncode != 0:
-        return set(), set(), f"cargo metadata failed: {r.stderr.strip().splitlines()[-1:]}"
+        tail = (r.stderr.strip().splitlines() or ["?"])[-1]
+        return set(), set(), f"cargo metadata --no-deps failed: {tail[:80]}"
     md = json.loads(r.stdout)
-    ws = set(md.get("workspace_members", []))
-    user, dep = set(), set()
+    user = set()
     for p in md.get("packages", []):
-        names = {norm(t["name"]) for t in p.get("targets", [])
+        user |= {norm(t["name"]) for t in p.get("targets", [])
                  if CODE_KINDS & set(t.get("kind", []))}
-        names.add(norm(p["name"]))
-        (user if p["id"] in ws else dep).update(names)
-    dep -= user          # author precedence (the `typos` case)
+        user.add(norm(p["name"]))
+
+    _, dep = parse_cargo_lock(os.path.join(repo, "Cargo.lock"))
+    dep -= user
     user.discard("build_script_build")
     dep.discard("build_script_build")
-    return user, dep, None
+    err = None if dep else "Cargo.lock missing/empty: dep side unavailable"
+    return user, dep, err
 
 
 def find_repo(repo_root, name):
@@ -125,8 +141,38 @@ def find_repo(repo_root, name):
 
 
 def nm_table(debug):
+    """
+    addr -> demangled symbol, via `nm --defined-only | rustfilt`.
+
+    NOT `nm -C`. binutils 2.38's demangler does not understand Rust **v0** mangling
+    (`_RNvCs..._3oha3run`), and it also chokes on legacy symbols carrying an LLVM
+    suffix (`_ZN3age..17h..E.llvm.1611885406`). Those symbols come back still-mangled,
+    fail the leading-crate match, and get silently dropped into `unknown` -- i.e.
+    excluded from BOTH numerator and denominator.
+
+    Scale: on the async corpus this silently excluded 32 of 230 STRONG functions (14%),
+    almost all of them oha's own `oha::client::work*` (oha opts into v0 mangling).
+
+    MEASURED EFFECT ON PRECISION: essentially none. Recovering those 32 rows split
+    27 TP / 5 FP (84.4% user) -- close to the stratum's own 85.7% -- so async STRONG moved
+    85.9% -> 85.7% (strict). The prior guess here, that the loss was biased toward author
+    code and therefore understated precision, was WRONG and is recorded as such. The fix
+    is still correct: it removes an arbitrary 14% exclusion and restores n (198 -> 230),
+    which tightens the interval; it does not rescue the headline.
+
+    The whole inherited harness (tier_eval.py, stress_analyze.py, symbol_precision.py)
+    uses `nm -C` and carries this bug, so its n is understated on any v0 binary -- but,
+    on this evidence, its precision is not materially wrong.
+
+    rustfilt handles legacy + v0 + .llvm suffixes. Piping the whole nm listing through it
+    keeps the `addr type name` shape, so split(None, 2) still works even though demangled
+    names contain spaces.
+    """
+    nm = subprocess.Popen(["nm", "--defined-only", debug], stdout=subprocess.PIPE)
+    r = subprocess.run(["rustfilt"], stdin=nm.stdout, capture_output=True,
+                       text=True, timeout=900)
+    nm.wait()
     t = {}
-    r = subprocess.run(["nm", "-C", debug], capture_output=True, text=True, timeout=900)
     for line in r.stdout.splitlines():
         p = line.split(None, 2)
         if len(p) == 3 and re.match(r"^[0-9a-f]{16}$", p[0]):
@@ -158,11 +204,8 @@ def collect(name, strp, dbg, repo):
         if lc in ASYNC_RUNTIMES:
             async_syms[lc] += 1
 
-    meta_err = None
     if repo:
         author, dep, meta_err = authorship_map(repo)
-        if meta_err:  # cargo metadata unavailable: fall back to the lockfile parser
-            author, dep = parse_cargo_lock(os.path.join(repo, "Cargo.lock"))
     else:
         author, dep, meta_err = set(), set(), "no repo found"
 

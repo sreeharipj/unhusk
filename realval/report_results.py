@@ -105,7 +105,11 @@ def leading_crate(sym, unwrap):
             m = re.search(r"::with::<(.+)", s)
             if m:
                 s = m.group(1)
-    s = s.lstrip("<")
+    # Strip angle brackets and reference/pointer sigils: `<&&trippy_packet::ipv4::
+    # Ipv4Packet as core::fmt::Debug>::fmt` must read as trippy_packet, not fail the
+    # identifier match and get dropped to `unknown`.
+    s = re.sub(r"^[<&*\s]+", "", s)
+    s = re.sub(r"^(?:mut|dyn|impl)\s+", "", s)
     m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
     return m.group(1) if m else None
 
@@ -137,6 +141,8 @@ def fp_kind(sym):
         return "TLS accessor (std generic over user closure)"
     if re.search(r"rayon|ParallelIterator|bridge_producer|plumbing", s):
         return "rayon generic (data-parallel, inlines user closure)"
+    if re.search(r"handler_service|Middleware|middleware|Service<|Filter<|Handler<", s):
+        return "framework handler-adapter (monomorphized over user handler)"
     if re.search(r"futures|tokio|PollFn|poll_fn|Pin<|Timeout|FuturesUnordered|Future", s):
         return "futures combinator (inlines user closure)"
     if re.search(r"core::iter::adapters|core::slice::sort|core::ops::function", s):
@@ -144,6 +150,31 @@ def fp_kind(sym):
     if re.search(r"serde|Deserialize|Serialize", s):
         return "serde generic (derive/monomorph over user type)"
     return "genuine dependency code"
+
+
+def author_parameterized(sym, rec):
+    """
+    True iff a library symbol names an AUTHOR crate inside its generic arguments -- i.e.
+    the library generic was monomorphized over author code (actix_web::handler::
+    handler_service::<miniserve::api, ...>), rather than being stock library code.
+
+    This is the distinction that decides what a false attribution actually COSTS. Both
+    classes are "not author-written" under a leading-crate ruler, but:
+      - author-parameterized: these bytes exist only because the author's code exists.
+        The instantiation is specific to this binary, so as a signature seed it is still
+        author-discriminative -- a rule built on it is not prone to firing on unrelated
+        software.
+      - genuine dependency code: stock library bytes, present in anything linking that
+        crate. A signature seed here is a real cross-project false-positive risk.
+    Reported separately rather than pooled, because they are not the same failure.
+    """
+    author = set(rec.get("author_crates", []))
+    if not author or not sym:
+        return False
+    lead = leading_crate(sym, unwrap=False)
+    inner = {m.group(1) for m in re.finditer(r"([a-zA-Z_][a-zA-Z0-9_]*)::", sym)}
+    inner.discard(lead)
+    return bool(inner & author)
 
 
 def main():
@@ -270,10 +301,11 @@ def main():
       "unwrapped)* are forwarding wrappers whose body is the author's closure; the "
       "`unwrapped` ruler counts them as user, and that is a judgment call you can audit "
       "here rather than take on trust.\n")
-    w("| binary | address | anchors | why it is not user | demangled symbol |")
-    w("|---|---|---:|---|---|")
+    w("| binary | stratum | address | anchors | author-param? | why it is not user | demangled symbol |")
+    w("|---|---|---|---:|---|---|---|")
     total_fp = 0
     kinds = collections.Counter()
+    ap_counts = collections.Counter()
     for n in names_all:
         rec = data[n]
         for r in rec["rows"]:
@@ -284,17 +316,29 @@ def main():
             total_fp += 1
             kind = fp_kind(r["sym"])
             kinds[kind] += 1
+            ap = author_parameterized(r["sym"], rec)
+            ap_counts[ap] += 1
             rescued = classify(r["sym"], rec, "meta", True) == "user"
             note = kind + (" *(rescued by unwrapped)*" if rescued else "")
             sym = (r["sym"] or "(no symbol)").replace("|", "\\|")
             if len(sym) > 150:
                 sym = sym[:150] + "…"
-            w(f"| {n} | `{r['addr']}` | {r['anchors']} | {note} | `{sym}` |")
+            w(f"| {n} | {rec['stratum_b']} | `{r['addr']}` | {r['anchors']} | "
+              f"{'**yes**' if ap else 'no'} | {note} | `{sym}` |")
     if total_fp == 0:
-        w("| — | — | — | no STRONG false attributions under this ruler | — |")
+        w("| — | — | — | — | — | no STRONG false attributions under this ruler | — |")
     w(f"\n**{total_fp} STRONG false attributions total.** By cause:\n")
     for k, c in kinds.most_common():
         w(f"- {c} — {k}")
+    w(f"\n**By author-parameterization** (see `author_parameterized()` for why this "
+      f"split, not the cause split, is the one that decides what a false attribution "
+      f"costs):\n")
+    w(f"- **{ap_counts[True]}** are library generics *monomorphized over author code* — "
+      f"these bytes exist only because the author's code does, so the instantiation is "
+      f"specific to this binary and remains author-discriminative as a signature seed.")
+    w(f"- **{ap_counts[False]}** are **genuine dependency code** — stock library bytes "
+      f"present in anything linking that crate. These are the ones that would put a "
+      f"cross-project false positive into a generated rule.")
 
     w(f"\n## Unknown-authorship functions (excluded from both numerator and denominator)\n")
     w("| binary | count | note |")
