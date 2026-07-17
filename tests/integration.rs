@@ -4,6 +4,8 @@
 /// Each test is skipped with an explanatory message if the fixture is missing.
 use std::path::Path;
 
+use unhusk::container::elf_image::ElfImage;
+use unhusk::container::BinaryImage;
 use unhusk::strings::Origin;
 use unhusk::{classify, dwarf, elf, frame, locate, strings, xref};
 
@@ -460,4 +462,85 @@ fn certain_precision_never_drops_below_100_pct() {
         );
     }
     // precision() == None means zero certain predictions — no false positives possible.
+}
+
+// ── Container seam: ELF behind BinaryImage is the regression oracle (design §8) ─
+
+/// The `BinaryImage` trait impl for ELF must reproduce exactly what the direct
+/// ELF path produces on the `medium` fixture (whose panic sites are known:
+/// src/main.rs:12:13 and :38:5). This is the guard that keeps ELF green as the
+/// PE port is built behind the same trait.
+#[test]
+fn elf_image_matches_direct_path() {
+    if skip_if_missing(MEDIUM_STRIPPED) {
+        return;
+    }
+
+    // Direct path (what main.rs runs today).
+    let elf = elf::ParsedElf::load(Path::new(MEDIUM_STRIPPED)).unwrap();
+    let strs = strings::classify(&elf, &[]);
+    let direct_locs = locate::find_locations(&elf, &strs);
+    let mut fn_map = frame::parse_eh_frame(&elf).unwrap();
+    if fn_map.is_empty() {
+        fn_map = frame::fallback_function_map(&elf);
+    }
+
+    // Trait path.
+    let img = ElfImage::load(Path::new(MEDIUM_STRIPPED), &[]).unwrap();
+
+    // function_ranges: same count as the FDE map, and every range is well-formed.
+    let ranges = img.function_ranges();
+    assert_eq!(
+        ranges.len(),
+        fn_map.len(),
+        "trait function_ranges disagrees with the FDE map"
+    );
+    assert!(ranges.iter().all(|r| r.end > r.start));
+
+    // locations: the two known user sites survive the RawLocation mapping.
+    let trait_locs = img.locations();
+    assert_eq!(
+        trait_locs.len(),
+        direct_locs.len(),
+        "trait locations count drifted from the direct path"
+    );
+    let user: Vec<_> = trait_locs
+        .iter()
+        .filter(|l| l.file == "src/main.rs")
+        .collect();
+    assert!(
+        user.iter().any(|l| l.line == 12 && l.col == 13),
+        "trait path lost src/main.rs:12:13"
+    );
+    assert!(
+        user.iter().any(|l| l.line == 38 && l.col == 5),
+        "trait path lost src/main.rs:38:5"
+    );
+
+    // xref: scanning every function range must recover a non-empty subset of the
+    // enumerated struct addresses — never an address that isn't a Location.
+    let loc_addrs: std::collections::HashSet<u64> =
+        trait_locs.iter().map(|l| l.struct_addr).collect();
+    let mut xref_hits = std::collections::HashSet::new();
+    for r in &ranges {
+        for a in img.xref_locations_in(r.clone()) {
+            assert!(
+                loc_addrs.contains(&a),
+                "xref returned 0x{a:x}, which is not an enumerated Location"
+            );
+            xref_hits.insert(a);
+        }
+    }
+    assert!(
+        !xref_hits.is_empty(),
+        "xref found no Location references across the whole binary"
+    );
+
+    // bytes_at: reading a function's first bytes via the trait matches the raw
+    // .text slice the direct path would read.
+    let text = elf.section(".text").unwrap();
+    let (&fn_start, _) = fn_map.iter().next().unwrap();
+    let via_trait = img.bytes_at(fn_start, 8);
+    let via_section = text.slice_at(fn_start, 8);
+    assert_eq!(via_trait, via_section, "bytes_at disagrees with .text slice");
 }
