@@ -542,5 +542,8 @@ fn elf_image_matches_direct_path() {
     let (&fn_start, _) = fn_map.iter().next().unwrap();
     let via_trait = img.bytes_at(fn_start, 8);
     let via_section = text.slice_at(fn_start, 8);
-    assert_eq!(via_trait, via_section, "bytes_at disagrees with .text slice");
+    assert_eq!(
+        via_trait, via_section,
+        "bytes_at disagrees with .text slice"
+    );
 }
