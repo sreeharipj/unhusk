@@ -253,5 +253,3 @@ fn call_target(instr: &Instruction) -> Option<u64> {
         None
     }
 }
-
-
