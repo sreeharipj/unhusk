@@ -65,6 +65,7 @@ impl BinaryImage for ElfImage {
                 file: l.file.clone(),
                 line: l.line,
                 col: l.col,
+                origin: l.origin.clone(),
             })
             .collect()
     }
