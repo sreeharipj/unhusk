@@ -12,6 +12,8 @@
 //! `bytes_at` all speak the same space for that image.
 use std::ops::Range;
 
+use crate::strings::Origin;
+
 pub mod elf_image;
 pub mod pe;
 
@@ -28,6 +30,9 @@ pub struct RawLocation {
     pub file: String,
     pub line: u32,
     pub col: u32,
+    /// Classification of `file` (User / Std / Dep / Unknown). The multiplicity
+    /// heuristic ranks on the count of distinct in-range *User* locations.
+    pub origin: Origin,
 }
 
 /// The container seam. Everything downstream — ranking, STRONG selection, winnow

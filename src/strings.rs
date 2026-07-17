@@ -222,6 +222,22 @@ fn registry_crate_dir(path: &str) -> Option<String> {
 /// A registry path whose crate name is in `root_crates` is promoted to `User`
 /// instead of `Dep`.  Pass `&[]` for local-source builds (no promotion needed).
 pub fn classify_path(path: &str, root_crates: &[String]) -> Origin {
+    // ── Normalize Windows path separators FIRST ──
+    // A msvc/PE sample built on Windows embeds backslash paths: `src\main.rs`,
+    // and `C:\Users\…\.cargo\registry\src\…\dep-1.0\src\lib.rs`. Every std/dep
+    // guard below keys on '/'. Without this, a backslashed *dependency* path
+    // matches none of those guards and falls through to the relative-path User
+    // branch (it doesn't start with '/'), silently misattributing every
+    // Windows-built dependency file as user code. This is a no-op for the
+    // '/'-only paths ELF cross-compiles embed, so the ELF path is unaffected.
+    let normalized;
+    let path = if path.contains('\\') {
+        normalized = path.replace('\\', "/");
+        normalized.as_str()
+    } else {
+        path
+    };
+
     // ── Standard library: paths from the rustc sysroot ──
     // Format: /rustc/<COMMIT_HASH>/library/...
     if path.starts_with("/rustc/") {
@@ -378,6 +394,43 @@ mod tests {
         assert_eq!(classify_path("tests/foo.rs", &[]), Origin::User);
         assert_eq!(classify_path("examples/demo.rs", &[]), Origin::User);
         assert_eq!(classify_path("build.rs", &[]), Origin::User);
+    }
+
+    // ── Windows/msvc separators: normalize '\' → '/' before the prefix rules ──
+    // A Linux-hosted probe can't produce these (it embeds '/'); they mirror what
+    // a Windows-built msvc sample embeds. Without normalization the backslashed
+    // dependency path bypasses the registry guard and is misattributed as User.
+
+    #[test]
+    fn classify_windows_user_backslash() {
+        assert_eq!(classify_path("src\\main.rs", &[]), Origin::User);
+        assert_eq!(
+            classify_path("crates\\core\\src\\lib.rs", &[]),
+            Origin::User
+        );
+    }
+
+    #[test]
+    fn classify_windows_registry_dep_backslash() {
+        // The load-bearing case: a Windows dependency path must resolve to Dep,
+        // not fall through to User.
+        let path =
+            "C:\\Users\\dev\\.cargo\\registry\\src\\index.crates.io-abc\\serde-1.0.203\\src\\lib.rs";
+        assert_eq!(
+            classify_path(path, &[]),
+            Origin::Dep {
+                crate_name: "serde".into(),
+                version: "1.0.203".into()
+            }
+        );
+    }
+
+    #[test]
+    fn classify_windows_registry_root_promoted() {
+        // And a Windows root-crate registry path still promotes to User.
+        let path =
+            "C:\\Users\\dev\\.cargo\\registry\\src\\index.crates.io-abc\\ripgrep-14.1.0\\src\\main.rs";
+        assert_eq!(classify_path(path, &["ripgrep".to_string()]), Origin::User);
     }
 
     #[test]

@@ -43,15 +43,18 @@ pub struct PeImage {
     data: Vec<u8>, // whole file
     image_base: u64,
     secs: Vec<SecMap>,
+    /// Root crate name(s) whose registry paths promote from Dep to User, same
+    /// as the ELF `--crate` flag. Empty for local-source builds.
+    root_crates: Vec<String>,
 }
 
 impl PeImage {
-    pub fn load(path: &Path) -> Result<Self> {
+    pub fn load(path: &Path, root_crates: &[String]) -> Result<Self> {
         let data = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
-        Self::from_bytes(data)
+        Self::from_bytes(data, root_crates)
     }
 
-    pub fn from_bytes(data: Vec<u8>) -> Result<Self> {
+    pub fn from_bytes(data: Vec<u8>, root_crates: &[String]) -> Result<Self> {
         let file = PeFile64::parse(data.as_slice()).context("not a valid PE32+ binary")?;
         let image_base = file.relative_address_base();
 
@@ -72,6 +75,7 @@ impl PeImage {
             data,
             image_base,
             secs,
+            root_crates: root_crates.to_vec(),
         })
     }
 
@@ -146,6 +150,106 @@ impl PeImage {
             None => Vec::new(),
         }
     }
+
+    // ── §3/§6.3: Location extraction (spike-resolved to the happy path) ─────────
+
+    /// Decode the 24-byte `Location` struct whose offset-0 `file` pointer field
+    /// starts at `struct_rva`, returning its fields as RVAs. The layout is the
+    /// ELF layout (docs/PE_SPIKE.md Dump 2): file.ptr(8) / file.len(8) /
+    /// line(u32) / col(u32), 24 bytes, 8-aligned.
+    ///
+    /// The one PE difference from ELF (PE_SPIKE.md Dump 2): the pointer VALUE is
+    /// present in the struct bytes as a preferred-ImageBase VA — not zero with
+    /// the value in a reloc addend. So we read the path VA straight from the
+    /// struct and convert it to an RVA; the DIR64 reloc only tells us this slot
+    /// is a pointer.
+    fn parse_location_struct(&self, struct_rva: u32) -> Option<LocationFields> {
+        let bytes = self.read_rva(struct_rva, 24)?;
+        let (file_ptr_rva, file_len, line, col) = parse_location_fields(bytes, self.image_base)?;
+        Some(LocationFields {
+            file_ptr_rva,
+            file_len,
+            line,
+            col,
+        })
+    }
+
+    /// Enumerate `Location` structs the reloc-first way (design §6.3 happy path):
+    /// every `DIR64` target that lands in `.rdata` is a candidate struct-pointer
+    /// field; parse the struct there and keep it only if it passes a shape check
+    /// (plausible length, nonzero line/col, and the file pointer resolving to a
+    /// valid `.rs` UTF-8 path). The shape check is what rejects the many `.rdata`
+    /// DIR64 relocs that are ordinary pointers, not `Location`s.
+    ///
+    /// Note (PE_SPIKE.md Dump 2): multiple structs share one file pointer — all
+    /// three probe structs point at `0x18030` — so structs are keyed by their own
+    /// address, never by the string they reference.
+    fn enumerate_locations(&self) -> Vec<RawLocation> {
+        let mut out = Vec::new();
+        let mut seen = std::collections::HashSet::new();
+
+        for struct_rva in self.dir64_reloc_rvas() {
+            if !self.rva_in_section(struct_rva, ".rdata") {
+                continue;
+            }
+            if !seen.insert(struct_rva) {
+                continue;
+            }
+            let Some(f) = self.parse_location_struct(struct_rva) else {
+                continue;
+            };
+
+            // Shape check — fail closed on anything that isn't a clean Location.
+            if f.file_len == 0 || f.file_len > 512 {
+                continue;
+            }
+            if f.line == 0 || f.line > 200_000 || f.col == 0 {
+                continue;
+            }
+            let Some(fbytes) = self.read_rva(f.file_ptr_rva, f.file_len as usize) else {
+                continue;
+            };
+            let Ok(file) = std::str::from_utf8(fbytes) else {
+                continue;
+            };
+            if !file.ends_with(".rs") {
+                continue;
+            }
+
+            let origin = crate::strings::classify_path(file, &self.root_crates);
+            out.push(RawLocation {
+                struct_addr: u64::from(struct_rva),
+                file: file.to_string(),
+                line: f.line,
+                col: f.col,
+                origin,
+            });
+        }
+
+        out.sort_by(|a, b| {
+            a.origin
+                .cmp(&b.origin)
+                .then_with(|| a.file.cmp(&b.file))
+                .then_with(|| a.line.cmp(&b.line))
+                .then_with(|| a.col.cmp(&b.col))
+        });
+        out
+    }
+
+    /// True if `rva` lies within the named section's in-memory span.
+    fn rva_in_section(&self, rva: u32, name: &str) -> bool {
+        self.secs
+            .iter()
+            .any(|s| s.name == name && rva >= s.rva && (rva - s.rva) < s.virt_size.max(s.raw_size))
+    }
+}
+
+/// Decoded `Location` fields (as RVAs / values). Internal to enumeration.
+struct LocationFields {
+    file_ptr_rva: u32,
+    file_len: u64,
+    line: u32,
+    col: u32,
 }
 
 impl BinaryImage for PeImage {
@@ -157,13 +261,9 @@ impl BinaryImage for PeImage {
     }
 
     fn locations(&self) -> Vec<RawLocation> {
-        // SPIKE-GATED (design §3). The layout is confirmed on the happy path in
-        // docs/PE_SPIKE.md — DIR64 into .rdata; struct = {file:(ptr,len), line,
-        // col} at offsets 0/8/16/20, 24 bytes. enumerate_locations /
-        // parse_location_struct are written separately ("stop at evidence").
-        // The inputs this will consume — dir64_reloc_rvas() and the .rdata byte
-        // reads via read_rva — are already built and tested above.
-        todo!("PE Location extraction is spike-gated; see docs/PE_SPIKE.md")
+        // Spike resolved (docs/PE_SPIKE.md → happy path): reloc-first enumeration
+        // over DIR64 targets in .rdata, decoding the ELF-identical struct layout.
+        self.enumerate_locations()
     }
 
     fn xref_locations_in(&self, _range: Range<u64>) -> Vec<u64> {
@@ -203,6 +303,23 @@ fn parse_pdata_ranges(data: &[u8]) -> Vec<Range<u32>> {
         .collect()
 }
 
+/// Decode a 24-byte `Location` struct blob into `(file_ptr_rva, file_len, line,
+/// col)`. Layout: file.ptr(8, absolute preferred-base VA) / file.len(8) /
+/// line(u32) / col(u32). Returns `None` if the blob is short or the pointer VA
+/// is below `image_base` (can't be a valid in-image RVA). Pure/free so the real
+/// spike bytes can be regression-tested without a full PE.
+fn parse_location_fields(bytes: &[u8], image_base: u64) -> Option<(u32, u64, u32, u32)> {
+    if bytes.len() < 24 {
+        return None;
+    }
+    let ptr_va = u64::from_le_bytes(bytes[0..8].try_into().unwrap());
+    let file_len = u64::from_le_bytes(bytes[8..16].try_into().unwrap());
+    let line = u32::from_le_bytes(bytes[16..20].try_into().unwrap());
+    let col = u32::from_le_bytes(bytes[20..24].try_into().unwrap());
+    let file_ptr_rva = u32::try_from(ptr_va.checked_sub(image_base)?).ok()?;
+    Some((file_ptr_rva, file_len, line, col))
+}
+
 /// Parse a `.reloc` byte blob and return every RVA carrying a `DIR64`
 /// relocation. `.reloc` is a sequence of base-relocation blocks: an 8-byte
 /// header (page RVA + block size) followed by 2-byte entries where the top 4
@@ -238,6 +355,36 @@ fn dir64_rvas_from_reloc(data: &[u8]) -> Vec<u32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn location_struct_decodes_real_spike_bytes() {
+        // Struct #1 from docs/PE_SPIKE.md, verbatim .rdata bytes at file 0x16640:
+        //   ptr=0x140018030  len=11  line=6  col=5   (main.rs:6:5, `v[i]`)
+        #[rustfmt::skip]
+        let bytes: [u8; 24] = [
+            0x30, 0x80, 0x01, 0x40, 0x01, 0x00, 0x00, 0x00, // file.ptr = 0x140018030
+            0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // file.len = 11
+            0x06, 0x00, 0x00, 0x00,                         // line = 6
+            0x05, 0x00, 0x00, 0x00,                         // col = 5
+        ];
+        let (file_ptr_rva, len, line, col) = parse_location_fields(&bytes, 0x1_4000_0000).unwrap();
+        assert_eq!(
+            file_ptr_rva, 0x18030,
+            "ptr VA 0x140018030 - base = RVA 0x18030"
+        );
+        assert_eq!(len, 11);
+        assert_eq!(line, 6);
+        assert_eq!(col, 5);
+    }
+
+    #[test]
+    fn location_struct_rejects_ptr_below_image_base() {
+        // A DIR64 whose pointer word is below image base can't be an in-image
+        // path pointer → rejected (checked_sub underflow).
+        let mut bytes = [0u8; 24];
+        bytes[0..8].copy_from_slice(&0x1000u64.to_le_bytes());
+        assert!(parse_location_fields(&bytes, 0x1_4000_0000).is_none());
+    }
 
     #[test]
     fn pdata_parses_runtime_functions() {
