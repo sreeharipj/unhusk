@@ -43,14 +43,16 @@ says [38.2, 89.7] — a 13-point band vs a **51-point** band. **The bootstrap is
 number. Do not put a bare Wilson interval on a slide.**
 
 **3. The most interesting result: not one false attribution in the corpus is stock library
-code.** Across all 32 binaries there are 67 STRONG false attributions. **49 are library
-generics monomorphized over the author's own code** (`actix_web::handler::handler_service::
-<miniserve::api, …>`, `tokio::LocalSet::run_until::<miniserve::run::{closure#0}>`), **18 are
-undeterminable** (legacy-mangled binaries do not encode generic arguments, so the evidence
-cannot exist — §5e.3), and **0 are stock dependency code.** So the async FPs are still *author-discriminative bytes*: a
-seed built on them does not fire on unrelated software that merely links actix-web. The
-gap is real under a strict authorship ruler, but it is "author-parameterized adapter code",
-not "random library code" (§5d).
+code.** Across all 32 binaries there are 67 STRONG false attributions **under the strict
+ruler** (60 under the unwrapped ruler the 94.2% headline uses — same 1027 functions, only
+the convention differs; see §10). **49 are library generics monomorphized over the author's
+own code** (42 under unwrapped) — `actix_web::handler::handler_service::<miniserve::api, …>`,
+`tokio::LocalSet::run_until::<miniserve::run::{closure#0}>` — **18 are undeterminable**
+(legacy-mangled binaries do not encode generic arguments, so the evidence cannot exist —
+§5e.3), and **0 are stock dependency code under either ruler.** So the async FPs are still
+*author-discriminative bytes*: a seed built on them does not fire on unrelated software
+that merely links actix-web. The gap is real under a strict authorship ruler, but it is
+"author-parameterized adapter code", not "random library code" (§5d).
 
 **4. Found and fixed a real bug in the inherited harness: `nm -C` cannot demangle Rust v0.**
 It silently dropped 32 of 230 async STRONG functions (14%) — nearly all of oha's own code —
@@ -589,6 +591,124 @@ bash realval/run_all.sh                               # gate → collect → rep
 gate, collects raw evidence, regenerates the tables below, and commits. Requires
 `rustfilt` (`cargo install rustfilt`) — `nm -C` alone silently drops v0-mangled symbols
 (§5e.2).
+
+## 10. Audit: reconciling the 94.2% headline with the 67-row FP list
+
+Raised: *STRONG pooled 94.2% at n=1027 implies ~60 false attributions, but the FP
+breakdown reports 67. Reconcile.*
+
+**Answer: same set, same denominator, different ruler. No number is wrong. One footnote
+fixes the slide.** Placed above the `GENERATED` marker deliberately — everything below it
+is overwritten whenever `run_all.sh` regenerates.
+
+### 10.1 The two definitions, verbatim
+
+**[A] The headline denominator — `tally()` in `realval/report_results.py`:**
+
+```python
+def tally(names, pred, oracle, unwrap):
+    clusters, tp, fp, unk = [], 0, 0, 0
+    for n in names:                       # names_all = all 32 binaries, each once
+        rec = data[n]
+        for r in rec["rows"]:             # every certain function
+            if not pred(r):               # pred = r["anchors"] >= 2  (STRONG)
+                continue
+            c = classify(r["sym"], rec, oracle, unwrap)
+            if c == "user":     a += 1    # TP
+            elif c == "nonuser": b += 1   # FP
+            else:                unk += 1 # excluded from BOTH sides
+    return tp, fp, unk, clusters
+```
+`n = tp + fp`. The COMBINED table emits **four** rows — `oracle` ∈ {meta, depcrate} ×
+`unwrap` ∈ {False→strict, True→unwrapped}. The 94.2% headline is the **meta/unwrapped**
+row.
+
+**[B] The FP-list count — same file, ~40 lines further down:**
+
+```python
+for n in names_all:                                    # same 32 binaries
+    for r in rec["rows"]:
+        if r["anchors"] < K:            continue       # same STRONG predicate
+        if classify(r["sym"], rec, "meta", False) != "nonuser":
+            continue                                   # ← unwrap HARDCODED False = STRICT
+        total_fp += 1
+```
+
+### 10.2 The cause — named, not guessed
+
+**It is a ruler mismatch, and none of the four candidate causes.** Verified against the
+frozen evidence in `realval/rows_src.json`:
+
+```
+STRICT    : TP=960  FP=67  unknown=2   n = TP+FP = 1027
+UNWRAPPED : TP=967  FP=60  unknown=2   n = TP+FP = 1027
+rescued (strict=nonuser → unwrapped=user): 7        67 − 60 = 7 ✓
+```
+
+Ruling out each candidate explicitly:
+
+| candidate cause | verdict |
+|---|---|
+| attributions vs TP-only denominator | **no** — both are `n = TP+FP = 1027`; the denominator is *identical*, not different |
+| overlapping strata summed twice | **no** — one tally over `names_all`, each binary visited once |
+| binaries in the 67 but not the 1027 | **no** — same `names_all` (32), same `anchors >= 2` predicate, same `meta` oracle |
+| TP and FP tallied over different sets | **no** — same loop, same rows, same call |
+
+**Actual cause:** the headline quotes the **unwrapped** ruler (FP=60); the FP list
+hardcodes `unwrap=False`, i.e. the **strict** ruler (FP=67). The FP list already
+*documents* this — it says "Ruler: … **strict** … so this list is a superset" and tags the
+extra rows *(rescued by unwrapped)*. The list is internally honest; **the TL;DR is what
+mixes the two**, pairing an unwrapped headline with a strict FP count.
+
+The 7-row delta is exactly the rescued set, and all 7 are the same construct — the
+thread-entry trampoline, one of the two documented forwarding-wrapper corrections:
+
+```
+[bandwhich ×4] std::sys::backtrace::__rust_begin_short_backtrace::<bandwhich::start<…>>
+[dust]         std::sys::backtrace::__rust_begin_short_backtrace::<<dust::progress::PIndicator>::spawn::{closure#0}>
+[fd]           std::sys::backtrace::__rust_begin_short_backtrace::<<fd::walk::WorkerState>::scan::{closure#1}::…>
+[gping]        std::sys::backtrace::__rust_begin_short_backtrace::<<pinger::linux::LinuxPinger as pinger::Pinger>::…>
+```
+
+Note none are `LocalKey::with` — consistent with §5g: this corpus contains no `LocalKey`
+rows at all.
+
+### 10.3 The FP breakdown restated against the headline's own ruler
+
+Both rulers, so the pairing is explicit. **No existing number changes**; the 67-row table
+below the marker stays strict, as its own heading says.
+
+| FP class | strict ruler (pairs with 93.5%) | **unwrapped ruler (pairs with the 94.2% headline)** |
+|---|---:|---:|
+| library generic monomorphized over author code | 49 | **42** |
+| undeterminable (legacy mangling, §5e.3) | 18 | **18** |
+| **stock dependency code** | **0** | **0** |
+| **total STRONG FPs** | **67** | **60** |
+
+All 7 rescued rows were in the author-parameterized class (49 − 7 = 42), which is why the
+delta lands entirely in that row.
+
+**The load-bearing claim is ruler-independent: 0 stock dependency code under both.** The
+§5d finding does not depend on the authorship convention questioned in §5d — a useful
+property, since that convention is the open item.
+
+### 10.4 Arithmetic check
+
+No measured number is arithmetically wrong; nothing was silently fixed.
+
+- 960 + 67 = 1027 ✓; 960/1027 = 93.47% → 93.5% ✓
+- 967 + 60 = 1027 ✓; 967/1027 = 94.16% → 94.2% ✓
+- 49 + 18 + 0 = 67 ✓; 42 + 18 + 0 = 60 ✓
+
+### 10.5 The footnote that makes the slide honest
+
+> STRONG pooled precision is 94.2% (n=1027, 60 false attributions) under the *unwrapped*
+> authorship ruler, which counts forwarding std wrappers over an author closure
+> (`__rust_begin_short_backtrace::<user_fn>`) as author code. The published
+> false-attribution table lists 67 rows because it is enumerated under the stricter ruler
+> (93.5%), which counts those 7 wrappers against us. Same 1027 functions, same 32
+> binaries — only the convention differs. Under **either** ruler, zero false attributions
+> are stock dependency code.
 
 ---
 
