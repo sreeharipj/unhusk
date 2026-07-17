@@ -6,19 +6,15 @@
 //!   * `rva_to_offset` / `bytes_at` — the one RVA→file-offset helper; every PE
 //!     byte read routes through it (design §7).
 //!
-//! What is spike-GATED (NOT built this session):
-//!   * `locations` — enumerating/parsing the `Location` structs. The layout is
-//!     confirmed on the happy path in `docs/PE_SPIKE.md`, but per design §3 the
-//!     extraction code is written separately ("stop at evidence").
-//!   * `xref_locations_in` — the reference mechanism is confirmed (RIP-relative
-//!     `lea`, PE_SPIKE.md Dump 4), but matching a decoded target to a struct
-//!     needs the enumerated set from `locations()`, so it is gated too.
-//!
-//! Both are explicit `todo!()`s pointing at the spike.
+//! Spike-resolved (docs/PE_SPIKE.md → the happy path on every axis):
+//!   * `locations` — enumerating/parsing the `Location` structs (§6.1/§6.3).
+//!   * `xref_locations_in` — the RIP-relative `lea` scan (§6.2, Dump 4), a
+//!     mechanical port of the ELF adapter's scan in the RVA address space.
 use std::ops::Range;
 use std::path::Path;
 
 use anyhow::{Context, Result};
+use iced_x86::{Decoder, DecoderOptions, Instruction, Register};
 use object::read::pe::PeFile64;
 use object::{LittleEndian, Object};
 
@@ -46,6 +42,14 @@ pub struct PeImage {
     /// Root crate name(s) whose registry paths promote from Dep to User, same
     /// as the ELF `--crate` flag. Empty for local-source builds.
     root_crates: Vec<String>,
+    /// Enumerated `Location` structs, computed once at construction — the same
+    /// policy as `ElfImage`, whose trait methods are cheap accessors over
+    /// state derived at load. `xref_locations_in` runs per function, so the
+    /// reloc walk must not be inside it.
+    locations: Vec<RawLocation>,
+    /// `locations`' `struct_addr`s, sorted, for the O(log n) containment probe
+    /// the xref scan does on every RIP-relative operand.
+    loc_starts: Vec<u64>,
 }
 
 impl PeImage {
@@ -71,12 +75,23 @@ impl PeImage {
             });
         }
 
-        Ok(PeImage {
+        let mut img = PeImage {
             data,
             image_base,
             secs,
             root_crates: root_crates.to_vec(),
-        })
+            locations: Vec::new(),
+            loc_starts: Vec::new(),
+        };
+
+        // Derive the Location set once; everything downstream reads these.
+        img.locations = img.enumerate_locations();
+        img.loc_starts = {
+            let mut v: Vec<u64> = img.locations.iter().map(|l| l.struct_addr).collect();
+            v.sort_unstable();
+            v
+        };
+        Ok(img)
     }
 
     pub fn image_base(&self) -> u64 {
@@ -263,16 +278,61 @@ impl BinaryImage for PeImage {
     fn locations(&self) -> Vec<RawLocation> {
         // Spike resolved (docs/PE_SPIKE.md → happy path): reloc-first enumeration
         // over DIR64 targets in .rdata, decoding the ELF-identical struct layout.
-        self.enumerate_locations()
+        self.locations.clone()
     }
 
-    fn xref_locations_in(&self, _range: Range<u64>) -> Vec<u64> {
-        // The reference mechanism is confirmed (RIP-relative lea, PE_SPIKE.md
-        // Dump 4) and the iced-x86 scan ports from ELF with an RVA tweak, but
-        // deciding which decoded targets are Location structs requires the
-        // enumerated set from locations() above — so this is gated on the same
-        // spike write-up.
-        todo!("PE xref matching depends on locations(); see docs/PE_SPIKE.md")
+    /// Decode `[start, end)` and return the `Location` structs it references.
+    ///
+    /// A mechanical port of the ELF adapter's scan — same decoder, same
+    /// `memory_base() == RIP` test, same 24-byte containment probe — because
+    /// PE_SPIKE.md Dump 4 shows PE sites reference the struct exactly as ELF
+    /// does: `lea reg, [rip+disp32]`, no absolute immediate.
+    ///
+    /// The one difference is the address space (design §6.2). The trait speaks
+    /// RVA on PE, so the decoder's IP is the function's RVA; iced-x86 pre-adds
+    /// the next-IP when it resolves a RIP-relative operand, which makes
+    /// `memory_displacement64()` the target RVA (`insn_rva + insn_len +
+    /// disp32`) with no adjustment. Nothing here converts to a VA: an image
+    /// that mixed the two spaces would silently miss every hit.
+    fn xref_locations_in(&self, range: Range<u64>) -> Vec<u64> {
+        if range.end <= range.start {
+            return Vec::new();
+        }
+        let Ok(start_rva) = u32::try_from(range.start) else {
+            return Vec::new();
+        };
+        let len = (range.end - range.start) as usize;
+        // Fail closed, like the ELF adapter: a range we can't read yields no
+        // hits rather than a partial scan.
+        let Some(bytes) = self.read_rva(start_rva, len) else {
+            return Vec::new();
+        };
+
+        let mut hits = Vec::new();
+        let mut dec = Decoder::with_ip(64, bytes, range.start, DecoderOptions::NONE);
+        let mut instr = Instruction::default();
+        while dec.can_decode() {
+            dec.decode_out(&mut instr);
+            // Non-memory instructions report Register::None, so this is a free
+            // early exit for the overwhelming majority of the scan.
+            if instr.memory_base() != Register::RIP {
+                continue;
+            }
+            let ea = instr.memory_displacement64();
+            if ea == 0 {
+                continue;
+            }
+            // A backward reference from a low RVA wraps to a huge u64 rather
+            // than going negative; it simply matches nothing, which is why no
+            // signed handling is needed here.
+            let idx = self.loc_starts.partition_point(|&s| s <= ea);
+            if idx > 0 && ea < self.loc_starts[idx - 1] + 24 {
+                hits.push(self.loc_starts[idx - 1]);
+            }
+        }
+        hits.sort_unstable();
+        hits.dedup();
+        hits
     }
 
     fn bytes_at(&self, addr: u64, len: usize) -> Option<&[u8]> {
@@ -355,6 +415,106 @@ fn dir64_rvas_from_reloc(data: &[u8]) -> Vec<u32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// A minimal synthetic image: one `.text` at RVA 0x1000 filled with `nop`
+    /// padding, `code` planted at `code_rva`, and a pre-sorted Location set.
+    /// `locations` stays empty because the xref scan reads only `loc_starts`.
+    fn synth_image(code_rva: u32, code: &[u8], loc_starts: &[u64]) -> PeImage {
+        const TEXT_RVA: u32 = 0x1000;
+        const RAW_PTR: u32 = 0x400;
+        const RAW_SIZE: u32 = 0x200;
+
+        let mut data = vec![0u8; (RAW_PTR + RAW_SIZE) as usize];
+        data[RAW_PTR as usize..].fill(0x90); // nop padding
+        let at = (RAW_PTR + (code_rva - TEXT_RVA)) as usize;
+        data[at..at + code.len()].copy_from_slice(code);
+
+        PeImage {
+            data,
+            image_base: 0x1_4000_0000,
+            secs: vec![SecMap {
+                name: ".text".to_string(),
+                rva: TEXT_RVA,
+                virt_size: RAW_SIZE,
+                raw_ptr: RAW_PTR,
+                raw_size: RAW_SIZE,
+            }],
+            root_crates: Vec::new(),
+            locations: Vec::new(),
+            loc_starts: loc_starts.to_vec(),
+        }
+    }
+
+    #[test]
+    fn xref_resolves_real_spike_lea_to_its_location_rva() {
+        // The verbatim site_bounds instruction from PE_SPIKE.md Dump 4:
+        //   140001042: 48 8d 05 f7 6f 01 00   lea rax,[rip+0x16ff7]  # 0x140018040
+        // scanned over site_bounds' real .pdata range [0x1030, 0x1056).
+        //
+        // This pins the §6.2 RVA tweak, the one thing that differs from ELF:
+        // IP is the function's RVA, so 0x1042 + 7 + 0x16ff7 = RVA 0x18040. A
+        // port that fed iced-x86 a VA would compute 0x140018040 and match
+        // nothing.
+        let img = synth_image(
+            0x1042,
+            &[0x48, 0x8d, 0x05, 0xf7, 0x6f, 0x01, 0x00],
+            &[0x18040],
+        );
+        assert_eq!(img.xref_locations_in(0x1030..0x1056), vec![0x18040]);
+    }
+
+    #[test]
+    fn xref_hits_a_reference_into_the_middle_of_a_location() {
+        // lea rax,[rip+0x16fff] at 0x1042 → 0x18048 = struct 0x18040 + 8, i.e.
+        // the file.len field. Code that loads a field directly must still
+        // attribute to the struct — the same [start, start+24) containment
+        // test src/xref.rs uses.
+        let img = synth_image(
+            0x1042,
+            &[0x48, 0x8d, 0x05, 0xff, 0x6f, 0x01, 0x00],
+            &[0x18040],
+        );
+        assert_eq!(img.xref_locations_in(0x1030..0x1056), vec![0x18040]);
+    }
+
+    #[test]
+    fn xref_ignores_rip_reference_to_a_non_location() {
+        // Same lea (target RVA 0x18040), but no Location lives there — the
+        // .rdata reference is some ordinary constant. Must not be reported.
+        let img = synth_image(
+            0x1042,
+            &[0x48, 0x8d, 0x05, 0xf7, 0x6f, 0x01, 0x00],
+            &[0x19000],
+        );
+        assert!(img.xref_locations_in(0x1030..0x1056).is_empty());
+    }
+
+    #[test]
+    fn xref_fails_closed_on_bad_ranges() {
+        let img = synth_image(
+            0x1042,
+            &[0x48, 0x8d, 0x05, 0xf7, 0x6f, 0x01, 0x00],
+            &[0x18040],
+        );
+        // Built via Range{} rather than `a..b`: the degenerate ranges are the
+        // point of the test, and the literal form trips reversed_empty_ranges.
+        let r = |start, end| Range { start, end };
+        assert!(img.xref_locations_in(r(0x1030, 0x1030)).is_empty(), "empty");
+        assert!(
+            img.xref_locations_in(r(0x1056, 0x1030)).is_empty(),
+            "inverted"
+        );
+        // Range running past the section's file-backed bytes → no partial scan.
+        assert!(
+            img.xref_locations_in(r(0x1030, 0x9999)).is_empty(),
+            "overruns section"
+        );
+        // Unmapped RVA → no section maps it.
+        assert!(
+            img.xref_locations_in(r(0x90000, 0x90010)).is_empty(),
+            "unmapped"
+        );
+    }
 
     #[test]
     fn location_struct_decodes_real_spike_bytes() {
