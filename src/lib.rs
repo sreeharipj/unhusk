@@ -1,4 +1,5 @@
 pub mod classify;
+pub mod container;
 pub mod dwarf;
 pub mod elf;
 pub mod frame;
