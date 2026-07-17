@@ -710,6 +710,110 @@ No measured number is arithmetically wrong; nothing was silently fixed.
 > binaries — only the convention differs. Under **either** ruler, zero false attributions
 > are stock dependency code.
 
+## 11. Audit: what actually fired the attribution on the ruler-disagreement rows
+
+Asked: for rows where the strict and unwrapped rulers disagree, did attribution fire via
+**(a)** the normal anchor path — user Locations resolving inside the function's own FDE
+range because the user closure was inlined — or **(b)** symbol / type-parameter name
+matching with no user Location in range?
+
+**Answer: all (a), anchored by inlined user Locations. 14 of 14 rows. Zero (b).**
+No number, label or precision figure was changed; this section only classifies.
+
+### 11.1 (b) is not merely absent — it is architecturally impossible
+
+unhusk **never reads a symbol table.** Its input is a stripped ELF. Grepping the whole
+attribution path (`xref.rs`, `frame.rs`, `strings.rs`, `locate.rs`) for symtab/dynsym/
+symbol access returns only comments. `dwarf.rs` reads an unstripped twin, but only under
+`--validate`, which these runs do not use.
+
+The certain set is built in `xref::scan_one()`, which decodes instructions in
+`[fn_start, fn_end)` (bounds from the `.eh_frame` FDE) and inserts `fn_start` into
+`certain` only when an instruction there references a user `Location` struct:
+
+```rust
+part.certain.insert(fn_start);
+part.certain_locs.entry(fn_start)…      // the distinct user Locations referenced in-range
+```
+
+So mechanism (b) has no code path to fire through. **Symbols enter this project only via
+the measurement oracle (`nm | rustfilt`), never via the tool.** The `unwrapped` ruler is a
+property of *the oracle's authorship convention*, not of how unhusk attributed anything.
+
+Precision note on (a): the `Location` struct itself lives in `.data.rel.ro`; what falls
+inside the FDE range is the *reference* to it (a RIP-relative LEA). "User Locations
+in-range" throughout means "instructions in-range that take the address of a user
+Location".
+
+### 11.2 The disagreement set is exactly the 7 rescued rows — a premise correction
+
+The request names `LocalKey::with` and `handler_service` as async disagreement cases.
+Neither is:
+
+- **`LocalKey::with`: zero rows in this corpus.** Already established in §5g and
+  re-confirmed here. Beware a near-homograph: miniserve `0x34a077` is
+  `<tokio::task::local::**LocalSet**>::run_until` (tokio), not `std`'s `LocalKey`. The
+  unwrap rule matches the literal `LocalKey`, so it correctly does **not** fire there.
+- **`handler_service` rows do not disagree.** The unwrap rule covers only
+  `__rust_begin_short_backtrace::<F>` and `LocalKey::with::<F>`, so handler adapters are
+  `nonuser` under *both* rulers — strict == unwrapped. They are the §5d asymmetry cases,
+  not ruler-disagreement cases.
+
+Both are classified below anyway, since they were named.
+
+### 11.3 Per-row classification
+
+**Set A — the 7 rescued rows (strict `nonuser` → unwrapped `user`). All (a).**
+
+| binary | address | mech | distinct user Locations in-range | anchor file(s) | inlined callee named in symbol | Locations belong to callee? |
+|---|---|:--:|---:|---|---|:--:|
+| bandwhich | `0x8f610` | **(a)** | 10 | `src/main.rs` | `bandwhich::start<CrosstermBackend<Stdout>>` | ✅ |
+| bandwhich | `0x90630` | **(a)** | 6 | `src/display/ui.rs`, `src/main.rs` | `bandwhich::start<CrosstermBackend<Stdout>>` | ✅ |
+| bandwhich | `0x91f30` | **(a)** | 10 | `src/main.rs` | `bandwhich::start<RawTerminalBackend>` | ✅ |
+| bandwhich | `0x92f50` | **(a)** | 5 | `src/main.rs` | `bandwhich::start<RawTerminalBackend>` | ✅ |
+| dust | `0xdddd0` | **(a)** | 7 | `src/progress.rs` | `<dust::**progress**::PIndicator>::spawn::{closure#0}` | ✅ exact |
+| fd | `0x108b60` | **(a)** | 3 | `src/walk.rs` | `<fd::**walk**::WorkerState>::scan::{closure#1}` | ✅ exact |
+| gping | `0x1d3670` | **(a)** | 2 | `pinger/src/lib.rs` | `<**pinger**::linux::LinuxPinger as pinger::Pinger>::start::{closure#0}` | ✅ exact |
+
+**Set B — the async adapter rows named in the request (strict == unwrapped; not
+disagreements). Also all (a).**
+
+| binary | address | mech | distinct user Locations in-range | anchor file(s) | inlined callee named in symbol | Locations belong to callee? |
+|---|---|:--:|---:|---|---|:--:|
+| miniserve | `0x34a077` | **(a)** | 8 | `src/main.rs` | `LocalSet::run_until::<miniserve::**run**::{closure#0}>` | ✅ |
+| miniserve | `0x3ae87d` | **(a)** | 3 | `src/errors.rs` | `LoggerResponse<…<miniserve::**errors**::error_page_middleware…>>` | ✅ exact |
+| miniserve | `0x36ceee` | **(a)** | 2 | `src/auth.rs` | `AuthenticationMiddleware<…, miniserve::**auth**::handle_auth, …>` | ✅ exact |
+| miniserve | `0x354a6c` | **(a)** | 6 | `src/file_op.rs`, `src/main.rs` | `handler_service::<miniserve::**api**, (Json<ApiCommand>, Data<config::MiniserveConfig>)>` | ✅ |
+| miniserve | `0x358919` | **(a)** | 2 | `src/file_op.rs` | `handler_service::<miniserve::**file_op**::upload_file, …>` | ✅ exact |
+| miniserve | `0x35d79f` | **(a)** | 2 | `src/file_op.rs` | `handler_service::<miniserve::**file_op**::rm_file, …>` | ✅ exact |
+| miniserve | `0x35e62f` | **(a)** | 2 | `src/listing.rs` | `handler_service::<miniserve::**listing**::file_handler, …>` | ✅ exact |
+
+### 11.4 What this independently confirms
+
+The two columns are produced by **disjoint evidence with no shared input**:
+
+- `anchor file(s)` comes from unhusk reading `Location` structs out of a **stripped**
+  binary. It cannot see symbols.
+- `inlined callee` comes from the **symbol table** of the unstripped twin. unhusk never
+  reads it.
+
+They agree on **14 of 14** rows, and on 10 the anchor file is the *exact* module of the
+callee named in the generic argument (`dust::progress` → `src/progress.rs`;
+`fd::walk` → `src/walk.rs`; `miniserve::listing` → `src/listing.rs`). The two bandwhich
+`start` rows resolving to `src/main.rs` + `src/display/ui.rs` are consistent with `start`
+being in `main.rs` and inlining its UI callee.
+
+This is a genuine cross-validation of the §5d taxonomy rather than a restatement of it:
+the "false attributions" are not name coincidences. Each one is a library range that
+physically contains the author's inlined panic sites — which is *why* the anchor fired,
+and why those bytes are author-discriminative. `gping` is the sharpest case: the anchor
+lands in `pinger/src/lib.rs`, a **workspace member of gping**, so even the crate the
+oracle scored as the author's own is confirmed by the panic path independently.
+
+**Caveat, unchanged:** this says nothing about whether such rows *should* count as author
+code. That is the §5d convention question, still open, still worth ~2.4pp on the async
+headline. §11 establishes only the mechanism — (a) in every case — not the convention.
+
 ---
 
 <!-- GENERATED:BEGIN -->
