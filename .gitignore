@@ -14,7 +14,7 @@ references/
 
 # internal experiment notes / working docs
 context.md
-FINDINGS.md
+RESULTS.md
 HARNESS_VALIDATION_FINDINGS.md
 bench/BENCHMARK_RESULTS.md
 bench/CARGO_INSTALL_FIX.md
