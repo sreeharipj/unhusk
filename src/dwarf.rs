@@ -39,8 +39,27 @@ use crate::strings::{classify_path, Origin};
 /// `classify_path` returns `Unknown` for these because it only recognises relative
 /// project-relative paths as `User`.  In the DWARF context any path that is neither
 /// std (`/rustc/…/library/`) nor a dep (cargo registry / `rust/deps/`) was compiled
-/// from the project under analysis and counts as first-party.
+/// from the project under analysis and counts as first-party — with one guarded
+/// exception below.
+///
+/// **Guard — toolchain-sysroot std.** A std generic monomorphised into the user
+/// crate (e.g. `core::slice::sort::shared::pivot::median3_rec<..., user's
+/// closure>`) is emitted by the *local* rustc, which knows std's source by its
+/// on-disk sysroot path (`.../lib/rustlib/src/rust/library/core/src/...`), not
+/// the officially remapped `/rustc/<hash>/library/...` form baked into a
+/// distributed toolchain's precompiled std. That path matches neither Std guard
+/// in `classify_path`, so without this guard it falls to `Unknown` and gets
+/// promoted straight to `User` below. Measured 2026-07-22 on a from-source ELF
+/// build sharing a source with the PE hard-case probe (see `docs/PDB_ORACLE_hardcase.md`):
+/// this silently counted 11 of 13 real false positives as `TP`, inflating
+/// `--validate`'s reported precision from 13.3% to 86.7% on that binary. Same
+/// confound `pdb_oracle::classify_decl_file`'s Guard 1 already closes on PE —
+/// ported back here.
 fn classify_path_for_dwarf(path: &str, root_crates: &[String]) -> Origin {
+    if path.contains("/lib/rustlib/src/rust/library/") {
+        return Origin::Std;
+    }
+
     // DWARF source paths are absolute build-time paths.  For cargo-install binaries
     // they are registry paths too, so root-crate promotion applies here as well.
     match classify_path(path, root_crates) {
@@ -472,6 +491,31 @@ impl ValidationReport {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // Every path below is a VERBATIM decl file observed on the hardcase probe
+    // (docs/PDB_ORACLE_hardcase.md), the same source measured on PE via
+    // pdb_oracle.rs.
+
+    #[test]
+    fn toolchain_sysroot_std_is_std_not_user() {
+        // The guard: without it this falls to Unknown -> promoted to User,
+        // counting a std sort-internal monomorphization as user code.
+        let p = "/home/user/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/sort/shared/pivot.rs";
+        assert_eq!(classify_path_for_dwarf(p, &[]), Origin::Std);
+        assert_eq!(
+            classify_path(p, &[]),
+            Origin::Unknown,
+            "guard must be load-bearing: bare classify_path still says Unknown"
+        );
+    }
+
+    #[test]
+    fn guard_does_not_touch_genuine_absolute_project_paths() {
+        // The guard only removes a false User verdict for toolchain-sysroot
+        // paths; a real absolute build-time project path must still promote.
+        let p = "/tmp/claude-1000/scratchpad/hardcase_build/src/main.rs";
+        assert_eq!(classify_path_for_dwarf(p, &[]), Origin::User);
+    }
 
     #[test]
     fn medium_debug_ground_truth() {
