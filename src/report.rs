@@ -897,11 +897,11 @@ mod tests {
     #[test]
     fn hostile_anchor_paths_round_trip() {
         for hostile in [
-            "src/\n\"evil\".rs",              // raw newline + quote
-            "src/\\\"escaped.rs",             // backslash immediately before a quote
-            "src/\u{0}\u{1}\u{1f}null.rs",    // C0 control bytes
-            "src/\u{7f}del.rs",               // DEL
-            "src/\u{2028}line-sep.rs",        // U+2028: legal JSON, illegal bare JS
+            "src/\n\"evil\".rs",           // raw newline + quote
+            "src/\\\"escaped.rs",          // backslash immediately before a quote
+            "src/\u{0}\u{1}\u{1f}null.rs", // C0 control bytes
+            "src/\u{7f}del.rs",            // DEL
+            "src/\u{2028}line-sep.rs",     // U+2028: legal JSON, illegal bare JS
             "src/tab\ttab.rs",
         ] {
             let locations = [loc(0x10, hostile)];
