@@ -1,6 +1,9 @@
 /// Human-readable report for Phase 1 (panic sites) + Phase 2 (function attribution).
 use std::collections::BTreeMap;
 
+use anyhow::{Context, Result};
+use serde::Serialize;
+
 use crate::classify::{AttributedFn, Attribution, Score};
 use crate::dwarf::ValidationReport;
 use crate::elf::ParsedElf;
@@ -233,31 +236,49 @@ pub fn tier_certain(
         .collect()
 }
 
-/// Emit the tiered certain functions as JSON for downstream signature tooling.
+// ── JSON feed ─────────────────────────────────────────────────────────────────
+
+/// One tiered certain function in the machine-readable feed.
+#[derive(Serialize)]
+struct JsonFunction<'a> {
+    /// Hex virtual address, `"0x…"` — a string because JSON numbers are f64 and
+    /// a 64-bit address does not round-trip through one.
+    start: String,
+    end: String,
+    size: u64,
+    tier: &'static str,
+    anchor_count: usize,
+    anchor_files: Vec<&'a str>,
+}
+
+#[derive(Serialize)]
+struct JsonReport<'a> {
+    binary: &'a str,
+    arch: &'a str,
+    min_anchors: usize,
+    functions: Vec<JsonFunction<'a>>,
+}
+
+/// Assemble the JSON feed.
 ///
-/// Hand-rolled (no serde dep).  Suppresses the human report; this is the
-/// machine-readable feed for a YARA-rule generator.
-pub fn print_json_report(
-    elf: &ParsedElf,
+/// Split out from `print_json_report` so it is testable without a `ParsedElf`.
+/// The `anchor_files` paths come straight out of the analyzed binary's `.rodata`
+/// (see `strings::rs_path_strings`) — the only checks they pass are "valid UTF-8"
+/// and "ends in .rs", so a crafted sample can put quotes, backslashes, newlines
+/// or other control bytes in them. Serialization must therefore go through serde,
+/// never through hand-rolled quoting.
+fn build_json_report<'a>(
+    binary: &'a str,
+    arch: &'a str,
     attributed: &[AttributedFn],
-    locations: &[crate::locate::PanicLocation],
+    locations: &'a [crate::locate::PanicLocation],
     certain_locs: &crate::xref::CertainLocs,
     min_anchors: usize,
     precision_mode: bool,
-) {
+) -> JsonReport<'a> {
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
         locations.iter().map(|l| (l.struct_vaddr, l)).collect();
     let tiers = tier_certain(attributed, certain_locs, min_anchors);
-
-    let esc = |s: &str| s.replace('\\', "\\\\").replace('"', "\\\"");
-    println!("{{");
-    println!(
-        "  \"binary\": \"{}\",",
-        esc(&elf.path.display().to_string())
-    );
-    println!("  \"arch\": \"{}\",", esc(elf.arch));
-    println!("  \"min_anchors\": {},", min_anchors.max(1));
-    println!("  \"functions\": [");
 
     let mut rows: Vec<&AttributedFn> = attributed
         .iter()
@@ -267,23 +288,53 @@ pub fn print_json_report(
     // In precision mode, emit only the STRONG tier (~94%); drop single-anchor (~80%).
     rows.retain(|f| !precision_mode || tiers[&f.start] == Tier::Strong);
 
-    for (i, f) in rows.iter().enumerate() {
-        let files = anchor_files(certain_locs, &loc_by_struct, f.start);
-        let files_json: Vec<String> = files.iter().map(|s| format!("\"{}\"", esc(s))).collect();
-        let comma = if i + 1 < rows.len() { "," } else { "" };
-        println!(
-            "    {{\"start\": \"0x{:x}\", \"end\": \"0x{:x}\", \"size\": {}, \"tier\": \"{}\", \"anchor_count\": {}, \"anchor_files\": [{}]}}{}",
-            f.start,
-            f.end,
-            f.end.saturating_sub(f.start),
-            tiers[&f.start].label(),
-            user_anchor_count(certain_locs, f.start),
-            files_json.join(", "),
-            comma,
-        );
+    let functions = rows
+        .iter()
+        .map(|f| JsonFunction {
+            start: format!("0x{:x}", f.start),
+            end: format!("0x{:x}", f.end),
+            size: f.end.saturating_sub(f.start),
+            tier: tiers[&f.start].label(),
+            anchor_count: user_anchor_count(certain_locs, f.start),
+            anchor_files: anchor_files(certain_locs, &loc_by_struct, f.start)
+                .into_iter()
+                .collect(),
+        })
+        .collect();
+
+    JsonReport {
+        binary,
+        arch,
+        min_anchors: min_anchors.max(1),
+        functions,
     }
-    println!("  ]");
-    println!("}}");
+}
+
+/// Emit the tiered certain functions as JSON for downstream signature tooling.
+///
+/// Suppresses the human report; this is the machine-readable feed for a
+/// YARA-rule generator.
+pub fn print_json_report(
+    elf: &ParsedElf,
+    attributed: &[AttributedFn],
+    locations: &[crate::locate::PanicLocation],
+    certain_locs: &crate::xref::CertainLocs,
+    min_anchors: usize,
+    precision_mode: bool,
+) -> Result<()> {
+    let binary = elf.path.display().to_string();
+    let report = build_json_report(
+        &binary,
+        elf.arch,
+        attributed,
+        locations,
+        certain_locs,
+        min_anchors,
+        precision_mode,
+    );
+    let json = serde_json::to_string_pretty(&report).context("serializing the --json report")?;
+    println!("{}", json);
+    Ok(())
 }
 
 /// Print the Phase 2 function-attribution report.
@@ -802,5 +853,180 @@ mod tests {
         let tiers = tier_certain(&attributed, &certain_locs, 1);
         assert_eq!(tiers[&0x100], Tier::Strong);
         assert_eq!(tiers[&0x200], Tier::Strong);
+    }
+
+    // ── JSON feed ─────────────────────────────────────────────────────────────
+
+    fn loc(struct_vaddr: u64, file: &str) -> PanicLocation {
+        PanicLocation {
+            struct_vaddr,
+            file: file.into(),
+            file_vaddr: 0,
+            line: 1,
+            col: 1,
+            origin: Origin::User,
+        }
+    }
+
+    /// Returns (pretty, compact) — pretty is what `print_json_report` emits;
+    /// compact carries no formatting whitespace, so any control byte in it is
+    /// unambiguously a payload leak rather than the pretty-printer's own layout.
+    fn render(
+        locations: &[PanicLocation],
+        certain_locs: &crate::xref::CertainLocs,
+    ) -> (String, String) {
+        let attributed = [cert(0x100)];
+        let report = build_json_report(
+            "sample.bin",
+            "x86-64",
+            &attributed,
+            locations,
+            certain_locs,
+            1,
+            false,
+        );
+        (
+            serde_json::to_string_pretty(&report).unwrap(),
+            serde_json::to_string(&report).unwrap(),
+        )
+    }
+
+    /// Anchor paths are attacker-controlled bytes from `.rodata`. Every one of
+    /// these survives `str::from_utf8` and ends in `.rs`, so all of them reach
+    /// the serializer on a crafted sample. The output must still parse.
+    #[test]
+    fn hostile_anchor_paths_round_trip() {
+        for hostile in [
+            "src/\n\"evil\".rs",              // raw newline + quote
+            "src/\\\"escaped.rs",             // backslash immediately before a quote
+            "src/\u{0}\u{1}\u{1f}null.rs",    // C0 control bytes
+            "src/\u{7f}del.rs",               // DEL
+            "src/\u{2028}line-sep.rs",        // U+2028: legal JSON, illegal bare JS
+            "src/tab\ttab.rs",
+        ] {
+            let locations = [loc(0x10, hostile)];
+            let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+            certain_locs.insert(0x100, vec![0x10]);
+
+            let (pretty, compact) = render(&locations, &certain_locs);
+            let doc: serde_json::Value = serde_json::from_str(&pretty)
+                .unwrap_or_else(|e| panic!("output not valid JSON for {hostile:?}: {e}"));
+
+            assert_eq!(
+                doc["functions"][0]["anchor_files"][0], hostile,
+                "anchor path must round-trip byte-for-byte"
+            );
+            // RFC 8259 requires escaping U+0000..=U+001F (DEL and U+2028 are legal
+            // raw, and the round-trip above already proves they survive). Compact
+            // output has no formatting whitespace, so a C0 byte here could only
+            // have come from the payload.
+            assert!(
+                !compact.chars().any(|c| c < '\u{20}'),
+                "unescaped C0 control char leaked into the output for {hostile:?}"
+            );
+        }
+    }
+
+    /// A crafted path must not be able to inject sibling keys into the object.
+    #[test]
+    fn anchor_path_cannot_forge_json_structure() {
+        let inject = r#"a.rs", "tier": "strong", "x": ".rs"#;
+        let locations = [loc(0x10, inject)];
+        let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+        certain_locs.insert(0x100, vec![0x10]);
+
+        let (pretty, _) = render(&locations, &certain_locs);
+        let doc: serde_json::Value = serde_json::from_str(&pretty).unwrap();
+        let f = &doc["functions"][0];
+
+        assert!(f.get("x").is_none(), "injected key materialized");
+        assert_eq!(f["anchor_files"].as_array().unwrap().len(), 1);
+        assert_eq!(f["anchor_files"][0], inject);
+    }
+
+    /// The schema `check_provenance.py` reads: `functions[].anchor_files`, plus
+    /// addresses as hex strings and `min_anchors` floored at 1.
+    #[test]
+    fn json_schema_shape() {
+        let attributed = [cert(0x100), cert(0x200)];
+        let locations = [loc(0x10, "src/main.rs"), loc(0x11, "src/lib.rs")];
+        let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+        certain_locs.insert(0x100, vec![0x10, 0x11]);
+        certain_locs.insert(0x200, vec![0x10]);
+
+        let report = build_json_report(
+            "sample.bin",
+            "x86-64",
+            &attributed,
+            &locations,
+            &certain_locs,
+            0, // floored to 1
+            false,
+        );
+        let doc: serde_json::Value =
+            serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
+
+        assert_eq!(doc["binary"], "sample.bin");
+        assert_eq!(doc["arch"], "x86-64");
+        assert_eq!(doc["min_anchors"], 1);
+
+        let fns = doc["functions"].as_array().unwrap();
+        assert_eq!(fns.len(), 2);
+        assert_eq!(fns[0]["start"], "0x100");
+        assert_eq!(fns[0]["end"], "0x140");
+        assert_eq!(fns[0]["size"], 64);
+        assert_eq!(fns[0]["tier"], "strong");
+        assert_eq!(fns[0]["anchor_count"], 2);
+        // Sorted and deduplicated by anchor_files' BTreeSet.
+        assert_eq!(fns[0]["anchor_files"][0], "src/lib.rs");
+        assert_eq!(fns[0]["anchor_files"][1], "src/main.rs");
+        assert_eq!(fns[1]["anchor_files"].as_array().unwrap().len(), 1);
+    }
+
+    /// The degraded path (no usable function map) emits the *same* envelope with
+    /// an empty `functions` array — not a narrower schema. It used to emit
+    /// `{"binary": null, "functions": []}`, so a consumer reading `arch` or
+    /// `min_anchors` broke on exactly the binaries it most needed to report on.
+    #[test]
+    fn empty_report_keeps_the_full_envelope() {
+        let report = build_json_report(
+            "packed.bin",
+            "x86-64",
+            &[],
+            &[],
+            &crate::xref::CertainLocs::new(),
+            2,
+            false,
+        );
+        let doc: serde_json::Value =
+            serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
+
+        assert_eq!(doc["binary"], "packed.bin");
+        assert_eq!(doc["arch"], "x86-64");
+        assert_eq!(doc["min_anchors"], 2);
+        assert_eq!(doc["functions"].as_array().unwrap().len(), 0);
+    }
+
+    /// `--precision` drops the single-anchor tier from the feed.
+    #[test]
+    fn precision_mode_emits_strong_only() {
+        let attributed = [cert(0x100), cert(0x200)];
+        let locations = [loc(0x10, "src/main.rs"), loc(0x11, "src/lib.rs")];
+        let mut certain_locs: crate::xref::CertainLocs = std::collections::HashMap::new();
+        certain_locs.insert(0x100, vec![0x10, 0x11]);
+        certain_locs.insert(0x200, vec![0x10]);
+
+        let report = build_json_report(
+            "sample.bin",
+            "x86-64",
+            &attributed,
+            &locations,
+            &certain_locs,
+            2,
+            true,
+        );
+        assert_eq!(report.functions.len(), 1);
+        assert_eq!(report.functions[0].start, "0x100");
+        assert_eq!(report.functions[0].tier, "strong");
     }
 }
