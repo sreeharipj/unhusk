@@ -93,9 +93,7 @@ fn main() -> Result<()> {
 
     // Determine which crate(s) to promote from registry → User.
     // Explicit --crate always wins; otherwise auto-detect from embedded paths.
-    let root_crates: Vec<String> = if !args.root_crates.is_empty() {
-        args.root_crates.clone()
-    } else {
+    let root_crates: Vec<String> = if args.root_crates.is_empty() {
         let paths = unhusk::strings::extract_rs_paths(&elf);
         let binary_stem = args
             .binary
@@ -126,6 +124,8 @@ fn main() -> Result<()> {
                 vec![]
             }
         }
+    } else {
+        args.root_crates.clone()
     };
 
     // Classify source strings and parse .eh_frame in parallel — they only need
@@ -218,7 +218,7 @@ fn main() -> Result<()> {
             }
         }
         for name in names {
-            println!("DEPCRATE\t{}", name);
+            println!("DEPCRATE\t{name}");
         }
     }
 
@@ -231,7 +231,7 @@ fn main() -> Result<()> {
     if std::env::var_os("UNHUSK_DUMP_TIERS").is_some() {
         let tiers = unhusk::report::tier_certain(&attributed, &scan.certain_locs, args.min_anchors);
         for (&addr, &tier) in &tiers {
-            let n = scan.certain_locs.get(&addr).map_or(0, |v| v.len());
+            let n = scan.certain_locs.get(&addr).map_or(0, std::vec::Vec::len);
             println!("TIERDUMP\t0x{:x}\t{}\t{}", addr, tier.label(), n);
         }
     }
@@ -303,7 +303,7 @@ fn main() -> Result<()> {
                 Some(_) => "FP",
                 None => "UNK",
             };
-            println!("ATTRDUMP\t0x{:x}\tbacktrace\t{}", addr, dwarf);
+            println!("ATTRDUMP\t0x{addr:x}\tbacktrace\t{dwarf}");
         }
     }
 

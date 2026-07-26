@@ -190,35 +190,31 @@ fn symbol_ground_truth(
     use std::process::Command;
     let std: HashSet<&str> = STD_CRATES.iter().copied().collect();
     let mut out = HashMap::new();
-    let output = match Command::new("nm")
+    let Ok(output) = Command::new("nm")
         .args(["-C", "--defined-only", debug_path])
         .output()
-    {
-        Ok(o) => o,
-        Err(_) => return out,
+    else {
+        return out;
     };
     let text = String::from_utf8_lossy(&output.stdout);
     for line in text.lines() {
         // "<hexaddr> <type> <name...>"
         let mut it = line.splitn(3, ' ');
-        let addr = match it
+        let Some(addr) = it
             .next()
             .and_then(|a| u64::from_str_radix(a.trim(), 16).ok())
-        {
-            Some(a) => a,
-            None => continue,
+        else {
+            continue;
         };
-        let ty = match it.next() {
-            Some(t) => t,
-            None => continue,
+        let Some(ty) = it.next() else {
+            continue;
         };
         // text/function symbols only (T/t global/local, W/w weak, V/v).
         if !matches!(ty, "T" | "t" | "W" | "w" | "V" | "v") {
             continue;
         }
-        let name = match it.next() {
-            Some(n) => n,
-            None => continue,
+        let Some(name) = it.next() else {
+            continue;
         };
         if !fns.contains_key(&addr) || out.contains_key(&addr) {
             continue;
@@ -322,13 +318,11 @@ fn main() -> Result<()> {
             continue;
         }
         let (slot, str_vaddr) = (r.offset, r.addend);
-        let rod = match &rodata {
-            Some(s) => s,
-            None => break,
+        let Some(rod) = &rodata else {
+            break;
         };
-        let dros = match dro {
-            Some(d) => d,
-            None => break,
+        let Some(dros) = dro else {
+            break;
         };
         if !dros.contains_vaddr(slot) || !rod.contains_vaddr(str_vaddr) {
             continue;
@@ -337,13 +331,11 @@ fn main() -> Result<()> {
             Some(l) if l > 0 && l <= 512 => l as usize,
             _ => continue,
         };
-        let bytes = match rod.slice_at(str_vaddr, len) {
-            Some(b) => b,
-            None => continue,
+        let Some(bytes) = rod.slice_at(str_vaddr, len) else {
+            continue;
         };
-        let s = match std::str::from_utf8(bytes) {
-            Ok(s) => s,
-            Err(_) => continue,
+        let Ok(s) = std::str::from_utf8(bytes) else {
+            continue;
         };
         if s.ends_with(".rs") {
             match classify_path(s, &[]) {
@@ -502,7 +494,7 @@ fn main() -> Result<()> {
     let mut uc: Vec<&String> = user_crates.iter().collect();
     uc.sort();
 
-    println!("==== {} ====", name);
+    println!("==== {name} ====");
     println!(
         "user-crates derived ({}): {}",
         uc.len(),
@@ -538,37 +530,33 @@ fn main() -> Result<()> {
         sym_user.len()
     );
     println!(
-        "RECALL HEADROOM [DWARF]:   A(certain)={}  B(bare-reachable)={} [rs={}, ident={}]  C(residue)={}  B/(A+B+C)={:.1}%",
-        a, b, b_rs, b_ident, c, b_ratio
+        "RECALL HEADROOM [DWARF]:   A(certain)={a}  B(bare-reachable)={b} [rs={b_rs}, ident={b_ident}]  C(residue)={c}  B/(A+B+C)={b_ratio:.1}%"
     );
     println!(
-        "RECALL HEADROOM [symbol]:  A(certain)={}  B(bare-reachable)={}  C(residue)={}  B/(A+B+C)={:.1}%",
-        sa, sb, sc, sb_ratio
+        "RECALL HEADROOM [symbol]:  A(certain)={sa}  B(bare-reachable)={sb}  C(residue)={sc}  B/(A+B+C)={sb_ratio:.1}%"
     );
     println!(
-        "BARE-ANCHOR PRECISION [DWARF]:  user={}  nonuser={}  unmapped={}  precision={:.1}%",
-        p_user, p_nonuser, p_unmapped, prec
+        "BARE-ANCHOR PRECISION [DWARF]:  user={p_user}  nonuser={p_nonuser}  unmapped={p_unmapped}  precision={prec:.1}%"
     );
     println!(
-        "BARE-ANCHOR PRECISION [symbol]: user={}  nonuser={}  unmapped={}  precision={:.1}%",
-        s_user, s_nonuser, s_unmapped, s_prec
+        "BARE-ANCHOR PRECISION [symbol]: user={s_user}  nonuser={s_nonuser}  unmapped={s_unmapped}  precision={s_prec:.1}%"
     );
     if p_nonuser > 0 {
         let mut cats: Vec<(&&str, &usize)> = cat_counts.iter().collect();
         cats.sort_by(|x, y| y.1.cmp(x.1));
         println!("  [DWARF] non-user decl_file breakdown:");
         for (cat, n) in cats {
-            println!("    {:>4}  {}", n, cat);
+            println!("    {n:>4}  {cat}");
         }
     }
     if std::env::var_os("DUMP_BARE_FNS").is_some() {
         let mut v: Vec<u64> = bare_fns.iter().copied().collect();
-        v.sort();
+        v.sort_unstable();
         for f in v {
             let kind = if f_ident.contains(&f) { "ident" } else { "rs" };
             let dw = match gt.get(&f) {
-                Some((Origin::User, p)) => format!("USER\t{}", p),
-                Some((_, p)) => format!("NONUSER\t{}", p),
+                Some((Origin::User, p)) => format!("USER\t{p}"),
+                Some((_, p)) => format!("NONUSER\t{p}"),
                 None => "UNMAPPED\t".to_string(),
             };
             let cert = if certain.contains(&f) {
@@ -576,7 +564,7 @@ fn main() -> Result<()> {
             } else {
                 "missed"
             };
-            println!("BAREFN\t0x{:x}\t{}\t{}\t{}", f, kind, cert, dw);
+            println!("BAREFN\t0x{f:x}\t{kind}\t{cert}\t{dw}");
         }
     }
     // SUMMARY columns:
