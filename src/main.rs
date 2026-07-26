@@ -278,6 +278,27 @@ fn main() -> Result<()> {
         None
     };
 
+    // DIAGNOSTIC (env-gated): dump EVERY function in the FDE map with its DWARF
+    // ground-truth label, not just the ones unhusk attributed.  ATTRDUMP below
+    // covers only unhusk's own predictions, which is too narrow to score a
+    // different tool against: a subtractive tool (e.g. RIFT, whose author-code
+    // output is the set of functions its FLIRT signatures did NOT match) makes a
+    // prediction about every function, so the comparison needs a label for every
+    // function.  Emitting the shared universe here keeps both tools on one ruler
+    // instead of each bringing its own.
+    // Format: GTDUMP\t0xSTART\t0xEND\tUSER|LIB|UNK\tpath
+    if std::env::var_os("UNHUSK_DUMP_GT").is_some() {
+        use unhusk::strings::Origin;
+        for (start, range) in &fn_map {
+            let (label, path) = match ground_truth.as_ref().and_then(|g| g.get(start)) {
+                Some((Origin::User, p)) => ("USER", p.as_str()),
+                Some((_, p)) => ("LIB", p.as_str()),
+                None => ("UNK", ""),
+            };
+            println!("GTDUMP\t0x{:x}\t0x{:x}\t{}\t{}", start, range.end, label, path);
+        }
+    }
+
     // DIAGNOSTIC (env-gated): dump every certain/inferred/backtrace function address
     // with its DWARF ground-truth label.  Used by realval/backtrace_sweep.py to
     // compute marginal precision without re-scanning.
