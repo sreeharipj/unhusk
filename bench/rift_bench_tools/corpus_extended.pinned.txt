@@ -1,0 +1,133 @@
+# Extended corpus — second pass, built on a newer toolchain (1.96.0).
+#
+# Ordered deliberately: async/network binaries FIRST. The main corpus is almost
+# entirely CLI/systems tools, which is unhusk's best case (it self-reports ~98%
+# there vs ~87% on async/web). Real Rust malware skews async — C2 clients,
+# scanners, downloaders — so the async block is the scientifically load-bearing
+# part of this study. If the time window closes early, these are the rows worth
+# having.
+
+# ── async / network / web (tokio, hyper, reqwest, actix, axum) ───────────────
+xh:xh
+oha:oha
+miniserve:miniserve
+dufs:dufs
+websocat:websocat
+rustscan:rustscan
+monolith:monolith
+tealdeer:tldr
+bore-cli:bore
+static-web-server:static-web-server
+cargo-binstall:cargo-binstall
+trippy:trip
+rathole:rathole
+hurl:hurl
+
+# ── TUI / event-loop heavy ──────────────────────────────────────────────────
+bottom:btm
+zellij:zellij
+joshuto:joshuto
+navi:navi
+macchina:macchina
+
+# ── CLI / systems (comparison ballast against the async block) ──────────────
+lsd:lsd
+broot:broot
+git-delta:delta
+starship:starship
+silicon:silicon
+viu:viu
+choose:choose
+huniq:huniq
+so:so
+fastmod:fastmod
+rargs:rargs
+mdbook:mdbook
+
+
+# ══ TAIL BLOCK — appended 2026-07-27 00:42 by the corpus-feed agent ══════════
+#
+# The chain was corpus-limited, not compute-limited: at the measured 5.3 min
+# per successful crate it exhausted the entries above around 05:40, against a
+# 06:45 deadline. These fill that idle hour and nothing more.
+#
+# Disjoint by construction — screened against results_headtohead.jsonl +
+# corpus.txt + corpus_extended.txt + corpus_smoke.txt (81 names). Every entry
+# verified on crates.io to exist and to declare a binary target; bin names that
+# differ from the crate name were parsed from each crate's own [[bin]] section.
+# Sources are already staged in the cargo registry cache.
+#
+# Ordered by the same rationale as the block above: async/network first, so a
+# deadline that closes mid-block keeps the load-bearing rows.
+
+# ── async / network / web ───────────────────────────────────────────────────
+# Re-runs: these two rows were dropped from results_headtohead.jsonl because
+# they were measured against the wrong binary — `topgrade` actually analysed
+# ast-grep's orphaned `sg`, and `sccache` analysed pueue's orphaned `pueued`
+# (see RIFT_BENCH_HANDOFF.md). Requeued first in this block, with the binary
+# pinned so the fallback that caused it cannot fire again.
+topgrade:topgrade
+sccache:sccache
+feroxbuster:feroxbuster
+lychee:lychee
+drill:drill
+rewrk:rewrk
+sfz:sfz
+simple-http-server:simple-http-server
+basic-http-server:basic-http-server
+hickory-dns:hickory-dns
+taplo-cli:taplo
+dprint:dprint
+gitoxide:gix
+ffsend:ffsend
+rustypaste-cli:rpaste
+
+# ── TUI / event-loop heavy ──────────────────────────────────────────────────
+skim:sk
+television:tv
+xplr:xplr
+csvlens:csvlens
+bacon:bacon
+binsider:binsider
+rhit:rhit
+diskonaut:diskonaut
+systeroid:systeroid
+kmon:kmon
+kibi:kibi
+
+# ── CLI / systems ballast ───────────────────────────────────────────────────
+fselect:fselect
+nomino:nomino
+tidy-viewer:tidy-viewer
+xcp:xcp
+diskus:diskus
+oxipng:oxipng
+fend:fend
+kalker:kalker
+rink:rink
+comrak:comrak
+git-cliff:git-cliff
+committed:committed
+cargo-deny:cargo-deny
+cargo-machete:cargo-machete
+cargo-bloat:cargo-bloat
+cargo-cache:cargo-cache
+cargo-sweep:cargo-sweep
+cargo-hack:cargo-hack
+cargo-msrv:cargo-msrv
+cargo-sort:cargo-sort
+cargo-watch:cargo-watch
+cargo-edit:cargo-add
+cargo-generate:cargo-generate
+flamegraph:flamegraph
+tree-sitter-cli:tree-sitter
+stylua:stylua
+repgrep:rgr
+rip2:rip
+lemmeknow:lemmeknow
+jql:jql
+rnr:rnr
+ruplacer:ruplacer
+pazi:pazi
+rusty-man:rusty-man
+nu:nu
