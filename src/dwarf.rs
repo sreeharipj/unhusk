@@ -41,6 +41,18 @@ use crate::strings::{classify_path, Origin};
 /// std (`/rustc/…/library/`) nor a dep (cargo registry / `rust/deps/`) was compiled
 /// from the project under analysis and counts as first-party.
 fn classify_path_for_dwarf(path: &str, root_crates: &[String]) -> Origin {
+    // Guard: std's own source under a toolchain sysroot, e.g.
+    // `<SYSROOT>/lib/rustlib/src/rust/library/core/src/ptr/mod.rs`.  A std generic
+    // monomorphised into the local crate carries this LOCAL path instead of the
+    // remapped `/rustc/<HASH>/library/…` form the precompiled std objects use, so
+    // both forms of the same file can appear in one binary.  It is absolute and
+    // matches none of `classify_path`'s std guards, so it returns `Unknown` and the
+    // promotion below would claim it as first-party — reporting `core::ptr` and
+    // `core::fmt` as user code.  This is the ELF twin of Guard 1 in `pdb_oracle`.
+    if path.replace('\\', "/").contains("/lib/rustlib/src/rust/library/") {
+        return Origin::Std;
+    }
+
     // DWARF source paths are absolute build-time paths.  For cargo-install binaries
     // they are registry paths too, so root-crate promotion applies here as well.
     match classify_path(path, root_crates) {
@@ -472,6 +484,30 @@ impl ValidationReport {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn sysroot_std_is_std_not_user() {
+        // Guard against the Unknown→User promotion claiming std generics that
+        // were monomorphised into the local crate.  Observed on a probe binary:
+        // 215 of 464 "USER" functions were core::ptr / core::fmt under this path.
+        assert_eq!(
+            classify_path_for_dwarf(
+                "/home/user/.rustup/toolchains/1.90.0-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs",
+                &[],
+            ),
+            Origin::Std
+        );
+        // The remapped form of the same file must stay Std.
+        assert_eq!(
+            classify_path_for_dwarf("/rustc/abc123/library/core/src/ptr/mod.rs", &[]),
+            Origin::Std
+        );
+        // A genuine absolute user path must still promote to User.
+        assert_eq!(
+            classify_path_for_dwarf("/home/user/proj/src/main.rs", &[]),
+            Origin::User
+        );
+    }
 
     #[test]
     fn medium_debug_ground_truth() {
