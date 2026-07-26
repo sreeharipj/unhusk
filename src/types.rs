@@ -228,9 +228,8 @@ fn collect_dro_strings(elf: &ParsedElf, dro: &Section, rodata: &Section) -> Hash
         if str_len == 0 || str_len > 128 {
             continue;
         }
-        let bytes = match rodata.slice_at(entry.addend, str_len) {
-            Some(b) => b,
-            None => continue,
+        let Some(bytes) = rodata.slice_at(entry.addend, str_len) else {
+            continue;
         };
         if let Ok(s) = std::str::from_utf8(bytes) {
             if !s.ends_with(".rs") && s.is_ascii() && looks_like_ident(s) {
@@ -260,14 +259,15 @@ fn scan_text(
     fns: &FunctionMap,
     dro_strings: &HashMap<u64, String>,
 ) -> HashMap<u64, Vec<String>> {
+    /// Sliding-window size: recent rodata addresses from LEA instructions.
+    const WIN: usize = 6;
+
     let mut fn_strings: HashMap<u64, Vec<String>> = HashMap::new();
 
     let mut decoder = Decoder::with_ip(64, text.data.as_slice(), text.vaddr, DecoderOptions::NONE);
     let mut instr = Instruction::default();
 
-    // Sliding window: recent rodata addresses from LEA instructions.
     // Each entry: (fn_start, rodata_vaddr).
-    const WIN: usize = 6;
     let mut lea_win: [(u64, u64); WIN] = [(0, 0); WIN];
     let mut lea_idx = 0usize; // circular index
     let mut lea_count = 0usize; // total inserted (capped at WIN)
@@ -299,9 +299,9 @@ fn scan_text(
         // ── Phase B-1 continued: MOV reg, imm → try pairing with recent LEAs ─
         if instr.mnemonic() == Mnemonic::Mov {
             let imm: u64 = match instr.op_kind(1) {
-                OpKind::Immediate8 => instr.immediate8() as u64,
-                OpKind::Immediate16 => instr.immediate16() as u64,
-                OpKind::Immediate32 => instr.immediate32() as u64,
+                OpKind::Immediate8 => u64::from(instr.immediate8()),
+                OpKind::Immediate16 => u64::from(instr.immediate16()),
+                OpKind::Immediate32 => u64::from(instr.immediate32()),
                 OpKind::Immediate64 => instr.immediate64(),
                 OpKind::Immediate8to32 => instr.immediate8to32() as u64,
                 OpKind::Immediate8to64 => instr.immediate8to64() as u64,
@@ -396,7 +396,7 @@ fn compute_tier(
         return TypeTier::Std;
     }
     match attr_map.get(&fn_start) {
-        Some(Attribution::Certain) | Some(Attribution::Inferred) => TypeTier::User,
+        Some(Attribution::Certain | Attribution::Inferred) => TypeTier::User,
         _ => TypeTier::NonStd,
     }
 }

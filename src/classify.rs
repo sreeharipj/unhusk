@@ -121,8 +121,8 @@ pub fn attribute(
     // A tentative-inferred function is downgraded to Indeterminate if it also
     // has callers that are NOT in the user set (certain + inferred).
     let user_set: HashSet<u64> = {
-        let mut s: HashSet<u64> = certain.iter().cloned().collect();
-        s.extend(tentative_inferred.iter().cloned());
+        let mut s: HashSet<u64> = certain.iter().copied().collect();
+        s.extend(tentative_inferred.iter().copied());
         s
     };
 
@@ -233,7 +233,7 @@ pub fn backtrace_walk(
     }
     let mut result: HashSet<u64> = HashSet::new();
     // visited is seeded with certain so we never re-enqueue or add them.
-    let mut visited: HashSet<u64> = certain.iter().cloned().collect();
+    let mut visited: HashSet<u64> = certain.iter().copied().collect();
     let mut frontier: VecDeque<(u64, usize)> = VecDeque::new();
     for &start in certain {
         if fns.contains_key(&start) {
@@ -244,9 +244,8 @@ pub fn backtrace_walk(
         if d >= depth {
             continue;
         }
-        let callers = match rev.get(&node) {
-            Some(s) => s,
-            None => continue,
+        let Some(callers) = rev.get(&node) else {
+            continue;
         };
         for &caller in callers {
             if !fns.contains_key(&caller) {

@@ -44,7 +44,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
         println!();
         println!("⚠ diagnostics ({}):", diags.len());
         for d in &diags {
-            println!("  ⚠ {}", d);
+            println!("  ⚠ {d}");
         }
     }
 
@@ -60,7 +60,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
                 sec.size(),
             );
         } else {
-            println!("  {:<20}  (not found)", name);
+            println!("  {name:<20}  (not found)");
         }
     }
     println!(
@@ -147,7 +147,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
                 let key = if version.is_empty() {
                     crate_name.clone()
                 } else {
-                    format!("{}@{}", crate_name, version)
+                    format!("{crate_name}@{version}")
                 };
                 *counts.entry(key).or_insert(0) += 1;
             }
@@ -161,7 +161,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
             sorted.len(),
         );
         for (name, n) in sorted.iter().take(10) {
-            println!("  {:46}  {}", name, n);
+            println!("  {name:46}  {n}");
         }
         if sorted.len() > 10 {
             println!("  … {} more crates", sorted.len() - 10);
@@ -174,7 +174,7 @@ pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[Pani
 
 /// Number of distinct user panic Locations anchoring a certain function.
 fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> usize {
-    certain_locs.get(&fn_start).map_or(0, |v| v.len())
+    certain_locs.get(&fn_start).map_or(0, std::vec::Vec::len)
 }
 
 /// Confidence tier of a certain (user-Location-anchored) function.
@@ -333,7 +333,7 @@ pub fn print_json_report(
         precision_mode,
     );
     let json = serde_json::to_string_pretty(&report).context("serializing the --json report")?;
-    println!("{}", json);
+    println!("{json}");
     Ok(())
 }
 
@@ -392,7 +392,7 @@ pub fn print_phase2_report(
     let single_fns = by_tier(Tier::Single);
 
     let fn_count = attributed.len();
-    println!("functions (from .eh_frame): {}", fn_count);
+    println!("functions (from .eh_frame): {fn_count}");
     if precision_mode {
         println!("mode    : --precision (STRONG tier only; single + call closure suppressed)");
     }
@@ -450,10 +450,7 @@ pub fn print_phase2_report(
     println!();
     if strong_fns.is_empty() {
         println!("user-authored functions — STRONG tier: none");
-        println!(
-            "  (no function carries ≥{} distinct user Locations)",
-            strong_tier_min
-        );
+        println!("  (no function carries ≥{strong_tier_min} distinct user Locations)");
     } else {
         println!(
             "user-authored functions — STRONG tier, ≥{} user Locations ({}):",
@@ -535,13 +532,12 @@ pub fn print_phase2_report(
             backtrace.len()
         );
         println!(
-            "  depth: {}  |  no direct panic evidence — use --validate to measure precision",
-            backtrace_depth
+            "  depth: {backtrace_depth}  |  no direct panic evidence — use --validate to measure precision"
         );
         // attributed is sorted by start; build a quick addr→end map for display.
         let end_by_start: std::collections::HashMap<u64, u64> =
             attributed.iter().map(|f| (f.start, f.end)).collect();
-        let mut sorted_bt: Vec<u64> = backtrace.iter().cloned().collect();
+        let mut sorted_bt: Vec<u64> = backtrace.iter().copied().collect();
         sorted_bt.sort_unstable();
         let show = sorted_bt.len().min(MAX_SHOWN);
         for &addr in &sorted_bt[..show] {
@@ -553,7 +549,7 @@ pub fn print_phase2_report(
                     end.saturating_sub(addr),
                 );
             } else {
-                println!("  0x{:08x}", addr);
+                println!("  0x{addr:08x}");
             }
         }
         if sorted_bt.len() > MAX_SHOWN {
@@ -581,8 +577,7 @@ pub fn print_validation_report(report: &ValidationReport) {
     let fmt_bucket = |name: &str, b: &crate::dwarf::BucketMetrics| {
         let prec = b
             .precision()
-            .map(|p| format!("{:.1}%", p * 100.0))
-            .unwrap_or_else(|| "n/a".into());
+            .map_or_else(|| "n/a".into(), |p| format!("{:.1}%", p * 100.0));
         println!(
             "  {:<14} {:>5} predicted   TP={:>5}  FP={:>4}  unknown={:>4}   precision={}",
             name, b.predicted, b.true_positive, b.false_positive, b.dwarf_unknown, prec
@@ -627,9 +622,9 @@ pub fn print_validation_report(report: &ValidationReport) {
         if list.is_empty() {
             return;
         }
-        println!("  {}:", label);
+        println!("  {label}:");
         for (addr, path) in list {
-            println!("    0x{:08x}  {}", addr, path);
+            println!("    0x{addr:08x}  {path}");
         }
     };
     if u > 0 {
@@ -676,11 +671,10 @@ pub fn print_validation_report(report: &ValidationReport) {
     println!("── Headline numbers ─────────────────────────────────────────────────────");
     println!(
         "  Certain precision : {}",
-        report
-            .certain
-            .precision()
-            .map(|p| format!("{:.1}%", p * 100.0))
-            .unwrap_or_else(|| "n/a (no certain predictions)".into())
+        report.certain.precision().map_or_else(
+            || "n/a (no certain predictions)".into(),
+            |p| format!("{:.1}%", p * 100.0)
+        )
     );
     println!(
         "  Certain recall    : {:.1}%  ({}/{} DWARF-user fns reached by certain)",
@@ -715,7 +709,7 @@ pub fn print_types_report(types: &[RecoveredType]) {
 
     if n_user > 0 {
         println!();
-        println!("user-tier structs ({}):", n_user);
+        println!("user-tier structs ({n_user}):");
         for t in types.iter().filter(|t| t.tier == TypeTier::User) {
             println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
             if !t.fields.is_empty() {
@@ -726,7 +720,7 @@ pub fn print_types_report(types: &[RecoveredType]) {
 
     if n_nonstd > 0 {
         println!();
-        println!("non-std structs ({}):", n_nonstd);
+        println!("non-std structs ({n_nonstd}):");
         for t in types.iter().filter(|t| t.tier == TypeTier::NonStd) {
             println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
             if !t.fields.is_empty() {
@@ -737,10 +731,7 @@ pub fn print_types_report(types: &[RecoveredType]) {
 
     if n_std > 0 {
         println!();
-        println!(
-            "std structs ({}) — expected noise from core/alloc/std:",
-            n_std
-        );
+        println!("std structs ({n_std}) — expected noise from core/alloc/std:");
         for t in types.iter().filter(|t| t.tier == TypeTier::Std) {
             println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
         }

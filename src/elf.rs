@@ -95,7 +95,7 @@ impl ParsedElf {
 
         let arch = match file.architecture() {
             object::Architecture::X86_64 => "x86-64",
-            other => bail!("unsupported architecture: {:?}", other),
+            other => bail!("unsupported architecture: {other:?}"),
         };
 
         let is_pie = matches!(file.kind(), object::ObjectKind::Dynamic);
@@ -130,18 +130,17 @@ impl ParsedElf {
                     sections.entry(name).or_insert(sec);
                 }
                 warnings.push(format!(
-                    "section headers absent or incomplete — recovered {} region(s) from \
-                     program headers (boundaries are approximate)",
-                    n
+                    "section headers absent or incomplete — recovered {n} region(s) from \
+                     program headers (boundaries are approximate)"
                 ));
             }
         }
 
-        let rela_relative = parse_rela_relative(&sections)?;
+        let rela_relative = parse_rela_relative(&sections);
 
         // Diagnostics the operator needs.  These are honest "we may be blind here"
         // flags, surfaced loudly rather than silently returning empty results.
-        if !sections.get(".text").is_some_and(|s| !s.data.is_empty()) {
+        if sections.get(".text").is_none_or(|s| s.data.is_empty()) {
             warnings.push(
                 "no readable .text — binary is likely PACKED or has no code section; \
                  static analysis cannot proceed (consider unpacking first)"
@@ -184,6 +183,12 @@ impl ParsedElf {
 /// Boundaries are coarser than real sections (a LOAD segment may hold more than one),
 /// but enough for Phase 1 + Phase 2 to operate. Returns (sections, count_recovered).
 fn recover_sections_from_program_headers(raw: &[u8]) -> (HashMap<String, Section>, usize) {
+    const PT_DYNAMIC: u32 = 2;
+    const PT_GNU_EH_FRAME: u32 = 0x6474_e550;
+    const PT_GNU_RELRO: u32 = 0x6474_e552;
+    const PF_X: u32 = 1;
+    const PF_W: u32 = 2;
+
     let mut out: HashMap<String, Section> = HashMap::new();
     // Elf64 header: e_phoff@0x20, e_phentsize@0x36, e_phnum@0x38. Require ELF64 LE.
     if raw.len() < 0x40 || &raw[0..4] != b"\x7fELF" || raw[4] != 2 {
@@ -236,12 +241,6 @@ fn recover_sections_from_program_headers(raw: &[u8]) -> (HashMap<String, Section
     };
     let slice =
         |off: usize, len: usize| -> Vec<u8> { raw.get(off..off + len).unwrap_or(&[]).to_vec() };
-
-    const PT_DYNAMIC: u32 = 2;
-    const PT_GNU_EH_FRAME: u32 = 0x6474_e550;
-    const PT_GNU_RELRO: u32 = 0x6474_e552;
-    const PF_X: u32 = 1;
-    const PF_W: u32 = 2;
 
     for &(p_type, p_flags, p_off, p_vaddr, p_filesz) in &phdrs {
         match p_type {
@@ -318,12 +317,12 @@ fn recover_sections_from_program_headers(raw: &[u8]) -> (HashMap<String, Section
 
 /// Elf64_Rela is 24 bytes: r_offset(8) | r_info(8) | r_addend(8)
 /// R_X86_64_RELATIVE = type 8: *(r_offset) = base + r_addend
-fn parse_rela_relative(sections: &HashMap<String, Section>) -> Result<Vec<RelaRelative>> {
+fn parse_rela_relative(sections: &HashMap<String, Section>) -> Vec<RelaRelative> {
     const RELA_SZ: usize = 24;
     const R_X86_64_RELATIVE: u32 = 8;
 
     let Some(rela_dyn) = sections.get(".rela.dyn") else {
-        return Ok(Vec::new());
+        return Vec::new();
     };
     let data = &rela_dyn.data;
 
@@ -343,5 +342,5 @@ fn parse_rela_relative(sections: &HashMap<String, Section>) -> Result<Vec<RelaRe
         }
     }
 
-    Ok(out)
+    out
 }
