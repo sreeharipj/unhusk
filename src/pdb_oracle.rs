@@ -176,8 +176,8 @@ pub fn read_function_sources(pdb_path: &Path, root_crates: &[String]) -> Result<
                     // The function's OWN decl file: the first primary line
                     // record. Inlined code is NOT in this stream (see module doc).
                     let mut lines = line_program.lines_for_symbol(p.offset);
-                    let decl_file = match lines.next().context("reading line records")? {
-                        Some(li) => {
+                    let decl_file =
+                        if let Some(li) = lines.next().context("reading line records")? {
                             let fi = line_program
                                 .get_file_info(li.file_index)
                                 .context("resolving file info")?;
@@ -186,12 +186,10 @@ pub fn read_function_sources(pdb_path: &Path, root_crates: &[String]) -> Result<
                                 .context("resolving file name")?
                                 .to_string()
                                 .into_owned()
-                        }
-                        None => {
+                        } else {
                             cur = None;
                             continue; // no line info → no authorship claim
-                        }
-                    };
+                        };
 
                     cur = Some((start, p.offset));
                     // Identical-COMDAT folding can map two names to one RVA;
@@ -230,11 +228,13 @@ pub fn read_function_sources(pdb_path: &Path, root_crates: &[String]) -> Result<
                         .as_mut()
                         .and_then(|f| f.find(site.inlinee).ok())
                         .and_then(|i| i.parse().ok())
-                        .map(|d| match d {
-                            pdb::IdData::Function(f) => f.name.to_string().into_owned(),
-                            _ => "<non-function>".to_string(),
-                        })
-                        .unwrap_or_else(|| "<unresolved>".to_string());
+                        .map_or_else(
+                            || "<unresolved>".to_string(),
+                            |d| match d {
+                                pdb::IdData::Function(f) => f.name.to_string().into_owned(),
+                                _ => "<non-function>".to_string(),
+                            },
+                        );
 
                     let origin = classify_decl_file(&file, root_crates);
                     if let Some(f) = out.get_mut(&parent) {

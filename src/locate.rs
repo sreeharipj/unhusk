@@ -54,9 +54,8 @@ pub fn find_locations(elf: &ParsedElf, strings: &[SourceString]) -> Vec<PanicLoc
 
         // Read the `len` field at slot+8.
         let len_vaddr = entry.offset + 8;
-        let stored_len = match dro.read_u64_le(len_vaddr) {
-            Some(l) => l,
-            None => continue,
+        let Some(stored_len) = dro.read_u64_le(len_vaddr) else {
+            continue;
         };
 
         // Cross-validate: stored length must match the string we already know.
@@ -65,13 +64,11 @@ pub fn find_locations(elf: &ParsedElf, strings: &[SourceString]) -> Vec<PanicLoc
         }
 
         // Read line (slot+16) and col (slot+20).
-        let line = match dro.read_u32_le(entry.offset + 16) {
-            Some(l) => l,
-            None => continue,
+        let Some(line) = dro.read_u32_le(entry.offset + 16) else {
+            continue;
         };
-        let col = match dro.read_u32_le(entry.offset + 20) {
-            Some(c) => c,
-            None => continue,
+        let Some(col) = dro.read_u32_le(entry.offset + 20) else {
+            continue;
         };
 
         // A valid Location always has line ≥ 1.  Filter out garbage matches

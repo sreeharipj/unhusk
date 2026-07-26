@@ -90,13 +90,14 @@ pub fn read_function_sources(
     let sections = load_sections(elf);
 
     let load = |id: SectionId| -> Result<EndianSlice<'_, LittleEndian>, gimli::Error> {
-        let data: &[u8] = sections.get(id.name()).map(|v| v.as_slice()).unwrap_or(&[]);
+        let data: &[u8] = sections
+            .get(id.name())
+            .map_or(&[][..], std::vec::Vec::as_slice);
         Ok(EndianSlice::new(data, LittleEndian))
     };
 
-    let dwarf = match gimli::Dwarf::<EndianSlice<'_, LittleEndian>>::load(load) {
-        Ok(d) => d,
-        Err(_) => return HashMap::new(),
+    let Ok(dwarf) = gimli::Dwarf::<EndianSlice<'_, LittleEndian>>::load(load) else {
+        return HashMap::new();
     };
 
     let mut result = DwarfGroundTruth::new();
@@ -104,16 +105,15 @@ pub fn read_function_sources(
     // ── Process each compilation unit ─────────────────────────────────────────
     let mut units = dwarf.units();
     while let Ok(Some(unit_header)) = units.next() {
-        let unit = match dwarf.unit(unit_header) {
-            Ok(u) => u,
-            Err(_) => continue,
+        let Ok(unit) = dwarf.unit(unit_header) else {
+            continue;
         };
 
         let lp_header = unit.line_program.as_ref().map(|p| p.header().clone());
 
         // Phase 1: collect abstract subprogram decl_file by in-CU DIE offset.
         // Key: byte offset of the DIE within the unit's debug_info data.
-        let abstract_files = collect_abstract_files(&dwarf, &unit, &lp_header);
+        let abstract_files = collect_abstract_files(&dwarf, &unit, lp_header.as_ref());
 
         // Phase 2: map concrete subprogram low_pc → decl_file.
         let mut entries = unit.entries();
@@ -206,7 +206,7 @@ pub fn read_function_sources(
 fn collect_abstract_files(
     dwarf: &gimli::Dwarf<EndianSlice<'_, LittleEndian>>,
     unit: &gimli::Unit<EndianSlice<'_, LittleEndian>>,
-    lp_header: &Option<gimli::LineProgramHeader<EndianSlice<'_, LittleEndian>>>,
+    lp_header: Option<&gimli::LineProgramHeader<EndianSlice<'_, LittleEndian>>>,
 ) -> HashMap<usize, String> {
     let mut map = HashMap::new();
 
@@ -217,18 +217,18 @@ fn collect_abstract_files(
         }
 
         // Only abstract subprograms carry decl_file.
-        let file_idx = match entry.attr_value(constants::DW_AT_decl_file).ok().flatten() {
-            Some(gimli::AttributeValue::FileIndex(idx)) => idx,
-            _ => continue,
+        let Some(gimli::AttributeValue::FileIndex(file_idx)) =
+            entry.attr_value(constants::DW_AT_decl_file).ok().flatten()
+        else {
+            continue;
         };
 
         // Get the resolved path from the line-program file table.
-        let path = match lp_header.as_ref().and_then(|h| {
+        let Some(path) = lp_header.and_then(|h| {
             h.file(file_idx)
                 .and_then(|f| resolve_file(dwarf, unit, h, f))
-        }) {
-            Some(p) => p,
-            None => continue,
+        }) else {
+            continue;
         };
 
         // Key is the byte offset of this DIE within the unit's slice
@@ -261,7 +261,7 @@ fn resolve_file(
         .and_then(|d| attr_str(dwarf, unit, d));
 
     let combined = match &dir {
-        Some(d) if !d.is_empty() => format!("{}/{}", d, file_name),
+        Some(d) if !d.is_empty() => format!("{d}/{file_name}"),
         _ => file_name,
     };
 
@@ -275,7 +275,7 @@ fn resolve_file(
         .and_then(|s| std::str::from_utf8(s.slice()).ok());
 
     Some(match comp_dir {
-        Some(cd) if !cd.is_empty() => format!("{}/{}", cd, combined),
+        Some(cd) if !cd.is_empty() => format!("{cd}/{combined}"),
         _ => combined,
     })
 }
@@ -537,9 +537,9 @@ mod tests {
             user_fns.len()
         );
         let mut user_addrs: Vec<u64> = user_fns.iter().map(|(a, _)| **a).collect();
-        user_addrs.sort();
+        user_addrs.sort_unstable();
         for a in &user_addrs {
-            eprintln!("  user: 0x{:08x}", a);
+            eprintln!("  user: 0x{a:08x}");
         }
 
         // In this optimised build, only `main` survives as a separate concrete subprogram;

@@ -25,6 +25,48 @@ pdb = "0.8"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+
+# ── Deliberate exemptions ─────────────────────────────────────────────────────
+# Numeric casts. unhusk is x86-64-only — ParsedElf::load bails on any other
+# architecture — so u64 <-> usize is lossless on the only target that exists,
+# and the sign/wrap casts sit behind explicit range guards (e.g. the
+# `r_addend >= 0` check before the RELATIVE addend cast). Rewriting them as
+# `try_into().unwrap()` would add panic paths to a tool whose whole job is
+# parsing hostile input.
+cast_possible_truncation = "allow"
+cast_possible_wrap = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+
+# `ends_with(".rs")` is exact on purpose: rustc embeds the literal lowercase
+# extension. The suggested `Path::extension` rewrite changes the semantics.
+case_sensitive_file_extension_comparisons = "allow"
+
+# The report printers are long because they print a lot, linearly.
+too_many_lines = "allow"
+
+# Binary-format parsing uses short, conventional names (p_off, p_vaddr, lo/lf).
+many_single_char_names = "allow"
+similar_names = "allow"
+
+# `Args` mirrors the CLI surface; one bool per flag is the point.
+struct_excessive_bools = "allow"
+
+# The public API takes std HashMap deliberately; generifying over S is churn.
+implicit_hasher = "allow"
+
+# Noise for a binary crate.
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+# The doc comments here carry domain knowledge (DWARF/ELF/PDB specifics) as
+# prose. Backticking every bare `.eh_frame` / `DW_AT_decl_file` would churn
+# carefully written technical comments for rendered-doc cosmetics.
+doc_markdown = "allow"
+
 [profile.release]
 opt-level = 3
 lto = true

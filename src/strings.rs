@@ -38,9 +38,9 @@ impl Origin {
                 version,
             } => {
                 if version.is_empty() {
-                    format!("dep:{}", crate_name)
+                    format!("dep:{crate_name}")
                 } else {
-                    format!("dep:{}@{}", crate_name, version)
+                    format!("dep:{crate_name}@{version}")
                 }
             }
             Origin::Unknown => "unknown".to_string(),
@@ -67,9 +67,8 @@ pub struct SourceString {
 /// `.rs` source path. Each rodata address is yielded once (multiple Location
 /// structs can share one path string), in relocation-table order.
 fn rs_path_strings(elf: &ParsedElf) -> Vec<(u64, String)> {
-    let (rodata, dro) = match (elf.section(".rodata"), elf.section(".data.rel.ro")) {
-        (Some(r), Some(d)) => (r, d),
-        _ => return Vec::new(),
+    let (Some(rodata), Some(dro)) = (elf.section(".rodata"), elf.section(".data.rel.ro")) else {
+        return Vec::new();
     };
 
     let mut seen: HashSet<u64> = HashSet::new();
@@ -90,13 +89,11 @@ fn rs_path_strings(elf: &ParsedElf) -> Vec<(u64, String)> {
             Some(l) if l > 0 && l <= 512 => l as usize,
             _ => continue,
         };
-        let bytes = match rodata.slice_at(entry.addend, str_len) {
-            Some(b) => b,
-            None => continue,
+        let Some(bytes) = rodata.slice_at(entry.addend, str_len) else {
+            continue;
         };
-        let s = match std::str::from_utf8(bytes) {
-            Ok(s) => s,
-            Err(_) => continue,
+        let Ok(s) = std::str::from_utf8(bytes) else {
+            continue;
         };
         if s.ends_with(".rs") {
             out.push((entry.addend, s.to_string()));

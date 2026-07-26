@@ -20,6 +20,9 @@ use object::{LittleEndian, Object};
 
 use super::{BinaryImage, RawLocation};
 
+/// Block padding — carries no relocation. Only referenced by tests now that the
+/// reloc walker folds it into its catch-all arm, but it names the magic 0 there.
+#[cfg(test)]
 const IMAGE_REL_BASED_ABSOLUTE: u16 = 0;
 const IMAGE_REL_BASED_DIR64: u16 = 10;
 
@@ -401,10 +404,10 @@ fn dir64_rvas_from_reloc(data: &[u8]) -> Vec<u32> {
             let raw = u16::from_le_bytes([e[0], e[1]]);
             let typ = raw >> 12;
             let ofs = u32::from(raw & 0x0fff);
-            match typ {
-                IMAGE_REL_BASED_DIR64 => out.push(page_rva + ofs),
-                IMAGE_REL_BASED_ABSOLUTE => {} // padding
-                _ => {}                        // other reloc types irrelevant here
+            // Type 0 (IMAGE_REL_BASED_ABSOLUTE) is block padding; every other reloc
+            // type is irrelevant to the Location-pointer recovery this feeds.
+            if typ == IMAGE_REL_BASED_DIR64 {
+                out.push(page_rva + ofs);
             }
         }
         off += block_sz;

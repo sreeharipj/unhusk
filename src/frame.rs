@@ -59,9 +59,8 @@ pub fn parse_eh_frame(elf: &ParsedElf) -> Result<FunctionMap> {
     loop {
         match entries.next() {
             Ok(Some(CieOrFde::Fde(partial))) => {
-                let fde = match partial.parse(EhFrame::cie_from_offset) {
-                    Ok(f) => f,
-                    Err(_) => continue,
+                let Ok(fde) = partial.parse(EhFrame::cie_from_offset) else {
+                    continue;
                 };
                 let start = fde.initial_address();
                 let len = fde.len();
@@ -71,9 +70,8 @@ pub fn parse_eh_frame(elf: &ParsedElf) -> Result<FunctionMap> {
                 let end = start.saturating_add(len);
                 map.insert(start, FunctionRange { start, end });
             }
-            Ok(Some(CieOrFde::Cie(_))) => continue,
-            Ok(None) => break,
-            Err(_) => break,
+            Ok(Some(CieOrFde::Cie(_))) => {}
+            Ok(None) | Err(_) => break,
         }
     }
 
@@ -194,9 +192,8 @@ fn function_starts_from_eh_frame_hdr(elf: &ParsedElf) -> Vec<u64> {
         _ => return Vec::new(),
     };
 
-    let vsz = match enc_size(table_enc) {
-        Some(n) => n,
-        None => return Vec::new(),
+    let Some(vsz) = enc_size(table_enc) else {
+        return Vec::new();
     };
     // Only the 4-byte table form is common; 8-byte is rare but handled for read width.
     let signed = table_enc & 0x0f == 0x0b || table_enc & 0x0f == 0x0c;
@@ -207,8 +204,8 @@ fn function_starts_from_eh_frame_hdr(elf: &ParsedElf) -> Vec<u64> {
             return None;
         }
         Some(match (vsz, signed) {
-            (4, true) => i32::from_le_bytes(d[off..off + 4].try_into().unwrap()) as i64,
-            (4, false) => u32::from_le_bytes(d[off..off + 4].try_into().unwrap()) as i64,
+            (4, true) => i64::from(i32::from_le_bytes(d[off..off + 4].try_into().unwrap())),
+            (4, false) => i64::from(u32::from_le_bytes(d[off..off + 4].try_into().unwrap())),
             (8, true) => i64::from_le_bytes(d[off..off + 8].try_into().unwrap()),
             (8, false) => u64::from_le_bytes(d[off..off + 8].try_into().unwrap()) as i64,
             _ => return None,
@@ -218,9 +215,8 @@ fn function_starts_from_eh_frame_hdr(elf: &ParsedElf) -> Vec<u64> {
     let mut starts = Vec::with_capacity(fde_count);
     for i in 0..fde_count {
         let loc_off = p + i * 2 * vsz; // initial_location is the first of each pair
-        let raw = match read_val(loc_off) {
-            Some(v) => v,
-            None => break,
+        let Some(raw) = read_val(loc_off) else {
+            break;
         };
         let vaddr = match application {
             0x30 => (hdr.vaddr as i64).wrapping_add(raw) as u64, // datarel: rel to hdr base

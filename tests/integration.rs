@@ -206,11 +206,14 @@ fn rustup_user_source_files() {
         "rustup Phase 2: expected ≥30 certain user functions, got {}",
         scan.certain.len()
     );
-    let total_edges: usize = scan.calls.values().map(|s| s.len()).sum();
+    let total_edges: usize = scan
+        .calls
+        .values()
+        .map(std::collections::HashSet::len)
+        .sum();
     assert!(
         total_edges >= 5_000,
-        "rustup Phase 2: expected ≥5K call edges, got {}",
-        total_edges
+        "rustup Phase 2: expected ≥5K call edges, got {total_edges}"
     );
 
     let attributed = classify::attribute(
@@ -311,8 +314,7 @@ fn scored_phase2_attribution() {
     for &addr in known_panicking {
         assert!(
             fn_map.contains_key(&addr),
-            "FDE missing for user fn at 0x{:x}",
-            addr
+            "FDE missing for user fn at 0x{addr:x}"
         );
     }
 
@@ -338,8 +340,7 @@ fn scored_phase2_attribution() {
         .count();
     assert!(
         found_certain >= 3,
-        "expected ≥3 panicking functions as certain, got {}",
-        found_certain
+        "expected ≥3 panicking functions as certain, got {found_certain}"
     );
 
     // Call graph: must have edges from panicking to pure-compute
@@ -349,13 +350,17 @@ fn scored_phase2_attribution() {
         0x13fe0, // count_set_bits (called by checked_div)
         0x14100, // encode_nibbles (called by decode_chunks)
     ];
-    let total_call_edges: usize = scan_result.calls.values().map(|s| s.len()).sum();
+    let total_call_edges: usize = scan_result
+        .calls
+        .values()
+        .map(std::collections::HashSet::len)
+        .sum();
     assert!(total_call_edges > 0, "call graph is empty");
     eprintln!(
         "call graph: {} functions with outgoing edges",
         scan_result.calls.len()
     );
-    eprintln!("call graph: {} total edges", total_call_edges);
+    eprintln!("call graph: {total_call_edges} total edges");
 
     // Attribution: must attribute at least the certain + a few inferred
     let attributed = unhusk::classify::attribute(
@@ -394,8 +399,7 @@ fn scored_phase2_attribution() {
     );
     assert!(
         found_inferred >= 2,
-        "expected ≥2 pure-compute callees as inferred, got {}",
-        found_inferred
+        "expected ≥2 pure-compute callees as inferred, got {found_inferred}"
     );
 
     // Dead functions must NOT be in certain or inferred
@@ -451,10 +455,13 @@ fn certain_precision_never_drops_below_100_pct() {
     );
 
     // If there are certain predictions, every one must be a true positive.
+    // Asserted on the integer FP count rather than `precision() == 1.0`: same
+    // invariant (precision is 1.0 exactly when FP is 0), without comparing a
+    // derived float for equality.
     if let Some(prec) = report.certain.precision() {
         assert_eq!(
-            prec,
-            1.0,
+            report.certain.false_positive,
+            0,
             "certain precision={:.1}%  TP={}  FP={} — a false positive was introduced",
             prec * 100.0,
             report.certain.true_positive,
