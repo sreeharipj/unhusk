@@ -50,11 +50,20 @@ unhusk <stripped-elf> --types
 
 ## Example output
 
-Run with `--precision --json` against a real, stripped Akira ransomware sample:
+Run with `--precision --json` against a real, stripped Akira ransomware sample —
+one entry from the `functions` array:
 
 ```json
-{"start": "0xd25af", "end": "0xd38a5", "size": 4854, "tier": "strong", "anchor_count": 6,
- "anchor_files": ["akiranew/src/path_finder.rs"]}
+{
+  "start": "0xd25af",
+  "end": "0xd38a5",
+  "size": 4854,
+  "tier": "strong",
+  "anchor_count": 6,
+  "anchor_files": [
+    "akiranew/src/path_finder.rs"
+  ]
+}
 ```
 
 Six distinct author panic sites in one function, from `akiranew`'s own source tree — a STRONG-tier seed, no symbols or debug info required. This is one of the functions [winnow](https://github.com/sreeharipj/winnow) later builds a Tier 1 YARA-X rule from; see its [example rule](https://github.com/sreeharipj/winnow/blob/main/examples/akira_v2_x_tier1.yar).

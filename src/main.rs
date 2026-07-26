@@ -148,7 +148,19 @@ fn main() -> Result<()> {
         fn_map = unhusk::frame::fallback_function_map(&elf);
         if fn_map.is_empty() {
             if args.json {
-                println!("{{\"binary\": null, \"functions\": []}}");
+                // Same envelope as the success path, with an empty `functions`
+                // array — previously this emitted a second, narrower schema
+                // (`binary: null`, no `arch`, no `min_anchors`), so a consumer
+                // reading those keys broke on exactly the degraded binaries it
+                // most needed to report on.
+                unhusk::report::print_json_report(
+                    &elf,
+                    &[],
+                    &[],
+                    &unhusk::xref::CertainLocs::new(),
+                    args.min_anchors,
+                    args.precision,
+                )?;
             }
             return Ok(());
         }
@@ -232,7 +244,7 @@ fn main() -> Result<()> {
             &scan.certain_locs,
             args.min_anchors,
             args.precision,
-        );
+        )?;
         return Ok(());
     }
 
