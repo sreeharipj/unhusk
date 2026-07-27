@@ -56,6 +56,15 @@ fn classify_path_for_dwarf(path: &str, root_crates: &[String]) -> Origin {
     // DWARF source paths are absolute build-time paths.  For cargo-install binaries
     // they are registry paths too, so root-crate promotion applies here as well.
     match classify_path(path, root_crates) {
+        // Only Rust sources can be Rust user code.  A `cc`-built dependency
+        // (aws-lc-sys, ring, openssl-sys, zstd-sys) compiles C/asm into the
+        // binary, and those decl_files (`/aws-lc/crypto/…​.c`, build-script OUT_DIR
+        // paths) match no std or dep guard, so the promotion below would claim
+        // every one of them as author code.  Measured across a 58-binary corpus:
+        // 31,030 functions, up to 99% of a binary's "user" set (zellij 11184/11204,
+        // monolith 9686/9736, fd-find 620/652).  This is the ELF twin of Guard 2 in
+        // `pdb_oracle`, which gates the same promotion on a `.rs` extension.
+        Origin::Unknown if !path.ends_with(".rs") => Origin::Unknown,
         Origin::Unknown => Origin::User,
         other => other,
     }
@@ -505,6 +514,27 @@ mod tests {
         // A genuine absolute user path must still promote to User.
         assert_eq!(
             classify_path_for_dwarf("/home/user/proj/src/main.rs", &[]),
+            Origin::User
+        );
+    }
+
+    #[test]
+    fn cc_built_c_sources_are_not_user() {
+        // cc-built dependencies (aws-lc-sys, ring, openssl-sys) compile C and asm
+        // into the binary. Those decl_files match no std/dep guard, and before the
+        // extension gate the Unknown -> User promotion claimed all of them: 99% of
+        // zellij's and monolith's "user" sets were vendored C.
+        for p in [
+            "/aws-lc/crypto/bytestring/cbs.c",
+            "/aws-lc/crypto/fipsmodule/bn/internal.h",
+            "/home/user/proj/target/release/build/aws-lc-sys-1a2b/out/gen.c",
+            "/some/vendored/chacha-x86_64.S",
+        ] {
+            assert_eq!(classify_path_for_dwarf(p, &[]), Origin::Unknown, "{p}");
+        }
+        // Rust sources are unaffected.
+        assert_eq!(
+            classify_path_for_dwarf("/home/user/proj/src/lib.rs", &[]),
             Origin::User
         );
     }
