@@ -45,10 +45,30 @@ def text_section(binary):
     return None, None
 
 
+def _eh_frame_only_text(binary):
+    """`readelf --debug-dump=frames-interp` dumps EVERY frame-info section
+    present, `.eh_frame` and `.debug_frame` both, back to back under their own
+    "Contents of the .X section:" headers. `.debug_frame` is debug-only (not
+    SHF_ALLOC, not read by `frame::parse_eh_frame`, legitimately removed by
+    `strip -s`) and can carry FDEs for functions `.eh_frame` never covers —
+    compiler-builtins leaf intrinsics (`__popcountdi2` et al.) in particular.
+    Conflating the two produced a false address-identity mismatch on `oha`
+    (which links one such builtin) even though `.eh_frame` itself, the only
+    section unhusk's pipeline or this measurement's FDE definition cares
+    about, was byte-identical between the pair. Slice out just the
+    `.eh_frame` block."""
+    text = sh(["readelf", "--debug-dump=frames-interp", binary]).stdout
+    start = text.find("Contents of the .eh_frame section:")
+    if start == -1:
+        return ""
+    rest = text[start:]
+    next_section = rest.find("Contents of the .debug_frame section:")
+    return rest[:next_section] if next_section != -1 else rest
+
+
 def fde_starts(binary):
-    r = sh(["readelf", "--debug-dump=frames-interp", binary])
     starts = set()
-    for m in re.finditer(r"pc=([0-9a-f]+)\.\.", r.stdout):
+    for m in re.finditer(r"pc=([0-9a-f]+)\.\.", _eh_frame_only_text(binary)):
         starts.add(int(m.group(1), 16))
     return starts
 
