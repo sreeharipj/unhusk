@@ -56,7 +56,6 @@ sd	sd	sd	generics,workspace	0
 tealdeer	tealdeer	tldr	depfree	1
 zellij	zellij	zellij	async,workspace	0
 websocat	websocat	websocat	async	0
-bore	bore	bore	async	0
 mqttui	mqttui	mqttui	async	0
 rathole	rathole	rathole	async	0
 dog	dog	dog	network	0
