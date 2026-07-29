@@ -101,7 +101,10 @@ fn classify_path_for_dwarf(path: &str, root_crates: &[String]) -> Origin {
 /// `<TARGET_DIR>/<profile>/build/<crate>-<16-hex-metadata>/out/…`, so the
 /// generating crate is recoverable from the directory name. Returns `None` for
 /// any path that is not build-script output.
-fn build_script_crate(path: &str) -> Option<String> {
+///
+/// `pub(crate)`: also used by `origin::classify_location_path` to detect the
+/// `Generated` path class without reimplementing the 16-hex-metadata check.
+pub(crate) fn build_script_crate(path: &str) -> Option<String> {
     let norm = path.replace('\\', "/");
     let idx = norm.find("/build/")?;
     let seg = norm[idx + "/build/".len()..].split('/').next()?;
