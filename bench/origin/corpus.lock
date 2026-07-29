@@ -1,0 +1,28 @@
+# bench/origin/corpus.lock — exact provenance pin for every corpus.tsv entry.
+#
+# Committed so the matrix build is reproducible: build_matrix.sh checks each
+# repo's current HEAD and Cargo.lock hash against this file before building
+# and refuses (loud, not silent) on a mismatch.
+#
+# Recorded 2026-07-29 against:
+rustc	1.98.0-nightly (9e2abe0c6 2026-06-16)
+cargo	1.98.0-nightly (fe63976b2 2026-06-11)
+#
+# columns: name  git_sha  cargo_lock_sha256  remote_url
+name	git_sha	cargo_lock_sha256	remote_url
+oha	b8cd846806b4ddefdd447f5f9f95a66ac22146a4	62f7ee12c342ae7ed405e279ce094ff7cdcca32489183cfb938ac8dc224ba478	https://github.com/hatoo/oha
+xh	87750f24ba910d3191747b54a981c9defffddbe1	0008d18e6bc7b9be30416ee643abf63736180105d99f23f59bc1bb02828031ab	https://github.com/ducaale/xh
+miniserve	4dab4829184483e28b8a4464a3c953130cfe4592	d370b9bfaee4f1c9a005473761249395e8f2f0b4fc97bb85a4038362e25589d9	https://github.com/svenstaro/miniserve
+dufs	fe7fd564f80dfbac361c8e0589c3845638149d38	114b8e0021e6630473baba623c327babd4b00c10de4807b1c97383a6fd0852e8	https://github.com/sigoden/dufs
+procs	2f21c51d83f7a5d1ee7575c62d0a872f1745d54c	b11ce74077db836c4eae88515c104717d260a0027f16e407f73f73adb350629c	https://github.com/dalance/procs
+starship	8eb25b8130d1b7bf0c98c71d6f978224814b5208	f72c004ae944c400ec7d90723dca8d775799fdcc383eec9706154c25c2a899f9	https://github.com/starship/starship
+typos	3bc303c295c081add5df4a4d52a1e117f2fb2dce	83b73b5e4fda47432f7914ab5ed9d19b5268f25bde0248c4441ecc87de08d42d	https://github.com/crate-ci/typos
+taplo	b673b44df2773db8673a00df2e7654b769f7fde7	1127605b17c00987c3a2fa397ce14fad51d46ac9c3c4b42f2a1b79e41a95ac42	https://github.com/tamasfe/taplo
+tokei	fa44e5194060305576514d59b850353643afbfc8	20691d68bf9c3862a80e5dbb6aae0729469fa5d86eff884b682f028877389e95	https://github.com/XAMPPRocky/tokei
+ripgrep	5e16a5c9e57e81f6031a23faa2ace52205fa8242	7a7d39cda8a03930e578f1dbb724e055771901842eca239e03b01e19da946a64	https://github.com/BurntSushi/ripgrep
+trippy	4b2351b1b30813fc19a1037cfa86fe0b56a567a3	a547298c1d0984328b82632c04c8f7bc6e4c40927122e757883495c62be475e1	https://github.com/fujiapple852/trippy
+just	c117d393a66cb4988c509f82df79ea687fd28c43	2ef3145629fe590fdd5f7effa0ad98de32fc65725e2193fcced44ab1d2d2db32	https://github.com/casey/just
+hexyl	6ecc29b9c8c84d08a7e860f7f69c22b113b480ea	8ea5d9783696026e5ca55d669dd91b38d8613e9fe4f5a5ad701281142adf291d	https://github.com/sharkdp/hexyl
+xsv	f4304660231d7907798e831411871d2679d335c3	17b4d59a6e6d65b59d8e837abf5481a2170553ee7ac31b7aa0822e51ec04564b	https://github.com/BurntSushi/xsv
+zoxide	670bdf21b98fea0d82c5bb609665f2edf561d6d7	f2fbfa16c8172fc60ff86db2342efc1d0b6fa5131b8d5c26a59c7faad720d167	https://github.com/ajeetdsouza/zoxide
+pastel	01d4252aa794f1331834948f133e75c64532be46	b0f8be5e086ee80e4c3adf69df75f35bb0ae0bbb38626bcfef4aeca8bad84957	https://github.com/sharkdp/pastel
