@@ -59,3 +59,8 @@ websocat	websocat	websocat	async	0
 bore	bore	bore	async	0
 mqttui	mqttui	mqttui	async	0
 rathole	rathole	rathole	async	0
+dog	dog	dog	network	0
+feroxbuster	feroxbuster	feroxbuster	async	0
+pueue	pueue	pueue	async,workspace	0
+wormhole-rs	wormhole-rs	wormhole-rs	async-smol,workspace	0
+oxker	oxker	oxker	async	0
