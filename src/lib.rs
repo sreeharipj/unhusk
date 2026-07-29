@@ -4,6 +4,7 @@ pub mod dwarf;
 pub mod elf;
 pub mod frame;
 pub mod locate;
+pub mod origin;
 pub mod pdb_oracle;
 pub mod report;
 pub mod strings;
