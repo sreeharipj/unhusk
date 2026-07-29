@@ -95,10 +95,25 @@ def nm_table(binary):
     return table, mangling, n_v0, n_legacy
 
 
+def _eh_frame_only_text(binary):
+    """See verify_pair.py's `_eh_frame_only_text` — `readelf --debug-dump=
+    frames-interp` dumps `.debug_frame` too when present, which can carry
+    FDEs for compiler-builtins leaf intrinsics `.eh_frame` never covers
+    (`__popcountdi2` et al., debug-only, not SHF_ALLOC, not read by
+    `frame::parse_eh_frame`). This oracle's FDE definition must match the
+    one `origin_probe`/unhusk itself uses, so only `.eh_frame` counts."""
+    text = sh(["readelf", "--debug-dump=frames-interp", binary], timeout=300).stdout
+    start = text.find("Contents of the .eh_frame section:")
+    if start == -1:
+        return ""
+    rest = text[start:]
+    next_section = rest.find("Contents of the .debug_frame section:")
+    return rest[:next_section] if next_section != -1 else rest
+
+
 def fde_ranges(binary):
-    r = sh(["readelf", "--debug-dump=frames-interp", binary], timeout=300)
     ranges = []
-    for m in re.finditer(r"pc=([0-9a-f]+)\.\.([0-9a-f]+)", r.stdout):
+    for m in re.finditer(r"pc=([0-9a-f]+)\.\.([0-9a-f]+)", _eh_frame_only_text(binary)):
         ranges.append((int(m.group(1), 16), int(m.group(2), 16)))
     ranges.sort()
     return ranges
