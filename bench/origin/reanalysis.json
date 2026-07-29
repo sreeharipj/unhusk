@@ -2,40 +2,40 @@
  "variants": {
   "strict": {
    "base_rate_pooled": {
-    "DEP": 0.4748464584774243,
-    "STD": 0.47494758550199634,
-    "AUTHOR": 0.03245139130921574,
-    "WORKSPACE": 0.017754564711363607
+    "DEP": 0.4774791345827569,
+    "STD": 0.47477185077392914,
+    "AUTHOR": 0.03138785205293519,
+    "WORKSPACE": 0.01636116259037874
    },
-   "n_labeled_pooled": 2215036,
-   "author_base_rate_crate_avg": 0.036634507045987565,
+   "n_labeled_pooled": 2451904,
+   "author_base_rate_crate_avg": 0.035682753167093476,
    "rules": {
     "A@1": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 16323,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 7980,
-      "precision_author": 0.48888072045579856,
-      "recall_author": 0.11101681946550548,
-      "recall_author_conditional": 0.4363039912520503,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "predicted_author": 17263,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 8700,
+      "precision_author": 0.5039680240977814,
+      "recall_author": 0.11304573804573805,
+      "recall_author_conditional": 0.4203304667117596,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7243721455615686,
-      "recall_author": 0.11595326662450593,
-      "recall_author_conditional": 0.38806840862773034,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7209101070092255,
+      "recall_author": 0.11905896847848524,
+      "recall_author_conditional": 0.38317025408143557,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -200,6 +200,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 114,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 57,
+       "precision_author": 0.5,
+       "recall_author": 0.1701492537313433,
+       "recall_author_conditional": 0.2638888888888889,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -343,6 +361,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 272,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 175,
+       "precision_author": 0.6433823529411765,
+       "recall_author": 0.18229166666666666,
+       "recall_author_conditional": 0.4196642685851319,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -614,6 +650,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 554,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 488,
+       "precision_author": 0.8808664259927798,
+       "recall_author": 0.12896405919661733,
+       "recall_author_conditional": 0.27492957746478874,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -762,30 +816,30 @@
     },
     "A@2": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.0037672513591754213,
-      "predicted_author": 6209,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 2686,
-      "precision_author": 0.43259784184248673,
-      "recall_author": 0.03736731542410373,
-      "recall_author_conditional": 0.14685620557681794,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.0035847462934657684,
+      "predicted_author": 6674,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 3066,
+      "precision_author": 0.4593946658675457,
+      "recall_author": 0.03983887733887734,
+      "recall_author_conditional": 0.1481302541308339,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7796005728546034,
-      "recall_author": 0.04652193829498543,
-      "recall_author_conditional": 0.15159214409611138,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7740860862621161,
+      "recall_author": 0.0485132913364164,
+      "recall_author_conditional": 0.15225572434509382,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -950,6 +1004,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0007402767496156255,
+       "predicted_author": 23,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 11,
+       "precision_author": 0.4782608695652174,
+       "recall_author": 0.03283582089552239,
+       "recall_author_conditional": 0.05092592592592592,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -1093,6 +1165,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0014811046946530625,
+       "predicted_author": 173,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 122,
+       "precision_author": 0.7052023121387283,
+       "recall_author": 0.12708333333333333,
+       "recall_author_conditional": 0.29256594724220625,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -1364,6 +1454,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0035885167464114833,
+       "predicted_author": 269,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 247,
+       "precision_author": 0.9182156133828996,
+       "recall_author": 0.06527484143763214,
+       "recall_author_conditional": 0.13915492957746478,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -1512,30 +1620,30 @@
     },
     "A@3": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.004885060468220848,
-      "predicted_author": 3208,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 1347,
-      "precision_author": 0.4198877805486284,
-      "recall_author": 0.018739305240606,
-      "recall_author_conditional": 0.0736468015308912,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.0046812609071720315,
+      "predicted_author": 3435,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 1551,
+      "precision_author": 0.451528384279476,
+      "recall_author": 0.020153326403326403,
+      "recall_author_conditional": 0.07493477630688955,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7626445098610911,
-      "recall_author": 0.021865073457733177,
-      "recall_author_conditional": 0.07485937950494431,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7676658366205069,
+      "recall_author": 0.023392193282538255,
+      "recall_author_conditional": 0.07609050732139645,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -1700,6 +1808,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.00082162584297998,
+       "predicted_author": 13,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 9,
+       "precision_author": 0.6923076923076923,
+       "recall_author": 0.026865671641791045,
+       "recall_author_conditional": 0.041666666666666664,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -1843,6 +1969,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0028874061218994045,
+       "predicted_author": 79,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 68,
+       "precision_author": 0.8607594936708861,
+       "recall_author": 0.07083333333333333,
+       "recall_author_conditional": 0.1630695443645084,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -2114,6 +2258,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.005275749181566356,
+       "predicted_author": 135,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 127,
+       "precision_author": 0.9407407407407408,
+       "recall_author": 0.033562367864693445,
+       "recall_author_conditional": 0.07154929577464789,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -2262,30 +2424,30 @@
     },
     "A@4": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005292552359355701,
-      "predicted_author": 2114,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 870,
-      "precision_author": 0.41154210028382215,
-      "recall_author": 0.012103337460525035,
-      "recall_author_conditional": 0.047566976489885185,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005087502814071543,
+      "predicted_author": 2235,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 984,
+      "precision_author": 0.44026845637583895,
+      "recall_author": 0.012785862785862787,
+      "recall_author_conditional": 0.047540825200502464,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7723617869068885,
-      "recall_author": 0.013034365450199592,
-      "recall_author_conditional": 0.04368568478123066,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7847442135550765,
+      "recall_author": 0.013901297523854501,
+      "recall_author_conditional": 0.044188927090438666,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -2450,6 +2612,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0008541654803257217,
+       "predicted_author": 9,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 9,
+       "precision_author": 1.0,
+       "recall_author": 0.026865671641791045,
+       "recall_author_conditional": 0.041666666666666664,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -2593,6 +2773,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0035456748750785434,
+       "predicted_author": 35,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 28,
+       "precision_author": 0.8,
+       "recall_author": 0.029166666666666667,
+       "recall_author_conditional": 0.0671462829736211,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -2864,6 +3062,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0060060438176781665,
+       "predicted_author": 77,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 77,
+       "precision_author": 1.0,
+       "recall_author": 0.020348837209302327,
+       "recall_author_conditional": 0.04338028169014085,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -3012,30 +3228,30 @@
     },
     "A@5": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005512314896622212,
-      "predicted_author": 1524,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 583,
-      "precision_author": 0.3825459317585302,
-      "recall_author": 0.008110627286765627,
-      "recall_author_conditional": 0.031875341716785126,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005299764210426537,
+      "predicted_author": 1608,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 667,
+      "precision_author": 0.4148009950248756,
+      "recall_author": 0.008666839916839917,
+      "recall_author_conditional": 0.032225335781234904,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7510156855901661,
-      "recall_author": 0.00958417416559066,
-      "recall_author_conditional": 0.031375466226423385,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7648481475018236,
+      "recall_author": 0.00979333998129908,
+      "recall_author_conditional": 0.031134789322717245,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -3200,6 +3416,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009273796643536408,
+       "predicted_author": 0,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -3343,6 +3577,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0037700846772987045,
+       "predicted_author": 20,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 20,
+       "precision_author": 1.0,
+       "recall_author": 0.020833333333333332,
+       "recall_author_conditional": 0.047961630695443645,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -3614,6 +3866,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.006169730546461848,
+       "predicted_author": 64,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 64,
+       "precision_author": 1.0,
+       "recall_author": 0.016913319238900635,
+       "recall_author_conditional": 0.036056338028169016,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -3762,30 +4032,30 @@
     },
     "A@6": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005684400137668193,
-      "predicted_author": 1062,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 427,
-      "precision_author": 0.4020715630885122,
-      "recall_author": 0.005940373673154241,
-      "recall_author_conditional": 0.02334609075997813,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005461245368419093,
+      "predicted_author": 1131,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 496,
+      "precision_author": 0.4385499557913351,
+      "recall_author": 0.006444906444906445,
+      "recall_author_conditional": 0.023963667987245144,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7506953521571398,
-      "recall_author": 0.006458930878330544,
-      "recall_author_conditional": 0.021494070402400922,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7649413320338747,
+      "recall_author": 0.006721633588246581,
+      "recall_author_conditional": 0.021583266789989723,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -3950,6 +4220,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009273796643536408,
+       "predicted_author": 0,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -4093,6 +4381,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0038299272912240808,
+       "predicted_author": 16,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 16,
+       "precision_author": 1.0,
+       "recall_author": 0.016666666666666666,
+       "recall_author_conditional": 0.03836930455635491,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -4364,6 +4670,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.006308234701586502,
+       "predicted_author": 53,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 53,
+       "precision_author": 1.0,
+       "recall_author": 0.014006342494714588,
+       "recall_author_conditional": 0.029859154929577466,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -4512,30 +4836,30 @@
     },
     "B@1": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 19274,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 9417,
-      "precision_author": 0.4885856594375843,
-      "recall_author": 0.13100819409857958,
-      "recall_author_conditional": 0.5148715144887916,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "predicted_author": 21172,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 11038,
+      "precision_author": 0.5213489514453051,
+      "recall_author": 0.14342515592515592,
+      "recall_author_conditional": 0.5332882404097015,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7083443459804627,
-      "recall_author": 0.14237669565656724,
-      "recall_author_conditional": 0.4738302427031256,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7078121924885346,
+      "recall_author": 0.15083048385739148,
+      "recall_author_conditional": 0.47782366912146257,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -4700,6 +5024,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 142,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 76,
+       "precision_author": 0.5352112676056338,
+       "recall_author": 0.22686567164179106,
+       "recall_author_conditional": 0.35185185185185186,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -4843,6 +5185,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 316,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 200,
+       "precision_author": 0.6329113924050633,
+       "recall_author": 0.20833333333333334,
+       "recall_author_conditional": 0.47961630695443647,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -5114,6 +5474,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 1440,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 1345,
+       "precision_author": 0.9340277777777778,
+       "recall_author": 0.35544397463002114,
+       "recall_author_conditional": 0.7577464788732394,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -5262,30 +5640,30 @@
     },
     "B@2": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.004298033758505555,
-      "predicted_author": 7735,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 3517,
-      "precision_author": 0.4546864899806076,
-      "recall_author": 0.048928089481225914,
-      "recall_author_conditional": 0.19229086932750136,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.004146375729754342,
+      "predicted_author": 8924,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 4596,
+      "precision_author": 0.5150156880322725,
+      "recall_author": 0.05971933471933472,
+      "recall_author_conditional": 0.2220504396560054,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7647778499461634,
-      "recall_author": 0.06281718226091622,
-      "recall_author_conditional": 0.20057459810684788,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7610519558969553,
+      "recall_author": 0.06857322794398221,
+      "recall_author_conditional": 0.20829870030007344,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -5450,6 +5828,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0008785702083350281,
+       "predicted_author": 34,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 16,
+       "precision_author": 0.47058823529411764,
+       "recall_author": 0.04776119402985075,
+       "recall_author_conditional": 0.07407407407407407,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -5593,6 +5989,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0017653571107985996,
+       "predicted_author": 198,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 138,
+       "precision_author": 0.696969696969697,
+       "recall_author": 0.14375,
+       "recall_author_conditional": 0.33093525179856115,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -5864,6 +6278,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0060815915386552505,
+       "predicted_author": 957,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 925,
+       "precision_author": 0.9665621734587252,
+       "recall_author": 0.24445031712473572,
+       "recall_author_conditional": 0.5211267605633803,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -6012,30 +6444,30 @@
     },
     "B@3": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005637467799201107,
-      "predicted_author": 4139,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 1847,
-      "precision_author": 0.44624305387774826,
-      "recall_author": 0.025695246309873264,
-      "recall_author_conditional": 0.10098414434117003,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005550618587936985,
+      "predicted_author": 4776,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 2454,
+      "precision_author": 0.5138190954773869,
+      "recall_author": 0.031886694386694385,
+      "recall_author_conditional": 0.11856217992076529,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7630158844035417,
-      "recall_author": 0.030558590089172517,
-      "recall_author_conditional": 0.1029599450224905,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.766420043690057,
+      "recall_author": 0.03438080069486774,
+      "recall_author_conditional": 0.10833583501100641,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -6200,6 +6632,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009599193016993825,
+       "predicted_author": 24,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 14,
+       "precision_author": 0.5833333333333334,
+       "recall_author": 0.041791044776119404,
+       "recall_author_conditional": 0.06481481481481481,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -6343,6 +6793,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.003440950300709135,
+       "predicted_author": 86,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 74,
+       "precision_author": 0.8604651162790697,
+       "recall_author": 0.07708333333333334,
+       "recall_author_conditional": 0.1774580335731415,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -6614,6 +7082,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.01149584487534626,
+       "predicted_author": 527,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 519,
+       "precision_author": 0.9848197343453511,
+       "recall_author": 0.13715644820295983,
+       "recall_author_conditional": 0.2923943661971831,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -6762,30 +7248,30 @@
     },
     "B@4": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.006158565747736446,
-      "predicted_author": 2740,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 1210,
-      "precision_author": 0.4416058394160584,
-      "recall_author": 0.01683337738762677,
-      "recall_author_conditional": 0.0661563696008748,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006099383697173741,
+      "predicted_author": 3155,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 1617,
+      "precision_author": 0.5125198098256736,
+      "recall_author": 0.02101091476091476,
+      "recall_author_conditional": 0.0781234901922891,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7602305680990091,
-      "recall_author": 0.019187374242822665,
-      "recall_author_conditional": 0.06366952037887603,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7735461654247263,
+      "recall_author": 0.021814442771029844,
+      "recall_author_conditional": 0.06733440477128169,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -6950,6 +7436,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.001041268395063737,
+       "predicted_author": 14,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 14,
+       "precision_author": 1.0,
+       "recall_author": 0.041791044776119404,
+       "recall_author_conditional": 0.06481481481481481,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -7093,6 +7597,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.004129140360850962,
+       "predicted_author": 40,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 32,
+       "precision_author": 0.8,
+       "recall_author": 0.03333333333333333,
+       "recall_author_conditional": 0.07673860911270983,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -7364,6 +7886,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.01358599848904558,
+       "predicted_author": 361,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 361,
+       "precision_author": 1.0,
+       "recall_author": 0.09540169133192389,
+       "recall_author_conditional": 0.20338028169014086,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -7512,30 +8052,30 @@
     },
     "B@5": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.006428612933360549,
-      "predicted_author": 2015,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 845,
-      "precision_author": 0.41935483870967744,
-      "recall_author": 0.011755540407061671,
-      "recall_author_conditional": 0.04620010934937124,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006392554939986222,
+      "predicted_author": 2289,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 1119,
+      "precision_author": 0.4888597640891219,
+      "recall_author": 0.01454002079002079,
+      "recall_author_conditional": 0.05406319451154701,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7263881419271865,
-      "recall_author": 0.01384566820029684,
-      "recall_author_conditional": 0.04605558425146502,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7411779720932844,
+      "recall_author": 0.014925227838944037,
+      "recall_author_conditional": 0.04731495257266369,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -7700,6 +8240,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0011551571257738332,
+       "predicted_author": 0,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -7843,6 +8401,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.004428353430477843,
+       "predicted_author": 20,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 20,
+       "precision_author": 1.0,
+       "recall_author": 0.020833333333333332,
+       "recall_author_conditional": 0.047961630695443645,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -8114,6 +8690,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.014933266179803575,
+       "predicted_author": 254,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 254,
+       "precision_author": 1.0,
+       "recall_author": 0.06712473572938689,
+       "recall_author_conditional": 0.14309859154929577,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -8262,30 +8856,30 @@
     },
     "B@6": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.00663422127331159,
-      "predicted_author": 1463,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 639,
-      "precision_author": 0.43677375256322626,
-      "recall_author": 0.00888969268652356,
-      "recall_author_conditional": 0.034937124111536356,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006606170476030881,
+      "predicted_author": 1658,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 834,
+      "precision_author": 0.503015681544029,
+      "recall_author": 0.010836798336798337,
+      "recall_author_conditional": 0.04029374818823075,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7398308635671212,
-      "recall_author": 0.009321211090321807,
-      "recall_author_conditional": 0.032000030842280903,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7546976713632858,
+      "recall_author": 0.010158594186647423,
+      "recall_author_conditional": 0.03302894232923441,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -8450,6 +9044,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0011551571257738332,
+       "predicted_author": 0,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -8593,6 +9205,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.00448819604440322,
+       "predicted_author": 16,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 16,
+       "precision_author": 1.0,
+       "recall_author": 0.016666666666666666,
+       "recall_author_conditional": 0.03836930455635491,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -8864,6 +9494,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.015877612692017123,
+       "predicted_author": 179,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 179,
+       "precision_author": 1.0,
+       "recall_author": 0.04730443974630021,
+       "recall_author_conditional": 0.10084507042253521,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -9012,30 +9660,30 @@
     },
     "C@0.10": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 24026,
-      "actual_author": 71881,
-      "actual_author_with_location": 18290,
-      "tp_author": 12017,
-      "precision_author": 0.5001664863065013,
-      "recall_author": 0.16717908765876935,
-      "recall_author_conditional": 0.6570256971022417,
-      "predicted_dep": 463728,
-      "actual_dep": 1051802,
-      "tp_dep": 314635,
-      "precision_dep": 0.6784904081703067,
-      "recall_dep": 0.2991390014470404
+      "predicted_author": 26262,
+      "actual_author": 76960,
+      "actual_author_with_location": 20698,
+      "tp_author": 13930,
+      "precision_author": 0.5304241870383063,
+      "recall_author": 0.1810031185031185,
+      "recall_author_conditional": 0.6730118852063002,
+      "predicted_dep": 512121,
+      "actual_dep": 1170733,
+      "tp_dep": 348753,
+      "precision_dep": 0.6809972643183935,
+      "recall_dep": 0.29789285857663533
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.7211424235992243,
-      "recall_author": 0.20844553703093366,
-      "recall_author_conditional": 0.6594296362222903,
-      "precision_dep": 0.6141503005443127,
-      "recall_dep": 0.2964373023689376
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.7241132415081355,
+      "recall_author": 0.22180401991851995,
+      "recall_author_conditional": 0.668137336061069,
+      "precision_dep": 0.6201672507026725,
+      "recall_dep": 0.296141641739466
      },
      "per_crate": {
       "bandwhich": {
@@ -9200,6 +9848,24 @@
        "precision_dep": 0.6517043063543274,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 246,
+       "actual_author": 335,
+       "actual_author_with_location": 216,
+       "tp_author": 158,
+       "precision_author": 0.6422764227642277,
+       "recall_author": 0.4716417910447761,
+       "recall_author_conditional": 0.7314814814814815,
+       "predicted_dep": 19727,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7514573934201856,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -9343,6 +10009,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6118475559237779,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 476,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 340,
+       "precision_author": 0.7142857142857143,
+       "recall_author": 0.3541666666666667,
+       "recall_author_conditional": 0.815347721822542,
+       "predicted_dep": 13084,
+       "actual_dep": 28367,
+       "tp_dep": 9100,
+       "precision_dep": 0.6955059614796698,
+       "recall_dep": 0.3207952903021116
       },
       "oha": {
        "n_fdes": 127168,
@@ -9614,6 +10298,24 @@
        "precision_dep": 0.6482392542723977,
        "recall_dep": 0.3229072617051464
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 1514,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 1415,
+       "precision_author": 0.9346103038309115,
+       "recall_author": 0.3739429175475687,
+       "recall_author_conditional": 0.7971830985915493,
+       "predicted_dep": 15582,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6542164035425491,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -9764,39 +10466,39 @@
   },
   "workspace_merged": {
    "base_rate_pooled": {
-    "DEP": 0.4748464584774243,
-    "STD": 0.47494758550199634,
-    "AUTHOR": 0.05020595602057935
+    "DEP": 0.4774791345827569,
+    "STD": 0.47477185077392914,
+    "AUTHOR": 0.04774901464331393
    },
-   "n_labeled_pooled": 2215036,
-   "author_base_rate_crate_avg": 0.04639996436042436,
+   "n_labeled_pooled": 2451904,
+   "author_base_rate_crate_avg": 0.04495055684294736,
    "rules": {
     "A@1": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 16323,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 14480,
-      "precision_author": 0.887091833609018,
-      "recall_author": 0.13020645996690886,
-      "recall_author_conditional": 0.49453551912568305,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "predicted_author": 17263,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 15251,
+      "precision_author": 0.8834501535075016,
+      "recall_author": 0.13026581024291914,
+      "recall_author_conditional": 0.4795007231339999,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.8673630651840345,
-      "recall_author": 0.12345613614285914,
-      "recall_author_conditional": 0.41399539497947685,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.8643288327290225,
+      "recall_author": 0.12431596699605389,
+      "recall_author_conditional": 0.4087851846195853,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -9961,6 +10663,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 114,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 108,
+       "precision_author": 0.9473684210526315,
+       "recall_author": 0.09608540925266904,
+       "recall_author_conditional": 0.32335329341317365,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -10104,6 +10824,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 272,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 175,
+       "precision_author": 0.6433823529411765,
+       "recall_author": 0.18229166666666666,
+       "recall_author_conditional": 0.4196642685851319,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -10375,6 +11113,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 554,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 488,
+       "precision_author": 0.8808664259927798,
+       "recall_author": 0.12896405919661733,
+       "recall_author_conditional": 0.27492957746478874,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -10523,30 +11279,30 @@
     },
     "A@2": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.0037672513591754213,
-      "predicted_author": 6209,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 5803,
-      "precision_author": 0.9346110484780158,
-      "recall_author": 0.05218149773397597,
-      "recall_author_conditional": 0.1981898907103825,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.0035847462934657684,
+      "predicted_author": 6674,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 6193,
+      "precision_author": 0.9279292777944261,
+      "recall_author": 0.05289726331613653,
+      "recall_author_conditional": 0.194711689618311,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.926210998897903,
-      "recall_author": 0.04826853068816498,
-      "recall_author_conditional": 0.1654929411740622,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9205791013883402,
+      "recall_author": 0.04980889944927714,
+      "recall_author_conditional": 0.16544913430881775,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -10711,6 +11467,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0007402767496156255,
+       "predicted_author": 23,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 21,
+       "precision_author": 0.9130434782608695,
+       "recall_author": 0.018683274021352312,
+       "recall_author_conditional": 0.06287425149700598,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -10854,6 +11628,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0014811046946530625,
+       "predicted_author": 173,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 122,
+       "precision_author": 0.7052023121387283,
+       "recall_author": 0.12708333333333333,
+       "recall_author_conditional": 0.29256594724220625,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -11125,6 +11917,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0035885167464114833,
+       "predicted_author": 269,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 247,
+       "precision_author": 0.9182156133828996,
+       "recall_author": 0.06527484143763214,
+       "recall_author_conditional": 0.13915492957746478,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -11273,30 +12083,30 @@
     },
     "A@3": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.004885060468220848,
-      "predicted_author": 3208,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 3052,
-      "precision_author": 0.9513715710723192,
-      "recall_author": 0.02744406877203079,
-      "recall_author_conditional": 0.10423497267759563,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.0046812609071720315,
+      "predicted_author": 3435,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 3258,
+      "precision_author": 0.948471615720524,
+      "recall_author": 0.02782807748812737,
+      "recall_author_conditional": 0.10243350311262026,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.90524940450721,
-      "recall_author": 0.02350832146026458,
-      "recall_author_conditional": 0.08387371000803581,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9035885719960842,
+      "recall_author": 0.024523605499463648,
+      "recall_author_conditional": 0.08424421795807245,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -11461,6 +12271,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.00082162584297998,
+       "predicted_author": 13,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 11,
+       "precision_author": 0.8461538461538461,
+       "recall_author": 0.009786476868327402,
+       "recall_author_conditional": 0.03293413173652695,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -11604,6 +12432,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0028874061218994045,
+       "predicted_author": 79,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 68,
+       "precision_author": 0.8607594936708861,
+       "recall_author": 0.07083333333333333,
+       "recall_author_conditional": 0.1630695443645084,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -11875,6 +12721,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.005275749181566356,
+       "predicted_author": 135,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 127,
+       "precision_author": 0.9407407407407408,
+       "recall_author": 0.033562367864693445,
+       "recall_author_conditional": 0.07154929577464789,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -12023,30 +12887,30 @@
     },
     "A@4": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005292552359355701,
-      "predicted_author": 2114,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 2016,
-      "precision_author": 0.9536423841059603,
-      "recall_author": 0.01812819221638731,
-      "recall_author_conditional": 0.06885245901639345,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005087502814071543,
+      "predicted_author": 2235,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 2130,
+      "precision_author": 0.9530201342281879,
+      "recall_author": 0.018193310328333732,
+      "recall_author_conditional": 0.06696849651009243,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.9248026968340167,
-      "recall_author": 0.013991543768892629,
-      "recall_author_conditional": 0.04971310114548663,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9254588996416566,
+      "recall_author": 0.014353124931846432,
+      "recall_author_conditional": 0.0494417841457595,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -12211,6 +13075,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0008541654803257217,
+       "predicted_author": 9,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 9,
+       "precision_author": 1.0,
+       "recall_author": 0.00800711743772242,
+       "recall_author_conditional": 0.02694610778443114,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -12354,6 +13236,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0035456748750785434,
+       "predicted_author": 35,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 28,
+       "precision_author": 0.8,
+       "recall_author": 0.029166666666666667,
+       "recall_author_conditional": 0.0671462829736211,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -12625,6 +13525,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0060060438176781665,
+       "predicted_author": 77,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 77,
+       "precision_author": 1.0,
+       "recall_author": 0.020348837209302327,
+       "recall_author_conditional": 0.04338028169014085,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -12773,30 +13691,30 @@
     },
     "A@5": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005512314896622212,
-      "predicted_author": 1524,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 1442,
-      "precision_author": 0.9461942257217848,
-      "recall_author": 0.012966693043665923,
-      "recall_author_conditional": 0.04924863387978142,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005299764210426537,
+      "predicted_author": 1608,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 1526,
+      "precision_author": 0.9490049751243781,
+      "recall_author": 0.013034268338515153,
+      "recall_author_conditional": 0.04797836886122115,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.9142101615123787,
-      "recall_author": 0.010477376011719055,
-      "recall_author_conditional": 0.036175511965079475,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9189762636505799,
+      "recall_author": 0.010624225419558049,
+      "recall_author_conditional": 0.03560554528666957,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -12961,6 +13879,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009273796643536408,
+       "predicted_author": 0,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -13104,6 +14040,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0037700846772987045,
+       "predicted_author": 20,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 20,
+       "precision_author": 1.0,
+       "recall_author": 0.020833333333333332,
+       "recall_author_conditional": 0.047961630695443645,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -13375,6 +14329,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.006169730546461848,
+       "predicted_author": 64,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 64,
+       "precision_author": 1.0,
+       "recall_author": 0.016913319238900635,
+       "recall_author_conditional": 0.036056338028169016,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -13523,30 +14495,30 @@
     },
     "A@6": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005684400137668193,
-      "predicted_author": 1062,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 1000,
-      "precision_author": 0.9416195856873822,
-      "recall_author": 0.008992158837493705,
-      "recall_author_conditional": 0.03415300546448088,
-      "predicted_dep": 471431,
-      "actual_dep": 1051802,
-      "tp_dep": 315372,
-      "precision_dep": 0.6689674628948881,
-      "recall_dep": 0.2998397036704627
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005461245368419093,
+      "predicted_author": 1131,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 1069,
+      "precision_author": 0.9451812555260831,
+      "recall_author": 0.009130821005159042,
+      "recall_author_conditional": 0.03361001068980696,
+      "predicted_dep": 521120,
+      "actual_dep": 1170733,
+      "tp_dep": 349506,
+      "precision_dep": 0.6706823764200184,
+      "recall_dep": 0.2985360453664499
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.9163569306236408,
-      "recall_author": 0.006849749485344515,
-      "recall_author_conditional": 0.024411190546021803,
-      "precision_dep": 0.6059366760405,
-      "recall_dep": 0.29710024840152216
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9211365345880042,
+      "recall_author": 0.007085185780817717,
+      "recall_author_conditional": 0.024294792588995456,
+      "precision_dep": 0.6113072479027881,
+      "recall_dep": 0.29677145283199247
      },
      "per_crate": {
       "bandwhich": {
@@ -13711,6 +14683,24 @@
        "precision_dep": 0.644382801664355,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009273796643536408,
+       "predicted_author": 0,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19859,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7464625610554408,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -13854,6 +14844,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6076522216127263,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0038299272912240808,
+       "predicted_author": 16,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 16,
+       "precision_author": 1.0,
+       "recall_author": 0.016666666666666666,
+       "recall_author_conditional": 0.03836930455635491,
+       "predicted_dep": 13288,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6860325105358218,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -14125,6 +15133,24 @@
        "precision_dep": 0.6445272353545735,
        "recall_dep": 0.3235521733522507
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.006308234701586502,
+       "predicted_author": 53,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 53,
+       "precision_author": 1.0,
+       "recall_author": 0.014006342494714588,
+       "recall_author_conditional": 0.029859154929577466,
+       "predicted_dep": 16542,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6162495466086326,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -14273,30 +15299,30 @@
     },
     "B@1": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 19274,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 16725,
-      "precision_author": 0.8677492995745564,
-      "recall_author": 0.15039385655708223,
-      "recall_author_conditional": 0.5712090163934426,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "predicted_author": 21172,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 18406,
+      "precision_author": 0.8693557528811638,
+      "recall_author": 0.15721411732549798,
+      "recall_author_conditional": 0.5786958435515311,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.8459209375423422,
-      "recall_author": 0.149257654364812,
-      "recall_author_conditional": 0.5001185890607853,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.845616817459297,
+      "recall_author": 0.1547693005543482,
+      "recall_author_conditional": 0.5034719064418979,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -14461,6 +15487,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 142,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 136,
+       "precision_author": 0.9577464788732394,
+       "recall_author": 0.12099644128113879,
+       "recall_author_conditional": 0.40718562874251496,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -14604,6 +15648,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 316,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 200,
+       "precision_author": 0.6329113924050633,
+       "recall_author": 0.20833333333333334,
+       "recall_author_conditional": 0.47961630695443647,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -14875,6 +15937,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 1440,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 1345,
+       "precision_author": 0.9340277777777778,
+       "recall_author": 0.35544397463002114,
+       "recall_author_conditional": 0.7577464788732394,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -15023,30 +16103,30 @@
     },
     "B@2": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.004298033758505555,
-      "predicted_author": 7735,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 7141,
-      "precision_author": 0.9232062055591468,
-      "recall_author": 0.06421300625854255,
-      "recall_author_conditional": 0.24388661202185793,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.004146375729754342,
+      "predicted_author": 8924,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 8236,
+      "precision_author": 0.9229045271178844,
+      "recall_author": 0.07034746660289043,
+      "recall_author_conditional": 0.25894485317235744,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.902017298965843,
-      "recall_author": 0.06286302164453425,
-      "recall_author_conditional": 0.21246001579419055,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.8996604720848926,
+      "recall_author": 0.06816723101850666,
+      "recall_author_conditional": 0.21968072156658366,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -15211,6 +16291,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0008785702083350281,
+       "predicted_author": 34,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 32,
+       "precision_author": 0.9411764705882353,
+       "recall_author": 0.028469750889679714,
+       "recall_author_conditional": 0.09580838323353294,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -15354,6 +16452,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0017653571107985996,
+       "predicted_author": 198,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 138,
+       "precision_author": 0.696969696969697,
+       "recall_author": 0.14375,
+       "recall_author_conditional": 0.33093525179856115,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -15625,6 +16741,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0060815915386552505,
+       "predicted_author": 957,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 925,
+       "precision_author": 0.9665621734587252,
+       "recall_author": 0.24445031712473572,
+       "recall_author_conditional": 0.5211267605633803,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -15773,30 +16907,30 @@
     },
     "B@3": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.005637467799201107,
-      "predicted_author": 4139,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 3880,
-      "precision_author": 0.9374244986711766,
-      "recall_author": 0.034889576289475574,
-      "recall_author_conditional": 0.1325136612021858,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.005550618587936985,
+      "predicted_author": 4776,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 4495,
+      "precision_author": 0.9411641541038526,
+      "recall_author": 0.0383938638149578,
+      "recall_author_conditional": 0.14132553606237816,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.9012378104002976,
-      "recall_author": 0.03155882987231184,
-      "recall_author_conditional": 0.11137465513811254,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9026582515244486,
+      "recall_author": 0.03479455651547492,
+      "recall_author_conditional": 0.1160629504364623,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -15961,6 +17095,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0009599193016993825,
+       "predicted_author": 24,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 22,
+       "precision_author": 0.9166666666666666,
+       "recall_author": 0.019572953736654804,
+       "recall_author_conditional": 0.0658682634730539,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -16104,6 +17256,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.003440950300709135,
+       "predicted_author": 86,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 74,
+       "precision_author": 0.8604651162790697,
+       "recall_author": 0.07708333333333334,
+       "recall_author_conditional": 0.1774580335731415,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -16375,6 +17545,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.01149584487534626,
+       "predicted_author": 527,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 519,
+       "precision_author": 0.9848197343453511,
+       "recall_author": 0.13715644820295983,
+       "recall_author_conditional": 0.2923943661971831,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -16523,30 +17711,30 @@
     },
     "B@4": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.006158565747736446,
-      "predicted_author": 2740,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 2577,
-      "precision_author": 0.9405109489051094,
-      "recall_author": 0.02317279332422128,
-      "recall_author_conditional": 0.08801229508196722,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006099383697173741,
+      "predicted_author": 3155,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 2984,
+      "precision_author": 0.9458003169572108,
+      "recall_author": 0.025487717380163314,
+      "recall_author_conditional": 0.09381877633150978,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.908279633091518,
-      "recall_author": 0.01949148340097558,
-      "recall_author_conditional": 0.06884415499204696,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9102068408024271,
+      "recall_author": 0.02141511341205849,
+      "recall_author_conditional": 0.0715302618174279,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -16711,6 +17899,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.001041268395063737,
+       "predicted_author": 14,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 14,
+       "precision_author": 1.0,
+       "recall_author": 0.012455516014234875,
+       "recall_author_conditional": 0.041916167664670656,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -16854,6 +18060,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.004129140360850962,
+       "predicted_author": 40,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 32,
+       "precision_author": 0.8,
+       "recall_author": 0.03333333333333333,
+       "recall_author_conditional": 0.07673860911270983,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -17125,6 +18349,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.01358599848904558,
+       "predicted_author": 361,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 361,
+       "precision_author": 1.0,
+       "recall_author": 0.09540169133192389,
+       "recall_author_conditional": 0.20338028169014086,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -17273,30 +18515,30 @@
     },
     "B@5": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.006428612933360549,
-      "predicted_author": 2015,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 1882,
-      "precision_author": 0.9339950372208436,
-      "recall_author": 0.016923242932163154,
-      "recall_author_conditional": 0.064275956284153,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006392554939986222,
+      "predicted_author": 2289,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 2156,
+      "precision_author": 0.9418960244648318,
+      "recall_author": 0.018415388294782876,
+      "recall_author_conditional": 0.06778595233603722,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.878625933763223,
-      "recall_author": 0.014275339486887417,
-      "recall_author_conditional": 0.050553060124422636,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.8851866941003461,
+      "recall_author": 0.015324922059028304,
+      "recall_author_conditional": 0.051469363423759185,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -17461,6 +18703,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0011551571257738332,
+       "predicted_author": 0,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -17604,6 +18864,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.004428353430477843,
+       "predicted_author": 20,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 20,
+       "precision_author": 1.0,
+       "recall_author": 0.020833333333333332,
+       "recall_author_conditional": 0.047961630695443645,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -17875,6 +19153,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.014933266179803575,
+       "predicted_author": 254,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 254,
+       "precision_author": 1.0,
+       "recall_author": 0.06712473572938689,
+       "recall_author_conditional": 0.14309859154929577,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -18023,30 +19319,30 @@
     },
     "B@6": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
-      "ambiguous_fraction": 0.00663422127331159,
-      "predicted_author": 1463,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 1364,
-      "precision_author": 0.9323308270676691,
-      "recall_author": 0.012265304654341414,
-      "recall_author_conditional": 0.04658469945355191,
-      "predicted_dep": 468480,
-      "actual_dep": 1051802,
-      "tp_dep": 315333,
-      "precision_dep": 0.6730981045081967,
-      "recall_dep": 0.2998026244483277
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
+      "ambiguous_fraction": 0.006606170476030881,
+      "predicted_author": 1658,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 1559,
+      "precision_author": 0.9402895054282268,
+      "recall_author": 0.013316136526700604,
+      "recall_author_conditional": 0.04901590894799723,
+      "predicted_dep": 517211,
+      "actual_dep": 1170733,
+      "tp_dep": 349467,
+      "precision_dep": 0.6756758846969612,
+      "recall_dep": 0.2985027329032324
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.8986508442622669,
-      "recall_author": 0.009945239094255676,
-      "recall_author_conditional": 0.035943648410295556,
-      "precision_dep": 0.6093977359548142,
-      "recall_dep": 0.2970409117963976
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.9044422245901375,
+      "recall_author": 0.010739085353097533,
+      "recall_author_conditional": 0.0366734956137375,
+      "precision_dep": 0.6154153909465024,
+      "recall_dep": 0.2967162559900161
      },
      "per_crate": {
       "bandwhich": {
@@ -18211,6 +19507,24 @@
        "precision_dep": 0.647075208913649,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0011551571257738332,
+       "predicted_author": 0,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 0,
+       "precision_author": null,
+       "recall_author": 0.0,
+       "recall_author_conditional": 0.0,
+       "predicted_dep": 19831,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.74751651454793,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -18354,6 +19668,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6089884551951622,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.00448819604440322,
+       "predicted_author": 16,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 16,
+       "precision_author": 1.0,
+       "recall_author": 0.016666666666666666,
+       "recall_author_conditional": 0.03836930455635491,
+       "predicted_dep": 13244,
+       "actual_dep": 28367,
+       "tp_dep": 9116,
+       "precision_dep": 0.6883116883116883,
+       "recall_dep": 0.32135932597736805
       },
       "oha": {
        "n_fdes": 127168,
@@ -18625,6 +19957,24 @@
        "precision_dep": 0.6449787835926449,
        "recall_dep": 0.3234876821875403
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.015877612692017123,
+       "predicted_author": 179,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 179,
+       "precision_author": 1.0,
+       "recall_author": 0.04730443974630021,
+       "recall_author_conditional": 0.10084507042253521,
+       "predicted_dep": 15656,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6511241696474195,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -18773,30 +20123,30 @@
     },
     "C@0.10": {
      "pooled": {
-      "n_fdes": 2684716,
-      "n_gt_known": 2215036,
-      "coverage": 0.18167806203710188,
+      "n_fdes": 2953905,
+      "n_gt_known": 2451904,
+      "coverage": 0.18226144713523285,
       "ambiguous_fraction": 0.0,
-      "predicted_author": 24026,
-      "actual_author": 111208,
-      "actual_author_with_location": 29280,
-      "tp_author": 20509,
-      "precision_author": 0.8536169150087405,
-      "recall_author": 0.1844201855981584,
-      "recall_author_conditional": 0.7004439890710382,
-      "predicted_dep": 463728,
-      "actual_dep": 1051802,
-      "tp_dep": 314635,
-      "precision_dep": 0.6784904081703067,
-      "recall_dep": 0.2991390014470404
+      "predicted_author": 26262,
+      "actual_author": 117076,
+      "actual_author_with_location": 31806,
+      "tp_author": 22504,
+      "precision_author": 0.8569035107760262,
+      "recall_author": 0.1922170214219823,
+      "recall_author_conditional": 0.7075394579639062,
+      "predicted_dep": 512121,
+      "actual_dep": 1170733,
+      "tp_dep": 348753,
+      "precision_dep": 0.6809972643183935,
+      "recall_dep": 0.29789285857663533
      },
      "crate_averaged": {
-      "coverage": 0.1918557994311082,
-      "precision_author": 0.8555396495388976,
-      "recall_author": 0.2106289158515459,
-      "recall_author_conditional": 0.6809236783230312,
-      "precision_dep": 0.6141503005443127,
-      "recall_dep": 0.2964373023689376
+      "coverage": 0.19197296795965935,
+      "precision_author": 0.856885854785351,
+      "recall_author": 0.21783231046392257,
+      "recall_author_conditional": 0.687628856455508,
+      "precision_dep": 0.6201672507026725,
+      "recall_dep": 0.296141641739466
      },
      "per_crate": {
       "bandwhich": {
@@ -18961,6 +20311,24 @@
        "precision_dep": 0.6517043063543274,
        "recall_dep": 0.2869495398678278
       },
+      "ferium": {
+       "n_fdes": 122927,
+       "n_gt_known": 99908,
+       "coverage": 0.16247854417662516,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 246,
+       "actual_author": 1124,
+       "actual_author_with_location": 334,
+       "tp_author": 240,
+       "precision_author": 0.975609756097561,
+       "recall_author": 0.21352313167259787,
+       "recall_author_conditional": 0.718562874251497,
+       "predicted_dep": 19727,
+       "actual_dep": 54884,
+       "tp_dep": 14824,
+       "precision_dep": 0.7514573934201856,
+       "recall_dep": 0.27009693171051674
+      },
       "feroxbuster": {
        "n_fdes": 165052,
        "n_gt_known": 77596,
@@ -19104,6 +20472,24 @@
        "tp_dep": 4431,
        "precision_dep": 0.6118475559237779,
        "recall_dep": 0.21918282548476453
+      },
+      "netscanner": {
+       "n_fdes": 66842,
+       "n_gt_known": 61179,
+       "coverage": 0.20286646120702553,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 476,
+       "actual_author": 960,
+       "actual_author_with_location": 417,
+       "tp_author": 340,
+       "precision_author": 0.7142857142857143,
+       "recall_author": 0.3541666666666667,
+       "recall_author_conditional": 0.815347721822542,
+       "predicted_dep": 13084,
+       "actual_dep": 28367,
+       "tp_dep": 9100,
+       "precision_dep": 0.6955059614796698,
+       "recall_dep": 0.3207952903021116
       },
       "oha": {
        "n_fdes": 127168,
@@ -19375,6 +20761,24 @@
        "precision_dep": 0.6482392542723977,
        "recall_dep": 0.3229072617051464
       },
+      "topgrade": {
+       "n_fdes": 79420,
+       "n_gt_known": 75781,
+       "coverage": 0.21526063963737094,
+       "ambiguous_fraction": 0.0,
+       "predicted_author": 1514,
+       "actual_author": 3784,
+       "actual_author_with_location": 1775,
+       "tp_author": 1415,
+       "precision_author": 0.9346103038309115,
+       "recall_author": 0.3739429175475687,
+       "recall_author_conditional": 0.7971830985915493,
+       "predicted_dep": 15582,
+       "actual_dep": 35680,
+       "tp_dep": 10194,
+       "precision_dep": 0.6542164035425491,
+       "recall_dep": 0.28570627802690585
+      },
       "trippy": {
        "n_fdes": 66560,
        "n_gt_known": 63306,
@@ -19525,9 +20929,9 @@
   }
  },
  "inverse_leak": {
-  "pooled_n_dep": 1051802,
-  "pooled_n_leaking": 990,
-  "pooled_fraction": 0.0009412417926567928,
+  "pooled_n_dep": 1170733,
+  "pooled_n_leaking": 1024,
+  "pooled_fraction": 0.0008746657008899553,
   "by_crate": {
    "bandwhich": {
     "n_dep": 15183,
@@ -19574,6 +20978,11 @@
     "n_leaking": 0,
     "fraction": 0.0
    },
+   "ferium": {
+    "n_dep": 54884,
+    "n_leaking": 4,
+    "fraction": 7.288098535092194e-05
+   },
    "feroxbuster": {
     "n_dep": 41210,
     "n_leaking": 16,
@@ -19613,6 +21022,11 @@
     "n_dep": 20216,
     "n_leaking": 0,
     "fraction": 0.0
+   },
+   "netscanner": {
+    "n_dep": 28367,
+    "n_leaking": 16,
+    "fraction": 0.00056403567525646
    },
    "oha": {
     "n_dep": 43859,
@@ -19688,6 +21102,11 @@
     "n_dep": 15506,
     "n_leaking": 14,
     "fraction": 0.0009028763059460854
+   },
+   "topgrade": {
+    "n_dep": 35680,
+    "n_leaking": 14,
+    "fraction": 0.00039237668161434976
    },
    "trippy": {
     "n_dep": 29537,
