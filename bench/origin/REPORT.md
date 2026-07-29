@@ -117,4 +117,17 @@ clears even 60% AUTHOR precision at double-digit recall. This is a negative
 result on the stated hypothesis, not a tuning problem — no adjustment to N
 or r found in this sweep escapes it, and the mechanism (function has no
 Location at all) doesn't depend on N or r in the first place.
+
+**Exploratory RULE_D (compiler-internals-grounded): attempted, none found.**
+See `RULE_D_EXPLORATION.md` for the full reasoning, grounded in
+`~/Videos/rustc_doc/panic_location_lifecycle/LOCATION_LIFECYCLE.md`'s
+from-source trace of `core::panic::Location`. Short version: the
+forward-vs-synthesize decision at inlined `#[track_caller]` call sites
+(`get_caller_location`, §7.2 of that doc) is exactly the hard-case
+mechanism, but it is erased at codegen with no byte-level residue in a
+stripped binary — MIR inlining merges the callee's code into the caller's
+FDE before codegen runs, and the one piece of compiler state that would
+disambiguate it (`SourceScopeData::inlined`) is compiler-internal, requiring
+debug info this tool's threat model assumes is stripped. This is a negative
+result, not a gap in the search.
 <!-- VERDICT:END -->
