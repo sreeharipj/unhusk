@@ -58,8 +58,12 @@ zellij	zellij	zellij	async,workspace	0
 websocat	websocat	websocat	async	0
 mqttui	mqttui	mqttui	async	0
 rathole	rathole	rathole	async	0
-dog	dog	dog	network	0
 feroxbuster	feroxbuster	feroxbuster	async	0
 pueue	pueue	pueue	async,workspace	0
 wormhole-rs	wormhole-rs	wormhole-rs	async-smol,workspace	0
 oxker	oxker	oxker	async	0
+netscanner	netscanner	netscanner	async	0
+ferium	ferium	ferium	async,workspace	0
+topgrade	topgrade	topgrade	async	0
+sniffnet	sniffnet	sniffnet	async	0
+spotify-tui	spotify-tui	spt	async	0
