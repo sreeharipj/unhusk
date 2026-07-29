@@ -7,3 +7,4 @@
 build/
 __pycache__/
 wake_3am.log
+wake_expand.log
