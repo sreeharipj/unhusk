@@ -1,0 +1,50 @@
+{
+ "crate": "mqttui",
+ "config": "lto-fat_opt-3_panic-unwind",
+ "rule": "C@0.50",
+ "n_fdes": 5555,
+ "n_gt_known": 3462,
+ "n_gt_excluded_unknown_or_conflict": 2093,
+ "confusion": {
+  "AUTHOR": {
+   "AUTHOR": 15,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 1
+  },
+  "DEP": {
+   "AUTHOR": 8,
+   "WORKSPACE": 0,
+   "DEP": 499,
+   "STD": 250
+  },
+  "AMBIGUOUS": {
+   "AUTHOR": 0,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 0
+  },
+  "NONE": {
+   "AUTHOR": 28,
+   "WORKSPACE": 0,
+   "DEP": 1167,
+   "STD": 1494
+  }
+ },
+ "coverage": 0.14455445544554454,
+ "ambiguous_fraction": 0.0,
+ "predicted_author": 16,
+ "predicted_dep": 787,
+ "actual_author": 51,
+ "actual_workspace": 0,
+ "actual_dep": 1666,
+ "actual_std": 1745,
+ "tp_author": 15,
+ "tp_dep": 499,
+ "precision_author": 0.9375,
+ "precision_dep": 0.6340533672172808,
+ "recall_author_excl": 0.29411764705882354,
+ "recall_author_ambig_err": 0.29411764705882354,
+ "recall_dep_excl": 0.2995198079231693,
+ "recall_dep_ambig_err": 0.2995198079231693
+}
