@@ -1,99 +1,99 @@
 {
- "n_builds": 320,
- "n_fdes_total": 2684716,
+ "n_builds": 344,
+ "n_fdes_total": 2953905,
  "by_lto_opt": {
   "lto=fat,opt=3": {
-   "n_author_fdes": 15406,
-   "author_referencing_rustc_frac": 0.16441646111904454,
-   "author_referencing_registry_frac": 0.12605478385044788,
-   "n_dep_fdes": 180073,
-   "dep_referencing_user_frac": 0.0014549654862194776
+   "n_author_fdes": 16825,
+   "author_referencing_rustc_frac": 0.18454680534918277,
+   "author_referencing_registry_frac": 0.13022288261515602,
+   "n_dep_fdes": 199322,
+   "dep_referencing_user_frac": 0.0013796771053872629
   },
   "lto=fat,opt=z": {
-   "n_author_fdes": 16980,
-   "author_referencing_rustc_frac": 0.052120141342756186,
-   "author_referencing_registry_frac": 0.05730270906949352,
-   "n_dep_fdes": 241819,
-   "dep_referencing_user_frac": 0.0009345833040414525
+   "n_author_fdes": 18065,
+   "author_referencing_rustc_frac": 0.05208967616938832,
+   "author_referencing_registry_frac": 0.058732355383337945,
+   "n_dep_fdes": 268686,
+   "dep_referencing_user_frac": 0.0008560178051703475
   },
   "lto=thin,opt=3": {
-   "n_author_fdes": 16446,
-   "author_referencing_rustc_frac": 0.1535327739267907,
-   "author_referencing_registry_frac": 0.11613766265353277,
-   "n_dep_fdes": 207464,
-   "dep_referencing_user_frac": 0.0012628697026954073
+   "n_author_fdes": 17879,
+   "author_referencing_rustc_frac": 0.17383522568376308,
+   "author_referencing_registry_frac": 0.12008501594048884,
+   "n_dep_fdes": 231377,
+   "dep_referencing_user_frac": 0.0011885364578155997
   },
   "lto=thin,opt=z": {
-   "n_author_fdes": 23049,
-   "author_referencing_rustc_frac": 0.021866458414681766,
-   "author_referencing_registry_frac": 0.03358063256540414,
-   "n_dep_fdes": 422446,
-   "dep_referencing_user_frac": 0.0005681199490585779
+   "n_author_fdes": 24191,
+   "author_referencing_rustc_frac": 0.022363688975238726,
+   "author_referencing_registry_frac": 0.03476499524616593,
+   "n_dep_fdes": 471348,
+   "dep_referencing_user_frac": 0.0005176642310988908
   }
  },
  "by_config": {
   "lto-fat_opt-3_panic-abort": {
-   "n_author_fdes": 7614,
-   "author_referencing_rustc_frac": 0.1641712634620436,
-   "author_referencing_registry_frac": 0.12621486734961912,
-   "n_dep_fdes": 88947,
-   "dep_referencing_user_frac": 0.0015514857162130258
+   "n_author_fdes": 8313,
+   "author_referencing_rustc_frac": 0.18549260194875497,
+   "author_referencing_registry_frac": 0.13063875857091303,
+   "n_dep_fdes": 98446,
+   "dep_referencing_user_frac": 0.0014728886902464296
   },
   "lto-fat_opt-3_panic-unwind": {
-   "n_author_fdes": 7792,
-   "author_referencing_rustc_frac": 0.16465605749486653,
-   "author_referencing_registry_frac": 0.12589835728952772,
-   "n_dep_fdes": 91126,
-   "dep_referencing_user_frac": 0.0013607532427627681
+   "n_author_fdes": 8512,
+   "author_referencing_rustc_frac": 0.18362312030075187,
+   "author_referencing_registry_frac": 0.12981672932330826,
+   "n_dep_fdes": 100876,
+   "dep_referencing_user_frac": 0.0012887108925809904
   },
   "lto-fat_opt-z_panic-abort": {
-   "n_author_fdes": 8463,
-   "author_referencing_rustc_frac": 0.05199101973295522,
-   "author_referencing_registry_frac": 0.056599314663830794,
-   "n_dep_fdes": 119982,
-   "dep_referencing_user_frac": 0.0009584771048990682
+   "n_author_fdes": 9002,
+   "author_referencing_rustc_frac": 0.05176627416129749,
+   "author_referencing_registry_frac": 0.05787602754943346,
+   "n_dep_fdes": 133311,
+   "dep_referencing_user_frac": 0.0008776470058734838
   },
   "lto-fat_opt-z_panic-unwind": {
-   "n_author_fdes": 8517,
-   "author_referencing_rustc_frac": 0.052248444287894796,
-   "author_referencing_registry_frac": 0.05800164377128097,
-   "n_dep_fdes": 121837,
-   "dep_referencing_user_frac": 0.0009110532925137684
+   "n_author_fdes": 9063,
+   "author_referencing_rustc_frac": 0.05241090146750524,
+   "author_referencing_registry_frac": 0.05958291956305859,
+   "n_dep_fdes": 135375,
+   "dep_referencing_user_frac": 0.0008347183748845799
   },
   "lto-thin_opt-3_panic-abort": {
-   "n_author_fdes": 8126,
-   "author_referencing_rustc_frac": 0.15751907457543687,
-   "author_referencing_registry_frac": 0.116785626384445,
-   "n_dep_fdes": 102558,
-   "dep_referencing_user_frac": 0.0013455800620136898
+   "n_author_fdes": 8832,
+   "author_referencing_rustc_frac": 0.17821557971014493,
+   "author_referencing_registry_frac": 0.12069746376811594,
+   "n_dep_fdes": 114372,
+   "dep_referencing_user_frac": 0.0012677928164236002
   },
   "lto-thin_opt-3_panic-unwind": {
-   "n_author_fdes": 8320,
-   "author_referencing_rustc_frac": 0.14963942307692307,
-   "author_referencing_registry_frac": 0.1155048076923077,
-   "n_dep_fdes": 104906,
-   "dep_referencing_user_frac": 0.0011820105618363106
+   "n_author_fdes": 9047,
+   "author_referencing_rustc_frac": 0.16955896982425114,
+   "author_referencing_registry_frac": 0.11948712280313917,
+   "n_dep_fdes": 117005,
+   "dep_referencing_user_frac": 0.001111063629759412
   },
   "lto-thin_opt-z_panic-abort": {
-   "n_author_fdes": 11514,
-   "author_referencing_rustc_frac": 0.02179954837589022,
-   "author_referencing_registry_frac": 0.03317700191071739,
-   "n_dep_fdes": 210015,
-   "dep_referencing_user_frac": 0.0005809108873175725
+   "n_author_fdes": 12083,
+   "author_referencing_rustc_frac": 0.022345444012248614,
+   "author_referencing_registry_frac": 0.03434577505586361,
+   "n_dep_fdes": 234410,
+   "dep_referencing_user_frac": 0.0005289876711744379
   },
   "lto-thin_opt-z_panic-unwind": {
-   "n_author_fdes": 11535,
-   "author_referencing_rustc_frac": 0.021933246640658863,
-   "author_referencing_registry_frac": 0.03398352839185089,
-   "n_dep_fdes": 212431,
-   "dep_referencing_user_frac": 0.0005554744834793416
+   "n_author_fdes": 12108,
+   "author_referencing_rustc_frac": 0.022381896266930955,
+   "author_referencing_registry_frac": 0.03518334985133796,
+   "n_dep_fdes": 236938,
+   "dep_referencing_user_frac": 0.0005064616059897526
   }
  },
  "pooled": {
-  "n_author_fdes": 71881,
-  "author_referencing_rustc_frac": 0.08968990414713207,
-  "author_referencing_registry_frac": 0.07789262809365478,
-  "n_dep_fdes": 1051802,
-  "dep_referencing_user_frac": 0.0009412417926567928
+  "n_author_fdes": 76960,
+  "author_referencing_rustc_frac": 0.09998700623700624,
+  "author_referencing_registry_frac": 0.08108108108108109,
+  "n_dep_fdes": 1170733,
+  "dep_referencing_user_frac": 0.0008746657008899553
  }
 }

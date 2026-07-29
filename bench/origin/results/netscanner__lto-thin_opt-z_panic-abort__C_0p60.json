@@ -1,0 +1,50 @@
+{
+ "crate": "netscanner",
+ "config": "lto-thin_opt-z_panic-abort",
+ "rule": "C@0.60",
+ "n_fdes": 13672,
+ "n_gt_known": 12670,
+ "n_gt_excluded_unknown_or_conflict": 1002,
+ "confusion": {
+  "AUTHOR": {
+   "AUTHOR": 39,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 6
+  },
+  "DEP": {
+   "AUTHOR": 11,
+   "WORKSPACE": 0,
+   "DEP": 1339,
+   "STD": 618
+  },
+  "AMBIGUOUS": {
+   "AUTHOR": 0,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 0
+  },
+  "NONE": {
+   "AUTHOR": 75,
+   "WORKSPACE": 0,
+   "DEP": 4496,
+   "STD": 6086
+  }
+ },
+ "coverage": 0.14964891749561146,
+ "ambiguous_fraction": 0.0,
+ "predicted_author": 45,
+ "predicted_dep": 2001,
+ "actual_author": 125,
+ "actual_workspace": 0,
+ "actual_dep": 5835,
+ "actual_std": 6710,
+ "tp_author": 39,
+ "tp_dep": 1339,
+ "precision_author": 0.8666666666666667,
+ "precision_dep": 0.6691654172913544,
+ "recall_author_excl": 0.312,
+ "recall_author_ambig_err": 0.312,
+ "recall_dep_excl": 0.22947729220222793,
+ "recall_dep_ambig_err": 0.22947729220222793
+}
