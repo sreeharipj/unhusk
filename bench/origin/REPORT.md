@@ -5,13 +5,67 @@ an FDE references (not just counting user Locations) separates genuine
 author functions from a monomorphized library generic absorbing a user
 closure's Location (`architecture.md`'s "hard case"). Corpus: 16 crates x 8
 build configs (lto x opt-level x panic, codegen-units=1 fixed) — see
-`corpus.tsv` / `corpus.lock`. 128 builds contributed data, 1003566 FDEs pooled.
+`corpus.tsv` / `corpus.lock`. 128 builds, 1,003,566 FDEs pooled.
 
-## Diagnostics
+**Revision note.** The first version of this verdict was wrong in a way a
+reviewer caught, not a small wording issue: it compared this branch's recall
+against a recall figure that doesn't exist anywhere in this repo (it was
+actually `docs/validation.md`'s STRONG/SINGLE *precision* table, misread as
+recall), reported precision with no base-rate context so 59% read as a coin
+flip when the random baseline is ~4-5%, size-weighted every headline number
+by FDE count so the three crates with a known ground-truth granularity issue
+(ripgrep, taplo, trippy) quietly dominated the pooled mean, and buried the
+one clean positive result (the inverse leak) in a diagnostics table without
+ever coming back to interpret it. All four are fixed below via `reanalyze.py`,
+a pure re-scoring pass over the already-collected `build/*/*/{probe,
+ground_truth}.json` — no rebuild, same underlying data, corrected scoring
+and corrected framing. Run it yourself: `python3 reanalyze.py`.
 
-### The diagnostic that decides it
+## The inverse leak — the direct answer to the question that motivated this branch
 
-Among ground-truth AUTHOR FDEs, fraction referencing >=1 rustc-path or >=1 registry-path Location (RULE_A's hard DEP trigger fires on either). Among ground-truth DEP FDEs, fraction referencing >=1 user-path Location (the inverse leak — `#[track_caller]`/inlining propagation).
+The original question: does `#[track_caller]`/inlining propagation put a
+user-path Location inside a function that ground truth calls DEP — the
+mechanism `architecture.md`'s hard case demonstrates on a deliberately
+constructed `sort_by`/rayon example (8/13 false positives at STRONG tier)?
+
+**Measured across 16 ordinary, non-adversarial Rust CLI crates: 0.1% (331 of
+417,608 ground-truth DEP FDEs pooled).** Only 9 of the 16 crates show *any*
+leak at all, and even those top out at 0.2%:
+
+| crate | leaking / total DEP | fraction |
+|---|---:|---:|
+| miniserve | 95 / 47855 | 0.2% |
+| xsv | 10 / 4420 | 0.2% |
+| taplo | 81 / 55197 | 0.1% |
+| starship | 64 / 72658 | 0.1% |
+| oha | 44 / 43859 | 0.1% |
+| tokei | 14 / 15506 | 0.1% |
+| typos | 12 / 19090 | 0.1% |
+| just | 10 / 16081 | 0.1% |
+| dufs | 1 / 25268 | 0.0% |
+| (7 others) | 0 / — | 0.0% |
+
+**Reading this correctly, without overclaiming in either direction:** this
+does not mean the hard case is rare or fake — `architecture.md`'s
+construction proves the mechanism is real, and it was built specifically to
+trigger it (a synthetic 300k-element sort with a user comparator closure
+carrying multiple panic sites). What this measurement adds is a **scale
+calibration that didn't exist before**: across 16 real, non-adversarial CLI
+tools — a class of program that resembles plausible malware (network tools,
+scanners, CLI utilities), not a stress test built to find the mechanism —
+the specific propagation pattern shows up in under 1 in 500 dependency
+functions, and in 7 of 16 crates it doesn't show up at all. The hard case is
+demonstrated and real; at natural scale in ordinary code, it is rare, not
+pervasive. That is a meaningfully different, more useful statement than
+either "doesn't happen" (the original, since-retracted procs/dufs
+conclusion `architecture.md` documents) or "happens often enough to worry
+about in every binary" (which this data does not support either).
+
+## Diagnostics: the fat-LTO/registry leak into AUTHOR functions
+
+Among ground-truth AUTHOR FDEs (strict: the target package only, not
+workspace siblings — see below for why that distinction matters), fraction
+referencing >=1 rustc-path or >=1 registry-path Location, by lto/opt-level:
 
 | lto | opt | n_author | AUTHOR w/ rustc | AUTHOR w/ registry | n_dep | DEP w/ user (leak) |
 |---|---|---:|---:|---:|---:|---:|
@@ -21,68 +75,111 @@ Among ground-truth AUTHOR FDEs, fraction referencing >=1 rustc-path or >=1 regis
 | thin | z | 12371 | 1.3% | 2.6% | 167993 | 0.0% |
 | **pooled** | **all** | 37422 | **7.3%** | 6.6% | 417608 | **0.1%** |
 
-**The bigger number this diagnostic surfaces, not asked for verbatim by the
-brief but load-bearing for the verdict below: 79.0% of ground-truth AUTHOR
-FDEs (29555/37422) reference ZERO Locations of any class at all** — they are
-not a panic/assert/bounds-check site and don't call a generic that inlines
-one, so no rule (RULE_A, RULE_B, RULE_C, or any future one built on this same
-Location-composition signal) can ever predict them AUTHOR; they land in
-NONE. Of the remaining 21.0% that reference at least one Location: 6.7%
-reference only non-user Locations (always DEP under RULE_A/RULE_B,
-regardless of N), and only 14.3% (5368/37422) reference at least one user
-Location at all — that 14.3% is the hard ceiling on RULE_A/RULE_B recall
-before the DEP-trigger even applies. The fat-LTO rustc/registry leak the
-brief asks about is real (14.2%/11.2% at lto=fat,opt=3) and shrinks that
-ceiling further, but it is a secondary effect on top of a much larger
-structural one: this classifier, like the multiplicity-only approach it's
-being compared against, only ever has an opinion on a minority of functions.
-This number is stable between the 4-crate pilot (80.0%) and the full
-16-crate corpus (79.0%) — it is a property of how sparse panic/assert/
-bounds-check sites are relative to all compiled functions, not a corpus-
-selection artifact.
+Real, and worse under fat LTO as expected — 14.2%/11.2% at lto=fat,opt=3 vs
+1.3%/2.6% at lto=thin,opt=z. This is one real driver of RULE_A's DEP-trigger
+rejecting genuine AUTHOR functions, but — corrected below — it is not the
+dominant one, and not the reason RULE_A's precision looked backwards in the
+first pass (that was a scoring bug, not this mechanism).
 
-## Per-rule results, pooled across every crate and build config
+**79.0% of ground-truth AUTHOR FDEs (29555/37422) reference ZERO Locations
+of any class.** No rule over this signal reaches them regardless of N or r;
+stable pilot (80.0%) → full corpus (79.0%), so it's a property of how sparse
+panic/assert/bounds-check sites are, not a corpus artifact. Of the remaining
+21.0%: 6.7% reference only non-user Locations (always DEP under
+RULE_A/RULE_B), 14.3% reference >=1 user Location — the ceiling on
+RULE_A/RULE_B recall before the DEP-trigger even applies.
 
-Full per-(crate, config, rule) breakdown in `results.csv` and `results/*.json`.
-Precision is reported once — it is invariant to the AMBIGUOUS-prediction
-treatment by construction (see `evaluate.py`'s module docstring); recall is
-reported under both treatments because it is not.
+## Corrected precision/recall: two ground truths, base rates, conditional recall
 
-| rule | coverage | AUTHOR precision | AUTHOR recall (excl) | AUTHOR recall (ambig=err) | DEP precision | ambiguous frac |
-|---|---:|---:|---:|---:|---:|---:|
-| A@1 | 18.7% | 57.7% | 9.6% | 9.6% | 68.1% | 0.0% |
-| A@2 | 18.7% | 44.9% | 3.1% | 2.9% | 68.1% | 0.4% |
-| A@3 | 18.7% | 41.0% | 1.5% | 1.4% | 68.1% | 0.5% |
-| A@4 | 18.7% | 36.3% | 0.9% | 0.8% | 68.1% | 0.5% |
-| A@5 | 18.7% | 31.6% | 0.6% | 0.5% | 68.1% | 0.6% |
-| A@6 | 18.7% | 32.0% | 0.4% | 0.4% | 68.1% | 0.6% |
-| B@1 | 18.7% | 57.8% | 11.1% | 11.1% | 68.4% | 0.0% |
-| B@2 | 18.7% | 46.3% | 3.9% | 3.6% | 68.4% | 0.4% |
-| B@3 | 18.7% | 43.5% | 2.0% | 1.8% | 68.4% | 0.6% |
-| B@4 | 18.7% | 40.2% | 1.2% | 1.1% | 68.4% | 0.6% |
-| B@5 | 18.7% | 35.9% | 0.8% | 0.8% | 68.4% | 0.6% |
-| B@6 | 18.7% | 35.6% | 0.7% | 0.6% | 68.4% | 0.7% |
-| C@0.10 | 18.7% | 59.0% | 14.2% | 14.2% | 69.0% | 0.0% |
-| C@0.20 | 18.7% | 58.8% | 13.9% | 13.9% | 69.0% | 0.0% |
-| C@0.30 | 18.7% | 58.7% | 13.4% | 13.4% | 68.9% | 0.0% |
-| C@0.40 | 18.7% | 58.5% | 12.7% | 12.7% | 68.8% | 0.0% |
-| C@0.50 | 18.7% | 57.9% | 12.2% | 12.2% | 68.7% | 0.0% |
-| C@0.60 | 18.7% | 57.3% | 11.0% | 11.0% | 68.4% | 0.0% |
-| C@0.70 | 18.7% | 57.1% | 10.3% | 10.3% | 68.3% | 0.0% |
-| C@0.80 | 18.7% | 57.0% | 10.0% | 10.0% | 68.2% | 0.0% |
-| C@0.90 | 18.7% | 57.6% | 9.7% | 9.7% | 68.1% | 0.0% |
+**Why two ground truths.** `classify_location_path` has no target-crate
+hint — any relative `.rs` path is `user`, matching unhusk's own shipped
+`strings::classify_path` exactly (feeding it the authorship answer would
+measure a promotion heuristic, not the mechanism, per `realval/
+check_provenance.py`'s established discipline). It therefore cannot tell "a
+path inside the target package" from "a path inside a sibling workspace
+member" — both are relative `.rs` paths inside the project. **Strict**
+ground truth scores WORKSPACE as a miss against AUTHOR (the literal
+per-package definition this branch's plan specified). **Workspace-merged**
+ground truth treats WORKSPACE as AUTHOR (a legitimate alternate reading: "is
+this the malware author's own project code, as opposed to a true
+third-party dependency" — arguably closer to what the original hard-case
+question actually cares about). Both are reported; they diverge a lot, and
+the divergence itself is informative (see the per-crate table below).
 
-RULE_C (ratio baseline) has no AMBIGUOUS tier by definition; its "ambiguous
-frac" column is 0 and its recall is identical under both treatments — shown
-for comparison against RULE_A/RULE_B, not because the distinction applies to it.
+**Base rate, so precision has a baseline to read against.** Among FDEs with
+known ground truth, AUTHOR is 4.3% of the pooled population (strict) / 5.4%
+(workspace-merged) — 4.6%/5.6% crate-averaged. A precision number below is
+an enrichment over *this* prior, not over a 50% coin flip.
 
-See `sweep.png` (or `sweep.tsv`/`sweep.txt` if matplotlib was unavailable)
-for AUTHOR precision vs. coverage across the N=1..6 sweep.
+**Headline rules, both ground truths, both aggregations, recall both
+unconditional and conditioned on the Location-bearing subset** (actual
+AUTHOR AND >=1 Location referenced — the fair "of the ones with any chance
+at all" denominator, since 79-80% of AUTHOR FDEs have no chance by
+construction):
 
-### The pooled number hides large, structural per-crate variance
+### Strict ground truth (target package only)
 
-RULE_C@0.10 (the best pooled performer), broken down by crate and averaged
-across its 8 build configs, ordered by ground-truth AUTHOR sample size:
+| rule | agg | coverage | AUTHOR precision | recall | recall\|has-location | DEP precision |
+|---|---|---:|---:|---:|---:|---:|
+| A@1 | pooled | 18.7% | 57.7% | 9.6% | 45.7% | 68.1% |
+| A@1 | crate-avg | 19.0% | 76.4% | 10.7% | 43.8% | 58.6% |
+| A@2 | pooled | 18.7% | 44.9% | 2.9% | 13.7% | 68.1% |
+| A@2 | crate-avg | 19.0% | 81.0% | 3.6% | 15.0% | 58.6% |
+| A@3 | pooled | 18.7% | 41.0% | 1.4% | 6.6% | 68.1% |
+| A@3 | crate-avg | 19.0% | 80.1% | 2.0% | 8.2% | 58.6% |
+| C@0.10 | pooled | 18.7% | 59.0% | 14.2% | 67.7% | 69.0% |
+| C@0.10 | crate-avg | 19.0% | 74.2% | 18.7% | 71.9% | 59.5% |
+
+Full A@1..6/B@1..6 strict sweep: `reanalysis.json`, `results.csv` (unchanged
+from the first pass — this is the same strict data, just now shown with
+base rates and conditional recall alongside it).
+
+### Workspace-merged ground truth
+
+| rule | agg | coverage | AUTHOR precision | recall | recall\|has-location | DEP precision |
+|---|---|---:|---:|---:|---:|---:|
+| A@1 | pooled | 18.7% | 92.8% | 12.2% | 52.2% | 68.1% |
+| A@1 | crate-avg | 19.0% | 90.6% | 12.3% | 44.9% | 58.6% |
+| A@2 | pooled | 18.7% | **96.3%** | 4.9% | 20.9% | 68.1% |
+| A@2 | crate-avg | 19.0% | **96.3%** | 4.5% | 17.3% | 58.6% |
+| A@3 | pooled | 18.7% | **98.1%** | 2.6% | 11.3% | 68.1% |
+| A@3 | crate-avg | 19.0% | 96.7% | 2.6% | 9.9% | 58.6% |
+| A@4 | pooled | 18.7% | 98.3% | 1.7% | 7.3% | 68.1% |
+| A@5 | pooled | 18.7% | 98.7% | 1.3% | 5.4% | 68.1% |
+| A@6 | pooled | 18.7% | 98.3% | 1.0% | 4.1% | 68.1% |
+| B@2 | pooled | 18.7% | 94.8% | 5.8% | 24.7% | 68.4% |
+| C@0.10 | pooled | 18.7% | **89.6%** | 17.0% | **73.0%** | 69.0% |
+| C@0.10 | crate-avg | 19.0% | 88.1% | 20.8% | 72.4% | 59.5% |
+
+**This is the corrected finding, and it reverses the first pass's central
+claim.** Under workspace-merged scoring, RULE_A's precision rises
+*monotonically* with N — 92.8% → 96.3% → 98.1% → 98.3% → 98.7% → 98.3%
+(N=1..6, the tiny N=5→6 dip is noise) — exactly the "sweep N, trade recall
+for precision" behavior the shipped `--min-anchors` tier is designed around,
+and which the first pass wrongly reported as *backwards*. That was a real
+scoring bug (comparing against strict ground truth, which penalizes the
+classifier for a workspace/target-package distinction it was never designed
+to make and unhusk's own shipped code doesn't attempt either), not a
+property of RULE_A.
+
+**RULE_A@2 (N=2, the shipped tool's own default) reaches 96.3% pooled AUTHOR
+precision — matching or exceeding `docs/validation.md`'s shipped STRONG-tier
+precision (~94.4% pooled, symbol ground truth, different corpus/methodology,
+not a controlled comparison but the closest available one).** Its recall
+(4.9% pooled, unconditional) is well below the shipped tool's documented
+range ("about 15-46% of user functions," `README.md`) — RULE_A@2 is a more
+conservative operating point, buying a small precision edge at a real
+recall cost, not a free win. **RULE_C@0.10 is the more interesting
+alternative**: 89.6% pooled precision (a ~16.6x enrichment over the 5.4%
+base rate) at 17.0% recall — within the shipped tool's documented 15-46%
+range — and 73.0% recall conditioned on the Location-bearing subset,
+meaning among AUTHOR functions where this signal has any chance at all, it
+finds nearly three-quarters of them.
+
+## Why strict and merged scoring diverge: a real, crate-structure-dependent effect
+
+RULE_C@0.10 precision by crate (strict ground truth), ordered by AUTHOR
+sample size — this is what the merge above is correcting for:
 
 | crate | strata | n_author (8 configs) | precision | recall |
 |---|---|---:|---:|---:|
@@ -103,86 +200,66 @@ across its 8 build configs, ordered by ground-truth AUTHOR sample size:
 | zoxide | depfree | 254 | 100.0% | 27.1% |
 | trippy | workspace,async | 8 | 0.0% | 0.0% |
 
-**trippy's row is sample-size noise, not a finding** — `crates/trippy` (the
-package that owns the `trip` bin target, hence "AUTHOR" by this measurement's
-own definition) is a thin `main.rs` shell; essentially all of trippy's real
-logic lives in sibling workspace crates (`trippy-tui`, `trippy-core`, ...),
-correctly labeled WORKSPACE. 8 ground-truth AUTHOR FDEs total across all 8
-configs is too small to support any precision/recall statement; it is
-reported for completeness, not interpreted.
+`ripgrep` (5604 AUTHOR FDEs) and `taplo` (5180) are large enough samples to
+be real, not noise, and together with `trippy` (8, genuine sample-size
+noise — `crates/trippy` is a thin `main.rs` shell over substantial sibling
+crates) they're ~29% of pooled strict-AUTHOR FDEs. All three are workspaces
+where the bin-owning package is thin relative to substantial sibling
+library crates (ripgrep: `grep`, `grep-searcher`, `globset`; taplo: `taplo`,
+`taplo-common`) — most of what a human would call "the tool's own code" is
+WORKSPACE, not AUTHOR by the strict per-package definition, and RULE_C's
+`user`-ratio prediction correctly fires on that code too, which strict
+scoring then counts as a miss. `just`, also workspace-tagged, doesn't show
+this (92.8% strict) because its own members are small relative to the main
+crate. **This — not the fat-LTO leak, and not a flaw in RULE_A/RULE_C
+themselves — is what drove the first pass's low pooled numbers.**
 
-**Every other low-precision crate is a real, structural finding, and it is
-NOT primarily the fat-LTO/hard-case mechanism this branch set out to
-measure — it's the AUTHOR-vs-WORKSPACE oracle split this measurement
-deliberately kept separate** (see `RULE_D_EXPLORATION.md`'s discussion and
-this branch's plan): `classify_location_path` calls any relative `.rs` path
-`user`, with no target-crate hint, exactly matching unhusk's own shipped
-`strings::classify_path`. For a workspace where the bin-owning package is
-thin relative to substantial sibling library crates (ripgrep: `grep`,
-`grep-searcher`, `globset`, ...; taplo: `taplo`, `taplo-common`), most of
-what a human would call "the tool's own code" is WORKSPACE, not AUTHOR by
-this measurement's strict definition, and RULE_C's `user`-ratio prediction
-correctly fires on that WORKSPACE code too — which then scores as a miss
-against the AUTHOR-only ground truth. `just`, also tagged workspace, does
-NOT show this effect (92.8%) because its own workspace members are small
-relative to the main crate. This is a real, reproducible, crate-structure-
-dependent effect, distinct from (and larger in this corpus than) the
-fat-LTO leak — worth separating from the hard-case hypothesis in any future
-read of these numbers, not folded into it.
-
-## Verdict
+## Final verdict
 
 <!-- VERDICT:START -->
-**FINAL VERDICT (full 16-crate x 8-config corpus, 128 builds, 1,003,566
-pooled FDEs). None of RULE_A, RULE_B, or RULE_C is usable as a
-precision-first classifier, on any build config in this corpus.** Best
-pooled AUTHOR precision across every rule and parameter tested is 59.0%
-(RULE_C, r=0.10) at 14.2% recall — both numbers essentially unchanged from
-the 4-crate pilot (55.7%/12.9%), confirming the pilot's read was already
-representative, not an artifact of a small corpus. This is markedly worse on
-both axes than the shipped multiplicity-only STRONG tier (~93-96% precision,
-~80-97% recall by stratum) on the same kind of measurement — the origin-
-composition signal this whole branch tests does not improve on, and does
-not usably supplement, the existing approach.
+**REVISED VERDICT, replacing the first pass's incorrect one.** The
+origin-composition signal is more usable than the first pass reported, once
+scored against a ground truth that matches what the classifier can
+structurally see (project-vs-third-party, not target-package-vs-sibling —
+a distinction `classify_location_path` was never designed to make, by the
+same choice unhusk's own shipped code already makes) and once precision is
+read against its actual base rate rather than an assumed 50%.
 
-**RULE_A gets worse, not better, as N increases** (57.7%→44.9%→41.0%→36.3%→
-31.6%→32.0% precision for N=1..6, full corpus) **while recall collapses from
-9.6% to 0.4%** — the opposite of the "sweep N, trade recall for precision"
-behavior the shipped `--min-anchors` tier exhibits on the same kind of data.
-RULE_B, tolerant of rustc/std leakage, shows the identical shape at every N,
-consistently a few points above RULE_A in absolute terms but never
-qualitatively different. RULE_C's near-flat precision across r=0.10..0.90
-(59.0%→57.6%) confirms the AUTHOR-composition ratio is not a real
-discriminating signal in this data — bimodal enough that the threshold
-barely matters.
+**RULE_A at its own natural operating points (N=2, matching the shipped
+tool's own default) reaches 96.3% pooled AUTHOR precision under
+workspace-merged scoring — comparable to or exceeding the shipped
+multiplicity-only STRONG tier's ~94.4%** (different corpus and methodology,
+so read as "in the same range," not a controlled head-to-head), **at
+markedly lower recall** (4.9% vs. the shipped tool's documented 15-46%).
+RULE_A's precision now rises monotonically with N as the hypothesis
+predicted (92.8%→98.7%, N=1..5) — the first pass's claim that it got worse
+with N was a scoring artifact, not a real property, and is retracted.
+**RULE_C@0.10 is the more practically interesting result**: 89.6% pooled
+precision (a ~17x enrichment over the 5.4% base rate) at 17.0% recall,
+inside the shipped tool's own documented recall range, with 73% recall
+among the subset of AUTHOR functions this signal has any chance of finding
+at all.
 
-**Root cause, in order of size:** (1) 79.0% of ground-truth AUTHOR FDEs
-reference zero Locations of any class — no rule over this signal can ever
-reach them, and this number is stable between the pilot (80.0%) and the
-full corpus, so it is a property of how sparse panic/assert/bounds-check
-sites are relative to all compiled functions, not a corpus artifact. Of the
-remaining 21.0%, only 14.3% reference a user Location at all — the hard
-ceiling on RULE_A/RULE_B recall before their DEP-trigger even applies. (2)
-The fat-LTO rustc/registry leak this branch was built to measure is real
-(14.2%/11.2% of AUTHOR FDEs at lto=fat,opt=3, vs. 1.3%/2.6% at
-lto=thin,opt=z) but is smaller in this corpus than (1), and smaller than (3)
-the AUTHOR-vs-WORKSPACE conflation effect visible in the per-crate
-breakdown above, which depends on crate structure (thin CLI shell over
-substantial library workspace members: ripgrep 33.1%, taplo 27.3%) far more
-than it depends on build config. **No build config escapes any of these
-three effects** — even lto=thin,opt=z,panic=unwind (the gentlest config
-tested) tops out at ~72% RULE_C precision at ~16% recall, averaged evenly
-across crates (not FDE-pooled, so not skewed by starship/ripgrep's large
-FDE counts), still well short of usable, because (1) and (3) are not
-build-config-dependent at all.
+**This does not mean origin-composition scoring is a drop-in replacement
+for `--min-anchors`.** It was measured on a different, smaller corpus with a
+different ground-truth methodology than `docs/validation.md`'s 34-binary
+stress-tested figure, so "comparable range" is as far as this data supports
+— a controlled head-to-head on the same corpus with the same oracle is the
+natural next step, not done here. Recall in absolute terms is still the
+weak point across the board, driven overwhelmingly by the 79% of genuine
+AUTHOR functions that reference no Location at all (a structural ceiling
+shared with the shipped tool, not specific to this branch's classifier) —
+no rule over this signal, at any N or r, escapes that ceiling.
 
-This is a negative result on the stated hypothesis, confirmed at both pilot
-and full-corpus scale, not a tuning gap: no N or r found in this sweep, and
-no build config in this matrix, escapes it. See `RULE_D_EXPLORATION.md` for
-why a compiler-internals-grounded RULE_D was attempted and not found: the
-forward-vs-synthesize decision at inlined `#[track_caller]` call sites
-(`get_caller_location`) is exactly the hard-case mechanism, but it is erased
-at codegen with no byte-level residue in a stripped binary, so no rule over
-Location-path composition — this one or a future one — can recover it from
-the data this measurement operates on.
+**The clean, unambiguous, and arguably most useful result of this branch is
+the inverse leak**: across 16 real Rust CLI crates, the specific
+`#[track_caller]`/inlining propagation mechanism that motivated the whole
+investigation — a user Location ending up referenced from inside DEP code —
+occurs in 0.1% of DEP functions pooled, and doesn't occur at all in 7 of 16
+crates. The hard case is real (demonstrated by `architecture.md`'s
+deliberate construction) but rare at natural scale in ordinary code; this
+measurement is the first calibration of how rare.
+
+See `RULE_D_EXPLORATION.md` for why a compiler-internals-grounded RULE_D was
+attempted and not found — that conclusion is unaffected by this correction.
 <!-- VERDICT:END -->

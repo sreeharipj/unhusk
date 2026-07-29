@@ -9,6 +9,18 @@ written by hand after reviewing the real numbers (a one-paragraph judgment
 call, not arithmetic) and is preserved across re-runs of this script unless
 --reset-verdict is passed, so re-running the pipeline after new data doesn't
 clobber a verdict someone already wrote.
+
+SUPERSEDED as the generator of REPORT.md's structure: after a review caught
+this script's original template comparing recall against a fabricated
+baseline, giving precision no base-rate context, and never scoring a
+workspace-merged ground truth, REPORT.md was rewritten by hand around
+`reanalyze.py`'s corrected output and now carries interpretive prose (why
+strict vs. merged scoring diverge, the inverse-leak reading) this template
+doesn't produce. Running this script again will discard that and rebuild
+the OLD, since-corrected structure, keeping only the preserved verdict block
+— don't, unless you intend to. `bench/origin/Makefile`'s `report` target
+calls `evaluate.py`/`diagnostics.py`/`reanalyze.py` to refresh the numbers
+and stops there, not this script.
 """
 import argparse
 import json

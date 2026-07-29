@@ -29,9 +29,20 @@ evaluate: check-rules
 	cd "$(HERE)" && python3 evaluate.py
 	cd "$(HERE)" && python3 diagnostics.py
 	cd "$(HERE)" && python3 plot_sweep.py
+	cd "$(HERE)" && python3 reanalyze.py
 
+# REPORT.md is hand-maintained as of the workspace-merged/base-rate/
+# conditional-recall correction (see its own "Revision note") — it contains
+# interpretive prose (why strict vs merged scoring diverge, the inverse-leak
+# reading) that doesn't cleanly templatize. `report` regenerates every
+# NUMBER REPORT.md cites (results.csv, diagnostics.json, reanalysis.json,
+# sweep.png) so the figures stay reproducible; it does not regenerate
+# REPORT.md's prose. Re-run `make_report.py` only if you intend to rebuild
+# REPORT.md's structure from scratch (it will discard the hand-written
+# sections beyond the preserved verdict block).
 report: evaluate
-	cd "$(HERE)" && python3 make_report.py
+	@echo "Data regenerated: results.csv, diagnostics.json, reanalysis.json, sweep.png."
+	@echo "REPORT.md is hand-maintained; edit it directly if these numbers changed."
 
 # Full 16-crate matrix + evaluation + report, from scratch.
 all: bins pilot full report
@@ -40,4 +51,4 @@ clean:
 	rm -rf "$(HERE)/build" "$(HERE)/results" "$(HERE)"/pooled_sweep.json \
 	       "$(HERE)"/diagnostics.json "$(HERE)"/diagnostics.md \
 	       "$(HERE)"/results.csv "$(HERE)"/sweep.png "$(HERE)"/sweep.tsv \
-	       "$(HERE)"/sweep.txt "$(HERE)"/build_failures.tsv
+	       "$(HERE)"/sweep.txt "$(HERE)"/build_failures.tsv "$(HERE)"/reanalysis.json
