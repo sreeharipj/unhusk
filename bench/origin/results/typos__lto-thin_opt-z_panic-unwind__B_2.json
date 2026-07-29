@@ -1,0 +1,50 @@
+{
+ "crate": "typos",
+ "config": "lto-thin_opt-z_panic-unwind",
+ "rule": "B@2",
+ "n_fdes": 10025,
+ "n_gt_known": 9510,
+ "n_gt_excluded_unknown_or_conflict": 515,
+ "confusion": {
+  "AUTHOR": {
+   "AUTHOR": 13,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 0
+  },
+  "DEP": {
+   "AUTHOR": 40,
+   "WORKSPACE": 0,
+   "DEP": 799,
+   "STD": 463
+  },
+  "AMBIGUOUS": {
+   "AUTHOR": 14,
+   "WORKSPACE": 2,
+   "DEP": 1,
+   "STD": 1
+  },
+  "NONE": {
+   "AUTHOR": 246,
+   "WORKSPACE": 2,
+   "DEP": 2935,
+   "STD": 4994
+  }
+ },
+ "coverage": 0.13635910224438902,
+ "ambiguous_fraction": 0.0017955112219451373,
+ "predicted_author": 13,
+ "predicted_dep": 1336,
+ "actual_author": 313,
+ "actual_workspace": 4,
+ "actual_dep": 3735,
+ "actual_std": 5458,
+ "tp_author": 13,
+ "tp_dep": 799,
+ "precision_author": 1.0,
+ "precision_dep": 0.5980538922155688,
+ "recall_author_excl": 0.043478260869565216,
+ "recall_author_ambig_err": 0.04153354632587859,
+ "recall_dep_excl": 0.2139796464916979,
+ "recall_dep_ambig_err": 0.2139223560910308
+}
