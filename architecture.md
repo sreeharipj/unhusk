@@ -452,12 +452,29 @@ average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/validation.md:52-57`).
 
 ### 8.2 Secondary — inline-leak incidence, `bench/origin/`
 
-43-crate × 8-config corpus, mined without rebuild: 3,605 real instances of a
-non-author-declared function absorbing a user Location; 89.9% genuine
-inline-absorption, 10.1% the already-handled forwarding-wrapper shape.
-Expressed as precision over the STRONG+SINGLE population: **86.3% pooled**,
-86.17% at `lto-fat,opt-3,panic-abort` — the profile real stripped release
-binaries ship at.
+43-crate × 8-config corpus (39 crates built; 4 excluded as build failures),
+mined without rebuild: 3,605 instances of a non-author-declared function
+absorbing a user Location, 89.93% genuine inline-absorption and 10.07% the
+already-handled forwarding-wrapper shape (§9.2). One row is one FDE in one
+build, so the same source function contributes up to 8 rows.
+
+Converted to precision over the claimed-user population
+(`INLINE_LEAK_INCIDENCE.md:467-489`, known-label denominator):
+
+| Tier | pooled | ship profile¹ |
+|---|---:|---:|
+| STRONG | 91.312% | 91.78% (1473/1605) |
+| SINGLE | 81.884% | 80.92% (1387/1714) |
+| COMBINED | 86.291% | 86.17% (2860/3319) |
+
+¹ `lto-fat, opt-3, panic-abort` — the profile real stripped release binaries
+ship at (`INLINE_LEAK_INCIDENCE.md:551-572`).
+
+The pooled figures are known-label-only. UNKNOWN (no `nm`-visible symbol
+resolves to a classifiable crate) is 204 / 26,501 = 0.77% of the claimed-user
+population, which bounds each tier within ≤0.8 points: STRONG lies in
+90.957-91.346%, COMBINED in 85.627-86.397%, depending on whether UNKNOWN is
+charged as FP or credited as TP.
 
 ### 8.3 Combination rule — normative
 
@@ -520,17 +537,72 @@ body while remaining too large to inline into its caller. The resulting
 function is library-authored and library-declared but carries several genuine
 user Locations, satisfying STRONG by construction.
 
-**Measured on both formats, by two independent oracles.**
+#### Primary evidence — real-corpus incidence
 
-- PE / PDB oracle (`docs/PDB_ORACLE_hardcase.md`, tracked on branch
-  `pe-port/hardcase-probe`): a construction of five ordinary wrappers produced
-  21/22 user-Location xref sites landing in non-user procedures, 13 false
-  positives, **8 at STRONG tier**, corroborated both by xref address and by the
-  PDB's own inline-site stream.
-- ELF / DWARF oracle: the same construction built natively and run under
-  `--validate` reproduced it — `certain 15 predicted, TP=2, FP=13,
-  precision=13.3%`, with 6 of 7 STRONG hits being `core::slice::sort::*`
-  internals.
+The mechanism is established by mining naturally-occurring code, not by
+constructing it. `bench/origin/INLINE_LEAK_INCIDENCE.md` reads the already-built
+43-crate × 8-config matrix with no rebuild (4 crates — `bore`, `dog`,
+`sniffnet`, `spotify-tui` — failed to build and are excluded at all 8 configs,
+leaving 39 crates × 8 configs). A **leak instance** is one ground-truth FDE in
+one build that an independent symbol oracle labels non-author, whose
+`origin_probe` counts nonetheless include at least one user-class Location.
+
+**3,605 instances**, split into two parallel scopes
+(`INLINE_LEAK_INCIDENCE.md:19-34`):
+
+| Scope | Instances | Rate over non-author FDEs |
+|---|---:|---:|
+| DEP (dependency-declared) | 1,024 / 1,170,733 | 0.0875% |
+| STD (core/alloc/std-declared) | 2,581 / 1,164,095 | 0.2217% |
+| **Combined** | **3,605 / 2,334,828** | **0.1544%** |
+
+Every one of the 3,605 was resolved to a demangled symbol name and classified —
+100% resolved, 0 unresolved (`INLINE_LEAK_INCIDENCE.md:517-537`):
+
+- **3,242 (89.93%) genuine inline-absorption** — library code of its own
+  absorbing a user Location. By shape: unclassified library generic 1,541,
+  core generic 809, futures combinator 550, framework handler-adapter 169,
+  rayon generic 143, serde generic 30.
+- **363 (10.07%) forwarding wrappers** — `__rust_begin_short_backtrace::<F>`
+  and `LocalKey::with::<F>`, whose entire body *is* the user's code reached
+  through a std-declared generic. Already handled. The split is far more
+  lopsided on the DEP side (4 forwarding of 1,024) than the STD side (359 of
+  2,581).
+
+**The mechanism occurs in real, widely-read code.** `ripgrep` shows zero
+DEP-side leak — it looked clean in the DEP-only table — but 112 / 19,101
+(0.586%) STD-side leak, including an instance whose files are
+`library/core/src/slice/sort/stable/quicksort.rs` together with
+`crates/core/haystack.rs` (`INLINE_LEAK_INCIDENCE.md:209-214`). That is the
+`core::slice::sort` family occurring in ripgrep's own code.
+
+By raw incidence the dominant contributors are async runtimes, not sorts:
+`futures` 158 (15.4%), `tokio` 145 (14.2%), `rayon` 131 (12.8%), `wasmtime` 88,
+`actix_web` 77 (`INLINE_LEAK_INCIDENCE.md:186-190`). Incidence is more
+crate-concentrated than config-dependent: the top 5 crates account for 586/1024
+= 57.2% of DEP-side instances, 16 of 43 crates show zero.
+
+#### Secondary evidence — mechanism demonstration
+
+An adversarial probe (`docs/PDB_ORACLE_hardcase.md`, tracked on branch
+`pe-port/hardcase-probe`) forces the mechanism deliberately: five ordinary
+wrappers handing small closures to `slice::sort_by`, `sort_unstable_by_key`,
+and `rayon`'s `par_iter().map()/for_each()`. It reproduces on both formats,
+by two independent oracles:
+
+- **PE / PDB:** 21 of 22 user-Location xref sites land in a non-user-declared
+  procedure; 13 false positives, **8 at STRONG tier**, corroborated both by
+  xref address and by the PDB's own inline-site stream.
+- **ELF / DWARF:** the same construction built natively and run under
+  `--validate` — `certain 15 predicted, TP=2, FP=13, precision=13.3%`, with
+  6 of 7 STRONG hits being `core::slice::sort::*` internals.
+
+**The probe's precision figure is not a corpus figure and MUST NOT be quoted
+as one.** A construction built to trigger the mechanism reports the rate at
+which a triggering construction triggers it; it says nothing about prevalence.
+The corpus figures above are the prevalence claim. The probe also
+*under*-represents severity in one measurable respect: RuleA catches 27.3% of
+the probe's instances versus 47.5% in the wild (§10.4).
 
 **Therefore the mechanism is not a PE artifact.** It lives in
 `classify.rs`/`xref.rs`, which both formats share through the container seam
@@ -548,8 +620,25 @@ fan-out 1, the exact value of genuine attributions. No threshold separates
 them. Detecting generic monomorphization over a closure/callback type parameter
 is the structurally different approach; it has not been scoped or attempted.
 
-**Status: open, unmitigated, and shared by both formats.** Consumers of the
-STRONG tier **MUST** treat it as ~94% pooled / ~87% async, never as certainty.
+**Status: open and unmitigated on the shipped path, shared by both formats.**
+A candidate rule measured against this population catches roughly half of it,
+with a large scope-dependent blind spot; it is measurement-only and not in any
+decision path (§10.4).
+
+**Consumers of the STRONG tier MUST NOT treat it as certainty.** Two
+measurements bound it, and §8.3 forbids merging them, so both are stated with
+what produced them:
+
+| Measurement | STRONG precision | Corpus | Oracle / breadth |
+|---|---|---|---|
+| §8.1 `realval` | 94.4% pooled, 87.3% async | 34 binaries | `nm -C` symbol leading-crate, one default build per binary |
+| §8.2 `bench/origin` | 91.312% pooled, 91.78% at ship profile | 39 crates × 8 configs | symbol oracle over per-build FDE rows, 8-config sweep |
+
+The two are not reconcilable into a single number and no attempt is made here.
+A consumer choosing a threshold should read the spread — roughly 87% to 94%
+depending on corpus, workload, and build config — as the operating range, and
+§8.1's async stratum as the lower bound for async-heavy targets, which is what
+malware skews toward.
 
 ### 9.3 Evasion
 
@@ -658,9 +747,38 @@ Three rules are implemented for sweeping (`src/origin.rs:283-367`): `RuleA`
 only registry/git are hard triggers), `RuleC` (ratio baseline, no ambiguous
 tier). Decisions are `AUTHOR` / `DEP` / `AMBIGUOUS` / `NONE`.
 
-Not wired to the CLI; driven by `bin/origin_probe.rs`. Results and the
-matched-stratum comparison against the shipped tool live in
-`bench/origin/REPORT.md`.
+**Measured coverage of the §9.2 population.** `RuleA`'s exact `decide`
+condition (`non_user(counts) > 0`) applied to all 3,605 leak instances
+(`INLINE_LEAK_INCIDENCE.md:139-148`):
+
+| Scope | Instances | Vetoed (caught) | Blind (user-only) | Catch rate |
+|---|---:|---:|---:|---:|
+| DEP | 1,024 | 776 | 248 | **75.8%** |
+| STD | 2,581 | 937 | 1,644 | **36.3%** |
+| **Combined** | **3,605** | **1,713** | **1,892** | **47.5%** |
+
+**The STD-side blind fraction is the part that matters: 1,644 of 2,581 = 63.7%
+of in-the-wild STD-scope instances carry no co-referenced non-user Location at
+all, so the rule cannot see them.** STD scope is also the larger half of the
+population. A rule of this shape addresses most of the DEP side and a minority
+of the STD side.
+
+The adversarial probe understates this coverage in every scope — 2/2 DEP,
+1/9 STD, 3/11 = 27.3% combined — because its construction produced almost no
+incidental co-referenced Locations inside the sort internals it hit, where real
+instances more often carry a second nearby Location
+(`INLINE_LEAK_INCIDENCE.md:160-177`). This is one of the reasons §9.2 treats
+the probe as a demonstration rather than a prevalence measurement.
+
+On the separate question of attribution precision rather than leak coverage,
+`bench/origin/REPORT.md:165,221,313` reports `RULE_A@2` at 92.8% pooled
+(workspace-merged scoring) and 91.5% pooled / 93.0% crate-averaged on async
+code, against the shipped tool's 87.3% async stratum — a matched-stratum
+comparison, not a controlled experiment.
+
+Not wired to the CLI; driven by `bin/origin_probe.rs`. **Nothing above is in
+the shipped decision path**, which is why §9.2 records the gap as unmitigated.
+Full sweep and comparison: `bench/origin/REPORT.md`.
 
 ### 10.5 `--backtrace-depth` — shipped, unvalidated
 
@@ -675,10 +793,37 @@ promise attached — not dead code, and not validated either.
 ## 11. Verification
 
 - `cargo test` — 103 passing (96 unit + 7 integration), 0 failing.
-- Optimization-invariance checked across thin-LTO, `lto=true,codegen-units=1`,
-  `opt-level=z`, `panic=abort`, and `-C force-unwind-tables=no`. The
-  multiplicity lever keys on Location structure rather than inlining, which is
-  why it holds across these.
+- **Extraction is optimization-invariant; the false-positive rate is not.**
+  These are two separate claims and only the first holds across configs.
+
+  *Extraction* — recovering `Location` structs and mapping them to FDEs — was
+  checked across thin-LTO, `lto=true,codegen-units=1`, `opt-level=z`,
+  `panic=abort`, and `-C force-unwind-tables=no`. It keys on Location struct
+  layout and relocation structure, neither of which optimization changes.
+
+  *The FP rate* varies with build config, because the §9.2 mechanism **is**
+  inlining, and inlining is exactly what these flags govern. Measured over the
+  8-config sweep, the two available metrics move in **opposite directions**,
+  and neither is "the" config effect on its own:
+
+  - **Raw leak incidence** (instances per non-author FDE) is higher at `opt-3`:
+    roughly 2-2.5× the `opt-z` rate at matching lto/panic — DEP side
+    `lto-fat,opt-3,panic-abort` 145/98,446 = 0.147% versus
+    `lto-fat,opt-z,panic-abort` 117/133,311 = 0.088%. STD side moves the same
+    direction (opt-3 0.24-0.43%, opt-z 0.14-0.24%).
+    `INLINE_LEAK_INCIDENCE.md:74-92`.
+  - **Precision over claimed-user** is *lower* at `opt-z`: opt-z sits
+    consistently 1-2pp below opt-3 at matching lto/panic. Across all 8 configs
+    STRONG spans 89.75-92.64% (2.9pp), SINGLE 80.31-83.31% (3.0pp), COMBINED
+    84.99-87.72% (2.7pp). `INLINE_LEAK_INCIDENCE.md:551-578`.
+
+  The directions differ because the denominators do: leak incidence is measured
+  per non-author FDE, and `opt-z` emits far more FDEs (133,311 versus 98,446 at
+  matching lto/panic on the DEP side), so a lower per-FDE rate coexists with
+  slightly worse precision over the claimed-user set. Config effect on
+  precision is real but modest — under 3pp across the whole sweep — and smaller
+  than the per-crate spread, where the top 5 of 43 crates carry 57.2% of
+  DEP-side instances.
 - Real-malware exercise (static only, never executed): KrustyLoader, Akira,
   BlackCat/ALPHV, 01flip, P2PInfect. Two evasions observed and now flagged —
   `--remap-path-prefix` (01flip) and packing (P2PInfect). Details:
