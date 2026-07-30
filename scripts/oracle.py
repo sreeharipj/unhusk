@@ -117,15 +117,29 @@ def nm_symbol_table(binary, with_size=False, timeout=900):
     r = subprocess.run(["rustfilt"], input=raw, capture_output=True, text=True, timeout=timeout)
     table = {}
     for line in r.stdout.splitlines():
-        parts = line.split(None, 3 if with_size else 2)
         if with_size:
-            if len(parts) < 3 or not re.match(r"^[0-9a-f]{16}$", parts[0]):
+            # Type-filtered (T/t/W/w only — text symbols, i.e. functions) since
+            # this mode is used to bulk-scan every defined symbol for FDE
+            # mapping, where a stray data symbol could collide with a function
+            # FDE's address range. Address length unconstrained (nm's width
+            # varies), unlike the non-with_size branch below.
+            parts = line.split(None, 3)
+            if len(parts) < 3:
                 continue
-            addr, size_hex, _typ = parts[0], parts[1], parts[2]
+            addr_hex, size_hex, typ = parts[0], parts[1], parts[2]
+            if typ not in ("T", "t", "W", "w"):
+                continue
+            if not re.match(r"^[0-9a-f]+$", addr_hex):
+                continue
             name = parts[3] if len(parts) > 3 else ""
             size = int(size_hex, 16) if re.match(r"^[0-9a-f]+$", size_hex) else 0
-            table[int(addr, 16)] = (name, size)
+            table[int(addr_hex, 16)] = (name, size)
         else:
+            # Exact-address lookup mode (realval): every defined symbol, keyed
+            # by its exact 16-hex-digit address, no type filter — callers look
+            # up specific known addresses (e.g. from UNHUSK_DUMP_TIERS), they
+            # don't bulk-scan by type.
+            parts = line.split(None, 2)
             if len(parts) != 3 or not re.match(r"^[0-9a-f]{16}$", parts[0]):
                 continue
             table[int(parts[0], 16)] = parts[2]

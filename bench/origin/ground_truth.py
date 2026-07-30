@@ -6,10 +6,13 @@ binary AUTHOR / WORKSPACE / DEP / STD, independent of unhusk entirely.
 Demangling: `nm --defined-only -S | rustfilt`, NOT `nm -C`. binutils cannot
 demangle Rust v0 (`_RNvCs..._3oha3run`) and chokes on legacy symbols carrying
 an `.llvm.<hash>` suffix — both come back still-mangled and would silently
-fail every classification below. This is the exact trap already documented
-in `realval/collect_rows.py:143-188`; this script reuses that lesson, not
-its code (this is a standalone module per the branch's "add a new module"
-instruction — it does not import from realval/).
+fail every classification below. This is the exact trap `realval/
+collect_rows.py` already documented; both scripts now share the actual fix
+via `scripts/oracle.py` instead of independently reimplementing it (moved
+there 2026-07-30 — this module used to carry its own copy of STD_CRATES/
+leading_crate/nm_table/authorship logic, which is exactly the kind of
+duplication that let the DWARF-oracle std-sysroot bug get independently
+fixed twice on divergent branches earlier in this project's history).
 
 Authorship: `cargo metadata --no-deps --offline` at the crate's manifest
 root. The TARGET package is whichever workspace member has a `bin` target
@@ -36,63 +39,18 @@ Usage:
 import argparse
 import bisect
 import json
+import os
 import re
 import subprocess
 import sys
 
-# Same list `src/bin/anchor_headroom.rs::STD_CRATES` uses (minus the
-# primitive-type-name entries, irrelevant to a symbol's leading crate ident).
-STD_CRATES = {
-    "core", "alloc", "std", "proc_macro", "test", "panic_abort", "panic_unwind",
-    "unwind", "compiler_builtins", "rustc_std_workspace_core",
-    "rustc_std_workspace_alloc", "rustc_std_workspace_std", "rustc_demangle",
-    "std_detect", "addr2line", "gimli", "object", "miniz_oxide", "hashbrown",
-    "libc", "adler", "adler2", "cfg_if", "getopts", "unwinding",
-}
-
-CODE_KINDS = {"lib", "rlib", "dylib", "cdylib", "staticlib", "proc-macro", "bin"}
-
-
-def norm(name):
-    return name.replace("-", "_")
-
-
-def leading_crate(sym):
-    """First path segment of a demangled symbol, e.g. `trippy_packet` from
-    `<&&trippy_packet::ipv4::Ipv4Packet as core::fmt::Debug>::fmt`."""
-    if not sym:
-        return None
-    s = re.sub(r"^[<&*\s]+", "", sym)
-    s = re.sub(r"^(?:mut|dyn|impl)\s+", "", s)
-    m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
-    return m.group(1) if m else None
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "scripts"))
+from oracle import STD_CRATES, cargo_authorship, leading_crate, nm_symbol_table  # noqa: E402
 
 
 def sh(args, **kw):
     return subprocess.run(args, capture_output=True, text=True, timeout=kw.pop("timeout", 300), **kw)
-
-
-def nm_table(binary):
-    """addr -> (demangled_name, size). See module docstring for why rustfilt."""
-    raw = sh(["nm", "--defined-only", "-S", binary], timeout=900).stdout
-    n_v0 = len(re.findall(r"\s_R\w", raw))
-    n_legacy = len(re.findall(r"\s_ZN\w", raw))
-    mangling = "v0" if n_v0 > n_legacy else ("legacy" if n_legacy else "none")
-
-    r = sh(["rustfilt"], input=raw, timeout=900)
-    table = {}
-    for line in r.stdout.splitlines():
-        parts = line.split(None, 3)
-        if len(parts) < 3:
-            continue
-        addr_hex, size_hex, typ = parts[0], parts[1], parts[2]
-        if typ not in ("T", "t", "W", "w"):
-            continue
-        if not re.match(r"^[0-9a-f]+$", addr_hex):
-            continue
-        name = parts[3] if len(parts) > 3 else ""
-        table[int(addr_hex, 16)] = (name, int(size_hex, 16) if re.match(r"^[0-9a-f]+$", size_hex) else 0)
-    return table, mangling, n_v0, n_legacy
 
 
 def _eh_frame_only_text(binary):
@@ -129,73 +87,6 @@ def find_fde(starts, ranges, addr):
     return None
 
 
-def cargo_metadata(repo):
-    r = sh(["cargo", "metadata", "--format-version", "1", "--no-deps", "--offline"], cwd=repo, timeout=300)
-    if r.returncode != 0:
-        tail = (r.stderr.strip().splitlines() or ["?"])[-1]
-        return None, f"cargo metadata --no-deps failed: {tail[:200]}"
-    return json.loads(r.stdout), None
-
-
-def parse_cargo_lock_deps(repo):
-    """Cargo.lock packages carrying a `source` field -> normalized names."""
-    path = f"{repo}/Cargo.lock"
-    try:
-        text = open(path).read()
-    except OSError:
-        return set(), "Cargo.lock not found"
-    dep = set()
-    for block in re.split(r"\[\[package\]\]", text)[1:]:
-        m = re.search(r'^name\s*=\s*"([^"]+)"', block, re.M)
-        if not m:
-            continue
-        if re.search(r'^source\s*=\s*"', block, re.M):
-            dep.add(norm(m.group(1)))
-    return dep, None
-
-
-def authorship_sets(repo, bin_name):
-    """(author, workspace, dep, error). See module docstring for the rule."""
-    md, err = cargo_metadata(repo)
-    if md is None:
-        return set(), set(), set(), err
-
-    target_pkg = None
-    for p in md.get("packages", []):
-        for t in p.get("targets", []):
-            if "bin" in t.get("kind", []) and t["name"] == bin_name:
-                target_pkg = p
-                break
-        if target_pkg:
-            break
-
-    dep, lock_err = parse_cargo_lock_deps(repo)
-
-    if target_pkg is None:
-        # Every workspace member is indistinguishable from "the target" without
-        # this signal; report the gap rather than guess.
-        all_names = set()
-        for p in md.get("packages", []):
-            all_names |= {norm(t["name"]) for t in p.get("targets", []) if CODE_KINDS & set(t.get("kind", []))}
-            all_names.add(norm(p["name"]))
-        return set(), all_names, dep - all_names, f"no workspace member has a bin target named {bin_name!r}"
-
-    author = {norm(t["name"]) for t in target_pkg.get("targets", []) if CODE_KINDS & set(t.get("kind", []))}
-    author.add(norm(target_pkg["name"]))
-
-    workspace = set()
-    for p in md.get("packages", []):
-        if p is target_pkg:
-            continue
-        workspace |= {norm(t["name"]) for t in p.get("targets", []) if CODE_KINDS & set(t.get("kind", []))}
-        workspace.add(norm(p["name"]))
-    workspace -= author
-
-    dep -= author
-    dep -= workspace
-    return author, workspace, dep, lock_err
-
-
 def label_for(crate, author, workspace, dep):
     if crate in author:
         return "AUTHOR"
@@ -216,9 +107,9 @@ def main():
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
-    author, workspace, dep, auth_err = authorship_sets(args.repo, args.bin_name)
+    author, workspace, dep, auth_err = cargo_authorship(args.repo, args.bin_name)
 
-    nm, mangling, n_v0, n_legacy = nm_table(args.unstripped)
+    nm, mangling, n_v0, n_legacy = nm_symbol_table(args.unstripped, with_size=True)
     ranges = fde_ranges(args.unstripped)
     starts = [s for s, _ in ranges]
 
