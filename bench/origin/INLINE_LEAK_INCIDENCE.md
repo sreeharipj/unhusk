@@ -235,3 +235,211 @@ bore (8 configs), dog (8 configs), sniffnet (8 configs), spotify-tui (8 configs)
 
 None rebuilt, none silently dropped — listed here and in
 `inline_leak_instances.json["excluded"]`.
+
+---
+
+# Task 4 — converting 3605 into a precision figure
+
+New script `leak_vs_claimed_user.py`, reruns `python3 leak_vs_claimed_user.py
+[--pretty]`, writes `leak_vs_claimed_user.json`. Same no-rebuild constraint:
+reads only already-produced `probe.json`/`ground_truth.json`.
+
+## a. What one row is, and why the two denominators differ
+
+**One row of `inline_leak_instances.json`'s `instances` list is one FDE
+(function-address-range) within one specific (crate, config) build** — a
+function×build-config pair, not a deduplicated function. The same physical
+source function can (and does) contribute up to 8 separate rows if its FDE
+exists and gets the same ground-truth label across all 8 configs of its
+crate; it can also disappear from some configs (inlined away, or its class
+composition changes) and appear in fewer.
+
+`1,170,733` and `1,164,095` are **not two different populations that were
+joined** — they are two label-value counts drawn from **the exact same**
+pooled set of 2,953,905 FDE-rows across the same 344 (crate, config) builds
+(43 crates × 8 configs, the 4 already-excluded build failures accounted for).
+Verified directly, not assumed:
+
+```
+n_builds 344
+n_fdes_total (pooled rows across all builds) 2953905
+  'DEP'        1170733
+  'STD'        1164095
+  'UNKNOWN'    502001
+  'AUTHOR'     76960
+  'WORKSPACE'  40116
+sum of labels: 2953905
+```
+
+The five label counts sum to exactly 2,953,905 — the same "344 builds,
+2,953,905 FDEs pooled" REPORT.md's own opening line states. Every FDE gets
+exactly one label (or `UNKNOWN` if `ground_truth.py` couldn't resolve one);
+there is no overlap between the DEP and STD buckets to produce a join
+artifact. **The 6,638 gap between them is a real fact about the corpus, not
+a measurement artifact**: across these 344 builds there are simply more
+FDEs a symbol lands in that get demangled to a `Cargo.lock` dependency
+(DEP) than FDEs that land in the fixed STD_CRATES set (STD) — different
+crates carry different amounts of dependency code vs. std-declared code once
+built, which is an ordinary fact about the corpus's composition, not a
+processing bug.
+
+## b/c. STRONG/SINGLE precision under this corpus's own ground truth
+
+`src/origin.rs`'s `counts["user"]` (distinct user-class Location structs per
+FDE, `src/origin.rs:210-232`) and `src/report.rs`'s shipped tiering
+(`user_anchor_count`, `report.rs:176`) count the same thing over the same
+`xref::scan` — verified empirically, not assumed: ran the real, already-built
+`unhusk --json` against an already-built stripped binary
+(`build/ripgrep/lto-fat_opt-3_panic-unwind/rg.stripped` — no rebuild, the
+binary already existed) and diffed against deriving tiers from that same
+build's `probe.json`:
+
+```
+STRONG 147 SINGLE 114
+derived STRONG 147 derived SINGLE 114
+exact match STRONG: True   exact match SINGLE: True
+STRONG symmetric diff size: 0   SINGLE symmetric diff size: 0
+```
+
+Zero difference, so deriving STRONG (`counts.user>=2`, default `min_anchors`)
+/ SINGLE (`==1`) for the whole corpus from existing `probe.json` files is
+sound. "Claimed user" = STRONG ∪ SINGLE = exactly unhusk's shipped `Certain`
+set (`architecture.md:61`). A Task-1 leak instance is, by construction, a
+member of this set (leak requires `counts.user>=1`) whose ground truth is
+DEP or STD — i.e. leak instances are precisely the false positives inside
+the claimed-user population. TP = ground truth AUTHOR or WORKSPACE (merged,
+matching `realval`'s own coarse authorship semantics).
+
+**Pooled, this corpus's own independent oracle:**
+
+| tier | tp | fp | n | precision | leak_fraction | blind/claimed_user | blind/fp | crate-avg precision |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| STRONG | 11225 | 1068 | 12293 | **91.312%** | 8.688% | 3.783% | 43.539% | 91.056% |
+| SINGLE | 11467 | 2537 | 14004 | **81.884%** | 18.116% | 10.190% | 56.248% | 81.892% |
+| COMBINED | 22692 | 3605 | 26297 | **86.291%** | 13.709% | 7.195% | 52.483% | 86.458% |
+
+(`3605` — the exact total from Task 1 — is the combined FP count here,
+confirming the two scripts agree on the same underlying instances.)
+
+**Worst five crates by COMBINED leak_fraction (n≥10):**
+
+```
+miniserve   fp=103/n=208  leak_fraction=49.52%  precision=50.48%
+fclones     fp=355/n=760  leak_fraction=46.71%  precision=53.29%
+fd          fp= 56/n=148  leak_fraction=37.84%  precision=62.16%
+bandwhich   fp= 68/n=200  leak_fraction=34.00%  precision=66.00%
+hexyl       fp= 38/n=130  leak_fraction=29.23%  precision=70.77%
+```
+
+`miniserve` and `hexyl` are both in `realval`'s own 32-binary corpus and
+were **not** previously flagged as precision outliers there — worth a closer
+look independent of this task.
+
+## d/e. Relationship to `docs/validation.md`'s 94.4%/87.3%
+
+**Not fully disjoint, but not the same measurement either — checked, not
+assumed.** All 32 of `realval`'s binaries are a strict subset of this
+branch's 43 crates (verified: `realval & bench/origin corpus.tsv` = all 32,
+zero missing). Both now share the same underlying oracle primitives
+(`scripts/oracle.py`'s `cargo_authorship`/`nm_symbol_table`/`leading_crate`)
+after this session's earlier consolidation.
+
+**But the build-matrix breadth is genuinely different, checked directly**:
+`realval/build_corpus_src.sh` sets only `CARGO_PROFILE_RELEASE_DEBUG=true`
+and `CARGO_PROFILE_RELEASE_STRIP=false` — no LTO/opt-level/panic override at
+all, so `docs/validation.md`'s 94.4%/87.3% is **one build per binary**, each
+crate's own default release profile. The 91.3%/81.9% figures above are
+**pooled across a systematic 8-config sweep per crate** (lto fat/thin × opt
+3/z × panic unwind/abort), including configs (`opt-z`, `panic-abort`) that
+`realval`'s single default build per binary does not systematically exercise.
+Scoring/aggregation code is also independent (`leak_vs_claimed_user.py` vs
+`realval/collect_rows.py`+`report_results.py`), even though both now call
+into the same oracle module.
+
+**This is the "shared oracle, different measurement design" situation, not
+the "same measurement, different number" situation.** STRONG here (91.3%
+pooled / 91.1% crate-avg) is close to but below `docs/validation.md`'s 94.4%;
+SINGLE here (81.9%) lands almost exactly on `architecture.md:278`'s
+independently-stated ~80-81% pooled SINGLE figure. That closeness is
+suggestive, not a confirmation — different oracle implementation detail,
+corpus composition, and (materially) build-config breadth stand between
+them.
+
+**Per rule 4e, stated plainly: the shipped 94.4%/87.3% figure cannot be
+corrected using this data.** Doing so honestly would require re-running
+`realval`'s own 32 binaries through this branch's 8-config build matrix under
+`realval`'s own scoring harness (or vice versa — re-scoring this corpus's
+single "opt-3/unwind" configs alone under `realval`'s exact methodology to
+isolate the config-breadth effect from the oracle-difference effect). Neither
+has been done. I am reporting 91.3%/81.9%/86.3% as a new, standalone
+measurement on this corpus under this branch's own ground truth — not a
+correction, not an average, not a replacement for `docs/validation.md`'s
+number.
+
+---
+
+## Also — malware samples, cheap checks
+
+**Do the three usable malware samples link tokio/futures/rayon?** Checked via
+`strings`/`nm --defined-only` directly on the sample files at
+`/home/user/malware-samples/` (static only, matching this project's own
+"never executed" policy):
+
+```
+krusty_x (KrustyLoader):        tokio=4  futures=5  rayon=0   (strings)
+blackcat_sphynx_x (BlackCat):    tokio=0  futures=0  rayon=0   (strings AND nm)
+akira_v2_x (Akira):              tokio=0  futures=0  rayon=0   (strings AND nm)
+```
+
+**Only 1 of the 3 real, usable malware samples (KrustyLoader) shows any
+tokio/futures/rayon linkage at all** — matching its documented nature as "an
+async HTTP downloader" (`README.md:113`). The other two show zero hits by
+both `strings` and an independent `nm` symbol-table check. At this sample
+size (n=3) this cannot establish a rate, but the direction is clear: this
+branch's corpus being 22/43 (51%) async-tagged likely **overstates** async
+concentration relative to at least this small real-malware sample — 1/3, not
+half, shows async-runtime linkage.
+
+**blackcat_x resolved — both prior statements were right, about different
+files.** Checked directly:
+
+```
+blackcat_x/          contains: 3d7cf20c....exe   (PE, Windows)
+blackcat_sphynx_x/   contains: c0e70e69....elf   (ELF, Linux)
+```
+
+`c0e70e69d8f7432383fa37528cd42db764b73dd08eb75d72229c2a0d02e538cc` is
+**exactly** the hash `docs/case-study-real-malware.md:26,28` cites for
+"BlackCat/ALPHV (Sphynx) ... clean after 2 classifier fixes" — that verdict
+is correct, and it's about `blackcat_sphynx_x`, not `blackcat_x`. `blackcat_x`
+holds the **Windows PE sample** the same doc separately notes is "out of
+scope" (`docs/case-study-real-malware.md:32`) for unhusk's ELF-only pipeline
+— genuinely unusable today, exactly the PE/ELF mismatch flagged. **My own
+answer last turn was imprecise**: I said "BlackCat/ALPHV... clean, not
+unusable" without checking which literal file `blackcat_x` held — correction
+stands as above.
+
+**What generated the winnow `.yar` files — found, not guessed.** Each rule's
+own `meta` block self-identifies:
+
+```
+generator = "winnow-phase1"   (krusty_x.yar, blackcat_sphynx_x.yar)
+generator = "winnow-phase3"   (akira_v2_x_tier1.yar)
+rests_on  = "... unhusk anchor_files, confirming-tier attribution ..."
+min_anchors = 2
+strong_functions = 1 / 1 / 7
+```
+
+The `rests_on`/`min_anchors`/`strong_functions`/`confirming_panic_strings`
+fields are unhusk's own JSON-contract vocabulary (`anchor_files`,
+`min_anchors`, `strong_functions` all appear verbatim in
+`architecture.md`'s documented output contract). **This means winnow's rule
+generator does consume unhusk's output for these three samples** — via the
+CLI+JSON path (`architecture.md`'s "shell out and parse stdout JSON" path),
+not the Rust-crate-dependency path. This isn't a contradiction of
+`architecture.md:22-26`'s "winnow does not currently depend on the `unhusk`
+crate" — that check was specifically about `Cargo.toml`/library linkage and
+is still true — but it means the CLI-consumption path is real and already
+exercised for at least these three rules, not merely designed-but-unused. I
+did not open `winnow/scripts/` to trace the exact invocation code; this is
+what the rule files themselves show, nothing beyond that.
