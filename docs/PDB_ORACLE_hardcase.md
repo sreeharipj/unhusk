@@ -1,10 +1,18 @@
 # PDB oracle — the hard case, forced (session 4)
 
-**Status:** measurement, session 4. Companion to `docs/PDB_ORACLE_procs.md` (session
-2), `docs/PDB_ORACLE_dufs.md` (session 3), and `docs/pe-port-design.md` §9. Session
-3 closed with an open ask: *"if a future session wants to force the case, it needs
-a construction that defeats callee→caller inlining ... not merely more async."*
-This session built that construction. It fires immediately.
+**Status:** measurement, session 4. Companion to `docs/pe-port-design.md` §9.
+
+Follows two earlier PE-port oracle sessions whose per-session writeups are not
+retained in-tree — they were removed deliberately in `86afbf9` as per-session
+measurement notes rather than curated documentation, so they are described here
+rather than linked. Session 2 measured `procs` (sync) at STRONG 9/9 with zero
+false positives; session 3 measured `dufs` (async) at STRONG 14/14 with zero
+false positives. Both readings are real and stand on their own binaries (§7);
+what did not stand was the generalisation drawn from them, that the
+inline-absorption FP mechanism is rare-to-absent in optimized Rust by
+construction. Session 3 also left an open ask: forcing the case would need a
+construction that defeats callee→caller inlining, not merely more async. This
+session built that construction. It fires immediately.
 
 **Headline: the "user code inlined into a surviving library function" false
 positive is real, common, and hits STRONG tier — reversing the session-2/3
