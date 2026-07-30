@@ -452,8 +452,8 @@ average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/validation.md:52-57`).
 
 ### 8.2 Secondary — inline-leak incidence, `bench/origin/`
 
-43-crate × 8-config corpus (39 crates built; 4 excluded as build failures),
-mined without rebuild: 3,605 instances of a non-author-declared function
+43-crate × 8-config corpus — 344 builds, 2,953,905 pooled FDE rows — mined
+without rebuild: 3,605 instances of a non-author-declared function
 absorbing a user Location, 89.93% genuine inline-absorption and 10.07% the
 already-handled forwarding-wrapper shape (§9.2). One row is one FDE in one
 build, so the same source function contributes up to 8 rows.
@@ -541,11 +541,13 @@ user Locations, satisfying STRONG by construction.
 
 The mechanism is established by mining naturally-occurring code, not by
 constructing it. `bench/origin/INLINE_LEAK_INCIDENCE.md` reads the already-built
-43-crate × 8-config matrix with no rebuild (4 crates — `bore`, `dog`,
-`sniffnet`, `spotify-tui` — failed to build and are excluded at all 8 configs,
-leaving 39 crates × 8 configs). A **leak instance** is one ground-truth FDE in
-one build that an independent symbol oracle labels non-author, whose
-`origin_probe` counts nonetheless include at least one user-class Location.
+43-crate × 8-config matrix with no rebuild: **344 builds, 2,953,905 pooled FDE
+rows**, every build carrying data. Four further crates (`bore`, `dog`,
+`sniffnet`, `spotify-tui`) failed to build at all 8 configs and are excluded —
+they sit outside the 43, not within it, so no unbuilt crate is counted as
+zero-leak. A **leak instance** is one ground-truth FDE in one build that an
+independent symbol oracle labels non-author, whose `origin_probe` counts
+nonetheless include at least one user-class Location.
 
 **3,605 instances**, split into two parallel scopes
 (`INLINE_LEAK_INCIDENCE.md:19-34`):
@@ -574,7 +576,14 @@ DEP-side leak — it looked clean in the DEP-only table — but 112 / 19,101
 (0.586%) STD-side leak, including an instance whose files are
 `library/core/src/slice/sort/stable/quicksort.rs` together with
 `crates/core/haystack.rs` (`INLINE_LEAK_INCIDENCE.md:209-214`). That is the
-`core::slice::sort` family occurring in ripgrep's own code.
+`core::slice::sort` family occurring in ripgrep's own code, not in a synthetic
+construction.
+
+This is an existence result, not a typicality one. ripgrep's STD-side rate is
+**~2.6× the corpus STD average** (0.586% versus 0.2217%), so it is the
+strongest single example rather than a representative one. The corpus-level
+rates in the table above are the prevalence claim; ripgrep answers only whether
+the shape reaches ordinary, widely-read code.
 
 By raw incidence the dominant contributors are async runtimes, not sorts:
 `futures` 158 (15.4%), `tokio` 145 (14.2%), `rayon` 131 (12.8%), `wasmtime` 88,
@@ -632,7 +641,7 @@ what produced them:
 | Measurement | STRONG precision | Corpus | Oracle / breadth |
 |---|---|---|---|
 | §8.1 `realval` | 94.4% pooled, 87.3% async | 34 binaries | `nm -C` symbol leading-crate, one default build per binary |
-| §8.2 `bench/origin` | 91.312% pooled, 91.78% at ship profile | 39 crates × 8 configs | symbol oracle over per-build FDE rows, 8-config sweep |
+| §8.2 `bench/origin` | 91.312% pooled, 91.78% at ship profile | 43 crates × 8 configs (344 builds) | symbol oracle over per-build FDE rows, 8-config sweep |
 
 The two are not reconcilable into a single number and no attempt is made here.
 A consumer choosing a threshold should read the spread — roughly 87% to 94%
