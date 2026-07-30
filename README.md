@@ -70,8 +70,8 @@ Six distinct author panic sites in one function, from `akiranew`'s own source tr
 
 ## Status and scope
 
-- x86-64 ELF (PIE and non-PIE) — shipped, this is the CLI path.
-- x86-64 PE (`x86_64-pc-windows-msvc`) — **experimental, library-only.** Parsing, `Location`/xref extraction, and the classifier all run and are tested (`container::pe::PeImage`), but there is no `--pe` flag or CLI dispatch yet, so using it today means writing code against the library directly. Not wired in because its core precision claim has the same open gap ELF has (below), not because the port itself is unfinished — see `architecture.md`'s verdict.
+- **x86-64 ELF (PIE and non-PIE) is the only supported input format.** The CLI does no format detection or dispatch — it loads its argument as an ELF, and that is the whole of what you can run `unhusk` against.
+- There is a tested **PE/PDB library in-tree, not wired to the CLI**: `container::pe::PeImage` (PE32+ parsing, `.pdata` function ranges, `Location`/xref extraction) and `pdb_oracle` (PDB-based ground truth for validation), both behind the same `BinaryImage` seam as ELF and both exercised by unit tests. **There is no flag, no argument, and no code path that will make the shipped tool analyze a PE binary** — reaching this code means writing Rust against the library yourself. It is unconnected on purpose: its STRONG-tier trust claim has the same open gap ELF has (below), measured on PE in `docs/PDB_ORACLE_hardcase.md` — see `architecture.md`'s verdict.
 - No Mach-O or aarch64.
 - Most validation is on benign open-source tools; live-malware testing has only just started.
 - Pure Rust, no C dependencies, no network, no runtime tools.
@@ -127,11 +127,11 @@ Optimization-invariance was checked across thin-LTO, `lto=true,codegen-units=1`,
 
 - Functions with no reachable panic site are not found. Pure computation, getters, and code where the optimizer proved every panic unreachable have nothing to anchor on. Recall is partial by design (about 15-46% of user functions on the test set), which is fine for signature generation since that needs a few good seeds, not every function.
 - async and generic-heavy code lowers precision (the ~87% weak spot), and this is irreducible in a stripped binary.
-- **A monomorphized library function can absorb a user closure's panic Location via inlining and get misattributed as the user's own code** (`slice::sort_by`, `rayon`, futures combinators, and similar generic-over-callback shapes). This is a `classify.rs`/`xref.rs` property, not a format limitation — it hits ELF (shipped) and PE (experimental library) identically, and ELF has carried it since before it had a name. No general mitigation exists yet. Measured in detail, with real (not just constructed) instances, in [`bench/origin/INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md); the first real-corpus instance of it (`rage`, crypto category) is in [`docs/validation.md`](docs/validation.md).
+- **A monomorphized library function can absorb a user closure's panic Location via inlining and get misattributed as the user's own code** (`slice::sort_by`, `rayon`, futures combinators, and similar generic-over-callback shapes). This is a `classify.rs`/`xref.rs` property, not a format limitation — it hits the shipped ELF path and the unwired in-tree PE library identically, and ELF has carried it since before it had a name. No general mitigation exists yet. Measured in detail, with real (not just constructed) instances, in [`bench/origin/INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md); the first real-corpus instance of it (`rage`, crypto category) is in [`docs/validation.md`](docs/validation.md).
 - User code reached only through trait objects, function pointers, or library dispatch shows up as `library`; the xref scan follows static call edges only.
 - Defeated by packing, `--remap-path-prefix`, and `-Z build-std panic_immediate_abort`. Real malware uses the first two (both flagged); the last removes the panic metadata entirely but is nightly-only and changes runtime behavior. The case study covers the full evasion-effort gradient.
 - The precision numbers come from benign tools plus a handful of malware samples. That is a start, not a representative study.
-- PE is experimental and library-only (see Status and scope above) — no Mach-O or aarch64 either.
+- **Windows PE Rust malware cannot be analyzed with this tool.** The in-tree PE/PDB library is not reachable from the CLI (see Status and scope above), so in terms of what you can actually run, this is x86-64 ELF only — no PE, Mach-O, or aarch64.
 
 ## Prior work
 
