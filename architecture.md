@@ -1,423 +1,699 @@
-# unhusk — architecture
+# unhusk — System Specification
 
-*An honest, current account of what unhusk is, what actually works, what's dead
-weight, and whether the PE port is ready to wire into anything. Rewritten
-2026-07-27 after auditing every module against its test coverage, its git
-history, and fresh measurements run this session (not just re-reading old
-docs).*
+**Status:** normative for the shipped ELF path. Describes `unhusk` as built, not
+as intended. Every behavioural claim cites the code that implements it
+(`file:line`); every quantitative claim cites the measurement that produced it
+and the corpus it was measured on. Claims without one of those two anchors do
+not belong in this document.
 
-## What this is
+**Verification basis:** `cargo test` — 103 passing (96 unit + 7 integration),
+0 failing, 0 ignored. Source tree: 7,342 lines across 18 files.
 
-unhusk answers one question about a **stripped Rust release binary**, with no
-symbols and no debug info: *which functions did the author write*, as opposed
-to the standard library or a Cargo dependency? It answers that question by
-reading `core::panic::Location` structs — the file/line/column metadata Rust
-embeds at every `panic!`/`.unwrap()`/bounds-check site so a crash can print
-`panicked at src/main.rs:42`. That metadata is data, not a symbol, so it
+---
+
+## 1. Scope
+
+### 1.1 Problem statement
+
+`unhusk` answers one question about an x86-64 **stripped Rust release binary**:
+*which functions did the author of the target program write*, as opposed to the
+Rust standard library or a Cargo dependency.
+
+It answers without symbols and without debug information, by reading
+`core::panic::Location` structs — the file/line/column metadata `rustc` embeds
+at every reachable `panic!` / `.unwrap()` / bounds-check site so a crash can
+print `panicked at src/main.rs:42`. That metadata is *data*, not symbols, so it
 survives `strip`.
 
-unhusk is a **library first, CLI second** — a backend behind a stable JSON
-contract, not a finished product. The motivating downstream consumer is
-[winnow](https://github.com/sreeharipj/winnow), a Rust-malware → YARA-X rule
-generator. **Correction from the last write-up: winnow does not currently
-depend on the `unhusk` crate.** Its `Cargo.toml` has no `unhusk` dependency and
-its own `object` crate is built without the `pe` feature — it reimplements an
-ELF-only pipeline in parallel (`elfview.rs`, `ingest.rs`) rather than importing
-this one. "The backend behind winnow" is the design intent, not yet the wiring.
-Keep that in mind: the interesting API surface for a downstream project is the
-attribution output, not the CLI UX — but as of this writing, nothing outside
-this repo actually consumes it as a library.
+### 1.2 In scope
 
-## The pipeline
+- Recovering source-path strings and `Location` structs from read-only data.
+- Classifying each recovered path as user / std / dependency.
+- Mapping `Location` references to the functions that reference them.
+- Assigning a confidence tier to each user-attributed function.
+- Emitting that set over a stable machine-readable contract (§6.2).
 
-Two phases, run in that order, both format-independent in design (see
-[Container seam](#the-container-seam-elf-shipped-pe-library-only-not-ready) below):
+### 1.3 Out of scope
 
-```
-Phase 1 — source attribution
-  read-only data  →  Location structs  →  classify each path
-  (.data.rel.ro/.rdata)   (file, line, col)    User / Std / Dep / Unknown
+The following are **not goals** and are not implemented:
 
-Phase 2 — function attribution
-  function ranges  →  xref scan  →  certain set  →  confidence tier
-  (.eh_frame/.pdata)  (which fn references   (multiplicity of
-                        which Location)        distinct user Locations)
-```
+- Recall completeness. Functions containing no reachable panic site are
+  structurally invisible (§9.1). Recall is partial by design.
+- Symbol or type recovery as a product surface. `--types` exists and is
+  specified in §10.3 as an ineffective diagnostic, not a feature.
+- Unpacking, deobfuscation, or emulation. Packed input is detected and
+  reported (`src/elf.rs:143-149`), never unpacked.
+- Any dynamic analysis. `unhusk` never executes the target.
 
-**The precision lever is multiplicity, not presence.** A monomorphized
-library generic (e.g. a `FilterMap<…, user_closure>`) inlines exactly one
-user closure and so references exactly one user Location. A real user
-function references several of its own panic sites. Requiring ≥N distinct
-user Locations (`--min-anchors`, default 2) rejects most single-closure false
-positives — but see [The hard case](#the-hard-case-a-real-unmitigated-false-positive-mechanism)
-below: multiplicity is not sufficient when the *library's own* function
-absorbs several distinct user Locations via inlining. This is the one place
-the architecture's core assumption has a known, reproduced hole.
+### 1.4 Supported input — normative
 
-Four attribution buckets fall out of the scan (`src/classify.rs`):
+- The CLI **accepts x86-64 ELF only** (PIE and non-PIE). `src/main.rs:92`
+  calls `elf::ParsedElf::load` unconditionally; there is no format detection
+  and no dispatch. `src/elf.rs:96-99` hard-fails any non-x86-64 architecture.
+- A tested PE/PDB library exists in-tree and is **not reachable from the CLI**
+  (§10.2). No flag routes a binary through it.
+- Mach-O, aarch64, and 32-bit x86 are unimplemented.
 
-| Bucket | Meaning | Trust it? |
+---
+
+## 2. Threat model and trust boundaries
+
+`unhusk` is a static analyzer whose intended input is **malware**. The input
+file is adversarial in full; nothing derived from it is trusted.
+
+| Boundary | Trusted? | Enforcement |
 |---|---|---|
-| `Certain` | direct xref to a user Location | yes, with the caveat above |
-| `Inferred` | reachable only from certain-user code | diagnostic only (~5-10% precision) |
-| `Indeterminate` | reachable from user code but also from library code | no |
-| `Library` | everything else | no |
+| Target binary bytes | **No** | `object` crate parsing; every read bounds-checked (`Section::read_u64_le`, `slice_at`) |
+| Section headers | **No** | May be absent or lying; program-header fallback at `src/elf.rs:126-137` |
+| Embedded source-path strings | **No** | Only checks are "valid UTF-8" and "ends in `.rs`" (`src/strings.rs:95-100`) |
+| `Location` field values | **No** | Cross-validated against known string length (`src/locate.rs:62-64`); `line` range-checked (`src/locate.rs:76`) |
+| Path→origin classification | Derived | Prefix rules only (`src/strings.rs:221-340`); an attacker controls these strings |
+| Unstripped companion (`--validate`) | Operator-supplied | Separate file, separate load; validation-only |
 
-`Certain` functions are further split into **STRONG** (≥ `min_anchors` user
-Locations) and **SINGLE** (exactly 1).
+**Consequence, normative:** source-path strings are attacker-controlled data.
+They may contain quotes, backslashes, newlines, or control bytes.
+Serialization to the JSON contract **MUST** go through `serde` and **MUST NOT**
+use hand-rolled quoting (`src/report.rs:262-269`). This is stated in the code
+as a standing requirement, not an incidental implementation choice.
 
-## Module map
+**Non-goal of this boundary:** `unhusk` does not attempt to detect a binary
+that has been *deliberately salted* with fake user-looking paths. A crafted
+sample can inflate the user set. Nothing in the pipeline defends against this.
 
-Status column: **Shipped** = in the default CLI path and load-bearing.
-**Library** = compiles, tested, reachable only by hand-writing code against it.
-**Diagnostic** = wired behind a flag, produces output, but that output is not
-trustworthy for the tool's stated purpose. **Dead** = compiled but nothing
-in this repo or its known consumer ever calls it.
+---
 
-| Module | Lines | Tests | Status | Notes |
-|---|---:|---:|---|---|
-| `elf.rs` | 346 | 0¹ | Shipped | mmap an ELF, index sections |
-| `container/mod.rs` | 55 | — | Shipped | `BinaryImage` trait, the format seam |
-| `container/elf_image.rs` | 118 | 0¹ | Shipped | ELF behind the trait; one dead field (`strings`, `#[allow(dead_code)]`, stored and never read) |
-| `container/pe.rs` | 603 | 9 | **Library, not production-ready** | see hard-case section |
-| `frame.rs` | 243 | 0¹ | Shipped | `.eh_frame` → function ranges, with fallbacks |
-| `strings.rs` | 603 | 22 | Shipped | path classification — the most heavily tested module, correctly so: it's the precision-critical Phase 1 logic |
-| `locate.rs` | 99 | 0¹ | Shipped | Location struct reconstruction |
-| `xref.rs` | 255 | 0¹ | Shipped | x86-64 decode, certain set — **the module with the unmitigated hard-case gap, and zero direct unit tests**; only covered by integration tests and real-corpus validation |
-| `classify.rs` | 374 | 6 | Shipped | BFS propagation into the four buckets |
-| `report.rs` | 1023 | 7 | Shipped | human report, tiering, `--json`, `--types` printer. Largest file by design — it's where all presentation logic lives, not bloat (`too_many_lines` is an explicit clippy exemption) |
-| `types.rs` | 440 | 0¹ | **Diagnostic, empirically ~0% useful** | see [Dead code](#dead-code-and-unshipped-surfaces) |
-| `dwarf.rs` | 735 | 7 | Shipped (validation only) | secondary ground truth for `--validate`; had 3 real bugs, all fixed this month — see below |
-| `pdb_oracle.rs` | 562 | 12 | Library (validation only) | ground truth for the PE library path |
-| `bin/anchor_headroom.rs` | 589 | 0 | **Dead** | research probe, concluded "structural ceiling," never wired to anything |
+## 3. Data model
 
-¹ Zero direct `#[test]`s in the file itself; behavior is covered by
-`tests/integration.rs` (7 tests) and the real-corpus measurement in `realval/`.
-This is a legitimate methodology (measuring against real binaries catches
-things unit tests on synthetic input wouldn't), but it means `elf.rs`,
-`frame.rs`, `locate.rs`, and — most importantly — `xref.rs` have no isolated
-regression test for the specific mechanism the hard case exploits. The hard
-case would not have been caught by anything currently in `cargo test`; it
-took a deliberately adversarial construction to surface.
+### 3.1 `core::panic::Location` — 24 bytes, x86-64
 
-## The container seam: ELF shipped, PE library-only, **not ready**
-
-`src/container/` defines `BinaryImage`, a trait that speaks one address space
-per image (vaddr on ELF, RVA on PE) and exposes `function_ranges`,
-`locations`, `xref_locations_in`, `bytes_at`. The idea holds up structurally:
-both impls exist, are unit-tested, and the ELF impl is the regression oracle
-for the PE one. The container seam itself is not the problem.
-
-**The `unhusk` CLI binary (`src/main.rs`) only ever loads `elf::ParsedElf` —
-there is no `--pe` flag or any code path that routes a binary through
-`PeImage`.** That was already true in the last write-up. What's changed is
-*why that's now clearly the right call*, not just an unfinished task:
-
-### What's actually built on the PE side
-
-This is real, substantial, tested work — the verdict below is about
-production-readiness, not about whether the port exists:
-
-- **`container/pe.rs` (603 lines, 9 tests):** parses PE32+, walks `.pdata` for
-  function `[start, end)` ranges (the RVA analogue of `.eh_frame` FDEs — no
-  unwind-table equivalent needed since `.pdata` already gives exact bounds),
-  extracts `Location` structs from `.rdata`, and runs the same iced-x86
-  RIP-relative xref scan as the ELF side, just in RVA space instead of vaddr.
-- **`pdb_oracle.rs` (562 lines, 12 tests):** an independent ground-truth
-  reader over `.pdb` files via the `pdb` crate — the PE-side counterpart to
-  `dwarf.rs`, answering "what file was this function declared in" from
-  Microsoft's debug format instead of DWARF, including inline-site data
-  (which function's body a comparator closure actually got inlined into —
-  this is what let session 4 corroborate the hard case two independent ways
-  in one measurement: xref-address coincidence *and* the PDB's own inline
-  stream).
-- **Toolchain:** cross-compiled via `cargo-xwin` to `x86_64-pc-windows-msvc`
-  on the same active nightly (`1.98.0-nightly`, `9e2abe0c6`) used for every
-  other measurement in this repo — not a different channel skewing results.
-- **A genuinely useful practical finding from session 4:** for lld-link-produced
-  PE images, MSVC debug info lives entirely out-of-process in the `.pdb`; the
-  linked `.exe` carries nothing `strip`/`llvm-strip --strip-all` removes,
-  regardless of the `debug`/`strip` profile settings. Concretely: an
-  `oracle`-profile build and a `--strip-all`'d copy of it were **byte-for-byte
-  identical** (`md5sum` match on the whole file, not just `.text`/`.pdata`).
-  So on this target, "build once with debug info, strip a copy to simulate
-  the wild binary" — the two-file dance the ELF side needs — collapses to
-  "build once." That's a real simplification for anyone extending this work.
-- **The measurement history, honestly:** session 2 (`procs`, sync) measured
-  STRONG 9/9, 0 FP. Session 3 (`dufs`, async) measured STRONG 14/14, 0 FP,
-  and concluded the hard-case FP mechanism was "structural[ly] absent."
-  Session 4 (below) built a construction that defeats that conclusion
-  directly. All three measurements are real and reproducible on their own
-  binaries — the mistake was generalizing "0 occurrences on two crates" to
-  "rare in optimized Rust," not the measurements themselves.
-
-## The hard case: a real, unmitigated false-positive mechanism
-
-Two prior PE-port sessions (procs, dufs — see `docs/PDB_ORACLE_procs.md`,
-`docs/PDB_ORACLE_dufs.md`) measured STRONG-tier precision of 9/9 and 14/14
-with zero false positives, and concluded the specific FP mechanism the whole
-validation effort was built to catch — a library generic absorbing multiple
-distinct user Locations via inlining — was "rare-to-absent by construction."
-
-**That conclusion was survivorship bias from crate selection, not a property
-of the optimizer.** `docs/PDB_ORACLE_hardcase.md` (session 4) built a
-construction that defeats it directly: five ordinary wrapper functions handing
-small user closures to `slice::sort_by`, `sort_unstable_by_key`, and rayon's
-`par_iter().map()/for_each()`. Result: **8 of 13 false positives land at
-STRONG tier** — the tier downstream signature generation is supposed to
-trust unconditionally. `--min-anchors` does not help; the anchors are
-genuinely distinct user Locations, just attributed to the library's function
-instead of the user's.
-
-**I reproduced this independently this session, on ELF, using DWARF ground
-truth** — a completely different oracle mechanism from the PDB one the
-original finding used. Same construction (`slice::sort_by` + rayon closures,
-300k-element input, `lto=true, codegen-units=1, opt-level=3`), built natively
-for `x86_64-unknown-linux-gnu`, validated with `unhusk --validate`:
+Layout, verified empirically and relied upon by both container implementations
+(`src/locate.rs:3-8`, `src/container/pe.rs:174-177`):
 
 ```
-certain    15 predicted   TP=  2  FP= 13  unknown=  0   precision=13.3%
+offset  0  [8]  file ptr   — PIE relocation slot (zero on disk)
+offset  8  [8]  file len   — u64, stored directly
+offset 16  [4]  line       — u32
+offset 20  [4]  col        — u32
 ```
 
-6 of 7 STRONG-tier hits were `core::slice::sort::*` internals carrying the
-`sort_by` comparator's panic sites, not user code. **This confirms the
-mechanism is not a PE artifact.** It lives in `classify.rs`/`xref.rs`, which
-ELF and PE share through the container seam by design — the same code that
-makes "adding a format is adding an impl" true also means a gap in the shared
-multiplicity heuristic hits both formats identically.
+The 24-byte size is normative across the codebase: the xref containment probe
+tests `addr < entry.start + 24` on both the ELF side (`src/xref.rs:82`) and the
+PE side (`src/container/pe.rs:332`).
 
-**No fix exists yet, and the one cheap candidate is a documented dead end.**
-Session 4 measured whether reference fan-out (how many distinct functions
-reference the same Location) separates the false positives from real hits:
-it works for the `std::slice::sort` sub-family (fan-out 5-6 vs. 1 for genuine
-hits, zero measured recall cost) but **cannot** separate the `rayon`-bridge
-shape — those false positives sit at fan-out 1, identical to genuine STRONG
-attributions. A real fix needs new structural detection (recognizing generic
-monomorphization over a closure/callback parameter, independent of the
-xref-address coincidence classify.rs currently relies on entirely) — that's a
-research task, not a threshold tweak, and it hasn't been scoped, let alone
-attempted.
+### 3.2 `Origin` — shipped path classification
 
-**Confirmed, not just plausible — `bench/origin/INLINE_LEAK_INCIDENCE.md`
-did the cross-reference this paragraph used to call for.** Mining the
-already-built 43-crate × 8-config corpus (no adversarial construction, no
-rebuild) found 3605 real instances of a non-AUTHOR-declared function
-absorbing a user Location, and resolved every one's demangled symbol name:
-89.9% are genuine inline-absorption (futures/tokio/actix_web combinators,
-`core::slice::sort` internals, rayon, serde generics — not just the
-`sort_by`/rayon shape this section's construction used), only 10.1% are the
-already-handled forwarding-wrapper shape (`LocalKey::with`/
-`__rust_begin_short_backtrace`). Converted to a precision figure over the
-STRONG+SINGLE population directly (not the whole-FDE pooled rate): 86.3%
-combined pooled across all 8 configs, 86.17% specifically at
-`lto-fat,opt-3,panic-abort` — the profile real stripped release binaries
-actually ship at. `docs/validation.md:41` already had one real-corpus
-instance of this exact mechanism (`rage`, crypto category, "genuine (rayon,
-sevenz generics)") sitting unconnected to this section since before it was
-written up here — now cross-linked both directions. **These two
-measurements (`realval`'s 94.4%/87.3% and `bench/origin`'s 86.3%) are not
-comparable and must not be arithmetically combined** — different oracle
-implementation detail, different corpus, and materially different
-build-config breadth (`realval` builds one config per binary; this figure
-pools a systematic 8-config sweep). See `docs/validation.md`'s "Two
-measurements" section for the full accounting.
+`src/strings.rs:20-29`. Four variants: `User`, `Std`, `Dep { crate_name,
+version }`, `Unknown`. This is the classification the shipped pipeline acts on.
 
-### Verdict: PE is not ready to connect to main
+### 3.3 `PathClass` — origin-classifier composition (library only)
 
-- Not CLI-wired (no dispatch, no `--pe` flag) — a downstream consumer has to
-  hand-write code against `container::pe::PeImage`.
-- The one real downstream consumer (winnow) doesn't depend on this crate at
-  all yet, PE or otherwise — there's no integration point waiting on this.
-- The core trust claim for PE's STRONG tier (the tier a signature generator
-  is told to trust unconditionally) is reversed from "clean, 0 FP" to
-  "8/13 FPs at STRONG on an ordinary-Rust construction, no mitigation."
-- The mechanism is shared with ELF, so this isn't fixable by staying on the
-  PE side of the container seam — it needs work in `classify.rs`/`xref.rs`
-  that benefits both formats, meaning "finish the PE port" and "fix this" are
-  the same task, not sequential ones.
+`src/origin.rs:28-36`. Seven variants with **explicit stable discriminants**
+(`User=0 … Unknown=6`) because they index a fixed-size array
+(`FnProfile::counts`, `src/origin.rs:173`). Reordering the variants for
+readability would silently corrupt every profile; the discriminants are load-
+bearing.
 
-Wiring PE into the CLI today would present it with the same trust framing as
-ELF's STRONG tier, which the STRONG tier does not currently earn on PE. Don't
-connect it until either the hard case has a real mitigation, or the CLI/JSON
-contract carries an explicit lower-trust label for PE output.
+This is a strictly finer partition than `Origin`, used only by the measurement
+path in §10.4.
 
-## The output contract — this is the integration seam
+### 3.4 Attribution buckets
+
+`src/classify.rs:31-36`. Four-way, mutually exclusive, total over the function
+map:
+
+| Bucket | Definition | Contract status |
+|---|---|---|
+| `Certain` | Direct RIP-relative reference to a `User` Location | The only bucket in the output contract |
+| `Inferred` | No direct reference; reached from certain via call edges, all known callers user | Diagnostic only |
+| `Indeterminate` | Reached from user code **and** from library code | Diagnostic only |
+| `Library` | Everything else | Not user-attributed |
+
+`Score::user_total()` counts **`Certain` only** (`src/classify.rs:198-200`).
+`Inferred` is excluded deliberately: the code documents ~5% precision against
+DWARF ground truth, and `Indeterminate` 0% (`src/classify.rs:8-14`). Both are
+retained as labels, not as attributions.
+
+### 3.5 Confidence tiers
+
+`src/report.rs:184-190`. `Certain` functions are partitioned by **multiplicity
+of distinct user Locations**:
+
+- `Strong` — `anchor_count >= max(min_anchors, 1)`
+- `Single` — exactly 1
+
+The `max(…, 1)` floor at `src/report.rs:224` means `--min-anchors 0` is
+normalized to 1; there is no zero-anchor STRONG tier.
+
+---
+
+## 4. Pipeline specification
+
+Four stages, strictly ordered. Stages 1 and 2 are independent given a loaded
+image and are executed concurrently via `rayon::join` (`src/main.rs:133-136`).
+
+### 4.0 Stage 0 — image load
+
+`ParsedElf::load`, `src/elf.rs:91-166`.
+
+1. Read the whole file; parse with `object` (`:92-94`).
+2. Reject non-x86-64 (`:96-99`).
+3. Index every named, readable section (`:105-121`).
+4. **Fallback:** if `.text` or `.rodata` is missing, recover regions from
+   PT_LOAD/PT_GNU_RELRO/PT_GNU_EH_FRAME/PT_DYNAMIC program headers
+   (`:126-137`, implemented `:185-319`). Boundaries are coarser than real
+   sections; the degradation is recorded as a warning, not hidden.
+5. Parse `R_X86_64_RELATIVE` entries from `.rela.dyn` (`:139`).
+6. Emit operator-facing warnings for two evasion-shaped conditions: no readable
+   `.text` (likely packed, `:143-149`) and no relocation table (static/non-PIE,
+   `:150-156`).
+
+**Invariant:** load never panics on malformed input; every failure path is a
+`warning` or a bounded `continue`.
+
+### 4.1 Stage 1 — source attribution
+
+**Discovery** (`strings::rs_path_strings`, `src/strings.rs:69-104`). Walk the
+relocation table, not a null-terminated scan. For each entry, require:
+
+- the slot lies in `.data.rel.ro` and the addend lies in `.rodata` (`:79`);
+- each pointee address is yielded exactly once (`:82`);
+- the fat-pointer length at `slot+8` satisfies `0 < len <= 512` (`:88-91`);
+- the bytes are valid UTF-8 (`:95`) and end in `.rs` (`:98`).
+
+Using the fat pointer's own `len` field — rather than a sentinel byte — is what
+makes extraction exact on data an attacker controls.
+
+**Classification** (`strings::classify_path`, `src/strings.rs:221-340`).
+First-match-wins, in this order:
+
+1. **Separator normalization** (`:230-236`). Backslashes → forward slashes,
+   applied *first*. Every subsequent guard keys on `/`. Without this, a
+   Windows-built dependency path matches no std/dep guard, falls through to the
+   relative-path branch, and is misattributed as user code. Ordering here is
+   load-bearing, not cosmetic.
+2. **Std**: `/rustc/` (`:240`), `library/` (`:245`), and the pre-2018
+   `src/lib{core,alloc,std,…}/` layout (`:252-268`). The third form exists
+   because those are *relative* paths that would otherwise reach the User
+   branch; it matches `src/libcore/`, never a genuine `src/lib.rs`.
+3. **Dep**: toolchain-embedded `/rust/deps/` (`:271`), cargo registry
+   `cargo/registry/src/` (`:290`), vendored/remapped `crates.io/` (`:315`).
+4. **Root-crate promotion**: a registry or vendored path whose crate name
+   appears in `root_crates` is promoted to `User` (`:297-299`, `:321-323`).
+   This exists for `cargo install` builds, where the target's own source lives
+   in the registry.
+5. **User**: any remaining path not starting with `/` (`:335-337`).
+6. **Unknown**: everything else (`:339`).
+
+**Root-crate determination** (`src/main.rs:96-129`). Explicit `--crate` always
+wins. Otherwise `auto_detect_root` (`src/strings.rs:155-198`) infers it: a
+unique registry crate carrying a `/src/main.rs` or `/src/bin/` signal, else a
+unique match against the binary filename stem. Ambiguity yields `Fallback`
+(no promotion) and, when the binary looks like a registry build with no
+relative user paths, a warning that `n_certain` may be 0
+(`src/main.rs:112-123`).
+
+**Reconstruction** (`locate::find_locations`, `src/locate.rs:38-99`). For each
+relocation whose addend is a known source string:
+
+- read `len` at `slot+8` and require it to equal the known string length
+  (`:56-64`) — this cross-check is what rejects coincidental matches;
+- read `line` at `+16` and `col` at `+20` (`:66-72`);
+- require `1 <= line <= 200_000` (`:76`), rejecting all-zero and absurd values.
+
+Output is sorted by `(origin, file, line, col)` (`:90-96`) — deterministic
+ordering, independent of relocation-table order.
+
+### 4.2 Stage 2 — function attribution
+
+**Function ranges** (`frame::parse_eh_frame`, `src/frame.rs:34-79`). Every FDE
+in `.eh_frame` yields an exact `[start, end)`. Zero-address and zero-length
+FDEs are dropped (`:67-69`). `.eh_frame` survives `strip --strip-all` because
+unwinding needs it.
+
+**Instruction scan** (`xref::scan`, `src/xref.rs:91-145`). One
+`iced_x86::Decoder` per function over its exact `.text` slice, with the IP
+pre-set to `fn_start` (`:190-195`) so RIP-relative effective addresses come out
+absolute and must not be IP-adjusted again (`:206-209`). Per instruction:
+
+- **Location hit:** if `memory_base() == RIP` (`:205` — a cheap early-out for
+  the overwhelming majority of instructions), resolve the effective address
+  against a `struct_vaddr`-sorted table via one `partition_point` binary search
+  with 24-byte containment (`:76-87`). A `User` hit marks the function
+  `certain` and records the anchor; a `Dep` hit marks it a dep boundary
+  (`:216-228`). **All** hits, regardless of class, are recorded in
+  `all_loc_hits` (`:212-215`) — this superset is what §10.4 consumes.
+- **Call edge:** direct near-branch targets that resolve to a known function
+  are recorded (`:237-243`). A target counts as an edge iff it has an FDE;
+  this admits the occasional PLT stub carrying its own FDE, accepted knowingly
+  rather than filtered (`:234-236`).
+
+**Determinism under parallelism.** Functions are scanned in parallel, but every
+collection is keyed by `fn_start` and each function is scanned exactly once, so
+thread-local partials merge by **disjoint-key union** — `extend` is exact, not
+last-write-wins (`:160-170`). The result does not depend on how `rayon` splits
+the work. Anchor lists are then sorted and deduplicated (`:133-136`), because
+one function may load the same Location from both arms of a branch.
+
+**Propagation** (`classify::attribute`, `src/classify.rs:65-161`). BFS forward
+from the certain set over call edges, with two barriers:
+
+- **Dep boundary** (`:111-113`): a function anchored to a dep Location is
+  neither marked nor recursed through, so user attribution cannot leak across
+  a dependency.
+- **Depth cap** (`:98-100`): `--infer-depth N` stops expansion at N hops.
+
+Reached functions are tentatively `Inferred`, then **downgraded to
+`Indeterminate` if any caller lies outside the user set** (`:129-142`). A
+function with no recorded callers stays `Inferred` (`:137-141`). Everything
+unreached is `Library` (`:145-147`).
+
+**Backward walk** (`classify::backtrace_walk`, `src/classify.rs:224-267`).
+Flag-gated, default off. Walks the reverse call graph up to N hops. Results go
+to a strictly separate bucket: seeds are never returned (`:236`), and the dep
+boundary is honoured identically (`:258-261`).
+
+### 4.3 Stage 3 — tiering and emission
+
+`report::tier_certain` (`src/report.rs:219-237`) assigns tiers by anchor count.
+It is deliberately **shared by the human and JSON reporters so the two can
+never disagree** (`:217-218`). In `--precision` mode the JSON rows are filtered
+to `Strong` only (`src/report.rs:289`).
+
+---
+
+## 5. System invariants
+
+Numbered for reference. Each is enforced at the cited site.
+
+- **I1 — Address-space unity.** Within one image, `function_ranges`,
+  `locations().struct_addr`, `xref_locations_in`, and `bytes_at` all speak one
+  address space: vaddr on ELF, RVA on PE (`src/container/mod.rs:9-12`).
+  Mixing them across images is undefined.
+- **I2 — Location size is 24 bytes.** Both containment probes depend on it
+  (`src/xref.rs:82`, `src/container/pe.rs:332`).
+- **I3 — Length cross-validation.** A `Location` is accepted only if its stored
+  `len` equals the length of the string its pointer resolves to
+  (`src/locate.rs:62-64`).
+- **I4 — Line plausibility.** `1 <= line <= 200_000` (`src/locate.rs:76`).
+- **I5 — String bound.** Source-path strings are `0 < len <= 512` bytes and
+  valid UTF-8 (`src/strings.rs:88-97`).
+- **I6 — Separator normalization precedes all classification**
+  (`src/strings.rs:230-236`). Violating the order misattributes every
+  Windows-built dependency as user code.
+- **I7 — Scan determinism.** Partial merge is a disjoint-key union; output is
+  independent of thread scheduling (`src/xref.rs:160-170`).
+- **I8 — Anchor sets are deduplicated** before tiering (`src/xref.rs:133-136`),
+  so `anchor_count` counts *distinct* Locations.
+- **I9 — Dep boundaries block propagation** in both directions
+  (`src/classify.rs:111-113`, `:258-261`).
+- **I10 — Buckets are total and disjoint** over the function map: every FDE
+  gets exactly one attribution (`src/classify.rs:145-157`).
+- **I11 — Only `Certain` is user-attributed** (`src/classify.rs:198-200`).
+- **I12 — STRONG threshold has a floor of 1** (`src/report.rs:224`).
+- **I13 — Tiering is single-sourced** across reporters
+  (`src/report.rs:219-237`).
+- **I14 — Attacker-controlled strings are serialized only via `serde`**
+  (`src/report.rs:262-269`).
+
+---
+
+## 6. Interfaces
+
+### 6.1 CLI surface
+
+`src/main.rs:12-87`. One positional argument (the ELF path) and:
+
+| Flag | Default | Effect |
+|---|---|---|
+| `--crate NAME[,NAME]` | auto-detect | Promote registry paths for these crates to User |
+| `--min-anchors N` | 2 | Distinct user Locations required for STRONG |
+| `--precision` | off | Restrict output to STRONG; suppress call-closure buckets |
+| `--json` | off | Emit the machine contract; suppress human reports |
+| `--validate UNSTRIPPED` | off | DWARF ground-truth precision/recall report |
+| `--infer-depth N` | unlimited | Cap inference hops from certain |
+| `--backtrace-depth N` | 0 (off) | Reverse-BFS bucket (§10.5) |
+| `--show-call-closure` | off | Print full inferred/indeterminate list |
+| `--types` | off | `#[derive(Debug)]` type-name recovery (§10.3) |
+
+### 6.2 JSON contract — normative
 
 ```sh
 unhusk <stripped-elf> --precision --json
 ```
 
-emits one JSON object per attributed function; nothing else. This is the
-contract a downstream tool should parse:
+Schema (`src/report.rs:242-260`):
 
 ```json
-{"start": "0xd25af", "end": "0xd38a5", "size": 4854, "tier": "strong",
- "anchor_count": 6, "anchor_files": ["akiranew/src/path_finder.rs"]}
+{
+  "binary": "<path>",
+  "arch": "x86-64",
+  "min_anchors": 2,
+  "functions": [
+    {"start": "0xd25af", "end": "0xd38a5", "size": 4854,
+     "tier": "strong", "anchor_count": 6,
+     "anchor_files": ["akiranew/src/path_finder.rs"]}
+  ]
+}
 ```
 
-`--precision` restricts output to STRONG-tier functions only. Without it,
-`--json` still tiers but includes SINGLE too. `--min-anchors N` changes what
-counts as STRONG. All of this was re-verified this session against a fresh
-`cargo install`-built binary (`pastel`): `--precision --json`, plain `--json`
-tier counts, and a `--min-anchors 1..4` sweep all behaved exactly as
-documented (27 → 16 → 14 → 5 STRONG functions as N increases, monotonic).
-`--infer-depth`, `--backtrace-depth`, `--show-call-closure`, and `--crate`
-were also exercised directly and match their documented behavior; `--crate`
-given explicitly produced byte-identical JSON to auto-detection on the same
-binary.
+Normative properties:
 
-Beyond the JSON contract, a handful of env-gated diagnostics
-(`UNHUSK_DUMP_TIERS`, `UNHUSK_DUMP_DEPS`, `UNHUSK_DUMP_ATTRS`,
-`UNHUSK_DUMP_EDGES`, `UNHUSK_DUMP_ALL_FNS`, `UNHUSK_DUMP_GT`) exist for
-building measurement harnesses; not part of the stable contract.
+- `start` and `end` are **hex strings, not numbers** — JSON numbers are f64 and
+  a 64-bit address does not round-trip through one (`src/report.rs:244-246`).
+- `min_anchors` is echoed post-floor (`max(N,1)`, `src/report.rs:308`).
+- Rows are sorted by `start` (`src/report.rs:287`).
+- `tier` is `"strong"` or `"single"`. Under `--precision`, `"single"` never
+  appears (`src/report.rs:289`).
+- **The envelope is identical on the degraded path.** A binary with no usable
+  function map emits the same schema with an empty `functions` array
+  (`src/main.rs:150-164`). It previously emitted a narrower schema
+  (`binary: null`, no `arch`, no `min_anchors`), which broke consumers on
+  exactly the degraded binaries they most needed to report on. Consumers
+  **MAY** rely on all four top-level keys always being present.
 
-One flag ships without a validated payoff: `--backtrace-depth` /
-`certain_by_backtrace` (reverse-BFS from certain functions) is implemented,
-wired, and off by default. Its own `--help` text says "use `--validate` to
-measure precision of the backtrace bucket," but no such measurement appears
-anywhere in `README.md`, `docs/validation.md`, or `realval/`. It's a real,
-working feature with an unfulfilled promise attached to it, not dead code —
-just unvalidated.
+### 6.3 Library surface
 
-## Precision, by tier and workload
+`BinaryImage` (`src/container/mod.rs:40-55`) is the format seam: four methods
+(`function_ranges`, `locations`, `xref_locations_in`, `bytes_at`). Both
+`ElfImage` and `PeImage` implement it. The ranking and tiering core depends
+only on this trait.
 
-Pooled numbers, 32-binary symbol-ground-truth corpus (`realval/`, stratified
-sync/async, Wilson + cluster-bootstrap CIs — see `docs/validation.md` and
-`realval/results_body.md`):
+**Status of this surface:** compiles and is unit-tested; **no external
+consumer exercises it.** `winnow`, the motivating downstream project, does not
+depend on the `unhusk` crate — it reimplements an ELF-only pipeline in
+parallel. "The backend behind winnow" is design intent, not current wiring.
 
-| Tier | Rule | sync/CLI | async | pooled |
+### 6.4 Diagnostics — explicitly not part of the contract
+
+Six environment-gated dumps exist for building measurement harnesses:
+`UNHUSK_DUMP_TIERS` (`src/main.rs:231`), `UNHUSK_DUMP_DEPS` (`:213`),
+`UNHUSK_DUMP_ATTRS` (`:306`), `UNHUSK_DUMP_EDGES` (`:344`),
+`UNHUSK_DUMP_ALL_FNS` (`:334`), `UNHUSK_DUMP_GT` (`:290`). Format is
+tab-separated and **unstable**. `UNHUSK_DUMP_TIERS` is the authoritative tier
+source for harnesses because it reads the real tier assignment rather than
+parsing the human listing.
+
+---
+
+## 7. Degraded modes
+
+Specified, tested behaviour under adversarial or lossy input. In each case the
+tool degrades and says so rather than silently returning less.
+
+| Condition | Response | Site |
+|---|---|---|
+| Section headers stripped | Recover regions from program headers; warn that boundaries are approximate | `src/elf.rs:126-137` |
+| `.eh_frame` removed, `.eh_frame_hdr` intact | Recover function starts from the hdr binary-search table; near-complete, results comparable to intact | `src/frame.rs:114-118`, `:155-230` |
+| Both absent | Call-target fallback map: every direct `call rel32` target is a function entry, each running to the next; recovers ~half of true starts (2413/5088 measured on stripped `tokei`); tier precision degrades | `src/frame.rs:97-145` |
+| No usable map at all | Emit the full JSON envelope with empty `functions`; exit 0 | `src/main.rs:149-166` |
+| No readable `.text` | Warn: likely packed, static analysis cannot proceed | `src/elf.rs:143-149` |
+| No `.rela.dyn` | Warn: static/non-PIE, Location reconstruction may find nothing | `src/elf.rs:150-156` |
+
+`.eh_frame_hdr` recovery handles the 4- and 8-byte datarel/pcrel/absptr
+encodings and bails on anything else (`src/frame.rs:168-174`, `:221-226`)
+rather than guessing.
+
+---
+
+## 8. Measured characteristics
+
+Numbers below carry their corpus and oracle. **They are not interchangeable.**
+
+### 8.1 Primary — symbol ground truth, `realval/`
+
+34-binary corpus (13 source-built, 8 `cargo install`, 13 adversarial), scored
+against `nm -C` symbol leading-crate (`docs/validation.md:9-16`):
+
+| Tier | Rule | CLI/systems | async/web | pooled |
 |---|---|---:|---:|---:|
-| STRONG | ≥ `min-anchors` (default 2) | ~96% | ~86-88% | ~93.5-94% |
-| SINGLE | exactly 1 | ~86% | ~57-60% | ~80-81% |
+| STRONG | `>= min_anchors` (default 2) | ~98% | ~87% | ~94% |
+| SINGLE | exactly 1 | ~90% | ~75% | ~80% |
 
-**Ground-truth provenance matters here, and it was recently audited.** The
-*primary* published numbers above come from a symbol/`cargo-metadata`-based
-oracle (`realval/`), not from `dwarf.rs`. `dwarf.rs` is a secondary,
-diagnostic ground truth used for `--validate` and the `--infer-depth`
-measurements. This month's audit (`docs/dwarf-oracle-audit.md`, current
-branch) found and fixed **three real bugs** in it: std generics misread via
-sysroot paths, vendored C/asm misread as Rust authorship (31,030 functions
-mislabelled across a 58-binary corpus — up to 99% of a single binary's
-reported "user" set), and build-script output attributed to the consumer
-instead of the generator. **None of these moved the headline STRONG/SINGLE
-numbers above** — they never touched the symbol-based `realval/` oracle — but
-they did silently distort DWARF-based recall figures until fixed (one
-DWARF-derived recall number was wrong until the fix brought it back in line
-with the already-published symbol-based figure). Four property tests
-(`prop_std_is_std_in_every_spelling`, `prop_only_rust_sources_can_be_author`,
+Threshold ladder (`docs/validation.md:20-24`):
+
+| `--min-anchors` | pooled | async only |
+|---:|---:|---:|
+| 1 | 85.8% | 79.9% |
+| 2 (default) | 94.4% | 87.3% |
+| 3 | 96.1% | 90.9% |
+
+**Oracle choice is deliberate.** DWARF and symbol ground truth disagree by
+~30 points because DWARF homes user closure-dispatch shims to
+`core/src/ops/function.rs`. That is an artifact of DWARF's closure attribution,
+not a classification error, so symbol is the ruler for headline numbers
+(`docs/validation.md:5-7`).
+
+**The async gap is real and irreducible.** It survived a pre-registered stress
+test whose controls removed two *measurement* artifacts (a `LocalKey::with`
+forwarding wrapper on `fclones`, an own-library confound on `typos`) and lifted
+pooled STRONG from 90.3% to 94.4% — while async stayed at 87.3% with no
+artifact to blame (`docs/validation.md:34-50`). Named outlier inside that
+average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/validation.md:52-57`).
+
+### 8.2 Secondary — inline-leak incidence, `bench/origin/`
+
+43-crate × 8-config corpus, mined without rebuild: 3,605 real instances of a
+non-author-declared function absorbing a user Location; 89.9% genuine
+inline-absorption, 10.1% the already-handled forwarding-wrapper shape.
+Expressed as precision over the STRONG+SINGLE population: **86.3% pooled**,
+86.17% at `lto-fat,opt-3,panic-abort` — the profile real stripped release
+binaries ship at.
+
+### 8.3 Combination rule — normative
+
+**§8.1 and §8.2 MUST NOT be arithmetically combined or compared as if they
+measured the same quantity.** They differ in oracle implementation, corpus, and
+build-config breadth (`realval` builds one config per binary; `bench/origin`
+pools a systematic 8-config sweep). Neither figure may be quoted without its
+corpus and oracle attached. Full accounting: `docs/validation.md`, "Two
+measurements" section.
+
+### 8.4 Ground-truth provenance
+
+The headline numbers come from the symbol oracle, **not** from `dwarf.rs`.
+`dwarf.rs` is a secondary oracle used for `--validate` and the `--infer-depth`
+measurements. An audit (`docs/dwarf-oracle-audit.md`) found and fixed three
+real bugs in it: std generics misread via sysroot paths; vendored C/asm misread
+as Rust authorship (31,030 functions mislabelled across a 58-binary corpus, up
+to 99% of a single binary's reported user set); and build-script output
+attributed to the consumer rather than the generator. **None moved the §8.1
+numbers** — they never touched the symbol oracle — but they distorted
+DWARF-derived recall until fixed. Four property tests now guard that bug class
+(`prop_std_is_std_in_every_spelling`,
+`prop_only_rust_sources_can_be_author`,
 `prop_build_script_output_follows_its_generating_crate`,
-`prop_elf_and_pe_oracles_agree`) now guard the class of bug that caused all
-three — a guard present on the PE oracle side, missing on the ELF side, three
-times in a row. `cargo test` is 70/70 passing post-fix (63 unit + 7
-integration, confirmed this session).
+`prop_elf_and_pe_oracles_agree`).
 
-## Using unhusk from another project
+---
 
-**As a CLI**, shell out and parse stdout JSON — this path is real and tested.
+## 9. Known limitations
 
-**As a library**, depend on the `unhusk` crate and either drive the phases
-directly (as `src/main.rs` does) or go through `container::elf_image::ElfImage`
-/ `container::pe::PeImage` behind `BinaryImage`. Both compile and are tested
-in isolation. **What doesn't exist yet is a real consumer exercising this
-path** — winnow, the motivating use case, currently reimplements its own
-ELF-only pipeline rather than depending on this crate (see
-[What this is](#what-this-is)). Anyone integrating today would be the first
-to actually exercise the library surface as a dependency rather than a
-same-repo module.
+### 9.1 Structural recall gaps
 
-## Dead code and unshipped surfaces
+- Functions with no reachable panic site have nothing to anchor on. Recall is
+  ~15-46% of user functions on the test set — partial by design, adequate for
+  signature generation, which needs good seeds rather than every function.
+- User code reached only via trait objects, function pointers, or library
+  dispatch classifies as `library`: the scan follows **static call edges only**
+  (`src/xref.rs:237-243`).
+- Non-PIE binaries defeat both the relocation walk and the RIP-relative-only
+  scan independently — `movabs` immediate loads present no memory operand for
+  `xref.rs` to see.
+- `#[track_caller]` helper wrappers are structurally invisible to STRONG: the
+  `Location` lives at the call site, not in the helper body, so multiplicity
+  distributes across N callers instead of concentrating in the one function
+  that is wholly user-authored.
 
-Quantified: of 6,437 source lines, roughly **1,080 (~17%)** are either
-compiled-but-uncalled or shipped-but-empirically-ineffective:
+### 9.2 Inline absorption — the multiplicity assumption's known hole
 
-- **`src/bin/anchor_headroom.rs` (589 lines) — dead.** A research probe
-  (bare-anchor recall-headroom measurement). It compiles into its own binary
-  on every `cargo build --release` but nothing calls it — not the CLI, not
-  `winnow`, not any test. Its own conclusion (git log, `1ac13cb`-era commits):
-  recall headroom was 0.16-0.47% by two different ground truths, "structural
-  ceiling" — correctly informed the decision *not* to pursue that direction.
-  As research it did its job; as shipped code it's inert weight.
-- **`--types` (440 lines in `types.rs` + ~50 across `main.rs`/`report.rs`)
-  — shipped, reachable, empirically useless.** Git history already concludes
-  this ("types: wire --types flag; run 13-binary sweep; conclude approach
-  fails" — 3 user-tier hits across 13 binaries, all 3 false positives at the
-  type-name level). I re-ran it fresh this session against `pastel`: one
-  non-std hit, name `Completely`, fields `bg, blue, brightness, chroma,
-  color, deuterSet, fraction, hue, luminance, random, rgb, strategyDeadlock,
-  textbold` — a plainly nonsensical amalgam, exactly the failure mode already
-  documented. It ships as "experimental diagnostic only," which is accurate,
-  but 14 for 14 binaries with zero real signal is past the point of "maybe
-  useful with more work" and into "keep for the idea, don't route decisions
-  through it."
-- **`container/elf_image.rs`'s `strings` field (1 line, explicit
-  `#[allow(dead_code)]`)** — stored at construction, never read after.
-  Trivial, but real.
-- **`bench/results.jsonl`, `bench/run_bench.sh`, `bench/corpus.txt` — REMOVED
-  2026-07-30, previously a dead artifact that looked like data.** All 53
-  successful rows reported `n_certain: 0` and `sym_user: 0` — zero signal
-  across a 53-binary `cargo install` corpus. This was diagnosed same-week
-  (`be2f387`, 2026-06-17: "why n_certain=0 for all cargo-installed
-  binaries — registry source paths are indistinguishable from dep crates")
-  and the *actual fix* (`--crate` flag + auto-detection, `9a1c14f`,
-  2026-06-19) landed three days later, but `bench/results.jsonl` was never
-  re-run after the fix. The team's real response at the time was to pivot
-  same-day to `run_local.sh` (git-clone + local build, sidesteps the whole
-  problem via relative paths) and later to `realval/`'s stratified
-  methodology — both of which remained the load-bearing measurements. This
-  whole cargo-install corpus (plus `bench/aggregate.py`, `parse_metrics.py`,
-  `run_cargo_install.sh`, `run_local.sh`, and their result/corpus files) was
-  a superseded, unfixed false start with no external references anywhere in
-  the repo, and was deleted as part of consolidating this project's
-  measurement harnesses into `scripts/oracle.py` + `realval/` + `bench/origin/`.
-- **`--backtrace-depth`** — see [output contract](#the-output-contract--this-is-the-integration-seam)
-  above; not dead, but shipped ahead of its own promised validation.
+**Specification of the failure.** The precision lever is multiplicity: a
+monomorphized library generic inlines exactly one user closure and so
+references exactly one user Location, while a real user function references
+several of its own. Requiring `>= N` distinct user Locations rejects
+single-closure monomorphizations.
 
-## Robustness — re-verified this session
+**That assumption fails when the library's own function absorbs several
+distinct user Locations via inlining.** A large library generic
+(`slice::sort_by`, `sort_unstable_by_key`, `rayon` bridges, futures/tokio/actix
+combinators, serde generics) can inline a multi-panic user closure into its own
+body while remaining too large to inline into its caller. The resulting
+function is library-authored and library-declared but carries several genuine
+user Locations, satisfying STRONG by construction.
 
-Stripped `.eh_frame` on a fresh binary: falls back to `.eh_frame_hdr`,
-recovered 1,069 of the same function starts, output stayed at the identical
-27 STRONG+SINGLE functions. Stripped both `.eh_frame` and `.eh_frame_hdr`:
-falls back to a call-target map (771 entries, explicitly flagged
-"approximate; tier precision is degraded" on stderr), output dropped to 17
-functions rather than silently returning nothing. Both fallback paths behave
-as documented.
+**Measured on both formats, by two independent oracles.**
 
-## Status and scope
+- PE / PDB oracle (`docs/PDB_ORACLE_hardcase.md`, tracked on branch
+  `pe-port/hardcase-probe`): a construction of five ordinary wrappers produced
+  21/22 user-Location xref sites landing in non-user procedures, 13 false
+  positives, **8 at STRONG tier**, corroborated both by xref address and by the
+  PDB's own inline-site stream.
+- ELF / DWARF oracle: the same construction built natively and run under
+  `--validate` reproduced it — `certain 15 predicted, TP=2, FP=13,
+  precision=13.3%`, with 6 of 7 STRONG hits being `core::slice::sort::*`
+  internals.
 
-- **Shipped end-to-end via the CLI:** x86-64 ELF, PIE and non-PIE.
-- **Library-only, not production-ready:** PE (`x86_64-pc-windows-msvc`) — see
-  the [verdict](#verdict-pe-is-not-ready-to-connect-to-main) above. Not "not
-  CLI-wired yet" as a to-do item; not ready because its core trust claim was
-  reversed and the fix is unscoped.
-- **Robust against stripping:** survives `.eh_frame` removal, section-header
-  stripping, and `panic=abort` — re-confirmed this session, not just cited
-  from old docs. Defeated by `--remap-path-prefix`, packing, and
-  `-Z build-std panic_immediate_abort`.
-- **Recall is a known, structural open problem**, not a bug — confirmed
-  independently by `anchor_headroom`'s now-dead-but-conclusive research.
-- **A previously undocumented gap** (found during independent validation
-  against the cxiao panic-metadata write-up, not yet acted on): non-PIE
-  binaries defeat both `locate.rs`'s relocation walk *and* `xref.rs`'s
-  RIP-relative-only scan independently — `movabs` immediate loads have no
-  memory operand for `xref.rs` to see. And `#[track_caller]` helper functions
-  (custom `assert_valid()`-style wrappers) are structurally invisible to
-  Certain/STRONG: the Location lives at the call site, not in the helper's
-  own body, so multiplicity distributes across N callers instead of landing
-  on the one function that's actually 100% user-authored. Full detail:
-  `PANIC_ORACLE_GAPS.md` (repo root, untracked working notes).
+**Therefore the mechanism is not a PE artifact.** It lives in
+`classify.rs`/`xref.rs`, which both formats share through the container seam
+(§6.3) — the same property that makes "adding a format is adding an impl" true
+also makes a gap in the shared heuristic hit both formats identically.
 
-## Where to go next
+**`--min-anchors` does not mitigate it.** The anchors are genuinely distinct
+user Locations; the multiplicity test is satisfied on the library's function.
 
-- `README.md` — install, full CLI reference. States ELF as the only supported
-  input format and the PE/PDB code as a tested in-tree library that is not
-  wired to the CLI and cannot be reached from it (matching the verdict above),
-  and carries the same inline-absorption caveat as this document, worded once
-  and applying to both formats.
-- `docs/validation.md`, `realval/results_body.md` — the precision derivation.
-- `docs/dwarf-oracle-audit.md` — this month's ground-truth bug audit.
-- `docs/PDB_ORACLE_hardcase.md` — the session-4 finding this document leans on.
-- `docs/PDB_ORACLE_procs.md`, `docs/PDB_ORACLE_dufs.md` — the earlier,
-  since-corrected "clean" PE measurements; useful for the reversal's context.
-- `PANIC_ORACLE_GAPS.md` — non-PIE and `#[track_caller]` gaps, untracked.
-- `references/` — prior art (SentinelLabs 0xA11C, Cindy Xiao's panic-metadata
-  post) and the RIFT contrast.
+**Measured dead end.** Reference fan-out (how many distinct functions reference
+the same Location) separates the `core::slice::sort` sub-family cleanly —
+fan-out 5-6 versus 1 for genuine hits, zero measured recall cost — but
+**cannot** separate the `rayon`-bridge shape, whose false positives sit at
+fan-out 1, the exact value of genuine attributions. No threshold separates
+them. Detecting generic monomorphization over a closure/callback type parameter
+is the structurally different approach; it has not been scoped or attempted.
+
+**Status: open, unmitigated, and shared by both formats.** Consumers of the
+STRONG tier **MUST** treat it as ~94% pooled / ~87% async, never as certainty.
+
+### 9.3 Evasion
+
+Defeated by packing, `--remap-path-prefix`, and `-Z build-std
+panic_immediate_abort`. The first two are observed in real malware and both are
+flagged (§7). The third removes panic metadata entirely, is nightly-only, and
+changes runtime behaviour.
+
+---
+
+## 10. Component inventory and status
+
+**Status vocabulary.** *Shipped* — in the default CLI path, load-bearing.
+*Library* — compiles and is tested, reachable only by writing code against it.
+*Diagnostic* — flag-reachable, output not trustworthy for the stated purpose.
+*Dead* — compiled, called by nothing in this repo.
+
+| Module | Lines | Unit tests | Status |
+|---|---:|---:|---|
+| `report.rs` | 1023 | 7 | Shipped — human + JSON reporters, tiering |
+| `dwarf.rs` | 738 | 7 | Shipped, validation only (§8.4) |
+| `origin.rs` | 726 | 33 | Library — origin-composition classifier (§10.4) |
+| `strings.rs` | 603 | 22 | Shipped — Phase 1 classification |
+| `container/pe.rs` | 603 | 9 | Library, not CLI-reachable (§10.2) |
+| `bin/anchor_headroom.rs` | 589 | 0 | **Dead** (§10.3) |
+| `pdb_oracle.rs` | 562 | 12 | Library, validation only |
+| `types.rs` | 440 | 0 | **Diagnostic, ineffective** (§10.3) |
+| `main.rs` | 381 | 0 | Shipped — CLI |
+| `classify.rs` | 374 | 6 | Shipped — bucket propagation |
+| `elf.rs` | 346 | 0¹ | Shipped — load, section index, relocations |
+| `xref.rs` | 255 | 0¹ | Shipped — decode + certain set |
+| `frame.rs` | 243 | 0¹ | Shipped — function ranges + fallbacks |
+| `bin/origin_probe.rs` | 175 | 0 | Library harness for §10.4 |
+| `container/elf_image.rs` | 118 | 0¹ | Shipped — ELF behind `BinaryImage` |
+| `locate.rs` | 99 | 0¹ | Shipped — Location reconstruction |
+| `container/mod.rs` | 55 | — | Shipped — the seam |
+| `lib.rs` | 12 | — | Shipped — module roots |
+
+¹ No in-file `#[test]`; covered by `tests/integration.rs` (7) and real-corpus
+measurement in `realval/`.
+
+**Coverage asymmetry worth stating plainly:** `xref.rs` — the module carrying
+the §9.2 gap — has **zero isolated unit tests**. The hard case would not have
+been caught by anything currently in `cargo test`; it required a deliberately
+adversarial construction. `strings.rs`, the other precision-critical module,
+is the most heavily tested at 22.
+
+### 10.1 Dependencies
+
+`object` (ELF/PE read), `gimli` (`.eh_frame`, DWARF), `iced-x86` (decode),
+`pdb`, `rayon`, `clap`, `serde`/`serde_json`, `anyhow`. Pure Rust, no C
+dependencies, no network, no runtime tooling.
+
+Clippy runs at `pedantic` with a documented exemption list (`Cargo.toml`). The
+numeric-cast exemptions are justified by x86-64-only support making
+`u64 <-> usize` lossless, and by the position that rewriting guarded casts as
+`try_into().unwrap()` would add panic paths to a parser of hostile input.
+
+### 10.2 PE / PDB — library present, unwired
+
+`container/pe.rs` parses PE32+, walks `.pdata` for function ranges (the RVA
+analogue of FDEs; `.pdata` gives exact bounds directly), extracts `Location`
+structs from `.rdata`, and runs the same iced-x86 RIP-relative scan in RVA
+space. `pdb_oracle.rs` is the PE-side counterpart to `dwarf.rs`, including
+inline-site data — which is what allowed §9.2 to be corroborated two
+independent ways in a single measurement.
+
+Practical finding worth recording: for lld-link-produced PE images, MSVC debug
+info lives entirely out-of-process in the `.pdb`. An `oracle`-profile build and
+an `llvm-strip --strip-all` copy of it were **byte-for-byte identical**
+(whole-file `md5sum` match). The ELF side's "build once, strip a copy" dance
+collapses to "build once" on this target.
+
+**Normative constraint.** PE output **MUST NOT** be presented under the ELF
+STRONG trust framing. The STRONG tier does not currently earn that framing on
+PE (§9.2), the mechanism is shared rather than PE-specific, and no CLI or JSON
+contract carries a lower-trust label for PE today.
+
+### 10.3 Inert surfaces
+
+- **`bin/anchor_headroom.rs` (589 lines) — dead.** Referenced by nothing
+  outside `src/bin/`; verified by search. Builds its own binary on every
+  `cargo build`. Its research conclusion (recall headroom 0.16-0.47% by two
+  ground truths, a structural ceiling) correctly informed the decision not to
+  pursue that direction. Inert as shipped code.
+- **`--types` / `types.rs` (440 lines) — reachable, empirically ineffective.**
+  A 13-binary sweep produced 3 user-tier hits, all false at the type-name
+  level; a further check produced a single nonsensical amalgamated struct.
+  14 binaries, zero real signal. Retained for the idea; no decision should be
+  routed through it.
+- **`container/elf_image.rs:26-27`** — a `strings` field stored at construction
+  and never read, carrying an explicit `#[allow(dead_code)]`.
+
+### 10.4 Origin-composition classifier — measurement only
+
+`origin.rs` (33 unit tests, the most in the tree) is a **pure function of
+existing output**: it reads `ScanResult::all_loc_hits` and `PanicLocation` and
+touches no ELF/PDB data directly (`src/origin.rs:12-14`). Where the shipped
+pipeline asks "does this set contain a user Location, and how many", this asks
+what the *whole composition* is, and whether a stricter rule over that
+composition separates real author functions from a library generic that
+absorbed a user closure (§9.2).
+
+Three rules are implemented for sweeping (`src/origin.rs:283-367`): `RuleA`
+(strict — any non-user Location is a hard DEP trigger), `RuleB` (std-tolerant —
+only registry/git are hard triggers), `RuleC` (ratio baseline, no ambiguous
+tier). Decisions are `AUTHOR` / `DEP` / `AMBIGUOUS` / `NONE`.
+
+Not wired to the CLI; driven by `bin/origin_probe.rs`. Results and the
+matched-stratum comparison against the shipped tool live in
+`bench/origin/REPORT.md`.
+
+### 10.5 `--backtrace-depth` — shipped, unvalidated
+
+Implemented, wired, off by default, and strictly separated from the certain
+bucket. Its own help text directs the operator to `--validate` to measure the
+bucket's precision, but **no such measurement exists** in `README.md`,
+`docs/validation.md`, or `realval/`. A working feature with an unfulfilled
+promise attached — not dead code, and not validated either.
+
+---
+
+## 11. Verification
+
+- `cargo test` — 103 passing (96 unit + 7 integration), 0 failing.
+- Optimization-invariance checked across thin-LTO, `lto=true,codegen-units=1`,
+  `opt-level=z`, `panic=abort`, and `-C force-unwind-tables=no`. The
+  multiplicity lever keys on Location structure rather than inlining, which is
+  why it holds across these.
+- Real-malware exercise (static only, never executed): KrustyLoader, Akira,
+  BlackCat/ALPHV, 01flip, P2PInfect. Two evasions observed and now flagged —
+  `--remap-path-prefix` (01flip) and packing (P2PInfect). Details:
+  `docs/case-study-real-malware.md`.
+
+### Related documents
+
+| Document | Contents |
+|---|---|
+| `README.md` | Install, CLI reference, worked example |
+| `docs/validation.md` | Precision derivation, pre-registered stress test, two-measurements accounting |
+| `realval/results_body.md` | Per-binary results, 67-row STRONG false-attribution table |
+| `docs/dwarf-oracle-audit.md` | The three DWARF oracle bugs and their property-test guards |
+| `bench/origin/REPORT.md` | Origin-classifier sweep (§10.4) |
+| `bench/origin/INLINE_LEAK_INCIDENCE.md` | §8.2 corpus mining |
+| `docs/PDB_ORACLE_hardcase.md` | §9.2 on PE, with the fan-out null result (branch `pe-port/hardcase-probe`) |
+| `docs/pe-port-design.md` | PE port design notes |
+| `docs/case-study-real-malware.md` | Sample hashes, evasion-effort gradient |
