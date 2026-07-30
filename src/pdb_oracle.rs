@@ -95,6 +95,13 @@ pub type PdbGroundTruth = HashMap<u64, OracleFn>;
 /// `__scrt_initialize_crt` [utility.cpp]). Requiring `.rs` is the rule's own
 /// wording ("src/*.rs = User") and matches what the PE Location enumerator
 /// already does (`container/pe.rs` keeps only `.rs` file fields).
+/// Test-only accessor so the ELF oracle's tests can assert the two oracles
+/// agree. Not part of the public API.
+#[cfg(test)]
+pub(crate) fn classify_decl_file_for_test(path: &str, root_crates: &[String]) -> Origin {
+    classify_decl_file(path, root_crates)
+}
+
 fn classify_decl_file(path: &str, root_crates: &[String]) -> Origin {
     let norm = path.replace('\\', "/");
 

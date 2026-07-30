@@ -1,0 +1,67 @@
+# bench/origin corpus — 16 of the 33 crates already cloned under
+# realval/corpus_src/src/ (reused per plan; see corpus.lock for exact pins).
+#
+# columns: name  repo_dir  bin_name  strata  n_path_deps
+#   repo_dir  — relative to realval/corpus_src/src/, also the cargo manifest
+#               root (all 16 have Cargo.toml directly at repo_dir/Cargo.toml)
+#   bin_name  — the actual built executable name (several differ from the
+#               repo/package name: ripgrep->rg, trippy->trip, typos->typos
+#               via typos-cli, taplo->taplo via taplo-cli)
+#   strata    — async | generics | workspace | depfree, comma-separated,
+#               a crate can carry more than one tag
+#   n_path_deps — count of `path = "..."` deps in the crate's own manifests,
+#               recorded at selection time (see selection rationale below)
+#
+# Selection rationale (meets every §1 criterion: produces an executable,
+# >=3 transitive deps, builds clean on stable, picked for variety):
+#   async/tokio (>=3 required, 5 picked)  : oha, xh, miniserve, dufs, procs
+#   heavy generics (>=2 required, 4 picked): starship, typos, taplo, tokei
+#   workspace + path-deps (>=2 required, 3 picked): ripgrep, trippy, just
+#   nearly dep-free (>=2 required, 4 picked): hexyl, xsv, zoxide, pastel
+#
+# Pilot subset (4-crate dry run before the full 16): hexyl, ripgrep, oha,
+# starship — smallest/largest package count, sync/async, workspace/flat.
+name	repo_dir	bin_name	strata	n_path_deps
+oha	oha	oha	async	0
+xh	xh	xh	async	0
+miniserve	miniserve	miniserve	async	0
+dufs	dufs	dufs	async	0
+procs	procs	procs	async	1
+starship	starship	starship	generics	0
+typos	typos	typos	generics,workspace	0
+taplo	taplo	taplo	generics,workspace	0
+tokei	tokei	tokei	generics	0
+ripgrep	ripgrep	rg	workspace	4
+trippy	trippy	trip	workspace,async	5
+just	just	just	workspace	2
+hexyl	hexyl	hexyl	depfree	0
+xsv	xsv	xsv	depfree	0
+zoxide	zoxide	zoxide	depfree	0
+pastel	pastel	pastel	depfree	1
+bandwhich	bandwhich	bandwhich	async	0
+bat	bat	bat	generics	0
+bottom	bottom	btm	generics	1
+dprint	dprint	dprint	async,workspace	0
+dust	dust	dust	depfree	2
+eza	eza	eza	generics	0
+fclones	fclones	fclones	async,workspace	0
+fd	fd	fd	depfree	2
+gping	gping	gping	workspace	0
+grex	grex	grex	generics	0
+hyperfine	hyperfine	hyperfine	depfree	0
+ouch	ouch	ouch	generics	0
+rage	rage	rage	async,workspace	2
+rustscan	rustscan	rustscan	async	1
+sd	sd	sd	generics,workspace	0
+tealdeer	tealdeer	tldr	depfree	1
+zellij	zellij	zellij	async,workspace	0
+websocat	websocat	websocat	async	0
+mqttui	mqttui	mqttui	async	0
+rathole	rathole	rathole	async	0
+feroxbuster	feroxbuster	feroxbuster	async	0
+pueue	pueue	pueue	async,workspace	0
+wormhole-rs	wormhole-rs	wormhole-rs	async-smol,workspace	0
+oxker	oxker	oxker	async	0
+netscanner	netscanner	netscanner	async	0
+ferium	ferium	ferium	async,workspace	0
+topgrade	topgrade	topgrade	async	0

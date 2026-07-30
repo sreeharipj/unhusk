@@ -1,0 +1,50 @@
+{
+ "crate": "wormhole-rs",
+ "config": "lto-fat_opt-3_panic-unwind",
+ "rule": "C@0.10",
+ "n_fdes": 7204,
+ "n_gt_known": 7000,
+ "n_gt_excluded_unknown_or_conflict": 204,
+ "confusion": {
+  "AUTHOR": {
+   "AUTHOR": 10,
+   "WORKSPACE": 68,
+   "DEP": 11,
+   "STD": 16
+  },
+  "DEP": {
+   "AUTHOR": 10,
+   "WORKSPACE": 20,
+   "DEP": 1335,
+   "STD": 465
+  },
+  "AMBIGUOUS": {
+   "AUTHOR": 0,
+   "WORKSPACE": 0,
+   "DEP": 0,
+   "STD": 0
+  },
+  "NONE": {
+   "AUTHOR": 26,
+   "WORKSPACE": 363,
+   "DEP": 2013,
+   "STD": 2663
+  }
+ },
+ "coverage": 0.27096057745696833,
+ "ambiguous_fraction": 0.0,
+ "predicted_author": 105,
+ "predicted_dep": 1847,
+ "actual_author": 46,
+ "actual_workspace": 451,
+ "actual_dep": 3359,
+ "actual_std": 3144,
+ "tp_author": 10,
+ "tp_dep": 1335,
+ "precision_author": 0.09523809523809523,
+ "precision_dep": 0.7227937195452084,
+ "recall_author_excl": 0.21739130434782608,
+ "recall_author_ambig_err": 0.21739130434782608,
+ "recall_dep_excl": 0.39743971420065494,
+ "recall_dep_ambig_err": 0.39743971420065494
+}

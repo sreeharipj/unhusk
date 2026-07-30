@@ -6,9 +6,9 @@ This page is the measurement behind the precision numbers quoted in the README: 
 
 Every prediction is scored against two independent ground truths: DWARF `decl_file` and `nm -C` symbol leading-crate. They disagree by about 30 points, because DWARF attributes user `FnOnce`/`FnMut` closure-dispatch shims to `core/src/ops/function.rs`. That is a measurement artifact of how DWARF homes closures, not a real classification error — symbol GT correctly attributes those shims to the user crate. Scoring only against DWARF would have understated precision and hidden the actual failure mode (async closures), so symbol is the ruler used for the headline numbers.
 
-## Precision by tier (34-binary corpus)
+## Precision by tier (32-binary corpus)
 
-Symbol-ground-truth precision on a 34-binary corpus (13 source-built, 8 `cargo install`, 13 chosen to be adversarial):
+Symbol-ground-truth precision on a 32-binary corpus (13 source-built, 8 `cargo install`, 11 chosen to be adversarial):
 
 | Tier | Rule | CLI/systems | async/web | pooled |
 |---|---|---:|---:|---:|
@@ -29,7 +29,9 @@ Threshold ladder, pooled vs async-only:
 
 The corpus above was built specifically to attack the multiplicity claim (H1: STRONG yields ~97% symbol precision, stable across optimization levels and categories), with hypotheses and pass/fail criteria written down before any data was collected: async binaries were predicted to fall below 95% (P1), parallel/data binaries similarly (P2), framework/glue apps' effect on precision was left an open null (P3), and macro/derive-heavy code was predicted to be unaffected (P4, a null prediction included to check nothing unexpected happens).
 
-Corpus: async/network/web (miniserve, dufs, mprocs, dog, rustscan, trippy), parallel/data (fclones), macro/serde/config (starship, typos, taplo, dprint), crypto/compress (rage), pooled with the existing 21 source-built + `cargo install` binaries. 34 binaries total (13 source-built, 8 `cargo install`, 13 stress; the intended framework category stayed empty because `gitui` failed to build).
+Corpus, as designed: async/network/web (miniserve, dufs, mprocs, dog, rustscan, trippy), parallel/data (fclones), macro/serde/config (starship, typos, taplo, dprint), crypto/compress (rage), pooled with the existing 21 source-built + `cargo install` binaries — 34 intended (13 source-built, 8 `cargo install`, 13 stress; the intended framework category stayed empty because `gitui` failed to build).
+
+**Two of the stress binaries were never scored, so the measured corpus is 32, not 34.** `mprocs` failed to build (`realval/corpus_src/mprocs.FAILED`) and `dog` has no build artifact in `realval/corpus_src/` at all. Both are named in the design list above; neither appears in `realval/results_body.md`'s per-binary table, which has 32 rows, and `realval/corpus_src/` holds exactly 32 stripped binaries. Every precision figure on this page is over those 32. This also means the async category is **8 binaries** (`bandwhich`, `dufs`, `gping`, `miniserve`, `oha`, `rustscan`, `trippy`, `xh` — by the `domain` column of `results_body.md`), not the 6 named in the design list.
 
 **Raw result, before controls:** pooled STRONG 90.3%, with parallel at 51% and macro at 82.7% — both under the pre-registered 85% "refine the method" line. Two controls showed the drop was mostly measurement error, not the tool:
 
@@ -48,6 +50,48 @@ Both corrections are clear-cut authorship, not judgment calls. After applying th
 | **pooled** | **90.3%** | **94.4%** | |
 
 **Verdict:** P1 (async) confirmed — async/web-framework binaries sit at ~87% STRONG vs ~98% for CLI, a real ~10pp gap driven by futures combinators (`PollFn`, `Pin<Box<closure>>`, `tokio::Timeout`, `FuturesUnordered`) and framework handler-adapters that inline a multi-panic user closure; these are irreducible in a stripped binary. P2 (parallel) and the macro drop were measurement artifacts, not the mechanism failing — exactly the failure mode the pre-registered controls existed to catch. P4 (macro) held as a null once the `typos` confound was removed. The corrected pooled STRONG (94.4%, not the earlier ~97% from smaller, async-light corpora) is a documentation correction, not a method change; for async-heavy targets, `--min-anchors 3` lifts async STRONG to ~91% (96.1% overall) at a recall cost.
+
+**Named outlier inside the async category: `miniserve`, 7 of 14 STRONG predictions
+are documented false positives = 50.0% precision** (`realval/results_body.md`'s
+"Every false attribution — STRONG tier" section — a full 67-row, symbol-name-
+based FP table across all 32 binaries that this page did not previously
+cross-link; found and connected via `bench/origin/INLINE_LEAK_INCIDENCE.md`
+Task 5d). It sits inside the 87.3% async-category average, unflagged as its
+own outlier until now. Mechanism, per that table: mostly
+`actix_web::handler::handler_service<UserHandler,...>`-shaped framework
+handler-adapters plus one `tokio::task::local::LocalSet::run_until` futures
+combinator — genuine inline-absorption (§ below), not a measurement artifact
+like the `fclones`/`typos` corrections above. **`miniserve`'s own
+`Cargo.toml` pins `lto=true, opt-level='z', panic='abort',
+codegen-units=1`** — this realval corpus builds each binary at its own
+default release profile, so `miniserve` here was built at what turned out to
+be the harshest point in `bench/origin`'s later 8-config matrix, not a
+lenient one. Independently reproduced there across all 8 systematic configs:
+44.4-56.0% precision, no config anywhere close to clean — the same
+weakness, confirmed a second way, not a new one.
+
+## Two measurements exist — `realval` and `bench/origin` — do not combine them
+
+Every number on this page so far is `realval`'s. A second, independent
+measurement exists (`bench/origin/`, see `INLINE_LEAK_INCIDENCE.md`) and it
+is **not a replacement, a correction, or an average-in candidate** for
+anything above — different oracle implementation, different corpus, and
+materially different build-config breadth. State this explicitly so neither
+number gets misquoted as "the" precision figure or silently blended with
+the other:
+
+| | `realval` (this page) | `bench/origin` |
+|---|---|---|
+| Corpus | 32 binaries | 43 crates (all 32 of `realval`'s are inside this set) |
+| Configs per binary | 1 — each crate's own default release profile | 8 — systematic lto(fat/thin) × opt(3/z) × panic(unwind/abort) sweep, `codegen-units=1` fixed |
+| Total builds | 32 | 344 |
+| Oracle | `realval/collect_rows.py` + `report_results.py` | `bench/origin/ground_truth.py` — independent AUTHOR/WORKSPACE/DEP/STD split, not the same code path |
+| Shared machinery | Both call `scripts/oracle.py`'s `cargo_authorship`/`nm_symbol_table`/`leading_crate` — same primitives, different callers | |
+| Headline | STRONG 94.4% / async 87.3% / SINGLE ~80% | STRONG 91.3% pooled / SINGLE 81.9% pooled / combined 86.3% pooled; 91.78%/80.92%/86.17% at `lto-fat,opt-3,panic-abort` specifically |
+| Licenses claiming | The number this repo quotes everywhere as *the* shipped precision figure | A standalone, broader-config-coverage check that lands in the same order of magnitude — corroborates `realval`, does not supersede it |
+| Does **not** license | — | Treating 86.3%/91.3% as a "corrected" 94.4%/87.3%, averaging the two, or citing `bench/origin/REPORT.md`'s separate RULE_A-vs-shipped-tool comparison (91.5%/93.0% vs 87.3%) as a controlled result — that comparison is explicitly *not* controlled (different oracle, different corpus, pooled-vs-stratum) per `REPORT.md:246-255`, and per that report's own §6 the async/non-async split behind it has no committed, rerunnable script — treat it as a directional data point, not a number to quote on its own |
+
+**If you need a single number to cite for "unhusk's precision," cite `realval`'s** — it's the pre-registered, hypothesis-driven measurement this whole page documents. Cite `bench/origin`'s only when specifically discussing build-config-breadth robustness or the inline-absorption FP mode, with the scope caveats above attached.
 
 ## Retracted: source-file coherence
 

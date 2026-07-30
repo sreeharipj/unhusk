@@ -1,0 +1,10 @@
+# Per-build artifacts: binaries (.debug/.stripped), build logs, and the raw
+# per-FDE probe.json/ground_truth.json/verify.json each build produces.
+# Multi-GB across the full matrix, fully reproducible via build_matrix.sh —
+# not the deliverable. Only the harness scripts and the DERIVED measurement
+# output (results/*.json, results.csv, diagnostics.*, sweep.*, REPORT.md) are
+# tracked, matching realval/.gitignore's convention for this repo.
+build/
+__pycache__/
+wake_3am.log
+wake_expand.log
