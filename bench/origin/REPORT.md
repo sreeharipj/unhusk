@@ -130,32 +130,49 @@ the original hard-case question cares about). Both reported.
 it, expected, not a data problem.) A precision number below is an
 enrichment over *this*, not an assumed 50%.
 
+**Confidence intervals**, added after `scripts/oracle.py` centralized
+`realval`'s Wilson/cluster-bootstrap code so `bench/origin` could use it too
+(previously this section reported bare point estimates — a real rigor gap
+next to `realval`'s own standard): Wilson 95% over pooled FDEs, plus a
+cluster bootstrap resampling CRATES for AUTHOR precision specifically —
+shown only on `pooled` rows, since crate-averaging already addresses the
+same clustering concern a different way. **The bootstrap interval is the
+more informative number here**: for strict-scoring RuleA@2, cluster
+bootstrap is `[26.0%, 78.4%]` — enormous, because strict precision genuinely
+swings from ~0% to 100% by crate (see the per-crate table below); for
+workspace-merged RuleA@2 it tightens to `[90.2%, 95.2%]` — a real,
+measured confirmation that merging workspace into AUTHOR doesn't just raise
+the point estimate, it makes the result far more *consistent* across crates,
+not merely luckier on average.
+
 ### Strict ground truth (target package only)
 
-| rule | agg | AUTHOR precision | recall | recall\|has-location | DEP precision |
-|---|---|---:|---:|---:|---:|
-| A@1 | pooled | 50.4% | 11.3% | 42.0% | 66.9% |
-| A@1 | crate-avg | 72.1% | 11.9% | 38.3% | 60.4% |
-| A@2 | pooled | 45.9% | 4.0% | 14.8% | 66.9% |
-| A@2 | crate-avg | 77.4% | 4.9% | 15.2% | 60.4% |
-| A@3 | pooled | 45.2% | 2.0% | 7.5% | 66.9% |
-| C@0.10 | pooled | 53.0% | 18.1% | 67.3% | 67.7% |
-| C@0.10 | crate-avg | 72.4% | 22.2% | 66.8% | 61.3% |
+| rule | agg | AUTHOR precision | recall | recall\|has-location | DEP precision | precision 95% CI (Wilson; cluster-boot) |
+|---|---|---:|---:|---:|---:|---|
+| A@1 | pooled | 50.4% | 11.3% | 42.0% | 66.9% | [49.7, 51.1]; [29.8, 76.7] |
+| A@1 | crate-avg | 72.1% | 11.9% | 38.3% | 60.4% | — |
+| A@2 | pooled | 45.9% | 4.0% | 14.8% | 66.9% | [44.7, 47.1]; [26.0, 78.4] |
+| A@2 | crate-avg | 77.4% | 4.9% | 15.2% | 60.4% | — |
+| A@3 | pooled | 45.2% | 2.0% | 7.5% | 66.9% | [43.5, 46.8]; [24.3, 81.8] |
+| C@0.10 | pooled | 53.0% | 18.1% | 67.3% | 67.7% | [52.4, 53.6]; [33.7, 75.4] |
+| C@0.10 | crate-avg | 72.4% | 22.2% | 66.8% | 61.3% | — |
 
 ### Workspace-merged ground truth
 
-| rule | agg | AUTHOR precision | recall | recall\|has-location | DEP precision |
-|---|---|---:|---:|---:|---:|
-| A@1 | pooled | 88.3% | 13.0% | 48.0% | 67.1% |
-| A@2 | pooled | **92.8%** | 5.3% | 19.5% | 67.1% |
-| A@2 | crate-avg | **92.1%** | 5.0% | 16.5% | 61.1% |
-| A@3 | pooled | **94.8%** | 2.8% | 10.2% | 67.1% |
-| A@4 | pooled | 95.3% | 1.8% | 6.7% | 67.1% |
-| A@5 | pooled | 94.9% | 1.3% | 4.8% | 67.1% |
-| A@6 | pooled | 94.5% | 0.9% | 3.4% | 67.1% |
-| B@2 | pooled | 92.3% | 7.0% | 25.9% | 67.6% |
-| C@0.10 | pooled | **85.7%** | 19.2% | **70.8%** | 68.1% |
-| C@0.10 | crate-avg | 85.7% | 21.8% | 68.8% | 62.0% |
+| rule | agg | AUTHOR precision | recall | recall\|has-location | DEP precision | precision 95% CI (Wilson; cluster-boot) |
+|---|---|---:|---:|---:|---:|---|
+| A@1 | pooled | 88.3% | 13.0% | 48.0% | 67.1% | [87.9, 88.8]; [82.9, 91.8] |
+| A@2 | pooled | **92.8%** | 5.3% | 19.5% | 67.1% | [92.1, 93.4]; **[90.2, 95.2]** |
+| A@2 | crate-avg | **92.1%** | 5.0% | 16.5% | 61.1% | — |
+| A@3 | pooled | **94.8%** | 2.8% | 10.2% | 67.1% | [94.1, 95.5]; [91.9, 97.2] |
+| A@4 | pooled | 95.3% | 1.8% | 6.7% | 67.1% | — |
+| A@5 | pooled | 94.9% | 1.3% | 4.8% | 67.1% | — |
+| A@6 | pooled | 94.5% | 0.9% | 3.4% | 67.1% | — |
+| B@2 | pooled | 92.3% | 7.0% | 25.9% | 67.6% | — |
+| C@0.10 | pooled | **85.7%** | 19.2% | **70.8%** | 68.1% | [85.3, 86.1]; [81.6, 89.1] |
+| C@0.10 | crate-avg | 85.7% | 21.8% | 68.8% | 62.0% | — |
+
+Full CIs for every headline rule/variant: `reanalysis.json`'s `ci` field per rule.
 
 Full A@1..6/B@1..6 sweep: `results.csv`, `reanalysis.json`.
 
@@ -321,6 +338,17 @@ recall — inside the shipped tool's own documented range, and the highest
 recall of the three corpus sizes measured (17.0% -> 18.4% -> 19.2%) — with
 70.8% recall among the subset of AUTHOR functions this signal has any
 chance of finding at all.
+
+**The confidence intervals (added once `scripts/oracle.py` centralized
+`realval`'s Wilson/cluster-bootstrap machinery for reuse here) confirm this
+isn't a size-weighted fluke, and add something the point estimates alone
+don't show.** The cluster bootstrap (resampling crates) for RULE_A@2
+precision is `[26.0%, 78.4%]` under strict scoring — genuinely enormous,
+reflecting that strict precision really does swing from ~0% to 100%
+depending on the crate — and tightens to `[90.2%, 95.2%]` once WORKSPACE is
+merged into AUTHOR. That's not just a higher point estimate; it's
+measurably more *consistent* across crates, which is the more convincing
+form of "this is real" than the point estimate alone would have shown.
 
 **Recall in absolute terms is still the weak point**, driven by a
 zero-Location majority among genuine AUTHOR functions that is real and
