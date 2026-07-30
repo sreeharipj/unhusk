@@ -443,3 +443,177 @@ is still true — but it means the CLI-consumption path is real and already
 exercised for at least these three rules, not merely designed-but-unused. I
 did not open `winnow/scripts/` to trace the exact invocation code; this is
 what the rule files themselves show, nothing beyond that.
+
+---
+
+# Task 5 — bounding the upper bound, then cutting by config
+
+**Correction owed first, found while answering 5d:** the earlier inventory
+turn's answer to "has anyone classified real-corpus FPs by cause" said only
+`fclones`/`typos` (`docs/validation.md`) had that data. **That was wrong —
+missed.** `realval/results_body.md`'s `## Every false attribution — STRONG
+tier` section is a complete, already-committed, per-instance FP-mechanism
+table (67 rows, symbol-name-based, classified by
+`realval/report_results.py::fp_kind`) across all 32 binaries. It directly
+answers most of Task 5b below, and I should have surfaced it in the original
+inventory. Owning that miss plainly rather than re-framing around it.
+
+## a. UNKNOWN among claimed-user, and the honest precision range
+
+Extended `leak_vs_claimed_user.py` to track UNKNOWN (ground truth couldn't
+resolve any label) alongside tp/fp, per tier, pooled:
+
+```
+STRONG:   tp=11225 fp=1068 unknown=48   n_known=12293 n_all=12341
+SINGLE:   tp=11467 fp=2537 unknown=156  n_known=14004 n_all=14160
+COMBINED: tp=22692 fp=3605 unknown=204  n_known=26297 n_all=26501
+```
+
+**What UNKNOWN means operationally** (`ground_truth.py:90-99,142-149`): a
+claimed-user FDE gets `UNKNOWN` when no `nm --defined-only`-visible symbol
+resolves to a classifiable crate for that address range — either (i) no
+symbol's address bisects into the FDE at all (a local/static symbol `nm`
+didn't emit, or a genuine gap), or (ii) a symbol *was* found but its
+extracted leading crate isn't in the author/workspace set, `Cargo.lock`'s
+dependency set, or the fixed `STD_CRATES` list (an untracked build-only or
+proc-macro crate, or an unparseable mangled name). Not a demangle failure in
+this corpus specifically — mangling is 100% v0 throughout (verified via
+`ground_truth.py`'s own `mangling` field on every build in this matrix).
+
+**Precision range, both ends, not picked:**
+
+| tier | known-only | ceiling (unknown=TP) | floor (unknown=FP) |
+|---|---:|---:|---:|
+| STRONG | 91.312% | 91.346% | 90.957% |
+| SINGLE | 81.884% | 82.083% | 80.982% |
+| COMBINED | 86.291% | 86.397% | 85.627% |
+
+**The range is narrow (≤0.8 points every tier) because UNKNOWN is small —
+204/26,501 = 0.77% of the whole claimed-user population — not because of any
+assumption.** This is a real, checked fact, not a convenient one: I did not
+assume the range would be tight going in.
+
+## b. Forwarding wrapper vs genuine inline-absorption
+
+**Criterion, stated explicitly**: a leak instance is a **forwarding
+wrapper** if its demangled symbol name matches
+`realval/report_results.py::fp_kind`'s `"thread-trampoline (std generic over
+user fn)"` or `"TLS accessor (std generic over user closure)"` categories —
+the two shapes whose entire function body *is* the user's own code, reached
+through a std-declared generic (`__rust_begin_short_backtrace::<F>`,
+`LocalKey::with::<F>`), not a case of library code of its own absorbing a
+user Location via inlining. Everything else `fp_kind` returns (framework
+handler-adapter, futures combinator, core generic, rayon generic, serde
+generic, unclassified library generic) is genuine inline-absorption.
+
+**This IS separable from committed data — not stopping here.** New script
+`leak_mechanism_taxonomy.py` resolves every one of the 3605 leak instances'
+demangled symbol names via `nm --defined-only | rustfilt`
+(`scripts/oracle.py::nm_symbol_table`, the exact read-only inspection
+`ground_truth.py` already runs on these same already-built `.debug`
+binaries — no rebuild, just keeping the name instead of discarding it),
+bisects to the instance's `start` address, and classifies with `fp_kind`
+imported directly from `realval/report_results.py` (one classifier, not a
+second divergent one). **100% resolved, 0 unresolved, exact, not
+approximate** — ran in 40s:
+
+```
+total leak instances: 3605  (resolved: 3605, unresolved: 0)
+forwarding (thread-trampoline / TLS accessor): 363
+genuine inline-absorption (everything else): 3242
+forwarding fraction of RESOLVED instances: 10.07%
+
+--- DEP: total=1024 forwarding=4   genuine=1020 ---
+--- STD: total=2581 forwarding=359 genuine=2222 ---
+
+unclassified library generic:  1541
+core generic:                   809
+futures combinator:              550
+thread-trampoline:               305
+framework handler-adapter:       169
+rayon generic:                   143
+TLS accessor:                     58
+serde generic:                    30
+```
+
+**Converges with `realval`'s own independent, symbol-based STRONG-tier FP
+table** (a different corpus config — single default build per binary, not
+this 8-config sweep — and STRONG-only, not STRONG+SINGLE): 67 rows, 8
+thread-trampoline (7 already rescued by the existing `unwrap=True` path), 0
+TLS-accessor → ~12% forwarding-shaped there too. Two independent
+measurements, different build-matrix breadth, same order of magnitude.
+
+**Order of magnitude: forwarding wrappers are a small minority (~10%),
+genuine inline-absorption is the overwhelming majority (~90%) of the leak
+population**, on the DEP side even more lopsided (0.4% forwarding) than the
+STD side (13.9% forwarding).
+
+## c. Per-config precision (numerator/denominator, all 8 configs)
+
+```
+                                STRONG              SINGLE              COMBINED
+lto-fat_opt-3_panic-abort      1473/1605  91.78%   1387/1714  80.92%   2860/3319  86.17%
+lto-fat_opt-3_panic-unwind     1501/1630  92.09%   1437/1756  81.83%   2938/3386  86.77%
+lto-fat_opt-z_panic-abort      1199/1336  89.75%   1162/1442  80.58%   2361/2778  84.99%
+lto-fat_opt-z_panic-unwind     1237/1368  90.42%   1154/1437  80.31%   2391/2805  85.24%
+lto-thin_opt-3_panic-abort     1538/1665  92.37%   1512/1851  81.69%   3050/3516  86.75%
+lto-thin_opt-3_panic-unwind    1561/1685  92.64%   1567/1881  83.31%   3128/3566  87.72%
+lto-thin_opt-z_panic-abort     1346/1492  90.21%   1624/1961  82.81%   2970/3453  86.01%
+lto-thin_opt-z_panic-unwind    1370/1512  90.61%   1624/1962  82.77%   2994/3474  86.18%
+```
+
+**The number for `lto-fat, opt-3, panic-abort` — real stripped release
+binaries' actual shipping profile:**
+
+| tier | tp | fp | n | precision |
+|---|---:|---:|---:|---:|
+| STRONG | 1473 | 132 | 1605 | **91.78%** |
+| SINGLE | 1387 | 327 | 1714 | **80.92%** |
+| COMBINED | 2860 | 459 | 3319 | **86.17%** |
+
+Spread across all 8 configs is real but modest: STRONG ranges 89.75-92.64%
+(2.9pp), SINGLE 80.31-83.31% (3.0pp), COMBINED 84.99-87.72% (2.7pp).
+`opt-z` configs sit consistently 1-2pp below `opt-3` at matching lto/panic —
+the same direction §a (Task 1) found for raw leak rate, smaller in
+precision terms.
+
+## d. miniserve — config sensitivity or binary-specific weakness?
+
+**Not config-sensitive: uniformly bad across all 8 configs**, COMBINED
+precision 44.4-56.0%, no config anywhere near the corpus's ~86% pooled
+figure:
+
+```
+lto-fat_opt-3_panic-abort   13/25 = 52.00%    lto-thin_opt-3_panic-abort   13/25 = 52.00%
+lto-fat_opt-3_panic-unwind  14/25 = 56.00%    lto-thin_opt-3_panic-unwind  14/25 = 56.00%
+lto-fat_opt-z_panic-abort   12/27 = 44.44%    lto-thin_opt-z_panic-abort   12/27 = 44.44%
+lto-fat_opt-z_panic-unwind  14/27 = 51.85%    lto-thin_opt-z_panic-unwind  13/27 = 48.15%
+```
+
+**Second correction, found checking this: the premise "unremarkable in
+realval" does not hold up.** `miniserve`'s own `Cargo.toml` already sets
+`codegen-units=1, lto=true, opt-level='z', panic='abort'` (checked directly,
+`realval/corpus_src/src/miniserve/Cargo.toml:13-17`) — so `realval`'s single
+default build of miniserve **is** `lto-fat_opt-z_panic-abort`, my *worst*
+config for this crate (44.44%). And `realval/results_body.md` line 19 shows
+miniserve STRONG=14 predicted — cross-referenced against its own "Every
+false attribution" table (§b above), **7 of those 14 are already documented
+there as false positives** (mostly `framework handler-adapter`, one
+`futures combinator`), all explicitly marked, none marked rescued: **7/14 =
+50.0% STRONG precision, already sitting in `realval`'s own committed data.**
+This branch's own STRONG-only figure for miniserve, pooled across all 8
+configs: 65/112 = 58.0% — same ballpark, independently reproduced. **This is
+not a new problem this branch's broader sweep revealed — it's the same
+already-documented weakness, confirmed a second, independent way. It was
+never surfaced as its own outlier in `realval`'s pooled/domain-level
+headline numbers, which is a real gap in that report's presentation, not a
+gap in its underlying data.**
+
+## e. Rename the doc?
+
+**Not renaming.** §b's answer is exact, not approximate: 89.93% of the 3605
+leak instances (100% resolved, not sampled) are genuine inline-absorption
+shapes; only 10.07% are forwarding-wrapper-shaped, and `realval`'s
+independent 32-binary measurement lands at the same order of magnitude
+(~12%). The doc's claimed mechanism is the one actually measured, by a
+wide margin — a rename would be correcting a problem that isn't there.
