@@ -421,8 +421,17 @@ Numbers below carry their corpus and oracle. **They are not interchangeable.**
 
 ### 8.1 Primary — symbol ground truth, `realval/`
 
-34-binary corpus (13 source-built, 8 `cargo install`, 13 adversarial), scored
-against `nm -C` symbol leading-crate (`docs/validation.md:9-16`):
+**32 binaries scored.** `docs/validation.md:9-11,32` describes a 34-binary
+corpus (13 source-built, 8 `cargo install`, 13 adversarial); the scored
+per-binary table in `realval/results_body.md` contains **32** rows, and
+`realval/corpus_src/` holds exactly 32 stripped binaries. The two named in
+`validation.md:32`'s stress list that are absent from the scored set are
+`mprocs` (present as `corpus_src/mprocs.FAILED` — it failed to build) and
+`dog` (no artifact in `corpus_src` at all). `validation.md` records `gitui`'s
+build failure but not these two, so its "34 binaries total" is the intended
+corpus, not the measured one. Every figure below rests on the 32.
+
+Scored against `nm -C` symbol leading-crate (`docs/validation.md:9-16`):
 
 | Tier | Rule | CLI/systems | async/web | pooled |
 |---|---|---:|---:|---:|
@@ -449,6 +458,13 @@ forwarding wrapper on `fclones`, an own-library confound on `typos`) and lifted
 pooled STRONG from 90.3% to 94.4% — while async stayed at 87.3% with no
 artifact to blame (`docs/validation.md:34-50`). Named outlier inside that
 average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/validation.md:52-57`).
+
+**The async stratum is 8 binaries.** By the `domain` column of
+`realval/results_body.md`'s per-binary table: `bandwhich`, `dufs`, `gping`,
+`miniserve`, `oha`, `rustscan`, `trippy`, `xh` (the remaining 24 split 16 cli,
+4 macro, 2 crypto, 1 parallel, 1 framework). The 87.3% async figure is an
+8-binary average containing one binary at 50.0%, which is why §9.2 states a
+range rather than a point estimate.
 
 ### 8.2 Secondary — inline-leak incidence, `bench/origin/`
 
@@ -484,6 +500,26 @@ build-config breadth (`realval` builds one config per binary; `bench/origin`
 pools a systematic 8-config sweep). Neither figure may be quoted without its
 corpus and oracle attached. Full accounting: `docs/validation.md`, "Two
 measurements" section.
+
+**Corpus relationship: containment, not partial overlap.** All 32 of
+`realval`'s scored binaries appear in `bench/origin/corpus.tsv`'s 43 —
+checked per binary against the manifest, zero missing — including all 8
+async-domain binaries (§8.1). `INLINE_LEAK_INCIDENCE.md:341-343` states the
+same containment; this is an independent confirmation of it, not a restatement.
+
+Two crates named in `validation.md:32`'s stress list, `mprocs` and `dog`, are
+absent from both measurements — `mprocs` failed to build in `realval`
+(`corpus_src/mprocs.FAILED`) and is not in `bench/origin/corpus.tsv`; `dog` has
+no `realval` artifact and is one of `bench/origin`'s four build failures. Since
+neither is in `realval`'s scored 32, neither contributes to the 87.3% async
+figure, and their absence from `bench/origin` does not break the containment
+above.
+
+**Containment does not license combining the two.** The corpora nest; the
+measurements do not. `bench/origin` scores 11 crates `realval` does not, at 8
+build configs each, under independently written scoring code — so the wider
+corpus is measuring a different thing over a superset, not the same thing more
+thoroughly.
 
 ### 8.4 Ground-truth provenance
 
