@@ -421,15 +421,14 @@ Numbers below carry their corpus and oracle. **They are not interchangeable.**
 
 ### 8.1 Primary — symbol ground truth, `realval/`
 
-**32 binaries scored.** `docs/validation.md:9-11,32` describes a 34-binary
-corpus (13 source-built, 8 `cargo install`, 13 adversarial); the scored
-per-binary table in `realval/results_body.md` contains **32** rows, and
-`realval/corpus_src/` holds exactly 32 stripped binaries. The two named in
-`validation.md:32`'s stress list that are absent from the scored set are
-`mprocs` (present as `corpus_src/mprocs.FAILED` — it failed to build) and
-`dog` (no artifact in `corpus_src` at all). `validation.md` records `gitui`'s
-build failure but not these two, so its "34 binaries total" is the intended
-corpus, not the measured one. Every figure below rests on the 32.
+**32 binaries scored** (13 source-built, 8 `cargo install`, 11 adversarial).
+The per-binary table in `realval/results_body.md` contains 32 rows and
+`realval/corpus_src/` holds exactly 32 stripped binaries. The stress corpus was
+designed as 34; two of its binaries were never scored — `mprocs` failed to
+build (`corpus_src/mprocs.FAILED`) and `dog` has no artifact in `corpus_src` at
+all — so 34 is the intended corpus and 32 the measured one
+(`docs/validation.md:32-34`, corrected there). Every figure below rests on the
+32.
 
 Scored against `nm -C` symbol leading-crate (`docs/validation.md:9-16`):
 

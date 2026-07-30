@@ -12,11 +12,16 @@ build configs (lto x opt-level x panic, codegen-units=1 fixed) — see
 especially more async coverage): 21 crates (16 already-cloned in
 `realval/corpus_src/src/` plus zellij/websocat/mqttui/rathole/bore fresh);
 5 more (feroxbuster/pueue/wormhole-rs/oxker/dog); 5 more
-(netscanner/ferium/topgrade/sniffnet/spotify-tui). Four crates failed and
-were excluded, all genuine environment/lockfile incompatibilities, none an
-LTO/opt/panic-flag issue:
-- **bore, mprocs**: ancient pinned `rustix`/`proc-macro2` using
-  compiler-internal attributes this nightly no longer accepts.
+(netscanner/ferium/topgrade/sniffnet/spotify-tui). Four crates entered the
+matrix and failed at every config — **bore, dog, sniffnet, spotify-tui**, the
+four in `build_failures.tsv` and the only four whose `build/` subdirectories
+contain no `probe.json`. All genuine environment/lockfile incompatibilities,
+none an LTO/opt/panic-flag issue:
+- **bore**: ancient pinned `rustix`/`proc-macro2` using
+  compiler-internal attributes this nightly no longer accepts. (`mprocs` hit
+  the same incompatibility but never entered the corpus at all — it is absent
+  from `corpus.tsv`, `build/`, and `build_failures.tsv`, so it is not one of
+  the four and is not part of the 43.)
 - **dog, spotify-tui**: ancient pinned `openssl-sys` (0.9.61, 0.9.58) whose
   own version-probe (`expando.c`) fails to parse OpenSSL 3.0's macro layout
   — confirmed by hand that `libssl-dev`/`cc` work fine independently, so
