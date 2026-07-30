@@ -31,7 +31,7 @@ THE GATE — a binary must pass all of:
                        /rustc/, not library/.
   3. HAS_CERTAIN     — >=1 certain function, else the binary contributes no rows.
 
-Emits TSV on stdout (machine-readable, feeds precision_ci.py) and a readable verdict
+Emits TSV on stdout (machine-readable, feeds collect_rows.py) and a readable verdict
 per binary on stderr.
 
 Usage: check_provenance.py DIR [DIR ...]

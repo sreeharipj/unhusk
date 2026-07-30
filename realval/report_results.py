@@ -34,17 +34,13 @@ Usage: report_results.py rows.json [rows2.json ...] --out RESULTS_BODY.md
 import argparse
 import collections
 import json
-import math
-import random
+import os
 import re
 import sys
 
-STD_CRATES = {
-    "std", "alloc", "core", "compiler_builtins", "rustc_std_workspace_alloc",
-    "rustc_std_workspace_std", "rustc_std_workspace_core", "proc_macro", "unwind",
-    "panic_unwind", "panic_abort", "gimli", "object", "addr2line", "miniz_oxide",
-    "hashbrown", "rustc_demangle",
-}
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "scripts"))
+from oracle import STD_CRATES, cluster_bootstrap, leading_crate, wilson  # noqa: E402
 
 DOMAIN_CATEGORY = {
     "miniserve": "async", "dufs": "async", "mprocs": "async", "dog": "async",
@@ -56,62 +52,6 @@ DOMAIN_CATEGORY = {
     "rage": "crypto", "ouch": "crypto",
 }
 DOMAIN_ASYNC = {"async", "parallel"}
-
-Z = 1.959963984540054
-
-
-def wilson(k, n, z=Z):
-    if n == 0:
-        return float("nan"), float("nan"), float("nan")
-    p = k / n
-    d = 1 + z * z / n
-    c = (p + z * z / (2 * n)) / d
-    h = (z / d) * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
-    return 100 * p, 100 * max(0.0, c - h), 100 * min(1.0, c + h)
-
-
-def cluster_bootstrap(clusters, iters=20000, seed=20260717):
-    tp = sum(a for a, _ in clusters)
-    fp = sum(b for _, b in clusters)
-    if tp + fp == 0:
-        return float("nan"), float("nan"), float("nan")
-    pt = 100 * tp / (tp + fp)
-    if len(clusters) < 2:
-        return pt, float("nan"), float("nan")
-    rng = random.Random(seed)
-    n = len(clusters)
-    s = []
-    for _ in range(iters):
-        a = b = 0
-        for _ in range(n):
-            x, y = clusters[rng.randrange(n)]
-            a += x
-            b += y
-        if a + b:
-            s.append(100 * a / (a + b))
-    s.sort()
-    return pt, s[int(0.025 * len(s))], s[min(len(s) - 1, int(0.975 * len(s)))]
-
-
-def leading_crate(sym, unwrap):
-    if not sym:
-        return None
-    s = sym
-    if unwrap:
-        m = re.search(r"__rust_begin_short_backtrace::<(.+)", s)
-        if m:
-            s = m.group(1)
-        if "LocalKey" in s:
-            m = re.search(r"::with::<(.+)", s)
-            if m:
-                s = m.group(1)
-    # Strip angle brackets and reference/pointer sigils: `<&&trippy_packet::ipv4::
-    # Ipv4Packet as core::fmt::Debug>::fmt` must read as trippy_packet, not fail the
-    # identifier match and get dropped to `unknown`.
-    s = re.sub(r"^[<&*\s]+", "", s)
-    s = re.sub(r"^(?:mut|dyn|impl)\s+", "", s)
-    m = re.match(r"([a-zA-Z_][a-zA-Z0-9_]*)(?:::|<| )", s)
-    return m.group(1) if m else None
 
 
 def classify(sym, rec, oracle, unwrap):
