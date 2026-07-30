@@ -198,16 +198,29 @@ xref-address coincidence classify.rs currently relies on entirely) — that's a
 research task, not a threshold tweak, and it hasn't been scoped, let alone
 attempted.
 
-**Plausible, not yet confirmed:** the existing 32-binary ELF corpus
-(`realval/`) already includes rayon/async-heavy binaries (`fclones`, `oha`,
-`dufs`, `xh`) that are exactly the shape this mechanism targets. It's likely
-this class already contributes to the measured ~6% STRONG-tier FP rate on
-ELF, silently, rather than sitting entirely outside the measured envelope —
-`classify.rs` has precedent for chasing down specific forwarding-wrapper FP
-classes once found (`docs/validation.md`'s `LocalKey::with` unwrap for
-`fclones`), but this newer class hasn't been triaged the same way yet. This
-needs an explicit cross-reference against the existing FP list to confirm,
-not asserted here as fact.
+**Confirmed, not just plausible — `bench/origin/INLINE_LEAK_INCIDENCE.md`
+did the cross-reference this paragraph used to call for.** Mining the
+already-built 43-crate × 8-config corpus (no adversarial construction, no
+rebuild) found 3605 real instances of a non-AUTHOR-declared function
+absorbing a user Location, and resolved every one's demangled symbol name:
+89.9% are genuine inline-absorption (futures/tokio/actix_web combinators,
+`core::slice::sort` internals, rayon, serde generics — not just the
+`sort_by`/rayon shape this section's construction used), only 10.1% are the
+already-handled forwarding-wrapper shape (`LocalKey::with`/
+`__rust_begin_short_backtrace`). Converted to a precision figure over the
+STRONG+SINGLE population directly (not the whole-FDE pooled rate): 86.3%
+combined pooled across all 8 configs, 86.17% specifically at
+`lto-fat,opt-3,panic-abort` — the profile real stripped release binaries
+actually ship at. `docs/validation.md:41` already had one real-corpus
+instance of this exact mechanism (`rage`, crypto category, "genuine (rayon,
+sevenz generics)") sitting unconnected to this section since before it was
+written up here — now cross-linked both directions. **These two
+measurements (`realval`'s 94.4%/87.3% and `bench/origin`'s 86.3%) are not
+comparable and must not be arithmetically combined** — different oracle
+implementation detail, different corpus, and materially different
+build-config breadth (`realval` builds one config per binary; this figure
+pools a systematic 8-config sweep). See `docs/validation.md`'s "Two
+measurements" section for the full accounting.
 
 ### Verdict: PE is not ready to connect to main
 
@@ -395,11 +408,10 @@ as documented.
 
 ## Where to go next
 
-- `README.md` — install, full CLI reference. **Currently stale**: it still
-  says "x86-64 ELF only. No PE... Windows PE Rust malware is not supported,"
-  which undersells what exists (a tested PE library) and doesn't mention why
-  that's currently the right call. Worth a follow-up pass; not touched here
-  since this rewrite was scoped to `architecture.md`.
+- `README.md` — install, full CLI reference. Updated to describe PE as
+  experimental/library-only (matching the verdict below) rather than
+  "not supported," and carries the same inline-absorption caveat as this
+  document, worded once and applying to both formats.
 - `docs/validation.md`, `realval/results_body.md` — the precision derivation.
 - `docs/dwarf-oracle-audit.md` — this month's ground-truth bug audit.
 - `docs/PDB_ORACLE_hardcase.md` — the session-4 finding this document leans on.
