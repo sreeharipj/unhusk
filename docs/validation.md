@@ -6,9 +6,9 @@ This page is the measurement behind the precision numbers quoted in the README: 
 
 Every prediction is scored against two independent ground truths: DWARF `decl_file` and `nm -C` symbol leading-crate. They disagree by about 30 points, because DWARF attributes user `FnOnce`/`FnMut` closure-dispatch shims to `core/src/ops/function.rs`. That is a measurement artifact of how DWARF homes closures, not a real classification error — symbol GT correctly attributes those shims to the user crate. Scoring only against DWARF would have understated precision and hidden the actual failure mode (async closures), so symbol is the ruler used for the headline numbers.
 
-## Precision by tier (34-binary corpus)
+## Precision by tier (32-binary corpus)
 
-Symbol-ground-truth precision on a 34-binary corpus (13 source-built, 8 `cargo install`, 13 chosen to be adversarial):
+Symbol-ground-truth precision on a 32-binary corpus (13 source-built, 8 `cargo install`, 11 chosen to be adversarial):
 
 | Tier | Rule | CLI/systems | async/web | pooled |
 |---|---|---:|---:|---:|
@@ -29,7 +29,9 @@ Threshold ladder, pooled vs async-only:
 
 The corpus above was built specifically to attack the multiplicity claim (H1: STRONG yields ~97% symbol precision, stable across optimization levels and categories), with hypotheses and pass/fail criteria written down before any data was collected: async binaries were predicted to fall below 95% (P1), parallel/data binaries similarly (P2), framework/glue apps' effect on precision was left an open null (P3), and macro/derive-heavy code was predicted to be unaffected (P4, a null prediction included to check nothing unexpected happens).
 
-Corpus: async/network/web (miniserve, dufs, mprocs, dog, rustscan, trippy), parallel/data (fclones), macro/serde/config (starship, typos, taplo, dprint), crypto/compress (rage), pooled with the existing 21 source-built + `cargo install` binaries. 34 binaries total (13 source-built, 8 `cargo install`, 13 stress; the intended framework category stayed empty because `gitui` failed to build).
+Corpus, as designed: async/network/web (miniserve, dufs, mprocs, dog, rustscan, trippy), parallel/data (fclones), macro/serde/config (starship, typos, taplo, dprint), crypto/compress (rage), pooled with the existing 21 source-built + `cargo install` binaries — 34 intended (13 source-built, 8 `cargo install`, 13 stress; the intended framework category stayed empty because `gitui` failed to build).
+
+**Two of the stress binaries were never scored, so the measured corpus is 32, not 34.** `mprocs` failed to build (`realval/corpus_src/mprocs.FAILED`) and `dog` has no build artifact in `realval/corpus_src/` at all. Both are named in the design list above; neither appears in `realval/results_body.md`'s per-binary table, which has 32 rows, and `realval/corpus_src/` holds exactly 32 stripped binaries. Every precision figure on this page is over those 32. This also means the async category is **8 binaries** (`bandwhich`, `dufs`, `gping`, `miniserve`, `oha`, `rustscan`, `trippy`, `xh` — by the `domain` column of `results_body.md`), not the 6 named in the design list.
 
 **Raw result, before controls:** pooled STRONG 90.3%, with parallel at 51% and macro at 82.7% — both under the pre-registered 85% "refine the method" line. Two controls showed the drop was mostly measurement error, not the tool:
 
