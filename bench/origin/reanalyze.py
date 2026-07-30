@@ -43,15 +43,26 @@ What changed and why:
    — it's the direct, quantitative answer to the question that motivated this
    whole branch (does `#[track_caller]`/inlining propagation put a user
    Location inside a DEP function), not a diagnostic aside.
+7. **Confidence intervals**, added once `scripts/oracle.py` centralized them
+   out of `realval`'s own scripts: Wilson 95% over pooled FDEs, plus a
+   cluster bootstrap resampling CRATES (not functions) for the four headline
+   metrics (AUTHOR precision, AUTHOR recall unconditional and conditional,
+   DEP precision). Same justification `realval/report_results.py` already
+   established: functions cluster by crate (one large crate can dominate the
+   pooled count), so function-level Wilson alone reports an interval that is
+   too narrow, and the bootstrap is the honest one where they disagree.
 """
 import json
 import os
 import sys
 from collections import defaultdict
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "scripts"))
+from oracle import cluster_bootstrap, wilson  # noqa: E402
+
 from rules import GT_ACTUAL_CLASSES, all_rules, iterate_builds, load_build, total
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 BUILD_ROOT = os.path.join(HERE, "build")
 
 HEADLINE_RULES = [
@@ -155,6 +166,36 @@ def crate_average(per_crate_metrics, key):
     return sum(vals) / len(vals) if vals else None
 
 
+def confidence_intervals(pooled, per_crate):
+    """Wilson (over pooled FDEs) + cluster bootstrap (resampling crates) for
+    the four headline metrics, matching realval/report_results.py's own
+    justification: functions cluster by crate, so function-level Wilson alone
+    is too narrow, and the bootstrap is the honest interval where they
+    disagree. Returns {metric: {"wilson": (lo, hi), "bootstrap": (lo, hi)}}."""
+    specs = {
+        "precision_author": ("tp_author", "predicted_author"),
+        "recall_author": ("tp_author", "actual_author"),
+        "recall_author_conditional": ("tp_author", "actual_author_with_location"),
+        "precision_dep": ("tp_dep", "predicted_dep"),
+    }
+    out = {}
+    for metric, (num_key, denom_key) in specs.items():
+        num, denom = pooled[num_key], pooled[denom_key]
+        _pt, w_lo, w_hi = wilson(num, denom)
+        clusters = [
+            (m[num_key], m[denom_key] - m[num_key])
+            for m in per_crate.values()
+            if m[denom_key]
+        ]
+        _pt, b_lo, b_hi = cluster_bootstrap(clusters)
+        out[metric] = {
+            "wilson": (round(w_lo, 1), round(w_hi, 1)),
+            "bootstrap": (round(b_lo, 1) if b_lo == b_lo else None,
+                          round(b_hi, 1) if b_hi == b_hi else None),
+        }
+    return out
+
+
 def main():
     all_rows_by_crate = defaultdict(list)
     for crate, config_id, dest in iterate_builds(BUILD_ROOT):
@@ -206,6 +247,7 @@ def main():
 
             variant["rules"][rule_name] = {
                 "pooled": pooled,
+                "ci": confidence_intervals(pooled, per_crate),
                 "crate_averaged": crate_avg,
                 "per_crate": per_crate,
             }
@@ -253,10 +295,21 @@ def print_report(result):
         for rule_name, d in v["rules"].items():
             p = d["pooled"]
             c = d["crate_averaged"]
+            ci = d["ci"]
             print(f"{rule_name:8}{'pool':6}{pct(p['coverage']):>10}{pct(p['precision_author']):>9}"
                   f"{pct(p['recall_author']):>8}{pct(p['recall_author_conditional']):>11}{pct(p['precision_dep']):>8}")
             print(f"{'':8}{'cavg':6}{pct(c['coverage']):>10}{pct(c['precision_author']):>9}"
                   f"{pct(c['recall_author']):>8}{pct(c['recall_author_conditional']):>11}{pct(c['precision_dep']):>8}")
+
+            def ci_str(m):
+                w = ci[m]["wilson"]
+                b = ci[m]["bootstrap"]
+                b_str = f"[{b[0]}, {b[1]}]" if b[0] is not None else "n too small"
+                return f"Wilson95=[{w[0]}, {w[1]}]  clusterBoot95={b_str}"
+
+            print(f"{'':8}{'  CI':6}precA: {ci_str('precision_author')}")
+            print(f"{'':8}{'  CI':6}recA:  {ci_str('recall_author')}")
+            print(f"{'':8}{'  CI':6}precD: {ci_str('precision_dep')}")
 
     il = result["inverse_leak"]
     print(f"\n=== inverse leak (DEP FDEs referencing >=1 user Location) ===")
