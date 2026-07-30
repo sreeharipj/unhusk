@@ -408,10 +408,11 @@ as documented.
 
 ## Where to go next
 
-- `README.md` — install, full CLI reference. Updated to describe PE as
-  experimental/library-only (matching the verdict below) rather than
-  "not supported," and carries the same inline-absorption caveat as this
-  document, worded once and applying to both formats.
+- `README.md` — install, full CLI reference. States ELF as the only supported
+  input format and the PE/PDB code as a tested in-tree library that is not
+  wired to the CLI and cannot be reached from it (matching the verdict above),
+  and carries the same inline-absorption caveat as this document, worded once
+  and applying to both formats.
 - `docs/validation.md`, `realval/results_body.md` — the precision derivation.
 - `docs/dwarf-oracle-audit.md` — this month's ground-truth bug audit.
 - `docs/PDB_ORACLE_hardcase.md` — the session-4 finding this document leans on.
