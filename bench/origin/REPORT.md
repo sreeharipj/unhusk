@@ -259,6 +259,31 @@ specifically fix the shipped tool's own documented weak spot. This is the
 strongest evidence in this branch that RULE_A has genuine standalone value,
 not just "same ballpark as the multiplicity approach."
 
+**FOLLOWED UP, AND PARTLY CORRECTED — see `docs/origin-veto-headtohead.md`.**
+The controlled head-to-head this section asks for has since been run: same 32
+binaries, same symbol ground truth, same strata, with the veto as the only
+variable. Three things came back. (1) The *direction* replicates — on the
+8-binary async domain the veto beats the shipped default, independently, on a
+different oracle and corpus. (2) The mechanism story is confirmed directly:
+the veto catches 5/5 rayon bridges, 12/15 futures combinators and 6/8
+handler-adapters, and misses `core` iter/sort shims, exactly as the inlining
+argument predicts. (3) **The comparison made in this section is the wrong
+one.** It sets RULE_A@2 against the shipped tool's *default*, not against the
+shipped tool's *dial at matched recall* — and since the veto buys precision by
+discarding functions, which `--min-anchors` already does, most of the apparent
+gap closure is recall being spent rather than a better decision rule. Corrected
+for that, the async advantage is +4.2pp with a paired bootstrap of
+[-8.7, +21.2] (P(advantage > 0) = 74%): directionally real, magnitude not
+established. Pooled across all 32 binaries the veto is a *net negative*
+(-1.5pp at iso-retention) and clearly harmful on CLI and macro-heavy code.
+
+**Sharpest form of the correction, needing no interpolation**: on that corpus
+`--min-anchors 4` alone reaches 94.0% async precision at 23.5% retention, while
+RULE_A@2 reaches the same 94.0% at 14.0% — equal precision, ~40% fewer
+functions kept. Note this measures the ELF/symbol-GT corpus, not this one, and
+the async n there is 8 binaries; but on the axis RULE_A was proposed to
+improve, the dial it would replace dominates it.
+
 ## Why strict and merged scoring diverge: a real, crate-structure-dependent effect
 
 RULE_C@0.10 precision by crate (strict ground truth), ordered by AUTHOR
@@ -378,8 +403,16 @@ corpus expansions — a corpus-size-robust calibration, not a first pass.
 
 This does not mean origin-composition scoring is a drop-in replacement for
 `--min-anchors` — a controlled head-to-head on the same corpus with the
-same oracle as `docs/validation.md`'s 34-binary stress test is the natural
-next step, not done here. See `RULE_D_EXPLORATION.md` for why a
+same oracle as `docs/validation.md`'s 32-binary stress test was the natural
+next step. **That head-to-head has since been run: `docs/origin-veto-headtohead.md`.**
+Its answer is that origin-composition scoring is emphatically *not* a
+drop-in replacement — pooled, the veto loses to the `--min-anchors` dial at
+matched recall (-1.5pp) and destroys 13 genuine author functions for every
+false one it removes — while the async-specific advantage this report
+identified does replicate in direction (+4.2pp on the async domain, paired
+bootstrap [-8.7, +21.2]) without reaching significance. The mechanism
+argument above is confirmed; the recommendation that follows from it is
+narrower than this report implied. See `RULE_D_EXPLORATION.md` for why a
 compiler-internals-grounded RULE_D was attempted and not found; that
 conclusion is unaffected by any corpus expansion.
 <!-- VERDICT:END -->

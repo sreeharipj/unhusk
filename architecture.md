@@ -820,9 +820,32 @@ On the separate question of attribution precision rather than leak coverage,
 code, against the shipped tool's 87.3% async stratum — a matched-stratum
 comparison, not a controlled experiment.
 
+**The controlled experiment has since been run** (`docs/origin-veto-headtohead.md`):
+same 32 binaries as `docs/validation.md`, same symbol ground truth, same
+strata, `RuleA`'s veto condition as the only variable, joined to the shipped
+tool's own per-function verdicts at 2225/2225 with zero anchor-count
+disagreements. It changes the reading above in one specific way. The right
+baseline is not the shipped tool's *default* but the shipped tool's *dial at
+matched recall* — a veto raises precision by discarding functions, which
+`--min-anchors` already does, so the comparison must hold retention fixed.
+Under that correction: pooled the veto is a **net negative** (-1.5pp,
+destroying 13 genuine author functions per false one removed); on CLI and
+macro-heavy code it is clearly harmful; on the async domain it retains a
++4.2pp advantage whose paired cluster bootstrap is [-8.7, +21.2] — and even
+that is the veto's best-case framing, since comparing against the dial's
+actual settings rather than an interpolated point shows `--min-anchors 4`
+matching RULE_A@2's async precision (94.0%) at 23.5% retention against its
+14.0%. The
+mechanism account in this section survives intact — the veto catches 5/5
+rayon bridges, 12/15 futures combinators and 6/8 handler-adapters while
+missing `core` iter/sort shims, the same DEP-favouring pattern the 75.8% /
+36.3% split above predicts. What does not survive is the implication that
+`RuleA` is a better decision rule than the dial it would replace.
+
 Not wired to the CLI; driven by `bin/origin_probe.rs`. **Nothing above is in
 the shipped decision path**, which is why §9.2 records the gap as unmitigated.
-Full sweep and comparison: `bench/origin/REPORT.md`.
+Full sweep and comparison: `bench/origin/REPORT.md`; controlled head-to-head:
+`docs/origin-veto-headtohead.md`.
 
 ### 10.5 `--backtrace-depth` — shipped, unvalidated
 
@@ -878,7 +901,9 @@ promise attached — not dead code, and not validated either.
 | Document | Contents |
 |---|---|
 | `README.md` | Install, CLI reference, worked example |
+| `docs/corpora.md` | **Corpus registry — which corpus backs which number, and which figures are not comparable. Read before quoting anything from the tables below.** |
 | `docs/validation.md` | Precision derivation, pre-registered stress test, two-measurements accounting |
+| `docs/origin-veto-headtohead.md` | The controlled origin-veto vs `--min-anchors` comparison (§10.4's open question, closed) |
 | `realval/results_body.md` | Per-binary results, 67-row STRONG false-attribution table |
 | `docs/dwarf-oracle-audit.md` | The three DWARF oracle bugs and their property-test guards |
 | `bench/origin/REPORT.md` | Origin-classifier sweep (§10.4) |
