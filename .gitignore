@@ -7,6 +7,10 @@ claude_run.log
 __pycache__/
 *.pyc
 
+# secrets — never commit API keys
+.env
+*.env
+
 # local build clones, stale batch outputs, and reference PDFs (not project artifacts)
 realval/work/
 realval/out2/
