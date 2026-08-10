@@ -11,6 +11,13 @@ __pycache__/
 .env
 *.env
 
+# downloaded malware samples — never commit, quarantine only, local disk
+bench/malwarebazaar_survey/samples/
+# operational run artifacts, not reproducible deliverables (confirmed_manifest.json
+# and rejected_log.json are the committed record; these are just checkpoint/log noise)
+bench/malwarebazaar_survey/state.json
+bench/malwarebazaar_survey/run.log
+
 # local build clones, stale batch outputs, and reference PDFs (not project artifacts)
 realval/work/
 realval/out2/
