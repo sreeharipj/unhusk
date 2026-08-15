@@ -24,6 +24,10 @@ realval/out2/
 references/
 
 # internal experiment notes / working docs
+PLAN.md
+RESEARCH_BACKLOG.md
+codeblue-2026-supplementary.md
+codeblue-2026-supplementary.pdf
 context.md
 RESULTS.md
 HARNESS_VALIDATION_FINDINGS.md
