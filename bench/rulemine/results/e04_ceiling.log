@@ -1,0 +1,57 @@
+population: functions referencing NO author Location
+  rows                1,620,673  (98.8% of dev)
+  author among them   74,001  (base rate 4.566%)
+  = 81.9% of all author functions — the part the incumbent channel cannot reach
+
+── precision floor 90%: 40 qualifying rules (43s)
+      recall    prec    fires crates  +overall  rule
+       1.13%   91.5%      917     20     0.93%  X_callee_rel >= 3 AND X_caller_all_rel >= 1
+       1.01%   90.5%      823     14     0.82%  G_n_strdirect >= 1 AND X_caller_all_rel >= 1
+       0.83%   93.6%      656     19     0.68%  X_callee_rel >= 4 AND X_caller_all_rel >= 1
+       0.73%   90.6%      596     18     0.60%  N_dist_rel <= 3 AND X_callee_with_rel >= 2
+       0.73%   90.1%      597     18     0.60%  N_win_rel >= 2 AND X_callee_with_rel >= 2
+       0.66%   90.4%      541     12     0.54%  G_n_strdirect >= 1 AND N_dist_rel <= 2
+       0.65%   92.1%      521     18     0.53%  N_dist_rel <= 2 AND X_callee_with_rel >= 2
+       0.64%   91.9%      516     16     0.52%  X_callee_rel >= 2 AND X_caller_with_rel >= 2
+       0.63%   93.4%      501     18     0.52%  N_win_rel >= 3 AND X_callee_with_rel >= 2
+       0.60%   94.2%      469      8     0.49%  G_n_strdirect >= 1 AND X_callee_rel >= 1
+
+── precision floor 80%: 40 qualifying rules (47s)
+      recall    prec    fires crates  +overall  rule
+       3.41%   80.4%    3,139     27     2.79%  G_n_insn <= 3 AND N_dist_rel <= 2
+       2.28%   80.9%    2,085     25     1.87%  X_callee_rel >= 1 AND X_caller_all_rel >= 1
+       1.99%   82.8%    1,782     24     1.63%  G_n_insn <= 3 AND N_dist_rel <= 1
+       1.93%   81.3%    1,758     23     1.58%  N_win_rel >= 6 AND X_callee_rel >= 1
+       1.87%   80.2%    1,725     23     1.53%  X_callee_rel >= 2 AND X_caller_rel >= 1
+       1.47%   88.4%    1,229     23     1.20%  X_callee_rel >= 2 AND X_caller_all_rel >= 1
+       1.39%   83.5%    1,228     22     1.13%  N_win_rel >= 8 AND X_callee_rel >= 1
+       1.35%   87.2%    1,145     21     1.11%  X_callee_rel >= 3 AND X_caller_rel >= 1
+       1.29%   82.8%    1,155     23     1.06%  G_insn_per_byte <= 0.206 AND X_callee_rel >= 1
+       1.27%   82.4%    1,144     25     1.04%  N_prev_rel >= 1 AND N_next_rel >= 2
+
+── precision floor 70%: 40 qualifying rules (56s)
+      recall    prec    fires crates  +overall  rule
+       9.98%   70.7%   10,451     28     8.18%  G_insn_per_byte <= 0.24 AND N_dist_rel <= 2
+       7.94%   70.6%    8,318     28     6.50%  G_n_ref_rodata >= 1 AND N_dist_rel <= 1
+       6.34%   74.4%    6,304     28     5.19%  G_insn_per_byte <= 0.24 AND N_dist_rel <= 1
+       5.60%   71.6%    5,784     28     4.59%  N_next_rel >= 1 AND N_win_rel >= 5
+       5.50%   70.6%    5,763     28     4.50%  N_win_rel >= 8 AND N_dist_rel <= 1
+       5.22%   71.8%    5,386     28     4.28%  G_insn_per_byte <= 0.261 AND N_prev_rel >= 1
+       5.12%   71.3%    5,310     28     4.19%  G_insn_per_byte <= 0.24 AND N_win_rel >= 5
+       4.98%   73.4%    5,022     28     4.08%  N_next_rel >= 1 AND N_win_rel >= 6
+       4.87%   71.9%    5,018     28     3.99%  N_prev_rel >= 1 AND N_win_rel >= 6
+       4.61%   72.2%    4,725     28     3.78%  G_n_ref_rodata >= 1 AND N_prev_rel >= 1
+
+── precision floor 50%: 40 qualifying rules (59s)
+      recall    prec    fires crates  +overall  rule
+      33.50%   50.8%   48,765     28    27.44%  G_loc_per_kb <= 1.43 AND N_dist_rel <= 4
+      31.34%   50.4%   46,053     28    25.67%  G_loc_per_kb <= 10 AND N_dist_rel <= 3
+      31.23%   50.7%   45,612     28    25.58%  F_all_fo_mean <= 0 AND N_dist_rel <= 4
+      31.10%   50.2%   45,805     28    25.47%  C_registry <= 2 AND N_dist_rel <= 3
+      31.10%   50.2%   45,805     28    25.47%  P_REGISTRY <= 2 AND N_dist_rel <= 3
+      30.99%   50.2%   45,691     28    25.39%  G_br_dens <= 0.18 AND N_dist_rel <= 3
+      30.93%   50.1%   45,725     28    25.34%  P_total <= 3 AND N_dist_rel <= 3
+      30.90%   50.0%   45,708     28    25.31%  N_prev_reg <= 3 AND N_dist_rel <= 3
+      30.78%   50.8%   44,793     28    25.21%  C_registry <= 1 AND N_dist_rel <= 3
+      30.78%   50.8%   44,793     28    25.21%  P_REGISTRY <= 1 AND N_dist_rel <= 3
+

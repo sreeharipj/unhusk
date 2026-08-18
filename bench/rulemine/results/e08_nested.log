@@ -1,0 +1,22 @@
+e08_nested: dev 1,639,964 rows, 28 crates, families=['C', 'P', 'M', 'F', 'G', 'N', 'X', 'B'], target=ws (base 5.509%)
+
+    91 features -> 916 distinct atoms
+    pairs 0/916 kept=37
+    pairs 200/916 kept=6773
+    pairs 400/916 kept=8628
+    pairs 600/916 kept=9583
+    pairs 800/916 kept=10329
+  ── precision floor 95%: 60 qualifying rules (93s)
+      recall    prec    fires crates  rule
+       5.84%   95.1%    5,547     28  M_rel_line_span >= 2 AND N_win_rel >= 3
+       5.60%   95.0%    5,328     28  M_rel_line_span >= 3 AND N_win_rel >= 3
+       5.36%   95.0%    5,099     26  M_rel_line_span >= 2 AND N_win_rel >= 4
+       4.98%   95.1%    4,730     26  M_rel_line_span >= 2 AND N_win_rel >= 5
+       4.89%   95.1%    4,647     28  M_rel_line_span >= 6 AND N_win_rel >= 3
+       4.78%   95.0%    4,544     26  M_rel_line_span >= 3 AND N_win_rel >= 5
+       4.74%   95.7%    4,476     28  C_user >= 2 AND X_caller_rel >= 1
+       4.70%   95.2%    4,460     28  M_rel_line_span >= 8 AND N_win_rel >= 3
+
+  ── stage 2: nested leave-one-crate-out validation of the search itself
+     tau=95%  out-of-fold pooled precision 93.3%  recall 5.16%  (in-sample mean precision 95.2%)
+     search picked 7 distinct rules across 28 folds; most common: ('M_rel_line_span >= 2 AND N_win_rel >= 3', 19)

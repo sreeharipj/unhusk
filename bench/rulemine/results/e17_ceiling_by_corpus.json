@@ -1,0 +1,96 @@
+{
+ "main: development crates": {
+  "n_author": 90349,
+  "n_with_anchor": 16348,
+  "ceiling": 0.18094278852007217,
+  "precision_of_any": 0.8474418122440517
+ },
+ "main: held-out crates": {
+  "n_author": 26727,
+  "n_with_anchor": 6344,
+  "ceiling": 0.23736296628877165,
+  "precision_of_any": 0.9055095632315159
+ },
+ "main/lto-fat_opt-3_panic-abort": {
+  "n_author": 12301,
+  "n_with_anchor": 2860,
+  "ceiling": 0.23250142264856516,
+  "precision_of_any": 0.8617053329316059
+ },
+ "main/lto-fat_opt-3_panic-unwind": {
+  "n_author": 12728,
+  "n_with_anchor": 2938,
+  "ceiling": 0.2308296668761785,
+  "precision_of_any": 0.867690490253987
+ },
+ "main/lto-fat_opt-z_panic-abort": {
+  "n_author": 13366,
+  "n_with_anchor": 2361,
+  "ceiling": 0.17664222654496484,
+  "precision_of_any": 0.8498920086393088
+ },
+ "main/lto-fat_opt-z_panic-unwind": {
+  "n_author": 13427,
+  "n_with_anchor": 2391,
+  "ceiling": 0.17807402993967378,
+  "precision_of_any": 0.8524064171122995
+ },
+ "main/lto-thin_opt-3_panic-abort": {
+  "n_author": 13414,
+  "n_with_anchor": 3050,
+  "ceiling": 0.2273743849709259,
+  "precision_of_any": 0.8674630261660978
+ },
+ "main/lto-thin_opt-3_panic-unwind": {
+  "n_author": 13849,
+  "n_with_anchor": 3128,
+  "ceiling": 0.22586468337064047,
+  "precision_of_any": 0.8771733034212003
+ },
+ "main/lto-thin_opt-z_panic-abort": {
+  "n_author": 18971,
+  "n_with_anchor": 2970,
+  "ceiling": 0.15655474144747245,
+  "precision_of_any": 0.8601216333622936
+ },
+ "main/lto-thin_opt-z_panic-unwind": {
+  "n_author": 19020,
+  "n_with_anchor": 2994,
+  "ceiling": 0.15741324921135647,
+  "precision_of_any": 0.8618307426597582
+ },
+ "V2 (realval build script)": {
+  "n_author": 10679,
+  "n_with_anchor": 1916,
+  "ceiling": 0.1794175484595936,
+  "precision_of_any": 0.8646209386281588
+ },
+ "V3 (codegen-units axis)": {
+  "n_author": 14189,
+  "n_with_anchor": 4281,
+  "ceiling": 0.3017125942631616,
+  "precision_of_any": 0.8915035401915868
+ },
+ "V3 (codegen-units axis)/cgu-16_lto-false_opt-3_panic-unwind": {
+  "n_author": 4901,
+  "n_with_anchor": 1475,
+  "ceiling": 0.3009589879616405,
+  "precision_of_any": 0.8939393939393939
+ },
+ "V3 (codegen-units axis)/cgu-16_lto-thin_opt-3_panic-unwind": {
+  "n_author": 4679,
+  "n_with_anchor": 1430,
+  "ceiling": 0.30562085915793974,
+  "precision_of_any": 0.885997521685254
+ },
+ "V3 (codegen-units axis)/cgu-4_lto-false_opt-3_panic-unwind": {
+  "n_author": 4609,
+  "n_with_anchor": 1376,
+  "ceiling": 0.2985463224126709,
+  "precision_of_any": 0.8946684005201561
+ },
+ "_range": {
+  "min": 0.15655474144747245,
+  "max": 0.30562085915793974
+ }
+}

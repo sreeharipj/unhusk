@@ -1,0 +1,62 @@
+
+=== V2: 184,986 labelled functions, 32 crates, 1 configs, base rate 5.773%
+    configs: v2-release
+
+    -- lockbox crates: 69,242 functions, 12 crates, base rate 3.037%
+       rule          fires    prec       prec 95% CI   recall   crates
+       R1              260   93.5%   [85.4%,100.0%]   11.55%   12/12  
+       R2              206   95.1%   [92.1%, 98.9%]    9.32%   12/12  
+       R3              500   91.4%   [81.2%,100.0%]   21.73%   12/12  
+       A@2             104   94.2%   [85.0%, 98.0%]    4.66%   11/12  
+       bare>=2         337   91.7%   [83.8%, 97.3%]   14.69%   12/12  
+       any             733   88.1%   [78.0%, 97.2%]   30.72%   12/12  
+
+    -- dev crates (seen): 115,744 functions, 20 crates, base rate 7.409%
+       rule          fires    prec       prec 95% CI   recall   crates
+       R1              511   97.5%   [92.1%, 99.1%]    5.81%   18/20  
+       R2              442   98.0%   [95.3%, 99.4%]    5.05%   20/20  
+       R3              705   96.6%   [89.2%, 98.8%]    7.94%   19/20  
+       A@2             346   96.0%   [90.4%, 98.9%]    3.87%   20/20  
+       bare>=2         690   94.3%   [89.3%, 96.7%]    7.59%   20/20  
+       any           1,483   85.6%   [74.2%, 92.7%]   14.81%   20/20  
+
+=== V3: 421,663 labelled functions, 20 crates, 3 configs, base rate 3.365%
+    configs: cgu-16_lto-false_opt-3_panic-unwind, cgu-16_lto-thin_opt-3_panic-unwind, cgu-4_lto-false_opt-3_panic-unwind
+
+    -- lockbox crates: 389,385 functions, 15 crates, base rate 3.291%
+       rule          fires    prec       prec 95% CI   recall   crates
+       R1            1,498   91.0%   [82.4%, 98.7%]   10.64%   15/15  
+       R2            1,042   90.3%   [77.2%, 98.3%]    7.34%   15/15  
+       R3            3,332   93.2%   [84.2%, 99.1%]   24.23%   15/15  
+       A@2             938   90.9%   [80.3%, 97.0%]    6.66%   15/15  
+       bare>=2       1,824   89.6%   [82.3%, 96.0%]   12.76%   15/15  
+       any           4,404   89.5%   [81.2%, 95.9%]   30.76%   15/15  
+
+    -- dev crates (seen): 32,278 functions, 5 crates, base rate 4.254%
+       rule          fires    prec       prec 95% CI   recall   crates
+       R1               88  100.0%   [100.0%,100.0%]    6.41%    4/5   
+       R2               76  100.0%   [100.0%,100.0%]    5.54%    5/5   
+       R3              203   91.1%   [62.1%,100.0%]   13.47%    5/5   
+       A@2              62  100.0%   [100.0%,100.0%]    4.52%    5/5   
+       bare>=2         130  100.0%   [100.0%,100.0%]    9.47%    5/5   
+       any             398   85.2%   [64.1%, 98.0%]   24.69%    5/5   
+
+    -- per codegen-units configuration
+       config                                               R1               R2               R3              A@2
+       cgu-16_lto-false_opt-3_panic-unwind       91.8%/ 10.30%    91.2%/  6.98%    93.2%/ 23.10%    91.7%/  6.96%
+       cgu-16_lto-thin_opt-3_panic-unwind        90.3%/ 10.19%    90.1%/  7.57%    92.9%/ 23.42%    89.6%/  5.15%
+       cgu-4_lto-false_opt-3_panic-unwind        92.3%/ 10.18%    91.7%/  6.96%    93.1%/ 23.04%    92.8%/  7.22%
+
+=== V4: 152,724 labelled functions, 19 crates, 2 configs, base rate 2.633%
+    configs: cgu-16_lto-false_opt-3_panic-unwind, lto-thin_opt-3_panic-unwind
+
+    -- all: 152,724 functions, 19 crates, base rate 2.633%
+       rule          fires    prec       prec 95% CI   recall   crates
+       R1              166   95.2%   [89.4%, 99.0%]    3.93%   15/19  
+       R2              170   94.1%   [88.3%, 98.1%]    3.98%   17/19  
+       R3              279   90.7%   [74.9%, 97.9%]    6.29%   13/19  
+       A@2             159   96.2%   [92.3%,100.0%]    3.81%   17/19  
+       bare>=2         302   93.4%   [87.1%, 97.2%]    7.01%   19/19  
+       any             765   84.6%   [76.2%, 91.0%]   16.09%   19/19  
+
+wrote results/e16_aux_corpora.json

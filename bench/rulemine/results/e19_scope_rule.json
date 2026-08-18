@@ -1,0 +1,839 @@
+{
+ "WARNING": "post-hoc; threshold chosen after seeing the V4 result; no held-out validation; not a pre-registered proposal",
+ "main: held-out crates": {
+  "always A@2 (incumbent)": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 1580,
+   "fp": 79,
+   "fn": 25147,
+   "predicted": 1659,
+   "precision": 0.9523809523809523,
+   "recall": 0.059116249485538966,
+   "coverage": 0.002043254427667069,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9410469389989673,
+    0.9616248052240361
+   ],
+   "precision_crate_avg": 0.9418860662360361,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.05613103024288497,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R1": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 2752,
+   "fp": 100,
+   "fn": 23975,
+   "predicted": 2852,
+   "precision": 0.9649368863955119,
+   "recall": 0.10296703707860964,
+   "coverage": 0.0035125748207995664,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9575364164112338,
+    0.9710865615236586
+   ],
+   "precision_crate_avg": 0.9566686404346456,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.08273450844664615,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R3": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4260,
+   "fp": 221,
+   "fn": 22467,
+   "predicted": 4481,
+   "precision": 0.9506806516402588,
+   "recall": 0.15938938152430127,
+   "coverage": 0.005518880705470848,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9439456324388452,
+    0.9566436162749922
+   ],
+   "precision_crate_avg": 0.937323674902413,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.12885890236938063,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 10, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4285,
+   "fp": 223,
+   "fn": 22442,
+   "predicted": 4508,
+   "precision": 0.9505323868677906,
+   "recall": 0.1603247652186927,
+   "coverage": 0.005552134394167057,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9438099272010799,
+    0.956487664607859
+   ],
+   "precision_crate_avg": 0.9206570082357464,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.1388399223513259,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 20, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4245,
+   "fp": 230,
+   "fn": 22482,
+   "predicted": 4475,
+   "precision": 0.9486033519553073,
+   "recall": 0.1588281513076664,
+   "coverage": 0.00551149099687169,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.941740567888952,
+    0.9546966105453957
+   ],
+   "precision_crate_avg": 0.9003671531632825,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.1320232639225271,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 30, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4202,
+   "fp": 161,
+   "fn": 22525,
+   "predicted": 4363,
+   "precision": 0.9630987852395141,
+   "recall": 0.15721929135331314,
+   "coverage": 0.005373549769687415,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9570851872380622,
+    0.9682976181847179
+   ],
+   "precision_crate_avg": 0.9463671531632826,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.1288417341610862,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 40, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4006,
+   "fp": 165,
+   "fn": 22721,
+   "predicted": 4171,
+   "precision": 0.9604411412131383,
+   "recall": 0.14988588318928425,
+   "coverage": 0.005137079094514373,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9540896157354297,
+    0.9659453216116289
+   ],
+   "precision_crate_avg": 0.9458649560509158,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.11100350886577943,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 60, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 4010,
+   "fp": 159,
+   "fn": 22717,
+   "predicted": 4169,
+   "precision": 0.9618613576397218,
+   "recall": 0.15003554458038687,
+   "coverage": 0.005134615858314654,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9556093717472213,
+    0.9672629774669158
+   ],
+   "precision_crate_avg": 0.9473877589477645,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.11107599233048905,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 80, else A@2": {
+   "n": 811940,
+   "n_pos": 26727,
+   "tp": 3824,
+   "fp": 160,
+   "fn": 22903,
+   "predicted": 3984,
+   "precision": 0.9598393574297188,
+   "recall": 0.14307628989411456,
+   "coverage": 0.004906766509840629,
+   "base_rate": 0.03291745695494741,
+   "precision_wilson": [
+    0.9532866514432853,
+    0.9655061435650542
+   ],
+   "precision_crate_avg": 0.9457544613916354,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.10552277822734633,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  }
+ },
+ "main: development crates": {
+  "always A@2 (incumbent)": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 4613,
+   "fp": 386,
+   "fn": 85736,
+   "predicted": 4999,
+   "precision": 0.9227845569113823,
+   "recall": 0.05105756566204385,
+   "coverage": 0.003048237644240971,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.9150560314836489,
+    0.9298638075304821
+   ],
+   "precision_crate_avg": 0.9191920049646816,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.046422043666987226,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R1": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 5631,
+   "fp": 341,
+   "fn": 84718,
+   "predicted": 5972,
+   "precision": 0.9429002009377093,
+   "recall": 0.062324984227827646,
+   "coverage": 0.0036415433509516064,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.936725607306925,
+    0.9485053742131168
+   ],
+   "precision_crate_avg": 0.9333113607789478,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.06903918198039961,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R3": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 9051,
+   "fp": 931,
+   "fn": 81298,
+   "predicted": 9982,
+   "precision": 0.9067321178120618,
+   "recall": 0.10017819787712094,
+   "coverage": 0.0060867189767580265,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.9008697451765703,
+    0.9122815584451632
+   ],
+   "precision_crate_avg": 0.9078527761764433,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.10207080133793596,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 10, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 9045,
+   "fp": 931,
+   "fn": 81304,
+   "predicted": 9976,
+   "precision": 0.9066760224538893,
+   "recall": 0.1001117887303678,
+   "coverage": 0.006083060359861558,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.9008103232895007,
+    0.9122286446620825
+   ],
+   "precision_crate_avg": 0.9078527761764433,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.10143469335143426,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 20, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 8982,
+   "fp": 910,
+   "fn": 81367,
+   "predicted": 9892,
+   "precision": 0.9080064698746462,
+   "recall": 0.09941449268945976,
+   "coverage": 0.006031839723310999,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.9021515249831357,
+    0.9135446473524663
+   ],
+   "precision_crate_avg": 0.918442831660865,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.09695475635316529,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 30, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 8560,
+   "fp": 893,
+   "fn": 81789,
+   "predicted": 9453,
+   "precision": 0.9055326351422829,
+   "recall": 0.09474371603448849,
+   "coverage": 0.005764150920386057,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.8994708173710089,
+    0.9112649904973515
+   ],
+   "precision_crate_avg": 0.9077799894860096,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.08258487239533875,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 40, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 8346,
+   "fp": 895,
+   "fn": 82003,
+   "predicted": 9241,
+   "precision": 0.9031490098474191,
+   "recall": 0.09237512313362627,
+   "coverage": 0.005634879790044171,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.8969503754663875,
+    0.909012607586269
+   ],
+   "precision_crate_avg": 0.9031907636509542,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.0754172337861536,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 60, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 8085,
+   "fp": 886,
+   "fn": 82264,
+   "predicted": 8971,
+   "precision": 0.9012373202541523,
+   "recall": 0.08948632524986441,
+   "coverage": 0.005470242029703091,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.8948908393461477,
+    0.9072403217480292
+   ],
+   "precision_crate_avg": 0.9022252958485655,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.06832708094141027,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 80, else A@2": {
+   "n": 1639964,
+   "n_pos": 90349,
+   "tp": 7987,
+   "fp": 842,
+   "fn": 82362,
+   "predicted": 8829,
+   "precision": 0.9046324612073847,
+   "recall": 0.08840164251956303,
+   "coverage": 0.005383654763153337,
+   "base_rate": 0.0550920629965048,
+   "precision_wilson": [
+    0.8983285596255945,
+    0.9105844083372603
+   ],
+   "precision_crate_avg": 0.903064963943418,
+   "n_crates_firing": 28,
+   "recall_crate_avg": 0.06485024415793308,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  }
+ },
+ "V3 (codegen-units)": {
+  "always A@2 (incumbent)": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 915,
+   "fp": 85,
+   "fn": 13274,
+   "predicted": 1000,
+   "precision": 0.915,
+   "recall": 0.06448657410670237,
+   "coverage": 0.002371562124255626,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.8960871089966438,
+    0.9307366814603455
+   ],
+   "precision_crate_avg": 0.937835858316441,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.05402898097194923,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R1": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 1451,
+   "fp": 135,
+   "fn": 12738,
+   "predicted": 1586,
+   "precision": 0.9148802017654477,
+   "recall": 0.10226231587849743,
+   "coverage": 0.0037612975290694226,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9001238670543514,
+    0.9276316256072734
+   ],
+   "precision_crate_avg": 0.9425253170133783,
+   "n_crates_firing": 19,
+   "recall_crate_avg": 0.0859327865575645,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R3": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3290,
+   "fp": 245,
+   "fn": 10899,
+   "predicted": 3535,
+   "precision": 0.9306930693069307,
+   "recall": 0.23186975826344353,
+   "coverage": 0.008383472109243638,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9218447378147164,
+    0.9386063548473254
+   ],
+   "precision_crate_avg": 0.9025137294957946,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.1680718520313742,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 10, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3292,
+   "fp": 245,
+   "fn": 10897,
+   "predicted": 3537,
+   "precision": 0.9307322589765338,
+   "recall": 0.23201071252378602,
+   "coverage": 0.008388215233492148,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9218887072281796,
+    0.9386412078883327
+   ],
+   "precision_crate_avg": 0.9025137294957946,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.16844779188099826,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 20, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3268,
+   "fp": 230,
+   "fn": 10921,
+   "predicted": 3498,
+   "precision": 0.9342481417953116,
+   "recall": 0.23031926139967582,
+   "coverage": 0.00829572431064618,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9255490687046953,
+    0.9419944896559103
+   ],
+   "precision_crate_avg": 0.9196565866386516,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.16087393278075776,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 30, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3226,
+   "fp": 206,
+   "fn": 10963,
+   "predicted": 3432,
+   "precision": 0.9399766899766899,
+   "recall": 0.2273592219324829,
+   "coverage": 0.008139201210445307,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9315271841040176,
+    0.9474423598040338
+   ],
+   "precision_crate_avg": 0.9426958023249261,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.1518504340659258,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 40, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3199,
+   "fp": 206,
+   "fn": 10990,
+   "predicted": 3405,
+   "precision": 0.9395007342143906,
+   "recall": 0.2254563394178589,
+   "coverage": 0.008075169033090406,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9309868605642648,
+    0.9470240519864886
+   ],
+   "precision_crate_avg": 0.9426958023249261,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.14885986585796632,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 60, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 3053,
+   "fp": 206,
+   "fn": 11136,
+   "predicted": 3259,
+   "precision": 0.9367904265111997,
+   "recall": 0.21516667841285503,
+   "coverage": 0.007728920962949085,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9279108123691266,
+    0.9446415429724062
+   ],
+   "precision_crate_avg": 0.9415648499439737,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.12808888803053686,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 80, else A@2": {
+   "n": 421663,
+   "n_pos": 14189,
+   "tp": 2969,
+   "fp": 198,
+   "fn": 11220,
+   "predicted": 3167,
+   "precision": 0.9374802652352384,
+   "recall": 0.20924659947846924,
+   "coverage": 0.007510737247517567,
+   "base_rate": 0.033650094981063076,
+   "precision_wilson": [
+    0.9285070459223573,
+    0.9453934741719512
+   ],
+   "precision_crate_avg": 0.9410291356582594,
+   "n_crates_firing": 20,
+   "recall_crate_avg": 0.11841146867569814,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  }
+ },
+ "V4 (fresh programs)": {
+  "always A@2 (incumbent)": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 153,
+   "fp": 6,
+   "fn": 3868,
+   "predicted": 159,
+   "precision": 0.9622641509433962,
+   "recall": 0.0380502362596369,
+   "coverage": 0.0010410937377229512,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9201259459710065,
+    0.982592569722609
+   ],
+   "precision_crate_avg": 0.9248868778280543,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.0708846197282156,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R1": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 158,
+   "fp": 8,
+   "fn": 3863,
+   "predicted": 166,
+   "precision": 0.9518072289156626,
+   "recall": 0.039293708032827654,
+   "coverage": 0.001086928053220188,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9077960561172188,
+    0.9753805312810251
+   ],
+   "precision_crate_avg": 0.955952380952381,
+   "n_crates_firing": 15,
+   "recall_crate_avg": 0.07079211895493798,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "always R3": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 253,
+   "fp": 26,
+   "fn": 3768,
+   "predicted": 279,
+   "precision": 0.9068100358422939,
+   "recall": 0.06291967172345188,
+   "coverage": 0.0018268248605327257,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.8669591676126978,
+    0.9356105862928126
+   ],
+   "precision_crate_avg": 0.8605006105006106,
+   "n_crates_firing": 13,
+   "recall_crate_avg": 0.09835507057378304,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 10, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 252,
+   "fp": 26,
+   "fn": 3769,
+   "predicted": 278,
+   "precision": 0.9064748201438849,
+   "recall": 0.06267097736881373,
+   "coverage": 0.0018202771011759777,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.8664932445877747,
+    0.9353760082384387
+   ],
+   "precision_crate_avg": 0.886656746031746,
+   "n_crates_firing": 16,
+   "recall_crate_avg": 0.11109806261716021,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 20, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 222,
+   "fp": 13,
+   "fn": 3799,
+   "predicted": 235,
+   "precision": 0.9446808510638298,
+   "recall": 0.055210146729669236,
+   "coverage": 0.0015387234488358085,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9076678696643663,
+    0.9673895890865576
+   ],
+   "precision_crate_avg": 0.8975256769374416,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.08058124597807108,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 30, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 231,
+   "fp": 7,
+   "fn": 3790,
+   "predicted": 238,
+   "precision": 0.9705882352941176,
+   "recall": 0.057448395921412584,
+   "coverage": 0.0015583667269060528,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9405452814317047,
+    0.9856813510584584
+   ],
+   "precision_crate_avg": 0.9285714285714285,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.08219442146703151,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 40, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 217,
+   "fp": 3,
+   "fn": 3804,
+   "predicted": 220,
+   "precision": 0.9863636363636363,
+   "recall": 0.053966674956478486,
+   "coverage": 0.0014405070584845865,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9606820349398268,
+    0.9953517629430867
+   ],
+   "precision_crate_avg": 0.9294117647058824,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.07639251512637674,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 60, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 192,
+   "fp": 3,
+   "fn": 3829,
+   "predicted": 195,
+   "precision": 0.9846153846153847,
+   "recall": 0.04774931609052475,
+   "coverage": 0.0012768130745658835,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9557517145264449,
+    0.9947542871944102
+   ],
+   "precision_crate_avg": 0.9294117647058824,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.07207524129373032,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  },
+  "R3 if anchors > 80, else A@2": {
+   "n": 152724,
+   "n_pos": 4021,
+   "tp": 192,
+   "fp": 3,
+   "fn": 3829,
+   "predicted": 195,
+   "precision": 0.9846153846153847,
+   "recall": 0.04774931609052475,
+   "coverage": 0.0012768130745658835,
+   "base_rate": 0.026328540373484192,
+   "precision_wilson": [
+    0.9557517145264449,
+    0.9947542871944102
+   ],
+   "precision_crate_avg": 0.9294117647058824,
+   "n_crates_firing": 17,
+   "recall_crate_avg": 0.07207524129373032,
+   "precision_cluster_boot": [
+    NaN,
+    NaN
+   ]
+  }
+ }
+}

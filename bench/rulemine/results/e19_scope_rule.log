@@ -1,0 +1,50 @@
+
+=== main corpus, held-out crates  (811,940 functions, 15 crates)  [lockbox already read once; this is a second, post-hoc use]
+    strategy                             fires    prec   recall
+    always A@2 (incumbent)               1,659   95.2%    5.91%
+    always R1                            2,852   96.5%   10.30%
+    always R3                            4,481   95.1%   15.94%
+    R3 if anchors > 10, else A@2         4,508   95.1%   16.03%
+    R3 if anchors > 20, else A@2         4,475   94.9%   15.88%
+    R3 if anchors > 30, else A@2         4,363   96.3%   15.72%
+    R3 if anchors > 40, else A@2         4,171   96.0%   14.99%
+    R3 if anchors > 60, else A@2         4,169   96.2%   15.00%
+    R3 if anchors > 80, else A@2         3,984   96.0%   14.31%
+
+=== main corpus, development crates  (1,639,964 functions, 28 crates)  [in-sample]
+    strategy                             fires    prec   recall
+    always A@2 (incumbent)               4,999   92.3%    5.11%
+    always R1                            5,972   94.3%    6.23%
+    always R3                            9,982   90.7%   10.02%
+    R3 if anchors > 10, else A@2         9,976   90.7%   10.01%
+    R3 if anchors > 20, else A@2         9,892   90.8%    9.94%
+    R3 if anchors > 30, else A@2         9,453   90.6%    9.47%
+    R3 if anchors > 40, else A@2         9,241   90.3%    9.24%
+    R3 if anchors > 60, else A@2         8,971   90.1%    8.95%
+    R3 if anchors > 80, else A@2         8,829   90.5%    8.84%
+
+=== V3 (codegen-units)  (421,663 functions, 20 crates)  [not used to choose the threshold]
+    strategy                             fires    prec   recall
+    always A@2 (incumbent)               1,000   91.5%    6.45%
+    always R1                            1,586   91.5%   10.23%
+    always R3                            3,535   93.1%   23.19%
+    R3 if anchors > 10, else A@2         3,537   93.1%   23.20%
+    R3 if anchors > 20, else A@2         3,498   93.4%   23.03%
+    R3 if anchors > 30, else A@2         3,432   94.0%   22.74%
+    R3 if anchors > 40, else A@2         3,405   94.0%   22.55%
+    R3 if anchors > 60, else A@2         3,259   93.7%   21.52%
+    R3 if anchors > 80, else A@2         3,167   93.7%   20.92%
+
+=== V4 (fresh programs)  (152,724 functions, 19 crates)  [MOTIVATED the threshold]
+    strategy                             fires    prec   recall
+    always A@2 (incumbent)                 159   96.2%    3.81%
+    always R1                              166   95.2%    3.93%
+    always R3                              279   90.7%    6.29%
+    R3 if anchors > 10, else A@2           278   90.6%    6.27%
+    R3 if anchors > 20, else A@2           235   94.5%    5.52%
+    R3 if anchors > 30, else A@2           238   97.1%    5.74%
+    R3 if anchors > 40, else A@2           220   98.6%    5.40%
+    R3 if anchors > 60, else A@2           195   98.5%    4.77%
+    R3 if anchors > 80, else A@2           195   98.5%    4.77%
+
+POST-HOC. No held-out validation. Recorded as a hypothesis, not a result.

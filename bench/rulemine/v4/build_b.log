@@ -1,0 +1,66 @@
+=== first V4 sweep done 2026-08-19T01:39:27+05:30; extending crate list
+extended
+clone broot
+clone csvlens
+clone delta
+clone fend
+clone git-cliff
+clone lsd
+clone mdbook
+clone navi
+clone presenterm
+clone rip
+clone viu
+clone watchexec
+clone xplr
+clone numbat
+clone stylua
+clone skim
+clone serie
+clone joshuto
+clone cotp
+clone oxipng
+=== clone phase done 2026-08-19T01:41:54+05:30
+>>> choose/lto-thin_opt-3_panic-unwind done
+>>> choose/cgu-16_lto-false_opt-3_panic-unwind done
+>>> diskus/lto-thin_opt-3_panic-unwind done
+>>> diskus/cgu-16_lto-false_opt-3_panic-unwind done
+>>> vivid/lto-thin_opt-3_panic-unwind done
+>>> vivid/cgu-16_lto-false_opt-3_panic-unwind done
+>>> htmlq/lto-thin_opt-3_panic-unwind done
+>>> htmlq/cgu-16_lto-false_opt-3_panic-unwind done
+>>> kibi/lto-thin_opt-3_panic-unwind done
+>>> kibi/cgu-16_lto-false_opt-3_panic-unwind done
+>>> diffr/lto-thin_opt-3_panic-unwind done
+>>> diffr/cgu-16_lto-false_opt-3_panic-unwind done
+>>> jaq/lto-thin_opt-3_panic-unwind done
+>>> jaq/cgu-16_lto-false_opt-3_panic-unwind done
+>>> kondo/lto-thin_opt-3_panic-unwind done
+>>> kondo/cgu-16_lto-false_opt-3_panic-unwind done
+>>> tre-command/lto-thin_opt-3_panic-unwind done
+>>> tre-command/cgu-16_lto-false_opt-3_panic-unwind done
+>>> sad/lto-thin_opt-3_panic-unwind done
+>>> sad/cgu-16_lto-false_opt-3_panic-unwind done
+>>> xcp/lto-thin_opt-3_panic-unwind done
+>>> xcp/cgu-16_lto-false_opt-3_panic-unwind done
+>>> dua-cli/lto-thin_opt-3_panic-unwind done
+>>> dua-cli/cgu-16_lto-false_opt-3_panic-unwind done
+>>> git-graph/lto-thin_opt-3_panic-unwind done
+>>> git-graph/cgu-16_lto-false_opt-3_panic-unwind done
+>>> rust-parallel/lto-thin_opt-3_panic-unwind done
+>>> rust-parallel/cgu-16_lto-false_opt-3_panic-unwind done
+>>> rustypaste/lto-thin_opt-3_panic-unwind done
+>>> rustypaste/cgu-16_lto-false_opt-3_panic-unwind done
+>>> diskonaut/lto-thin_opt-3_panic-unwind done
+>>> diskonaut/cgu-16_lto-false_opt-3_panic-unwind done
+>>> onefetch/lto-thin_opt-3_panic-unwind done
+>>> onefetch/cgu-16_lto-false_opt-3_panic-unwind done
+>>> hgrep/lto-thin_opt-3_panic-unwind done
+>>> hgrep/cgu-16_lto-false_opt-3_panic-unwind done
+>>> kalker/lto-thin_opt-3_panic-unwind done
+>>> kalker/cgu-16_lto-false_opt-3_panic-unwind done
+>>> so/lto-thin_opt-3_panic-unwind done
+>>> so/cgu-16_lto-false_opt-3_panic-unwind done
+>>> broot/lto-thin_opt-3_panic-unwind building 01:41:54
+    OK 13587680 bytes
+>>> broot/cgu-16_lto-false_opt-3_panic-unwind building 01:43:09

@@ -1,0 +1,190 @@
+{
+ "bins": [
+  {
+   "lo": 1,
+   "hi": 5,
+   "n_builds": 1,
+   "rules": {
+    "A@2": {
+     "fires": 1,
+     "tp": 1,
+     "precision": 1.0,
+     "n_pos": 38
+    },
+    "R1 neighbourhood": {
+     "fires": 2,
+     "tp": 2,
+     "precision": 1.0,
+     "n_pos": 38
+    },
+    "R2 caller": {
+     "fires": 2,
+     "tp": 2,
+     "precision": 1.0,
+     "n_pos": 38
+    },
+    "R3 high-recall": {
+     "fires": 2,
+     "tp": 2,
+     "precision": 1.0,
+     "n_pos": 38
+    },
+    "bare structs>=2": {
+     "fires": 3,
+     "tp": 3,
+     "precision": 1.0,
+     "n_pos": 38
+    }
+   }
+  },
+  {
+   "lo": 6,
+   "hi": 15,
+   "n_builds": 17,
+   "rules": {
+    "A@2": {
+     "fires": 40,
+     "tp": 40,
+     "precision": 1.0,
+     "n_pos": 821
+    },
+    "R1 neighbourhood": {
+     "fires": 34,
+     "tp": 34,
+     "precision": 1.0,
+     "n_pos": 821
+    },
+    "R2 caller": {
+     "fires": 36,
+     "tp": 36,
+     "precision": 1.0,
+     "n_pos": 821
+    },
+    "R3 high-recall": {
+     "fires": 53,
+     "tp": 53,
+     "precision": 1.0,
+     "n_pos": 821
+    },
+    "bare structs>=2": {
+     "fires": 81,
+     "tp": 81,
+     "precision": 1.0,
+     "n_pos": 821
+    }
+   }
+  },
+  {
+   "lo": 16,
+   "hi": 40,
+   "n_builds": 114,
+   "rules": {
+    "A@2": {
+     "fires": 562,
+     "tp": 520,
+     "precision": 0.9252669039145908,
+     "n_pos": 17056
+    },
+    "R1 neighbourhood": {
+     "fires": 959,
+     "tp": 919,
+     "precision": 0.9582898852971846,
+     "n_pos": 17056
+    },
+    "R2 caller": {
+     "fires": 807,
+     "tp": 797,
+     "precision": 0.9876084262701363,
+     "n_pos": 17056
+    },
+    "R3 high-recall": {
+     "fires": 1289,
+     "tp": 1211,
+     "precision": 0.939487975174554,
+     "n_pos": 17056
+    },
+    "bare structs>=2": {
+     "fires": 1393,
+     "tp": 1299,
+     "precision": 0.9325197415649676,
+     "n_pos": 17056
+    }
+   }
+  },
+  {
+   "lo": 41,
+   "hi": 120,
+   "n_builds": 54,
+   "rules": {
+    "A@2": {
+     "fires": 976,
+     "tp": 858,
+     "precision": 0.8790983606557377,
+     "n_pos": 21074
+    },
+    "R1 neighbourhood": {
+     "fires": 1207,
+     "tp": 1127,
+     "precision": 0.9337199668599834,
+     "n_pos": 21074
+    },
+    "R2 caller": {
+     "fires": 980,
+     "tp": 881,
+     "precision": 0.8989795918367347,
+     "n_pos": 21074
+    },
+    "R3 high-recall": {
+     "fires": 1969,
+     "tp": 1610,
+     "precision": 0.8176739461655663,
+     "n_pos": 21074
+    },
+    "bare structs>=2": {
+     "fires": 1824,
+     "tp": 1597,
+     "precision": 0.8755482456140351,
+     "n_pos": 21074
+    }
+   }
+  },
+  {
+   "lo": 121,
+   "hi": 1000000000,
+   "n_builds": 38,
+   "rules": {
+    "A@2": {
+     "fires": 3420,
+     "tp": 3194,
+     "precision": 0.9339181286549708,
+     "n_pos": 51360
+    },
+    "R1 neighbourhood": {
+     "fires": 3770,
+     "tp": 3549,
+     "precision": 0.9413793103448276,
+     "n_pos": 51360
+    },
+    "R2 caller": {
+     "fires": 2651,
+     "tp": 2566,
+     "precision": 0.9679366276876651,
+     "n_pos": 51360
+    },
+    "R3 high-recall": {
+     "fires": 6669,
+     "tp": 6175,
+     "precision": 0.9259259259259259,
+     "n_pos": 51360
+    },
+    "bare structs>=2": {
+     "fires": 5161,
+     "tp": 4661,
+     "precision": 0.9031195504747142,
+     "n_pos": 51360
+    }
+   }
+  }
+ ],
+ "n_builds": 224
+}

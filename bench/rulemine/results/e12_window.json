@@ -1,0 +1,301 @@
+{
+ "radii": [
+  1,
+  2,
+  3,
+  5,
+  10,
+  25,
+  50
+ ],
+ "grid": [
+  {
+   "radius": 1,
+   "threshold": 1,
+   "precision": 0.936,
+   "recall": 0.05050415610576763,
+   "predicted": 4875,
+   "crates_firing": 28
+  },
+  {
+   "radius": 1,
+   "threshold": 2,
+   "precision": 0.94140625,
+   "recall": 0.040011510918770546,
+   "predicted": 3840,
+   "crates_firing": 26
+  },
+  {
+   "radius": 1,
+   "threshold": 3,
+   "precision": 0.9452617174136162,
+   "recall": 0.030581412079823796,
+   "predicted": 2923,
+   "crates_firing": 26
+  },
+  {
+   "radius": 1,
+   "threshold": 5,
+   "precision": 0.95,
+   "recall": 0.018085424299106798,
+   "predicted": 1720,
+   "crates_firing": 25
+  },
+  {
+   "radius": 1,
+   "threshold": 10,
+   "precision": 0.9457236842105263,
+   "recall": 0.006364209897176504,
+   "predicted": 608,
+   "crates_firing": 21
+  },
+  {
+   "radius": 2,
+   "threshold": 1,
+   "precision": 0.9353291432351968,
+   "recall": 0.06259062081484024,
+   "predicted": 6046,
+   "crates_firing": 28
+  },
+  {
+   "radius": 2,
+   "threshold": 2,
+   "precision": 0.9402956048230261,
+   "recall": 0.05351470409191026,
+   "predicted": 5142,
+   "crates_firing": 28
+  },
+  {
+   "radius": 2,
+   "threshold": 3,
+   "precision": 0.9427524616441493,
+   "recall": 0.045567742863783775,
+   "predicted": 4367,
+   "crates_firing": 26
+  },
+  {
+   "radius": 2,
+   "threshold": 5,
+   "precision": 0.9468118195956454,
+   "recall": 0.033691573786096135,
+   "predicted": 3215,
+   "crates_firing": 26
+  },
+  {
+   "radius": 2,
+   "threshold": 10,
+   "precision": 0.9593975114603799,
+   "recall": 0.01621489999889318,
+   "predicted": 1527,
+   "crates_firing": 22
+  },
+  {
+   "radius": 3,
+   "threshold": 1,
+   "precision": 0.9349556167737986,
+   "recall": 0.06761557958582828,
+   "predicted": 6534,
+   "crates_firing": 28
+  },
+  {
+   "radius": 3,
+   "threshold": 2,
+   "precision": 0.9394307532106907,
+   "recall": 0.05991211856246333,
+   "predicted": 5762,
+   "crates_firing": 28
+  },
+  {
+   "radius": 3,
+   "threshold": 3,
+   "precision": 0.9421634425582314,
+   "recall": 0.05282847624212775,
+   "predicted": 5066,
+   "crates_firing": 28
+  },
+  {
+   "radius": 3,
+   "threshold": 5,
+   "precision": 0.9449631449631449,
+   "recall": 0.042568263068766675,
+   "predicted": 4070,
+   "crates_firing": 26
+  },
+  {
+   "radius": 3,
+   "threshold": 10,
+   "precision": 0.9608446986361636,
+   "recall": 0.02417292941814519,
+   "predicted": 2273,
+   "crates_firing": 25
+  },
+  {
+   "radius": 5,
+   "threshold": 1,
+   "precision": 0.9296601873863796,
+   "recall": 0.07358133460248592,
+   "predicted": 7151,
+   "crates_firing": 28
+  },
+  {
+   "radius": 5,
+   "threshold": 2,
+   "precision": 0.9378254211332312,
+   "recall": 0.06778160245271116,
+   "predicted": 6530,
+   "crates_firing": 28
+  },
+  {
+   "radius": 5,
+   "threshold": 3,
+   "precision": 0.9429002009377093,
+   "recall": 0.062324984227827646,
+   "predicted": 5972,
+   "crates_firing": 28
+  },
+  {
+   "radius": 5,
+   "threshold": 5,
+   "precision": 0.9440600909270607,
+   "recall": 0.052861680815504325,
+   "predicted": 5059,
+   "crates_firing": 27
+  },
+  {
+   "radius": 5,
+   "threshold": 10,
+   "precision": 0.9559032716927454,
+   "recall": 0.03718912218176183,
+   "predicted": 3515,
+   "crates_firing": 25
+  },
+  {
+   "radius": 10,
+   "threshold": 1,
+   "precision": 0.9223452768729642,
+   "recall": 0.07835172497758691,
+   "predicted": 7675,
+   "crates_firing": 28
+  },
+  {
+   "radius": 10,
+   "threshold": 2,
+   "precision": 0.9305268950337048,
+   "recall": 0.07486524477304674,
+   "predicted": 7269,
+   "crates_firing": 28
+  },
+  {
+   "radius": 10,
+   "threshold": 3,
+   "precision": 0.9360372147114406,
+   "recall": 0.07126808265725132,
+   "predicted": 6879,
+   "crates_firing": 28
+  },
+  {
+   "radius": 10,
+   "threshold": 5,
+   "precision": 0.9429178933595028,
+   "recall": 0.06380812183864791,
+   "predicted": 6114,
+   "crates_firing": 28
+  },
+  {
+   "radius": 10,
+   "threshold": 10,
+   "precision": 0.9537560581583199,
+   "recall": 0.05227506668585153,
+   "predicted": 4952,
+   "crates_firing": 25
+  },
+  {
+   "radius": 25,
+   "threshold": 1,
+   "precision": 0.9147888191109469,
+   "recall": 0.08222559187152044,
+   "predicted": 8121,
+   "crates_firing": 28
+  },
+  {
+   "radius": 25,
+   "threshold": 2,
+   "precision": 0.9204301075268817,
+   "recall": 0.08053215862931522,
+   "predicted": 7905,
+   "crates_firing": 28
+  },
+  {
+   "radius": 25,
+   "threshold": 3,
+   "precision": 0.9243271356130542,
+   "recall": 0.07868377071135264,
+   "predicted": 7691,
+   "crates_firing": 28
+  },
+  {
+   "radius": 25,
+   "threshold": 5,
+   "precision": 0.9309260019149227,
+   "recall": 0.07533010880031876,
+   "predicted": 7311,
+   "crates_firing": 28
+  },
+  {
+   "radius": 25,
+   "threshold": 10,
+   "precision": 0.9444270995941305,
+   "recall": 0.06696255630942236,
+   "predicted": 6406,
+   "crates_firing": 28
+  },
+  {
+   "radius": 50,
+   "threshold": 1,
+   "precision": 0.9095410628019324,
+   "recall": 0.08335454736632392,
+   "predicted": 8280,
+   "crates_firing": 28
+  },
+  {
+   "radius": 50,
+   "threshold": 2,
+   "precision": 0.9125442775131306,
+   "recall": 0.08269045589879247,
+   "predicted": 8187,
+   "crates_firing": 28
+  },
+  {
+   "radius": 50,
+   "threshold": 3,
+   "precision": 0.9151470040937849,
+   "recall": 0.08165004593299317,
+   "predicted": 8061,
+   "crates_firing": 28
+  },
+  {
+   "radius": 50,
+   "threshold": 5,
+   "precision": 0.9205762366139725,
+   "recall": 0.07992340811741137,
+   "predicted": 7844,
+   "crates_firing": 28
+  },
+  {
+   "radius": 50,
+   "threshold": 10,
+   "precision": 0.9334702258726899,
+   "recall": 0.07547399528495058,
+   "predicted": 7305,
+   "crates_firing": 28
+  }
+ ],
+ "best": {
+  "radius": 3,
+  "threshold": 10,
+  "precision": 0.9608446986361636,
+  "recall": 0.02417292941814519,
+  "predicted": 2273,
+  "crates_firing": 25
+ }
+}

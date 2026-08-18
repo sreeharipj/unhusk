@@ -1,0 +1,82 @@
+{
+ "binary": "/home/user/malware-samples/akira_v2_x/0ee1d284ed663073872012c7bde7fac5ca1121403f1a5d2d5411317df282796c.elf",
+ "sha256": "0ee1d284ed663073872012c7bde7fac5ca1121403f1a5d2d5411317df282796c",
+ "n_functions": 2999,
+ "n_locations": 1523,
+ "n_functions_with_author_location": 10,
+ "rules": {
+  "R1": {
+   "expr": "M_rel_structs >= 2 AND N_win_rel >= 3",
+   "n_fired": 4,
+   "fraction": 0.001333777925975325,
+   "addresses": [
+    861615,
+    866469,
+    869199,
+    902196
+   ],
+   "author_files": {
+    "akiranew/src/path_finder.rs": 6,
+    "akiranew/src/lock.rs": 29,
+    "akiranew/src/prng.rs": 3,
+    "akiranew/src/main.rs": 10
+   }
+  },
+  "R2": {
+   "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1",
+   "n_fired": 3,
+   "fraction": 0.0010003334444814939,
+   "addresses": [
+    819292,
+    819478,
+    866469
+   ],
+   "author_files": {
+    "akiranew/src/main.rs": 4,
+    "akiranew/src/lock.rs": 5,
+    "akiranew/src/prng.rs": 1
+   }
+  },
+  "R3": {
+   "expr": "M_rel_structs >= 1 AND N_win_rel >= 5",
+   "n_fired": 5,
+   "fraction": 0.0016672224074691564,
+   "addresses": [
+    858719,
+    861615,
+    866469,
+    869199,
+    902196
+   ],
+   "author_files": {
+    "akiranew/src/path_finder.rs": 7,
+    "akiranew/src/lock.rs": 29,
+    "akiranew/src/prng.rs": 3,
+    "akiranew/src/main.rs": 10
+   }
+  },
+  "A@2": {
+   "expr": "C_user >= 2 AND P_nonrel <= 0",
+   "n_fired": 4,
+   "fraction": 0.001333777925975325,
+   "addresses": [
+    819292,
+    819478,
+    824554,
+    861615
+   ],
+   "author_files": {
+    "akiranew/src/main.rs": 4,
+    "akiranew/src/prng.rs": 2,
+    "akiranew/src/path_finder.rs": 6
+   }
+  },
+  "R4": {
+   "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  }
+ }
+}

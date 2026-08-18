@@ -1,0 +1,56 @@
+{
+ "binary": "/home/user/malware-samples/krusty_x/030eb56e155fb01d7b190866aaa8b3128f935afd0b7a7b2178dc8e2eb84228b0.elf",
+ "sha256": "030eb56e155fb01d7b190866aaa8b3128f935afd0b7a7b2178dc8e2eb84228b0",
+ "n_functions": 1875,
+ "n_locations": 756,
+ "n_functions_with_author_location": 6,
+ "rules": {
+  "R1": {
+   "expr": "M_rel_structs >= 2 AND N_win_rel >= 3",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "R2": {
+   "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1",
+   "n_fired": 1,
+   "fraction": 0.0005333333333333334,
+   "addresses": [
+    190219
+   ],
+   "author_files": {
+    "linux/src/main.rs": 8
+   }
+  },
+  "R3": {
+   "expr": "M_rel_structs >= 1 AND N_win_rel >= 5",
+   "n_fired": 1,
+   "fraction": 0.0005333333333333334,
+   "addresses": [
+    174151
+   ],
+   "author_files": {
+    "linux/src/main.rs": 1
+   }
+  },
+  "A@2": {
+   "expr": "C_user >= 2 AND P_nonrel <= 0",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "R4": {
+   "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+   "n_fired": 1,
+   "fraction": 0.0005333333333333334,
+   "addresses": [
+    190219
+   ],
+   "author_files": {
+    "linux/src/main.rs": 8
+   }
+  }
+ }
+}

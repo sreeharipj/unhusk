@@ -1,0 +1,833 @@
+{
+ "V2": {
+  "n": 184986,
+  "n_crates": 32,
+  "configs": [
+   "v2-release"
+  ],
+  "base_rate": 0.05772869298217163,
+  "slices": {
+   "lockbox crates": {
+    "R1": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 243,
+     "fp": 17,
+     "fn": 1860,
+     "predicted": 260,
+     "precision": 0.9346153846153846,
+     "recall": 0.11554921540656206,
+     "coverage": 0.0037549464198030095,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.8977952261040449,
+      0.9587797830327447
+     ],
+     "precision_crate_avg": 0.9222611961451247,
+     "n_crates_firing": 12,
+     "recall_crate_avg": 0.10298603391979384,
+     "precision_cluster_boot": [
+      0.8536585365853658,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 2 AND N_win_rel >= 3"
+    },
+    "R2": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 196,
+     "fp": 10,
+     "fn": 1907,
+     "predicted": 206,
+     "precision": 0.9514563106796117,
+     "recall": 0.0932001902044698,
+     "coverage": 0.002975072932613154,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.9129621400596389,
+      0.9734213279419525
+     ],
+     "precision_crate_avg": 0.9202653283535636,
+     "n_crates_firing": 12,
+     "recall_crate_avg": 0.10343003553852609,
+     "precision_cluster_boot": [
+      0.9212598425196851,
+      0.9888888888888888
+     ],
+     "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1"
+    },
+    "R3": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 457,
+     "fp": 43,
+     "fn": 1646,
+     "predicted": 500,
+     "precision": 0.914,
+     "recall": 0.2173086067522587,
+     "coverage": 0.0072210508073134805,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.8861601885014426,
+      0.9355268575963924
+     ],
+     "precision_crate_avg": 0.9105137591714773,
+     "n_crates_firing": 12,
+     "recall_crate_avg": 0.16950027731463602,
+     "precision_cluster_boot": [
+      0.8125,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 1 AND N_win_rel >= 5"
+    },
+    "A@2": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 98,
+     "fp": 6,
+     "fn": 2005,
+     "predicted": 104,
+     "precision": 0.9423076923076923,
+     "recall": 0.0466000951022349,
+     "coverage": 0.001501978567921204,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.8798107321520114,
+      0.9732934543646655
+     ],
+     "precision_crate_avg": 0.9324951644100582,
+     "n_crates_firing": 11,
+     "recall_crate_avg": 0.039299883940889783,
+     "precision_cluster_boot": [
+      0.85,
+      0.9803921568627452
+     ],
+     "expr": "C_user >= 2 AND P_nonrel <= 0"
+    },
+    "bare>=2": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 309,
+     "fp": 28,
+     "fn": 1794,
+     "predicted": 337,
+     "precision": 0.9169139465875371,
+     "recall": 0.14693295292439373,
+     "coverage": 0.004866988244129285,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.8825385550290487,
+      0.9418916682549834
+     ],
+     "precision_crate_avg": 0.8833541083292964,
+     "n_crates_firing": 12,
+     "recall_crate_avg": 0.16258072845183835,
+     "precision_cluster_boot": [
+      0.8378378378378379,
+      0.9726027397260275
+     ],
+     "expr": "M_rel_structs >= 2"
+    },
+    "any": {
+     "n": 69242,
+     "n_pos": 2103,
+     "tp": 646,
+     "fp": 87,
+     "fn": 1457,
+     "predicted": 733,
+     "precision": 0.8813096862210096,
+     "recall": 0.3071802187351403,
+     "coverage": 0.010586060483521563,
+     "base_rate": 0.030371739695560496,
+     "precision_wilson": [
+      0.8558848229447019,
+      0.9027586997673248
+     ],
+     "precision_crate_avg": 0.8798304781859118,
+     "n_crates_firing": 12,
+     "recall_crate_avg": 0.31426079092028636,
+     "precision_cluster_boot": [
+      0.7803617571059432,
+      0.9724950884086444
+     ],
+     "expr": "M_rel_structs >= 1"
+    }
+   },
+   "dev crates (seen)": {
+    "R1": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 498,
+     "fp": 13,
+     "fn": 8078,
+     "predicted": 511,
+     "precision": 0.974559686888454,
+     "recall": 0.058069029850746266,
+     "coverage": 0.004414915675974565,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.9569642433961952,
+      0.9850733328140625
+     ],
+     "precision_crate_avg": 0.9604429448547095,
+     "n_crates_firing": 18,
+     "recall_crate_avg": 0.06403784989765145,
+     "precision_cluster_boot": [
+      0.9211195928753181,
+      0.9906542056074766
+     ],
+     "expr": "M_rel_structs >= 2 AND N_win_rel >= 3"
+    },
+    "R2": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 433,
+     "fp": 9,
+     "fn": 8143,
+     "predicted": 442,
+     "precision": 0.9796380090497737,
+     "recall": 0.05048973880597015,
+     "coverage": 0.0038187724633674315,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.9617594638427517,
+      0.9892512409973332
+     ],
+     "precision_crate_avg": 0.9690831300813008,
+     "n_crates_firing": 20,
+     "recall_crate_avg": 0.06689158553288385,
+     "precision_cluster_boot": [
+      0.9528795811518325,
+      0.9941176470588234
+     ],
+     "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1"
+    },
+    "R3": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 681,
+     "fp": 24,
+     "fn": 7895,
+     "predicted": 705,
+     "precision": 0.9659574468085106,
+     "recall": 0.07940764925373134,
+     "coverage": 0.006091028476638098,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.9498460709883758,
+      0.9770184511475848
+     ],
+     "precision_crate_avg": 0.9282790708880878,
+     "n_crates_firing": 19,
+     "recall_crate_avg": 0.09499060009848348,
+     "precision_cluster_boot": [
+      0.8918918918918919,
+      0.9882226980728052
+     ],
+     "expr": "M_rel_structs >= 1 AND N_win_rel >= 5"
+    },
+    "A@2": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 332,
+     "fp": 14,
+     "fn": 8244,
+     "predicted": 346,
+     "precision": 0.9595375722543352,
+     "recall": 0.03871268656716418,
+     "coverage": 0.002989355819740116,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.9332363522619502,
+      0.9757468227795933
+     ],
+     "precision_crate_avg": 0.9695193019106062,
+     "n_crates_firing": 20,
+     "recall_crate_avg": 0.03695760135232079,
+     "precision_cluster_boot": [
+      0.9035714285714286,
+      0.9891304347826088
+     ],
+     "expr": "C_user >= 2 AND P_nonrel <= 0"
+    },
+    "bare>=2": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 651,
+     "fp": 39,
+     "fn": 7925,
+     "predicted": 690,
+     "precision": 0.9434782608695652,
+     "recall": 0.07590951492537314,
+     "coverage": 0.00596143212607133,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.9236656894470017,
+      0.9583801903714253
+     ],
+     "precision_crate_avg": 0.9145543424194539,
+     "n_crates_firing": 20,
+     "recall_crate_avg": 0.09996573441576477,
+     "precision_cluster_boot": [
+      0.8929577464788733,
+      0.9672830725462305
+     ],
+     "expr": "M_rel_structs >= 2"
+    },
+    "any": {
+     "n": 115744,
+     "n_pos": 8576,
+     "tp": 1270,
+     "fp": 213,
+     "fn": 7306,
+     "predicted": 1483,
+     "precision": 0.856372218476062,
+     "recall": 0.14808768656716417,
+     "coverage": 0.012812759192701133,
+     "base_rate": 0.07409455349737351,
+     "precision_wilson": [
+      0.837601212163841,
+      0.8733017517865805
+     ],
+     "precision_crate_avg": 0.819067948378833,
+     "n_crates_firing": 20,
+     "recall_crate_avg": 0.21061716282902515,
+     "precision_cluster_boot": [
+      0.7422611036339165,
+      0.926551094890511
+     ],
+     "expr": "M_rel_structs >= 1"
+    }
+   }
+  }
+ },
+ "V3": {
+  "n": 421663,
+  "n_crates": 20,
+  "configs": [
+   "cgu-16_lto-false_opt-3_panic-unwind",
+   "cgu-16_lto-thin_opt-3_panic-unwind",
+   "cgu-4_lto-false_opt-3_panic-unwind"
+  ],
+  "base_rate": 0.033650094981063076,
+  "slices": {
+   "lockbox crates": {
+    "R1": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 1363,
+     "fp": 135,
+     "fn": 11453,
+     "predicted": 1498,
+     "precision": 0.9098798397863819,
+     "recall": 0.10635143570536829,
+     "coverage": 0.003847092209509868,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.8943111872632149,
+      0.9233516843985347
+     ],
+     "precision_crate_avg": 0.9271987348836125,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.09736162426848648,
+     "precision_cluster_boot": [
+      0.823529411764706,
+      0.98661800486618
+     ],
+     "expr": "M_rel_structs >= 2 AND N_win_rel >= 3"
+    },
+    "R2": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 941,
+     "fp": 101,
+     "fn": 11875,
+     "predicted": 1042,
+     "precision": 0.9030710172744721,
+     "recall": 0.07342384519350811,
+     "coverage": 0.002676014741194448,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.8835985528373468,
+      0.919582457931911
+     ],
+     "precision_crate_avg": 0.9478796152410989,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.06725659278491247,
+     "precision_cluster_boot": [
+      0.7722473604826545,
+      0.9829376854599406
+     ],
+     "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1"
+    },
+    "R3": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 3105,
+     "fp": 227,
+     "fn": 9711,
+     "predicted": 3332,
+     "precision": 0.9318727490996399,
+     "recall": 0.2422752808988764,
+     "coverage": 0.00855708360619952,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.9228106107815397,
+      0.9399402230118167
+     ],
+     "precision_crate_avg": 0.9128754488515355,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.18231228782310144,
+     "precision_cluster_boot": [
+      0.8419822346891072,
+      0.9914153132250579
+     ],
+     "expr": "M_rel_structs >= 1 AND N_win_rel >= 5"
+    },
+    "A@2": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 853,
+     "fp": 85,
+     "fn": 11963,
+     "predicted": 938,
+     "precision": 0.9093816631130064,
+     "recall": 0.06655742821473158,
+     "coverage": 0.002408926897543562,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.8893027648112227,
+      0.926121097461345
+     ],
+     "precision_crate_avg": 0.9171144777552543,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.05921153711626845,
+     "precision_cluster_boot": [
+      0.8030050083472454,
+      0.9703557312252964
+     ],
+     "expr": "C_user >= 2 AND P_nonrel <= 0"
+    },
+    "bare>=2": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 1635,
+     "fp": 189,
+     "fn": 11181,
+     "predicted": 1824,
+     "precision": 0.8963815789473685,
+     "recall": 0.1275749063670412,
+     "coverage": 0.004684309873261682,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.881552191805566,
+      0.9095448658861585
+     ],
+     "precision_crate_avg": 0.8980247931454028,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.13452495385984914,
+     "precision_cluster_boot": [
+      0.8229311141932502,
+      0.9603064066852367
+     ],
+     "expr": "M_rel_structs >= 2"
+    },
+    "any": {
+     "n": 389385,
+     "n_pos": 12816,
+     "tp": 3942,
+     "fp": 462,
+     "fn": 8874,
+     "predicted": 4404,
+     "precision": 0.8950953678474114,
+     "recall": 0.30758426966292135,
+     "coverage": 0.011310142917677877,
+     "base_rate": 0.03291344042528603,
+     "precision_wilson": [
+      0.885698270293609,
+      0.9038038096952353
+     ],
+     "precision_crate_avg": 0.8824842788814463,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.29789497639170043,
+     "precision_cluster_boot": [
+      0.8122340425531915,
+      0.9588772845953002
+     ],
+     "expr": "M_rel_structs >= 1"
+    }
+   },
+   "dev crates (seen)": {
+    "R1": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 88,
+     "fp": 0,
+     "fn": 1285,
+     "predicted": 88,
+     "precision": 1.0,
+     "recall": 0.06409322651128915,
+     "coverage": 0.0027263151372451827,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.9581729333351078,
+      0.9999999999999999
+     ],
+     "precision_crate_avg": 1.0,
+     "n_crates_firing": 4,
+     "recall_crate_avg": 0.05164627342479853,
+     "precision_cluster_boot": [
+      1.0,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 2 AND N_win_rel >= 3"
+    },
+    "R2": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 76,
+     "fp": 0,
+     "fn": 1297,
+     "predicted": 76,
+     "precision": 1.0,
+     "recall": 0.055353241077931534,
+     "coverage": 0.002354544891257203,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.9518864149348629,
+      1.0
+     ],
+     "precision_crate_avg": 1.0,
+     "n_crates_firing": 5,
+     "recall_crate_avg": 0.05337677715595225,
+     "precision_cluster_boot": [
+      1.0,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1"
+    },
+    "R3": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 185,
+     "fp": 18,
+     "fn": 1188,
+     "predicted": 203,
+     "precision": 0.9113300492610837,
+     "recall": 0.1347414420975965,
+     "coverage": 0.006289113327963319,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.8642051865895177,
+      0.943176471575871
+     ],
+     "precision_crate_avg": 0.8714285714285716,
+     "n_crates_firing": 5,
+     "recall_crate_avg": 0.12535054465619244,
+     "precision_cluster_boot": [
+      0.6210526315789474,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 1 AND N_win_rel >= 5"
+    },
+    "A@2": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 62,
+     "fp": 0,
+     "fn": 1311,
+     "predicted": 62,
+     "precision": 1.0,
+     "recall": 0.04515659140568099,
+     "coverage": 0.0019208129376045604,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.9416559278986276,
+      0.9999999999999999
+     ],
+     "precision_crate_avg": 1.0,
+     "n_crates_firing": 5,
+     "recall_crate_avg": 0.03848131253899153,
+     "precision_cluster_boot": [
+      1.0,
+      1.0
+     ],
+     "expr": "C_user >= 2 AND P_nonrel <= 0"
+    },
+    "bare>=2": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 130,
+     "fp": 0,
+     "fn": 1243,
+     "predicted": 130,
+     "precision": 1.0,
+     "recall": 0.09468317552804079,
+     "coverage": 0.00402751099820311,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.9712984388055687,
+      1.0
+     ],
+     "precision_crate_avg": 1.0,
+     "n_crates_firing": 5,
+     "recall_crate_avg": 0.08223964035129624,
+     "precision_cluster_boot": [
+      1.0,
+      1.0
+     ],
+     "expr": "M_rel_structs >= 2"
+    },
+    "any": {
+     "n": 32278,
+     "n_pos": 1373,
+     "tp": 339,
+     "fp": 59,
+     "fn": 1034,
+     "predicted": 398,
+     "precision": 0.8517587939698492,
+     "recall": 0.2469045884923525,
+     "coverage": 0.012330379825267985,
+     "base_rate": 0.04253671231179131,
+     "precision_wilson": [
+      0.8134910573202369,
+      0.8833011572554595
+     ],
+     "precision_crate_avg": 0.8238669665371772,
+     "n_crates_firing": 5,
+     "recall_crate_avg": 0.2447033088430271,
+     "precision_cluster_boot": [
+      0.6408450704225352,
+      0.9803921568627452
+     ],
+     "expr": "M_rel_structs >= 1"
+    }
+   }
+  },
+  "per_config": {
+   "cgu-16_lto-false_opt-3_panic-unwind": {
+    "R1": {
+     "precision": 0.9181818181818182,
+     "recall": 0.10304019587839217,
+     "fires": 550
+    },
+    "R2": {
+     "precision": 0.912,
+     "recall": 0.0697816772087329,
+     "fires": 375
+    },
+    "R3": {
+     "precision": 0.9324546952224053,
+     "recall": 0.23097327076106916,
+     "fires": 1214
+    },
+    "A@2": {
+     "precision": 0.9166666666666666,
+     "recall": 0.06957763721689451,
+     "fires": 372
+    }
+   },
+   "cgu-16_lto-thin_opt-3_panic-unwind": {
+    "R1": {
+     "precision": 0.9034090909090909,
+     "recall": 0.10194486001282325,
+     "fires": 528
+    },
+    "R2": {
+     "precision": 0.9007633587786259,
+     "recall": 0.07565719170762984,
+     "fires": 393
+    },
+    "R3": {
+     "precision": 0.9288135593220339,
+     "recall": 0.23423808506091046,
+     "fires": 1180
+    },
+    "A@2": {
+     "precision": 0.895910780669145,
+     "recall": 0.051506732207736695,
+     "fires": 269
+    }
+   },
+   "cgu-4_lto-false_opt-3_panic-unwind": {
+    "R1": {
+     "precision": 0.9232283464566929,
+     "recall": 0.1017574311130397,
+     "fires": 508
+    },
+    "R2": {
+     "precision": 0.9171428571428571,
+     "recall": 0.06964634410935126,
+     "fires": 350
+    },
+    "R3": {
+     "precision": 0.9307624890446976,
+     "recall": 0.23041874593187242,
+     "fires": 1141
+    },
+    "A@2": {
+     "precision": 0.9275766016713092,
+     "recall": 0.07224994575829898,
+     "fires": 359
+    }
+   }
+  }
+ },
+ "V4": {
+  "n": 152724,
+  "n_crates": 19,
+  "configs": [
+   "cgu-16_lto-false_opt-3_panic-unwind",
+   "lto-thin_opt-3_panic-unwind"
+  ],
+  "base_rate": 0.026328540373484192,
+  "slices": {
+   "all": {
+    "R1": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 158,
+     "fp": 8,
+     "fn": 3863,
+     "predicted": 166,
+     "precision": 0.9518072289156626,
+     "recall": 0.039293708032827654,
+     "coverage": 0.001086928053220188,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.9077960561172188,
+      0.9753805312810251
+     ],
+     "precision_crate_avg": 0.955952380952381,
+     "n_crates_firing": 15,
+     "recall_crate_avg": 0.07079211895493798,
+     "precision_cluster_boot": [
+      0.8944444444444444,
+      0.9901960784313725
+     ],
+     "expr": "M_rel_structs >= 2 AND N_win_rel >= 3"
+    },
+    "R2": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 160,
+     "fp": 10,
+     "fn": 3861,
+     "predicted": 170,
+     "precision": 0.9411764705882353,
+     "recall": 0.03979109674210395,
+     "coverage": 0.0011131190906471806,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.8951173760304342,
+      0.9677377853192816
+     ],
+     "precision_crate_avg": 0.8839067457221615,
+     "n_crates_firing": 17,
+     "recall_crate_avg": 0.08866136747427276,
+     "precision_cluster_boot": [
+      0.8834951456310679,
+      0.9808917197452228
+     ],
+     "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1"
+    },
+    "R3": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 253,
+     "fp": 26,
+     "fn": 3768,
+     "predicted": 279,
+     "precision": 0.9068100358422939,
+     "recall": 0.06291967172345188,
+     "coverage": 0.0018268248605327257,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.8669591676126978,
+      0.9356105862928126
+     ],
+     "precision_crate_avg": 0.8605006105006106,
+     "n_crates_firing": 13,
+     "recall_crate_avg": 0.09835507057378304,
+     "precision_cluster_boot": [
+      0.748792270531401,
+      0.9790940766550523
+     ],
+     "expr": "M_rel_structs >= 1 AND N_win_rel >= 5"
+    },
+    "A@2": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 153,
+     "fp": 6,
+     "fn": 3868,
+     "predicted": 159,
+     "precision": 0.9622641509433962,
+     "recall": 0.0380502362596369,
+     "coverage": 0.0010410937377229512,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.9201259459710065,
+      0.982592569722609
+     ],
+     "precision_crate_avg": 0.9248868778280543,
+     "n_crates_firing": 17,
+     "recall_crate_avg": 0.0708846197282156,
+     "precision_cluster_boot": [
+      0.9225352112676056,
+      1.0
+     ],
+     "expr": "C_user >= 2 AND P_nonrel <= 0"
+    },
+    "bare>=2": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 282,
+     "fp": 20,
+     "fn": 3739,
+     "predicted": 302,
+     "precision": 0.9337748344370861,
+     "recall": 0.07013180800795822,
+     "coverage": 0.0019774233257379326,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.8999292167092157,
+      0.9567237727522389
+     ],
+     "precision_crate_avg": 0.928056755765734,
+     "n_crates_firing": 19,
+     "recall_crate_avg": 0.16107472282557714,
+     "precision_cluster_boot": [
+      0.8714733542319749,
+      0.9720930232558139
+     ],
+     "expr": "M_rel_structs >= 2"
+    },
+    "any": {
+     "n": 152724,
+     "n_pos": 4021,
+     "tp": 647,
+     "fp": 118,
+     "fn": 3374,
+     "predicted": 765,
+     "precision": 0.8457516339869281,
+     "recall": 0.16090524745088286,
+     "coverage": 0.005009035907912312,
+     "base_rate": 0.026328540373484192,
+     "precision_wilson": [
+      0.8184351099977404,
+      0.8696131136391837
+     ],
+     "precision_crate_avg": 0.8567223648847238,
+     "n_crates_firing": 19,
+     "recall_crate_avg": 0.28287810786936357,
+     "precision_cluster_boot": [
+      0.7625,
+      0.9104729729729729
+     ],
+     "expr": "M_rel_structs >= 1"
+    }
+   }
+  }
+ }
+}

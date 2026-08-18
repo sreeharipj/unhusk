@@ -1,0 +1,119 @@
+{
+ "clauses": {
+  "0.95": [
+   {
+    "expr": "M_all_entropy <= 0 AND N_same_file_prev >= 1",
+    "clause_precision": 0.9500978473581213,
+    "new_tp": 2913,
+    "recall_gain": 0.03224164074865245,
+    "set_precision": 0.9500978473581213,
+    "set_recall": 0.03224164074865245,
+    "set_predicted": 3066,
+    "set_crates": 27
+   },
+   {
+    "expr": "P_REGISTRY <= 1 AND M_rel_files >= 2",
+    "clause_precision": 0.9511568123393316,
+    "new_tp": 1850,
+    "recall_gain": 0.020476153582220057,
+    "set_precision": 0.9505088804629814,
+    "set_recall": 0.05271779433087251,
+    "set_predicted": 5011,
+    "set_crates": 28
+   },
+   {
+    "expr": "M_all_entropy <= 0 AND F_rel_excl >= 4",
+    "clause_precision": 0.951015531660693,
+    "new_tp": 614,
+    "recall_gain": 0.006795869351071954,
+    "set_precision": 0.9489939992940346,
+    "set_recall": 0.05951366368194446,
+    "set_predicted": 5666,
+    "set_crates": 28
+   },
+   {
+    "expr": "X_callee_with_rel >= 5",
+    "clause_precision": 0.9510204081632653,
+    "new_tp": 387,
+    "recall_gain": 0.004283389965577925,
+    "set_precision": 0.9464696223316913,
+    "set_recall": 0.06379705364752239,
+    "set_predicted": 6090,
+    "set_crates": 28
+   },
+   {
+    "expr": "M_rel_lines <= 5 AND M_rel_files >= 2",
+    "clause_precision": 0.9506903353057199,
+    "new_tp": 205,
+    "recall_gain": 0.0022689791807324927,
+    "set_precision": 0.9440139174442511,
+    "set_recall": 0.06606603282825488,
+    "set_predicted": 6323,
+    "set_crates": 28
+   }
+  ],
+  "0.9": [
+   {
+    "expr": "C_user >= 2",
+    "clause_precision": 0.902978019380761,
+    "new_tp": 7641,
+    "recall_gain": 0.0845720483901316,
+    "set_precision": 0.902978019380761,
+    "set_recall": 0.0845720483901316,
+    "set_predicted": 8462,
+    "set_crates": 28
+   },
+   {
+    "expr": "G_exc_dens <= 0.0061 AND N_same_file_prev >= 1",
+    "clause_precision": 0.9029033793431699,
+    "new_tp": 2148,
+    "recall_gain": 0.023774474537626315,
+    "set_precision": 0.8960183066361556,
+    "set_recall": 0.10834652292775791,
+    "set_predicted": 10925,
+    "set_crates": 28
+   },
+   {
+    "expr": "F_rel_fo_min <= 5 AND N_same_file_next >= 1",
+    "clause_precision": 0.9028720626631854,
+    "new_tp": 1114,
+    "recall_gain": 0.012329964913834132,
+    "set_precision": 0.8914963205233033,
+    "set_recall": 0.12067648784159205,
+    "set_predicted": 12230,
+    "set_crates": 28
+   },
+   {
+    "expr": "F_rel_fo_max >= 8",
+    "clause_precision": 0.928374655647383,
+    "new_tp": 910,
+    "recall_gain": 0.010072053924227163,
+    "set_precision": 0.8920184248282111,
+    "set_recall": 0.1307485417658192,
+    "set_predicted": 13243,
+    "set_crates": 28
+   },
+   {
+    "expr": "G_loc_per_kb <= 1.66 AND X_callee_rel >= 8",
+    "clause_precision": 0.9168994413407822,
+    "new_tp": 415,
+    "recall_gain": 0.004593299317092608,
+    "set_precision": 0.8900858931431067,
+    "set_recall": 0.1353418410829118,
+    "set_predicted": 13738,
+    "set_crates": 28
+   },
+   {
+    "expr": "X_callee_with_rel >= 3",
+    "clause_precision": 0.9252506836827712,
+    "new_tp": 151,
+    "recall_gain": 0.0016712968599541776,
+    "set_precision": 0.8885300028710882,
+    "set_recall": 0.137013137942866,
+    "set_predicted": 13932,
+    "set_crates": 28
+   }
+  ]
+ },
+ "protocol": "sequential covering, dev only"
+}

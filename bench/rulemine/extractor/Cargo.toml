@@ -1,0 +1,28 @@
+# Standalone crate (own [workspace] table) so it never becomes a member of the
+# unhusk package and can never change how unhusk itself builds. It depends on
+# unhusk as a library for the three parsing steps whose correctness is already
+# established and audited elsewhere in this repo (ELF load, source-string
+# classification, .eh_frame FDE recovery, Location reconstruction) — and for
+# nothing else. Every decision-shaped step (path taxonomy, per-function
+# feature definition, rules) is deliberately NOT taken from unhusk: this
+# extractor emits raw observables only.
+[package]
+name = "rulemine_extract"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[workspace]
+
+[dependencies]
+unhusk = { path = "../../.." }
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+iced-x86 = { version = "1", default-features = false, features = ["std", "decoder", "op_code_info", "instr_info"] }
+rayon = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+
+[profile.release]
+opt-level = 3

@@ -1,0 +1,33 @@
+{
+ "counts_check": {
+  "builds": 344,
+  "functions_compared": 2953873,
+  "functions_mismatched": 0,
+  "examples": []
+ },
+ "headline": {
+  "strict": {
+   "n": 2451904,
+   "n_pos": 76960,
+   "tp": 3066,
+   "predicted_incumbent": 6674,
+   "precision_incumbent": 0.4593946658675457,
+   "predicted": 6658,
+   "precision": 0.4604986482427155,
+   "recall": 0.03983887733887734,
+   "n_fired_unlabelable": 16
+  },
+  "ws": {
+   "n": 2451904,
+   "n_pos": 117076,
+   "tp": 6193,
+   "predicted_incumbent": 6674,
+   "precision_incumbent": 0.9279292777944261,
+   "predicted": 6658,
+   "precision": 0.9301592069690597,
+   "recall": 0.05289726331613653,
+   "n_fired_unlabelable": 16
+  }
+ },
+ "pass": true
+}

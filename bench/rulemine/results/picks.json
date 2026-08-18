@@ -1,0 +1,143 @@
+{
+ "registered_at": "before any lockbox read",
+ "split_sha256": "5bdc01f364f1eef786ccecda705383fef1828be78c4536c34dbbf93bd045ea88",
+ "rules": [
+  {
+   "name": "R1 neighbourhood-corroborated multiplicity",
+   "short": "R1",
+   "expr": "M_rel_structs >= 2 AND N_win_rel >= 3",
+   "plain": "at least 2 distinct author Location records in this function, AND at least 3 among its +/-5 neighbours in address order",
+   "why": "dominates the incumbent on both axes; the neighbourhood term vetoes inline-absorption false positives, which sit in the library's region of .text",
+   "label_offset": [
+    9,
+    5
+   ],
+   "dev": {
+    "precision": 0.9429002009377093,
+    "recall": 0.062324984227827646,
+    "predicted": 5972,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "R2 caller-corroborated multiplicity",
+   "short": "R2",
+   "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1",
+   "plain": "at least 2 distinct author Location records, AND at least one direct caller that also references author Locations",
+   "why": "highest precision of the readable rules; a library generic that inlined an author closure is still called from library code",
+   "label_offset": [
+    9,
+    -12
+   ],
+   "dev": {
+    "precision": 0.9566577301161752,
+    "recall": 0.04739399439949529,
+    "predicted": 4476,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "R3 high-recall neighbourhood rule",
+   "short": "R3",
+   "expr": "M_rel_structs >= 1 AND N_win_rel >= 5",
+   "plain": "at least 1 author Location record, AND at least 5 among its +/-5 neighbours",
+   "why": "drops the multiplicity requirement to 1 and pays for it with a stronger neighbourhood demand; roughly doubles the incumbent's recall at comparable precision",
+   "label_offset": [
+    -52,
+    8
+   ],
+   "dev": {
+    "precision": 0.9067321178120618,
+    "recall": 0.10017819787712094,
+    "predicted": 9982,
+    "crates_firing": 28
+   }
+  }
+ ],
+ "baselines": [
+  {
+   "name": "A@2 (incumbent, shipped default)",
+   "expr": "C_user >= 2 AND P_nonrel <= 0",
+   "is_incumbent": true,
+   "dev": {
+    "precision": 0.9227845569113823,
+    "recall": 0.05105756566204385,
+    "predicted": 4999,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "bare multiplicity (structs >= 2)",
+   "expr": "M_rel_structs >= 2",
+   "dev": {
+    "precision": 0.902978019380761,
+    "recall": 0.0845720483901316,
+    "predicted": 8462,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "line-span variant",
+   "expr": "M_rel_line_span >= 2 AND N_win_rel >= 3",
+   "dev": {
+    "precision": 0.950784207679827,
+    "recall": 0.05837363999601545,
+    "predicted": 5547,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "A@2 + neighbourhood",
+   "expr": "C_user >= 2 AND P_nonrel <= 0 AND N_win_rel >= 3",
+   "dev": {
+    "precision": 0.9595198213288666,
+    "recall": 0.03804137289842721,
+    "predicted": 3582,
+    "crates_firing": 28
+   }
+  },
+  {
+   "name": "any author Location (loosest possible)",
+   "expr": "M_rel_structs >= 1",
+   "dev": {
+    "precision": 0.8474418122440517,
+    "recall": 0.18094278852007217,
+    "predicted": 19291,
+    "crates_firing": 28
+   }
+  }
+ ],
+ "rule_sets": [
+  {
+   "name": "E06 sequential-covering set (4 clauses)",
+   "short": "set-4",
+   "expr": null,
+   "label_offset": [
+    8,
+    -14
+   ],
+   "clauses": [
+    "M_all_entropy <= 0 AND N_same_file_prev >= 1",
+    "P_REGISTRY <= 1 AND M_rel_files >= 2",
+    "M_all_entropy <= 0 AND F_rel_excl >= 4",
+    "X_callee_with_rel >= 5",
+    "M_rel_lines <= 5 AND M_rel_files >= 2"
+   ],
+   "dev": {
+    "precision": 0.9440139174442511,
+    "recall": 0.06606603282825488,
+    "predicted": 6323
+   },
+   "expr_or": "(M_all_entropy <= 0 AND N_same_file_prev >= 1) OR (P_REGISTRY <= 1 AND M_rel_files >= 2) OR (M_all_entropy <= 0 AND F_rel_excl >= 4) OR (X_callee_with_rel >= 5) OR (M_rel_lines <= 5 AND M_rel_files >= 2)"
+  }
+ ],
+ "additive": [
+  {
+   "name": "R4 helper rule (additive, disjoint population)",
+   "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+   "plain": "every direct caller references author Locations, AND this function calls at least 3 author Locations' worth of author code",
+   "population": "functions referencing NO author Location of their own",
+   "why": "recovers #[track_caller] helpers and private author helpers, which are structurally incapable of carrying their own Location"
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "binary": "/home/user/malware-samples/p2pinfect_x/3a43116d507d58f3c9717f2cb0a3d06d0c5a7dc29f601e9c2b976ee6d9c8713f.elf",
+ "sha256": "3a43116d507d58f3c9717f2cb0a3d06d0c5a7dc29f601e9c2b976ee6d9c8713f",
+ "n_functions": 41,
+ "n_locations": 0,
+ "n_functions_with_author_location": 0,
+ "rules": {
+  "R1": {
+   "expr": "M_rel_structs >= 2 AND N_win_rel >= 3",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "R2": {
+   "expr": "M_rel_structs >= 2 AND X_caller_rel >= 1",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "R3": {
+   "expr": "M_rel_structs >= 1 AND N_win_rel >= 5",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "A@2": {
+   "expr": "C_user >= 2 AND P_nonrel <= 0",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  },
+  "R4": {
+   "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+   "n_fired": 0,
+   "fraction": 0.0,
+   "addresses": [],
+   "author_files": {}
+  }
+ }
+}
