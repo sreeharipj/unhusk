@@ -74,3 +74,17 @@ clone oxipng
 >>> delta/cgu-16_lto-false_opt-3_panic-unwind building 01:46:28
     OK 7062904 bytes
 >>> fend/lto-thin_opt-3_panic-unwind building 01:47:00
+    OK 8785440 bytes
+>>> fend/cgu-16_lto-false_opt-3_panic-unwind building 01:47:47
+    OK 9583640 bytes
+>>> git-cliff/lto-thin_opt-3_panic-unwind building 01:48:18
+    OK 14842736 bytes
+>>> git-cliff/cgu-16_lto-false_opt-3_panic-unwind building 01:49:16
+    OK 16492304 bytes
+>>> lsd/lto-thin_opt-3_panic-unwind building 01:50:00
+    OK 3960120 bytes
+>>> lsd/cgu-16_lto-false_opt-3_panic-unwind building 01:50:28
+    OK 4267048 bytes
+>>> mdbook/lto-thin_opt-3_panic-unwind building 01:50:51
+    OK 11520272 bytes
+>>> mdbook/cgu-16_lto-false_opt-3_panic-unwind building 01:51:23

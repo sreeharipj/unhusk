@@ -8,14 +8,21 @@
 # bench/origin/build_matrix.sh), a Rust toolchain, and Python 3.10+ with
 # numpy / pandas / scikit-learn / scipy / pyarrow / matplotlib.
 #
-# Wall-clock on 16 cores, from a built corpus: about 75 minutes, dominated by
-# e05 (gradient boosting, 7 folds over 1.6M rows) and e08 (28 nested searches).
+# Wall-clock on 16 cores, from a built corpus: about 90 minutes for `all`,
+# dominated by e05 (gradient boosting, 7 folds over 1.6M rows, ~20 min) and e08
+# (28 nested searches, ~42 min). The v2/v3/v4 targets are separate because they
+# compile Rust: v3 is 60 builds (~35 min), v4 clones and builds 39 programs
+# (~90 min and the only step needing network access).
+#
+# Stage order matters. `experiments` runs on the 28 development crates only and
+# ends by freezing results/picks.json. `report` opens the lockbox. Running
+# `report` before `experiments` would evaluate rules that were never registered.
 
 PY      := python3 -u
 STUDY   := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 EXTRACT := extractor/target/release/rulemine_extract
 
-.PHONY: all data experiments report clean-results
+.PHONY: all data raw v2 v3 v4 experiments report clean-results
 all: data experiments report
 
 # ── stage 1: corpus inventory and feature extraction ────────────────────────
@@ -67,7 +74,6 @@ experiments: data
 	$(PY) exp/e12_window.py         | tee results/e12_window.log
 	$(PY) exp/e13_sparsity.py       | tee results/e13_sparsity.log
 	$(PY) exp/e14_anchor_scarcity.py | tee results/e14_anchor_scarcity.log
-	$(PY) exp/e17_ceiling_by_corpus.py | tee results/e17_ceiling_by_corpus.log
 
 # ── stage 3: the single held-out read, then the figure and the report ───────
 results/picks.json: experiments
@@ -79,6 +85,11 @@ report: results/picks.json
 	$(PY) exp/e11_lockbox.py        | tee results/e11_lockbox.log
 	$(PY) exp/e15_recall_ci.py      | tee results/e15_recall_ci.log
 	$(PY) exp/e16_aux_corpora.py    | tee results/e16_aux_corpora.log
+	$(PY) exp/e17_ceiling_by_corpus.py | tee results/e17_ceiling_by_corpus.log
+	$(PY) exp/e18_strict_target.py  | tee results/e18_strict_target.log
+	$(PY) exp/e19_scope_rule.py     | tee results/e19_scope_rule.log
+	$(PY) exp/e20_percrate.py       | tee results/e20_percrate.log
+	$(PY) exp/e21_scope_validation.py | tee results/e21_scope_validation.log
 	$(PY) figs/plot_frontier.py
 	$(PY) make_report.py
 

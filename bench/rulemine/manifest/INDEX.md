@@ -27,6 +27,8 @@ relative to `bench/rulemine/`.
 | `build_dataset_aux.py` | same, for the V2 / V3 corpora |
 | `make_split.py` | seals the crate split |
 | `extract_all.sh`, `build_v2.sh`, `build_v3.sh`, `build_v4.sh` | corpus drivers |
+| `finalize_v4.sh` | waits for the V4 build sweep, then re-runs everything that reads it |
+| `Makefile` | the reproduction pipeline; `experiments` is dev-only, `report` opens the lockbox |
 | `apply_rules.py` | applies the frozen rules to an arbitrary stripped ELF |
 
 ## Data
@@ -63,6 +65,10 @@ relative to `bench/rulemine/`.
 | `exp/e15_recall_ci.py` | **the held-out read, recall axis — where the result is** | `results/e15_recall_ci.json` |
 | `exp/e16_aux_corpora.py` | V2 / V3 / V4: build recipe, codegen-units, fresh programs | `results/e16_aux_corpora.json` |
 | `exp/e17_ceiling_by_corpus.py` | how the recall ceiling moves with the build | `results/e17_ceiling_by_corpus.json` |
+| `exp/e18_strict_target.py` | the frozen rules under the strict label convention | `results/e18_strict_target.json` |
+| `exp/e19_scope_rule.py` | the composite rule the scope condition implies (POST-HOC) | `results/e19_scope_rule.json` |
+| `exp/e20_percrate.py` | per-crate sign test — how many programs each rule wins in | `results/e20_percrate.json` |
+| `exp/e21_scope_validation.py` | **is the scope condition real?** tested on the sealed crates | `results/e21_scope_validation.json` |
 | `exp/make_picks.py` | freezes the proposed rules before the lockbox is opened | `results/picks.json` |
 | `apply_rules.py` | runs the frozen rules on any stripped ELF, same code path | `wild/*.json` |
 | `figs/plot_frontier.py` | the precision/recall frontier figure | `figs/frontier_{light,dark}.png` |

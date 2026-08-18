@@ -990,3 +990,54 @@ That is a mechanistic prediction, written down before the measurement, confirmed
 on data selected before either. It is the cleanest thing in this study, and it is
 the reason R2 stays in the proposed set despite being a null on aggregate
 held-out recall: it is the rule for the regime the other two cannot serve.
+
+## 2026-08-19T01:51 — The scope condition on the auxiliary corpora: one replication, one non-replication
+
+Extended E21's moderation test to V3 and V4.
+
+**V3 (codegen-units, 20 crates) — replicates strongly.**
+```
+R3   rho = +0.708  p = 0.0005    >=20 anchors: wins 13/14, median +11.61 pp
+R1   rho = +0.441  p = 0.052
+R2   rho = +0.266  p = 0.257      (again the least moderated of the three)
+```
+
+**V4 (fresh programs, 18 crates from the first batch) — does not.**
+```
+R3   rho = +0.360  p = 0.143     >=20 anchors: wins 2/6, median n/a
+R1   rho = +0.159  p = 0.530
+R2   rho = -0.195  p = 0.439
+```
+
+Only 6 of V4's 18 crates clear 20 anchors, so the high bin has almost no power,
+and those six are small programs built at a config mix (`cgu-16, lto=false` and
+`lto-thin, cgu=1`) that differs from the main matrix. The honest reading is that
+V4-batch-A cannot test this, not that it refutes it — but that distinction is
+only worth making if a better test follows, so a second V4 batch of 20 larger
+programs (broot, delta, gitui, skim, mdbook, watchexec, xplr, joshuto,
+presenterm, stylua, ...) is building now and will be re-run through the same
+test. Whatever it says goes in.
+
+Recording the non-replication now, before that result exists, so it cannot be
+quietly dropped if batch B happens to look better.
+
+## 2026-08-19T01:55 — A reference Rust implementation, and it agrees with the Python
+
+`extractor/src/bin/rule_apply.rs` applies R1/R2/R3/A@2 to a stripped ELF using
+only what `unhusk` already produces: ELF load, source-string classification,
+`.eh_frame` FDE recovery, `Location` reconstruction, and `xref::scan`'s
+per-function Location hits and call graph. The two new terms are a prefix-sum
+over the address-ordered FDE list and one inversion of the call graph — about
+forty lines. That settles "is this implementable in the shipped tool" by
+construction rather than by assertion.
+
+It is also an independent reimplementation of the relevant part of
+`lib/features.py`, written from the same specification, so running the two beside
+each other is the same kind of check `e00` performs against `origin_probe`.
+Cross-checked on 9 binaries (bandwhich, bat, tokei, ripgrep, oha, dufs, taplo,
+zellij, starship): **9 agree on the firing count of every rule, 0 mismatches.**
+
+The `is_author_path` function in it carries the `libcore/` spelling and the
+cargo-anchors-first ordering, with the reason in a comment, so the hazard that
+cost 1,323 functions in E00 cannot be reintroduced by someone porting this into
+`unhusk` without reading `paths.py`.
