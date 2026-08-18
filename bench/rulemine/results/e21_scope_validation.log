@@ -1,0 +1,20 @@
+
+=== HELD-OUT (15 crates — played no part in proposing the scope condition)
+    R1: Spearman(anchors, recall delta) = +0.578, p = 0.0241, n = 15
+       crates with <20 anchors : n= 6  median  -0.17 pp  wins 1/6
+       crates with >=20        : n= 9  median  +2.24 pp  wins 7/9
+    R2: Spearman(anchors, recall delta) = +0.193, p = 0.4907, n = 15
+       crates with <20 anchors : n= 6  median  +0.98 pp  wins 4/6
+       crates with >=20        : n= 9  median  +0.34 pp  wins 5/9
+    R3: Spearman(anchors, recall delta) = +0.745, p = 0.0014, n = 15
+       crates with <20 anchors : n= 6  median  -0.98 pp  wins 2/6
+       crates with >=20        : n= 9  median  +8.59 pp  wins 9/9
+
+=== ALL 43 CRATES (28 contaminated)
+    R1: Spearman(anchors, recall delta) = +0.230, p = 0.1375, n = 43
+       crates with <20 anchors : n=12  median  -0.11 pp  wins 4/12
+       crates with >=20        : n=31  median  +2.24 pp  wins 21/31
+    R2: Spearman(anchors, recall delta) = -0.079, p = 0.6146, n = 43
+       crates with <20 anchors : n=12  median  +1.24 pp  wins 8/12
+       crates with >=20        : n=31  median  +0.34 pp  wins 17/31
+    R3: Spearman(anchors, recall delta) = +0.420, p = 0.0050, n = 43

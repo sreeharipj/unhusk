@@ -1,0 +1,34 @@
+
+=== HELD-OUT (clean): 15 crates, 811,940 functions, target=ws
+    incumbent A@2: precision 95.2%, recall 5.91%
+    rule    crates better  worse  tied   sign p   median delta  Wilcoxon p
+    R1                  8      5     2   0.5811          0.93pp      0.1465
+    R2                  9      6     0   0.6072          0.62pp      0.3591
+    R3                 11      4     0   0.1185          4.80pp      0.0181
+
+=== HELD-OUT (clean), strict target: 15 crates, 811,940 functions, target=strict
+    incumbent A@2: precision 59.6%, recall 5.01%
+    rule    crates better  worse  tied   sign p   median delta  Wilcoxon p
+    R1                  9      4     2   0.2668          0.93pp      0.1272
+    R2                  9      5     1   0.4240          0.85pp      0.1531
+    R3                 11      3     1   0.0574          4.80pp      0.0134
+
+=== ALL 43 CRATES (contaminated: 28 are the development set): 43 crates, 2,451,904 functions, target=ws
+    incumbent A@2: precision 93.0%, recall 5.29%
+    rule    crates better  worse  tied   sign p   median delta  Wilcoxon p
+    R1                 25     16     2   0.2110          1.16pp      0.0019
+    R2                 25     17     1   0.2800          0.62pp      0.0800
+    R3                 37      6     0   0.0000          4.27pp      0.0000
+
+Worst held-out crates for R3, by recall delta:
+    sd               -13.01 pp
+    hyperfine         -2.22 pp
+    tealdeer          -1.34 pp
+    gping             -0.62 pp
+    trippy            +0.87 pp
+Best:
+    oha              +25.93 pp
+    topgrade         +25.24 pp
+    dufs             +21.59 pp
+    bat              +18.07 pp
+    mqttui            +8.96 pp

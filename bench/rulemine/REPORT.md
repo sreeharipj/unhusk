@@ -51,6 +51,11 @@ R3                             precision 95.1%   recall 15.94%   fires 4,481
 Holm correction on held-out data (+10.03 pp, 95% CI +4.8 to
 +17.6, adjusted p = 0.012).
 
+Per program rather than pooled: R3 recovers more author code than the
+incumbent in **37 of 43 individual crates** (Wilcoxon p < 0.0001; that count
+includes the development crates and is labelled as such in §6.3), and in
+11 of 15 of the held-out crates alone (Wilcoxon p = 0.018).
+
 **And the precision claim did not replicate.** The development-set finding that
 context corroboration significantly *raises* precision (§5.3) shows no
 significant effect on the held-out crates: R1 +1.26 pp, R2 -0.02 pp, R3
@@ -828,7 +833,9 @@ p = 0.0011). That is the one thing in this study that replicates under every
 cut it has been given — held-out crates, a different build script, three
 codegen-unit settings, and both label conventions.
 
-### 6.3 A composite the scope condition implies — POST-HOC, unvalidated
+### 6.3 The scope condition, tested on data that did not propose it
+
+### 6.4 A composite the scope condition implies — POST-HOC, unvalidated
 
 If R3 wins when anchors are plentiful and loses when they are scarce (§5.10),
 the obvious move is to pick per binary, using a quantity computable with no
@@ -949,7 +956,7 @@ for a downstream rule generator is yield, and it is a 3-5x change.
 
 ## 10. What this means for the preprint
 
-Six things are worth carrying over. One of them is a claim this study set out to
+Seven things are worth carrying over. One of them is a claim this study set out to
 make and then failed to confirm, which is written first because it is the one a
 reader is most entitled to.
 
@@ -1006,7 +1013,7 @@ non-author `Location`' clause buys about 2 pp of precision for 40% of the rule's
 recall on the development set. A defensible trade, but it should be stated as a
 trade.
 
-**6. Two clean negatives worth a paragraph each.** Counting multiplicity by source
+**7. Two clean negatives worth a paragraph each.** Counting multiplicity by source
 line rather than by `Location` struct does not help (paired interval includes
 zero) — which closes the most obvious objection to the multiplicity claim. And a
 five-clause mined rule set beats a single conjunction by about half a point of

@@ -64,3 +64,13 @@ clone oxipng
 >>> broot/lto-thin_opt-3_panic-unwind building 01:41:54
     OK 13587680 bytes
 >>> broot/cgu-16_lto-false_opt-3_panic-unwind building 01:43:09
+    OK 14979376 bytes
+>>> csvlens/lto-thin_opt-3_panic-unwind building 01:44:00
+    OK 7088888 bytes
+>>> csvlens/cgu-16_lto-false_opt-3_panic-unwind building 01:44:58
+    OK 8848592 bytes
+>>> delta/lto-thin_opt-3_panic-unwind building 01:45:44
+    OK 6527488 bytes
+>>> delta/cgu-16_lto-false_opt-3_panic-unwind building 01:46:28
+    OK 7062904 bytes
+>>> fend/lto-thin_opt-3_panic-unwind building 01:47:00

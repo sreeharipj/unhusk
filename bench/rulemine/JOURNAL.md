@@ -933,3 +933,60 @@ different partitions of the data, all landing on the same conjunction shape. Thi
 is the strongest evidence in the study that the shape is a property of the data
 rather than of any one search — which is exactly the question that was asked at
 the start.
+
+## 2026-08-19T01:50 — E20/E21: the scope condition is real, and a prediction made earlier tonight was confirmed
+
+### E20 — per-crate sign test
+
+The lockbox bootstrap over 15 clusters has wide intervals, so a null there is weak
+evidence. A sign test over crates keeps direction and throws away effect size,
+which is the right trade when cluster count is the binding constraint.
+
+| corpus | rule | crates better | worse | tied | median recall delta | Wilcoxon p |
+|---|---|---|---|---|---|---|
+| held-out (15) | R1 | 8 | 5 | 2 | +0.93 pp | 0.147 |
+| held-out (15) | R2 | 9 | 6 | 0 | +0.62 pp | 0.359 |
+| held-out (15) | **R3** | **11** | 4 | 0 | **+4.80 pp** | **0.018** |
+| all 43 (contaminated) | R1 | 25 | 16 | 2 | +1.16 pp | 0.0019 |
+| all 43 (contaminated) | **R3** | **37** | **6** | 0 | **+4.27 pp** | **<0.0001** |
+
+R3 recovers more author code than the incumbent in **37 of 43 individual
+programs**. The all-43 row is contaminated (28 of those crates are the
+development set) and is labelled as such; the held-out row is clean and still
+significant by Wilcoxon.
+
+### E21 — the scope condition, tested on data that did not propose it
+
+The anchor-count scope condition came from V4 and the wild samples. Its
+*threshold* is post-hoc and stays labelled. But whether the moderating
+relationship exists at all is separately testable, on the 15 held-out crates,
+which played no part in proposing it. Anchor count per crate = median across its
+builds of the number of functions referencing a relative-path `Location`.
+
+**Held-out crates, Spearman(anchor count, rule's per-crate recall advantage):**
+
+```
+R3   rho = +0.745   p = 0.0014     <20 anchors: wins 2/6, median -0.98 pp
+                                  >=20 anchors: wins 9/9, median +8.59 pp
+R1   rho = +0.578   p = 0.0241     <20: wins 1/6      >=20: wins 7/9
+R2   rho = +0.193   p = 0.4907     <20: wins 4/6      >=20: wins 5/9
+```
+
+Ordered by anchor count the held-out crates line up almost monotonically: `sd`
+(6 anchors) is R3's worst at -13.01 pp; `topgrade` (190) and `oha` (88) are its
+best at +25.24 and +25.93 pp. **Above 20 anchors R3 wins 9 out of 9.**
+
+**And the R2 row is the one I care most about**, because it confirms a prediction
+made earlier tonight, before this test existed. At 01:14, from five wild samples
+with no ground truth, I wrote: *"R2's corroboration is a single caller, not a
+density. One caller can exist in a binary with one author function; three
+neighbours cannot."* The direct consequence is that R2 should **not** be moderated
+by anchor count while R1 and R3 should. On held-out crates: R3 rho = +0.745
+(p = 0.0014), R1 +0.578 (p = 0.024), R2 +0.193 (p = 0.49). The two density rules
+are strongly moderated; the caller rule is not, and its interval comfortably
+includes zero.
+
+That is a mechanistic prediction, written down before the measurement, confirmed
+on data selected before either. It is the cleanest thing in this study, and it is
+the reason R2 stays in the proposed set despite being a null on aggregate
+held-out recall: it is the rule for the regime the other two cannot serve.

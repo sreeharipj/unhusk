@@ -86,6 +86,13 @@ def sec_intro(ctx):
             w(f"{abs(100*(r3['precision']-inc['precision'])):.2f} pp, nowhere near significance — and the recall gain survives")
             w(f"Holm correction on held-out data ({r3['delta_recall_pp']:+.2f} pp, 95% CI {r3['ci'][0]:+.1f} to")
             w(f"{r3['ci'][1]:+.1f}, adjusted p = {r3['holm_adjusted_p']:.3f}).\n")
+        if e20 and e20.get("all_crates_contaminated", {}).get("R3"):
+            d3 = e20["all_crates_contaminated"]["R3"]
+            h3 = e20["held_out"]["R3"]
+            w(f"Per program rather than pooled: R3 recovers more author code than the")
+            w(f"incumbent in **{d3['crates_better']} of {d3['crates_better']+d3['crates_worse']+d3['crates_tied']} individual crates** (Wilcoxon p < 0.0001; that count")
+            w(f"includes the development crates and is labelled as such in §6.3), and in")
+            w(f"{h3['crates_better']} of {h3['crates_better']+h3['crates_worse']} of the held-out crates alone (Wilcoxon p = {h3['wilcoxon_p']:.3f}).\n")
         w("**And the precision claim did not replicate.** The development-set finding that")
         w("context corroboration significantly *raises* precision (§5.3) shows no")
         w("significant effect on the held-out crates: R1 +1.26 pp, R2 -0.02 pp, R3")
@@ -844,7 +851,60 @@ def sec_robustness(ctx):
         w("p = 0.0011). That is the one thing in this study that replicates under every")
         w("cut it has been given — held-out crates, a different build script, three")
         w("codegen-unit settings, and both label conventions.\n")
-    w("### 6.3 A composite the scope condition implies — POST-HOC, unvalidated\n")
+    w("### 6.3 The scope condition, tested on data that did not propose it\n")
+    if e20 and e21:
+        w("The lockbox bootstrap over 15 clusters has wide intervals, so a null there is")
+        w("weak evidence. A sign test over crates keeps direction and discards effect")
+        w("size, which is the right trade when the cluster count is the binding")
+        w("constraint.\n")
+        w("| corpus | rule | crates better | worse | median recall delta | Wilcoxon p |")
+        w("|---|---|---|---|---|---|")
+        for key, lab in (("held_out", "held-out (15)"),
+                         ("all_crates_contaminated", "all 43 *(contaminated)*")):
+            for short in ("R1", "R2", "R3"):
+                d = e20.get(key, {}).get(short)
+                if not d:
+                    continue
+                w(f"| {lab} | {short} | {d['crates_better']} | {d['crates_worse']} | "
+                  f"{d['median_recall_delta_pp']:+.2f} pp | {d['wilcoxon_p']:.4f} |")
+        w("")
+        w("**R3 recovers more author code than the incumbent in 37 of 43 individual")
+        w("programs.** The all-43 rows are contaminated — 28 of those crates are the")
+        w("development set — and are labelled so; the held-out row is clean and still")
+        w("significant by Wilcoxon.\n")
+        ho = e21.get("test", {})
+        if ho:
+            w("The anchor-count scope condition of §2 came from V4 and the wild samples, so")
+            w("its threshold is post-hoc. Whether the moderating relationship exists at all")
+            w("is separately testable on the 15 held-out crates, which played no part in")
+            w("proposing it:\n")
+            w("| rule | Spearman(anchors, recall advantage) | p | <20 anchors | >=20 anchors |")
+            w("|---|---|---|---|---|")
+            for short in ("R1", "R2", "R3"):
+                d = ho.get(short)
+                if not d:
+                    continue
+                lo, hi = d["low"], d["high"]
+                w(f"| {short} | {d['spearman_r']:+.3f} | {d['spearman_p']:.4f} | "
+                  f"wins {lo['wins']}/{lo['n']}, median {lo['median_pp']:+.2f} pp | "
+                  f"wins {hi['wins']}/{hi['n']}, median {hi['median_pp']:+.2f} pp |")
+            w("")
+            w("**Above 20 anchors R3 wins 9 out of 9.** Ordered by anchor count the")
+            w("held-out crates line up almost monotonically: `sd` (6 anchors) is R3's worst")
+            w("at -13.01 pp; `topgrade` (190) and `oha` (88) are its best at +25.24 and")
+            w("+25.93 pp.\n")
+            w("**The R2 row confirms a prediction made before the test existed.** From the")
+            w("five wild samples (§5.11), with no ground truth, the study recorded: *R2's")
+            w("corroboration is a single caller, not a density; one caller can exist in a")
+            w("binary with one author function, three neighbours cannot.* The direct")
+            w("consequence is that R2 should **not** be moderated by anchor count while R1")
+            w("and R3 should. On held-out crates R3 is moderated at rho = +0.745")
+            w("(p = 0.0014), R1 at +0.578 (p = 0.024), and R2 is not, at +0.193 (p = 0.49).")
+            w("A mechanistic prediction, written down first, confirmed on crates sealed")
+            w("before either. It is why R2 stays in the proposed set despite being a null on")
+            w("aggregate held-out recall: it is the rule for the regime the other two")
+            w("cannot serve.\n")
+    w("### 6.4 A composite the scope condition implies — POST-HOC, unvalidated\n")
     if e19:
         w("If R3 wins when anchors are plentiful and loses when they are scarce (§5.10),")
         w("the obvious move is to pick per binary, using a quantity computable with no")
@@ -963,7 +1023,7 @@ def sec_close(ctx):
     w("   `classify.rs`/`xref.rs` and is expected to behave similarly, untested here.\n")
 
     w("## 10. What this means for the preprint\n")
-    w("Six things are worth carrying over. One of them is a claim this study set out to")
+    w("Seven things are worth carrying over. One of them is a claim this study set out to")
     w("make and then failed to confirm, which is written first because it is the one a")
     w("reader is most entitled to.\n")
     w("**1. The precision claim did not replicate, and the paper should not make it.**")
@@ -1017,7 +1077,19 @@ def sec_close(ctx):
     w("non-author `Location`' clause buys about 2 pp of precision for 40% of the rule's")
     w("recall on the development set. A defensible trade, but it should be stated as a")
     w("trade.\n")
-    w("**6. Two clean negatives worth a paragraph each.** Counting multiplicity by source")
+    if e21 and e21.get("test"):
+        t = e21["test"]
+        w("**6. A mechanistic prediction that was written down first and then confirmed,")
+        w("which is worth a short paragraph on its own.** From five in-the-wild samples")
+        w("with no ground truth, the study recorded that R2's corroboration is a single")
+        w("caller rather than a density, so R2 should not be sensitive to how many")
+        w("anchor-bearing functions a binary has, while the neighbourhood rules should be.")
+        w("Tested afterwards on the 15 sealed crates: R3 is moderated by anchor count at")
+        w(f"rho = {t['R3']['spearman_r']:+.3f} (p = {t['R3']['spearman_p']:.4f}), R1 at {t['R1']['spearman_r']:+.3f} (p = {t['R1']['spearman_p']:.3f}), and R2 is not,")
+        w(f"at {t['R2']['spearman_r']:+.3f} (p = {t['R2']['spearman_p']:.2f}). Above 20 anchors R3 wins 9 of 9 held-out crates.")
+        w("The paper can state the operating regime of each rule as a measured property")
+        w("rather than a caveat.\n")
+    w("**7. Two clean negatives worth a paragraph each.** Counting multiplicity by source")
     w("line rather than by `Location` struct does not help (paired interval includes")
     w("zero) — which closes the most obvious objection to the multiplicity claim. And a")
     w("five-clause mined rule set beats a single conjunction by about half a point of")
@@ -1067,7 +1139,8 @@ def main():
         "e08": load("e08_nested.json"), "e09": load("e09_multiplicity.json"),
         "e10": load("e10_ablation.json"), "e11": load("e11_lockbox.json"),
         "e12": load("e12_window.json"), "e13": load("e13_sparsity.json"),
-        "e14": load("e14_anchor_scarcity.json"), "e15": load("e15_recall_ci.json"), "e16": load("e16_aux_corpora.json"), "e17": load("e17_ceiling_by_corpus.json"), "e18": load("e18_strict_target.json"), "e19": load("e19_scope_rule.json"),
+        "e14": load("e14_anchor_scarcity.json"), "e15": load("e15_recall_ci.json"), "e16": load("e16_aux_corpora.json"), "e17": load("e17_ceiling_by_corpus.json"), "e18": load("e18_strict_target.json"), "e19": load("e19_scope_rule.json"), "e20": load("e20_percrate.json"),
+        "e21": load("e21_scope_validation.json"),
         "picks": load("picks.json"),
         "split": json.load(open(os.path.join(HERE, "data", "split.json"))),
         "env": json.load(open(os.path.join(HERE, "env.json"))),
