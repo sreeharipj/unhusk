@@ -1,0 +1,172 @@
+{
+ "whole population": {
+  "n_rows": 1639964,
+  "n_positive": 90349,
+  "n_buckets": 1141210,
+  "n_mixed_buckets": 798,
+  "bayes_error_lower_bound": 0.0014671053754838521,
+  "positives_in_mixed_buckets": 5916,
+  "frac_positives_contaminated": 0.06547941869860209,
+  "positives_in_pure_buckets": 84433,
+  "frac_positives_pure": 0.9345205813013979
+ },
+ "invisible (no author Location)": {
+  "n_rows": 1620673,
+  "n_positive": 74001,
+  "n_buckets": 1122298,
+  "n_mixed_buckets": 808,
+  "bayes_error_lower_bound": 0.001516036856293651,
+  "positives_in_mixed_buckets": 5967,
+  "frac_positives_contaminated": 0.08063404548587182,
+  "positives_in_pure_buckets": 68034,
+  "frac_positives_pure": 0.9193659545141282
+ },
+ "anchor-bearing": {
+  "n_rows": 19291,
+  "n_positive": 16348,
+  "n_buckets": 18108,
+  "n_mixed_buckets": 0,
+  "bayes_error_lower_bound": 0.0,
+  "positives_in_mixed_buckets": 0,
+  "frac_positives_contaminated": 0.0,
+  "positives_in_pure_buckets": 16348,
+  "frac_positives_pure": 1.0
+ },
+ "invisible_by_family": {
+  "B": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 22,
+   "n_mixed_buckets": 22,
+   "bayes_error_lower_bound": 0.04566066072551341,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "C": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 421,
+   "n_mixed_buckets": 101,
+   "bayes_error_lower_bound": 0.04527872063025669,
+   "positives_in_mixed_buckets": 73611,
+   "frac_positives_contaminated": 0.9947298009486358,
+   "positives_in_pure_buckets": 390,
+   "frac_positives_pure": 0.0052701990513641704
+  },
+  "F": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 3,
+   "n_mixed_buckets": 3,
+   "bayes_error_lower_bound": 0.04566066072551341,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "G": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 232040,
+   "n_mixed_buckets": 3951,
+   "bayes_error_lower_bound": 0.017685245573906643,
+   "positives_in_mixed_buckets": 36270,
+   "frac_positives_contaminated": 0.4901285117768679,
+   "positives_in_pure_buckets": 37731,
+   "frac_positives_pure": 0.5098714882231321
+  },
+  "M": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 24,
+   "n_mixed_buckets": 17,
+   "bayes_error_lower_bound": 0.04566066072551341,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "N": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 310875,
+   "n_mixed_buckets": 6819,
+   "bayes_error_lower_bound": 0.023569837962377358,
+   "positives_in_mixed_buckets": 42689,
+   "frac_positives_contaminated": 0.5768705828299617,
+   "positives_in_pure_buckets": 31312,
+   "frac_positives_pure": 0.42312941717003827
+  },
+  "P": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 461,
+   "n_mixed_buckets": 104,
+   "bayes_error_lower_bound": 0.04527872063025669,
+   "positives_in_mixed_buckets": 73611,
+   "frac_positives_contaminated": 0.9947298009486358,
+   "positives_in_pure_buckets": 390,
+   "frac_positives_pure": 0.0052701990513641704
+  },
+  "X": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 68509,
+   "n_mixed_buckets": 3608,
+   "bayes_error_lower_bound": 0.03951938484814642,
+   "positives_in_mixed_buckets": 65580,
+   "frac_positives_contaminated": 0.8862042404832368,
+   "positives_in_pure_buckets": 8421,
+   "frac_positives_pure": 0.11379575951676328
+  }
+ },
+ "low_dimensional_probes": {
+  "N_win_rel, N_dist_rel (3 bins each)": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 9,
+   "n_mixed_buckets": 6,
+   "bayes_error_lower_bound": 0.04566066072551341,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "+ X_caller_rel": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 22,
+   "n_mixed_buckets": 14,
+   "bayes_error_lower_bound": 0.04566066072551341,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "+ G_n_insn, G_size": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 154,
+   "n_mixed_buckets": 70,
+   "bayes_error_lower_bound": 0.04549714840686554,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  },
+  "5 features, 5 bins each": {
+   "n_rows": 1620673,
+   "n_positive": 74001,
+   "n_buckets": 881,
+   "n_mixed_buckets": 312,
+   "bayes_error_lower_bound": 0.04392681312022845,
+   "positives_in_mixed_buckets": 74001,
+   "frac_positives_contaminated": 1.0,
+   "positives_in_pure_buckets": 0,
+   "frac_positives_pure": 0.0
+  }
+ },
+ "_caveat": "The high-dimensional bound is vacuous: with 91 features nearly every row is unique, so the 'pure vector' fraction measures cardinality rather than separability. Use D01's held-out model for the generalising answer, and the low-dimensional probes here for a meaningful bound."
+}

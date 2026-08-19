@@ -22,7 +22,7 @@ PY      := python3 -u
 STUDY   := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 EXTRACT := extractor/target/release/rulemine_extract
 
-.PHONY: all data raw v2 v3 v4 aux experiments report verify clean-results
+.PHONY: all data raw v2 v3 v4 aux experiments report verify diagnostics clean-results
 all: data experiments report
 
 # ── stage 1: corpus inventory and feature extraction ────────────────────────
@@ -117,6 +117,15 @@ report: results/picks.json
 # checkout without rebuilding anything.
 verify:
 	$(PY) verify.py
+
+# Diagnostics run before deciding whether to expand the feature set. Not part of
+# `all`: they answer a design question rather than producing a reported number,
+# and d01 alone is ~25 minutes of model fitting.
+diagnostics:
+	$(PY) exp/d01_headroom.py     | tee results/d01_headroom.log
+	$(PY) exp/d02_permutation.py  | tee results/d02_permutation.log
+	$(PY) exp/d03_separability.py | tee results/d03_separability.log
+	$(PY) exp/d04_ruleform.py     | tee results/d04_ruleform.log
 
 clean-results:
 	rm -f results/*.json results/*.log figs/*.png

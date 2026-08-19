@@ -229,7 +229,12 @@ def beam_search(atoms, space, tau=0.95, min_crates=5, max_len=4, beam=200,
     out = {tuple(sorted(r[0])): r for r in kept}
 
     for depth in range(2, max_len + 1):
-        nxt = []
+        # Candidate masks are NOT retained. Holding one per candidate costs
+        # beam * n_atoms * (n_rows/8) bytes -- at beam 400, 735 atoms and 1.6M
+        # rows that is ~58 GB, which does not fail loudly, it swaps until the
+        # process is killed. Only the surviving beam's masks are materialised,
+        # rebuilt from their atom indices for one extra AND per member per level.
+        scored = []
         for idxs, w, _ in frontier:
             last = max(idxs)
             for k in range(last + 1, n):
@@ -239,11 +244,11 @@ def beam_search(atoms, space, tau=0.95, min_crates=5, max_len=4, beam=200,
                 m2 = space.metrics(w2)
                 if m2["predicted"] == 0:
                     continue
-                nxt.append((idxs + [k], w2, m2))
-        if not nxt:
+                scored.append((idxs + [k], None, m2))
+        if not scored:
             break
-        nxt.sort(key=rank)
-        frontier = nxt[:beam]
+        scored.sort(key=rank)
+        frontier = [(idxs, _mask_of(atoms, idxs), m) for idxs, _, m in scored[:beam]]
         for idxs, _, m in frontier:
             if _qualifies(m, tau, min_crates, 0.0):
                 out[tuple(sorted(idxs))] = (idxs, None, m)
@@ -259,6 +264,14 @@ def beam_search(atoms, space, tau=0.95, min_crates=5, max_len=4, beam=200,
                         **_clean(m)})
     results.sort(key=lambda r: (-r["recall"], -r["precision"]))
     return results[:top_k]
+
+
+def _mask_of(atoms, idxs):
+    """Rebuild a conjunction's packed mask from its atom indices."""
+    w = atoms[idxs[0]]["words"].copy()
+    for k in idxs[1:]:
+        w &= atoms[k]["words"]
+    return w
 
 
 def _clean(m):

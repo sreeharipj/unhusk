@@ -1,0 +1,49 @@
+dev 1,639,964 rows, 91 features
+
+── whole population: 1,639,964 rows, 90,349 author
+     distinct feature vectors      1,141,210
+     vectors holding both classes  798
+     author functions sharing a vector with a non-author: 5,916 (6.5%)
+     author functions in a PURE vector (reachable at 100% precision): 84,433 (93.5%)
+     Bayes error lower bound        0.1467%
+
+── invisible (no author Location): 1,620,673 rows, 74,001 author
+     distinct feature vectors      1,122,298
+     vectors holding both classes  808
+     author functions sharing a vector with a non-author: 5,967 (8.1%)
+     author functions in a PURE vector (reachable at 100% precision): 68,034 (91.9%)
+     Bayes error lower bound        0.1516%
+
+── anchor-bearing: 19,291 rows, 16,348 author
+     distinct feature vectors      18,108
+     vectors holding both classes  0
+     author functions sharing a vector with a non-author: 0 (0.0%)
+     author functions in a PURE vector (reachable at 100% precision): 16,348 (100.0%)
+     Bayes error lower bound        0.0000%
+
+── which family carries separating information in the invisible population
+   family    n feat  pure positives  % of invisible authors
+   B              5               0                   0.0%
+   C              7             390                   0.5%
+   F              6               0                   0.0%
+   G             24          37,731                  51.0%
+   M             15               0                   0.0%
+   N             14          31,312                  42.3%
+   P             10             390                   0.5%
+   X             10           8,421                  11.4%
+
+── the same bound at low dimension, where it is not vacuous
+   features                                       cells   mixed  Bayes err  pure pos
+   N_win_rel, N_dist_rel (3 bins each)                9       6     4.57%     0.0%
+   + X_caller_rel                                    22      14     4.57%     0.0%
+   + G_n_insn, G_size                               154      70     4.55%     0.0%
+   5 features, 5 bins each                          881     312     4.39%     0.0%
+
+── what a new feature would have to do (read with the caveat above)
+   Invisible author functions: 74,001
+   Already in a pure feature vector: 68,034 (91.9%) — separable in principle today
+   Sharing a vector with a non-author: 5,967 (8.1%) — a new feature must split these
+   Those 5,967 functions are 6.6% of all author functions in the development set,
+   which is the ceiling on what ANY new feature could add to overall recall.
+
+wrote results/d03_separability.json

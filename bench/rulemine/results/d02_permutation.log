@@ -1,0 +1,63 @@
+dev 1,639,964 rows, 91 features, base 5.509%
+precision floor 95%, must fire in >= 8 crates, 8 permutations per size
+
+── 10 features (141 atoms)
+   REAL   recall   0.83%  precision  95.7%   G_n_ref_rodata >= 10 AND N_next_rel >= 2
+   null 1/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 2/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 3/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 4/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 5/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 6/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 7/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 8/8  recall   0.00%  precision   nan%   (nothing qualified)
+   noise floor: 0/8 permutations produced any qualifying rule; best-recall mean 0.000%, max 0.000%
+   real / noise-max ratio 8312211.5x   permutation p = 0.111   (48s)
+
+── 25 features (293 atoms)
+   REAL   recall   4.74%  precision  95.7%   X_caller_max_rel >= 1 AND C_user >= 2
+   null 1/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 2/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 3/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 4/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 5/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 6/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 7/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 8/8  recall   0.00%  precision   nan%   (nothing qualified)
+   noise floor: 0/8 permutations produced any qualifying rule; best-recall mean 0.000%, max 0.000%
+   real / noise-max ratio 47393994.4x   permutation p = 0.111   (137s)
+
+── 45 features (450 atoms)
+   REAL   recall   4.74%  precision  95.7%   M_rel_structs >= 2 AND X_caller_rel >= 1
+   null 1/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 2/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 3/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 4/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 5/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 6/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 7/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 8/8  recall   0.00%  precision   nan%   (nothing qualified)
+   noise floor: 0/8 permutations produced any qualifying rule; best-recall mean 0.000%, max 0.000%
+   real / noise-max ratio 47393994.4x   permutation p = 0.111   (261s)
+
+── 91 features (916 atoms)
+   REAL   recall   5.84%  precision  95.1%   M_rel_line_span >= 2 AND N_win_rel >= 3
+   null 1/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 2/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 3/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 4/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 5/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 6/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 7/8  recall   0.00%  precision   nan%   (nothing qualified)
+   null 8/8  recall   0.00%  precision   nan%   (nothing qualified)
+   noise floor: 0/8 permutations produced any qualifying rule; best-recall mean 0.000%, max 0.000%
+   real / noise-max ratio 58373640.0x   permutation p = 0.111   (603s)
+
+── summary: does a bigger space inflate what noise can produce?
+    features   atoms  real recall  noise max  noise mean   ratio   perm p
+          10     141       0.83%     0.000%      0.000%8312211.5x    0.111
+          25     293       4.74%     0.000%      0.000%47393994.4x    0.111
+          45     450       4.74%     0.000%      0.000%47393994.4x    0.111
+          91     916       5.84%     0.000%      0.000%58373640.0x    0.111
+
+wrote results/d02_permutation.json

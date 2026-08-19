@@ -1,0 +1,96 @@
+dev 1,639,964 rows, 28 crates, 91 features, base rate 5.509%
+
+══ A. where is the headroom ══════════════════════════════════════
+  full population
+      full fold 1/5 (18s)
+      full fold 2/5 (36s)
+      full fold 3/5 (53s)
+      full fold 4/5 (74s)
+      full fold 5/5 (94s)
+
+  invisible population (1,620,673 rows, 74,001 author, base 4.566%)
+      invisible fold 1/5 (20s)
+      invisible fold 2/5 (38s)
+      invisible fold 3/5 (57s)
+      invisible fold 4/5 (77s)
+      invisible fold 5/5 (99s)
+
+  anchor-bearing population (19,291 rows)
+      visible fold 1/5 (1s)
+      visible fold 2/5 (1s)
+      visible fold 3/5 (2s)
+      visible fold 4/5 (2s)
+      visible fold 5/5 (3s)
+
+  population                  rows    base      AP     P@R2     P@R5    P@R10    P@R20    P@R30
+  full                   1,639,964   5.51%   0.688    99.3%    97.8%    96.5%    91.4%    87.6%
+  invisible              1,620,673   4.57%   0.590    94.3%    89.6%    85.5%    81.6%    76.5%
+  anchor_bearing            19,291  84.74%   0.964   100.0%    99.8%    99.2%    98.4%    98.2%
+
+══ B. is the feature space saturated (leave-one-family-out) ══════
+  all families
+      all fold 1/4 (15s)
+      all fold 2/4 (30s)
+      all fold 3/4 (44s)
+      all fold 4/4 (60s)
+    AP 0.6887   P@R10 96.3%   P@R20 90.2%
+  without B (5 features dropped)
+      -B fold 1/4 (14s)
+      -B fold 2/4 (29s)
+      -B fold 3/4 (47s)
+      -B fold 4/4 (60s)
+    AP 0.6974 (+0.0087)   P@R20 90.7% (+0.44 pp)
+  without C (7 features dropped)
+      -C fold 1/4 (14s)
+      -C fold 2/4 (27s)
+      -C fold 3/4 (41s)
+      -C fold 4/4 (52s)
+    AP 0.6907 (+0.0020)   P@R20 89.7% (-0.56 pp)
+  without F (6 features dropped)
+      -F fold 1/4 (12s)
+      -F fold 2/4 (24s)
+      -F fold 3/4 (37s)
+      -F fold 4/4 (50s)
+    AP 0.6888 (+0.0001)   P@R20 90.2% (+0.00 pp)
+  without G (24 features dropped)
+      -G fold 1/4 (11s)
+      -G fold 2/4 (21s)
+      -G fold 3/4 (31s)
+      -G fold 4/4 (41s)
+    AP 0.6074 (-0.0813)   P@R20 88.3% (-1.95 pp)
+  without M (15 features dropped)
+      -M fold 1/4 (12s)
+      -M fold 2/4 (23s)
+      -M fold 3/4 (34s)
+      -M fold 4/4 (46s)
+    AP 0.6917 (+0.0030)   P@R20 90.5% (+0.26 pp)
+  without N (14 features dropped)
+      -N fold 1/4 (12s)
+      -N fold 2/4 (24s)
+      -N fold 3/4 (35s)
+      -N fold 4/4 (47s)
+    AP 0.4835 (-0.2052)   P@R20 86.8% (-3.45 pp)
+  without P (10 features dropped)
+      -P fold 1/4 (12s)
+      -P fold 2/4 (24s)
+      -P fold 3/4 (37s)
+      -P fold 4/4 (49s)
+    AP 0.6905 (+0.0018)   P@R20 89.9% (-0.31 pp)
+  without X (10 features dropped)
+      -X fold 1/4 (12s)
+      -X fold 2/4 (24s)
+      -X fold 3/4 (35s)
+      -X fold 4/4 (47s)
+    AP 0.6754 (-0.0133)   P@R20 89.1% (-1.17 pp)
+
+  dropped family    features       AP       dAP    P@R20    dP@R20
+  N                       77   0.4835   -0.2052    86.8%    -3.45
+  G                       67   0.6074   -0.0813    88.3%    -1.95
+  X                       81   0.6754   -0.0133    89.1%    -1.17
+  F                       85   0.6888   +0.0001    90.2%    +0.00
+  P                       81   0.6905   +0.0018    89.9%    -0.31
+  C                       84   0.6907   +0.0020    89.7%    -0.56
+  M                       76   0.6917   +0.0030    90.5%    +0.26
+  B                       86   0.6974   +0.0087    90.7%    +0.44
+
+wrote results/d01_headroom.json

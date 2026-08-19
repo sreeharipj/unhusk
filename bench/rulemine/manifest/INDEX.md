@@ -69,6 +69,15 @@ relative to `bench/rulemine/`.
 | `exp/e19_scope_rule.py` | the composite rule the scope condition implies (POST-HOC) | `results/e19_scope_rule.json` |
 | `exp/e20_percrate.py` | per-crate sign test — how many programs each rule wins in | `results/e20_percrate.json` |
 | `exp/e21_scope_validation.py` | **is the scope condition real?** tested on the sealed crates | `results/e21_scope_validation.json` |
+
+## Diagnostics — asked before spending a second search cycle on more features
+
+| experiment | question | output |
+|---|---|---|
+| `exp/d01_headroom.py` | where is the headroom, and is the feature space saturated? | `results/d01_headroom.json` |
+| `exp/d02_permutation.py` | how good a rule can the search manufacture from shuffled labels? | `results/d02_permutation.json` |
+| `exp/d03_separability.py` | *(negative — a diagnostic that failed; the high-dimensional bound is vacuous)* | `results/d03_separability.json` |
+| `exp/d04_ruleform.py` | is the gap a feature gap or a rule-form gap? | `results/d04_ruleform.json` |
 | `exp/make_picks.py` | freezes the proposed rules before the lockbox is opened | `results/picks.json` |
 | `apply_rules.py` | runs the frozen rules on any stripped ELF, same code path | `wild/*.json` |
 | `figs/plot_frontier.py` | the precision/recall frontier figure | `figs/frontier_{light,dark}.png` |

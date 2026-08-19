@@ -1131,3 +1131,138 @@ functions; and this log's own invented timestamps.
 that the precision claim should not be made, and that the recall ceiling is a
 property of how the target was built rather than of the method. The rest is new
 material with measurements attached.
+
+## 2026-08-19T11:20 — Diagnostic: should we add 10-20 more features?
+
+Asked whether a second, larger feature set would find something better. Rather
+than build twenty features and hope, ran four diagnostics first. Answer up front:
+**adding features is low return, and the reason is specific — the feature space is
+saturated, and the binding constraint is the rule FORM, not the features.**
+
+### D01-B — the space is saturated
+
+Leave-one-family-out on a gradient-boosted model, grouped 4-fold over crates, all
+91 features vs each family removed:
+
+| dropped family | features left | AP | ΔAP | P@R20 | ΔP@R20 |
+|---|---|---|---|---|---|
+| **N** neighbourhood | 77 | 0.4835 | **−0.2052** | 86.8% | −3.45 pp |
+| **G** geometry | 67 | 0.6074 | **−0.0813** | 88.3% | −1.95 pp |
+| **X** call graph | 81 | 0.6754 | −0.0133 | 89.1% | −1.17 pp |
+| F fan-out | 85 | 0.6888 | +0.0001 | 90.2% | +0.00 pp |
+| P this study's taxonomy | 81 | 0.6905 | +0.0018 | 89.9% | −0.31 pp |
+| C incumbent counts | 84 | 0.6907 | +0.0020 | 89.7% | −0.56 pp |
+| M multiplicity | 76 | 0.6917 | +0.0030 | 90.5% | +0.26 pp |
+| B binary normalisers | 86 | 0.6974 | **+0.0087** | 90.7% | +0.44 pp |
+
+**Five of the eight families contribute nothing or actively hurt.** Only three
+carry weight, and one of them — the neighbourhood — carries most of it. A ninth
+family of the same kind would land in the dead zone with F, P, C, M and B.
+
+One nuance that must not be misread: M and C looking useless here is a
+population effect, not a verdict on multiplicity. 98.8% of rows carry no anchor
+at all, so those columns are almost entirely zeros and a model over the full
+population learns nothing from them. Within the anchor-bearing subpopulation they
+are the entire signal — that population reaches AP 0.964. Multiplicity is not
+dead; it is concentrated in 1.2% of the rows.
+
+This also independently confirms the study's central finding by a completely
+different route. The rule search said multiplicity∧context in 28/28 nested folds;
+the model ablation says the neighbourhood family is worth four times more than
+any other. Two methods, one conclusion.
+
+### D01-A — the bottleneck is rule form, not features
+
+Same model, fit separately on each population:
+
+| population | rows | base rate | AP | P@R5 | P@R10 | P@R20 | P@R30 |
+|---|---|---|---|---|---|---|---|
+| full | 1,639,964 | 5.51% | 0.688 | 97.8% | 96.5% | 91.4% | 87.6% |
+| **invisible** (no author Location) | 1,620,673 | 4.57% | 0.590 | **89.6%** | **85.5%** | 81.6% | 76.5% |
+| anchor-bearing | 19,291 | 84.74% | 0.964 | 99.8% | 99.2% | 98.4% | 98.2% |
+
+Now put that beside E04, which searched **the same rows with the same 91
+features** for the best two-term rule:
+
+```
+                            ~90% precision      ~10% recall
+  best two-term rule        1.13% recall        70.7% precision
+  gradient boosting         5%    recall        85.5% precision
+```
+
+**Four to nine times the recall at matched precision, from identical features.**
+A gap that exists with the feature set held constant cannot be closed by adding
+features. It is the price of insisting on a two-term conjunction.
+
+### D02 — the search is not inflating results through space size
+
+Labels shuffled within crate (preserving each crate's base rate and cluster
+structure), the entire conjunction search re-run on the noise, 8 permutations at
+each of several feature-set sizes:
+
+```
+  10 features (141 atoms)   0/8 permutations produced ANY qualifying rule
+  25 features (293 atoms)   0/8
+  45 features (450 atoms)   0/8
+```
+
+The 95% precision floor plus the requirement to fire in at least 8 distinct
+crates is already a strong enough constraint that a search over hundreds of atoms
+cannot manufacture a qualifying rule from noise. So growing the space is not, by
+itself, the overfitting risk — which is reassuring about the existing result and
+also means "more features would overfit" is *not* the reason to decline. The
+reason to decline is saturation and rule form.
+
+Note the limit of this control: it measures inflation from the SIZE of the search
+space. It cannot measure inflation from a human choosing which features to build,
+which is why the defence there remains the pre-registered ordering and the sealed
+split.
+
+### D03 — a diagnostic that failed, recorded as such
+
+Intended as an information-theoretic bound: bucket rows by exact discretised
+feature vector, and count author functions sharing a bucket with a non-author one.
+It reported that 91.9% of invisible author functions sit in a "pure" vector.
+
+**That number is meaningless and I am not using it.** With 91 features over 1.6M
+rows there are 1,122,298 distinct vectors for 1,620,673 rows — nearly every row is
+unique, so "no non-author shares this vector" means the row is *memorisable*, not
+that it is separable by anything that generalises. The per-family version of the
+same table tracks feature cardinality, not information.
+
+The honest low-dimensional version (2-5 coarsely binned features, where collisions
+are forced) gives a Bayes error of 4.39-4.57% against a base rate of 4.566% —
+i.e. at that resolution the features barely beat the base rate at all. The
+generalising answer is D01's held-out model, not a collision count. Kept in the
+artifact as a negative result about method.
+
+### D02 complete — and a bug in the shared beam search
+
+Final permutation table:
+
+| features | atoms | real recall | noise max | noise mean | permutation p |
+|---|---|---|---|---|---|
+| 10 | 141 | 0.83% | **0.000%** | 0.000% | 0.111 |
+| 25 | 293 | 4.74% | **0.000%** | 0.000% | 0.111 |
+| 45 | 450 | 4.74% | **0.000%** | 0.000% | 0.111 |
+| 91 | 916 | 5.84% | **0.000%** | 0.000% | 0.111 |
+
+Zero qualifying rules on shuffled labels at every size, 32 permutations in total.
+The real recall grows from 0.83% to 5.84% as the space grows while the noise floor
+stays at exactly nothing. (p = 0.111 is the floor for 8 permutations, 1/9, not a
+weak result — no permutation came anywhere near.)
+
+**A bug found by this work, in code the study already relied on.**
+`mining.beam_search` retained a packed mask for every candidate before sorting the
+frontier: at beam 400 over 735 atoms and 1.6M rows that is ~58 GB, and the process
+was silently OOM-killed with no traceback. This is the *same* defect I found and
+fixed in `exp/e06_cover.py` at 01:00 and did not carry back into the shared
+helper — the fix was applied to the caller instead of the library. Now fixed in
+`mining.py` itself: only the surviving beam's masks are materialised, rebuilt from
+atom indices.
+
+Which results does this touch? `beam_search` was used by `exp/mine.py` only when
+`--beam` was passed, and no committed experiment passes it — e02, e03 and e08 all
+run exhaustive `search_pairs`. So no published number changes. It was a latent
+defect waiting for the first caller that used a large beam, and D04 was that
+caller.
