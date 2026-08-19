@@ -1,0 +1,95 @@
+{
+ "population": {
+  "n": 1620673,
+  "n_pos": 74001,
+  "base_rate": 0.04566066072551341,
+  "share_of_all_positives": 0.8190572114799278
+ },
+ "gb_reference": {
+  "average_precision": 0.5901481898961949,
+  "precision_at_recall": {
+   "0.02": 0.9430199430199431,
+   "0.05": 0.8958531935176358,
+   "0.1": 0.8551771585827314,
+   "0.2": 0.8156403059820593,
+   "0.3": 0.7651512544309461,
+   "0.5": 0.6099836792561697
+  },
+  "n": 1620673,
+  "base_rate": 0.04566066072551341,
+  "share_of_all_positives": 0.8190572114799278
+ },
+ "forms": {
+  "0.9": {
+   "len 2 (current form)": {
+    "recall": 0.011337684625883434,
+    "precision": 0.9149400218102508,
+    "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+    "overall_recall_gain": 0.009286212354314934
+   },
+   "len 3 (beam)": {
+    "recall": 0.011337684625883434,
+    "precision": 0.9149400218102508,
+    "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+    "overall_recall_gain": 0.009286212354314934
+   },
+   "len 4 (beam)": {
+    "recall": 0.011337684625883434,
+    "precision": 0.9149400218102508,
+    "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+    "overall_recall_gain": 0.009286212354314934
+   },
+   "len 5 (beam)": {
+    "recall": 0.011337684625883434,
+    "precision": 0.9149400218102508,
+    "expr": "X_callee_rel >= 3 AND X_caller_all_rel >= 1",
+    "overall_recall_gain": 0.009286212354314934
+   },
+   "decision list": {
+    "recall": 0.0029323928055026284,
+    "precision": 0.9156118143459916,
+    "clauses": [
+     "X_callee_with_rel >= 3",
+     "X_callee_with_rel >= 3"
+    ],
+    "overall_recall_gain": 0.002401797474238785
+   }
+  },
+  "0.8": {
+   "len 2 (current form)": {
+    "recall": 0.0340941338630559,
+    "precision": 0.8037591589678241,
+    "expr": "G_n_insn <= 3 AND N_dist_rel <= 2",
+    "overall_recall_gain": 0.02792504620969795
+   },
+   "len 3 (beam)": {
+    "recall": 0.0340941338630559,
+    "precision": 0.8040152963671128,
+    "expr": "G_n_insn <= 3 AND N_dist_rel <= 2 AND X_out_deg <= 1",
+    "overall_recall_gain": 0.02792504620969795
+   },
+   "len 4 (beam)": {
+    "recall": 0.0340941338630559,
+    "precision": 0.8040152963671128,
+    "expr": "G_n_insn <= 3 AND N_dist_rel <= 2 AND X_out_deg <= 1",
+    "overall_recall_gain": 0.02792504620969795
+   },
+   "len 5 (beam)": {
+    "recall": 0.0340941338630559,
+    "precision": 0.8040152963671128,
+    "expr": "G_n_insn <= 3 AND N_dist_rel <= 2 AND X_out_deg <= 1",
+    "overall_recall_gain": 0.02792504620969795
+   },
+   "decision list": {
+    "recall": 0.011445791273090904,
+    "precision": 0.7923292797006548,
+    "clauses": [
+     "G_n_ref_text <= 1 AND X_callee_with_rel >= 2",
+     "F_all_fo_mean <= 1 AND X_callee_rel >= 6",
+     "X_in_deg <= 2 AND X_callee_with_rel >= 2"
+    ],
+    "overall_recall_gain": 0.009374757883319129
+   }
+  }
+ }
+}

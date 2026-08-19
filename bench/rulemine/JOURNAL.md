@@ -1266,3 +1266,60 @@ Which results does this touch? `beam_search` was used by `exp/mine.py` only when
 run exhaustive `search_pairs`. So no published number changes. It was a latent
 defect waiting for the first caller that used a large beam, and D04 was that
 caller.
+
+### D04 — a richer rule form does not close the gap either
+
+The obvious follow-up to D01-A: if a two-term conjunction leaves 4-9x of recall
+on the table, does a longer conjunction or a short disjunction get it back? Run on
+the invisible population, same rows, same 91 features, length 2 exhaustive and
+lengths 3-5 by beam:
+
+```
+precision floor 90%                          precision floor 80%
+  len 2 (exhaustive)   1.13% recall            len 2   3.41% recall
+  len 3 (beam)         1.13%                   len 3   3.41%
+  len 4 (beam)         1.13%                   len 4   3.41%
+  len 5 (beam)         1.13%                   len 5   3.41%
+  decision list, 2 cl. 0.29%
+  ── gradient boosting 5%    @ 89.6% precision, 10% @ 85.5%
+```
+
+**Identical at every conjunction length.** That is not a search failure, it is
+arithmetic: a conjunction can only ever remove rows, so adding terms to a rule
+already at the precision floor cannot raise recall — it can only trade precision
+it does not have to spare. The only way for a readable rule to gain recall is
+disjunction, and the greedy decision list did worse than the single rule (0.29%),
+because sequential covering picks a first clause that maximises *newly covered*
+positives rather than the globally best single rule.
+
+So neither more features (D01-B: the space is saturated) nor a richer readable
+form (D04: length does not help, greedy disjunction hurts) closes the gap between
+what a model extracts and what a rule expresses on this population.
+
+**That is the answer, and it is a sharper version of the report's §5.8.** The
+current text says a gradient-boosted model reaches high recall that no readable
+rule matches, and leaves it there. It can now say something stronger and more
+falsifiable: on the 81.9% of author functions with no `Location` of their own, the
+signal is real and worth 85.5% precision at 10% recall to a model — and it is
+*provably* not expressible as a conjunction of threshold tests over these
+features at any length, because every length gives the same answer. Extracting it
+needs either a genuinely different rule language (something with disjunction found
+non-greedily, or arithmetic over features rather than thresholds) or a different
+observable.
+
+### The decision
+
+**Not adding features.** The diagnostic cost about 40 minutes and it changed the
+plan: the intuition that "20 more features might find something better" is
+contradicted by three independent measurements, and the one thing that would have
+argued for it — that a bigger space risks overfitting and therefore needs care —
+turned out to be false too (D02: nothing qualifies on noise at any size). The
+binding constraint is the expressiveness of a threshold conjunction, and no number
+of features changes that.
+
+**Where the effort would go if it went anywhere:** a different rule language, or a
+genuinely new observable channel (data flow, string references, exception-table
+structure) rather than another way of counting `Location` records. And the
+practical note for anyone tempted: the 15-crate lockbox is spent, so a second
+search-and-report cycle would have to use V4 as its held-out set, and after that
+this corpus has no clean test left.
