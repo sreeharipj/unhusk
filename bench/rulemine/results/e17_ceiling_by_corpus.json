@@ -89,6 +89,24 @@
   "ceiling": 0.2985463224126709,
   "precision_of_any": 0.8946684005201561
  },
+ "V4 (fresh programs)": {
+  "n_author": 18832,
+  "n_with_anchor": 3463,
+  "ceiling": 0.1838891248937978,
+  "precision_of_any": 0.8698819392112535
+ },
+ "V4 (fresh programs)/cgu-16_lto-false_opt-3_panic-unwind": {
+  "n_author": 11165,
+  "n_with_anchor": 1886,
+  "ceiling": 0.1689207344379758,
+  "precision_of_any": 0.8561053109396278
+ },
+ "V4 (fresh programs)/lto-thin_opt-3_panic-unwind": {
+  "n_author": 7667,
+  "n_with_anchor": 1577,
+  "ceiling": 0.20568670927350985,
+  "precision_of_any": 0.8869516310461192
+ },
  "_range": {
   "min": 0.15655474144747245,
   "max": 0.30562085915793974

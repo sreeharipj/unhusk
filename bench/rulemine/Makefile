@@ -22,7 +22,7 @@ PY      := python3 -u
 STUDY   := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 EXTRACT := extractor/target/release/rulemine_extract
 
-.PHONY: all data raw v2 v3 v4 experiments report clean-results
+.PHONY: all data raw v2 v3 v4 experiments report verify clean-results
 all: data experiments report
 
 # ── stage 1: corpus inventory and feature extraction ────────────────────────
@@ -91,7 +91,16 @@ report: results/picks.json
 	$(PY) exp/e20_percrate.py       | tee results/e20_percrate.log
 	$(PY) exp/e21_scope_validation.py | tee results/e21_scope_validation.log
 	$(PY) figs/plot_frontier.py
+	$(PY) figs/plot_scope.py
 	$(PY) make_report.py
+	$(PY) verify.py
+
+# Re-derives REPORT.md's hand-written numbers from results/*.json and checks the
+# study's structural invariants (split hash, replication gate, pre-registration,
+# output freshness). Exit 0 only if every check passes. Safe to run on a
+# checkout without rebuilding anything.
+verify:
+	$(PY) verify.py
 
 clean-results:
 	rm -f results/*.json results/*.log figs/*.png

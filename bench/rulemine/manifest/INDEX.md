@@ -72,7 +72,9 @@ relative to `bench/rulemine/`.
 | `exp/make_picks.py` | freezes the proposed rules before the lockbox is opened | `results/picks.json` |
 | `apply_rules.py` | runs the frozen rules on any stripped ELF, same code path | `wild/*.json` |
 | `figs/plot_frontier.py` | the precision/recall frontier figure | `figs/frontier_{light,dark}.png` |
+| `figs/plot_scope.py` | the scope-condition figure: which rule on which binary | `figs/scope_{light,dark}.png` |
 | `make_report.py` | generates `REPORT.md` from the results JSONs | `REPORT.md` |
+| `verify.py` | **checks REPORT.md against the results and the study's invariants** — run `make verify` | exit status |
 
 ## Narrative
 

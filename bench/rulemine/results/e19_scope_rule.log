@@ -35,16 +35,16 @@
     R3 if anchors > 60, else A@2         3,259   93.7%   21.52%
     R3 if anchors > 80, else A@2         3,167   93.7%   20.92%
 
-=== V4 (fresh programs)  (152,724 functions, 19 crates)  [MOTIVATED the threshold]
+=== V4 (fresh programs)  (465,753 functions, 40 crates)  [MOTIVATED the threshold]
     strategy                             fires    prec   recall
-    always A@2 (incumbent)                 159   96.2%    3.81%
-    always R1                              166   95.2%    3.93%
-    always R3                              279   90.7%    6.29%
-    R3 if anchors > 10, else A@2           278   90.6%    6.27%
-    R3 if anchors > 20, else A@2           235   94.5%    5.52%
-    R3 if anchors > 30, else A@2           238   97.1%    5.74%
-    R3 if anchors > 40, else A@2           220   98.6%    5.40%
-    R3 if anchors > 60, else A@2           195   98.5%    4.77%
-    R3 if anchors > 80, else A@2           195   98.5%    4.77%
+    always A@2 (incumbent)                 995   94.9%    5.01%
+    always R1                            1,154   94.8%    5.81%
+    always R3                            1,999   92.7%    9.84%
+    R3 if anchors > 10, else A@2         2,005   92.7%    9.87%
+    R3 if anchors > 20, else A@2         1,964   93.2%    9.72%
+    R3 if anchors > 30, else A@2         1,958   93.6%    9.73%
+    R3 if anchors > 40, else A@2         1,903   93.9%    9.48%
+    R3 if anchors > 60, else A@2         1,765   93.8%    8.79%
+    R3 if anchors > 80, else A@2         1,658   93.7%    8.25%
 
 POST-HOC. No held-out validation. Recorded as a hypothesis, not a result.

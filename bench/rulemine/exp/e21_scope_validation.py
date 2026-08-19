@@ -85,7 +85,12 @@ def moderation(df, anch, base, rules, label, out, key):
                       "low": {"n": len(lo), "median_pp": float(100*np.median(lo)) if len(lo) else None,
                               "wins": int((lo > 0).sum())},
                       "high": {"n": len(hi), "median_pp": float(100*np.median(hi)) if len(hi) else None,
-                               "wins": int((hi > 0).sum())}}
+                               "wins": int((hi > 0).sum())},
+                      # Per-crate points, so a reader (and figs/plot_scope.py) can see
+                      # the scatter the correlation was computed from rather than only
+                      # its summary. Emitted for every corpus, not just the held-out one.
+                      "points": [{"anchors": float(a), "recall_delta_pp": float(100 * v)}
+                                 for a, v in zip(x, d)]}
     out[key] = res
 
 
@@ -100,34 +105,7 @@ def main():
     for side, label in (("test", "HELD-OUT (15 crates — played no part in proposing "
                                  "the scope condition)"),
                         ("all", "ALL 43 CRATES (28 contaminated)")):
-        df = P.load(side)
-        y = P.target(df, "ws")
-        b = P.score_binary(y, mining.eval_expr(df, base), df["crate"], bootstrap=False)
-        print(f"\n=== {label}")
-        res = {}
-        for short, expr in rules:
-            s = P.score_binary(y, mining.eval_expr(df, expr), df["crate"], bootstrap=False)
-            crates = sorted(set(b["per_crate"]) & set(s["per_crate"]))
-            x, d = [], []
-            for c in crates:
-                if b["per_crate"][c]["predicted"] == 0 and s["per_crate"][c]["predicted"] == 0:
-                    continue
-                x.append(float(anch[c]))
-                d.append(s["per_crate"][c]["recall"] - b["per_crate"][c]["recall"])
-            x, d = np.array(x), np.array(d)
-            r, p = stats.spearmanr(x, d)
-            lo, hi = d[x < 20], d[x >= 20]
-            print(f"    {short}: Spearman(anchors, recall delta) = {r:+.3f}, p = {p:.4f}, n = {len(x)}")
-            print(f"       crates with <20 anchors : n={len(lo):>2}  median {100*np.median(lo):+6.2f} pp"
-                  f"  wins {int((lo>0).sum())}/{len(lo)}" if len(lo) else "       crates with <20 anchors : none")
-            print(f"       crates with >=20        : n={len(hi):>2}  median {100*np.median(hi):+6.2f} pp"
-                  f"  wins {int((hi>0).sum())}/{len(hi)}" if len(hi) else "       crates with >=20 : none")
-            res[short] = {"spearman_r": float(r), "spearman_p": float(p), "n": len(x),
-                          "low": {"n": len(lo), "median_pp": float(100 * np.median(lo)) if len(lo) else None,
-                                  "wins": int((lo > 0).sum())},
-                          "high": {"n": len(hi), "median_pp": float(100 * np.median(hi)) if len(hi) else None,
-                                   "wins": int((hi > 0).sum())}}
-        out[side] = res
+        moderation(P.load(side), anch, base, rules, label, out, side)
 
     df = P.load("test")
     y = P.target(df, "ws")

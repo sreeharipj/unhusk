@@ -14,7 +14,7 @@ Corpus: 43 crates x 8 build configurations = 344 builds, **2,953,873 functions**
 28 development and 15 held-out crates, sealed under
 SHA-256 `5bdc01f364f1eef7...` before any model was fit. Plus three auxiliary
 corpora: a different build pipeline (V2), the codegen-units axis the main matrix
-never varied (V3), and 20 programs from a manifest curated by someone else for
+never varied (V3), and 40 programs from a manifest curated by someone else for
 another purpose (V4).
 
 ---
@@ -320,6 +320,8 @@ configuration in the study:
 | `V3: cgu-16_lto-false_opt-3_panic-unwind` | 30.10% | 89.4% |
 | `V3: cgu-16_lto-thin_opt-3_panic-unwind` | 30.56% | 88.6% |
 | `V3: cgu-4_lto-false_opt-3_panic-unwind` | 29.85% | 89.5% |
+| `V4 (fresh programs)/cgu-16_lto-false_opt-3_panic-unwind` | 16.89% | 85.6% |
+| `V4 (fresh programs)/lto-thin_opt-3_panic-unwind` | 20.57% | 88.7% |
 | `lto-fat_opt-3_panic-abort` | 23.25% | 86.2% |
 | `lto-fat_opt-3_panic-unwind` | 23.08% | 86.8% |
 | `lto-fat_opt-z_panic-abort` | 17.66% | 85.0% |
@@ -653,30 +655,30 @@ on the development numbers: R2's corroboration is a single caller, not a density
 One caller can exist in a binary with one author function; three neighbours
 cannot. On `krusty`, R2 fired where both `A@2` and R1 fired on nothing.
 
-**And a controlled corpus where the neighbourhood rules lose.** V4 is 19
+**And a controlled corpus where the neighbourhood rules partly lose.** V4 is 40
 programs from a manifest curated by someone else, for another purpose, sharing
-no crate with anything else in this study — 38 builds, zero failures,
-152,724 labelled functions:
+no crate with anything else in this study — 80 builds, zero failures,
+465,753 labelled functions:
 
 | rule | precision | recall | crates fired in |
 |---|---|---|---|
-| `A@2` (incumbent) | 96.2% | 3.81% | 17/19 |
-| R1 | 95.2% | 3.93% | 15/19 |
-| R2 | 94.1% | 3.98% | 17/19 |
-| R3 | 90.7% | 6.29% | 13/19 |
+| `A@2` (incumbent) | 94.9% | 5.01% | 37/40 |
+| R1 | 94.8% | 5.81% | 34/40 |
+| R2 | 95.8% | 4.08% | 37/40 |
+| R3 | 92.7% | 9.84% | 31/40 |
 
-**Here the incumbent wins on precision** and the rules buy only 1.03x-1.65x
-recall for one to five and a half points of it. The reason is the anchor
-scarcity above, now measurable rather than anecdotal: V4's builds carry a
-median of **12** anchor-bearing functions against the main corpus's **31**, and
-21 of its 38 builds have fewer than 16. A +/-5 neighbourhood window cannot
-accumulate evidence that is not in the neighbourhood. Cut by that axis inside
-V4, R3's precision falls to 73.6% in the 16-40 band before recovering to 100%
-above 40.
+**Here the trade is real rather than free.** R3 buys 1.96x the recall for 2.2
+points of precision; R1 gains 0.8 pp of recall for 0.1 pp of precision. That is
+a different picture from the main lockbox and from V3, and the reason is anchor
+scarcity, now measurable rather than anecdotal: **28 of V4's 80 builds carry
+fewer than 16 anchor-bearing functions**, against a main-corpus median of 31. A
++/-5 neighbourhood window cannot accumulate evidence that is not in the
+neighbourhood.
 
-So the scope condition in §2 is not a hedge; it is the summary of a corpus
-selected to be unlike the one the rules were mined on, and it is checkable at
-analysis time without any ground truth.
+So the scope condition in §2 is not a hedge. It is the summary of a corpus
+selected to be unlike the one the rules were mined on, on which the rules
+partly lose, and it is checkable at analysis time with no ground truth. §6.3
+tests whether the moderating relationship it claims is actually there.
 
 ### 5.11 Five samples from the wild
 
@@ -835,6 +837,82 @@ codegen-unit settings, and both label conventions.
 
 ### 6.3 The scope condition, tested on data that did not propose it
 
+The lockbox bootstrap over 15 clusters has wide intervals, so a null there is
+weak evidence. A sign test over crates keeps direction and discards effect
+size, which is the right trade when the cluster count is the binding
+constraint.
+
+| corpus | rule | crates better | worse | median recall delta | Wilcoxon p |
+|---|---|---|---|---|---|
+| held-out (15) | R1 | 8 | 5 | +0.93 pp | 0.1465 |
+| held-out (15) | R2 | 9 | 6 | +0.62 pp | 0.3591 |
+| held-out (15) | R3 | 11 | 4 | +4.80 pp | 0.0181 |
+| all 43 *(contaminated)* | R1 | 25 | 16 | +1.16 pp | 0.0019 |
+| all 43 *(contaminated)* | R2 | 25 | 17 | +0.62 pp | 0.0800 |
+| all 43 *(contaminated)* | R3 | 37 | 6 | +4.27 pp | 0.0000 |
+
+**R3 recovers more author code than the incumbent in 37 of 43 individual
+programs.** The all-43 rows are contaminated — 28 of those crates are the
+development set — and are labelled so; the held-out row is clean and still
+significant by Wilcoxon.
+
+The anchor-count scope condition of §2 came from V4 and the wild samples, so
+its threshold is post-hoc. Whether the moderating relationship exists at all
+is separately testable on the 15 held-out crates, which played no part in
+proposing it:
+
+| rule | Spearman(anchors, recall advantage) | p | <20 anchors | >=20 anchors |
+|---|---|---|---|---|
+| R1 | +0.578 | 0.0241 | wins 1/6, median -0.17 pp | wins 7/9, median +2.24 pp |
+| R2 | +0.193 | 0.4907 | wins 4/6, median +0.98 pp | wins 5/9, median +0.34 pp |
+| R3 | +0.745 | 0.0014 | wins 2/6, median -0.98 pp | wins 9/9, median +8.59 pp |
+
+**Above 20 anchors R3 wins 9 out of 9.** Ordered by anchor count the
+held-out crates line up almost monotonically: `sd` (6 anchors) is R3's worst
+at -13.01 pp; `topgrade` (190) and `oha` (88) are its best at +25.24 and
++25.93 pp.
+
+![scope condition](figs/scope_light.png)
+
+*Each point is one crate: its anchor count against how much more author
+code the rule recovers than the incumbent does. Green bars are the median
+advantage below and above 20 anchors; the blue line is the incumbent. The
+two density rules slope up in every corpus; the caller rule is flat in all
+three.*
+
+**And it replicates on two corpora that played no part in proposing it
+either.** Same test, same anchor definition:
+
+| corpus | R3 | R1 | R2 |
+|---|---|---|---|
+| V3 (codegen-units), 20 crates | rho +0.708, p = 0.0005 | rho +0.441, p = 0.0518 | rho +0.266, p = 0.2570 |
+| V4 (fresh programs), 38 crates | rho +0.379, p = 0.0191 | rho +0.335, p = 0.0400 | rho -0.188, p = 0.2595 |
+
+The V4 row is worth one sentence of history, because it did not always
+say this. On the first half of that corpus (18 crates) the moderation was
+**not** significant — rho = +0.360, p = 0.143 — and `JOURNAL.md` recorded
+the non-replication at the time, before the second half existed, with the
+reading that it was underpowered rather than refuted. Doubling the corpus
+moved it to rho = +0.379, p = 0.0191 with the coefficient essentially
+unchanged, which is the signature of a power problem rather than an absent
+effect. Above 20 anchors R3 wins
+20/23 of these fresh programs, median +5.26 pp.
+
+**The R2 row confirms a prediction made before the test existed.** From the
+five wild samples (§5.11), with no ground truth, the study recorded: *R2's
+corroboration is a single caller, not a density; one caller can exist in a
+binary with one author function, three neighbours cannot.* The direct
+consequence is that R2 should **not** be moderated by anchor count while R1
+and R3 should. On held-out crates R3 is moderated at rho = +0.745
+(p = 0.0014), R1 at +0.578 (p = 0.024), and R2 is not, at +0.193 (p = 0.49).
+A mechanistic prediction, written down first, confirmed on crates sealed
+before either — and then confirmed twice more: R2's moderation is null on V3
+(p = 0.26) and on V4 (p = 0.26) as well, while R1 and R3 are significant on
+two of the three corpora. **Three corpora, three nulls for the caller rule,
+against significant moderation for both density rules.** It is why R2 stays
+in the proposed set despite being a null on aggregate held-out recall: it is
+the rule for the regime the other two cannot serve.
+
 ### 6.4 A composite the scope condition implies — POST-HOC, unvalidated
 
 If R3 wins when anchors are plentiful and loses when they are scarce (§5.10),
@@ -845,7 +923,7 @@ ground truth. `R3 if anchor count > 40, else A@2`:
 |---|---|---|---|
 | main: held-out crates | 96.0% | 14.99% | +0.8 pp, 2.54x recall |
 | V3 (codegen-units) | 94.0% | 22.55% | +2.5 pp, 3.50x recall |
-| V4 (fresh programs) | 98.6% | 5.40% | +2.4 pp, 1.42x recall |
+| V4 (fresh programs) | 93.9% | 9.48% | -1.0 pp, 1.89x recall |
 | main: development crates | 90.3% | 9.24% | -2.0 pp, 1.81x recall |
 
 It **dominates the incumbent on both axes on three of the four corpora**,
@@ -888,6 +966,13 @@ the proposals, and the argument for each is visible rather than asserted:
   left of the plot the stars are close to it; by 20% recall it is far above
   anything readable. That gap is the honest cost of insisting on a white-box rule,
   and it is small exactly where the tool operates.
+
+Panel **b** is where the search happened, so it is in-sample; panel **c** is the
+single held-out read and is the one the conclusion rests on. They are drawn side
+by side rather than merged because the difference between them *is* a result:
+the precision separation visible in b is gone in c, while the recall separation
+survives. The second figure in §6.3 answers the question this one cannot — not
+which operating point, but on which binary each rule is the right choice.
 
 ## 8. Implementing the rules
 
@@ -1012,6 +1097,20 @@ reframes 'the recall is low' as 'the recall depends on how the sample was built'
 non-author `Location`' clause buys about 2 pp of precision for 40% of the rule's
 recall on the development set. A defensible trade, but it should be stated as a
 trade.
+
+**6. A mechanistic prediction that was written down first and then confirmed,
+which is worth a short paragraph on its own.** From five in-the-wild samples
+with no ground truth, the study recorded that R2's corroboration is a single
+caller rather than a density, so R2 should not be sensitive to how many
+anchor-bearing functions a binary has, while the neighbourhood rules should be.
+Tested afterwards on the 15 sealed crates: R3 is moderated by anchor count at
+rho = +0.745 (p = 0.0014), R1 at +0.578 (p = 0.024), and R2 is not,
+at +0.193 (p = 0.49). Above 20 anchors R3 wins 9 of 9 held-out crates.
+Then confirmed on two further corpora that played no part in proposing it: on
+V3 and on 40 fresh programs, both density rules are significantly moderated and
+**the caller rule is null on all three** (p = 0.49, 0.26, 0.26). The paper can
+state the operating regime of each rule as a measured property rather than a
+caveat, and can say which rule to reach for and why.
 
 **7. Two clean negatives worth a paragraph each.** Counting multiplicity by source
 line rather than by `Location` struct does not help (paired interval includes

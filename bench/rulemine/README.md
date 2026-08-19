@@ -72,6 +72,21 @@ extractor against `bench/origin`'s `origin_probe` output per function across all
 2,953,873 of them, and reproduces the incumbent's published headline to the digit.
 If it does not print `PASS`, nothing downstream means anything.
 
+## Checking the artifact without rebuilding it
+
+```sh
+make verify        # or: python3 verify.py
+```
+
+`verify.py` re-derives every hand-written number in `REPORT.md` from the
+`results/*.json` files and checks the study's structural invariants: that
+`data/split.json`'s published hash matches its own contents, that the replication
+gate passed with zero mismatches, that the three rules quoted in the report are
+the ones frozen in `results/picks.json` before the lockbox was opened, that the
+claims the study says are *not* significant really are not, and that no result
+file is older than the data it was computed from. It exits non-zero on any
+disagreement. 28 checks; all pass on this commit.
+
 ## Requirements
 
 Rust (any recent stable; the extractor pulls `object`, `gimli`, `iced-x86` via

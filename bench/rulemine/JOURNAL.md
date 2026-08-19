@@ -1041,3 +1041,49 @@ The `is_author_path` function in it carries the `libcore/` spelling and the
 cargo-anchors-first ordering, with the reason in a comment, so the hazard that
 cost 1,323 functions in E00 cannot be reintroduced by someone porting this into
 `unhusk` without reading `paths.py`.
+
+## 2026-08-19T10:45 — V4 batch B: the non-replication was a power problem, and the scope condition holds
+
+The second V4 batch finished overnight (build log ends 02:07, dataset and the
+analyses that read it re-ran at 03:37). V4 is now **40 crates, 80 builds, 465,753
+labelled functions** — 20 more programs (broot, delta, gitui, skim, mdbook,
+watchexec, xplr, joshuto, presenterm, stylua, ...) drawn from the same pinned
+manifest, none of them in any part of the 43-crate corpus.
+
+At 01:51 I recorded that the anchor-count moderation **failed to replicate** on
+V4 batch A (R3 rho = +0.360, p = 0.143, n = 18) and wrote that the honest reading
+was underpowered-not-refuted, but that the distinction was only worth making if a
+better test followed. It followed. On the full 40-crate corpus:
+
+```
+R3   rho = +0.379   p = 0.0191   n = 38     <20 anchors: wins  5/15, median -0.24 pp
+                                           >=20 anchors: wins 20/23, median +5.26 pp
+R1   rho = +0.335   p = 0.0400   n = 38
+R2   rho = -0.188   p = 0.2595   n = 38
+```
+
+Both neighbourhood rules are now significantly moderated by anchor count on a
+corpus of programs this study never chose. Doubling n moved R3 from p = 0.14 to
+p = 0.019 with the coefficient essentially unchanged (+0.360 -> +0.379), which is
+the signature of a power problem rather than an absent effect.
+
+**And R2 is unmoderated for the third independent time.** Held-out crates
+p = 0.49, V3 p = 0.26, V4 p = 0.26 — three corpora, three nulls, against R1 and
+R3 being significant on two of the three. The prediction written at 01:14 from
+five ground-truth-free wild samples ("R2's corroboration is a single caller, not
+a density") has now survived every test it has been given.
+
+**What V4 does not do is make the rules look good on aggregate.** On its 40
+crates pooled: A@2 94.9%/5.01%, R1 94.8%/5.81%, R3 92.7%/9.84%. R3 buys 1.96x the
+recall for 2.2 pp of precision — a real trade, not a free lunch, because V4's
+programs are small (median anchors well below the main corpus). The composite
+`R3 if anchors > 40 else A@2` lands at 93.9%/9.48%: 1.89x the recall for 1.0 pp.
+That is the scope condition doing exactly what it claims, on the corpus that
+motivated it, and it is still post-hoc.
+
+The summary sentence for the paper is unchanged by tonight's work, which is the
+point of having written it before the data arrived: **on programs with enough
+author panic sites to form a neighbourhood, the context rules recover 1.7x-4.7x
+as much author code at equal or better precision; below that they trade precision
+for recall and the incumbent is the better choice; and the threshold is
+computable from the stripped binary with no ground truth.**

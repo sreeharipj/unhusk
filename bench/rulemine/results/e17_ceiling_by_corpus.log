@@ -1,0 +1,26 @@
+corpus / configuration                          author fns  with anchor   CEILING  prec of any
+main: development crates                            90,349       16,348    18.09%        84.7%
+main: held-out crates                               26,727        6,344    23.74%        90.6%
+
+main corpus, by build configuration           
+  lto-fat_opt-3_panic-abort                         12,301        2,860    23.25%        86.2%
+  lto-fat_opt-3_panic-unwind                        12,728        2,938    23.08%        86.8%
+  lto-fat_opt-z_panic-abort                         13,366        2,361    17.66%        85.0%
+  lto-fat_opt-z_panic-unwind                        13,427        2,391    17.81%        85.2%
+  lto-thin_opt-3_panic-abort                        13,414        3,050    22.74%        86.7%
+  lto-thin_opt-3_panic-unwind                       13,849        3,128    22.59%        87.7%
+  lto-thin_opt-z_panic-abort                        18,971        2,970    15.66%        86.0%
+  lto-thin_opt-z_panic-unwind                       19,020        2,994    15.74%        86.2%
+
+V2 (realval build script)                           10,679        1,916    17.94%        86.5%
+
+V3 (codegen-units axis)                             14,189        4,281    30.17%        89.2%
+  cgu-16_lto-false_opt-3_panic-unwind                4,901        1,475    30.10%        89.4%
+  cgu-16_lto-thin_opt-3_panic-unwind                 4,679        1,430    30.56%        88.6%
+  cgu-4_lto-false_opt-3_panic-unwind                 4,609        1,376    29.85%        89.5%
+
+V4 (fresh programs)                                 18,832        3,463    18.39%        87.0%
+  cgu-16_lto-false_opt-3_panic-unwind               11,165        1,886    16.89%        85.6%
+  lto-thin_opt-3_panic-unwind                        7,667        1,577    20.57%        88.7%
+
+across build configurations the ceiling ranges 15.7% to 30.6% — a factor of 2.0.
