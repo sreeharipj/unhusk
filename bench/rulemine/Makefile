@@ -22,7 +22,7 @@ PY      := python3 -u
 STUDY   := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 EXTRACT := extractor/target/release/rulemine_extract
 
-.PHONY: all data raw v2 v3 v4 experiments report verify clean-results
+.PHONY: all data raw v2 v3 v4 aux experiments report verify clean-results
 all: data experiments report
 
 # ── stage 1: corpus inventory and feature extraction ────────────────────────
@@ -54,6 +54,22 @@ v3: $(EXTRACT)
 	     bat trippy taplo mqttui topgrade feroxbuster hexyl xsv zoxide pastel grex
 	$(PY) build_dataset_aux.py --raw v3/raw --gt-root v3/build --out v3/fde \
 	      --layout nested --builds-csv v3/builds.csv
+
+# V4 is the only target needing network access: it clones 40 repositories from
+# the pinned winnow manifest, none of which appear in the 43-crate corpus, and
+# builds each at two configurations. build_v4.sh skips any (crate, config) that
+# already has a ground_truth.json, so re-running it is idempotent and a partial
+# run can be resumed.
+v4: $(EXTRACT)
+	bash build_v4.sh
+	$(PY) build_dataset_aux.py --raw v4/raw --gt-root v4/build --out v4/fde \
+	      --layout nested --builds-csv v4/builds.csv
+
+# All three auxiliary corpora. Not part of `all`, because they compile Rust and
+# the report degrades gracefully without them: exp/e16, e17, e19 and e21 each
+# skip a corpus whose fde/ directory is absent, and make_report.py omits the
+# corresponding rows rather than failing.
+aux: v2 v3 v4
 
 # ── stage 2: experiments (dev set only, lockbox stays shut) ─────────────────
 experiments: data

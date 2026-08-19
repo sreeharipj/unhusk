@@ -26,6 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 R = os.path.join(HERE, "results")
 FAILURES = []
 CHECKS = 0
+SKIPPED = []
 
 
 def load(name):
@@ -41,6 +42,15 @@ def check(label, ok, detail=""):
     else:
         print(f"  FAIL  {label}   {detail}")
         FAILURES.append(f"{label}: {detail}")
+
+
+def skip(label, why):
+    """Record a check that could not run. Skips are printed and counted, never
+    silent: an evaluator must be able to tell '28 of 28 passed with everything
+    present' from '20 of 20 passed because 8 checks had no input'. A skip is not
+    a failure, but a run with skips is not a full verification either."""
+    print(f"  SKIP  {label}   ({why})")
+    SKIPPED.append(f"{label}: {why}")
 
 
 def approx(a, b, tol=0.05):
@@ -126,14 +136,18 @@ def main():
         for corpus, key in (("held-out", "test"), ("V3", "V3 (codegen-units)"),
                             ("V4", "V4 (fresh programs)")):
             d = (e21.get(key) or {}).get("R2")
+            label = f"R2 moderation is null on {corpus} (the pre-registered prediction)"
             if d:
-                check(f"R2 moderation is null on {corpus} (the pre-registered prediction)",
-                      d["spearman_p"] >= 0.05, f"p = {d['spearman_p']:.3f}")
+                check(label, d["spearman_p"] >= 0.05, f"p = {d['spearman_p']:.3f}")
+            else:
+                skip(label, f"{corpus} corpus absent — build it with `make aux`")
         for corpus, key in (("held-out", "test"), ("V4", "V4 (fresh programs)")):
             d = (e21.get(key) or {}).get("R3")
+            label = f"R3 moderation IS significant on {corpus}"
             if d:
-                check(f"R3 moderation IS significant on {corpus}",
-                      d["spearman_p"] < 0.05, f"p = {d['spearman_p']:.3f}")
+                check(label, d["spearman_p"] < 0.05, f"p = {d['spearman_p']:.3f}")
+            else:
+                skip(label, f"{corpus} corpus absent — build it with `make aux`")
 
     e20 = load("e20_percrate.json")
     if e20:
@@ -144,12 +158,14 @@ def main():
               f"{d['crates_better']}/{tot}")
 
     e16 = load("e16_aux_corpora.json")
-    if e16 and "V3" in e16:
-        lk = e16["V3"]["slices"].get("lockbox crates", {})
-        if "R3" in lk and "A@2" in lk:
-            ratio = lk["R3"]["recall"] / lk["A@2"]["recall"]
-            check(f"V3 recall ratio {ratio:.2f}x appears in REPORT.md",
-                  f"{ratio:.2f}x" in report, f"{ratio:.2f}x")
+    lk = ((e16 or {}).get("V3") or {}).get("slices", {}).get("lockbox crates", {})
+    if "R3" in lk and "A@2" in lk:
+        ratio = lk["R3"]["recall"] / lk["A@2"]["recall"]
+        check(f"V3 recall ratio {ratio:.2f}x appears in REPORT.md",
+              f"{ratio:.2f}x" in report, f"{ratio:.2f}x")
+    else:
+        skip("V3 recall ratio appears in REPORT.md",
+             "V3 corpus absent — build it with `make v3`")
 
     print("\n── freshness: no result older than the data it reads")
     data_mtime = max(
@@ -168,13 +184,20 @@ def main():
               os.path.getmtime(os.path.join(R, f)) for f in os.listdir(R)
               if f.endswith(".json")) - 1)
 
-    print(f"\n{CHECKS - len(FAILURES)}/{CHECKS} checks passed")
+    print(f"\n{CHECKS - len(FAILURES)}/{CHECKS} checks passed"
+          + (f", {len(SKIPPED)} skipped" if SKIPPED else ""))
     if FAILURES:
         print("\nFAILURES:")
         for f in FAILURES:
             print(f"  - {f}")
         return 1
-    print("verify: OK")
+    if SKIPPED:
+        print("\nSKIPPED (this is a partial verification, not a full one):")
+        for f in SKIPPED:
+            print(f"  - {f}")
+        print("\nverify: OK for the checks that could run")
+        return 0
+    print("verify: OK — full verification, nothing skipped")
     return 0
 
 
