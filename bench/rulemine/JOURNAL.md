@@ -1087,3 +1087,47 @@ author panic sites to form a neighbourhood, the context rules recover 1.7x-4.7x
 as much author code at equal or better precision; below that they trade precision
 for recall and the incumbent is the better choice; and the threshold is
 computable from the stripped binary with no ground truth.**
+
+## 2026-08-19T11:00 — Close-out
+
+The study is complete. Six commits on `feat/rulemine`; working tree clean;
+`verify.py` reports 31/31 with nothing skipped.
+
+**What was asked and what came back.** The question was whether this project had
+ever run a proper rule search rather than a hand-designed rule plus a threshold
+sweep. It had not. It has now: an exhaustive search over 916 threshold atoms and
+~420,000 conjunctions, a factor ablation, sequential covering, depth-limited
+CART, L1-penalised logistic regression, and gradient boosting as an upper bound —
+under a crate-level split sealed and hashed before the first model was fit.
+
+**The result that survived everything.** `M_rel_structs >= 1 AND N_win_rel >= 5`
+recovers **2.70x** the incumbent's author functions on the 15 sealed crates at
+95.1% precision against 95.2%, wins in 37 of 43 individual programs, and holds up
+under a second build script, three codegen-unit settings, 40 programs this study
+never chose, and both label conventions.
+
+**The result that did not.** The development-set finding that context
+corroboration raises *precision* did not replicate on held-out crates. That is
+written before anything that worked, in §1 of the report and in point 1 of §10.
+
+**The thing I did not expect.** A prediction made at 01:14 from five malware
+samples with no ground truth — that R2's corroboration is a count rather than a
+density, so it should not be sensitive to anchor scarcity — was written into this
+journal before any test of it existed, and then confirmed on three independent
+corpora (p = 0.49, 0.26, 0.26) while both density rules were significantly
+moderated on two of the three. That is the cleanest thing here, and it happened
+because the wild samples were run early and their failure was recorded honestly
+instead of being treated as noise.
+
+**Corrections made along the way, all still in this log rather than edited out:**
+the study's own §5.1 "18.09% ceiling" was too narrow and became a build-dependent
+15.7%-30.6% range; the V4 non-replication was recorded before the second batch
+existed and then resolved as a power problem; two bugs (a 75 GB memory blow-up in
+the covering learner, a window computed over labelled rows only); a
+misclassification in my replication of `STD_LIB_DIRS` that E00 caught at 1,323
+functions; and this log's own invented timestamps.
+
+**For the preprint.** §10 lists seven items. The two that change existing text are
+that the precision claim should not be made, and that the recall ceiling is a
+property of how the target was built rather than of the method. The rest is new
+material with measurements attached.
