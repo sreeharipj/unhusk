@@ -1021,10 +1021,15 @@ for a downstream rule generator is yield, and it is a 3-5x change.
    The V4 corpus adds programs chosen by someone else for another purpose, which
    helps; none of it is malware with known ground truth, because that does not
    exist.
-3. **The anchor-scarcity limit of §5.10 is real and unmeasured at the bottom.** The
-   corpus does not reach the one-anchor regime the wild samples occupy. R1 is
-   expected to degrade there and R2 is expected to degrade gracefully; only the
-   first half of that has any evidence behind it.
+3. **The anchor-scarcity limit of §5.10 is measured in the middle and unmeasured
+   at the bottom.** The moderating relationship is now confirmed on three corpora
+   (§6.3), and R2's insensitivity to it with it, so the mechanism is no longer a
+   hypothesis. What is still untested is the extreme: the sparsest build in any
+   corpus here carries 2 anchor-bearing functions, while `blackcat_sphynx`
+   carries 1 and two of the five wild samples carry none. Nothing measures the
+   one-anchor regime, and the rule-choice guidance in §2 is an extrapolation
+   below about 6 anchors. Closing that needs a corpus of deliberately tiny Rust
+   programs, which is a build problem rather than an analysis one.
 4. **Address-order locality is a linker and codegen-unit effect, not a language
    guarantee.** The codegen-unit half of that concern was tested directly and
    survived (§5.9: 60 builds at `codegen-units` 4 and 16, where the rule does
@@ -1033,21 +1038,24 @@ for a downstream rule generator is yield, and it is a 3-5x change.
    function-shuffling packer would break `N_win_rel` while leaving `X_caller_rel`
    intact. Nothing in this corpus tests that, and an adversary who reads this
    paragraph can act on it. That asymmetry is a second reason R2 exists.
-7. **The precision result did not replicate and the study says so, but that
+5. **The precision result did not replicate and the study says so, but that
    pattern is itself a warning.** A development-set effect with intervals
    excluding zero vanished entirely on 15 new programs. The rules were chosen
    from a ~25-cell factor grid informed by a 916-atom search; the development
    intervals were never adjusted for that, and the lockbox is what caught it.
    Any future extension of this work should assume the same thing will happen
    again and budget a held-out set accordingly.
-8. **Fifteen held-out crates is not many for a clustered bootstrap.** The paired
+6. **Fifteen held-out crates is not many for a clustered bootstrap.** The paired
    intervals on the lockbox are wide (R1's precision interval spans -4.2 to
    +4.5 pp). A null there is weak evidence of no effect, not strong evidence.
    The recall result survives anyway, which is why it is the headline.
-5. **The precision floors are pooled.** A rule at 95% pooled precision is not at 95%
-   in every crate; per-crate spreads are in `results/e11_lockbox.json`.
-6. **One architecture, one OS, one object format.** x86-64 ELF. The PE port shares
+7. **The precision floors are pooled.** A rule at 95% pooled precision is not at 95%
+   in every crate; per-crate spreads are in `results/e11_lockbox.json` and the
+   per-crate scatter is the first column of the §6.3 figure.
+8. **One architecture, one OS, one object format.** x86-64 ELF. The PE port shares
    `classify.rs`/`xref.rs` and is expected to behave similarly, untested here.
+9. **The composite rule of §6.4 is post-hoc and stays that way.** It is reported
+   with numbers because hiding it would be worse, and it is not proposed.
 
 ## 10. What this means for the preprint
 
