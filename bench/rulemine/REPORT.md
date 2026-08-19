@@ -503,6 +503,36 @@ fat-LTO build, this study says the signal exists but not as a rule you can read.
 does reach 24% recall at 93% precision — see §5.9. The bound and the rule are
 both build-dependent, and they move together.)
 
+**And the gap is provably not a rule-length problem.** On the invisible
+population of §5.6 — same rows, same 91 features — a conjunction search was
+run at every length from 2 to 5:
+
+```
+  len 2 (current form)   recall  1.13%   precision  91.5%
+  len 3 (beam)           recall  1.13%   precision  91.5%
+  len 4 (beam)           recall  1.13%   precision  91.5%
+  len 5 (beam)           recall  1.13%   precision  91.5%
+  greedy decision list   recall  0.29%   precision  91.6%
+  gradient boosting      recall  5.00%   precision  89.6%   (10% at 85.5%)
+```
+**Identical at every length**, which is arithmetic rather than a search
+failure: a conjunction only ever removes rows, so adding terms to a rule
+already sitting at the precision floor cannot raise its recall. Gaining recall
+needs disjunction, and a greedy decision list did *worse* than the single rule
+because sequential covering picks a first clause maximising newly-covered
+positives rather than the best single rule.
+
+So the honest statement of the recall problem is sharper than 'a model does
+better': on the 81.9% of author functions carrying no `Location` of their own,
+the signal is real and worth **85.5% precision at 10% recall** to a model, and
+it is **not expressible as a conjunction of threshold tests over these features
+at any length**. Extracting it needs a different rule language — disjunction
+found non-greedily, or arithmetic over features rather than thresholds — or a
+different observable channel. It does not need more features of the same kind:
+a leave-one-family-out ablation (`results/d01_headroom.json`) finds that five of
+the eight families already contribute nothing or hurt, and that the
+neighbourhood family alone is worth four times more than any other.
+
 **The convergence result.** Five methodologies were run independently: exhaustive
 conjunction search, factor ablation, sequential covering, depth-limited CART, and
 L1-penalised logistic regression. The L1 model's largest surviving coefficients are

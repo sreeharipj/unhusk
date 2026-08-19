@@ -496,6 +496,45 @@ def sec_findings(ctx):
     w("(On builds with `codegen-units=16`, where the ceiling itself is about 30%, R3")
     w("does reach 24% recall at 93% precision — see §5.9. The bound and the rule are")
     w("both build-dependent, and they move together.)\n")
+    d01 = load("d01_headroom.json")
+    d04 = load("d04_ruleform.json")
+    if d01 and d04:
+        inv = d01["A_headroom"]["invisible"]
+        f90 = d04["forms"].get("0.9", {})
+        w("**And the gap is provably not a rule-length problem.** On the invisible")
+        w("population of §5.6 — same rows, same 91 features — a conjunction search was")
+        w("run at every length from 2 to 5:\n")
+        w("```")
+        for k in ("len 2 (current form)", "len 3 (beam)", "len 4 (beam)", "len 5 (beam)"):
+            v = f90.get(k)
+            if v:
+                w(f"  {k:<22} recall {v['recall']:>6.2%}   precision {v['precision']:>6.1%}")
+        dl = f90.get("decision list")
+        if dl:
+            w(f"  {'greedy decision list':<22} recall {dl['recall']:>6.2%}   "
+              f"precision {dl['precision']:>6.1%}")
+        p5 = inv["precision_at_recall"].get("0.05")
+        p10 = inv["precision_at_recall"].get("0.1")
+        if p5:
+            w(f"  {'gradient boosting':<22} recall  5.00%   precision {p5:>6.1%}"
+              f"   (10% at {p10:.1%})")
+        w("```")
+        w("**Identical at every length**, which is arithmetic rather than a search")
+        w("failure: a conjunction only ever removes rows, so adding terms to a rule")
+        w("already sitting at the precision floor cannot raise its recall. Gaining recall")
+        w("needs disjunction, and a greedy decision list did *worse* than the single rule")
+        w("because sequential covering picks a first clause maximising newly-covered")
+        w("positives rather than the best single rule.\n")
+        w("So the honest statement of the recall problem is sharper than 'a model does")
+        w("better': on the 81.9% of author functions carrying no `Location` of their own,")
+        w("the signal is real and worth **85.5% precision at 10% recall** to a model, and")
+        w("it is **not expressible as a conjunction of threshold tests over these features")
+        w("at any length**. Extracting it needs a different rule language — disjunction")
+        w("found non-greedily, or arithmetic over features rather than thresholds — or a")
+        w("different observable channel. It does not need more features of the same kind:")
+        w("a leave-one-family-out ablation (`results/d01_headroom.json`) finds that five of")
+        w("the eight families already contribute nothing or hurt, and that the")
+        w("neighbourhood family alone is worth four times more than any other.\n")
     w("**The convergence result.** Five methodologies were run independently: exhaustive")
     w("conjunction search, factor ablation, sequential covering, depth-limited CART, and")
     w("L1-penalised logistic regression. The L1 model's largest surviving coefficients are")
