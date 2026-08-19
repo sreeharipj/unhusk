@@ -26,8 +26,14 @@ references/
 # internal experiment notes / working docs
 PLAN.md
 RESEARCH_BACKLOG.md
-codeblue-2026-supplementary.md
-codeblue-2026-supplementary.pdf
+panic-at-the-disassembler-preprint.md
+panic-at-the-disassembler-preprint.pdf
+panic-at-the-disassembler-supplementary.md
+panic-at-the-disassembler-supplementary.pdf
+# prep notes for the preprint: names unpublished sibling work, keep out of the
+# otherwise-public docs/ tree
+docs/wang-et-al-comparison.md
+PANIC_ORACLE_GAPS.md
 context.md
 RESULTS.md
 HARNESS_VALIDATION_FINDINGS.md
