@@ -9,7 +9,7 @@ What changed and why:
 
 1. **The shipped-tool comparison was wrong.** The first pass compared this
    branch's RECALL against ~80-97%, a number that does not appear anywhere in
-   this repo's own docs — it was a precision figure (`docs/validation.md`'s
+   this repo's own docs — it was a precision figure (`docs/local/validation.md`'s
    STRONG/SINGLE precision-by-stratum table) mistaken for a recall figure.
    `README.md` states the real one plainly: "Recall is partial by design
    (about 15-46% of user functions on the test set)" — the correct,

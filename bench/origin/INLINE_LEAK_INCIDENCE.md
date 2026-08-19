@@ -335,7 +335,7 @@ hexyl       fp= 38/n=130  leak_fraction=29.23%  precision=70.77%
 were **not** previously flagged as precision outliers there — worth a closer
 look independent of this task.
 
-## d/e. Relationship to `docs/validation.md`'s 94.4%/87.3%
+## d/e. Relationship to `docs/local/validation.md`'s 94.4%/87.3%
 
 **Not fully disjoint, but not the same measurement either — checked, not
 assumed.** All 32 of `realval`'s binaries are a strict subset of this
@@ -347,7 +347,7 @@ after this session's earlier consolidation.
 **But the build-matrix breadth is genuinely different, checked directly**:
 `realval/build_corpus_src.sh` sets only `CARGO_PROFILE_RELEASE_DEBUG=true`
 and `CARGO_PROFILE_RELEASE_STRIP=false` — no LTO/opt-level/panic override at
-all, so `docs/validation.md`'s 94.4%/87.3% is **one build per binary**, each
+all, so `docs/local/validation.md`'s 94.4%/87.3% is **one build per binary**, each
 crate's own default release profile. The 91.3%/81.9% figures above are
 **pooled across a systematic 8-config sweep per crate** (lto fat/thin × opt
 3/z × panic unwind/abort), including configs (`opt-z`, `panic-abort`) that
@@ -358,7 +358,7 @@ into the same oracle module.
 
 **This is the "shared oracle, different measurement design" situation, not
 the "same measurement, different number" situation.** STRONG here (91.3%
-pooled / 91.1% crate-avg) is close to but below `docs/validation.md`'s 94.4%;
+pooled / 91.1% crate-avg) is close to but below `docs/local/validation.md`'s 94.4%;
 SINGLE here (81.9%) lands almost exactly on `architecture.md:278`'s
 independently-stated ~80-81% pooled SINGLE figure. That closeness is
 suggestive, not a confirmation — different oracle implementation detail,
@@ -373,7 +373,7 @@ single "opt-3/unwind" configs alone under `realval`'s exact methodology to
 isolate the config-breadth effect from the oracle-difference effect). Neither
 has been done. I am reporting 91.3%/81.9%/86.3% as a new, standalone
 measurement on this corpus under this branch's own ground truth — not a
-correction, not an average, not a replacement for `docs/validation.md`'s
+correction, not an average, not a replacement for `docs/local/validation.md`'s
 number.
 
 ---
@@ -409,11 +409,11 @@ blackcat_sphynx_x/   contains: c0e70e69....elf   (ELF, Linux)
 ```
 
 `c0e70e69d8f7432383fa37528cd42db764b73dd08eb75d72229c2a0d02e538cc` is
-**exactly** the hash `docs/case-study-real-malware.md:26,28` cites for
+**exactly** the hash `docs/local/case-study-real-malware.md:26,28` cites for
 "BlackCat/ALPHV (Sphynx) ... clean after 2 classifier fixes" — that verdict
 is correct, and it's about `blackcat_sphynx_x`, not `blackcat_x`. `blackcat_x`
 holds the **Windows PE sample** the same doc separately notes is "out of
-scope" (`docs/case-study-real-malware.md:32`) for unhusk's ELF-only pipeline
+scope" (`docs/local/case-study-real-malware.md:32`) for unhusk's ELF-only pipeline
 — genuinely unusable today, exactly the PE/ELF mismatch flagged. **My own
 answer last turn was imprecise**: I said "BlackCat/ALPHV... clean, not
 unusable" without checking which literal file `blackcat_x` held — correction
@@ -450,7 +450,7 @@ what the rule files themselves show, nothing beyond that.
 
 **Correction owed first, found while answering 5d:** the earlier inventory
 turn's answer to "has anyone classified real-corpus FPs by cause" said only
-`fclones`/`typos` (`docs/validation.md`) had that data. **That was wrong —
+`fclones`/`typos` (`docs/local/validation.md`) had that data. **That was wrong —
 missed.** `realval/results_body.md`'s `## Every false attribution — STRONG
 tier` section is a complete, already-committed, per-instance FP-mechanism
 table (67 rows, symbol-name-based, classified by

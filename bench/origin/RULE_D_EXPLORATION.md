@@ -71,9 +71,9 @@ doesn't get corroborated by enough distinct `user` Locations (RULE_B/C's `N`)
    (`REPORT.md`'s diagnostics section) — consistent with a large fraction of
    genuinely-authored functions being ordinary non-panicking code, or
    `#[track_caller]`-forwarding wrappers whose own body never materializes a
-   fresh Location reference at all (the exact gap `PANIC_ORACLE_GAPS.md`
-   already names: "the Location lives at the call site, not in the helper's
-   own body"). The compiler doc explains the mechanism; the pilot data shows
+   fresh Location reference at all (the exact gap
+   `docs/panic-location-internals.md` names: the Location lives at the call
+   site, not in the helper's own body). The compiler doc explains the mechanism; the pilot data shows
    its magnitude. They agree.
 
 ## What was NOT re-litigated

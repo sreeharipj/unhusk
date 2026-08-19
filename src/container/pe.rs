@@ -6,7 +6,7 @@
 //!   * `rva_to_offset` / `bytes_at` — the one RVA→file-offset helper; every PE
 //!     byte read routes through it (design §7).
 //!
-//! Spike-resolved (docs/PE_SPIKE.md → the happy path on every axis):
+//! Spike-resolved (docs/local/PE_SPIKE.md → the happy path on every axis):
 //!   * `locations` — enumerating/parsing the `Location` structs (§6.1/§6.3).
 //!   * `xref_locations_in` — the RIP-relative `lea` scan (§6.2, Dump 4), a
 //!     mechanical port of the ELF adapter's scan in the RVA address space.
@@ -173,7 +173,7 @@ impl PeImage {
 
     /// Decode the 24-byte `Location` struct whose offset-0 `file` pointer field
     /// starts at `struct_rva`, returning its fields as RVAs. The layout is the
-    /// ELF layout (docs/PE_SPIKE.md Dump 2): file.ptr(8) / file.len(8) /
+    /// ELF layout (docs/local/PE_SPIKE.md Dump 2): file.ptr(8) / file.len(8) /
     /// line(u32) / col(u32), 24 bytes, 8-aligned.
     ///
     /// The one PE difference from ELF (PE_SPIKE.md Dump 2): the pointer VALUE is
@@ -279,7 +279,7 @@ impl BinaryImage for PeImage {
     }
 
     fn locations(&self) -> Vec<RawLocation> {
-        // Spike resolved (docs/PE_SPIKE.md → happy path): reloc-first enumeration
+        // Spike resolved (docs/local/PE_SPIKE.md → happy path): reloc-first enumeration
         // over DIR64 targets in .rdata, decoding the ELF-identical struct layout.
         self.locations.clone()
     }
@@ -521,7 +521,7 @@ mod tests {
 
     #[test]
     fn location_struct_decodes_real_spike_bytes() {
-        // Struct #1 from docs/PE_SPIKE.md, verbatim .rdata bytes at file 0x16640:
+        // Struct #1 from docs/local/PE_SPIKE.md, verbatim .rdata bytes at file 0x16640:
         //   ptr=0x140018030  len=11  line=6  col=5   (main.rs:6:5, `v[i]`)
         #[rustfmt::skip]
         let bytes: [u8; 24] = [

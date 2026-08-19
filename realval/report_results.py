@@ -9,7 +9,7 @@ ORACLES (both reported, never merged)
   depcrate  INHERITED. non-user iff leading crate is in unhusk's DEPCRATE dump. UNSOUND:
             DEPCRATE only lists deps that HAVE panic Locations, so a dep with no panics
             of its own is scored as *user*. Kept only for continuity with
-            docs/validation.md.
+            docs/local/validation.md.
   meta      cargo metadata authorship map. user iff leading crate is a workspace-member
             target; non-user iff a resolved dependency target or std; else `unknown`
             (reported, never folded into either side).
@@ -224,13 +224,13 @@ def main():
             table(f"SINGLE (1 anchor) — {strat.upper()}", sub, lambda r: r["anchors"] == 1)
     table("SINGLE (1 anchor) — COMBINED", names_all, lambda r: r["anchors"] == 1)
 
-    # Per-domain breakdown. This is docs/validation.md's OWN partition (parallel kept
+    # Per-domain breakdown. This is docs/local/validation.md's OWN partition (parallel kept
     # separate from async, rather than folded into it as the task's definition requires),
     # and it is what makes the replication comparison reproducible from this script
     # instead of an ad-hoc one-off.
-    w("\n## Per-domain breakdown — `docs/validation.md`'s partition\n")
+    w("\n## Per-domain breakdown — `docs/local/validation.md`'s partition\n")
     w("Rule B folds `parallel` into async (the task defines async to include rayon "
-      "generics). `docs/validation.md` keeps `parallel` as its own category, so its "
+      "generics). `docs/local/validation.md` keeps `parallel` as its own category, so its "
       "published async figure is the `async` row here, NOT the async stratum above. "
       "Quoted for comparison against the docs; both are the same underlying data cut "
       "differently.\n")

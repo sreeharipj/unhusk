@@ -30,9 +30,9 @@ panic-at-the-disassembler-preprint.md
 panic-at-the-disassembler-preprint.pdf
 panic-at-the-disassembler-supplementary.md
 panic-at-the-disassembler-supplementary.pdf
-# prep notes for the preprint: names unpublished sibling work, keep out of the
-# otherwise-public docs/ tree
-docs/wang-et-al-comparison.md
+# internal working notes: measurement writeups, spikes, and preprint prep.
+# docs/ ships only what a reader needs; everything else lives here, unpublished.
+docs/local/
 PANIC_ORACLE_GAPS.md
 context.md
 RESULTS.md

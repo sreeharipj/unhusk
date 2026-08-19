@@ -6,6 +6,10 @@ as intended. Every behavioural claim cites the code that implements it
 and the corpus it was measured on. Claims without one of those two anchors do
 not belong in this document.
 
+**Working notes:** paths under `docs/local/` are unpublished measurement
+writeups kept out of the repository; they are cited here for provenance, not
+as links a reader can follow.
+
 **Verification basis:** `cargo test` — 103 passing (96 unit + 7 integration),
 0 failing, 0 ignored. Source tree: 7,342 lines across 18 files.
 
@@ -427,17 +431,17 @@ The per-binary table in `realval/results_body.md` contains 32 rows and
 designed as 34; two of its binaries were never scored — `mprocs` failed to
 build (`corpus_src/mprocs.FAILED`) and `dog` has no artifact in `corpus_src` at
 all — so 34 is the intended corpus and 32 the measured one
-(`docs/validation.md:32-34`, corrected there). Every figure below rests on the
+(`docs/local/validation.md:32-34`, corrected there). Every figure below rests on the
 32.
 
-Scored against `nm -C` symbol leading-crate (`docs/validation.md:9-16`):
+Scored against `nm -C` symbol leading-crate (`docs/local/validation.md:9-16`):
 
 | Tier | Rule | CLI/systems | async/web | pooled |
 |---|---|---:|---:|---:|
 | STRONG | `>= min_anchors` (default 2) | ~98% | ~87% | ~94% |
 | SINGLE | exactly 1 | ~90% | ~75% | ~80% |
 
-Threshold ladder (`docs/validation.md:20-24`):
+Threshold ladder (`docs/local/validation.md:20-24`):
 
 | `--min-anchors` | pooled | async only |
 |---:|---:|---:|
@@ -449,14 +453,14 @@ Threshold ladder (`docs/validation.md:20-24`):
 ~30 points because DWARF homes user closure-dispatch shims to
 `core/src/ops/function.rs`. That is an artifact of DWARF's closure attribution,
 not a classification error, so symbol is the ruler for headline numbers
-(`docs/validation.md:5-7`).
+(`docs/local/validation.md:5-7`).
 
 **The async gap is real and irreducible.** It survived a pre-registered stress
 test whose controls removed two *measurement* artifacts (a `LocalKey::with`
 forwarding wrapper on `fclones`, an own-library confound on `typos`) and lifted
 pooled STRONG from 90.3% to 94.4% — while async stayed at 87.3% with no
-artifact to blame (`docs/validation.md:34-50`). Named outlier inside that
-average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/validation.md:52-57`).
+artifact to blame (`docs/local/validation.md:34-50`). Named outlier inside that
+average: `miniserve` at 7/14 STRONG FPs = 50.0% (`docs/local/validation.md:52-57`).
 
 **The async stratum is 8 binaries.** By the `domain` column of
 `realval/results_body.md`'s per-binary table: `bandwhich`, `dufs`, `gping`,
@@ -497,7 +501,7 @@ charged as FP or credited as TP.
 measured the same quantity.** They differ in oracle implementation, corpus, and
 build-config breadth (`realval` builds one config per binary; `bench/origin`
 pools a systematic 8-config sweep). Neither figure may be quoted without its
-corpus and oracle attached. Full accounting: `docs/validation.md`, "Two
+corpus and oracle attached. Full accounting: `docs/local/validation.md`, "Two
 measurements" section.
 
 **Corpus relationship: containment, not partial overlap.** All 32 of
@@ -524,7 +528,7 @@ thoroughly.
 
 The headline numbers come from the symbol oracle, **not** from `dwarf.rs`.
 `dwarf.rs` is a secondary oracle used for `--validate` and the `--infer-depth`
-measurements. An audit (`docs/dwarf-oracle-audit.md`) found and fixed three
+measurements. An audit (`docs/local/dwarf-oracle-audit.md`) found and fixed three
 real bugs in it: std generics misread via sysroot paths; vendored C/asm misread
 as Rust authorship (31,030 functions mislabelled across a 58-binary corpus, up
 to 99% of a single binary's reported user set); and build-script output
@@ -820,8 +824,8 @@ On the separate question of attribution precision rather than leak coverage,
 code, against the shipped tool's 87.3% async stratum — a matched-stratum
 comparison, not a controlled experiment.
 
-**The controlled experiment has since been run** (`docs/origin-veto-headtohead.md`):
-same 32 binaries as `docs/validation.md`, same symbol ground truth, same
+**The controlled experiment has since been run** (`docs/local/origin-veto-headtohead.md`):
+same 32 binaries as `docs/local/validation.md`, same symbol ground truth, same
 strata, `RuleA`'s veto condition as the only variable, joined to the shipped
 tool's own per-function verdicts at 2225/2225 with zero anchor-count
 disagreements. It changes the reading above in one specific way. The right
@@ -845,14 +849,14 @@ missing `core` iter/sort shims, the same DEP-favouring pattern the 75.8% /
 Not wired to the CLI; driven by `bin/origin_probe.rs`. **Nothing above is in
 the shipped decision path**, which is why §9.2 records the gap as unmitigated.
 Full sweep and comparison: `bench/origin/REPORT.md`; controlled head-to-head:
-`docs/origin-veto-headtohead.md`.
+`docs/local/origin-veto-headtohead.md`.
 
 ### 10.5 `--backtrace-depth` — shipped, unvalidated
 
 Implemented, wired, off by default, and strictly separated from the certain
 bucket. Its own help text directs the operator to `--validate` to measure the
 bucket's precision, but **no such measurement exists** in `README.md`,
-`docs/validation.md`, or `realval/`. A working feature with an unfulfilled
+`docs/local/validation.md`, or `realval/`. A working feature with an unfulfilled
 promise attached — not dead code, and not validated either.
 
 ---
@@ -894,20 +898,20 @@ promise attached — not dead code, and not validated either.
 - Real-malware exercise (static only, never executed): KrustyLoader, Akira,
   BlackCat/ALPHV, 01flip, P2PInfect. Two evasions observed and now flagged —
   `--remap-path-prefix` (01flip) and packing (P2PInfect). Details:
-  `docs/case-study-real-malware.md`.
+  `docs/local/case-study-real-malware.md`.
 
 ### Related documents
 
 | Document | Contents |
 |---|---|
 | `README.md` | Install, CLI reference, worked example |
-| `docs/corpora.md` | **Corpus registry — which corpus backs which number, and which figures are not comparable. Read before quoting anything from the tables below.** |
-| `docs/validation.md` | Precision derivation, pre-registered stress test, two-measurements accounting |
-| `docs/origin-veto-headtohead.md` | The controlled origin-veto vs `--min-anchors` comparison (§10.4's open question, closed) |
+| `docs/local/corpora.md` | **Corpus registry — which corpus backs which number, and which figures are not comparable. Read before quoting anything from the tables below.** |
+| `docs/local/validation.md` | Precision derivation, pre-registered stress test, two-measurements accounting |
+| `docs/local/origin-veto-headtohead.md` | The controlled origin-veto vs `--min-anchors` comparison (§10.4's open question, closed) |
 | `realval/results_body.md` | Per-binary results, 67-row STRONG false-attribution table |
-| `docs/dwarf-oracle-audit.md` | The three DWARF oracle bugs and their property-test guards |
+| `docs/local/dwarf-oracle-audit.md` | The three DWARF oracle bugs and their property-test guards |
 | `bench/origin/REPORT.md` | Origin-classifier sweep (§10.4) |
 | `bench/origin/INLINE_LEAK_INCIDENCE.md` | §8.2 corpus mining |
 | `docs/PDB_ORACLE_hardcase.md` | §9.2 on PE, with the fan-out null result (branch `pe-port/hardcase-probe`) |
-| `docs/pe-port-design.md` | PE port design notes |
-| `docs/case-study-real-malware.md` | Sample hashes, evasion-effort gradient |
+| `docs/local/pe-port-design.md` | PE port design notes |
+| `docs/local/case-study-real-malware.md` | Sample hashes, evasion-effort gradient |

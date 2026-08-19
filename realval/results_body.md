@@ -95,9 +95,9 @@
 | depcrate | strict | 1192 | 960 | 232 | 4 | 80.5% | [78.2, 82.7] | [68.9, 89.5] |
 | depcrate | unwrapped | 1192 | 970 | 222 | 4 | 81.4% | [79.1, 83.5] | [70.4, 89.9] |
 
-## Per-domain breakdown — `docs/validation.md`'s partition
+## Per-domain breakdown — `docs/local/validation.md`'s partition
 
-Rule B folds `parallel` into async (the task defines async to include rayon generics). `docs/validation.md` keeps `parallel` as its own category, so its published async figure is the `async` row here, NOT the async stratum above. Quoted for comparison against the docs; both are the same underlying data cut differently.
+Rule B folds `parallel` into async (the task defines async to include rayon generics). `docs/local/validation.md` keeps `parallel` as its own category, so its published async figure is the `async` row here, NOT the async stratum above. Quoted for comparison against the docs; both are the same underlying data cut differently.
 
 
 **STRONG (>= 2) — domain `cli`** — 16 binaries: 16 binaries

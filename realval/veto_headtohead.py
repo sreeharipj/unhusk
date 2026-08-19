@@ -215,7 +215,7 @@ def main():
     w("\n## Head-to-head: shipped STRONG vs STRONG + origin veto\n")
     w("Oracle: cargo-metadata authorship, **unwrapped** ruler — the same combination "
       "`report_results.py`'s threshold ladder uses for the published figure, so the "
-      "`veto = none` row here reproduces `docs/validation.md`'s number exactly and the "
+      "`veto = none` row here reproduces `docs/local/validation.md`'s number exactly and the "
       "comparison starts from a verified baseline.\n")
     arm_table(f"COMBINED (>= {K} anchors)", names)
 
@@ -225,7 +225,7 @@ def main():
         if sub:
             arm_table(f"{strat.upper()} stratum", sub)
 
-    w("\n### By domain — `docs/validation.md`'s own partition\n")
+    w("\n### By domain — `docs/local/validation.md`'s own partition\n")
     w("The published 87.3% async figure is the `domain == async` cut (with `parallel` "
       "kept separate), NOT the async stratum above. This is the cut to compare against "
       "it.\n")

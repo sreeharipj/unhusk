@@ -38,7 +38,7 @@ reader can see what held up under more data and what didn't (mostly: held).
 **Revision note (kept from a correction that happened mid-measurement, at
 16 crates).** An earlier verdict compared this branch's recall against a
 recall figure that doesn't exist anywhere in this repo (it was actually
-`docs/validation.md`'s STRONG/SINGLE *precision* table, misread as recall),
+`docs/local/validation.md`'s STRONG/SINGLE *precision* table, misread as recall),
 reported precision with no base-rate context, size-weighted every headline
 number by FDE count so a few workspace-heavy crates dominated the pooled
 mean, and buried the inverse leak — arguably the branch's actual
@@ -189,7 +189,7 @@ the same predicted "sweep N, trade recall for precision" curve at
 progressively larger, more varied corpora, each time settling to roughly the
 same ~93-95% ceiling once N>=2. **RULE_A@2 (the shipped tool's own default)
 reaches 92.8% pooled precision** — in the same range as
-`docs/validation.md`'s shipped STRONG-tier precision (~94.4%, different
+`docs/local/validation.md`'s shipped STRONG-tier precision (~94.4%, different
 corpus/methodology) — **at much lower recall** (5.3% vs. the shipped tool's
 documented 15-46%). **RULE_C@0.10 remains the more useful operating point**:
 85.7% pooled precision (a ~18x enrichment over the 4.8% base rate) at 19.2%
@@ -202,13 +202,13 @@ on the Location-bearing subset.
 Every comparison above was pooled-across-the-whole-corpus vs. the shipped
 tool's pooled-across-its-own-corpus figure — not a matched comparison,
 since this branch's 43-crate corpus is now much more async-heavy (22 of 43
-crates tagged async, vs. 6 of 34 in `docs/validation.md`'s stress corpus).
+crates tagged async, vs. 6 of 34 in `docs/local/validation.md`'s stress corpus).
 Doing the comparison the right way — restricting to this branch's own
 22 async-tagged crates and comparing directly against the shipped tool's
 *documented async-specific figure*, not its pooled one — surfaces the
 single strongest result in this branch:
 
-`docs/validation.md`'s pre-registered stress test found the shipped
+`docs/local/validation.md`'s pre-registered stress test found the shipped
 multiplicity-only STRONG tier (`--min-anchors 2`, the default) drops from
 ~98% precision on CLI/systems binaries to **87.3% on async/web-framework
 binaries** — a documented ~10-11pp penalty, "a real gap driven by futures
@@ -217,7 +217,7 @@ combinators (`PollFn`, `Pin<Box<closure>>`, `tokio::Timeout`,
 multi-panic user closure ... irreducible in a stripped binary," per that
 report's own verdict.
 
-| | shipped STRONG (`docs/validation.md`) | RULE_A@2 (this branch, workspace-merged) |
+| | shipped STRONG (`docs/local/validation.md`) | RULE_A@2 (this branch, workspace-merged) |
 |---|---:|---:|
 | CLI/systems (non-async) | ~98% | 95.0% pooled / 92.9% crate-avg |
 | async/web-framework | **87.3%** | **91.5% pooled / 93.0% crate-avg** |
@@ -236,7 +236,7 @@ entire structural advantage over pure multiplicity is rejecting a function
 that references *any* non-user Location alongside its user ones — exactly
 the shape of a futures combinator or handler-adapter that inlines a
 multi-panic user closure alongside its own framework/runtime internals
-(the same failure mode `docs/validation.md` names as the async penalty's
+(the same failure mode `docs/local/validation.md` names as the async penalty's
 cause). Pure multiplicity counting has no way to see that contamination;
 RULE_A's composition check does, by construction. Measured against the
 shipped tool's own worst-documented stratum, that structural difference
@@ -250,7 +250,7 @@ composition signal in general.
 
 **Caveat, stated plainly so this doesn't overclaim**: this is still not a
 controlled head-to-head — different oracle implementation
-(`bench/origin/ground_truth.py` vs. `docs/validation.md`'s symbol-based
+(`bench/origin/ground_truth.py` vs. `docs/local/validation.md`'s symbol-based
 one), different corpus (this branch's 22 async crates vs. the stress test's
 6), different measurement methodology entirely. But it is now a properly
 matched *stratum-vs-stratum* comparison rather than pooled-vs-pooled, and it
@@ -259,7 +259,7 @@ specifically fix the shipped tool's own documented weak spot. This is the
 strongest evidence in this branch that RULE_A has genuine standalone value,
 not just "same ballpark as the multiplicity approach."
 
-**FOLLOWED UP, AND PARTLY CORRECTED — see `docs/origin-veto-headtohead.md`.**
+**FOLLOWED UP, AND PARTLY CORRECTED — see `docs/local/origin-veto-headtohead.md`.**
 The controlled head-to-head this section asks for has since been run: same 32
 binaries, same symbol ground truth, same strata, with the veto as the only
 variable. Three things came back. (1) The *direction* replicates — on the
@@ -335,7 +335,7 @@ ground truth that matches what the classifier can structurally see
 shipped code) and once precision is read against its actual base rate.
 
 **The headline result: RULE_A@2 specifically closes the shipped tool's own
-documented async precision gap.** `docs/validation.md`'s pre-registered
+documented async precision gap.** `docs/local/validation.md`'s pre-registered
 stress test found the shipped STRONG tier drops from ~98% on CLI/systems
 binaries to 87.3% on async/web-framework binaries — a real, named,
 ~10-11pp weak spot. Restricted to this branch's own 22 async-tagged crates
@@ -347,7 +347,7 @@ async vs. 92.9% non-async, vs. the shipped tool's ~10.7pp gap). This isn't
 a coincidence: RULE_A's hard veto on any non-user Location is precisely
 what a futures combinator or handler-adapter inlining a multi-panic user
 closure alongside its own runtime internals triggers — exactly the
-mechanism `docs/validation.md` names as the async penalty's cause, and
+mechanism `docs/local/validation.md` names as the async penalty's cause, and
 exactly what pure multiplicity-counting has no way to see. RULE_C does not
 show this effect (still a real, if smaller, async gap) — the advantage is
 specific to RULE_A's structural veto. See "RULE_A specifically closes the
@@ -403,8 +403,8 @@ corpus expansions — a corpus-size-robust calibration, not a first pass.
 
 This does not mean origin-composition scoring is a drop-in replacement for
 `--min-anchors` — a controlled head-to-head on the same corpus with the
-same oracle as `docs/validation.md`'s 32-binary stress test was the natural
-next step. **That head-to-head has since been run: `docs/origin-veto-headtohead.md`.**
+same oracle as `docs/local/validation.md`'s 32-binary stress test was the natural
+next step. **That head-to-head has since been run: `docs/local/origin-veto-headtohead.md`.**
 Its answer is that origin-composition scoring is emphatically *not* a
 drop-in replacement — pooled, the veto loses to the `--min-anchors` dial at
 matched recall (-1.5pp) and destroys 13 genuine author functions for every

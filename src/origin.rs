@@ -114,7 +114,7 @@ pub fn classify_location_path(path: &str) -> PathClass {
     }
     // Local toolchain sysroot form a std generic monomorphised into the local
     // crate can carry instead of the remapped `/rustc/<hash>/` form (the guard
-    // `docs/dwarf-oracle-audit.md` / `src/dwarf.rs:52` exists for).
+    // `docs/local/dwarf-oracle-audit.md` / `src/dwarf.rs:52` exists for).
     if path.contains("/lib/rustlib/src/rust/library/") {
         return PathClass::Rustc;
     }
@@ -396,7 +396,7 @@ mod tests {
 
     #[test]
     fn rustc_local_sysroot_form() {
-        // The bug `docs/dwarf-oracle-audit.md` documents fixing in dwarf.rs:
+        // The bug `docs/local/dwarf-oracle-audit.md` documents fixing in dwarf.rs:
         // a std generic monomorphised locally carries this form, not the
         // remapped `/rustc/<hash>/` one.
         assert_eq!(

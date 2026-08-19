@@ -20,7 +20,7 @@ against `build/ripgrep/lto-fat_opt-3_panic-unwind/rg.stripped` (an
 already-built binary already on disk — not a rebuild) gives STRONG=147/
 SINGLE=114; deriving from that same build's `probe.json` via
 `counts["user"]>=2` / `==1` reproduces both sets exactly, 0 symmetric
-difference. Default `min_anchors=2`, matching `docs/validation.md`'s and
+difference. Default `min_anchors=2`, matching `docs/local/validation.md`'s and
 `README.md`'s reported default.
 
 "Claimed user" = STRONG ∪ SINGLE = counts["user"] >= 1 (this is also exactly

@@ -49,7 +49,7 @@ Location-class histogram per binary — a veto on a class that never appears can
 
 ## Head-to-head: shipped STRONG vs STRONG + origin veto
 
-Oracle: cargo-metadata authorship, **unwrapped** ruler — the same combination `report_results.py`'s threshold ladder uses for the published figure, so the `veto = none` row here reproduces `docs/validation.md`'s number exactly and the comparison starts from a verified baseline.
+Oracle: cargo-metadata authorship, **unwrapped** ruler — the same combination `report_results.py`'s threshold ladder uses for the published figure, so the `veto = none` row here reproduces `docs/local/validation.md`'s number exactly and the comparison starts from a verified baseline.
 
 
 **COMBINED (>= 2 anchors)** — 32 binaries
@@ -85,7 +85,7 @@ Oracle: cargo-metadata authorship, **unwrapped** ruler — the same combination 
 | >= 2 | rustc | 172 | 155 | 17 | 0 | 90.1% | [84.7, 93.7] | [75.0, 96.9] | 37.8% |
 | >= 2 | registry | 77 | 70 | 7 | 0 | 90.9% | [82.4, 95.5] | [76.3, 100.0] | 16.9% |
 
-### By domain — `docs/validation.md`'s own partition
+### By domain — `docs/local/validation.md`'s own partition
 
 The published 87.3% async figure is the `domain == async` cut (with `parallel` kept separate), NOT the async stratum above. This is the cut to compare against it.
 

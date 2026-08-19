@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 leak_mechanism_taxonomy.py — Task 5b: is a leak instance a forwarding wrapper
-(`LocalKey::with`/`__rust_begin_short_backtrace`-shaped — `docs/validation.md:36`'s
+(`LocalKey::with`/`__rust_begin_short_backtrace`-shaped — `docs/local/validation.md:36`'s
 mechanism) or a genuine inlined-closure-into-library-code absorption (the
 mechanism `architecture.md`'s hard case and this whole doc describe)?
 
