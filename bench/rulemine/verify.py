@@ -157,6 +157,34 @@ def main():
               f"{d['crates_better']} of {tot}" in report,
               f"{d['crates_better']}/{tot}")
 
+    if e21:
+        h = ((e21.get("test") or {}).get("R3") or {}).get("high")
+        if h:
+            check(f"'wins {h['wins']}/{h['n']}' above 20 anchors on held-out appears in REPORT.md",
+                  f"{h['wins']} of {h['n']}" in report or f"{h['wins']}/{h['n']}" in report,
+                  f"{h['wins']}/{h['n']}")
+
+    e16_early = load("e16_aux_corpora.json")
+    v4 = ((e16_early or {}).get("V4") or {}).get("slices", {}).get("all", {})
+    if "R3" in v4 and "A@2" in v4:
+        ratio = v4["R3"]["recall"] / v4["A@2"]["recall"]
+        check(f"V4 R3 recall ratio {ratio:.2f}x appears in REPORT.md",
+              f"{ratio:.2f}x" in report, f"{ratio:.2f}x")
+    else:
+        skip("V4 R3 recall ratio appears in REPORT.md",
+             "V4 corpus absent — build it with `make v4`")
+
+    e19 = load("e19_scope_rule.json")
+    if e19:
+        key = "R3 if anchors > 40, else A@2"
+        n_dom = sum(1 for lab, d in e19.items()
+                    if isinstance(d, dict) and key in d
+                    and d[key]["precision"] >= d["always A@2 (incumbent)"]["precision"]
+                    and d[key]["recall"] > d["always A@2 (incumbent)"]["recall"])
+        n_tot = sum(1 for lab, d in e19.items() if isinstance(d, dict) and key in d)
+        check(f"§6.4's '{n_dom} of the {n_tot} corpora' dominance count matches e19",
+              f"{n_dom} of the {n_tot} corpora" in report, f"{n_dom}/{n_tot}")
+
     e16 = load("e16_aux_corpora.json")
     lk = ((e16 or {}).get("V3") or {}).get("slices", {}).get("lockbox crates", {})
     if "R3" in lk and "A@2" in lk:

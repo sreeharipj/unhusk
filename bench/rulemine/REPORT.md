@@ -926,19 +926,29 @@ ground truth. `R3 if anchor count > 40, else A@2`:
 | V4 (fresh programs) | 93.9% | 9.48% | -1.0 pp, 1.89x recall |
 | main: development crates | 90.3% | 9.24% | -2.0 pp, 1.81x recall |
 
-It **dominates the incumbent on both axes on three of the four corpora**,
-including V4 where plain R3 loses — which is the point: the composite exists
-precisely to fix R3's failure mode, and on V4 it turns a 5.5-point precision
-loss into a 2.4-point gain while still recovering 1.42x the functions.
+It **dominates the incumbent on both axes on 2 of the 4 corpora**
+(main: held-out crates; V3 (codegen-units)), and on the other
+2 it trades precision for recall rather than
+winning outright.
+
+The V4 row is the one worth reading closely, because V4 is the corpus the
+threshold was chosen on and the one where plain R3 does worst. The composite
+recovers 1.89x the incumbent's functions for 1.0 pp of precision, against plain
+R3's 1.96x for 2.2 pp — so the switch recovers about half of R3's
+precision loss while keeping almost all of its recall gain. That is the
+scope condition doing what it claims, on the corpus that motivated it.
 
 **This is post-hoc and is not dressed up.** The threshold was chosen after
 seeing V4's result, on the same data that produced it. It is not one of the
-three pre-registered proposals, it has **no held-out validation of any kind**,
-and the one corpus where it does not dominate is the development set — which
-is where it should look best if it were overfitted, so at least the failure is
-in the honest direction. Two mildly reassuring facts that are still not
-validation: the threshold is flat over 30-60 on every corpus, and V3, which
-played no part in choosing it, shows the effect at full strength.
+three pre-registered proposals and it has **no held-out validation of any
+kind** — the held-out crates were opened once, for the pre-registered rules,
+and reusing them to validate a threshold invented afterwards would spend a
+resource this study has already spent. Note also that one of the corpora it
+fails to dominate is the development set, which is where it should look best
+if it were overfitted, so at least that failure points the honest way. Two
+mildly reassuring facts that are still not validation: the threshold is flat
+over 30-60 on every corpus, and V3, which played no part in choosing it, shows
+the effect at full strength.
 
 Recorded as a hypothesis with numbers attached, for a future study with its own
 sealed split. It should not be cited as a result.

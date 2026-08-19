@@ -956,18 +956,41 @@ def sec_robustness(ctx):
             w(f"| {label} | {pct(c['precision'])} | {pct(c['recall'],2)} | "
               f"{100*(c['precision']-b_['precision']):+.1f} pp, {c['recall']/b_['recall']:.2f}x recall |")
         w("")
-        w("It **dominates the incumbent on both axes on three of the four corpora**,")
-        w("including V4 where plain R3 loses — which is the point: the composite exists")
-        w("precisely to fix R3's failure mode, and on V4 it turns a 5.5-point precision")
-        w("loss into a 2.4-point gain while still recovering 1.42x the functions.\n")
+        key = "R3 if anchors > 40, else A@2"
+        dom, notdom = [], []
+        for label in ("main: held-out crates", "V3 (codegen-units)",
+                      "V4 (fresh programs)", "main: development crates"):
+            d = e19.get(label)
+            if not d or key not in d:
+                continue
+            c, b_ = d[key], d["always A@2 (incumbent)"]
+            (dom if (c["precision"] >= b_["precision"] and c["recall"] > b_["recall"])
+             else notdom).append(label)
+        if dom:
+            w(f"It **dominates the incumbent on both axes on {len(dom)} of the {len(dom)+len(notdom)} corpora**")
+            w("(" + "; ".join(dom) + "), and on the other")
+            w(f"{'one' if len(notdom) == 1 else str(len(notdom))} it trades precision for recall rather than")
+            w("winning outright.\n")
+        v4 = e19.get("V4 (fresh programs)")
+        if v4 and key in v4:
+            c, b_, r3 = v4[key], v4["always A@2 (incumbent)"], v4["always R3"]
+            w("The V4 row is the one worth reading closely, because V4 is the corpus the")
+            w("threshold was chosen on and the one where plain R3 does worst. The composite")
+            w(f"recovers {c['recall']/b_['recall']:.2f}x the incumbent's functions for {100*(b_['precision']-c['precision']):.1f} pp of precision, against plain")
+            w(f"R3's {r3['recall']/b_['recall']:.2f}x for {100*(b_['precision']-r3['precision']):.1f} pp — so the switch recovers about half of R3's")
+            w("precision loss while keeping almost all of its recall gain. That is the")
+            w("scope condition doing what it claims, on the corpus that motivated it.\n")
         w("**This is post-hoc and is not dressed up.** The threshold was chosen after")
         w("seeing V4's result, on the same data that produced it. It is not one of the")
-        w("three pre-registered proposals, it has **no held-out validation of any kind**,")
-        w("and the one corpus where it does not dominate is the development set — which")
-        w("is where it should look best if it were overfitted, so at least the failure is")
-        w("in the honest direction. Two mildly reassuring facts that are still not")
-        w("validation: the threshold is flat over 30-60 on every corpus, and V3, which")
-        w("played no part in choosing it, shows the effect at full strength.\n")
+        w("three pre-registered proposals and it has **no held-out validation of any")
+        w("kind** — the held-out crates were opened once, for the pre-registered rules,")
+        w("and reusing them to validate a threshold invented afterwards would spend a")
+        w("resource this study has already spent. Note also that one of the corpora it")
+        w("fails to dominate is the development set, which is where it should look best")
+        w("if it were overfitted, so at least that failure points the honest way. Two")
+        w("mildly reassuring facts that are still not validation: the threshold is flat")
+        w("over 30-60 on every corpus, and V3, which played no part in choosing it, shows")
+        w("the effect at full strength.\n")
         w("Recorded as a hypothesis with numbers attached, for a future study with its own")
         w("sealed split. It should not be cited as a result.\n")
     w("## 7. Why these three, from the picture\n")
