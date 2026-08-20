@@ -19,9 +19,15 @@ paper should now say. Full detail, scripts, and outputs are in
 | 2.1 | codegen-units confound, matched on all 43 crates | **CONFIRMED** as partial contributor | mean −2.30pp (43 matched crates, 32 negative); R1/R3 neighbourhood advantage weakens 25-45% at cgu=16 | see `work/PHASE_2.md` §2.1 replacement |
 | 2.2 | inline suppression raises the ceiling toward opt-3 | **FALSIFIED**, sharply, opposite direction | ceiling 18.86%→8.89% (not toward 23.44%); author-FDE count triples (2015→6341) | see §2.2 replacement |
 | 2.3 | cgu sweep {1,4,16,256} | **CONFIRMED** — clean monotonic curve | 26.72%→25.66%→25.28%→24.88%, no reversal | see §2.3 replacement |
-| 3.1 | author-written is not author-unique, at scale | *pending harness run (~80+ min, still running)* | | |
+| 3.1 | author-written is not author-unique, at scale | **NOT RUN — infeasible on this hardware** | `reduce_atom` candidate search is O(function size); max function size in the input is 247KB; 3 attempts (serial ~90min, 16-core parallel stalled at 6000/7923, 32KB-capped still hadn't produced a checkpoint after 2 more min under sustained load) all stopped rather than papered over | see `work/PHASE_3.md` §3.1 — do NOT replace the sec:seeds caveat, it is still true; optionally add one sentence about reduce_atom's own scaling |
 | 3.2 | rules on PE | **DONE** — R1/R3/ceiling transfer, R2 not attempted | dufs ceiling 44.87% (matches PDB oracle); R1/R3 fire at 100% precision on dufs, correctly silent on procs | see `work/PHASE_3.md` §3.2 replacement |
 | 3.3 | async/sync on PE, same classifier | **CONFIRMED**, reproduces original split | 26/28 (92.9%) async vs 9/50 (18.0%) sync, matches original 26/28 vs 9/52 | see §3.3 replacement |
 
-This file is updated as each remaining row completes; it is not a final
-deliverable until every row above has a real verdict.
+All rows now have a verdict — 8 CONFIRMED (1.1, 1.3-neighbourhood, 1.5, 1.6,
+1.7, 2.1, 2.3, 3.2, 3.3 — nine, not counting the mixed one), 1 mixed
+(1.3-caller: confirmed at M>=3, falsified at M==2), 3 FALSIFIED (1.2, 1.4,
+2.2), 1 NOT RUN for a stated, concrete reason (3.1). Three hypotheses were
+falsified outright and one partially — reported as first-class findings
+per the standing rules, not softened or dropped. This file, `work/PHASE_1.md`,
+`work/PHASE_2.md`, and `work/PHASE_3.md` are the complete deliverable of
+this task.

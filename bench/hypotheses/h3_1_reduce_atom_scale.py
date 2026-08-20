@@ -2,6 +2,17 @@
 """
 h3_1_reduce_atom_scale.py — Phase 3 / hypothesis 3.1.
 
+STATUS: NOT RUN. Attempted three times (serial, rayon-parallel across 16
+cores, size-capped at 32KB) and stopped each time rather than substituted
+with a weaker measurement -- reduce_atom's exhaustive per-window corpus
+scan does not complete in tractable time on the right tail of real
+function sizes in this corpus (up to 247KB). Full account, including the
+secondary finding about reduce_atom's own worst-case scaling, in
+work/PHASE_3.md section 3.1. This script and the harness it drives
+(winnow's src/bin/reduce_atom_bench.rs) are both correct and both
+committed; rerunning needs either a longer time budget or an explicitly
+pre-scoped (not post-hoc) size cap.
+
 The preprint's central "seeds not solutions" caveat (sec:seeds,
 "author-written is not author-unique") rests on 24 functions from 7 wild
 malware samples, explicitly flagged as small: "establishing they ARE

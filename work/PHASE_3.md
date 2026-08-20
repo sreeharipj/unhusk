@@ -145,3 +145,86 @@ functions, §sec:selectivity-elf) and on PE for the binary this section
 already reports (28 async author functions), gives 95.6%/18.3% and
 92.9%/18.0% respectively — the same five-fold effect, in the same
 direction, independent of container."*
+
+## 3.1 Author-written is not author-unique, at scale — INFEASIBLE, stopped rather than substituted
+
+**Script (as written, intended to run):** `bench/hypotheses/h3_1_reduce_atom_scale.py`,
+driving the (also-real, also-built) winnow harness `reduce_atom_bench`
+described in that script's header.
+
+**What was attempted:** run winnow's real `Corpus::reduce_atom`
+(`mask.rs`/`rarity.rs`, `MIN_EXACT=16`, `REDUCED_LEN=64`, unmodified) over
+7,923 AUTHOR functions from one config of the 43-crate corpus, against the
+158-binary benign corpus at `/home/user/Videos/winnow/corpus/bin`, to get
+the drop rate and collision rate at `n≈10^4` the preprint's own limitations
+section calls for.
+
+**Why it's infeasible on this hardware, not just slow:** function size in
+the input is heavily right-skewed — mean 2,425 bytes, but max **247,397
+bytes**, with 70 functions (0.9%) over 32KB and 547 (6.9%) over 8KB.
+`reduce_atom`'s candidate search is `O(function_size)` windows, each
+requiring a full memmem scan of the 158-file (~1.5GB) corpus if it doesn't
+survive; for a function in the hundreds-of-KB range with no early
+collision-free window, that is tens of thousands of corpus scans for one
+function. Three attempts were made, each escalating:
+
+1. **Serial** (the version first committed): ran ~90 minutes and did not
+   finish 7,923 functions.
+2. **Parallelised** (`rayon`, added to `winnow/Cargo.toml` — the only
+   dependency change made to that repo; no existing winnow file's logic was
+   touched) across all 16 cores: reached 6,000/7,923 in the first ~15
+   minutes, then **stalled completely — zero progress for 10+ minutes with
+   14 threads still at ~100% CPU** — a straggler tail of large functions
+   consuming every worker simultaneously.
+3. **Capped at 32KB** (excluding the 70 largest functions) and re-launched:
+   still had not produced a single 500-function progress checkpoint after
+   ~2 minutes, on a machine already under sustained full-core load from the
+   two earlier attempts.
+
+At that point the run was killed and **not restarted with a tighter cap**,
+because continuing to ratchet the size threshold down and re-run is
+exactly the "substitute a weaker experiment and report it as the intended
+one" pattern the standing rules rule out — a `reduce_atom` run capped
+aggressively enough to finish quickly would no longer be testing what the
+task asked for (author functions AS THEY ACTUALLY OCCUR in the corpus,
+large ones included), and the paper's own use case (masking and scanning
+whatever functions a STRONG-tier attribution produces, not a
+size-pre-filtered subset) does not get to assume large functions away.
+
+**Verdict: NOT RUN. Infeasible for a concrete, now-documented reason**
+(reduce_atom's exhaustive per-window corpus scan does not complete in
+tractable time on the right tail of real-world function sizes, even
+parallelised across 16 cores) **— not a negative result about
+discriminativeness, and not a weaker substitute measurement.** The
+`h3_1_reduce_atom_scale.py` script and the `reduce_atom_bench` harness are
+both real, both correct (validated on a 5-function smoke test against
+known-good output), and both committed; either can be rerun later with a
+longer time budget, a size-capped population *explicitly scoped and stated
+as such up front* (not decided after the fact to make a stalled run
+finish), or an optimisation to `reduce_atom`'s candidate search itself
+(e.g. capping candidates tried per function, which is a change to winnow's
+actual behaviour and out of scope for a measurement harness to decide
+unilaterally).
+
+**A secondary, genuine finding from the attempt itself, worth recording
+even though the main measurement didn't complete:** `reduce_atom`'s
+worst-case scaling on large functions is a real property of the shipped
+tool, not an artifact of this harness. Winnow's normal operating regime is
+a handful of STRONG-tier functions per malware sample, where this has
+apparently never been a practical problem — but the mechanism (candidate
+count linear in function size, full-corpus scan per untried candidate) means
+a sufficiently large author function in a real sample could make Tier 1
+rule generation slow in the same way, which is worth flagging to the
+project separately from this measurement task.
+
+**What the paper should say:** the caveat in `sec:seeds` ("the same
+procedure over the 43-crate benign corpus would give n ≈ 10^4... it is the
+first thing we would run before building on this") should NOT be replaced
+with a completed measurement — it should stay exactly as written, since
+that measurement still does not exist. If anything, add one sentence:
+*"An attempt to run this at n≈10^4 found that `reduce_atom`'s exhaustive
+candidate search does not complete in tractable time on the right tail of
+real function sizes (up to 247KB in this corpus), even parallelised across
+16 cores — itself worth noting as a scalability property of the masking
+procedure, separate from the discriminativeness question it was meant to
+answer."*
