@@ -71,6 +71,9 @@ struct Row {
     fn_start: u64,
     fn_end: u64,
     label: String,
+    /// PDB-reported function name, for AUTHOR rows only (h3.3's async/sync
+    /// classifier needs it; empty string when no ground-truth match exists).
+    name: String,
     m_rel_structs: u32,
     p_nonrel: u32,
     n_win_rel: i64,
@@ -141,18 +144,19 @@ fn main() -> Result<()> {
     let mut rows = Vec::with_capacity(n);
     let mut n_labeled = 0;
     for (i, r) in ranges.iter().enumerate() {
-        let label = match gt.get(&r.start) {
+        let (label, name) = match gt.get(&r.start) {
             Some(f) => {
                 n_labeled += 1;
-                label_of(&f.origin).to_string()
+                (label_of(&f.origin).to_string(), f.name.clone())
             }
-            None => "NONE".to_string(),
+            None => ("NONE".to_string(), String::new()),
         };
         rows.push(Row {
             crate_name: crate_name.clone(),
             fn_start: r.start,
             fn_end: r.end,
             label,
+            name,
             m_rel_structs: m_rel[i],
             p_nonrel: p_nonrel[i],
             n_win_rel: win_rel[i],

@@ -1,0 +1,95 @@
+{
+  "dufs": {
+    "n_functions": 4132,
+    "A@2": {
+      "fires": 1,
+      "tp": 1,
+      "n_author": 78,
+      "precision": 1.0,
+      "recall": 0.0128
+    },
+    "R1": {
+      "fires": 8,
+      "tp": 8,
+      "n_author": 78,
+      "precision": 1.0,
+      "recall": 0.1026
+    },
+    "R3": {
+      "fires": 22,
+      "tp": 22,
+      "n_author": 78,
+      "precision": 1.0,
+      "recall": 0.2821
+    },
+    "any_anchor": {
+      "fires": 35,
+      "tp": 35,
+      "n_author": 78,
+      "precision": 1.0,
+      "recall": 0.4487
+    }
+  },
+  "procs": {
+    "n_functions": 8184,
+    "A@2": {
+      "fires": 7,
+      "tp": 7,
+      "n_author": 120,
+      "precision": 1.0,
+      "recall": 0.0583
+    },
+    "R1": {
+      "fires": 0,
+      "tp": 0,
+      "n_author": 120,
+      "precision": null,
+      "recall": 0.0
+    },
+    "R3": {
+      "fires": 0,
+      "tp": 0,
+      "n_author": 120,
+      "precision": null,
+      "recall": 0.0
+    },
+    "any_anchor": {
+      "fires": 19,
+      "tp": 19,
+      "n_author": 120,
+      "precision": 1.0,
+      "recall": 0.1583
+    }
+  },
+  "pooled": {
+    "n_functions": 12316,
+    "A@2": {
+      "fires": 8,
+      "tp": 8,
+      "n_author": 198,
+      "precision": 1.0,
+      "recall": 0.0404
+    },
+    "R1": {
+      "fires": 8,
+      "tp": 8,
+      "n_author": 198,
+      "precision": 1.0,
+      "recall": 0.0404
+    },
+    "R3": {
+      "fires": 22,
+      "tp": 22,
+      "n_author": 198,
+      "precision": 1.0,
+      "recall": 0.1111
+    },
+    "any_anchor": {
+      "fires": 54,
+      "tp": 54,
+      "n_author": 198,
+      "precision": 1.0,
+      "recall": 0.2727
+    }
+  }
+}

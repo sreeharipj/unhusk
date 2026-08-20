@@ -1,0 +1,24 @@
+{
+  "header": {
+    "n_author_functions": 78,
+    "binary": "dufs (PE/MSVC)"
+  },
+  "ASYNC": {
+    "numerator": 26,
+    "denominator": 28,
+    "pct": 92.86,
+    "ci95": [
+      77.35,
+      98.02
+    ]
+  },
+  "SYNC": {
+    "numerator": 9,
+    "denominator": 50,
+    "pct": 18.0,
+    "ci95": [
+      9.77,
+      30.8
+    ]
+  }
+}
