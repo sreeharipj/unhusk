@@ -399,3 +399,60 @@ Suggested replacement: *"Per-crate values in the main corpus range from
 7.4% (`procs`) to 43.1% (`oha`), median 21.0%, across all 43 crates
 (`bench/hypotheses/h1_6_output.md`); restricted to the 28 development crates
 alone the range is 7.4%–36.4%, median 19.1%."*
+
+---
+
+## 1.7 Pinned base rate + ceiling numbers — single source of truth
+
+**Script:** `bench/hypotheses/h1_7_pin_numbers.py`
+**Output:** `results/pinned_numbers.json` (canonical), `bench/hypotheses/h1_7_output.md`
+(human-readable rendering of the same numbers)
+**Input data:** corpus-2/V2/V3/V4 parquet only, no rebuild.
+
+**Result — VALUE | STATUS: VERIFIED — and cross-validates every ceiling
+number already cited elsewhere in this phase.**
+
+| corpus | convention | base rate (num/denom) | ceiling (num/denom) |
+|---|---|---|---|
+| main/development | ws | 5.51% (90349/1639964) | 18.09% (16348/90349) |
+| main/development | strict | 3.49% (57254/1639964) | 16.18% (9263/57254) |
+| main/held-out | ws | 3.29% (26727/811940) | 23.74% (6344/26727) |
+| main/held-out | strict | 2.43% (19706/811940) | 24.40% (4809/19706) |
+| main/all | ws | 4.77% (117076/2451904) | 19.38% (22692/117076) |
+| main/all | strict | 3.14% (76960/2451904) | 18.28% (14072/76960) |
+| V2 | ws | 5.77% (10679/184986) | 17.94% (1916/10679) |
+| V2 | strict | 4.92% (9109/184986) | 15.56% (1417/9109) |
+| V3 | ws | 3.37% (14189/421663) | 30.17% (4281/14189) |
+| V3 | strict | 2.62% (11028/421663) | 31.83% (3510/11028) |
+| V4 | ws | 4.04% (18832/465753) | 18.39% (3463/18832) |
+| V4 | strict | 2.91% (13559/465753) | 20.72% (2810/13559) |
+
+All six `ws`-convention ceiling figures reproduce the preprint's own
+`sec:ceiling` table to the digit (18.09 / 23.74 / 19.38 / 17.94 / 30.17 /
+18.39), which cross-validates this pipeline against the preprint's numbers
+independently of how those were originally produced. The `strict` column
+(AUTHOR only, no WORKSPACE) is new here as a committed side-by-side rather
+than scattered separately.
+
+**What the paper should say:** cite `results/pinned_numbers.json` as the
+source for every base-rate and ceiling figure instead of restating the
+numbers by hand in multiple places that can drift.
+
+---
+
+## Phase 1 summary
+
+| # | hypothesis | verdict |
+|---|---|---|
+| 1.1 | async/sync selectivity at scale | **CONFIRMED**, strengthened (n=819 vs n=28) |
+| 1.2 | inlining is THE ceiling mechanism | **FALSIFIED** as stated — only 51.6% of anchor-loss is disappearance; 48.4% survives independently and just loses its own anchor |
+| 1.3 | context vetoes absorption (neighbourhood) | **CONFIRMED**, robust across every stratum |
+| 1.3 | context vetoes absorption (caller) | **CONFIRMED at M>=3, FALSIFIED at M==2** (R2's own operating point) |
+| 1.4 | window boundary bias matters | **FALSIFIED** — real in principle, 0.1% of corpus, no measurable effect on R1/R3 |
+| 1.5 | "flat over 30-60" | **CONFIRMED** on held-out, V3, V4 — artifact now exists |
+| 1.6 | per-crate ceiling spread 7.4-36.4% | **CONFIRMED for dev-only** (reproduces exactly); **full 43-crate range is wider, 7.4-43.1%** |
+| 1.7 | pinned numbers | done — `results/pinned_numbers.json` is now the single citable source |
+
+All 7 sub-tasks complete. Phase 1 required no rebuild; everything ran
+against the existing corpus-2/V2/V3/V4 parquet and (for 1.1/1.2) the
+gitignored `bench/origin/build/` unstripped twins. Proceeding to Phase 2.

@@ -1,0 +1,206 @@
+{
+  "_meta": {
+    "generated_by": "bench/hypotheses/h1_7_pin_numbers.py",
+    "source": "bench/rulemine/data/fde (corpus 2 = main), v2/fde, v3/fde, v4/fde",
+    "definitions": {
+      "base_rate": "n_author_fns / n_labeled_fdes (label not in {NONE,UNKNOWN})",
+      "ceiling": "n_anchored_author_fns / n_author_fns, anchored = M_rel_structs>=1",
+      "ws": "positives = label in {AUTHOR, WORKSPACE}",
+      "strict": "positives = label == AUTHOR only"
+    }
+  },
+  "corpora": {
+    "main/development": {
+      "ws": {
+        "n_labeled_fdes": 1639964,
+        "n_author_fns": 90349,
+        "n_anchored_author_fns": 16348,
+        "base_rate": {
+          "numerator": 90349,
+          "denominator": 1639964,
+          "pct": 5.5092
+        },
+        "ceiling": {
+          "numerator": 16348,
+          "denominator": 90349,
+          "pct": 18.0943
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 1639964,
+        "n_author_fns": 57254,
+        "n_anchored_author_fns": 9263,
+        "base_rate": {
+          "numerator": 57254,
+          "denominator": 1639964,
+          "pct": 3.4912
+        },
+        "ceiling": {
+          "numerator": 9263,
+          "denominator": 57254,
+          "pct": 16.1788
+        }
+      }
+    },
+    "main/held-out": {
+      "ws": {
+        "n_labeled_fdes": 811940,
+        "n_author_fns": 26727,
+        "n_anchored_author_fns": 6344,
+        "base_rate": {
+          "numerator": 26727,
+          "denominator": 811940,
+          "pct": 3.2917
+        },
+        "ceiling": {
+          "numerator": 6344,
+          "denominator": 26727,
+          "pct": 23.7363
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 811940,
+        "n_author_fns": 19706,
+        "n_anchored_author_fns": 4809,
+        "base_rate": {
+          "numerator": 19706,
+          "denominator": 811940,
+          "pct": 2.427
+        },
+        "ceiling": {
+          "numerator": 4809,
+          "denominator": 19706,
+          "pct": 24.4037
+        }
+      }
+    },
+    "main/all": {
+      "ws": {
+        "n_labeled_fdes": 2451904,
+        "n_author_fns": 117076,
+        "n_anchored_author_fns": 22692,
+        "base_rate": {
+          "numerator": 117076,
+          "denominator": 2451904,
+          "pct": 4.7749
+        },
+        "ceiling": {
+          "numerator": 22692,
+          "denominator": 117076,
+          "pct": 19.3823
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 2451904,
+        "n_author_fns": 76960,
+        "n_anchored_author_fns": 14072,
+        "base_rate": {
+          "numerator": 76960,
+          "denominator": 2451904,
+          "pct": 3.1388
+        },
+        "ceiling": {
+          "numerator": 14072,
+          "denominator": 76960,
+          "pct": 18.2848
+        }
+      }
+    },
+    "V2": {
+      "ws": {
+        "n_labeled_fdes": 184986,
+        "n_author_fns": 10679,
+        "n_anchored_author_fns": 1916,
+        "base_rate": {
+          "numerator": 10679,
+          "denominator": 184986,
+          "pct": 5.7729
+        },
+        "ceiling": {
+          "numerator": 1916,
+          "denominator": 10679,
+          "pct": 17.9418
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 184986,
+        "n_author_fns": 9109,
+        "n_anchored_author_fns": 1417,
+        "base_rate": {
+          "numerator": 9109,
+          "denominator": 184986,
+          "pct": 4.9242
+        },
+        "ceiling": {
+          "numerator": 1417,
+          "denominator": 9109,
+          "pct": 15.556
+        }
+      }
+    },
+    "V3": {
+      "ws": {
+        "n_labeled_fdes": 421663,
+        "n_author_fns": 14189,
+        "n_anchored_author_fns": 4281,
+        "base_rate": {
+          "numerator": 14189,
+          "denominator": 421663,
+          "pct": 3.365
+        },
+        "ceiling": {
+          "numerator": 4281,
+          "denominator": 14189,
+          "pct": 30.1713
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 421663,
+        "n_author_fns": 11028,
+        "n_anchored_author_fns": 3510,
+        "base_rate": {
+          "numerator": 11028,
+          "denominator": 421663,
+          "pct": 2.6154
+        },
+        "ceiling": {
+          "numerator": 3510,
+          "denominator": 11028,
+          "pct": 31.8281
+        }
+      }
+    },
+    "V4": {
+      "ws": {
+        "n_labeled_fdes": 465753,
+        "n_author_fns": 18832,
+        "n_anchored_author_fns": 3463,
+        "base_rate": {
+          "numerator": 18832,
+          "denominator": 465753,
+          "pct": 4.0433
+        },
+        "ceiling": {
+          "numerator": 3463,
+          "denominator": 18832,
+          "pct": 18.3889
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 465753,
+        "n_author_fns": 13559,
+        "n_anchored_author_fns": 2810,
+        "base_rate": {
+          "numerator": 13559,
+          "denominator": 465753,
+          "pct": 2.9112
+        },
+        "ceiling": {
+          "numerator": 2810,
+          "denominator": 13559,
+          "pct": 20.7242
+        }
+      }
+    }
+  }
+}
