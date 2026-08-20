@@ -16,12 +16,12 @@ paper should now say. Full detail, scripts, and outputs are in
 | 1.5 | "flat over 30-60" | **CONFIRMED** | max adjacent step <1pp on held-out/V3/V4, no sign changes | see §1.5 replacement |
 | 1.6 | per-crate ceiling 7.4-36.4% | **CONFIRMED for dev-only (exact); full range is wider** | dev-only 7.36-36.42% exact match; all-43 7.36-43.11% | see §1.6 replacement |
 | 1.7 | pin the numbers | done | `results/pinned_numbers.json` | cite the file |
-| 2.1 | codegen-units confound, matched on all 43 crates | *pending build* | | |
-| 2.2 | inline suppression moves the ceiling toward opt-3 | *pending build* | | |
-| 2.3 | cgu sweep {1,4,16,256} | *pending build* | | |
-| 3.1 | author-written is not author-unique, at scale | *pending harness run* | | |
-| 3.2 | rules on PE | *pending PE rebuild* | | |
-| 3.3 | async/sync on PE, same classifier | *depends on 3.2* | | |
+| 2.1 | codegen-units confound, matched on all 43 crates | **CONFIRMED** as partial contributor | mean −2.30pp (43 matched crates, 32 negative); R1/R3 neighbourhood advantage weakens 25-45% at cgu=16 | see `work/PHASE_2.md` §2.1 replacement |
+| 2.2 | inline suppression raises the ceiling toward opt-3 | **FALSIFIED**, sharply, opposite direction | ceiling 18.86%→8.89% (not toward 23.44%); author-FDE count triples (2015→6341) | see §2.2 replacement |
+| 2.3 | cgu sweep {1,4,16,256} | **CONFIRMED** — clean monotonic curve | 26.72%→25.66%→25.28%→24.88%, no reversal | see §2.3 replacement |
+| 3.1 | author-written is not author-unique, at scale | *pending harness run (~80+ min, still running)* | | |
+| 3.2 | rules on PE | **DONE** — R1/R3/ceiling transfer, R2 not attempted | dufs ceiling 44.87% (matches PDB oracle); R1/R3 fire at 100% precision on dufs, correctly silent on procs | see `work/PHASE_3.md` §3.2 replacement |
+| 3.3 | async/sync on PE, same classifier | **CONFIRMED**, reproduces original split | 26/28 (92.9%) async vs 9/50 (18.0%) sync, matches original 26/28 vs 9/52 | see §3.3 replacement |
 
 This file is updated as each remaining row completes; it is not a final
 deliverable until every row above has a real verdict.
