@@ -168,3 +168,54 @@ the harmful absorption of author code into library callers, and the former
 dominates. This closes off blanket suppression as a way to isolate the
 absorption mechanism experimentally; a more targeted intervention (e.g.
 suppressing only cross-crate inlining) would be needed to test it directly."*
+
+## 2.3 The cgu sweep on the ceiling — a clean, monotonic, decelerating curve
+
+**Build:** `h2_3_build_cgu_sweep.sh` — cgu=4 and cgu=256 at lto=thin/opt-3/
+panic-unwind on the same 12-crate subset as 2.2 (all 12 built successfully
+this time — no toolchain-pinning issue, since no `-Z` flag is involved).
+Combined with cgu=1 (main corpus) and cgu=16 (from 2.1's 43-crate build,
+restricted to this subset) for a full, consistently-held sweep.
+
+**Analysis:** `bench/hypotheses/h2_3_analyze.py`
+**Output:** `bench/hypotheses/h2_3_output.json`, `bench/hypotheses/h2_3_output.md`,
+`bench/hypotheses/h2_3_curve.png`
+**Input:** `bench/rulemine/data/fde` (cgu=1) + `bench/rulemine/v3/fde`
+(cgu=16, restricted to this subset) + `bench/hypotheses/v_cgu_sweep/fde`
+(cgu=4, cgu=256, this build) — all gitignored derived data.
+
+**Result — VALUE | STATUS: VERIFIED — all 4 points on all 12 crates, no
+missing data.**
+
+| cgu | ceiling | n_author | n_crates |
+|---:|---:|---:|---:|
+| 1 | 26.72% | 2,021 | 12 |
+| 4 | 25.66% | 2,787 | 12 |
+| 16 | 25.28% | 2,880 | 12 |
+| 256 | 24.88% | 2,946 | 12 |
+
+**A clean, monotonically decreasing, decelerating curve** — every step down,
+no reversal, and the per-doubling drop shrinks each time (1→4: −1.06pp over
+2 doublings; 4→16: −0.38pp over 2 doublings; 16→256: −0.40pp over 4
+doublings). Total movement across the whole sweep is small (−1.84pp,
+cgu=1 to cgu=256) relative to opt-level's −6.2pp and even LTO's −1.27pp
+(h1's Table knobs), consistent with 2.1's finding that codegen-units is a
+real but minor lever. `n_author` climbs steadily with `cgu` (2,021 → 2,946)
+— the same fragmentation direction 2.2 found from suppressing inlining
+entirely, at a far smaller scale: more codegen units gives the compiler
+less same-unit visibility, so somewhat more of what would be one author
+FDE at cgu=1 ends up as more than one at cgu=256, most of the extra pieces
+unanchored, pulling the ceiling down slightly even as the raw author-FDE
+count rises.
+
+**Verdict: CONFIRMED — the effect is real, small, monotonic, and now has a
+publishable curve instead of two mismatched points**, closing off the
+crate-set confound (2.1) and the pair-count problem (this sweep) at once.
+
+**What the paper should say:** the curve itself is the artifact worth
+citing. Suggested addition to `sec:ceiling`: *"A full cgu in
+\{1,4,16,256\} sweep (`bench/hypotheses/h2_3_curve.png`, 12 crates, lto/opt/
+panic held) is monotonically decreasing and decelerating: 26.7% → 25.7% →
+25.3% → 24.9%. The effect is real but minor next to opt-level and LTO, and
+it moves in the same direction throughout the range this study can build,
+with no sign of a reversal or a floor."*

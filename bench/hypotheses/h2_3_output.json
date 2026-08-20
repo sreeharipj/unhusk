@@ -1,0 +1,38 @@
+{
+  "crates": [
+    "bandwhich",
+    "dprint",
+    "dufs",
+    "fclones",
+    "ferium",
+    "feroxbuster",
+    "grex",
+    "hexyl",
+    "oxker",
+    "pastel",
+    "rathole",
+    "typos"
+  ],
+  "points": {
+    "1": {
+      "pct": 26.719,
+      "n_author": 2021,
+      "n_crates": 12
+    },
+    "4": {
+      "pct": 25.655,
+      "n_author": 2787,
+      "n_crates": 12
+    },
+    "16": {
+      "pct": 25.278,
+      "n_author": 2880,
+      "n_crates": 12
+    },
+    "256": {
+      "pct": 24.881,
+      "n_author": 2946,
+      "n_crates": 12
+    }
+  }
+}
