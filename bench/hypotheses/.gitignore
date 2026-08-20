@@ -7,6 +7,5 @@ v_pe/
 v_inline_suppressed/
 v_cgu_sweep/
 h3_1_functions.tsv
-h3_1_raw_results.json
 __pycache__/
 *.pyc

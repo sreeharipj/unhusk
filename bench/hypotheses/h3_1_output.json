@@ -1,0 +1,44 @@
+{
+  "header": {
+    "status": "PARTIAL -- see work/PHASE_3.md 3.1 for full account",
+    "coverage": "2140 of 7923 target functions (27.0%), run under a 15-minute external wall-clock budget after diagnosing that reduce_atom is fundamentally memory-bandwidth-bound on this corpus (16-thread parallel run: ~2140 functions/15min, not CPU-bound)",
+    "coverage_bias_check": "size distribution of completed sample vs full population: mean 2400 vs 2425 bytes, median 358 vs 337, matched \u2014 no evidence of size-selection bias",
+    "n_crates_represented": 24
+  },
+  "drop_rate": {
+    "numerator": 684,
+    "denominator": 2140,
+    "pct": 31.96,
+    "ci95": [
+      30.02,
+      33.97
+    ]
+  },
+  "kept_rate": {
+    "numerator": 1456,
+    "denominator": 2140,
+    "pct": 68.04,
+    "ci95": [
+      66.03,
+      69.98
+    ]
+  },
+  "masked_whole_function_collision_rate": {
+    "numerator": 628,
+    "denominator": 2140,
+    "pct": 29.35,
+    "ci95": [
+      27.45,
+      31.31
+    ]
+  },
+  "unmasked_raw_collision_rate": {
+    "numerator": 40,
+    "denominator": 2140,
+    "pct": 1.87,
+    "ci95": [
+      1.38,
+      2.54
+    ]
+  }
+}

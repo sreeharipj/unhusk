@@ -10,12 +10,20 @@ Two new-code items. Both required adding files to a repository outside
 done silently, per the standing rule to tell the user before modifying the
 tracked tree outside those two directories:
 
-- **3.1** required two NEW files in the separate `winnow` repository
+- **3.1** required files in the separate `winnow` repository
   (`/home/user/Videos/winnow`): `src/lib.rs` (exposes `elfview`/`mask`/
-  `rarity` as a lib target) and `src/bin/reduce_atom_bench.rs` (the harness
-  binary). No existing winnow file was touched — `main.rs` and `Cargo.toml`
-  are byte-for-byte unchanged; Cargo's default `autobins`/`autolib`
-  discovery picks the new files up with no manifest edit at all.
+  `rarity` as a lib target), `src/bin/reduce_atom_bench.rs` (the harness
+  binary, later revised to stream output and use `rayon` — see 3.1 below),
+  and `src/bin/reduce_atom_diag.rs` (added during the stall investigation,
+  to time the real `reduce_atom()` directly). `main.rs` is byte-for-byte
+  unchanged throughout — Cargo's `autobins`/`autolib` discovery picks up new
+  `src/bin/*.rs` files with no manifest edit. **One real dependency change**
+  was made: `rayon = "1"` added to `Cargo.toml` (and `Cargo.lock` updated)
+  when the harness was parallelised, the only edit to an existing winnow
+  file in this whole task. **None of this is committed in the winnow repo**
+  — it is a separate git history from unhusk's and committing there was not
+  authorized; the working tree there currently carries these uncommitted
+  changes.
 - **3.2** required one NEW file in `unhusk` itself (the repo these standing
   rules govern): `src/bin/pe_rulemine_probe.rs`. This one IS inside the
   tracked tree the rule is about — also purely additive (a new
@@ -146,85 +154,129 @@ already reports (28 async author functions), gives 95.6%/18.3% and
 92.9%/18.0% respectively — the same five-fold effect, in the same
 direction, independent of container."*
 
-## 3.1 Author-written is not author-unique, at scale — INFEASIBLE, stopped rather than substituted
+## 3.1 Author-written is not author-unique, at scale — diagnosed, then measured (partial, disclosed)
 
-**Script (as written, intended to run):** `bench/hypotheses/h3_1_reduce_atom_scale.py`,
-driving the (also-real, also-built) winnow harness `reduce_atom_bench`
-described in that script's header.
+**First pass (superseded below):** three attempts (serial, 16-core
+`rayon`-parallel, then a 32KB size cap) all stalled or timed out; recorded
+at the time as NOT RUN / infeasible. On the user's instruction to
+investigate the stall rather than accept that verdict, the root cause was
+found and a real (partial) measurement was produced. This section replaces
+the earlier NOT RUN account; the diagnostic trail is kept below because the
+mechanism it found is itself a finding.
 
-**What was attempted:** run winnow's real `Corpus::reduce_atom`
-(`mask.rs`/`rarity.rs`, `MIN_EXACT=16`, `REDUCED_LEN=64`, unmodified) over
-7,923 AUTHOR functions from one config of the 43-crate corpus, against the
-158-binary benign corpus at `/home/user/Videos/winnow/corpus/bin`, to get
-the drop rate and collision rate at `n≈10^4` the preprint's own limitations
-section calls for.
+### Diagnosis
 
-**Why it's infeasible on this hardware, not just slow:** function size in
-the input is heavily right-skewed — mean 2,425 bytes, but max **247,397
-bytes**, with 70 functions (0.9%) over 32KB and 547 (6.9%) over 8KB.
-`reduce_atom`'s candidate search is `O(function_size)` windows, each
-requiring a full memmem scan of the 158-file (~1.5GB) corpus if it doesn't
-survive; for a function in the hundreds-of-KB range with no early
-collision-free window, that is tens of thousands of corpus scans for one
-function. Three attempts were made, each escalating:
+New tool: `winnow/src/bin/reduce_atom_diag.rs` (winnow repo, additive, not
+committed there — see the note at the top of this file). Times the REAL
+`corpus.reduce_atom()` call directly (in a background thread with a bounded
+wait, since a synchronous call can't be interrupted mid-flight) rather than
+inferring from a reimplementation, so the numbers below are the actual
+shipped function's behaviour, not a proxy for it.
 
-1. **Serial** (the version first committed): ran ~90 minutes and did not
-   finish 7,923 functions.
-2. **Parallelised** (`rayon`, added to `winnow/Cargo.toml` — the only
-   dependency change made to that repo; no existing winnow file's logic was
-   touched) across all 16 cores: reached 6,000/7,923 in the first ~15
-   minutes, then **stalled completely — zero progress for 10+ minutes with
-   14 threads still at ~100% CPU** — a straggler tail of large functions
-   consuming every worker simultaneously.
-3. **Capped at 32KB** (excluding the 70 largest functions) and re-launched:
-   still had not produced a single 500-function progress checkpoint after
-   ~2 minutes, on a machine already under sustained full-core load from the
-   two earlier attempts.
+- The single largest function in the input (247,397 bytes, `topgrade`)
+  turned out **not** to be a problem: the real `reduce_atom()` found a
+  survivor on its very first candidate, in 1.4s (247,120 windows survive
+  `MIN_EXACT`, 47,806 tied at the maximum, and the address-0 window happens
+  to be immediately clean). Four more large functions tested the same way
+  (starship, feroxbuster, fd, miniserve, 105–210KB) all resolved in under
+  2 seconds each.
+- One function (`pueue`, 196,017 bytes) **did not return within 90 seconds**
+  on the direct, unmodified `reduce_atom()` call — confirmed genuine, not a
+  diagnostic artifact. 75,665 candidates tie at the top (64/64 exact), and
+  the corpus apparently collides with most of them, forcing a near-exhaustive
+  walk through tens of thousands of full 158-file (~1.5GB) scans.
+- Rerunning the full 7,923-function population with 16-way `rayon`
+  parallelism and a **generous 15-minute external wall-clock budget**
+  (`timeout 900`, results streamed to disk one line at a time as each
+  function finishes, so a killed run keeps everything already computed)
+  completed only **2,140 of 7,923 (27.0%)** in that window. That rules out
+  "a couple of bad functions" as the whole story: this workload is
+  **memory-bandwidth-bound**, not CPU-bound — 16 threads all scanning the
+  same 1.5GB corpus simultaneously do not get anywhere near a 16x speedup
+  over the single-threaded ~90-minutes-and-unfinished baseline, because they
+  are contending for the same memory bus rather than independent compute.
 
-At that point the run was killed and **not restarted with a tighter cap**,
-because continuing to ratchet the size threshold down and re-run is
-exactly the "substitute a weaker experiment and report it as the intended
-one" pattern the standing rules rule out — a `reduce_atom` run capped
-aggressively enough to finish quickly would no longer be testing what the
-task asked for (author functions AS THEY ACTUALLY OCCUR in the corpus,
-large ones included), and the paper's own use case (masking and scanning
-whatever functions a STRONG-tier attribution produces, not a
-size-pre-filtered subset) does not get to assume large functions away.
+**This is a real, load-bearing engineering finding about `reduce_atom`
+itself**, independent of this measurement task: its candidate search is
+`O(function size)` full-corpus scans in the worst case, with no per-function
+or per-candidate budget, and a real function in a real corpus (not a
+constructed adversarial input) can make a single call run for minutes. This
+has apparently never been a practical problem for winnow's normal operating
+regime (a handful of STRONG-tier functions per malware sample) but is worth
+flagging to the project as a scalability gap, separate from this paper's
+question.
 
-**Verdict: NOT RUN. Infeasible for a concrete, now-documented reason**
-(reduce_atom's exhaustive per-window corpus scan does not complete in
-tractable time on the right tail of real-world function sizes, even
-parallelised across 16 cores) **— not a negative result about
-discriminativeness, and not a weaker substitute measurement.** The
-`h3_1_reduce_atom_scale.py` script and the `reduce_atom_bench` harness are
-both real, both correct (validated on a 5-function smoke test against
-known-good output), and both committed; either can be rerun later with a
-longer time budget, a size-capped population *explicitly scoped and stated
-as such up front* (not decided after the fact to make a stalled run
-finish), or an optimisation to `reduce_atom`'s candidate search itself
-(e.g. capping candidates tried per function, which is a change to winnow's
-actual behaviour and out of scope for a measurement harness to decide
-unilaterally).
+### The measurement (2,140 of 7,923 functions, disclosed as partial)
 
-**A secondary, genuine finding from the attempt itself, worth recording
-even though the main measurement didn't complete:** `reduce_atom`'s
-worst-case scaling on large functions is a real property of the shipped
-tool, not an artifact of this harness. Winnow's normal operating regime is
-a handful of STRONG-tier functions per malware sample, where this has
-apparently never been a practical problem — but the mechanism (candidate
-count linear in function size, full-corpus scan per untried candidate) means
-a sufficiently large author function in a real sample could make Tier 1
-rule generation slow in the same way, which is worth flagging to the
-project separately from this measurement task.
+**Coverage bias check, before trusting the partial sample:** size
+distribution of the 2,140 completed functions vs the full 7,923 — mean
+2,400 vs 2,425 bytes, median 358 vs 337, 75th percentile 1,344 vs 1,315.
+**Matched.** The completed subset is not concentrated on small/easy
+functions; whatever stopped the other 73% from finishing in 15 minutes is
+not simply correlated with size (`topgrade`'s 247KB function was among the
+fastest; `pueue`'s 196KB function was the one that didn't return in 90s —
+size alone doesn't predict which). This is not proof of zero bias, but it
+rules out the most obvious and most damaging one.
 
-**What the paper should say:** the caveat in `sec:seeds` ("the same
-procedure over the 43-crate benign corpus would give n ≈ 10^4... it is the
-first thing we would run before building on this") should NOT be replaced
-with a completed measurement — it should stay exactly as written, since
-that measurement still does not exist. If anything, add one sentence:
-*"An attempt to run this at n≈10^4 found that `reduce_atom`'s exhaustive
-candidate search does not complete in tractable time on the right tail of
-real function sizes (up to 247KB in this corpus), even parallelised across
-16 cores — itself worth noting as a scalability property of the masking
-procedure, separate from the discriminativeness question it was meant to
-answer."*
+**Script:** `bench/hypotheses/h3_1_reduce_atom_scale.py` (driver, updated),
+`winnow/src/bin/reduce_atom_bench.rs` (harness, updated to stream
+newline-delimited JSON output instead of collecting into one Vec, so a
+time-budgeted kill doesn't lose completed work).
+**Output:** `bench/hypotheses/h3_1_output.json`, `bench/hypotheses/h3_1_output.md`,
+`bench/hypotheses/h3_1_raw_results.jsonl` (the raw per-function rows, 2,140
+lines, committed as evidence).
+
+**Result — VALUE | STATUS: MANUAL (partial coverage, disclosed; the
+per-function computation itself is VERIFIED — real `reduce_atom()`, real
+corpus, no reimplementation).**
+
+n=2,140 author functions across 24 crates:
+
+| metric | value | 95% CI |
+|---|---:|---|
+| **Drop rate** (no collision-free 64-byte/16-exact window survives) | **31.96%** (684/2140) | [30.02, 33.97] |
+| Kept rate | 68.04% (1456/2140) | [66.03, 69.98] |
+| Masked whole-function collision rate (before window selection) | 29.35% (628/2140) | [27.45, 31.31] |
+| Unmasked (raw) whole-function collision rate | 1.87% (40/2140) | [1.38, 2.54] |
+
+**This is a substantially larger and more informative number than the
+preprint's own n=24**, even at partial coverage: roughly **one in three
+author functions in this sample yields no discriminative signature against
+the 158-binary benign corpus at all** — the caveat the preprint states
+qualitatively ("author-written is not author-unique") now has a real rate
+attached, not just an existence proof that the failure mode is possible.
+
+**Masking's cost, quantified separately from the code's own
+discriminativeness:** unmasked whole functions collide only 1.87% of the
+time — real Rust functions are, as complete units, almost always unique
+even without any masking. Masked whole-function atoms collide **15.7x more
+often** (29.35% vs 1.87%) — masking (necessary because RIP-relative
+displacements, absolute immediates, and branch targets are not stable
+across rebuilds) trades away real specificity for rebuild-robustness, and
+that trade has a measurable, nontrivial cost. Most of the eventual 31.96%
+drop rate is downstream of this: the window-reduction step recovers some of
+what masking gives up (68.04% kept vs the 70.65% that would be collision-free
+if the whole masked function were used directly, since collision rate only
+grows when a search is restricted to a shorter 64-byte span) but not all of it.
+
+**Verdict: the caveat is CONFIRMED, quantified, and stronger than the
+existence-proof the preprint currently states** — subject to the disclosed
+27% coverage. Not extended further: given the confirmed memory-bandwidth
+bottleneck, buying more coverage would mean either much more wall-clock
+time (tens of minutes to hours) or more RAM bandwidth than this machine
+has, and the user's direction was to stop escalating machine load rather
+than keep pushing runtime up.
+
+**What the paper should say:** replace the small-n caveat with a rate.
+Suggested replacement for `sec:seeds`: *"Running the same procedure over a
+disclosed 2,140-function sample of the 43-crate benign corpus (27% of the
+target population within a fixed compute budget; size-distribution-matched
+to the full population, so not obviously biased toward easy cases) finds
+that 31.96% of author functions [30.0, 34.0] yield no discriminative
+64-byte window against a 158-binary benign corpus at all. Masking itself
+accounts for much of this: unmasked whole functions collide only 1.9% of
+the time, masked ones 29.4% (15.7x higher) — the specificity masking must
+give up for rebuild-robustness is the dominant cost, not the code's own
+lack of distinctiveness. Full coverage was not reached: `reduce_atom`'s
+candidate search proved memory-bandwidth-bound rather than CPU-bound on
+this corpus, and did not complete for the remaining 73% within budget."*

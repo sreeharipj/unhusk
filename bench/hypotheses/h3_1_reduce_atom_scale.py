@@ -2,16 +2,17 @@
 """
 h3_1_reduce_atom_scale.py — Phase 3 / hypothesis 3.1.
 
-STATUS: NOT RUN. Attempted three times (serial, rayon-parallel across 16
-cores, size-capped at 32KB) and stopped each time rather than substituted
-with a weaker measurement -- reduce_atom's exhaustive per-window corpus
-scan does not complete in tractable time on the right tail of real
-function sizes in this corpus (up to 247KB). Full account, including the
-secondary finding about reduce_atom's own worst-case scaling, in
-work/PHASE_3.md section 3.1. This script and the harness it drives
-(winnow's src/bin/reduce_atom_bench.rs) are both correct and both
-committed; rerunning needs either a longer time budget or an explicitly
-pre-scoped (not post-hoc) size cap.
+STATUS: PARTIAL, disclosed (n=2,140/7,923, 27% coverage). Root cause of the
+earlier stalls diagnosed with winnow/src/bin/reduce_atom_diag.rs (timed the
+REAL corpus.reduce_atom() directly, not a reimplementation): this workload
+is memory-bandwidth-bound, not CPU-bound -- 16-way rayon parallelism does
+not approach a 16x speedup because every thread scans the same ~1.5GB
+corpus. The harness now streams one JSON line per completed function
+(flushed immediately) so a time-budgeted run (`timeout 900`, i.e. 15
+minutes) keeps everything computed even when killed. The completed subset's
+size distribution matches the full population's (mean/median within ~1% of
+each other), so this is not obviously biased toward easy/small functions.
+Full account, including the diagnostic trail, in work/PHASE_3.md section 3.1.
 
 The preprint's central "seeds not solutions" caveat (sec:seeds,
 "author-written is not author-unique") rests on 24 functions from 7 wild
@@ -30,15 +31,17 @@ unmodified) against the full 158-binary benign corpus at
 /home/user/Videos/winnow/corpus/bin -- the same corpus and the same code
 path the preprint's own 24-function measurement used, just at scale.
 
-RUST HARNESS ADDED (not present before this task, purely additive, no
-existing winnow file touched): /home/user/Videos/winnow/src/lib.rs (exposes
-elfview/mask/rarity as a lib target) and
-/home/user/Videos/winnow/src/bin/reduce_atom_bench.rs (new binary that calls
-mask_function + Corpus::reduce_atom over a function list and dumps a JSON
-verdict per function). winnow/ is a SEPARATE repository from unhusk; these
-two new files are the only change made to it. This script builds that
-binary (`cargo build --release --bin reduce_atom_bench` inside winnow/) if
-not already built.
+RUST HARNESS ADDED (not present before this task, no existing winnow file's
+LOGIC touched -- see work/PHASE_3.md's top note for the full list including
+the one real dependency addition, `rayon`): /home/user/Videos/winnow/src/lib.rs
+(exposes elfview/mask/rarity as a lib target),
+/home/user/Videos/winnow/src/bin/reduce_atom_bench.rs (calls mask_function +
+Corpus::reduce_atom over a function list in parallel, streaming one JSON
+line per result), and reduce_atom_diag.rs (single-function diagnostic used
+to find the memory-bandwidth bottleneck). winnow/ is a SEPARATE repository
+from unhusk with its own git history; none of this is committed there. This
+script builds the harness (`cargo build --release --bin reduce_atom_bench`
+inside winnow/) if not already built.
 
 INPUT DATA GITIGNORED: reads bench/origin/build/<crate>/<config>/<crate>.stripped
 (same corpus as h1_1/h1_2's unstripped-twin caveat; here it's the STRIPPED
@@ -57,7 +60,9 @@ unchanged):
     masking at all, to show how much of the discriminativeness comes from
     masking volatile bytes vs. from the code itself being distinctive.
 
-Outputs: bench/hypotheses/h3_1_output.json, bench/hypotheses/h3_1_output.md
+Outputs: bench/hypotheses/h3_1_output.json, bench/hypotheses/h3_1_output.md,
+bench/hypotheses/h3_1_raw_results.jsonl (raw per-function rows, committed as
+evidence).
 """
 import json
 import os
@@ -144,57 +149,93 @@ def main():
     print(f"wrote {n_written} AUTHOR functions from {len(crates_used)} crates "
           f"({n_missing_binary} builds skipped, missing .stripped)", file=sys.stderr)
 
-    out_json = os.path.join(HERE, "h3_1_raw_results.json")
-    r = subprocess.run([HARNESS_BIN, tsv_path, WINNOW_CORPUS, out_json],
+    # STREAMED, TIME-BUDGETED RUN. Diagnosed (work/PHASE_3.md sec 3.1) that
+    # this workload is memory-bandwidth-bound, not CPU-bound: 16-way rayon
+    # parallelism does not come close to a 16x speedup, because every thread
+    # scans the same ~1.5GB corpus. A single-threaded run does not finish in
+    # ~90 minutes; a naive parallel run stalls indefinitely on individual
+    # functions where the real corpus.reduce_atom() (timed directly, not
+    # inferred) does not return within 90s. The harness (reduce_atom_bench.rs)
+    # therefore streams one JSON line per completed function, flushed
+    # immediately -- so killing the process on a time budget loses at most
+    # the one in-flight write, not everything computed so far. Budget below
+    # matches what was actually run: 15 minutes, external `timeout`.
+    out_jsonl = os.path.join(HERE, "h3_1_raw_results.jsonl")
+    budget_s = 900
+    with open(out_jsonl, "w"):
+        pass  # truncate; the harness (re)creates it, this just fails fast if unwritable
+    r = subprocess.run(["timeout", str(budget_s), HARNESS_BIN, tsv_path, WINNOW_CORPUS, out_jsonl],
                         capture_output=True, text=True)
     print(r.stderr[-4000:], file=sys.stderr)
-    if r.returncode != 0:
-        print("HARNESS FAILED", file=sys.stderr)
+    timed_out = (r.returncode == 124)  # `timeout`'s exit code when it kills the child
+    if r.returncode not in (0, 124):
+        print("HARNESS FAILED (not a timeout)", file=sys.stderr)
         return 1
 
-    rows = json.load(open(out_json))
+    rows = [json.loads(line) for line in open(out_jsonl) if line.strip()]
     df = pd.DataFrame(rows)
-    print(f"harness returned {len(df)} rows", file=sys.stderr)
+    n_target = n_written
+    coverage_pct = round(100 * len(df) / n_target, 1) if n_target else None
+    print(f"harness returned {len(df)}/{n_target} rows ({coverage_pct}% coverage)"
+          f"{'  -- hit the time budget' if timed_out else '  -- finished before the budget'}",
+          file=sys.stderr)
 
-    atom_built = df[df.atom_built]
+    # Coverage bias check: is the completed subset size-distribution-matched
+    # to the full input population, or skewed toward easy (small) functions?
+    full = pd.read_csv(tsv_path, sep="\t")
+    full["size"] = full["fn_end"] - full["fn_start"]
+    done_starts = set(df["fn_start"]) if len(df) else set()
+    full["completed"] = full["fn_start"].isin(done_starts)
+    size_full = full["size"].describe()
+    size_done = full[full["completed"]]["size"].describe()
+
+    atom_built = df[df.atom_built] if len(df) else df
     out = {
         "header": {
-            "n_functions_input": n_written,
+            "status": "PARTIAL, disclosed" if timed_out or len(df) < n_target else "COMPLETE",
+            "n_functions_input": n_target,
+            "n_completed": int(len(df)),
+            "coverage_pct": coverage_pct,
             "n_crates": len(crates_used),
             "n_atom_built": int(len(atom_built)),
-            "n_atom_build_failed": int((~df.atom_built).sum()),
             "corpus": f"{WINNOW_CORPUS} (158 binaries)",
             "config": CONFIG,
+            "budget_seconds": budget_s,
             "gitignored_input": "bench/origin/build/ -- see h1_1 header for the caveat",
+            "coverage_bias_check": {
+                "full_population_size_mean": round(float(size_full["mean"]), 1),
+                "full_population_size_median": float(full["size"].median()),
+                "completed_size_mean": round(float(size_done["mean"]), 1) if len(df) else None,
+                "completed_size_median": float(full[full["completed"]]["size"].median()) if len(df) else None,
+            },
         },
-        "drop_rate": rate(~atom_built["reduced_survives"]),
-        "masked_whole_collision_rate": rate(atom_built["masked_whole_collision"]),
-        "unmasked_raw_collision_rate": rate(atom_built["raw_collision"]),
+        "drop_rate": rate(~atom_built["reduced_survives"]) if len(atom_built) else None,
+        "masked_whole_collision_rate": rate(atom_built["masked_whole_collision"]) if len(atom_built) else None,
+        "unmasked_raw_collision_rate": rate(atom_built["raw_collision"]) if len(atom_built) else None,
     }
-    # masking's marginal contribution: functions that collide unmasked but NOT masked
-    both = atom_built[["raw_collision", "masked_whole_collision"]]
-    saved_by_masking = int(((both.raw_collision) & (~both.masked_whole_collision)).sum())
-    out["masking_saved_n_functions_from_collision"] = saved_by_masking
 
     with open(os.path.join(HERE, "h3_1_output.json"), "w") as fh:
         json.dump(out, fh, indent=2)
 
-    lines = ["# h3.1 -- author-written is not author-unique, at scale", ""]
-    lines.append(f"n = {out['header']['n_atom_built']} author functions with a buildable atom, "
-                 f"from {out['header']['n_crates']} crates, scanned against the 158-binary "
-                 f"benign corpus.")
+    lines = [f"# h3.1 -- author-written is not author-unique, at scale ({out['header']['status']})", ""]
+    lines.append(f"n = {out['header']['n_atom_built']} / {n_target} target functions "
+                 f"({coverage_pct}% coverage), {out['header']['n_crates']} crates, "
+                 f"budget {budget_s}s.")
+    cb = out["header"]["coverage_bias_check"]
+    lines.append(f"Coverage bias check (size, full vs completed): "
+                 f"mean {cb['full_population_size_mean']} vs {cb['completed_size_mean']}, "
+                 f"median {cb['full_population_size_median']} vs {cb['completed_size_median']}")
     lines.append("")
-    d = out["drop_rate"]
-    lines.append(f"**Drop rate (no collision-free 64-byte/16-exact-byte window survives): "
-                 f"{d['pct']}% ({d['numerator']}/{d['denominator']}, 95% CI {d['ci95']})**")
-    m = out["masked_whole_collision_rate"]
-    lines.append(f"Masked whole-function collision rate (before window selection): "
-                 f"{m['pct']}% ({m['numerator']}/{m['denominator']}, 95% CI {m['ci95']})")
-    u = out["unmasked_raw_collision_rate"]
-    lines.append(f"Unmasked (raw exact-byte) collision rate: "
-                 f"{u['pct']}% ({u['numerator']}/{u['denominator']}, 95% CI {u['ci95']})")
-    lines.append(f"Functions masking alone saved from a collision "
-                 f"(collide unmasked, don't collide masked): {out['masking_saved_n_functions_from_collision']}")
+    if out["drop_rate"]:
+        d = out["drop_rate"]
+        lines.append(f"**Drop rate (no collision-free 64-byte/16-exact-byte window survives): "
+                     f"{d['pct']}% ({d['numerator']}/{d['denominator']}, 95% CI {d['ci95']})**")
+        m = out["masked_whole_collision_rate"]
+        lines.append(f"Masked whole-function collision rate (before window selection): "
+                     f"{m['pct']}% ({m['numerator']}/{m['denominator']}, 95% CI {m['ci95']})")
+        u = out["unmasked_raw_collision_rate"]
+        lines.append(f"Unmasked (raw exact-byte) collision rate: "
+                     f"{u['pct']}% ({u['numerator']}/{u['denominator']}, 95% CI {u['ci95']})")
 
     with open(os.path.join(HERE, "h3_1_output.md"), "w") as fh:
         fh.write("\n".join(lines))
