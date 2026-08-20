@@ -29,3 +29,68 @@ matching this study's own convention that build products don't belong in
 git — only the scripts and the numeric results below are committed.
 
 ---
+
+## 2.1 V3 (codegen-units=16) on all 43 crates — the crate-set confound fixed
+
+**Claim under test:** REPORT.md/JOURNAL.md circulate a "+7pp" codegen-units
+effect that pools a mismatched crate set (V3's original 20 crates vs main's
+43); matched on the crates V3 actually had, the effect was -1.03pp — a
+single pair, not a measurement. The preprint's own Table knobs already
+carries the honest "-1.03pp, single pair" hedge. This fixes it properly:
+all 43 crates, matched.
+
+**Build:** `run_h2_1_build.sh` — `bench/rulemine/build_v3.sh`, **unmodified**,
+given all 43 crate names instead of the 20 it already had (idempotent — only
+built the 23 missing ones). Regenerated `bench/rulemine/v3/fde/*.parquet`
+via `build_dataset_aux.py`, also unmodified (gitignored derived data, not a
+tracked-tree change). **43/43 crates built successfully, zero failures**
+(`bench/rulemine/v3/build_failures.tsv` is empty).
+
+**Analysis:** `bench/hypotheses/h2_1_cgu16_all43.py`
+**Output:** `bench/hypotheses/h2_1_output.json`, `bench/hypotheses/h2_1_output.md`
+**Input:** `bench/rulemine/data/fde` (cgu=1, tracked-corpus-derived,
+gitignored) + `bench/rulemine/v3/fde` (cgu=16/lto=thin, this build,
+gitignored) — no tracked file touched.
+
+**Result — VALUE | STATUS: VERIFIED — replaces both the "+7pp" claim and the
+"-1.03pp, single pair" hedge with a properly matched 43-crate measurement,
+and it moves the same direction as the hedge, not the withdrawn claim.**
+
+**Matched per-crate ceiling delta (cgu=16 − cgu=1), n=43: mean −2.30pp,
+median −2.15pp, 32 of 43 crates negative.** Pooled: cgu=1 22.59% → cgu=16
+18.60% (−3.99pp). This is a small but real, fairly consistent effect in the
+same direction as the single-pair hedge (negative), now backed by 43 matched
+pairs instead of one — and still nowhere near the withdrawn "+7pp" figure,
+which was a crate-set artifact and stays withdrawn.
+
+| rule | cgu=1 prec/recall | cgu=16 prec/recall |
+|---|---|---|
+| A@2 | 93.62% / 4.66% | 91.67% / 4.41% |
+| R1 | 95.50% / 9.51% | 91.78% / 7.04% |
+| R2 | 94.68% / 5.27% | 91.49% / 4.67% |
+| R3 | 93.10% / 15.20% | 90.87% / 12.27% |
+
+**The stated prediction — that the neighbourhood advantage should WEAKEN as
+CGU coarsens if address-order locality is (partly) a codegen-unit effect —
+holds, on the full matched set.** R1's recall advantage over A@2 shrinks
+from +4.85pp (cgu=1) to +2.63pp (cgu=16) — roughly halved. R3's shrinks from
++10.54pp to +7.86pp — down about a quarter. **The advantage does not
+vanish** — both rules still recover meaningfully more author code than A@2
+at cgu=16 — but it is smaller, in the predicted direction, on every crate in
+the study rather than a subset.
+
+**Verdict: the codegen-units hypothesis is CONFIRMED as a partial, genuine
+contributor** — not the dominant effect (opt-level and LTO still move the
+ceiling far more, per h1's Table knobs), but a real, matched, consistent one
+that was previously invisible behind a crate-set confound in one direction
+and starved to a single pair in the other.
+
+**What the paper should say:** replace the -1.03pp/single-pair hedge.
+Suggested replacement for `sec:ceiling` Table knobs: *"`codegen-units` 1 →
+16: −2.30pp mean, 43 matched crates (32/43 negative), pooled −3.99pp."* And
+for `sec:rules`, "Why context works": *"The address-order account's
+prediction now has a direct test: on all 43 crates matched cgu=1 vs cgu=16,
+R1's recall advantage over A@2 shrinks from +4.85pp to +2.63pp and R3's from
++10.54pp to +7.86pp — roughly a 25-45% reduction, not disappearance. Address-
+order locality is a genuine part of why the neighbourhood feature works, not
+the whole of it."*
