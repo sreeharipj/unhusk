@@ -87,17 +87,26 @@ def main():
                             ignore_index=True)
     suppressed = suppressed[~suppressed["label"].isin(["NONE", "UNKNOWN"])]
 
+    # Matched crate set: only crates that actually built under suppression
+    # (dprint, rathole failed -- pinned non-nightly toolchain, see .md output)
+    # go into ANY of the three ceiling numbers, or opt-3/opt-z would be
+    # computed over 12 crates while suppressed is computed over 10.
+    matched_crates = sorted(suppressed["crate"].unique())
+
     opt3 = load_main("lto-thin_opt-3_panic-unwind")
     optz = load_main("lto-thin_opt-z_panic-unwind")
-    opt3 = opt3[~opt3["label"].isin(["NONE", "UNKNOWN"])]
-    optz = optz[~optz["label"].isin(["NONE", "UNKNOWN"])]
+    opt3 = opt3[~opt3["label"].isin(["NONE", "UNKNOWN"]) & opt3["crate"].isin(matched_crates)]
+    optz = optz[~optz["label"].isin(["NONE", "UNKNOWN"]) & optz["crate"].isin(matched_crates)]
 
     c3, n3 = ceiling(opt3)
     cz, nz = ceiling(optz)
     cs, ns = ceiling(suppressed)
 
+    failed = sorted(set(CRATES) - set(matched_crates))
     out = {
-        "crates": CRATES,
+        "crates_attempted": CRATES,
+        "crates_matched": matched_crates,
+        "crates_failed": failed,
         "n_crates_built_suppressed": suppressed["crate"].nunique(),
         "ceiling_opt3_normal": {"pct": round(100 * c3, 3), "n_author": n3},
         "ceiling_optz_normal": {"pct": round(100 * cz, 3), "n_author": nz},
@@ -110,7 +119,14 @@ def main():
         json.dump(out, fh, indent=2)
 
     lines = ["# h2.2 -- does suppressing inlining at opt-z move the ceiling toward opt-3?", ""]
-    lines.append(f"12-crate subset ({out['n_crates_built_suppressed']} built): {', '.join(CRATES)}")
+    lines.append(f"12-crate subset attempted: {', '.join(CRATES)}")
+    lines.append(f"Matched crate set (all 3 ceiling numbers restricted to this list, "
+                 f"n={len(matched_crates)}): {', '.join(matched_crates)}")
+    if failed:
+        lines.append(f"FAILED to build under suppression (excluded from all 3 numbers "
+                     f"for a fair comparison): {', '.join(failed)} -- "
+                     f"see bench/hypotheses/v_inline_suppressed/build_failures.tsv "
+                     f"(pinned non-nightly toolchain, -Z flag rejected)")
     lines.append("")
     lines.append(f"- opt-3, normal:              {out['ceiling_opt3_normal']['pct']}%  (n={n3})")
     lines.append(f"- opt-z, normal:              {out['ceiling_optz_normal']['pct']}%  (n={nz})")

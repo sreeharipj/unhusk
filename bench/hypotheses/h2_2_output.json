@@ -1,0 +1,48 @@
+{
+  "crates_attempted": [
+    "bandwhich",
+    "dprint",
+    "dufs",
+    "fclones",
+    "ferium",
+    "feroxbuster",
+    "grex",
+    "hexyl",
+    "oxker",
+    "pastel",
+    "rathole",
+    "typos"
+  ],
+  "crates_matched": [
+    "bandwhich",
+    "dufs",
+    "fclones",
+    "ferium",
+    "feroxbuster",
+    "grex",
+    "hexyl",
+    "oxker",
+    "pastel",
+    "typos"
+  ],
+  "crates_failed": [
+    "dprint",
+    "rathole"
+  ],
+  "n_crates_built_suppressed": 10,
+  "ceiling_opt3_normal": {
+    "pct": 23.443,
+    "n_author": 1365
+  },
+  "ceiling_optz_normal": {
+    "pct": 18.859,
+    "n_author": 2015
+  },
+  "ceiling_optz_inline_suppressed": {
+    "pct": 8.894,
+    "n_author": 6341
+  },
+  "gap_opt3_minus_optz_normal_pp": 4.585,
+  "gap_closed_by_suppression_pp": -9.964,
+  "fraction_of_gap_closed": -2.173
+}

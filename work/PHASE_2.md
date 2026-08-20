@@ -94,3 +94,77 @@ R1's recall advantage over A@2 shrinks from +4.85pp to +2.63pp and R3's from
 +10.54pp to +7.86pp — roughly a 25-45% reduction, not disappearance. Address-
 order locality is a genuine part of why the neighbourhood feature works, not
 the whole of it."*
+
+## 2.2 Inline suppression as a direct test — falsified, and not the way expected
+
+**Claim under test:** if inlining absorption is the ceiling mechanism (h1.2
+already found it's only ~52% of it), suppressing inlining at opt-z should
+raise the ceiling toward the opt-3 value.
+
+**Build:** `h2_2_build_inline_suppressed.sh` — 12-crate subset at
+opt-z/lto-thin/panic-unwind/cgu=1 (the exact config triple already in the
+main corpus, for a clean matched comparison), `RUSTFLAGS="-Z inline-llvm=no"`.
+**10/12 crates built; `dprint` and `rathole` failed** — both pin a
+non-nightly toolchain via their own `rust-toolchain` file, which rejects any
+`-Z` flag outright (`bench/hypotheses/v_inline_suppressed/build_failures.tsv`:
+"the option `Z` is only accepted on the nightly compiler"). Not worked
+around (would mean overriding the crate's pinned toolchain, a confound of
+its own); excluded from every number below instead. 10 crates is within the
+task's own "10-15 is fine" allowance.
+
+**Analysis:** `bench/hypotheses/h2_2_analyze.py` — **all three ceiling
+numbers (opt-3 normal, opt-z normal, opt-z suppressed) are restricted to the
+same matched 10-crate set**, not the 12 attempted, so the comparison is
+fair.
+**Output:** `bench/hypotheses/h2_2_output.json`, `bench/hypotheses/h2_2_output.md`
+
+**Result — VALUE | STATUS: VERIFIED — the directional prediction is
+FALSIFIED, sharply, and the data explains why.**
+
+| config | ceiling | n_author |
+|---|---:|---:|
+| opt-3, normal | 23.44% | 1,365 |
+| opt-z, normal | 18.86% | 2,015 |
+| **opt-z, inlining suppressed** | **8.89%** | **6,341** |
+
+Suppressing inlining does not raise the ceiling toward opt-3 — **it crashes
+it to less than half the normal opt-z value**, a −9.96pp move in the
+opposite direction from the prediction (the "gap closed" is −2.17x the
+original opt-3-minus-opt-z gap, i.e. it overshoots past zero and out the
+other side).
+
+**Why, from the data itself:** `n_author` — the count of distinct AUTHOR
+FDEs — more than triples (2,015 → 6,341) under suppression. This is the
+mechanism laid bare. `-Z inline-llvm=no` does not selectively stop the
+*harmful* absorption (author code disappearing into a library caller); it
+stops **all** inlining, including the ordinary, benign kind that normally
+merges small author-written closures and helper fragments into a single
+larger author function. Without any inlining at all, every one of those
+fragments — a `.map(|x| ...)` closure body, a tiny one-line helper — stands
+alone as its own FDE. Most such fragments contain no panic-capable operation
+of their own (there is nothing to overflow-check or bounds-check in
+`|x| x + 1`), so the AUTHOR population balloons with unanchorable functions
+and the ceiling collapses. The absorption mechanism h1.2/h1.3 characterise
+is real — this experiment's own explosion in author-FDE count is evidence
+of it operating in reverse — but a blunt "turn off all inlining" instrument
+cannot isolate it, because it removes the *good* fragmentation-preventing
+inlining right along with the *bad* absorption-causing inlining, and the
+good kind is far more common.
+
+**Verdict: FALSIFIED as stated, and the correct conclusion is stronger than
+"no effect" — it is that inlining suppression is not a usable experimental
+lever for isolating the absorption mechanism**, because it changes the unit
+of analysis (how finely code is fragmented into FDEs) at the same time as
+the thing being tested.
+
+**What the paper should say:** this is a genuine negative result that
+belongs in the paper, not a footnote. Suggested addition to `sec:ceiling` or
+a new remark: *"Directly suppressing LLVM inlining (`-Z inline-llvm=no`) on
+a 10-crate subset does not raise the ceiling toward the opt-3 value — it
+collapses it (18.9% → 8.9%), because the author-FDE population more than
+triples: blanket inlining suppression prevents the benign merging of small
+author fragments into larger author functions just as much as it prevents
+the harmful absorption of author code into library callers, and the former
+dominates. This closes off blanket suppression as a way to isolate the
+absorption mechanism experimentally; a more targeted intervention (e.g.
+suppressing only cross-crate inlining) would be needed to test it directly."*
