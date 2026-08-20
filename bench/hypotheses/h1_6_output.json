@@ -1,0 +1,316 @@
+{
+  "per_crate": [
+    {
+      "crate": "bandwhich",
+      "side": "dev",
+      "n_author": 457,
+      "n_with_anchor": 132,
+      "ceiling": 0.2888402625820569
+    },
+    {
+      "crate": "bat",
+      "side": "held-out",
+      "n_author": 2346,
+      "n_with_anchor": 689,
+      "ceiling": 0.293691389599318
+    },
+    {
+      "crate": "bottom",
+      "side": "dev",
+      "n_author": 3561,
+      "n_with_anchor": 370,
+      "ceiling": 0.10390339792193204
+    },
+    {
+      "crate": "dprint",
+      "side": "dev",
+      "n_author": 4456,
+      "n_with_anchor": 1623,
+      "ceiling": 0.36422800718132853
+    },
+    {
+      "crate": "dufs",
+      "side": "held-out",
+      "n_author": 778,
+      "n_with_anchor": 300,
+      "ceiling": 0.3856041131105398
+    },
+    {
+      "crate": "dust",
+      "side": "held-out",
+      "n_author": 344,
+      "n_with_anchor": 112,
+      "ceiling": 0.32558139534883723
+    },
+    {
+      "crate": "eza",
+      "side": "dev",
+      "n_author": 1456,
+      "n_with_anchor": 274,
+      "ceiling": 0.18818681318681318
+    },
+    {
+      "crate": "fclones",
+      "side": "dev",
+      "n_author": 2010,
+      "n_with_anchor": 405,
+      "ceiling": 0.20149253731343283
+    },
+    {
+      "crate": "fd",
+      "side": "dev",
+      "n_author": 572,
+      "n_with_anchor": 92,
+      "ceiling": 0.16083916083916083
+    },
+    {
+      "crate": "ferium",
+      "side": "dev",
+      "n_author": 1124,
+      "n_with_anchor": 245,
+      "ceiling": 0.2179715302491103
+    },
+    {
+      "crate": "feroxbuster",
+      "side": "held-out",
+      "n_author": 2585,
+      "n_with_anchor": 666,
+      "ceiling": 0.2576402321083172
+    },
+    {
+      "crate": "gping",
+      "side": "held-out",
+      "n_author": 161,
+      "n_with_anchor": 43,
+      "ceiling": 0.2670807453416149
+    },
+    {
+      "crate": "grex",
+      "side": "dev",
+      "n_author": 544,
+      "n_with_anchor": 105,
+      "ceiling": 0.19301470588235295
+    },
+    {
+      "crate": "hexyl",
+      "side": "dev",
+      "n_author": 438,
+      "n_with_anchor": 92,
+      "ceiling": 0.2100456621004566
+    },
+    {
+      "crate": "hyperfine",
+      "side": "held-out",
+      "n_author": 405,
+      "n_with_anchor": 95,
+      "ceiling": 0.2345679012345679
+    },
+    {
+      "crate": "just",
+      "side": "dev",
+      "n_author": 4533,
+      "n_with_anchor": 965,
+      "ceiling": 0.2128833002426649
+    },
+    {
+      "crate": "miniserve",
+      "side": "held-out",
+      "n_author": 939,
+      "n_with_anchor": 105,
+      "ceiling": 0.11182108626198083
+    },
+    {
+      "crate": "mqttui",
+      "side": "held-out",
+      "n_author": 413,
+      "n_with_anchor": 104,
+      "ceiling": 0.25181598062953997
+    },
+    {
+      "crate": "netscanner",
+      "side": "dev",
+      "n_author": 960,
+      "n_with_anchor": 348,
+      "ceiling": 0.3625
+    },
+    {
+      "crate": "oha",
+      "side": "held-out",
+      "n_author": 1292,
+      "n_with_anchor": 557,
+      "ceiling": 0.4311145510835913
+    },
+    {
+      "crate": "ouch",
+      "side": "dev",
+      "n_author": 792,
+      "n_with_anchor": 177,
+      "ceiling": 0.22348484848484848
+    },
+    {
+      "crate": "oxker",
+      "side": "dev",
+      "n_author": 1422,
+      "n_with_anchor": 220,
+      "ceiling": 0.15471167369901548
+    },
+    {
+      "crate": "pastel",
+      "side": "dev",
+      "n_author": 1252,
+      "n_with_anchor": 212,
+      "ceiling": 0.16932907348242812
+    },
+    {
+      "crate": "procs",
+      "side": "dev",
+      "n_author": 2908,
+      "n_with_anchor": 214,
+      "ceiling": 0.07359009628610728
+    },
+    {
+      "crate": "pueue",
+      "side": "dev",
+      "n_author": 2068,
+      "n_with_anchor": 208,
+      "ceiling": 0.10058027079303675
+    },
+    {
+      "crate": "rage",
+      "side": "dev",
+      "n_author": 1372,
+      "n_with_anchor": 433,
+      "ceiling": 0.31559766763848396
+    },
+    {
+      "crate": "rathole",
+      "side": "dev",
+      "n_author": 1289,
+      "n_with_anchor": 166,
+      "ceiling": 0.1287820015515904
+    },
+    {
+      "crate": "ripgrep",
+      "side": "dev",
+      "n_author": 8732,
+      "n_with_anchor": 1941,
+      "ceiling": 0.2222858451672011
+    },
+    {
+      "crate": "rustscan",
+      "side": "dev",
+      "n_author": 500,
+      "n_with_anchor": 72,
+      "ceiling": 0.144
+    },
+    {
+      "crate": "sd",
+      "side": "held-out",
+      "n_author": 123,
+      "n_with_anchor": 47,
+      "ceiling": 0.3821138211382114
+    },
+    {
+      "crate": "starship",
+      "side": "dev",
+      "n_author": 9704,
+      "n_with_anchor": 866,
+      "ceiling": 0.08924154987633966
+    },
+    {
+      "crate": "taplo",
+      "side": "held-out",
+      "n_author": 8421,
+      "n_with_anchor": 1445,
+      "ceiling": 0.17159482246764043
+    },
+    {
+      "crate": "tealdeer",
+      "side": "held-out",
+      "n_author": 596,
+      "n_with_anchor": 56,
+      "ceiling": 0.09395973154362416
+    },
+    {
+      "crate": "tokei",
+      "side": "held-out",
+      "n_author": 861,
+      "n_with_anchor": 206,
+      "ceiling": 0.23925667828106853
+    },
+    {
+      "crate": "topgrade",
+      "side": "held-out",
+      "n_author": 3784,
+      "n_with_anchor": 1415,
+      "ceiling": 0.3739429175475687
+    },
+    {
+      "crate": "trippy",
+      "side": "held-out",
+      "n_author": 3679,
+      "n_with_anchor": 504,
+      "ceiling": 0.13699374830116878
+    },
+    {
+      "crate": "typos",
+      "side": "dev",
+      "n_author": 1406,
+      "n_with_anchor": 230,
+      "ceiling": 0.16358463726884778
+    },
+    {
+      "crate": "websocat",
+      "side": "dev",
+      "n_author": 10020,
+      "n_with_anchor": 1300,
+      "ceiling": 0.12974051896207583
+    },
+    {
+      "crate": "wormhole-rs",
+      "side": "dev",
+      "n_author": 4108,
+      "n_with_anchor": 645,
+      "ceiling": 0.15701071080817916
+    },
+    {
+      "crate": "xh",
+      "side": "dev",
+      "n_author": 1803,
+      "n_with_anchor": 271,
+      "ceiling": 0.15030504714364948
+    },
+    {
+      "crate": "xsv",
+      "side": "dev",
+      "n_author": 480,
+      "n_with_anchor": 156,
+      "ceiling": 0.325
+    },
+    {
+      "crate": "zellij",
+      "side": "dev",
+      "n_author": 22128,
+      "n_with_anchor": 4518,
+      "ceiling": 0.20417570498915402
+    },
+    {
+      "crate": "zoxide",
+      "side": "dev",
+      "n_author": 254,
+      "n_with_anchor": 68,
+      "ceiling": 0.2677165354330709
+    }
+  ],
+  "n_crates_with_authors": 43,
+  "n_crates_zero_authors": 0,
+  "min": {
+    "crate": "procs",
+    "ceiling": 0.07359009628610728
+  },
+  "median": 0.2100456621004566,
+  "max": {
+    "crate": "oha",
+    "ceiling": 0.4311145510835913
+  }
+}

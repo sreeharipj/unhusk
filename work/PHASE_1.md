@@ -253,3 +253,149 @@ recall. Both features discriminate dependency-scope leaks better than
 stdlib-scope leaks, consistent with the standard library sitting far more
 densely and ubiquitously beside author code than any single dependency
 does."*
+
+---
+
+## 1.4 The N_win_rel window boundary bias
+
+**Claim under test:** `N_win_rel` is not section-aware and is clipped only
+at the FDE array ends, so the first/last 5 functions in every binary get a
+smaller, unnormalised window — a theoretical bias flagged in the preprint
+itself (`sec:rules`: "a bias we have not corrected").
+
+**Script:** `bench/hypotheses/h1_4_window_boundary_bias.py`
+**Output:** `bench/hypotheses/h1_4_output.json`, `bench/hypotheses/h1_4_output.md`
+**Input data:** corpus-2 parquet only, no rebuild.
+
+**Result — VALUE | STATUS: VERIFIED — negative: the bias is real but has no
+measurable practical consequence.**
+
+- Boundary zone (first/last 5 FDEs of each binary): **3,440 of 2,953,873
+  rows — 0.116% of all functions.** It is tiny by construction (5+5 out of
+  binaries averaging ~8,500 FDEs).
+- Of R1's 8,834 positive predictions (pooled corpus 2), **2 (0.02%)** fall in
+  the boundary zone. Of R3's 14,491, **2 (0.01%)**. Both boundary
+  predictions score 100% precision (n=2, not a meaningful rate on its own,
+  but not a source of error either).
+- Rescoring with `N_win_rel_frac` at a threshold matched to fire on
+  approximately the same count: R1 precision moves 54.92% → 53.58%
+  (-1.34pp), recall 6.30% → 6.16%; R3 precision 53.58% → 52.01% (-1.57pp),
+  recall 10.09% → 9.80%. Both small movements are **in the same direction
+  (slightly worse)**, not the direction a boundary-bias fix would predict
+  (which should move interior precision up or leave it flat while fixing a
+  boundary-specific problem) — and boundary predictions are unaffected
+  either way (still 2/2 at 100%).
+
+**Verdict: the boundary effect is real in principle (max achievable
+`N_win_rel` really is lower at the array edges) but is empirically
+inconsequential for R1/R3** — the zone it could affect is 0.1% of the
+corpus and R1/R3 essentially never predict there in the first place (2
+predictions each, out of thousands). Swapping to the normalised variant
+does not fix anything because there was nothing measurably broken to fix;
+it costs a little precision instead, most plausibly because
+`N_win_rel_frac` and `N_win_rel` rank functions differently in the interior
+(where nearly all the actual predictions are) rather than because of
+anything boundary-related.
+
+**What the paper should say:** the "bias we have not corrected" sentence can
+be replaced with a measured dismissal rather than an open item. Suggested
+replacement: *"This bias is real but inconsequential: the boundary zone is
+0.12% of the corpus and R1/R3 fire there in only 2 of roughly 8,800–14,500
+positive predictions each. Rescoring with the window-normalised
+`N_win_rel_frac` changes pooled precision by under 1.6 percentage points in
+either rule, in the direction away from the boundary rather than because of
+it, so no correction is warranted."*
+
+---
+
+## 1.5 The "flat over 30-60" threshold claim — the sweep now exists
+
+**Claim under test** (`bench/rulemine/REPORT.md:983`): "the threshold is flat
+over 30-60 on every corpus." A prior audit could not find a committed
+artifact backing this sentence.
+
+**Script:** `bench/hypotheses/h1_5_threshold_flatness.py`
+**Output:** `bench/hypotheses/h1_5_output.json`, `bench/hypotheses/h1_5_output.md`,
+`bench/hypotheses/h1_5_sweep.png`
+**Input data:** corpus-2 held-out crates + V3 + V4 parquet, all tracked, no
+rebuild. Reuses `bench/rulemine/lib/protocol.py` and `lib/mining.py`
+unchanged (read-only import) — same evaluation protocol `e19_scope_rule.py`
+uses, not a new methodology.
+
+**Method:** sweep the anchor-count cutoff `t` from 10 to 100 in steps of 5.
+At each `t`, restrict to functions whose binary has more than `t`
+anchor-bearing functions, and compute R3-alone vs A@2-alone recall/precision
+on that population (`ws` target convention, matching `e19`). "Flat" =
+adjacent-step change in the recall advantage under 2pp and no sign change,
+for every `t` in [30,60].
+
+**Result — VALUE | STATUS: VERIFIED — the sweep now exists and the claim is
+CONFIRMED on all three required corpora.**
+
+| corpus | max adjacent step in [30,60] | span in [30,60] | sign changes | verdict |
+|---|---:|---:|---|---|
+| held-out | 0.73pp | 0.88pp | no | **FLAT** |
+| V3 | 0.21pp | 0.49pp | no | **FLAT** |
+| V4 | 0.14pp | 0.39pp | no | **FLAT** |
+
+R3's recall advantage over A@2 stays within under 1 percentage point of
+itself across the entire 30-60 band on every corpus, and never comes close
+to flipping sign (it ranges +11.2 to +12.1pp on held-out, +19.4 to +19.9pp
+on V3, +5.7 to +5.9pp on V4 — all comfortably positive throughout). The
+full 10-to-100 sweep (`h1_5_output.md`, plotted in `h1_5_sweep.png`) shows
+the advantage grows *slowly and monotonically* with `t` well outside
+[30,60] too — there is no cliff, no crossing, anywhere in the tested range on
+any corpus.
+
+**Verdict: CONFIRMED, not falsified — the claim should stay, now backed by a
+committed, rerunnable artifact.**
+
+**What the paper should say:** the sentence can be kept but should cite the
+artifact instead of standing bare. Suggested replacement: *"The threshold is
+flat over 30-60 on every corpus (`bench/hypotheses/h1_5_threshold_flatness.py`,
+Aug 2026): R3's recall advantage over A@2 varies by under 1 percentage point
+across the entire band and never changes sign, on held-out, V3, and V4
+alike."*
+
+---
+
+## 1.6 Per-crate ceiling table — full table, not a hand cut
+
+**Claim under test:** `e17_ceiling_by_corpus.py` reports only pooled and
+per-config ceiling rows; the preprint's per-crate spread claim ("per-crate
+values in the main corpus range from 7.4% to 36.4%," sec:ceiling) has no
+committed per-crate table — it was MANUAL.
+
+**Script:** `bench/hypotheses/h1_6_percrate_ceiling.py`
+**Output:** `bench/hypotheses/h1_6_output.json`, `bench/hypotheses/h1_6_output.md`
+(full 43-row table)
+**Input data:** corpus-2 parquet only, no rebuild. Reuses `lib/protocol.py`'s
+`P.load`/`P.target`/`P.SPLIT` unchanged and `e17`'s own `ceiling()`
+definition (`M_rel_structs>=1`, `ws` convention, pooled across all 8 configs
+per crate).
+
+**Result — VALUE | STATUS: VERIFIED — the manual figure is reproduced
+exactly once the same restriction (development crates only) is applied, and
+the fuller table shows the true spread is wider.**
+
+- **Development crates only (28, matching what the manual figure evidently
+  used): min 7.36% (`procs`), median 19.06%, max 36.42% (`dprint`)** — this
+  reproduces the cited "7.4% / 19.1% / 36.4%" to two decimal places. The
+  manual figure was correct, just uncommitted and (implicitly, unstated)
+  restricted to development crates.
+- **All 43 crates (development + held-out): min 7.36% (`procs`), median
+  21.00%, max 43.11% (`oha`, held-out).** Including the held-out crates
+  *widens* the range on the top end — `oha` at 43.11% is higher than the
+  previously-cited 36.4% maximum, and three more held-out crates (`dufs`
+  38.6%, `sd` 38.2%, `topgrade` 37.4%) also exceed the old cited max. The
+  bottom end is unchanged (`procs`, a development crate, is still the
+  floor).
+
+Full 43-row table committed in `h1_6_output.md`.
+
+**What the paper should say:** the spread claim should be widened and
+attributed to the full crate set rather than silently to development-only.
+Suggested replacement: *"Per-crate values in the main corpus range from
+7.4% (`procs`) to 43.1% (`oha`), median 21.0%, across all 43 crates
+(`bench/hypotheses/h1_6_output.md`); restricted to the 28 development crates
+alone the range is 7.4%–36.4%, median 19.1%."*

@@ -1,0 +1,82 @@
+{
+  "header": {
+    "n_total_rows": 2953873,
+    "n_author": 76960,
+    "n_boundary_rows": 3440,
+    "boundary_pct_of_all_rows": 0.116
+  },
+  "rules": {
+    "R1": {
+      "raw_rule": "M_rel_structs>=2 AND N_win_rel>=3",
+      "raw_overall": {
+        "pred_pos": 8834,
+        "precision": 0.5492,
+        "recall": 0.063
+      },
+      "raw_boundary": {
+        "pred_pos": 2,
+        "precision": 1.0,
+        "recall": 0.069
+      },
+      "raw_interior": {
+        "pred_pos": 8832,
+        "precision": 0.5491,
+        "recall": 0.063
+      },
+      "raw_frac_of_positives_in_boundary": 0.02,
+      "frac_rule": "M_rel_structs>=2 AND N_win_rel_frac>=0.3333 (threshold chosen to match raw's 8834 positives; got 8849)",
+      "frac_overall": {
+        "pred_pos": 8849,
+        "precision": 0.5358,
+        "recall": 0.0616
+      },
+      "frac_boundary": {
+        "pred_pos": 2,
+        "precision": 1.0,
+        "recall": 0.069
+      },
+      "frac_interior": {
+        "pred_pos": 8847,
+        "precision": 0.5357,
+        "recall": 0.0616
+      },
+      "frac_of_frac_positives_in_boundary": 0.02
+    },
+    "R3": {
+      "raw_rule": "M_rel_structs>=1 AND N_win_rel>=5",
+      "raw_overall": {
+        "pred_pos": 14491,
+        "precision": 0.5358,
+        "recall": 0.1009
+      },
+      "raw_boundary": {
+        "pred_pos": 2,
+        "precision": 1.0,
+        "recall": 0.069
+      },
+      "raw_interior": {
+        "pred_pos": 14489,
+        "precision": 0.5358,
+        "recall": 0.1009
+      },
+      "raw_frac_of_positives_in_boundary": 0.01,
+      "frac_rule": "M_rel_structs>=1 AND N_win_rel_frac>=0.5238 (threshold chosen to match raw's 14491 positives; got 14504)",
+      "frac_overall": {
+        "pred_pos": 14504,
+        "precision": 0.5201,
+        "recall": 0.098
+      },
+      "frac_boundary": {
+        "pred_pos": 2,
+        "precision": 1.0,
+        "recall": 0.069
+      },
+      "frac_interior": {
+        "pred_pos": 14502,
+        "precision": 0.52,
+        "recall": 0.098
+      },
+      "frac_of_frac_positives_in_boundary": 0.01
+    }
+  }
+}
