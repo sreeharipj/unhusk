@@ -4,15 +4,17 @@
 //! the same STRONG/SINGLE-tier certain-function report `main.rs` prints for
 //! ELF, minus the parts that need machinery PE doesn't have yet.
 //!
-//! **Why STRONG/SINGLE only, no Inferred/Indeterminate.** A function's
-//! `Attribution::Certain` never needed the ELF pipeline's call-graph BFS
-//! (`classify::attribute`'s Inferred/Indeterminate propagation) — only a
-//! direct xref hit against a user `Location`. What Inferred/Indeterminate
-//! need is CALL-edge extraction, which does not exist for PE: no design doc
-//! scoped it, and `src/bin/pe_rulemine_probe.rs` (bench/hypotheses' 3.2)
-//! explicitly skipped it as its own future gap (R2). So this module's output
-//! is exactly what `--precision` already restricts ELF to, and nothing wider
-//! than that is offered here until a PE call-graph exists.
+//! **Why STRONG/SINGLE only, no Inferred/Indeterminate — updated.** CALL-edge
+//! extraction now exists (`container::pe::PeImage::call_targets_in`, wired
+//! into `scan()`'s `calls: CallGraph` field) — enough to compute
+//! `xref::caller_rel` (R2) for PE, which was unmeasurable when this module
+//! was first written (`src/bin/pe_rulemine_probe.rs`, bench/hypotheses 3.2,
+//! explicitly skipped it). What's still missing is `dep_boundary` and
+//! `classify::attribute`'s BFS propagation over that call graph — the
+//! Inferred/Indeterminate tiers need both, not just edges, and neither is
+//! built for PE yet. So this module's SHIPPED output is still exactly what
+//! `--precision` restricts ELF to; the call graph exists for measurement
+//! (`src/bin/pe_corpus_measure.rs`) but isn't exposed through the CLI.
 //!
 //! **Trust framing — architecture.md's normative constraint on §9.2.** The
 //! inline-absorption false-positive mechanism (a user closure passed into a
@@ -36,11 +38,12 @@ use crate::container::BinaryImage;
 use crate::pdb_oracle::{self, PdbGroundTruth, Row};
 use crate::report::{tier_certain, Tier};
 use crate::strings::{auto_detect_root, DetectOutcome, Origin};
-use crate::xref::CertainLocs;
+use crate::xref::{CallGraph, CertainLocs};
 
 pub const DISCLOSURE: &str = "unhusk: PE support is EXPERIMENTAL. STRONG/SINGLE tier only \
--- no call-graph extraction exists for PE, so there is no inferred/indeterminate bucket. \
-The inline-absorption false-positive mechanism (a user closure passed to a std/dep generic, \
+-- inferred/indeterminate tiering isn't wired for PE yet (that needs a dep_boundary set and \
+BFS propagation, not just a call graph). The inline-absorption false-positive mechanism (a \
+user closure passed to a std/dep generic, \
 e.g. slice::sort_by or a rayon iterator, gets inlined into a library function and misreads \
 as STRONG-tier user code) is CONFIRMED to occur on this format and is NOT mitigated. Do not \
 treat these numbers as inheriting ELF's published precision figures.";
@@ -100,15 +103,24 @@ pub fn resolve_root_crates(binary: &Path, explicit: &[String]) -> Result<Vec<Str
 pub struct PeScan {
     pub attributed: Vec<AttributedFn>,
     pub certain_locs: CertainLocs,
+    /// Direct CALL edges between known function starts (RVA -> RVA), from
+    /// `PeImage::call_targets_in`. Not used by the shipped CLI output yet —
+    /// `classify::attribute`'s Inferred/Indeterminate BFS needs a
+    /// `dep_boundary` set too, not built here — but is real, decode-derived
+    /// data, not a stub, and is enough on its own to compute `xref::caller_rel`
+    /// (R2) for PE, which was previously unmeasurable on this format.
+    pub calls: CallGraph,
     /// `Location` struct address -> source path, for anchor-file display.
     loc_file: HashMap<u64, String>,
 }
 
 /// Scan every `.pdata` function range for direct references to a user
-/// `Location`. Mirrors `xref::scan`'s certain-set logic exactly (same
-/// dedup-by-struct-address semantics), computed over `BinaryImage` instead
-/// of `.eh_frame`, and without the CALL-edge / dep-boundary collection ELF's
-/// scan also does (nothing downstream here needs them — see module docs).
+/// `Location`, AND for direct CALL edges to other known functions. Mirrors
+/// `xref::scan`'s certain-set AND call-graph logic (same dedup-by-struct-
+/// address semantics for the former), computed over `BinaryImage`/`PeImage`
+/// instead of `.eh_frame`. dep_boundary is still not built here (nothing
+/// downstream needs it yet — Inferred/Indeterminate tiering for PE is a
+/// separate, unstarted piece of work).
 pub fn scan(img: &PeImage) -> PeScan {
     let locs = img.locations();
     let loc_file: HashMap<u64, String> = locs.iter().map(|l| (l.struct_addr, l.file.clone())).collect();
@@ -121,31 +133,39 @@ pub fn scan(img: &PeImage) -> PeScan {
     let mut ranges = img.function_ranges();
     ranges.sort_by_key(|r| r.start);
     ranges.dedup();
+    let known_starts: HashSet<u64> = ranges.iter().map(|r| r.start).collect();
 
     let mut attributed = Vec::new();
     let mut certain_locs: CertainLocs = HashMap::new();
+    let mut calls: CallGraph = HashMap::new();
     for r in &ranges {
         let mut user_hits: Vec<u64> = img
             .xref_locations_in(r.clone())
             .into_iter()
             .filter(|a| user_addrs.contains(a))
             .collect();
-        if user_hits.is_empty() {
-            continue;
+        if !user_hits.is_empty() {
+            user_hits.sort_unstable();
+            user_hits.dedup();
+            attributed.push(AttributedFn {
+                start: r.start,
+                end: r.end,
+                attribution: Attribution::Certain,
+            });
+            certain_locs.insert(r.start, user_hits);
         }
-        user_hits.sort_unstable();
-        user_hits.dedup();
-        attributed.push(AttributedFn {
-            start: r.start,
-            end: r.end,
-            attribution: Attribution::Certain,
-        });
-        certain_locs.insert(r.start, user_hits);
+
+        for target in img.call_targets_in(r.clone()) {
+            if known_starts.contains(&target) && target != r.start {
+                calls.entry(r.start).or_default().insert(target);
+            }
+        }
     }
 
     PeScan {
         attributed,
         certain_locs,
+        calls,
         loc_file,
     }
 }

@@ -14,7 +14,7 @@ use std::ops::Range;
 use std::path::Path;
 
 use anyhow::{Context, Result};
-use iced_x86::{Decoder, DecoderOptions, Instruction, Register};
+use iced_x86::{Decoder, DecoderOptions, Instruction, Mnemonic, OpKind, Register};
 use object::read::pe::PeFile64;
 use object::{LittleEndian, Object};
 
@@ -260,6 +260,49 @@ impl PeImage {
             .iter()
             .any(|s| s.name == name && rva >= s.rva && (rva - s.rva) < s.virt_size.max(s.raw_size))
     }
+
+    /// CALL-edge collection for `[start, end)` — the PE mechanical port of
+    /// `xref::scan_one`'s CALL-edge half (`src/xref.rs`), needed for R2
+    /// (`xref::caller_rel`) and Inferred/Indeterminate, neither of which
+    /// exist for PE yet because no CALL-edge extraction did (README "In
+    /// progress" / architecture.md). Same decoder setup as
+    /// `xref_locations_in`, same RVA space (design §6.2) -- a direct near
+    /// CALL's `near_branch64()` resolves in whatever IP space the decoder
+    /// was fed, which is the function's RVA here, so no conversion is
+    /// needed. Not on the `BinaryImage` trait (ELF's own CALL-edge
+    /// collection isn't either — it lives in `xref::scan`, outside the
+    /// trait). Separate method rather than folding into `xref_locations_in`
+    /// (which several call sites already depend on unchanged) even though
+    /// it duplicates the decode loop -- ELF's `xref::scan` keeps the same
+    /// two concerns in one pass for performance at corpus scale, but this
+    /// is new, not yet load-bearing anywhere, and correctness-first here
+    /// matters more than avoiding a second decode pass.
+    pub fn call_targets_in(&self, range: Range<u64>) -> Vec<u64> {
+        if range.end <= range.start {
+            return Vec::new();
+        }
+        let Ok(start_rva) = u32::try_from(range.start) else {
+            return Vec::new();
+        };
+        let len = (range.end - range.start) as usize;
+        let Some(bytes) = self.read_rva(start_rva, len) else {
+            return Vec::new();
+        };
+
+        let mut targets = Vec::new();
+        let mut dec = Decoder::with_ip(64, bytes, range.start, DecoderOptions::NONE);
+        let mut instr = Instruction::default();
+        while dec.can_decode() {
+            dec.decode_out(&mut instr);
+            if instr.mnemonic() != Mnemonic::Call {
+                continue;
+            }
+            if instr.op_count() == 1 && instr.op_kind(0) == OpKind::NearBranch64 {
+                targets.push(instr.near_branch64());
+            }
+        }
+        targets
+    }
 }
 
 /// Decoded `Location` fields (as RVAs / values). Internal to enumeration.
@@ -490,6 +533,42 @@ mod tests {
             &[0x19000],
         );
         assert!(img.xref_locations_in(0x1030..0x1056).is_empty());
+    }
+
+    #[test]
+    fn call_targets_in_resolves_a_near_call_in_rva_space() {
+        // call rel32 (E8) at RVA 0x1042, instruction is 5 bytes so next IP is
+        // 0x1047; rel32 = 0x19 -> target RVA 0x1060. Same §6.2 RVA-not-VA
+        // requirement as the Location xref scan: a port that fed iced-x86 a
+        // VA would compute a target inside the image base, not 0x1060.
+        let img = synth_image(0x1042, &[0xe8, 0x19, 0x00, 0x00, 0x00], &[]);
+        assert_eq!(img.call_targets_in(0x1030..0x1056), vec![0x1060]);
+    }
+
+    #[test]
+    fn call_targets_in_ignores_non_call_instructions() {
+        // The exact lea from the xref tests -- no CALL mnemonic anywhere.
+        let img = synth_image(
+            0x1042,
+            &[0x48, 0x8d, 0x05, 0xf7, 0x6f, 0x01, 0x00],
+            &[],
+        );
+        assert!(img.call_targets_in(0x1030..0x1056).is_empty());
+    }
+
+    #[test]
+    fn call_targets_in_fails_closed_on_bad_ranges() {
+        let img = synth_image(0x1042, &[0xe8, 0x19, 0x00, 0x00, 0x00], &[]);
+        let r = |start, end| Range { start, end };
+        assert!(img.call_targets_in(r(0x1030, 0x1030)).is_empty(), "empty");
+        assert!(
+            img.call_targets_in(r(0x1056, 0x1030)).is_empty(),
+            "inverted"
+        );
+        assert!(
+            img.call_targets_in(r(0x1030, 0x9999)).is_empty(),
+            "overruns section"
+        );
     }
 
     #[test]

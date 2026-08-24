@@ -18,19 +18,25 @@
 //!
 //! Also tags every row with which of bench/rulemine's mined rules fire on it
 //! (verbatim from `bench/rulemine/extractor/src/bin/rule_apply.rs`'s
-//! `results/picks.json` definitions, R2 excluded — it needs a call graph,
-//! which does not exist for PE):
+//! `results/picks.json` definitions):
 //!   n_rel        distinct User-origin Location structs this function's own
 //!                body references directly (== `anchor_count`)
 //!   n_nonrel     the same, for non-User (Std/Dep/Unknown) origin
 //!   window_rel   n_rel summed over the +/-5 neighbours in `.pdata` address
 //!                order, excluding the function itself
+//!   caller_rel   n_rel summed over this function's direct callers
+//!                (`PeImage::call_targets_in` + `xref::caller_rel` — this
+//!                was PE-unmeasurable until this session; see
+//!                `docs/local/pe-port-design.md`/README's former "no
+//!                call-graph extraction" note, now stale)
 //!   a2           n_rel >= 2                          (what's actually SHIPPED —
 //!                bare multiplicity; see pe_pipeline::run / report::tier_certain,
 //!                neither has a purity veto)
 //!   a2_strict    n_rel >= 2 AND n_nonrel == 0         (rulemine's own "A@2
 //!                incumbent" comparison baseline -- NOT what's shipped)
 //!   r1           n_rel >= 2 AND window_rel >= 3
+//!   r2           n_rel >= 2 AND caller_rel >= 1       (ELF's best rule,
+//!                bench/elf_corpus/REPORT.md; first PE measurement of it)
 //!   r3           n_rel >= 1 AND window_rel >= 5
 //! The point: the inline-absorption FP this corpus run is measuring is
 //! mechanistically the same shape the adversarial-probe session's fan-out
@@ -71,9 +77,11 @@ struct Row {
     n_rel: u32,
     n_nonrel: u32,
     window_rel: u64,
+    caller_rel: u64,
     fires_a2: bool,
     fires_a2_strict: bool,
     fires_r1: bool,
+    fires_r2: bool,
     fires_r3: bool,
 }
 
@@ -147,6 +155,13 @@ fn measure_one(exe: &Path, pdb: &Path, stem: &str, rows: &mut Vec<Row>) -> Resul
     let gt = pdb_oracle::read_function_sources(pdb, &root_crates)?;
     let cmp_rows = pdb_oracle::compare(&scan.attributed, &gt);
     let features = rule_features(&img);
+    // caller_rel is deliberately NOT recomputed independently here the way
+    // n_rel/n_nonrel/window_rel are (rule_features() is its own from-scratch
+    // pass) -- pe_pipeline::scan's call graph is the only PE call-graph
+    // extraction that exists at all, there is no second implementation to
+    // cross-check it against yet. Trust it as-is, same as ELF's caller_rel
+    // in elf_corpus_measure.rs which also reuses xref::scan's call graph.
+    let caller_rel = unhusk::xref::caller_rel(&scan.certain_locs, &scan.calls);
 
     for r in &cmp_rows {
         let tier = tiers
@@ -161,6 +176,7 @@ fn measure_one(exe: &Path, pdb: &Path, stem: &str, rows: &mut Vec<Row>) -> Resul
             "{stem}: 0x{:x} n_rel/anchor_count disagree -- two independent scans of the same function should match",
             r.start
         );
+        let c_rel = caller_rel.get(&r.start).copied().unwrap_or(0);
         rows.push(Row {
             crate_bin: stem.to_string(),
             start: format!("0x{:x}", r.start),
@@ -176,9 +192,11 @@ fn measure_one(exe: &Path, pdb: &Path, stem: &str, rows: &mut Vec<Row>) -> Resul
             n_rel,
             n_nonrel,
             window_rel,
+            caller_rel: c_rel,
             fires_a2: n_rel >= 2,
             fires_a2_strict: n_rel >= 2 && n_nonrel == 0,
             fires_r1: n_rel >= 2 && window_rel >= 3,
+            fires_r2: n_rel >= 2 && c_rel >= 1,
             fires_r3: n_rel >= 1 && window_rel >= 5,
         });
     }
