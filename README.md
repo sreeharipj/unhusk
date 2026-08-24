@@ -45,6 +45,7 @@ unhusk <stripped.exe>                          # PE works too, auto-detected (se
 unhusk <stripped-elf> --precision              # only the high-confidence tier
 unhusk <stripped-elf> --min-anchors 3          # stricter: more precision, less recall
 unhusk <stripped-elf> --precision --json       # machine-readable, for downstream tools
+unhusk <stripped-elf> --rule-r2 --json         # alternate rule, higher precision (see In progress)
 unhusk <stripped-elf> --validate <unstripped>  # score against debug-info ground truth
 unhusk <stripped-elf> --crate ripgrep          # name the root crate (usually auto-detected)
 ```
