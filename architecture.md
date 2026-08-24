@@ -51,12 +51,14 @@ The following are **not goals** and are not implemented:
 
 ### 1.4 Supported input — normative
 
-- The CLI **accepts x86-64 ELF only** (PIE and non-PIE). `src/main.rs:92`
-  calls `elf::ParsedElf::load` unconditionally; there is no format detection
-  and no dispatch. `src/elf.rs:96-99` hard-fails any non-x86-64 architecture.
-- A tested PE/PDB library exists in-tree and is **not reachable from the CLI**
-  (§10.2). No flag routes a binary through it.
-- Mach-O, aarch64, and 32-bit x86 are unimplemented.
+- The CLI **accepts x86-64 ELF and x86-64 PE**, auto-detected by magic bytes
+  (`src/main.rs`'s `is_pe` sniff routes to `pe_pipeline::run`; ELF falls
+  through to the pre-existing `elf::ParsedElf::load` path unconditionally).
+  PE is STRONG/SINGLE tier only — no Inferred/Indeterminate — and every PE
+  run prints an experimental-support disclosure banner (§10.2, updated).
+  `src/elf.rs:96-99` hard-fails any non-x86-64 ELF architecture; PE is
+  PE32+ (`PeFile64`) only, PE32 (32-bit) is rejected the same way.
+- Mach-O, aarch64, and 32-bit x86 (both formats) are unimplemented.
 
 ---
 
@@ -668,22 +670,49 @@ fan-out 1, the exact value of genuine attributions. No threshold separates
 them. Detecting generic monomorphization over a closure/callback type parameter
 is the structurally different approach; it has not been scoped or attempted.
 
-**Status: open and unmitigated on the shipped path, shared by both formats.**
-A candidate rule measured against this population catches roughly half of it,
-with a large scope-dependent blind spot; it is measurement-only and not in any
-decision path (§10.4).
+**Status: open and unmitigated on the DEFAULT path, shared by both formats —
+updated 2026-08-25.** A candidate rule measured against this population
+catches roughly half of it, with a large scope-dependent blind spot; it is
+measurement-only and not in any decision path (§10.4). Separately, corpus-scale
+STRONG-tier precision measurement now exists for both formats (not mechanism-
+instance counting — direct precision against ground truth, matched crate
+sets): `bench/{elf,pe}_corpus/REPORT.md` and their independent-corpus
+confirmations `bench/corpus2_{elf,pe}/REPORT.md`, ~87-91% STRONG precision
+pooled across four separate corpus measurements (two ELF, two PE),
+statistically indistinguishable between formats. Two opt-in flags exist as
+partial mitigation, both held-out validated: `--rule-r2` (`n_rel>=2 &
+caller_rel>=1`) reaches ~93-95% STRONG precision on both formats, the most
+consistent single result across all four corpora; `--min-size`/`--max-density`
+also help on both formats but with a corpus-dependent effect *size* (unlike
+R2's). Neither is the default — `--min-anchors` still is, for reproducibility
+— so "unmitigated on the shipped path" remains true for what `unhusk <binary>`
+does with no flags, but is no longer true of the tool's full surface.
+**A genuine mining-search retraction happened the same day**: an earlier
+finding that R1/R3 (window-corroboration rules) hurt PE precision reversed
+sign entirely on a second, independent PE corpus — the original result was
+corpus-composition-dependent, not evidence of a PE-specific structural
+difference, and is marked retracted in place in `bench/pe_corpus/REPORT.md`
+rather than silently corrected.
 
-**Consumers of the STRONG tier MUST NOT treat it as certainty.** Two
-measurements bound it, and §8.3 forbids merging them, so both are stated with
-what produced them:
+**Consumers of the STRONG tier MUST NOT treat it as certainty.** Six
+independent measurements bound it (two from §8.1/§8.2's ELF-only work, four
+from the later matched ELF/PE corpus work below), and §8.3 forbids merging
+the first two, so all are stated with what produced them:
 
 | Measurement | STRONG precision | Corpus | Oracle / breadth |
 |---|---|---|---|
 | §8.1 `realval` | 94.4% pooled, 87.3% async | 34 binaries | `nm -C` symbol leading-crate, one default build per binary |
 | §8.2 `bench/origin` | 91.312% pooled, 91.78% at ship profile | 43 crates × 8 configs (344 builds) | symbol oracle over per-build FDE rows, 8-config sweep |
+| `bench/elf_corpus` | 86.76% | 36 crates | DWARF, `--validate` |
+| `bench/corpus2_elf` | 87.09% | 40 crates, zero overlap with the above | DWARF, `--validate` |
+| `bench/pe_corpus` | 89.17% (89.52% on a same-day rebuild, run to add R2 data — within noise) | 39 crates | PDB, `--validate` |
+| `bench/corpus2_pe` | 90.91% | 34 crates, zero overlap with the above | PDB, `--validate` |
 
-The two are not reconcilable into a single number and no attempt is made here.
-A consumer choosing a threshold should read the spread — roughly 87% to 94%
+Four more independent readings, same spread as §8.1/§8.2's two — not reconciled
+into a single number here either, for the same reason (§8.3). The two ELF
+numbers and two PE numbers each pair closely (within ~1-4pp of each other);
+ELF and PE as groups are statistically indistinguishable from each other. A
+consumer choosing a threshold should read the spread — roughly 87% to 94%
 depending on corpus, workload, and build config — as the operating range, and
 §8.1's async stratum as the lower bound for async-heavy targets, which is what
 malware skews toward.
@@ -706,18 +735,19 @@ changes runtime behaviour.
 
 | Module | Lines | Unit tests | Status |
 |---|---:|---:|---|
-| `report.rs` | 1023 | 7 | Shipped — human + JSON reporters, tiering |
+| `report.rs` | 1138 | 7 | Shipped — human + JSON reporters, tiering (R2's `print_r2_json_report` added 2026-08-25, no new in-file test — reuses already-tested `user_anchor_count`/`anchor_files`, validated against real ELF binaries instead) |
 | `dwarf.rs` | 738 | 7 | Shipped, validation only (§8.4) |
 | `origin.rs` | 726 | 33 | Library — origin-composition classifier (§10.4) |
 | `strings.rs` | 603 | 22 | Shipped — Phase 1 classification |
-| `container/pe.rs` | 603 | 9 | Library, not CLI-reachable (§10.2) |
+| `container/pe.rs` | 682 | 12 | Shipped — CLI-reachable via `pe_pipeline.rs` (§10.2) |
+| `pe_pipeline.rs` | 479 | 0² | Shipped — CLI entry point for PE (§10.2) |
 | `bin/anchor_headroom.rs` | 589 | 0 | **Dead** (§10.3) |
 | `pdb_oracle.rs` | 562 | 12 | Library, validation only |
 | `types.rs` | 440 | 0 | **Diagnostic, ineffective** (§10.3) |
-| `main.rs` | 381 | 0 | Shipped — CLI |
+| `main.rs` | 479 | 0 | Shipped — CLI |
 | `classify.rs` | 374 | 6 | Shipped — bucket propagation |
 | `elf.rs` | 346 | 0¹ | Shipped — load, section index, relocations |
-| `xref.rs` | 255 | 0¹ | Shipped — decode + certain set |
+| `xref.rs` | 325 | 2 | Shipped — decode + certain set (`caller_rel`, R2's term, tested since 2026-08-25; the rest of the module is still 0¹) |
 | `frame.rs` | 243 | 0¹ | Shipped — function ranges + fallbacks |
 | `bin/origin_probe.rs` | 175 | 0 | Library harness for §10.4 |
 | `container/elf_image.rs` | 118 | 0¹ | Shipped — ELF behind `BinaryImage` |
@@ -727,6 +757,12 @@ changes runtime behaviour.
 
 ¹ No in-file `#[test]`; covered by `tests/integration.rs` (7) and real-corpus
 measurement in `realval/`.
+
+² No in-file `#[test]`; a thin composition of already-tested calls into
+`container::pe`/`report`/`xref`/`pdb_oracle`, validated end-to-end instead
+against real PE binaries each time a flag landed (`bench/pe_corpus`,
+`bench/elf_corpus`, `bench/corpus2_{elf,pe}` — same gap this table already
+accepts for `container/pe.rs` itself before its own in-file tests existed).
 
 **Coverage asymmetry worth stating plainly:** `xref.rs` — the module carrying
 the §9.2 gap — has **zero isolated unit tests**. The hard case would not have
@@ -745,14 +781,31 @@ numeric-cast exemptions are justified by x86-64-only support making
 `u64 <-> usize` lossless, and by the position that rewriting guarded casts as
 `try_into().unwrap()` would add panic paths to a parser of hostile input.
 
-### 10.2 PE / PDB — library present, unwired
+### 10.2 PE / PDB — wired into the CLI, STRONG/SINGLE tier only
 
 `container/pe.rs` parses PE32+, walks `.pdata` for function ranges (the RVA
 analogue of FDEs; `.pdata` gives exact bounds directly), extracts `Location`
 structs from `.rdata`, and runs the same iced-x86 RIP-relative scan in RVA
 space. `pdb_oracle.rs` is the PE-side counterpart to `dwarf.rs`, including
 inline-site data — which is what allowed §9.2 to be corroborated two
-independent ways in a single measurement.
+independent ways in a single measurement. `PeImage::call_targets_in` (added
+2026-08-25) runs the same decoder filtered to CALL instead of RIP-relative
+memory operands, giving PE a real CALL-edge graph for the first time; it
+feeds `xref::caller_rel` (R2) but not `classify::attribute`'s
+Inferred/Indeterminate BFS, which also needs a `dep_boundary` set that isn't
+built for PE — so STRONG/SINGLE stays the shipped ceiling.
+
+`src/pe_pipeline.rs` is the CLI-facing entry point: `main.rs` sniffs the
+input's magic bytes and routes PE binaries there instead of the ELF path.
+Output is STRONG/SINGLE tier only, matches what `--precision` already
+restricts ELF to, and every PE run — human report, `--json`, `--validate`
+against a `.pdb` — prints a fixed disclosure banner before any result. Two
+mined rules are shipped as opt-in flags on PE (as well as ELF):
+`--min-size`/`--max-density` (held-out validated on both formats, though the
+effect *size* looks more corpus-dependent than R2's — `bench/size_signal/
+REPORT.md`) and `--rule-r2` (`n_rel>=2 & caller_rel>=1`; measured at 95.27%
+pooled precision across two independent PE corpora vs the incumbent's
+90.01%, `bench/corpus2_pe/REPORT.md`).
 
 Practical finding worth recording: for lld-link-produced PE images, MSVC debug
 info lives entirely out-of-process in the `.pdb`. An `oracle`-profile build and
@@ -762,8 +815,12 @@ collapses to "build once" on this target.
 
 **Normative constraint.** PE output **MUST NOT** be presented under the ELF
 STRONG trust framing. The STRONG tier does not currently earn that framing on
-PE (§9.2), the mechanism is shared rather than PE-specific, and no CLI or JSON
-contract carries a lower-trust label for PE today.
+PE (§9.2), the mechanism is shared rather than PE-specific — but unlike when
+this constraint was first written, there **is** now a lower-trust label: the
+disclosure banner every PE entry point prints, and PE's own corpus-scale
+measurement (`bench/pe_corpus/REPORT.md`, `bench/corpus2_pe/REPORT.md`)
+giving it a real, disclosed number (89.5%/90.9% STRONG precision across two
+corpora) rather than an unmeasured caveat.
 
 ### 10.3 Inert surfaces
 
