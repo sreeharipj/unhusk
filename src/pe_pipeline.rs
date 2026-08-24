@@ -292,6 +292,74 @@ fn print_json(
     Ok(())
 }
 
+// ── R2 (bench/rulemine's mined rule, --rule-r2) ─────────────────────────────
+//
+// Landed for PE the same session container::pe::call_targets_in did.
+// Measured across two independent PE corpora (bench/pe_corpus,
+// bench/corpus2_pe), combined: 95.27% [93.94,96.33] pooled / [92.53,97.32]
+// cluster, n=1227, 70 crate-binaries, vs the incumbent's 90.01% -- the same
+// evidentiary shape (two independent measurements, no PE data used to
+// derive the rule itself) that earned --rule-r2 ELF's spot, so it ships
+// here too now instead of staying ELF-only.
+
+#[derive(Serialize)]
+struct R2JsonFunction<'a> {
+    start: String,
+    end: String,
+    size: u64,
+    n_rel: usize,
+    caller_rel: u64,
+    anchor_files: Vec<&'a str>,
+}
+
+#[derive(Serialize)]
+struct R2JsonReport<'a> {
+    binary: &'a str,
+    format: &'static str,
+    experimental: bool,
+    disclosure: &'static str,
+    rule: &'static str,
+    functions: Vec<R2JsonFunction<'a>>,
+}
+
+/// Emit the R2-tiered certain functions as JSON — the PE analog of
+/// `report::print_r2_json_report`. `caller_rel` comes from `xref::caller_rel`
+/// applied to `PeScan.calls` (`container::pe::PeImage::call_targets_in`).
+fn print_r2_json(binary: &Path, scan: &PeScan, caller_rel: &HashMap<u64, u64>) -> Result<()> {
+    let mut functions: Vec<R2JsonFunction> = scan
+        .attributed
+        .iter()
+        .filter_map(|f| {
+            let n_rel = scan.certain_locs.get(&f.start).map_or(0, Vec::len);
+            let c_rel = caller_rel.get(&f.start).copied().unwrap_or(0);
+            if n_rel < 2 || c_rel < 1 {
+                return None;
+            }
+            Some(R2JsonFunction {
+                start: format!("0x{:x}", f.start),
+                end: format!("0x{:x}", f.end),
+                size: f.end.saturating_sub(f.start),
+                n_rel,
+                caller_rel: c_rel,
+                anchor_files: anchor_files(scan, f.start).into_iter().collect(),
+            })
+        })
+        .collect();
+    functions.sort_by(|a, b| a.start.cmp(&b.start));
+
+    let binary_str = binary.display().to_string();
+    let report = R2JsonReport {
+        binary: &binary_str,
+        format: "pe",
+        experimental: true,
+        disclosure: DISCLOSURE,
+        rule: "r2 (n_rel>=2 & caller_rel>=1)",
+        functions,
+    };
+    println!("{}", serde_json::to_string(&report)?);
+    Ok(())
+}
+
 fn print_validation(rows: &[Row], tiers: &HashMap<u64, Tier>) {
     let mut agree_strong = 0usize;
     let mut disagree_strong = 0usize;
@@ -363,6 +431,8 @@ pub struct PeArgs<'a> {
     pub min_size: u64,
     /// Maximum anchor density, anchors per KB (None = off). See bench/size_signal/REPORT.md.
     pub max_density: Option<f64>,
+    /// n_rel>=2 & caller_rel>=1, requires --json. See this module's R2 section.
+    pub rule_r2: bool,
     /// Optional `.pdb` companion for ground-truth validation (the PE analog
     /// of ELF's `--validate <unstripped>`).
     pub validate: Option<&'a Path>,
@@ -373,6 +443,15 @@ pub fn run(args: &PeArgs) -> Result<()> {
         .with_context(|| format!("loading PE {}", args.binary.display()))?;
     let s = scan(&img);
     let tiers = tier_certain(&s.attributed, &s.certain_locs, args.min_anchors);
+
+    if args.rule_r2 {
+        if args.json {
+            let caller_rel = crate::xref::caller_rel(&s.certain_locs, &s.calls);
+            print_r2_json(args.binary, &s, &caller_rel)?;
+            return Ok(());
+        }
+        eprintln!("unhusk: --rule-r2 requires --json; ignoring --rule-r2");
+    }
 
     if args.json {
         print_json(

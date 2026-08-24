@@ -106,21 +106,24 @@ struct Args {
     #[arg(long, value_name = "N")]
     max_density: Option<f64>,
 
-    /// Alternate STRONG-tier rule (ELF only): a certain function needs >=2
-    /// distinct user Locations of its own AND >=1 direct caller that is
-    /// itself certain-user, instead of the default `--min-anchors`
-    /// multiplicity-only rule. Requires --json.
+    /// Alternate STRONG-tier rule: a certain function needs >=2 distinct
+    /// user Locations of its own AND >=1 direct caller that is itself
+    /// certain-user, instead of the default `--min-anchors` multiplicity-only
+    /// rule. Requires --json. Works on both ELF and PE.
     ///
-    /// Measured on a 36-crate matched ELF corpus: 92.95% precision (CI95
-    /// [90.2,95.0]), covering 55% of the default rule's STRONG population —
-    /// vs the default rule's own 86.76% on the identical corpus (see
-    /// bench/elf_corpus/REPORT.md). A genuine, corpus-validated improvement,
-    /// not a synthetic result.
+    /// ELF: 36-crate matched corpus, 92.95% precision (CI95 [90.2,95.0]) vs
+    /// the default rule's 86.76% (bench/elf_corpus/REPORT.md).
+    /// PE: two independent corpora (73 crates combined, bench/pe_corpus +
+    /// bench/corpus2_pe/REPORT.md), pooled 95.27% (CI95 [93.94,96.33]) vs
+    /// the default rule's 90.01%, n=1227 across 70 crate-binaries. An
+    /// earlier PE measurement (single corpus, before PE had a call graph to
+    /// compute this at all) reported this rule as worse than the default —
+    /// that finding did not replicate on a second corpus and is retracted
+    /// in bench/pe_corpus/REPORT.md; this flag reflects the corrected,
+    /// two-corpus number.
     ///
     /// Off by default: this changes which functions get reported, so the
     /// default stays the original --min-anchors rule for reproducibility.
-    /// The identical rule measured WORSE than the default on PE
-    /// (bench/pe_corpus/REPORT.md) — not offered there for that reason.
     #[arg(long)]
     rule_r2: bool,
 
@@ -160,6 +163,7 @@ fn main() -> Result<()> {
             json: args.json,
             min_size: args.min_size,
             max_density: args.max_density,
+            rule_r2: args.rule_r2,
             validate: args.validate.as_deref(),
         });
     }

@@ -67,9 +67,18 @@ independent PE corpus, R1 (97.3%) and R3 (96.3%) both clearly beat this corpus's
 baseline (90.9%) — the opposite of "do not rescue precision" above. Kept in place rather than
 deleted, per this repo's practice of keeping corrections visible in the record rather than
 overwriting them — but this specific negative finding does not hold as a general claim about
-PE; it held on this specific 39-crate sample. R2 was unmeasurable when this report was
-written (no PE call-graph extraction existed yet); it now is, and its first measurement
-(95.5%) is positive too.
+PE; it held on this specific 39-crate sample.
+
+**R2, added by rebuild (2026-08-25, same day, `container::pe::call_targets_in` landed after
+this report was first written so R2 was unmeasurable then):** this exact corpus, rebuilt for
+R2 data, gives **95.13% [93.39,96.43] pooled / [91.41,97.81] cluster, n=781** (60% of the a2
+baseline's population) — clearly beats the incumbent, and lines up closely with corpus2_pe's
+independent 95.5%. Combined across both corpora: **95.27% [93.94,96.33], n=1227, 70
+crate-binaries** — the strongest, most consistent result of the whole investigation, now
+shipped as `--rule-r2` on PE too (previously ELF-only). Rebuilding for this shifted the
+underlying corpus slightly (n=1237→1288, a2 89.17%→89.52%, both well within noise — crate
+versions/codegen drift over the ~5 hours between builds, not a methodology change); the
+`analysis.json`/`rows.json` in this directory reflect the rebuild, this prose reflects both.
 
 ## Reproduce
 

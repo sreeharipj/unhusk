@@ -42,26 +42,26 @@ is no longer a defensible claim from this repo's own data. Retracted, not merely
 
 | rule | ELF original | ELF corpus2 | PE original | PE corpus2 |
 |---|---|---|---|---|
-| r2 | +6.2pp | +7.5pp | n/a | **+4.6pp** |
+| r2 | +6.2pp | +7.5pp | *(unmeasurable then)* | **+4.6pp** |
 | r1 | +3.3pp | +5.7pp | -4.4pp | +6.4pp |
 | r3 | -8.3pp | -0.9pp | -6.3pp | +5.4pp |
 | size/density (best) | +9.4pp (held-out) | +1.8pp | +7.6pp (held-out) | -1.2pp |
 
-**R2 is positive in every measurement taken so far, including its first-ever PE result.**
-That's the strongest evidence of any rule tested this session for being a genuinely
-format-independent, corpus-independent effect — not proof (n=3), but the cleanest signal.
-R1 is positive in 3 of 4. R3 and size/density are the least consistent — size/density is
-sometimes strongly positive, sometimes flat-to-negative (PE corpus2: a2+size>=1000 90.9%->
-90.2%, a2+density<=1.0 90.9%->89.7%, both slightly WORSE — stacked with r2 it's actively
-worse too: 95.5%->94.3%/92.8%).
+**R2 is positive in every measurement taken so far.** R1 is positive in 3 of 4. R3 and
+size/density are the least consistent — size/density is sometimes strongly positive,
+sometimes flat-to-negative (PE corpus2: a2+size>=1000 90.9%->90.2%, a2+density<=1.0 90.9%->
+89.7%, both slightly WORSE — stacked with r2 it's actively worse too: 95.5%->94.3%/92.8%).
 
-## Not shipped
+## Shipped, after a same-day rebuild closed the gap
 
-R2-on-PE is not offered through the CLI. One strongly positive measurement is not the same
-evidentiary bar `--rule-r2` (ELF) or `--min-size`/`--max-density` cleared before shipping —
-those went through a proper discovery/held-out split. R2-on-PE has no held-out check yet;
-it would need its own split across a larger combined PE corpus before shipping the way ELF's
-did. Recorded here as a strong lead, not a result to build a flag on yet.
+`bench/pe_corpus` (the original 39-crate PE corpus) predates PE's call-graph extraction and
+had no R2 column. Rebuilding it the same day (`bench/pe_corpus/REPORT.md`'s own "R2, added by
+rebuild" section) gives a SECOND independent PE measurement: 95.13% [93.39,96.43], n=781 —
+closely matching this corpus's 95.5%. Combined: **95.27% [93.94,96.33] pooled / [92.53,97.32]
+cluster, n=1227, 70 crate-binaries.** That's two independent PE corpora agreeing tightly, on
+a rule whose formula was never tuned using any PE data (it came from ELF-only mining) — the
+same evidentiary shape that earned `--rule-r2` its ELF spot. Shipped as `--rule-r2` on PE too
+(main `src/pe_pipeline.rs`), no longer ELF-only.
 
 ## Reproduce
 
