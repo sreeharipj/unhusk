@@ -74,6 +74,15 @@ explain both the lower PE recall at this threshold and R1's failure to beat
 the incumbent there. Untested — a real candidate for the "why" work this
 report is deliberately not doing.
 
+**Retracted by `bench/corpus2_pe/REPORT.md` (2026-08-25, later the same day):** on a second,
+independent 34-crate PE corpus, R1 measures 97.3% vs the incumbent's 90.9% — a clear
+*improvement*, the opposite sign from the result above. The fragmentation mechanism above
+applies equally to every PE binary, so it cannot explain a sign flip between two PE corpora.
+The straightforward reading is that the original result was itself corpus-composition-
+dependent, not a PE-vs-ELF structural difference. Left in place rather than deleted, per this
+repo's own practice of keeping corrections visible — but treat "R1/R3 don't work on PE" as
+retracted, not merely caveated.
+
 ## Reproduce
 
 ```

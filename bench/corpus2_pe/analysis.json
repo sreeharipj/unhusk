@@ -1,0 +1,453 @@
+{
+  "n_rows": 1573,
+  "n_crates": 34,
+  "n_binaries": 37,
+  "crates": [
+    "broot",
+    "choose",
+    "cotp",
+    "csvlens",
+    "delta",
+    "diffr",
+    "diskonaut",
+    "diskus",
+    "dua-cli",
+    "fend",
+    "git-cliff",
+    "git-graph",
+    "hgrep",
+    "htmlq",
+    "jaq",
+    "kibi",
+    "kondo",
+    "lsd",
+    "mdbook",
+    "navi",
+    "numbat",
+    "onefetch",
+    "oxipng",
+    "presenterm",
+    "rip",
+    "rust-parallel",
+    "rustypaste",
+    "sad",
+    "serie",
+    "skim",
+    "tre-command",
+    "viu",
+    "vivid",
+    "watchexec"
+  ],
+  "overall_certain": {
+    "n": 1573,
+    "k_agree": 1318,
+    "n_disagree": 255,
+    "precision_pooled_pct": 83.79,
+    "precision_pooled_ci95": [
+      81.89,
+      85.53
+    ],
+    "precision_cluster_pct": 83.79,
+    "precision_cluster_ci95": [
+      79.64,
+      87.06
+    ],
+    "n_crates_with_data": 34,
+    "fp_count": 255,
+    "fp_crates": [
+      "broot",
+      "choose",
+      "cotp",
+      "csvlens",
+      "delta",
+      "diskonaut",
+      "diskus",
+      "dua-cli",
+      "fend",
+      "git-cliff",
+      "hgrep",
+      "jaq",
+      "kibi",
+      "kondo",
+      "mdbook",
+      "navi",
+      "numbat",
+      "onefetch",
+      "oxipng",
+      "presenterm",
+      "rust-parallel",
+      "rustypaste",
+      "sad",
+      "serie",
+      "skim",
+      "tre-command",
+      "viu",
+      "watchexec"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 195,
+      "dep:rayon-core@1.13.0": 1,
+      "dep:once_cell@1.21.3": 1,
+      "dep:structopt@0.3.26": 1,
+      "dep:ratatui-core@0.1.0": 2,
+      "dep:anstyle-parse@0.2.3": 1,
+      "dep:tui@0.11.0": 1,
+      "dep:rayon@1.11.0": 6,
+      "dep:rustyline@18.0.0": 2,
+      "dep:tokio@1.52.3": 5,
+      "dep:async-stream@0.3.6": 4,
+      "dep:futures-core@0.3.31": 1,
+      "dep:futures-util@0.3.31": 1,
+      "dep:grep-searcher@0.1.16": 2,
+      "dep:clap_builder@4.5.54": 1,
+      "dep:axum@0.8.9": 2,
+      "dep:walkdir@2.5.0": 1,
+      "dep:rustyline@16.0.0": 1,
+      "dep:itertools@0.14.0": 1,
+      "dep:clap_builder@4.6.0": 2,
+      "dep:rayon@1.12.0": 1,
+      "dep:tracing@0.1.44": 1,
+      "dep:actix-server@2.6.0": 1,
+      "dep:actix-web-grants@4.1.2": 1,
+      "dep:actix-web@4.14.0": 6,
+      "dep:futures-util@0.3.32": 9,
+      "dep:futures-core@0.3.32": 2,
+      "dep:eyre@0.6.12": 1,
+      "dep:tokio@1.49.0": 2
+    },
+    "fp_by_match_kind": {
+      "exact": 255
+    }
+  },
+  "strong_tier": {
+    "n": 704,
+    "k_agree": 640,
+    "n_disagree": 64,
+    "precision_pooled_pct": 90.91,
+    "precision_pooled_ci95": [
+      88.56,
+      92.82
+    ],
+    "precision_cluster_pct": 90.91,
+    "precision_cluster_ci95": [
+      86.8,
+      93.72
+    ],
+    "n_crates_with_data": 34,
+    "fp_count": 64,
+    "fp_crates": [
+      "broot",
+      "cotp",
+      "csvlens",
+      "delta",
+      "diskonaut",
+      "diskus",
+      "fend",
+      "git-cliff",
+      "hgrep",
+      "jaq",
+      "mdbook",
+      "navi",
+      "numbat",
+      "presenterm",
+      "rust-parallel",
+      "sad",
+      "serie",
+      "skim",
+      "viu",
+      "watchexec"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 35,
+      "dep:rayon-core@1.13.0": 1,
+      "dep:ratatui-core@0.1.0": 2,
+      "dep:anstyle-parse@0.2.3": 1,
+      "dep:tui@0.11.0": 1,
+      "dep:rayon@1.11.0": 2,
+      "dep:rustyline@18.0.0": 1,
+      "dep:tokio@1.52.3": 5,
+      "dep:async-stream@0.3.6": 4,
+      "dep:futures-core@0.3.31": 1,
+      "dep:futures-util@0.3.31": 1,
+      "dep:grep-searcher@0.1.16": 2,
+      "dep:rustyline@16.0.0": 1,
+      "dep:tracing@0.1.44": 1,
+      "dep:futures-util@0.3.32": 5,
+      "dep:tokio@1.49.0": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 64
+    }
+  },
+  "single_tier": {
+    "n": 869,
+    "k_agree": 678,
+    "n_disagree": 191,
+    "precision_pooled_pct": 78.02,
+    "precision_pooled_ci95": [
+      75.15,
+      80.65
+    ],
+    "precision_cluster_pct": 78.02,
+    "precision_cluster_ci95": [
+      71.7,
+      83.4
+    ],
+    "n_crates_with_data": 31,
+    "fp_count": 191,
+    "fp_crates": [
+      "broot",
+      "choose",
+      "cotp",
+      "csvlens",
+      "delta",
+      "diskonaut",
+      "dua-cli",
+      "fend",
+      "git-cliff",
+      "hgrep",
+      "jaq",
+      "kibi",
+      "kondo",
+      "mdbook",
+      "navi",
+      "numbat",
+      "onefetch",
+      "oxipng",
+      "presenterm",
+      "rustypaste",
+      "sad",
+      "serie",
+      "skim",
+      "tre-command",
+      "watchexec"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 160,
+      "dep:once_cell@1.21.3": 1,
+      "dep:structopt@0.3.26": 1,
+      "dep:rustyline@18.0.0": 1,
+      "dep:rayon@1.11.0": 4,
+      "dep:clap_builder@4.5.54": 1,
+      "dep:axum@0.8.9": 2,
+      "dep:walkdir@2.5.0": 1,
+      "dep:itertools@0.14.0": 1,
+      "dep:clap_builder@4.6.0": 2,
+      "dep:rayon@1.12.0": 1,
+      "dep:actix-server@2.6.0": 1,
+      "dep:actix-web-grants@4.1.2": 1,
+      "dep:actix-web@4.14.0": 6,
+      "dep:futures-core@0.3.32": 2,
+      "dep:futures-util@0.3.32": 4,
+      "dep:eyre@0.6.12": 1,
+      "dep:tokio@1.49.0": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 191
+    }
+  },
+  "rule_a2": {
+    "n": 704,
+    "k_agree": 640,
+    "n_disagree": 64,
+    "precision_pooled_pct": 90.91,
+    "precision_pooled_ci95": [
+      88.56,
+      92.82
+    ],
+    "precision_cluster_pct": 90.91,
+    "precision_cluster_ci95": [
+      86.8,
+      93.72
+    ],
+    "n_crates_with_data": 34,
+    "fp_count": 64,
+    "fp_crates": [
+      "broot",
+      "cotp",
+      "csvlens",
+      "delta",
+      "diskonaut",
+      "diskus",
+      "fend",
+      "git-cliff",
+      "hgrep",
+      "jaq",
+      "mdbook",
+      "navi",
+      "numbat",
+      "presenterm",
+      "rust-parallel",
+      "sad",
+      "serie",
+      "skim",
+      "viu",
+      "watchexec"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 35,
+      "dep:rayon-core@1.13.0": 1,
+      "dep:ratatui-core@0.1.0": 2,
+      "dep:anstyle-parse@0.2.3": 1,
+      "dep:tui@0.11.0": 1,
+      "dep:rayon@1.11.0": 2,
+      "dep:rustyline@18.0.0": 1,
+      "dep:tokio@1.52.3": 5,
+      "dep:async-stream@0.3.6": 4,
+      "dep:futures-core@0.3.31": 1,
+      "dep:futures-util@0.3.31": 1,
+      "dep:grep-searcher@0.1.16": 2,
+      "dep:rustyline@16.0.0": 1,
+      "dep:tracing@0.1.44": 1,
+      "dep:futures-util@0.3.32": 5,
+      "dep:tokio@1.49.0": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 64
+    }
+  },
+  "rule_a2_strict": {
+    "n": 358,
+    "k_agree": 340,
+    "n_disagree": 18,
+    "precision_pooled_pct": 94.97,
+    "precision_pooled_ci95": [
+      92.19,
+      96.8
+    ],
+    "precision_cluster_pct": 94.97,
+    "precision_cluster_ci95": [
+      91.46,
+      97.27
+    ],
+    "n_crates_with_data": 26,
+    "fp_count": 18,
+    "fp_crates": [
+      "broot",
+      "csvlens",
+      "delta",
+      "git-cliff",
+      "hgrep",
+      "jaq",
+      "numbat",
+      "presenterm",
+      "rust-parallel",
+      "serie",
+      "skim",
+      "watchexec"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 16,
+      "dep:grep-searcher@0.1.16": 1,
+      "dep:tracing@0.1.44": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 18
+    }
+  },
+  "rule_r1": {
+    "n": 149,
+    "k_agree": 145,
+    "n_disagree": 4,
+    "precision_pooled_pct": 97.32,
+    "precision_pooled_ci95": [
+      93.3,
+      98.95
+    ],
+    "precision_cluster_pct": 97.32,
+    "precision_cluster_ci95": [
+      94.33,
+      100.0
+    ],
+    "n_crates_with_data": 17,
+    "fp_count": 4,
+    "fp_crates": [
+      "broot",
+      "delta",
+      "numbat"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 4
+    },
+    "fp_by_match_kind": {
+      "exact": 4
+    }
+  },
+  "rule_r2": {
+    "n": 446,
+    "k_agree": 426,
+    "n_disagree": 20,
+    "precision_pooled_pct": 95.52,
+    "precision_pooled_ci95": [
+      93.18,
+      97.08
+    ],
+    "precision_cluster_pct": 95.52,
+    "precision_cluster_ci95": [
+      91.72,
+      98.02
+    ],
+    "n_crates_with_data": 31,
+    "fp_count": 20,
+    "fp_crates": [
+      "broot",
+      "cotp",
+      "diskonaut",
+      "diskus",
+      "fend",
+      "git-cliff",
+      "mdbook",
+      "numbat",
+      "presenterm",
+      "rust-parallel",
+      "serie"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 4,
+      "dep:ratatui-core@0.1.0": 2,
+      "dep:tui@0.11.0": 1,
+      "dep:rayon@1.11.0": 1,
+      "dep:tokio@1.52.3": 4,
+      "dep:async-stream@0.3.6": 4,
+      "dep:futures-core@0.3.31": 1,
+      "dep:futures-util@0.3.31": 1,
+      "dep:rustyline@16.0.0": 1,
+      "dep:tracing@0.1.44": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 20
+    }
+  },
+  "rule_r3": {
+    "n": 188,
+    "k_agree": 181,
+    "n_disagree": 7,
+    "precision_pooled_pct": 96.28,
+    "precision_pooled_ci95": [
+      92.52,
+      98.18
+    ],
+    "precision_cluster_pct": 96.28,
+    "precision_cluster_ci95": [
+      93.51,
+      98.45
+    ],
+    "n_crates_with_data": 17,
+    "fp_count": 7,
+    "fp_crates": [
+      "broot",
+      "choose",
+      "cotp",
+      "delta",
+      "oxipng",
+      "skim"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 6,
+      "dep:rayon@1.12.0": 1
+    },
+    "fp_by_match_kind": {
+      "exact": 7
+    }
+  }
+}

@@ -62,6 +62,15 @@ that partially defeated the probe's `fan-out`-vulnerable `sort_by` family
 (`docs/local/PDB_ORACLE_hardcase.md` §9) does not generalize to this
 corpus's broader FP mix.
 
+**Retracted by `bench/corpus2_pe/REPORT.md` (2026-08-25, later the same day):** on a second,
+independent PE corpus, R1 (97.3%) and R3 (96.3%) both clearly beat this corpus's incumbent
+baseline (90.9%) — the opposite of "do not rescue precision" above. Kept in place rather than
+deleted, per this repo's practice of keeping corrections visible in the record rather than
+overwriting them — but this specific negative finding does not hold as a general claim about
+PE; it held on this specific 39-crate sample. R2 was unmeasurable when this report was
+written (no PE call-graph extraction existed yet); it now is, and its first measurement
+(95.5%) is positive too.
+
 ## Reproduce
 
 ```
