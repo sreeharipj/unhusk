@@ -1182,6 +1182,20 @@ reaches it. That is a sharper and more falsifiable statement of the recall probl
 than 'the async gap is irreducible', and it is a research direction rather than a
 limitation.
 
+**Addendum, 2026-08-25 — two of this report's own open threads closed, elsewhere.**
+The "G geometry" family in this study's own feature set was the second most
+important of eight in the ablation above, but stayed inside the unconstrained
+ensemble rather than becoming a readable rule ("what does not exist yet is a
+rule an analyst can read that reaches it," this section's own words). That gap
+is closed in `bench/size_signal/REPORT.md`: raw function size and anchor
+density (`G_loc_per_kb`, this study's own CART split point) both turned into
+simple threshold rules, held-out validated on ELF and PE. R2 was also
+measured on PE for the first time — unavailable to this study, which is
+ELF-only throughout — and shipped there too (`bench/corpus2_pe/REPORT.md`),
+95.27% pooled across two independent PE corpora. R1/R3 were retested on PE and
+reversed sign between two independent PE corpora; that finding is corpus-
+dependent, not a property of this study's mined rules themselves.
+
 ---
 
 ## Appendix: reproducing
