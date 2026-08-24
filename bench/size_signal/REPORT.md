@@ -80,6 +80,39 @@ held-out checked, treat as discovery-only numbers):
 Best result found across this whole investigation. Not offered as `--rule-r2`'s default
 combination yet — the stacked versions haven't themselves been through a held-out split.
 
+## Confirmation on a second, fully independent corpus — mixed, reported honestly
+
+`bench/corpus2_elf/` (40 crates from `bench/rulemine/v4/src/`, zero overlap with the
+36-crate set every number above came from — not a second split of the same population, a
+genuinely new one) gives a real out-of-sample check, not just the internal 50/50 held-out
+split above.
+
+**R1 and R2 replicate cleanly, almost to the point.** a2 baseline 87.1% [83.8,89.8] (vs the
+original corpus's 86.8%); R1 92.8% [88.9,95.4] (beats baseline, matches the original's
+90.1%); **R2 94.6% [91.0,96.8] (matches the original's 93.0% closely).** Both rules'
+qualitative story — context corroboration beats the incumbent on ELF — holds up on crates
+that played no role in finding either rule.
+
+**Size and density replicate the DIRECTION but not the MAGNITUDE — weaker here, and
+stacking with R2 does not clearly help.** a2 + size≥1000: 87.1%→87.8% (vs 85.2%→91.0% on
+the original held-out half). a2 + density≤1.0: 87.1%→88.9% (vs 85.2%→94.2%). Stacked with
+R2, size gives essentially nothing here (94.6%→94.2%) and density is slightly *worse*
+(94.6%→91.7%) — the opposite of the original corpus's best-of-investigation result. The
+anchor-count==2-stratified curve (this report's strongest original evidence) is noisier here
+too — still net-increasing from the 500B bucket onward (75.0%→79.3%→87.7%→89.1%), but with
+a small-n (n=21) 100% outlier in the smallest bucket, not the original's clean 60→95
+monotonic climb.
+
+**Honest read: R1/R2 are robust, corpus-independent rules on ELF. Size/density are a real,
+mechanistically-motivated signal, but their MAGNITUDE looks more corpus-dependent than R1/R2's
+— probably because how much of the FP population is genuinely tiny-absorbed-closure-shaped,
+versus some other shape density/size can't see, varies more by which specific dependencies
+a corpus happens to exercise (this corpus's FPs lean on `cursive_core`/`async-stream`/`rayon`
+rather than the original's `tokio`/`futures`/`actix-web` mix).** `--min-size`/`--max-density`
+stay shipped (they're still a real, positive, directionally-consistent effect, never negative
+on either corpus) but should not be marketed with the original corpus's specific numbers as
+if they were corpus-independent constants the way R1/R2's numbers now can be.
+
 ## Shipped
 
 - `--min-size <BYTES>` (default 0, off). Works on both ELF and PE.
