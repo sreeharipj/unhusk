@@ -46,6 +46,17 @@ def size(r):
     return int(r["end"], 16) - int(r["start"], 16)
 
 
+def density(r):
+    """Anchors per KB. bench/rulemine's own CART tree (results/e05_models.json)
+    splits on G_loc_per_kb directly -- this is that feature, never turned into
+    a simple rule there. Low density (few anchors spread over real code) is
+    the TP signal; high density (anchors packed into a small absorbed-closure
+    shape) is the FP signal -- the same underlying mechanism as size, just
+    normalized by anchor count instead of held constant against it."""
+    s = size(r)
+    return r["anchor_count"] / (s / 1024.0) if s > 0 else float("inf")
+
+
 def load_rows(path):
     return json.load(open(path))
 
@@ -126,6 +137,23 @@ def main():
         n, k, stats = precision(held, lambda r: size(r) >= best_thresh)
         recall_pct = round(100 * n / len(held), 1) if held else None
         print(f"    size>={best_thresh}: n={n} ({recall_pct}% recall) "
+              f"pooled={stats['pooled_pct']}% {stats['pooled_ci95']} "
+              f"cluster={stats['cluster_pct']}% {stats['cluster_ci95']}")
+
+        print("  -- sweeping density threshold on DISCOVERY ONLY --")
+        best_dens = None
+        for thresh in (0.5, 1.0, 1.5, 2.0, 3.0):
+            n, k, stats = precision(disco, lambda r, t=thresh: density(r) <= t)
+            recall_pct = round(100 * n / len(disco), 1) if disco else None
+            print(f"    density<={thresh:4}: n={n:4d} ({recall_pct}% recall) "
+                  f"precision={stats['pooled_pct']}% {stats['pooled_ci95']}")
+            if thresh == 1.0:
+                best_dens = thresh  # the CART split point in rulemine's own tree
+
+        print(f"  -- confirming density<={best_dens} on HELD-OUT (scored once, never re-tuned) --")
+        n, k, stats = precision(held, lambda r: density(r) <= best_dens)
+        recall_pct = round(100 * n / len(held), 1) if held else None
+        print(f"    density<={best_dens}: n={n} ({recall_pct}% recall) "
               f"pooled={stats['pooled_pct']}% {stats['pooled_ci95']} "
               f"cluster={stats['cluster_pct']}% {stats['cluster_ci95']}")
 

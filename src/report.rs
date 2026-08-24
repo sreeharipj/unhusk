@@ -257,6 +257,7 @@ struct JsonReport<'a> {
     arch: &'a str,
     min_anchors: usize,
     min_size: u64,
+    max_density: Option<f64>,
     functions: Vec<JsonFunction<'a>>,
 }
 
@@ -278,6 +279,7 @@ fn build_json_report<'a>(
     min_anchors: usize,
     precision_mode: bool,
     min_size: u64,
+    max_density: Option<f64>,
 ) -> JsonReport<'a> {
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
         locations.iter().map(|l| (l.struct_vaddr, l)).collect();
@@ -296,6 +298,19 @@ fn build_json_report<'a>(
     // (PE) on crates never used to pick the threshold. Off by default so the
     // reproducible baseline is unchanged unless a caller opts in.
     rows.retain(|f| f.end.saturating_sub(f.start) >= min_size);
+    // max_density: anchors per KB. Also held-out validated, same report --
+    // a stronger, lower-recall companion to min_size (94.2%/94.7% ELF/PE at
+    // density<=1.0 vs size's 91.0%/93.1%, ~45% recall vs ~74%). None = off.
+    if let Some(cap) = max_density {
+        rows.retain(|f| {
+            let bytes = f.end.saturating_sub(f.start);
+            if bytes == 0 {
+                return true; // no denominator, nothing to cap
+            }
+            let anchors = user_anchor_count(certain_locs, f.start) as f64;
+            anchors / (bytes as f64 / 1024.0) <= cap
+        });
+    }
 
     let functions = rows
         .iter()
@@ -316,6 +331,7 @@ fn build_json_report<'a>(
         arch,
         min_anchors: min_anchors.max(1),
         min_size,
+        max_density,
         functions,
     }
 }
@@ -324,6 +340,7 @@ fn build_json_report<'a>(
 ///
 /// Suppresses the human report; this is the machine-readable feed for a
 /// YARA-rule generator.
+#[allow(clippy::too_many_arguments)]
 pub fn print_json_report(
     elf: &ParsedElf,
     attributed: &[AttributedFn],
@@ -332,6 +349,7 @@ pub fn print_json_report(
     min_anchors: usize,
     precision_mode: bool,
     min_size: u64,
+    max_density: Option<f64>,
 ) -> Result<()> {
     let binary = elf.path.display().to_string();
     let report = build_json_report(
@@ -343,6 +361,7 @@ pub fn print_json_report(
         min_anchors,
         precision_mode,
         min_size,
+        max_density,
     );
     let json = serde_json::to_string_pretty(&report).context("serializing the --json report")?;
     println!("{json}");
@@ -964,6 +983,7 @@ mod tests {
             1,
             false,
             0,
+            None,
         );
         (
             serde_json::to_string_pretty(&report).unwrap(),
@@ -1043,6 +1063,7 @@ mod tests {
             0, // floored to 1
             false,
             0,
+            None,
         );
         let doc: serde_json::Value =
             serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
@@ -1079,6 +1100,7 @@ mod tests {
             2,
             false,
             0,
+            None,
         );
         let doc: serde_json::Value =
             serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
@@ -1107,6 +1129,7 @@ mod tests {
             2,
             true,
             0,
+            None,
         );
         assert_eq!(report.functions.len(), 1);
         assert_eq!(report.functions[0].start, "0x100");

@@ -91,6 +91,21 @@ struct Args {
     #[arg(long, value_name = "N", default_value = "0")]
     min_size: u64,
 
+    /// Maximum anchor density (distinct user Locations per KB of function
+    /// size) for the --json feed. Unset = off, default. Works on both ELF
+    /// and PE, composable with --min-anchors, --min-size, and --rule-r2.
+    ///
+    /// Held-out validated the same way as --min-size, same report: at
+    /// density<=1.0 (bench/rulemine's own CART tree's split point, not a
+    /// value chosen by sweeping) STRONG precision goes 85.2% -> 94.2% (ELF),
+    /// 87.1% -> 94.7% (PE) on crates never used to pick the threshold --
+    /// stronger than --min-size, at lower recall (~45% vs ~74%). Direction
+    /// is inverted from size: an absorbed closure packs few anchors into a
+    /// small space (high density); genuine user code spreads anchors across
+    /// more real logic (low density).
+    #[arg(long, value_name = "N")]
+    max_density: Option<f64>,
+
     /// Alternate STRONG-tier rule (ELF only): a certain function needs >=2
     /// distinct user Locations of its own AND >=1 direct caller that is
     /// itself certain-user, instead of the default `--min-anchors`
@@ -144,6 +159,7 @@ fn main() -> Result<()> {
             precision: args.precision,
             json: args.json,
             min_size: args.min_size,
+            max_density: args.max_density,
             validate: args.validate.as_deref(),
         });
     }
@@ -220,6 +236,7 @@ fn main() -> Result<()> {
                     args.min_anchors,
                     args.precision,
                     args.min_size,
+                    args.max_density,
                 )?;
             }
             return Ok(());
@@ -320,6 +337,7 @@ fn main() -> Result<()> {
             args.min_anchors,
             args.precision,
             args.min_size,
+            args.max_density,
         )?;
         return Ok(());
     }
