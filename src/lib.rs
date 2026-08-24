@@ -6,6 +6,7 @@ pub mod frame;
 pub mod locate;
 pub mod origin;
 pub mod pdb_oracle;
+pub mod pe_pipeline;
 pub mod report;
 pub mod strings;
 pub mod types;

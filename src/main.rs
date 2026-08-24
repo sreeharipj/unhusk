@@ -24,11 +24,14 @@ struct Args {
     #[arg(long = "crate", value_name = "NAME", value_delimiter = ',')]
     root_crates: Vec<String>,
 
-    /// Optional unstripped companion binary for DWARF ground-truth validation.
+    /// Optional ground-truth companion for validation: an unstripped binary
+    /// (DWARF) for an ELF target, or a .pdb for a PE target.
     ///
-    /// When provided, unhusk reads .debug_info from this binary and reports
+    /// ELF: unhusk reads .debug_info from this binary and reports
     /// precision/recall of each attribution bucket against the DWARF truth.
-    #[arg(long, value_name = "UNSTRIPPED")]
+    /// PE (experimental, see the PE disclosure banner): unhusk reads the
+    /// PDB's line program and reports agree/disagree per tier.
+    #[arg(long, value_name = "UNSTRIPPED|PDB")]
     validate: Option<PathBuf>,
 
     /// Show the full call-closure list (inferred + indeterminate) instead of capping at 20.
@@ -86,8 +89,30 @@ struct Args {
     min_anchors: usize,
 }
 
+/// Sniff the first two bytes for the `MZ` DOS-header magic. Errors (missing
+/// file, permissions) are left to the real loader a few lines down; a short
+/// read just means "not PE, fall through to the ELF path".
+fn is_pe(path: &std::path::Path) -> Result<bool> {
+    use std::io::Read;
+    let mut f = std::fs::File::open(path)?;
+    let mut magic = [0u8; 2];
+    Ok(f.read_exact(&mut magic).is_ok() && &magic == b"MZ")
+}
+
 fn main() -> Result<()> {
     let args = Args::parse();
+
+    if is_pe(&args.binary)? {
+        let root_crates = unhusk::pe_pipeline::resolve_root_crates(&args.binary, &args.root_crates)?;
+        return unhusk::pe_pipeline::run(&unhusk::pe_pipeline::PeArgs {
+            binary: &args.binary,
+            root_crates,
+            min_anchors: args.min_anchors,
+            precision: args.precision,
+            json: args.json,
+            validate: args.validate.as_deref(),
+        });
+    }
 
     let elf = unhusk::elf::ParsedElf::load(&args.binary)?;
 
