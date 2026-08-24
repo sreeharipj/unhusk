@@ -256,6 +256,7 @@ struct JsonReport<'a> {
     binary: &'a str,
     arch: &'a str,
     min_anchors: usize,
+    min_size: u64,
     functions: Vec<JsonFunction<'a>>,
 }
 
@@ -267,6 +268,7 @@ struct JsonReport<'a> {
 /// and "ends in .rs", so a crafted sample can put quotes, backslashes, newlines
 /// or other control bytes in them. Serialization must therefore go through serde,
 /// never through hand-rolled quoting.
+#[allow(clippy::too_many_arguments)]
 fn build_json_report<'a>(
     binary: &'a str,
     arch: &'a str,
@@ -275,6 +277,7 @@ fn build_json_report<'a>(
     certain_locs: &crate::xref::CertainLocs,
     min_anchors: usize,
     precision_mode: bool,
+    min_size: u64,
 ) -> JsonReport<'a> {
     let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
         locations.iter().map(|l| (l.struct_vaddr, l)).collect();
@@ -287,6 +290,12 @@ fn build_json_report<'a>(
     rows.sort_by_key(|f| f.start);
     // In precision mode, emit only the STRONG tier (~94%); drop single-anchor (~80%).
     rows.retain(|f| !precision_mode || tiers[&f.start] == Tier::Strong);
+    // min_size defaults to 0, a no-op (every function has size >= 0) -- see
+    // bench/size_signal/REPORT.md: held-out validated on both ELF and PE,
+    // size>=1000 lifts STRONG precision from 85.2%->91.0% (ELF) / 87.1%->93.1%
+    // (PE) on crates never used to pick the threshold. Off by default so the
+    // reproducible baseline is unchanged unless a caller opts in.
+    rows.retain(|f| f.end.saturating_sub(f.start) >= min_size);
 
     let functions = rows
         .iter()
@@ -306,6 +315,7 @@ fn build_json_report<'a>(
         binary,
         arch,
         min_anchors: min_anchors.max(1),
+        min_size,
         functions,
     }
 }
@@ -321,6 +331,7 @@ pub fn print_json_report(
     certain_locs: &crate::xref::CertainLocs,
     min_anchors: usize,
     precision_mode: bool,
+    min_size: u64,
 ) -> Result<()> {
     let binary = elf.path.display().to_string();
     let report = build_json_report(
@@ -331,6 +342,7 @@ pub fn print_json_report(
         certain_locs,
         min_anchors,
         precision_mode,
+        min_size,
     );
     let json = serde_json::to_string_pretty(&report).context("serializing the --json report")?;
     println!("{json}");
@@ -951,6 +963,7 @@ mod tests {
             certain_locs,
             1,
             false,
+            0,
         );
         (
             serde_json::to_string_pretty(&report).unwrap(),
@@ -1029,6 +1042,7 @@ mod tests {
             &certain_locs,
             0, // floored to 1
             false,
+            0,
         );
         let doc: serde_json::Value =
             serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
@@ -1064,6 +1078,7 @@ mod tests {
             &crate::xref::CertainLocs::new(),
             2,
             false,
+            0,
         );
         let doc: serde_json::Value =
             serde_json::from_str(&serde_json::to_string(&report).unwrap()).unwrap();
@@ -1091,6 +1106,7 @@ mod tests {
             &certain_locs,
             2,
             true,
+            0,
         );
         assert_eq!(report.functions.len(), 1);
         assert_eq!(report.functions[0].start, "0x100");

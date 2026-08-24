@@ -76,6 +76,21 @@ struct Args {
     #[arg(long)]
     json: bool,
 
+    /// Minimum function size in bytes for the --json feed (0 = off, default).
+    /// Works on both ELF and PE, composable with --min-anchors and --rule-r2.
+    ///
+    /// Held-out validated (bench/size_signal/REPORT.md): the 36 crates common
+    /// to both format corpora, split 50/50 by crate (never by function --
+    /// that would leak), threshold picked on one half only. --min-size 1000
+    /// on the OTHER, previously-unseen half: STRONG precision 85.2% -> 91.0%
+    /// (ELF), 87.1% -> 93.1% (PE), ~74% recall retained on both. Mechanistic
+    /// story: a small library routine that absorbed one inlined user closure
+    /// stays small; a genuine user function doing real work usually isn't.
+    /// Off by default so the reproducible baseline is unchanged unless a
+    /// caller opts in.
+    #[arg(long, value_name = "N", default_value = "0")]
+    min_size: u64,
+
     /// Alternate STRONG-tier rule (ELF only): a certain function needs >=2
     /// distinct user Locations of its own AND >=1 direct caller that is
     /// itself certain-user, instead of the default `--min-anchors`
@@ -128,6 +143,7 @@ fn main() -> Result<()> {
             min_anchors: args.min_anchors,
             precision: args.precision,
             json: args.json,
+            min_size: args.min_size,
             validate: args.validate.as_deref(),
         });
     }
@@ -203,6 +219,7 @@ fn main() -> Result<()> {
                     &unhusk::xref::CertainLocs::new(),
                     args.min_anchors,
                     args.precision,
+                    args.min_size,
                 )?;
             }
             return Ok(());
@@ -302,6 +319,7 @@ fn main() -> Result<()> {
             &scan.certain_locs,
             args.min_anchors,
             args.precision,
+            args.min_size,
         )?;
         return Ok(());
     }

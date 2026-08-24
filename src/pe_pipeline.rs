@@ -159,7 +159,12 @@ fn anchor_files(scan: &PeScan, fn_start: u64) -> BTreeSet<&str> {
         .collect()
 }
 
-fn tiered_rows<'a>(scan: &'a PeScan, tiers: &HashMap<u64, Tier>, precision_only: bool) -> Vec<&'a AttributedFn> {
+fn tiered_rows<'a>(
+    scan: &'a PeScan,
+    tiers: &HashMap<u64, Tier>,
+    precision_only: bool,
+    min_size: u64,
+) -> Vec<&'a AttributedFn> {
     let mut rows: Vec<&AttributedFn> = scan
         .attributed
         .iter()
@@ -167,11 +172,15 @@ fn tiered_rows<'a>(scan: &'a PeScan, tiers: &HashMap<u64, Tier>, precision_only:
         .collect();
     rows.sort_by_key(|f| f.start);
     rows.retain(|f| !precision_only || tiers[&f.start] == Tier::Strong);
+    // min_size defaults to 0 (no-op). See bench/size_signal/REPORT.md: held-out
+    // validated on this exact format, size>=1000 lifts held-out STRONG
+    // precision 87.1%->93.1%.
+    rows.retain(|f| f.end.saturating_sub(f.start) >= min_size);
     rows
 }
 
 fn print_human(binary: &Path, scan: &PeScan, tiers: &HashMap<u64, Tier>, precision_only: bool) {
-    let rows = tiered_rows(scan, tiers, precision_only);
+    let rows = tiered_rows(scan, tiers, precision_only, 0);
     println!(
         "unhusk (PE, experimental): {} -- {} certain function(s){}",
         binary.display(),
@@ -210,6 +219,7 @@ struct JsonReport<'a> {
     experimental: bool,
     disclosure: &'static str,
     min_anchors: usize,
+    min_size: u64,
     functions: Vec<JsonFunction<'a>>,
 }
 
@@ -219,8 +229,9 @@ fn print_json(
     tiers: &HashMap<u64, Tier>,
     min_anchors: usize,
     precision_only: bool,
+    min_size: u64,
 ) -> Result<()> {
-    let rows = tiered_rows(scan, tiers, precision_only);
+    let rows = tiered_rows(scan, tiers, precision_only, min_size);
     let functions = rows
         .iter()
         .map(|f| JsonFunction {
@@ -238,6 +249,7 @@ fn print_json(
         experimental: true,
         disclosure: DISCLOSURE,
         min_anchors: min_anchors.max(1),
+        min_size,
         functions,
     };
     println!("{}", serde_json::to_string(&report)?);
@@ -311,6 +323,8 @@ pub struct PeArgs<'a> {
     pub min_anchors: usize,
     pub precision: bool,
     pub json: bool,
+    /// Minimum function size in bytes (0 = off). See bench/size_signal/REPORT.md.
+    pub min_size: u64,
     /// Optional `.pdb` companion for ground-truth validation (the PE analog
     /// of ELF's `--validate <unstripped>`).
     pub validate: Option<&'a Path>,
@@ -323,7 +337,7 @@ pub fn run(args: &PeArgs) -> Result<()> {
     let tiers = tier_certain(&s.attributed, &s.certain_locs, args.min_anchors);
 
     if args.json {
-        print_json(args.binary, &s, &tiers, args.min_anchors, args.precision)?;
+        print_json(args.binary, &s, &tiers, args.min_anchors, args.precision, args.min_size)?;
     } else {
         eprintln!("{DISCLOSURE}");
         print_human(args.binary, &s, &tiers, args.precision);
