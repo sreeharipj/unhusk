@@ -58,7 +58,10 @@ def summarize(rows, predicate=None):
     fps = [r for r in scored if r["verdict"] == "disagree"]
     fp_crates = sorted({crate_of(r["crate_bin"]) for r in fps})
     fp_origin = Counter(r["oracle_origin"] or "none" for r in fps)
-    fp_matched = Counter(r["matched"] for r in fps)
+    # ELF rows have no `matched` field at all -- .eh_frame FDEs don't
+    # fragment the way PE's .pdata does, so there's no Fragment/Exact
+    # distinction to make; every ELF row is an unambiguous exact join.
+    fp_matched = Counter(r.get("matched", "exact") for r in fps)
 
     return {
         "n": n,
@@ -84,6 +87,10 @@ def main():
         print(f"MISSING: {path} -- run pe_corpus_measure first", file=sys.stderr)
         sys.exit(1)
     rows = json.load(open(path))
+    # Write next to the input, not next to this script -- this file is
+    # shared by bench/pe_corpus and bench/elf_corpus's matched measurement,
+    # and each must get its own analysis.json.
+    out_dir = os.path.dirname(os.path.abspath(path))
 
     crates_seen = sorted({crate_of(r["crate_bin"]) for r in rows})
     binaries_seen = sorted({r["crate_bin"] for r in rows})
@@ -103,10 +110,15 @@ def main():
         "rule_a2": summarize(rows, lambda r: r["fires_a2"]),
         "rule_a2_strict": summarize(rows, lambda r: r["fires_a2_strict"]),
         "rule_r1": summarize(rows, lambda r: r["fires_r1"]),
+        # r2 needs caller_rel (a call graph) -- only present in elf_corpus's
+        # rows (PE has no CALL-edge extraction). r.get() so a pe_corpus
+        # rows.json (no fires_r2 key at all) reads as "never fires" instead
+        # of KeyError, and shows as n=0 rather than crashing.
+        "rule_r2": summarize(rows, lambda r: r.get("fires_r2", False)),
         "rule_r3": summarize(rows, lambda r: r["fires_r3"]),
     }
 
-    out_path = os.path.join(HERE, "analysis.json")
+    out_path = os.path.join(out_dir, "analysis.json")
     with open(out_path, "w") as f:
         json.dump(out, f, indent=2)
 
@@ -118,6 +130,7 @@ def main():
         ("RULE a2 (shipped: n_rel>=2)", "rule_a2"),
         ("RULE a2_strict (n_rel>=2 & n_nonrel==0)", "rule_a2_strict"),
         ("RULE r1 (n_rel>=2 & window_rel>=3)", "rule_r1"),
+        ("RULE r2 (n_rel>=2 & caller_rel>=1)", "rule_r2"),
         ("RULE r3 (n_rel>=1 & window_rel>=5)", "rule_r3"),
     )
     for label, key in sections:

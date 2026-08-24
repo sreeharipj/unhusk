@@ -1,12 +1,10 @@
 {
-  "n_rows": 2641,
-  "n_crates": 39,
-  "n_binaries": 41,
+  "n_rows": 2667,
+  "n_crates": 36,
+  "n_binaries": 42,
   "crates": [
     "bat",
-    "bore",
     "bottom",
-    "dog",
     "dprint",
     "dufs",
     "dust",
@@ -19,7 +17,6 @@
     "hyperfine",
     "just",
     "miniserve",
-    "mprocs",
     "mqttui",
     "oha",
     "oxker",
@@ -44,24 +41,23 @@
     "zoxide"
   ],
   "overall_certain": {
-    "n": 2641,
-    "k_agree": 2061,
-    "n_disagree": 580,
-    "precision_pooled_pct": 78.04,
+    "n": 1886,
+    "k_agree": 1389,
+    "n_disagree": 497,
+    "precision_pooled_pct": 73.65,
     "precision_pooled_ci95": [
-      76.42,
-      79.58
+      71.61,
+      75.59
     ],
-    "precision_cluster_pct": 78.04,
+    "precision_cluster_pct": 73.65,
     "precision_cluster_ci95": [
-      69.19,
-      84.84
+      61.37,
+      82.21
     ],
-    "n_crates_with_data": 39,
-    "fp_count": 580,
+    "n_crates_with_data": 36,
+    "fp_count": 497,
     "fp_crates": [
       "bat",
-      "bore",
       "bottom",
       "dprint",
       "dust",
@@ -74,7 +70,6 @@
       "hyperfine",
       "just",
       "miniserve",
-      "mprocs",
       "mqttui",
       "oha",
       "oxker",
@@ -96,86 +91,73 @@
       "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 401,
-      "dep:tracing@0.1.37": 3,
-      "dep:tokio@1.28.0": 4,
-      "dep:ratatui-core@0.1.2": 3,
-      "dep:futures-util@0.3.32": 4,
+      "std": 367,
       "dep:wasmtime@43.0.2": 5,
-      "dep:tokio@1.50.0": 1,
-      "dep:serde_json@1.0.149": 1,
+      "dep:futures-util@0.3.32": 4,
       "dep:once_cell@1.21.3": 1,
+      "dep:serde_json@1.0.149": 1,
+      "dep:clap_builder@4.6.0": 6,
       "dep:serde_json@1.0.150": 1,
       "dep:serde_core@1.0.228": 1,
-      "dep:tokio@1.52.3": 10,
+      "dep:tokio@1.52.3": 7,
       "dep:actix-web@4.14.0": 10,
       "dep:actix-web-httpauth@0.8.2": 1,
-      "dep:clap_builder@4.6.0": 4,
-      "dep:rquickjs-core@0.12.0": 20,
-      "dep:compact_str@0.9.0": 1,
       "dep:tokio@1.53.1": 2,
       "dep:nom@7.1.3": 1,
-      "dep:eyre@0.6.12": 4,
-      "dep:windows-service@0.8.1": 2,
-      "dep:i18n-embed@0.16.0": 1,
-      "dep:secrecy@0.10.3": 2,
+      "dep:eyre@0.6.12": 3,
+      "dep:i18n-embed@0.16.0": 2,
       "dep:nom@8.0.0": 4,
+      "dep:tracing@0.1.37": 1,
       "dep:futures-util@0.3.31": 1,
       "dep:rayon@1.12.0": 5,
       "dep:rowan@0.15.15": 6,
       "dep:either@1.10.0": 2,
       "dep:tokio@1.36.0": 2,
-      "dep:serde_json@1.0.113": 1,
       "dep:futures-util@0.3.30": 4,
+      "dep:serde_json@1.0.113": 1,
       "dep:rayon@1.10.0": 1,
       "dep:clap_builder@4.6.2": 1,
       "dep:clap_builder@4.5.60": 2,
-      "dep:futures@0.1.31": 17,
+      "dep:futures@0.1.31": 7,
       "dep:tokio-io@0.1.13": 18,
       "dep:futures-util@0.3.33": 13,
       "dep:async-executor@1.14.0": 3,
-      "dep:futures-core@0.3.33": 1,
       "dep:futures-lite@2.6.1": 10,
-      "dep:http@1.4.2": 1,
-      "dep:csv@1.0.1": 2,
+      "dep:futures-core@0.3.33": 1,
       "dep:threadpool@1.7.1": 3
     },
     "fp_by_match_kind": {
-      "exact": 580
+      "exact": 497
     }
   },
   "strong_tier": {
-    "n": 1237,
-    "k_agree": 1103,
-    "n_disagree": 134,
-    "precision_pooled_pct": 89.17,
+    "n": 831,
+    "k_agree": 721,
+    "n_disagree": 110,
+    "precision_pooled_pct": 86.76,
     "precision_pooled_ci95": [
-      87.31,
-      90.78
+      84.29,
+      88.9
     ],
-    "precision_cluster_pct": 89.17,
+    "precision_cluster_pct": 86.76,
     "precision_cluster_ci95": [
-      83.1,
-      93.61
+      79.2,
+      92.25
     ],
-    "n_crates_with_data": 39,
-    "fp_count": 134,
+    "n_crates_with_data": 36,
+    "fp_count": 110,
     "fp_crates": [
       "bat",
-      "bore",
-      "bottom",
       "dprint",
       "dust",
+      "eza",
       "fd",
       "gping",
-      "hyperfine",
       "just",
       "miniserve",
-      "mprocs",
       "mqttui",
       "oha",
       "pastel",
-      "pueue",
       "rage",
       "rathole",
       "rustscan",
@@ -189,54 +171,49 @@
       "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 57,
-      "dep:tracing@0.1.37": 3,
-      "dep:tokio@1.28.0": 4,
-      "dep:ratatui-core@0.1.2": 3,
-      "dep:futures-util@0.3.32": 3,
-      "dep:tokio@1.50.0": 1,
+      "std": 53,
+      "dep:futures-util@0.3.32": 2,
       "dep:once_cell@1.21.3": 1,
       "dep:serde_core@1.0.228": 1,
-      "dep:tokio@1.52.3": 6,
+      "dep:tokio@1.52.3": 5,
       "dep:actix-web@4.14.0": 5,
       "dep:actix-web-httpauth@0.8.2": 1,
       "dep:clap_builder@4.6.0": 1,
-      "dep:rquickjs-core@0.12.0": 3,
       "dep:nom@7.1.3": 1,
-      "dep:windows-service@0.8.1": 2,
       "dep:nom@8.0.0": 3,
+      "dep:tracing@0.1.37": 1,
       "dep:futures-util@0.3.31": 1,
       "dep:rayon@1.12.0": 2,
       "dep:either@1.10.0": 1,
       "dep:tokio@1.36.0": 1,
       "dep:serde_json@1.0.113": 1,
-      "dep:futures@0.1.31": 4,
-      "dep:tokio-io@0.1.13": 8,
+      "dep:futures@0.1.31": 2,
+      "dep:tokio-io@0.1.13": 7,
       "dep:futures-util@0.3.33": 5,
       "dep:async-executor@1.14.0": 3,
       "dep:futures-lite@2.6.1": 10,
       "dep:threadpool@1.7.1": 3
     },
     "fp_by_match_kind": {
-      "exact": 134
+      "exact": 110
     }
   },
   "single_tier": {
-    "n": 1404,
-    "k_agree": 958,
-    "n_disagree": 446,
-    "precision_pooled_pct": 68.23,
+    "n": 1055,
+    "k_agree": 668,
+    "n_disagree": 387,
+    "precision_pooled_pct": 63.32,
     "precision_pooled_ci95": [
-      65.75,
-      70.62
+      60.37,
+      66.17
     ],
-    "precision_cluster_pct": 68.23,
+    "precision_cluster_pct": 63.32,
     "precision_cluster_ci95": [
-      56.16,
-      78.61
+      47.66,
+      75.28
     ],
-    "n_crates_with_data": 38,
-    "fp_count": 446,
+    "n_crates_with_data": 35,
+    "fp_count": 387,
     "fp_crates": [
       "bat",
       "bottom",
@@ -251,7 +228,6 @@
       "hyperfine",
       "just",
       "miniserve",
-      "mprocs",
       "mqttui",
       "oha",
       "oxker",
@@ -269,72 +245,63 @@
       "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 344,
+      "std": 314,
       "dep:wasmtime@43.0.2": 5,
       "dep:serde_json@1.0.149": 1,
-      "dep:futures-util@0.3.32": 1,
+      "dep:clap_builder@4.6.0": 5,
+      "dep:futures-util@0.3.32": 2,
       "dep:serde_json@1.0.150": 1,
       "dep:actix-web@4.14.0": 5,
-      "dep:rquickjs-core@0.12.0": 17,
-      "dep:compact_str@0.9.0": 1,
-      "dep:tokio@1.52.3": 4,
+      "dep:tokio@1.52.3": 2,
       "dep:tokio@1.53.1": 2,
-      "dep:eyre@0.6.12": 4,
-      "dep:clap_builder@4.6.0": 3,
-      "dep:i18n-embed@0.16.0": 1,
-      "dep:secrecy@0.10.3": 2,
+      "dep:eyre@0.6.12": 3,
+      "dep:i18n-embed@0.16.0": 2,
       "dep:nom@8.0.0": 1,
       "dep:rayon@1.12.0": 3,
       "dep:rowan@0.15.15": 6,
       "dep:tokio@1.36.0": 1,
-      "dep:either@1.10.0": 1,
       "dep:futures-util@0.3.30": 4,
+      "dep:either@1.10.0": 1,
       "dep:rayon@1.10.0": 1,
       "dep:clap_builder@4.6.2": 1,
       "dep:clap_builder@4.5.60": 2,
-      "dep:futures@0.1.31": 13,
-      "dep:tokio-io@0.1.13": 10,
+      "dep:futures@0.1.31": 5,
+      "dep:tokio-io@0.1.13": 11,
       "dep:futures-util@0.3.33": 8,
-      "dep:futures-core@0.3.33": 1,
-      "dep:http@1.4.2": 1,
-      "dep:csv@1.0.1": 2
+      "dep:futures-core@0.3.33": 1
     },
     "fp_by_match_kind": {
-      "exact": 446
+      "exact": 387
     }
   },
   "rule_a2": {
-    "n": 1237,
-    "k_agree": 1103,
-    "n_disagree": 134,
-    "precision_pooled_pct": 89.17,
+    "n": 831,
+    "k_agree": 721,
+    "n_disagree": 110,
+    "precision_pooled_pct": 86.76,
     "precision_pooled_ci95": [
-      87.31,
-      90.78
+      84.29,
+      88.9
     ],
-    "precision_cluster_pct": 89.17,
+    "precision_cluster_pct": 86.76,
     "precision_cluster_ci95": [
-      83.1,
-      93.61
+      79.2,
+      92.25
     ],
-    "n_crates_with_data": 39,
-    "fp_count": 134,
+    "n_crates_with_data": 36,
+    "fp_count": 110,
     "fp_crates": [
       "bat",
-      "bore",
-      "bottom",
       "dprint",
       "dust",
+      "eza",
       "fd",
       "gping",
-      "hyperfine",
       "just",
       "miniserve",
-      "mprocs",
       "mqttui",
       "oha",
       "pastel",
-      "pueue",
       "rage",
       "rathole",
       "rustscan",
@@ -348,65 +315,56 @@
       "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 57,
-      "dep:tracing@0.1.37": 3,
-      "dep:tokio@1.28.0": 4,
-      "dep:ratatui-core@0.1.2": 3,
-      "dep:futures-util@0.3.32": 3,
-      "dep:tokio@1.50.0": 1,
+      "std": 53,
+      "dep:futures-util@0.3.32": 2,
       "dep:once_cell@1.21.3": 1,
       "dep:serde_core@1.0.228": 1,
-      "dep:tokio@1.52.3": 6,
+      "dep:tokio@1.52.3": 5,
       "dep:actix-web@4.14.0": 5,
       "dep:actix-web-httpauth@0.8.2": 1,
       "dep:clap_builder@4.6.0": 1,
-      "dep:rquickjs-core@0.12.0": 3,
       "dep:nom@7.1.3": 1,
-      "dep:windows-service@0.8.1": 2,
       "dep:nom@8.0.0": 3,
+      "dep:tracing@0.1.37": 1,
       "dep:futures-util@0.3.31": 1,
       "dep:rayon@1.12.0": 2,
       "dep:either@1.10.0": 1,
       "dep:tokio@1.36.0": 1,
       "dep:serde_json@1.0.113": 1,
-      "dep:futures@0.1.31": 4,
-      "dep:tokio-io@0.1.13": 8,
+      "dep:futures@0.1.31": 2,
+      "dep:tokio-io@0.1.13": 7,
       "dep:futures-util@0.3.33": 5,
       "dep:async-executor@1.14.0": 3,
       "dep:futures-lite@2.6.1": 10,
       "dep:threadpool@1.7.1": 3
     },
     "fp_by_match_kind": {
-      "exact": 134
+      "exact": 110
     }
   },
   "rule_a2_strict": {
-    "n": 428,
-    "k_agree": 371,
-    "n_disagree": 57,
-    "precision_pooled_pct": 86.68,
+    "n": 282,
+    "k_agree": 234,
+    "n_disagree": 48,
+    "precision_pooled_pct": 82.98,
     "precision_pooled_ci95": [
-      83.13,
-      89.58
+      78.16,
+      86.91
     ],
-    "precision_cluster_pct": 86.68,
+    "precision_cluster_pct": 82.98,
     "precision_cluster_ci95": [
-      80.34,
-      92.81
+      76.19,
+      90.8
     ],
-    "n_crates_with_data": 35,
-    "fp_count": 57,
+    "n_crates_with_data": 30,
+    "fp_count": 48,
     "fp_crates": [
       "bat",
-      "bore",
       "dprint",
       "dust",
-      "hyperfine",
       "just",
       "miniserve",
-      "mprocs",
       "oha",
-      "pueue",
       "taplo",
       "topgrade",
       "trippy",
@@ -415,107 +373,160 @@
       "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 21,
-      "dep:tokio@1.28.0": 2,
+      "std": 18,
+      "dep:futures-util@0.3.32": 1,
       "dep:once_cell@1.21.3": 1,
-      "dep:futures-util@0.3.32": 2,
       "dep:serde_core@1.0.228": 1,
       "dep:clap_builder@4.6.0": 1,
       "dep:tokio@1.52.3": 2,
-      "dep:windows-service@0.8.1": 1,
       "dep:either@1.10.0": 1,
       "dep:futures@0.1.31": 2,
-      "dep:tokio-io@0.1.13": 8,
-      "dep:futures-util@0.3.33": 3,
+      "dep:tokio-io@0.1.13": 7,
+      "dep:futures-util@0.3.33": 2,
       "dep:async-executor@1.14.0": 2,
       "dep:futures-lite@2.6.1": 9,
       "dep:threadpool@1.7.1": 1
     },
     "fp_by_match_kind": {
-      "exact": 57
+      "exact": 48
     }
   },
   "rule_r1": {
-    "n": 211,
-    "k_agree": 179,
-    "n_disagree": 32,
-    "precision_pooled_pct": 84.83,
+    "n": 653,
+    "k_agree": 588,
+    "n_disagree": 65,
+    "precision_pooled_pct": 90.05,
     "precision_pooled_ci95": [
-      79.37,
-      89.05
+      87.51,
+      92.11
     ],
-    "precision_cluster_pct": 84.83,
+    "precision_cluster_pct": 90.05,
     "precision_cluster_ci95": [
-      70.31,
-      98.04
+      80.69,
+      97.06
     ],
-    "n_crates_with_data": 25,
-    "fp_count": 32,
+    "n_crates_with_data": 28,
+    "fp_count": 65,
     "fp_crates": [
+      "dprint",
       "just",
       "miniserve",
-      "mprocs",
-      "pastel",
-      "trippy",
-      "websocat"
+      "oha",
+      "rage",
+      "taplo",
+      "topgrade",
+      "websocat",
+      "wormhole-rs",
+      "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 18,
+      "std": 28,
       "dep:actix-web@4.14.0": 4,
-      "dep:rquickjs-core@0.12.0": 1,
-      "dep:nom@7.1.3": 1,
-      "dep:tokio-io@0.1.13": 8
+      "dep:tokio@1.52.3": 4,
+      "dep:nom@8.0.0": 1,
+      "dep:either@1.10.0": 1,
+      "dep:tokio-io@0.1.13": 7,
+      "dep:futures-util@0.3.33": 5,
+      "dep:async-executor@1.14.0": 3,
+      "dep:futures-lite@2.6.1": 10,
+      "dep:threadpool@1.7.1": 2
+    },
+    "fp_by_match_kind": {
+      "exact": 65
+    }
+  },
+  "rule_r2": {
+    "n": 454,
+    "k_agree": 422,
+    "n_disagree": 32,
+    "precision_pooled_pct": 92.95,
+    "precision_pooled_ci95": [
+      90.22,
+      94.96
+    ],
+    "precision_cluster_pct": 92.95,
+    "precision_cluster_ci95": [
+      86.5,
+      97.32
+    ],
+    "n_crates_with_data": 33,
+    "fp_count": 32,
+    "fp_crates": [
+      "dprint",
+      "just",
+      "miniserve",
+      "oha",
+      "rage",
+      "rustscan",
+      "taplo",
+      "topgrade",
+      "websocat",
+      "wormhole-rs"
+    ],
+    "fp_by_oracle_origin": {
+      "std": 10,
+      "dep:serde_core@1.0.228": 1,
+      "dep:tokio@1.52.3": 5,
+      "dep:nom@8.0.0": 2,
+      "dep:futures-util@0.3.31": 1,
+      "dep:either@1.10.0": 1,
+      "dep:serde_json@1.0.113": 1,
+      "dep:futures-lite@2.6.1": 10,
+      "dep:futures-util@0.3.33": 1
     },
     "fp_by_match_kind": {
       "exact": 32
     }
   },
-  "rule_r2": {
-    "n": 0,
-    "k_agree": 0,
-    "n_disagree": 0,
-    "precision_pooled_pct": null,
-    "precision_pooled_ci95": null,
-    "precision_cluster_pct": null,
-    "precision_cluster_ci95": null,
-    "n_crates_with_data": 0,
-    "fp_count": 0,
-    "fp_crates": [],
-    "fp_by_oracle_origin": {},
-    "fp_by_match_kind": {}
-  },
   "rule_r3": {
-    "n": 286,
-    "k_agree": 237,
-    "n_disagree": 49,
-    "precision_pooled_pct": 82.87,
+    "n": 1112,
+    "k_agree": 873,
+    "n_disagree": 239,
+    "precision_pooled_pct": 78.51,
     "precision_pooled_ci95": [
-      78.07,
-      86.79
+      76.0,
+      80.82
     ],
-    "precision_cluster_pct": 82.87,
+    "precision_cluster_pct": 78.51,
     "precision_cluster_ci95": [
-      72.63,
-      97.06
+      56.18,
+      93.07
     ],
-    "n_crates_with_data": 28,
-    "fp_count": 49,
+    "n_crates_with_data": 27,
+    "fp_count": 239,
     "fp_crates": [
+      "bat",
+      "dprint",
+      "ferium",
       "just",
       "miniserve",
-      "mprocs",
+      "mqttui",
+      "oha",
+      "rage",
+      "starship",
+      "taplo",
       "tokei",
-      "trippy",
-      "websocat"
+      "topgrade",
+      "websocat",
+      "wormhole-rs",
+      "xsv"
     ],
     "fp_by_oracle_origin": {
-      "std": 31,
+      "std": 192,
+      "dep:futures-util@0.3.32": 1,
       "dep:actix-web@4.14.0": 9,
-      "dep:rquickjs-core@0.12.0": 2,
-      "dep:tokio-io@0.1.13": 7
+      "dep:tokio@1.52.3": 2,
+      "dep:nom@8.0.0": 2,
+      "dep:rowan@0.15.15": 2,
+      "dep:futures-util@0.3.30": 4,
+      "dep:tokio-io@0.1.13": 8,
+      "dep:futures-util@0.3.33": 5,
+      "dep:async-executor@1.14.0": 2,
+      "dep:futures-lite@2.6.1": 10,
+      "dep:threadpool@1.7.1": 2
     },
     "fp_by_match_kind": {
-      "exact": 49
+      "exact": 239
     }
   }
 }
