@@ -41,6 +41,7 @@ docker run --rm -v "$(pwd)":/work -w /work unhusk <stripped-elf>
 
 ```sh
 unhusk <stripped-elf>                          # identify author functions
+unhusk <stripped.exe>                          # PE works too, auto-detected (see Limitations)
 unhusk <stripped-elf> --precision              # only the high-confidence tier
 unhusk <stripped-elf> --min-anchors 3          # stricter: more precision, less recall
 unhusk <stripped-elf> --precision --json       # machine-readable, for downstream tools
@@ -65,6 +66,26 @@ unhusk <stripped-elf> --crate ripgrep          # name the root crate (usually au
 
 Six distinct author crash-sites in one function, from `akiranew`'s own source tree, recovered with no symbols and no debug info. [winnow](https://github.com/sreeharipj/winnow) turns functions like this one into YARA-X rules ([example](https://github.com/sreeharipj/winnow/blob/main/examples/akira_v2_x_tier1.yar)).
 
+Same thing against a real PE build — Hive ransomware, sample
+`01ea06db82a72d8eaa3209311b20f3da34aebda948204f615c63e5cb62057538` (SHA-256, lookup on any
+public malware DB). Its ELF sibling (a separate Hive sample, `vmware_encrypt` instead of
+`windows_encrypt`) was found the same way in an earlier validation pass:
+
+```json
+{
+  "start": "0x156df",
+  "end": "0x1b9a4",
+  "size": 25285,
+  "tier": "strong",
+  "anchor_count": 81,
+  "anchor_files": ["windows_encrypt/src/main.rs"]
+}
+```
+
+81 distinct author crash-sites in one function — same `windows_encrypt`/`config`/`libs`
+crate layout the ELF-side Hive sample showed under `vmware_encrypt`, cross-compiled for two
+different targets and recovered from both with no symbols, no PDB, no debug info.
+
 ## How well it works
 
 Precision is workload-dependent, and that dependency is the main thing to understand before trusting a result: it is strongest on synchronous command-line and systems code, and clearly weaker on async and heavily generic code — which is the harder case, because real Rust malware skews async.
@@ -76,23 +97,28 @@ Rather than restate figures that drift as the corpus grows, the measurements liv
 - [`bench/origin/INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md) — how often the main false-positive mode actually fires, with real instances rather than constructed ones.
 - [`bench/malwarebazaar_survey/`](bench/malwarebazaar_survey/) — how much Rust malware is actually out there, measured rather than assumed.
 
+**As of 2026-08-25:** PE is measured at the same corpus scale as ELF, on the identical
+39 crates — [`bench/pe_corpus/REPORT.md`](bench/pe_corpus/REPORT.md) and
+[`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md). The two formats' STRONG-tier
+precision is statistically indistinguishable, confirming the inline-absorption false
+positive below is one shared classifier bug, not a PE-specific defect.
+
 The validation is built to attack its own conclusions: two independent ground-truth rulers that disagree for a diagnosed reason, hypotheses registered before the data, a headline precision figure corrected downward once harder binaries were added, and one confidence tier shipped and then withdrawn when a cleaner measurement showed it was an artifact of the harness.
 
 ## Limitations
 
 - **Functions that can't crash can't be found.** Pure computation and simple accessors have no crash-site to anchor on, so recall is partial by design. That's acceptable for signature generation, which needs a few good seeds rather than every function.
 - **Async and generic-heavy code is measurably weaker**, and that is irreducible in a stripped binary.
-- **A library function can absorb an author's inlined closure** and get misattributed as author code (`sort_by`, `rayon`, futures combinators). This is a property of the classifier, not of the file format; it has no general fix yet. Measured in [`INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md).
+- **A library function can absorb an author's inlined closure** and get misattributed as author code (`sort_by`, `rayon`, futures combinators). This is a property of the classifier, not of the file format — confirmed by measuring it independently on ELF and PE at matched corpus scale, same rate on both ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md) / [`bench/pe_corpus/REPORT.md`](bench/pe_corpus/REPORT.md)) — and it has no general fix yet. Also measured in [`INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md).
 - **Code reached only indirectly** — through trait objects or function pointers — reads as library code, because the scan follows static call edges only.
 - **Defeated by packing and by `--remap-path-prefix`**, both of which real malware uses. Both are detected and reported rather than silently returning nothing. Nightly's `panic_immediate_abort` removes the metadata outright, but changes how the program behaves.
-- **x86-64 ELF only.** There is a tested PE/PDB library in the tree, but no flag or code path reaches it from the CLI — using it means writing Rust against the library yourself. No Mach-O, no aarch64.
+- **x86-64 only — ELF and Windows PE**, auto-detected. PE is STRONG/SINGLE tier only: no call-graph extraction exists for it yet, so there's no inferred/indeterminate bucket, and every PE run prints a disclosure banner. No Mach-O, no aarch64.
 - Most validation is on benign open-source programs. Malware testing has started, but the corpus is small.
 
 ## In progress
 
-- **Windows PE support** — the container and PDB-based ground-truth work needed to make PE a first-class input rather than an unwired library.
-- **Mining the attribution rule from first principles** — deriving the classifier from the data instead of hand-tuning it, and checking candidate rules against held-out crates. Method, results, and the negative findings: [`bench/rulemine/REPORT.md`](bench/rulemine/REPORT.md).
-- **Shipping the best rule the mining produces**, once it survives held-out validation.
+- **PE call-graph extraction** — no CALL-edge decode pass exists for PE yet, so it's STRONG/SINGLE tier only (no inferred/indeterminate), and the mined R2 rule below (caller-corroborated, ELF-only) has no PE equivalent to measure.
+- **Mining the attribution rule from first principles** — deriving the classifier from the data instead of hand-tuning it, and checking candidate rules against held-out crates. Method, results, and the negative findings: [`bench/rulemine/REPORT.md`](bench/rulemine/REPORT.md). One result already shipped as an opt-in: `--rule-r2` (ELF only, `--json` required) measured at 92.95% STRONG precision vs the default rule's 86.76% on a matched corpus ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md)) — off by default so the standard rule stays the reproducible one. Whether it becomes the default is still open.
 
 ## Prior work
 
