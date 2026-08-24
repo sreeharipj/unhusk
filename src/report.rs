@@ -337,6 +337,82 @@ pub fn print_json_report(
     Ok(())
 }
 
+// ── R2 (bench/rulemine's mined rule, --rule-r2) ─────────────────────────────
+//
+// A separate, additive output path rather than a branch inside
+// `build_json_report`/`tier_certain`: R2 has no Single tier (a function
+// either satisfies `n_rel>=2 & caller_rel>=1` or is excluded entirely, see
+// `xref::caller_rel`'s doc comment for the measured precision), so it is not
+// a drop-in replacement for the existing tier split. Keeping it a separate
+// function means the default `--min-anchors` path is untouched by
+// construction, not just by convention.
+
+#[derive(Serialize)]
+struct R2Function<'a> {
+    start: String,
+    end: String,
+    size: u64,
+    n_rel: usize,
+    caller_rel: u64,
+    anchor_files: Vec<&'a str>,
+}
+
+#[derive(Serialize)]
+struct R2Report<'a> {
+    binary: &'a str,
+    arch: &'a str,
+    rule: &'static str,
+    functions: Vec<R2Function<'a>>,
+}
+
+/// Emit the R2-tiered certain functions as JSON — the `--rule-r2` analog of
+/// `print_json_report`'s `--precision --json`. `caller_rel` comes from
+/// `xref::caller_rel`.
+pub fn print_r2_json_report(
+    elf: &ParsedElf,
+    attributed: &[AttributedFn],
+    locations: &[crate::locate::PanicLocation],
+    certain_locs: &crate::xref::CertainLocs,
+    caller_rel: &std::collections::HashMap<u64, u64>,
+) -> Result<()> {
+    let loc_by_struct: std::collections::HashMap<u64, &crate::locate::PanicLocation> =
+        locations.iter().map(|l| (l.struct_vaddr, l)).collect();
+
+    let mut functions: Vec<R2Function> = attributed
+        .iter()
+        .filter(|f| f.attribution == Attribution::Certain)
+        .filter_map(|f| {
+            let n_rel = user_anchor_count(certain_locs, f.start);
+            let c_rel = caller_rel.get(&f.start).copied().unwrap_or(0);
+            if n_rel < 2 || c_rel < 1 {
+                return None;
+            }
+            Some(R2Function {
+                start: format!("0x{:x}", f.start),
+                end: format!("0x{:x}", f.end),
+                size: f.end.saturating_sub(f.start),
+                n_rel,
+                caller_rel: c_rel,
+                anchor_files: anchor_files(certain_locs, &loc_by_struct, f.start)
+                    .into_iter()
+                    .collect(),
+            })
+        })
+        .collect();
+    functions.sort_by(|a, b| a.start.cmp(&b.start));
+
+    let binary = elf.path.display().to_string();
+    let report = R2Report {
+        binary: &binary,
+        arch: elf.arch,
+        rule: "r2 (n_rel>=2 & caller_rel>=1)",
+        functions,
+    };
+    let json = serde_json::to_string_pretty(&report).context("serializing the --rule-r2 report")?;
+    println!("{json}");
+    Ok(())
+}
+
 /// Print the Phase 2 function-attribution report.
 #[allow(clippy::too_many_arguments)]
 pub fn print_phase2_report(

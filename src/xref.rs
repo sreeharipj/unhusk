@@ -244,6 +244,39 @@ fn scan_one(
     }
 }
 
+// ── R2 (bench/rulemine's mined rule) ────────────────────────────────────────
+
+/// For each function, the sum of `n_rel` (its distinct-user-Location count,
+/// i.e. `certain_locs[fn].len()`) over its DIRECT callers. A function with
+/// `caller_rel >= 1` has at least one caller that is itself Certain —
+/// corroborating evidence independent of the function's own multiplicity,
+/// which is what `--min-anchors` already keys on.
+///
+/// Measured on a 36-crate matched ELF corpus (`bench/elf_corpus/REPORT.md`)
+/// at `n_rel>=2 & caller_rel>=1`: 92.95% precision (CI95 [90.2,95.0]) vs the
+/// default rule's 86.76% — a genuine improvement, not a synthetic result,
+/// covering 55% of the default rule's population. Feeds
+/// `report::print_r2_json_report`, gated behind `--rule-r2` (off by
+/// default — the standard `--min-anchors` rule stays the reproducible
+/// default; see `bench/pe_corpus/REPORT.md` for the PE side, where the
+/// identical R1 rule did NOT transfer, so this is deliberately not the same
+/// promise on PE and isn't offered there).
+pub fn caller_rel(certain_locs: &CertainLocs, calls: &CallGraph) -> HashMap<u64, u64> {
+    let mut out: HashMap<u64, u64> = HashMap::new();
+    for (&caller, callees) in calls {
+        let n_rel = certain_locs.get(&caller).map_or(0, Vec::len) as u64;
+        if n_rel == 0 {
+            continue;
+        }
+        for &callee in callees {
+            if callee != caller {
+                *out.entry(callee).or_insert(0) += n_rel;
+            }
+        }
+    }
+    out
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 fn call_target(instr: &Instruction) -> Option<u64> {
@@ -251,5 +284,42 @@ fn call_target(instr: &Instruction) -> Option<u64> {
         Some(instr.near_branch64())
     } else {
         None
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn caller_rel_sums_certain_callers_n_rel() {
+        // caller (n_rel=2) -> callee_a; caller2 (n_rel=1) -> callee_a;
+        // callee_a is itself Certain (n_rel=1) but not a caller of anything.
+        let mut certain_locs: CertainLocs = HashMap::new();
+        certain_locs.insert(0x100, vec![1, 2]); // caller: n_rel=2
+        certain_locs.insert(0x200, vec![3]); // caller2: n_rel=1
+        certain_locs.insert(0x300, vec![4]); // callee_a: n_rel=1, not a caller
+
+        let mut calls: CallGraph = HashMap::new();
+        calls.insert(0x100, [0x300].into_iter().collect());
+        calls.insert(0x200, [0x300].into_iter().collect());
+
+        let rel = caller_rel(&certain_locs, &calls);
+        assert_eq!(rel.get(&0x300), Some(&3)); // 2 (from 0x100) + 1 (from 0x200)
+        assert_eq!(rel.get(&0x100), None); // never called
+    }
+
+    #[test]
+    fn caller_rel_ignores_non_certain_callers_and_self_calls() {
+        let mut certain_locs: CertainLocs = HashMap::new();
+        certain_locs.insert(0x100, vec![1]); // n_rel=1, but calls only itself
+        // 0x200 is not in certain_locs at all: n_rel=0, contributes nothing.
+
+        let mut calls: CallGraph = HashMap::new();
+        calls.insert(0x100, [0x100].into_iter().collect()); // self-recursive
+        calls.insert(0x200, [0x300].into_iter().collect()); // caller has n_rel=0
+
+        let rel = caller_rel(&certain_locs, &calls);
+        assert!(rel.is_empty());
     }
 }

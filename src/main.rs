@@ -76,6 +76,24 @@ struct Args {
     #[arg(long)]
     json: bool,
 
+    /// Alternate STRONG-tier rule (ELF only): a certain function needs >=2
+    /// distinct user Locations of its own AND >=1 direct caller that is
+    /// itself certain-user, instead of the default `--min-anchors`
+    /// multiplicity-only rule. Requires --json.
+    ///
+    /// Measured on a 36-crate matched ELF corpus: 92.95% precision (CI95
+    /// [90.2,95.0]), covering 55% of the default rule's STRONG population —
+    /// vs the default rule's own 86.76% on the identical corpus (see
+    /// bench/elf_corpus/REPORT.md). A genuine, corpus-validated improvement,
+    /// not a synthetic result.
+    ///
+    /// Off by default: this changes which functions get reported, so the
+    /// default stays the original --min-anchors rule for reproducibility.
+    /// The identical rule measured WORSE than the default on PE
+    /// (bench/pe_corpus/REPORT.md) — not offered there for that reason.
+    #[arg(long)]
+    rule_r2: bool,
+
     /// Distinct user panic Locations a function needs to enter the STRONG tier.
     ///
     /// This is the precision dial.  Pooled symbol precision across a 34-binary corpus
@@ -259,6 +277,21 @@ fn main() -> Result<()> {
             let n = scan.certain_locs.get(&addr).map_or(0, std::vec::Vec::len);
             println!("TIERDUMP\t0x{:x}\t{}\t{}", addr, tier.label(), n);
         }
+    }
+
+    if args.rule_r2 {
+        if args.json {
+            let caller_rel = unhusk::xref::caller_rel(&scan.certain_locs, &scan.calls);
+            unhusk::report::print_r2_json_report(
+                &elf,
+                &attributed,
+                &locations,
+                &scan.certain_locs,
+                &caller_rel,
+            )?;
+            return Ok(());
+        }
+        eprintln!("unhusk: --rule-r2 requires --json; ignoring --rule-r2");
     }
 
     if args.json {
