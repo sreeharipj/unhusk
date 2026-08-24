@@ -101,7 +101,12 @@ Rather than restate figures that drift as the corpus grows, the measurements liv
 39 crates — [`bench/pe_corpus/REPORT.md`](bench/pe_corpus/REPORT.md) and
 [`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md). The two formats' STRONG-tier
 precision is statistically indistinguishable, confirming the inline-absorption false
-positive below is one shared classifier bug, not a PE-specific defect.
+positive below is one shared classifier bug, not a PE-specific defect. A second, fully
+independent 40-crate corpus ([`bench/corpus2_elf/REPORT.md`](bench/corpus2_elf/REPORT.md),
+[`bench/corpus2_pe/REPORT.md`](bench/corpus2_pe/REPORT.md)) confirmed this and R2, but
+**retracted** an earlier finding that R1/R3 hurt precision on PE — that result reversed sign
+on the second corpus and was corpus-composition-dependent, not a real PE limitation. Kept
+visible in the original reports with dated correction notes rather than silently edited away.
 
 The validation is built to attack its own conclusions: two independent ground-truth rulers that disagree for a diagnosed reason, hypotheses registered before the data, a headline precision figure corrected downward once harder binaries were added, and one confidence tier shipped and then withdrawn when a cleaner measurement showed it was an artifact of the harness.
 
@@ -118,7 +123,7 @@ The validation is built to attack its own conclusions: two independent ground-tr
 ## In progress
 
 - **PE inferred/indeterminate tiering** — CALL-edge extraction landed (`PeImage::call_targets_in`), enough to compute R2 (caller-corroborated) for PE for the first time, but the BFS propagation and dep_boundary machinery `classify::attribute` uses for ELF's inferred/indeterminate buckets isn't wired for PE yet — STRONG/SINGLE only stays the shipped ceiling until it is.
-- **Mining the attribution rule from first principles** — deriving the classifier from the data instead of hand-tuning it, and checking candidate rules against held-out crates. Method, results, and the negative findings: [`bench/rulemine/REPORT.md`](bench/rulemine/REPORT.md). One result already shipped as an opt-in: `--rule-r2` (ELF only, `--json` required) measured at 92.95% STRONG precision vs the default rule's 86.76% on a matched corpus ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md)) — off by default so the standard rule stays the reproducible one. Whether it becomes the default is still open.
+- **Mining the attribution rule from first principles** — deriving the classifier from the data instead of hand-tuning it, and checking candidate rules against held-out crates. Method, results, and the negative findings: [`bench/rulemine/REPORT.md`](bench/rulemine/REPORT.md). One result already shipped as an opt-in, on both ELF and PE: `--rule-r2` (`--json` required) measured at 92.95% STRONG precision vs the default rule's 86.76% on a matched ELF corpus ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md)), and 95.27% vs 90.01% pooled across two independent PE corpora ([`bench/corpus2_pe/REPORT.md`](bench/corpus2_pe/REPORT.md)) — off by default so the standard rule stays the reproducible one. Whether it becomes the default is still open. Two more candidate rules, `--min-size`/`--max-density`, are held-out validated on both formats too ([`bench/size_signal/REPORT.md`](bench/size_signal/REPORT.md)), though their effect size looks more corpus-dependent than R2's.
 
 ## Prior work
 
