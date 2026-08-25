@@ -1,0 +1,4503 @@
+[
+  {
+    "category": "malware",
+    "hash_dir": "005f7884f04fd8be032c875a714a6413933d6cebcda2b4fb06de2f88a42bb089",
+    "filename": "005f7884f04fd8be032c875a714a6413933d6cebcda2b4fb06de2f88a42bb089.elf",
+    "format": "ELF",
+    "returncode": 1,
+    "error": "Error: unsupported architecture: Mips",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "0077e7d6e90ad972b64e90c343c617482f39505deff44ebff99ff49041252dcb",
+    "filename": "0077e7d6e90ad972b64e90c343c617482f39505deff44ebff99ff49041252dcb.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/0077e7d6e90ad972b64e90c343c617482f39505deff44ebff99ff49041252dcb/0077e7d6e90ad972b64e90c343c617482f39505deff44ebff99ff49041252dcb.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "011c781cef00e6451e27af18a558c3b12fef80f9f49355add6f02b5f900a3e82",
+    "filename": "011c781cef00e6451e27af18a558c3b12fef80f9f49355add6f02b5f900a3e82.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "01ea06db82a72d8eaa3209311b20f3da34aebda948204f615c63e5cb62057538",
+    "filename": "01ea06db82a72d8eaa3209311b20f3da34aebda948204f615c63e5cb62057538.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 12,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "033a280e25d03046cb22a3d2bb229994861d0b51c7ca70a3b2a750b7dd87a0ad",
+    "filename": "033a280e25d03046cb22a3d2bb229994861d0b51c7ca70a3b2a750b7dd87a0ad.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "036806c810e1f9446db3e9429f0f25670ad65240cd24f7f0162794938da57d3c",
+    "filename": "036806c810e1f9446db3e9429f0f25670ad65240cd24f7f0162794938da57d3c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "065208b037a2691eb75a14f97bdbd9914122655d42f6249d2cca419a1e4ba6f1",
+    "filename": "065208b037a2691eb75a14f97bdbd9914122655d42f6249d2cca419a1e4ba6f1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "0787ae2c43d3a8d3f69ab3d69692f789e0b4fa27b276e072ca44a82074477e34",
+    "filename": "0787ae2c43d3a8d3f69ab3d69692f789e0b4fa27b276e072ca44a82074477e34.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "08113ca015468d6c29af4e4e4754c003dacc194ce4a254e15f38060854f18867",
+    "filename": "08113ca015468d6c29af4e4e4754c003dacc194ce4a254e15f38060854f18867.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "087260fa859741d5226ceec3153deff3fe9baba69e8958b13451623bd811ca44",
+    "filename": "087260fa859741d5226ceec3153deff3fe9baba69e8958b13451623bd811ca44.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/087260fa859741d5226ceec3153deff3fe9baba69e8958b13451623bd811ca44/087260fa859741d5226ceec3153deff3fe9baba69e8958b13451623bd811ca44.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "087c48ddbd0d6354e6d4b36dbdb98d6a16896f9e58ac68b909b607bc2d989f08",
+    "filename": "087c48ddbd0d6354e6d4b36dbdb98d6a16896f9e58ac68b909b607bc2d989f08.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "08c11a4d6f275b0a5b57871c8d02097ec77019215ef66fb4e73dc7c29cf6833c",
+    "filename": "08c11a4d6f275b0a5b57871c8d02097ec77019215ef66fb4e73dc7c29cf6833c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "08faab44c35e864b94c2170611741c22f5cf6f6f21ff88c7abb8baeb97496818",
+    "filename": "08faab44c35e864b94c2170611741c22f5cf6f6f21ff88c7abb8baeb97496818.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "08ff371dff7eb8283c675a14af2477eede676756cdd4d2252ee7239140445ec9",
+    "filename": "08ff371dff7eb8283c675a14af2477eede676756cdd4d2252ee7239140445ec9.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/08ff371dff7eb8283c675a14af2477eede676756cdd4d2252ee7239140445ec9/08ff371dff7eb8283c675a14af2477eede676756cdd4d2252ee7239140445ec9.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "0a30c895bad0069f233ff2fe4c57e3dffaf233e892fb25fdb21cf312d9c8f8b4",
+    "filename": "0a30c895bad0069f233ff2fe4c57e3dffaf233e892fb25fdb21cf312d9c8f8b4.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/0a30c895bad0069f233ff2fe4c57e3dffaf233e892fb25fdb21cf312d9c8f8b4/0a30c895bad0069f233ff2fe4c57e3dffaf233e892fb25fdb21cf312d9c8f8b4.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "0d2010a9a6f2c5066afea6b63d881d17684a8f129c1410ff65020f00729bb3bb",
+    "filename": "0d2010a9a6f2c5066afea6b63d881d17684a8f129c1410ff65020f00729bb3bb.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "0e8e6fc94e6eb17cfd8993b3dcfd9acd11ee32f1b4e956df3097ae3259be4f9c",
+    "filename": "0e8e6fc94e6eb17cfd8993b3dcfd9acd11ee32f1b4e956df3097ae3259be4f9c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1048a41107f4d9a68c1f5fc0b99ac75dc198047f18bb6e50f3d462f262b8f6cd",
+    "filename": "1048a41107f4d9a68c1f5fc0b99ac75dc198047f18bb6e50f3d462f262b8f6cd.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/1048a41107f4d9a68c1f5fc0b99ac75dc198047f18bb6e50f3d462f262b8f6cd/1048a41107f4d9a68c1f5fc0b99ac75dc198047f18bb6e50f3d462f262b8f6cd.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "117fc30c25b1f28cd923b530ab9f91a0a818925b0b89b8bc9a7f820a9e630464",
+    "filename": "117fc30c25b1f28cd923b530ab9f91a0a818925b0b89b8bc9a7f820a9e630464.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "11cc94773e0d1b1d6c4a5c6ffb430a321ff470c83896ed7c6ae8b1d87e1e6443",
+    "filename": "11cc94773e0d1b1d6c4a5c6ffb430a321ff470c83896ed7c6ae8b1d87e1e6443.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "12138a12e35563461860d8c39d80e7cbf80aced9a3f197bf7e6a452a70e07048",
+    "filename": "12138a12e35563461860d8c39d80e7cbf80aced9a3f197bf7e6a452a70e07048.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/12138a12e35563461860d8c39d80e7cbf80aced9a3f197bf7e6a452a70e07048/12138a12e35563461860d8c39d80e7cbf80aced9a3f197bf7e6a452a70e07048.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "12c1faf03d13bcff2c86412ba517f479d43a7030307f37e3af344ec1eb80da42",
+    "filename": "12c1faf03d13bcff2c86412ba517f479d43a7030307f37e3af344ec1eb80da42.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "133e003cc510e3d2d0c7df70a603448605641256c88ce64a3bcabb762295d622",
+    "filename": "133e003cc510e3d2d0c7df70a603448605641256c88ce64a3bcabb762295d622.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "14ed3878b6623c287283a8a80020f68e1cb6bfc37b236f33a95f3a64c4f4611f",
+    "filename": "14ed3878b6623c287283a8a80020f68e1cb6bfc37b236f33a95f3a64c4f4611f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 34,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1509f264e1e97198ec674fe8ee464a6c05e216e5f29553b8e03289a8d7da6de3",
+    "filename": "1509f264e1e97198ec674fe8ee464a6c05e216e5f29553b8e03289a8d7da6de3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "15a290552f9cdc38b18e6c0babe7fdd52ff8abfa73ff823220fa994e7f023dc0",
+    "filename": "15a290552f9cdc38b18e6c0babe7fdd52ff8abfa73ff823220fa994e7f023dc0.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "15d06d1741cc8b5495da9c79c6f630e33060e80c73da9666500f6f0bdf5ff259",
+    "filename": "15d06d1741cc8b5495da9c79c6f630e33060e80c73da9666500f6f0bdf5ff259.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "16baebd1adfc1bae6e35773b383875ac831a011fefed63a0506b875596274b8c",
+    "filename": "16baebd1adfc1bae6e35773b383875ac831a011fefed63a0506b875596274b8c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1841ca56006417e6220a857f66c8e6539502d5e9f539cf337b83a25c15d17a50",
+    "filename": "1841ca56006417e6220a857f66c8e6539502d5e9f539cf337b83a25c15d17a50.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "196eb5bfd52d4a538d4d0a801808298faadec1fc9aeb07c231add0161b416807",
+    "filename": "196eb5bfd52d4a538d4d0a801808298faadec1fc9aeb07c231add0161b416807.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "19c54b520e8f6def1aab0c48fcdbac5962a0ec57442a3a015a0f860a76115718",
+    "filename": "19c54b520e8f6def1aab0c48fcdbac5962a0ec57442a3a015a0f860a76115718.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1a01cf874059dc90a50f255035c31ba2f55cd8084747d7b5812dc7475b47bd93",
+    "filename": "1a01cf874059dc90a50f255035c31ba2f55cd8084747d7b5812dc7475b47bd93.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 5,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1ab4a4a26a998bd0446d1ea56c72bb2773f3358eb511e52bc3b3c4411bc08b07",
+    "filename": "1ab4a4a26a998bd0446d1ea56c72bb2773f3358eb511e52bc3b3c4411bc08b07.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 15,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1ae58396525d6ffc72b14719d1d5aeac7bd2168f5a726aa038fb1d15b3c1bad3",
+    "filename": "1ae58396525d6ffc72b14719d1d5aeac7bd2168f5a726aa038fb1d15b3c1bad3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1b8c9e7c150bacd466fbe7f12b39883821f23b67cae0a427a57dc37e5ea4390f",
+    "filename": "1b8c9e7c150bacd466fbe7f12b39883821f23b67cae0a427a57dc37e5ea4390f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1b90e6f959db883fb4a036dac06242be724a7637708058e2c439e2250222d6d1",
+    "filename": "1b90e6f959db883fb4a036dac06242be724a7637708058e2c439e2250222d6d1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1c38e3cda8ac6d79d9da40834367697a209c6b07e6b3ab93b3a4f375b161a901",
+    "filename": "1c38e3cda8ac6d79d9da40834367697a209c6b07e6b3ab93b3a4f375b161a901.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 1,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1c4dbb8e28d0d219785c45408548ce15cd92c032f2a20f5f5c32e1d12eb50509",
+    "filename": "1c4dbb8e28d0d219785c45408548ce15cd92c032f2a20f5f5c32e1d12eb50509.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1c55d4144572be0ee5f5f95d9ce655549a7d0f55c74d576f649a85c323b31a63",
+    "filename": "1c55d4144572be0ee5f5f95d9ce655549a7d0f55c74d576f649a85c323b31a63.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1d6d47bf20d21b860d232a358481c477c36491134ea976372c69a0483e05a556",
+    "filename": "1d6d47bf20d21b860d232a358481c477c36491134ea976372c69a0483e05a556.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/1d6d47bf20d21b860d232a358481c477c36491134ea976372c69a0483e05a556/1d6d47bf20d21b860d232a358481c477c36491134ea976372c69a0483e05a556.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1da2ac26e7276121d27947007be6056c33cec55b7a3efcd555b6a91506769d8e",
+    "filename": "1da2ac26e7276121d27947007be6056c33cec55b7a3efcd555b6a91506769d8e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1e8696116c400742d13d6dfcad676badee68eac4a42a0693556f5dcfa82d0a46",
+    "filename": "1e8696116c400742d13d6dfcad676badee68eac4a42a0693556f5dcfa82d0a46.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/1e8696116c400742d13d6dfcad676badee68eac4a42a0693556f5dcfa82d0a46/1e8696116c400742d13d6dfcad676badee68eac4a42a0693556f5dcfa82d0a46.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "1fb6c6be88080f6a91c33616a9aa4c839dbc1062a904eeacd9fd379a22962498",
+    "filename": "1fb6c6be88080f6a91c33616a9aa4c839dbc1062a904eeacd9fd379a22962498.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "201215fdd6ba159d22621f2424f75b25fbe6dac1c85126e174e4ae999ef88111",
+    "filename": "201215fdd6ba159d22621f2424f75b25fbe6dac1c85126e174e4ae999ef88111.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "206de75058a7dfa0b96784965baab63a137f2e89a97e623842e7d0bb3f12c2fc",
+    "filename": "206de75058a7dfa0b96784965baab63a137f2e89a97e623842e7d0bb3f12c2fc.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/206de75058a7dfa0b96784965baab63a137f2e89a97e623842e7d0bb3f12c2fc/206de75058a7dfa0b96784965baab63a137f2e89a97e623842e7d0bb3f12c2fc.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "210c8271902f2984572936ee45db20f842841269c287c4e7e74996df91dff3ae",
+    "filename": "210c8271902f2984572936ee45db20f842841269c287c4e7e74996df91dff3ae.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/210c8271902f2984572936ee45db20f842841269c287c4e7e74996df91dff3ae/210c8271902f2984572936ee45db20f842841269c287c4e7e74996df91dff3ae.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "214ea9347df948e515af3f0ed446722e36f011e8cd34a221eb6e506269b955f3",
+    "filename": "214ea9347df948e515af3f0ed446722e36f011e8cd34a221eb6e506269b955f3.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/214ea9347df948e515af3f0ed446722e36f011e8cd34a221eb6e506269b955f3/214ea9347df948e515af3f0ed446722e36f011e8cd34a221eb6e506269b955f3.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "25364fb9f14a97437eb079e0778f724f3817faa7d23de316b2eca11bdae1e343",
+    "filename": "25364fb9f14a97437eb079e0778f724f3817faa7d23de316b2eca11bdae1e343.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/25364fb9f14a97437eb079e0778f724f3817faa7d23de316b2eca11bdae1e343/25364fb9f14a97437eb079e0778f724f3817faa7d23de316b2eca11bdae1e343.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "25d18c3823a3b210a18e69c823ce4c59fab298c315ac2a5d891027921d1c6d7e",
+    "filename": "25d18c3823a3b210a18e69c823ce4c59fab298c315ac2a5d891027921d1c6d7e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2604647c72f4ad3287edf8660af40fba21ed4bfd4b74a0b8d1a57c163c272c8f",
+    "filename": "2604647c72f4ad3287edf8660af40fba21ed4bfd4b74a0b8d1a57c163c272c8f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "271ef3c1d022829f0b15f2471d05a28d4786abafd0a9e1e742bde3f6b36872ad",
+    "filename": "271ef3c1d022829f0b15f2471d05a28d4786abafd0a9e1e742bde3f6b36872ad.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/271ef3c1d022829f0b15f2471d05a28d4786abafd0a9e1e742bde3f6b36872ad/271ef3c1d022829f0b15f2471d05a28d4786abafd0a9e1e742bde3f6b36872ad.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "272f1a3a51a58047de151bb50fa30c9056ab8a3ebfbc8e74919c3e114a5983d3",
+    "filename": "272f1a3a51a58047de151bb50fa30c9056ab8a3ebfbc8e74919c3e114a5983d3.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/272f1a3a51a58047de151bb50fa30c9056ab8a3ebfbc8e74919c3e114a5983d3/272f1a3a51a58047de151bb50fa30c9056ab8a3ebfbc8e74919c3e114a5983d3.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2790fbc25dae73ea4526ea5e39baf5bc9e44947258b05f43a01ec71f118e9bcb",
+    "filename": "2790fbc25dae73ea4526ea5e39baf5bc9e44947258b05f43a01ec71f118e9bcb.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2826e7c2c9141c27a2da27007b1045aeef6295b1f1dbdb50c1e45e656e6593fe",
+    "filename": "2826e7c2c9141c27a2da27007b1045aeef6295b1f1dbdb50c1e45e656e6593fe.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2918ebcbf06f5816d68ababd97c249ba3cf79d4bfab199761d6cfa40c10c1d60",
+    "filename": "2918ebcbf06f5816d68ababd97c249ba3cf79d4bfab199761d6cfa40c10c1d60.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "29d2f9308947efac0c804497666e1f03d61bc9321fdb498152a5d481d1e61a35",
+    "filename": "29d2f9308947efac0c804497666e1f03d61bc9321fdb498152a5d481d1e61a35.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2c4e60573ce8f55ba70b6d076347910908afc1a23502e942023de11ad069987d",
+    "filename": "2c4e60573ce8f55ba70b6d076347910908afc1a23502e942023de11ad069987d.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2d6b9e29a2b0c81e5ff46e9913a753128dbc3b944471bf5d89e12cba9c1f536a",
+    "filename": "2d6b9e29a2b0c81e5ff46e9913a753128dbc3b944471bf5d89e12cba9c1f536a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2e2ebc403a78c1066ecbbdd41e0ae03349ffa28009a1de41d8451d7576c093ba",
+    "filename": "2e2ebc403a78c1066ecbbdd41e0ae03349ffa28009a1de41d8451d7576c093ba.cmd",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2e52494e776be6433c89d5853f02b536f7da56e94bbe86ae4cc782f85bed2c4b",
+    "filename": "2e52494e776be6433c89d5853f02b536f7da56e94bbe86ae4cc782f85bed2c4b.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2ebada2d1035f3438759e3b1663030ccac600c3fd140b28a0c8ab6ca5407b488",
+    "filename": "2ebada2d1035f3438759e3b1663030ccac600c3fd140b28a0c8ab6ca5407b488.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "2f7ab4f79c6c0c2095d1964c414eb28c6e9513d6cfd1c01455c0c373d081290d",
+    "filename": "2f7ab4f79c6c0c2095d1964c414eb28c6e9513d6cfd1c01455c0c373d081290d.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "321d6dd9c7190b344888831600a7a8f2f1aa18710a5bf8bb992f9c90f3f565de",
+    "filename": "321d6dd9c7190b344888831600a7a8f2f1aa18710a5bf8bb992f9c90f3f565de.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "32304c278117353bd112132323055e113b62182d1efcc83abec1e736cf8da9e1",
+    "filename": "32304c278117353bd112132323055e113b62182d1efcc83abec1e736cf8da9e1.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/32304c278117353bd112132323055e113b62182d1efcc83abec1e736cf8da9e1/32304c278117353bd112132323055e113b62182d1efcc83abec1e736cf8da9e1.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "326993f7e516c7a9608bb8bdc9a7ae162ca485f70a97ede3fd9ba137878c66e5",
+    "filename": "326993f7e516c7a9608bb8bdc9a7ae162ca485f70a97ede3fd9ba137878c66e5.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/326993f7e516c7a9608bb8bdc9a7ae162ca485f70a97ede3fd9ba137878c66e5/326993f7e516c7a9608bb8bdc9a7ae162ca485f70a97ede3fd9ba137878c66e5.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "33352a38454cfc247bc7465bf177f5f97d7fd0bd220103d4422c8ec45b4d3d0e",
+    "filename": "33352a38454cfc247bc7465bf177f5f97d7fd0bd220103d4422c8ec45b4d3d0e.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/33352a38454cfc247bc7465bf177f5f97d7fd0bd220103d4422c8ec45b4d3d0e/33352a38454cfc247bc7465bf177f5f97d7fd0bd220103d4422c8ec45b4d3d0e.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "33aceb3dc0681a56226d4cfce32eee7a431e66f5c746a4d6dc7506a72b317277",
+    "filename": "33aceb3dc0681a56226d4cfce32eee7a431e66f5c746a4d6dc7506a72b317277.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "36f384938e022f6448676ad2f479b47efde5b02a09834b245f22aee9a15fd371",
+    "filename": "36f384938e022f6448676ad2f479b47efde5b02a09834b245f22aee9a15fd371.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3850817e83a1cf4195920110bb2995a0386fdaeacbf81e13f52bdb3d124911f5",
+    "filename": "3850817e83a1cf4195920110bb2995a0386fdaeacbf81e13f52bdb3d124911f5.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3850817e83a1cf4195920110bb2995a0386fdaeacbf81e13f52bdb3d124911f5/3850817e83a1cf4195920110bb2995a0386fdaeacbf81e13f52bdb3d124911f5.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "38d5f4f37686dab8b082b591224e272883644caab6a814e7751981da00523c51",
+    "filename": "38d5f4f37686dab8b082b591224e272883644caab6a814e7751981da00523c51.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/38d5f4f37686dab8b082b591224e272883644caab6a814e7751981da00523c51/38d5f4f37686dab8b082b591224e272883644caab6a814e7751981da00523c51.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "38f8d6a333875ca3ed81b1afb0868326d519f8922f85187cd372a1197130eb0f",
+    "filename": "38f8d6a333875ca3ed81b1afb0868326d519f8922f85187cd372a1197130eb0f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "39b3c82b1e7e5626e380a53df4ccb52f3002749447cfab362b8ec217189a0fd5",
+    "filename": "39b3c82b1e7e5626e380a53df4ccb52f3002749447cfab362b8ec217189a0fd5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3a08e3bfec2db5dbece359ac9662e65361a8625a0122e68b56cd5ef3aedf8ce1",
+    "filename": "3a08e3bfec2db5dbece359ac9662e65361a8625a0122e68b56cd5ef3aedf8ce1.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3a96c3075b8494fe6a76c6325946ab3f200e75ce26ad886446ea1394b5ac6ba1",
+    "filename": "3a96c3075b8494fe6a76c6325946ab3f200e75ce26ad886446ea1394b5ac6ba1.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3a96c3075b8494fe6a76c6325946ab3f200e75ce26ad886446ea1394b5ac6ba1/3a96c3075b8494fe6a76c6325946ab3f200e75ce26ad886446ea1394b5ac6ba1.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3b18241ac1018db1c2fb5c9e8306490bcafb373c852f1c5ebae65c672632a620",
+    "filename": "3b18241ac1018db1c2fb5c9e8306490bcafb373c852f1c5ebae65c672632a620.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3b18241ac1018db1c2fb5c9e8306490bcafb373c852f1c5ebae65c672632a620/3b18241ac1018db1c2fb5c9e8306490bcafb373c852f1c5ebae65c672632a620.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3c300726a6cdd8a39230f0775ea726c2d42838ac7ff53bfdd7c58d28df4182d5",
+    "filename": "3c300726a6cdd8a39230f0775ea726c2d42838ac7ff53bfdd7c58d28df4182d5.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3c300726a6cdd8a39230f0775ea726c2d42838ac7ff53bfdd7c58d28df4182d5/3c300726a6cdd8a39230f0775ea726c2d42838ac7ff53bfdd7c58d28df4182d5.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3c8ad2dae0b1bb536925b4e8d5a87e77c6134371eada2c7628358d6c6d3083dc",
+    "filename": "3c8ad2dae0b1bb536925b4e8d5a87e77c6134371eada2c7628358d6c6d3083dc.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3c8ad2dae0b1bb536925b4e8d5a87e77c6134371eada2c7628358d6c6d3083dc/3c8ad2dae0b1bb536925b4e8d5a87e77c6134371eada2c7628358d6c6d3083dc.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3cba4c992d174f01a9c3a2d7d785c9f6e9748547fc3e335556a56f132c3dfa5f",
+    "filename": "3cba4c992d174f01a9c3a2d7d785c9f6e9748547fc3e335556a56f132c3dfa5f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3cba4c992d174f01a9c3a2d7d785c9f6e9748547fc3e335556a56f132c3dfa5f/3cba4c992d174f01a9c3a2d7d785c9f6e9748547fc3e335556a56f132c3dfa5f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3d457b11a195ea28d5ce30afa350c5e718302a310da4eb0746406dba270f55b3",
+    "filename": "3d457b11a195ea28d5ce30afa350c5e718302a310da4eb0746406dba270f55b3.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3d457b11a195ea28d5ce30afa350c5e718302a310da4eb0746406dba270f55b3/3d457b11a195ea28d5ce30afa350c5e718302a310da4eb0746406dba270f55b3.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3d7cf20ca6476e14e0a026f9bdd8ff1f26995cdc5854c3adb41a6135ef11ba83",
+    "filename": "3d7cf20ca6476e14e0a026f9bdd8ff1f26995cdc5854c3adb41a6135ef11ba83.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3d7cf20ca6476e14e0a026f9bdd8ff1f26995cdc5854c3adb41a6135ef11ba83/3d7cf20ca6476e14e0a026f9bdd8ff1f26995cdc5854c3adb41a6135ef11ba83.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3d984c6d23e6b1440dbc5a3c717ce6b068318e625cedc61b3efdcada82d6861f",
+    "filename": "3d984c6d23e6b1440dbc5a3c717ce6b068318e625cedc61b3efdcada82d6861f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3dc3ce7e513db3c3adba74b09d9894411eb98f05eb994d26a9e8ddc3381e5fa5",
+    "filename": "3dc3ce7e513db3c3adba74b09d9894411eb98f05eb994d26a9e8ddc3381e5fa5.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3dc3ce7e513db3c3adba74b09d9894411eb98f05eb994d26a9e8ddc3381e5fa5/3dc3ce7e513db3c3adba74b09d9894411eb98f05eb994d26a9e8ddc3381e5fa5.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3de2a56cc13e85bc214d583dbd101857a129b796dae0c499fb5045a1508231ef",
+    "filename": "3de2a56cc13e85bc214d583dbd101857a129b796dae0c499fb5045a1508231ef.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3de2a56cc13e85bc214d583dbd101857a129b796dae0c499fb5045a1508231ef/3de2a56cc13e85bc214d583dbd101857a129b796dae0c499fb5045a1508231ef.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "3ed830b0803b63aca0a82661475c863801afd2e2b03c2675b05019d55f25a1f4",
+    "filename": "3ed830b0803b63aca0a82661475c863801afd2e2b03c2675b05019d55f25a1f4.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/3ed830b0803b63aca0a82661475c863801afd2e2b03c2675b05019d55f25a1f4/3ed830b0803b63aca0a82661475c863801afd2e2b03c2675b05019d55f25a1f4.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "40da7968b86654b9af30178540a4cacaf1c61476c4fcb95e438697bb5e47854f",
+    "filename": "40da7968b86654b9af30178540a4cacaf1c61476c4fcb95e438697bb5e47854f.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 1,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "415a4f39dd93c2ad5fd02023489352b974a9a917664240299ca4c35ca9a5a362",
+    "filename": "415a4f39dd93c2ad5fd02023489352b974a9a917664240299ca4c35ca9a5a362.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/415a4f39dd93c2ad5fd02023489352b974a9a917664240299ca4c35ca9a5a362/415a4f39dd93c2ad5fd02023489352b974a9a917664240299ca4c35ca9a5a362.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "42b0897474819a5d21de10488fdc539eea10b96d6e0679d9836bd4c6b40875aa",
+    "filename": "42b0897474819a5d21de10488fdc539eea10b96d6e0679d9836bd4c6b40875aa.elf",
+    "format": "ELF",
+    "returncode": 1,
+    "error": "Error: unsupported architecture: Arm",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "43d8c0c1c5f1343775230e0a039a141dbec618a1ae0edaa27893274bf189718c",
+    "filename": "43d8c0c1c5f1343775230e0a039a141dbec618a1ae0edaa27893274bf189718c.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/43d8c0c1c5f1343775230e0a039a141dbec618a1ae0edaa27893274bf189718c/43d8c0c1c5f1343775230e0a039a141dbec618a1ae0edaa27893274bf189718c.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4587e7d8e56a7694aa1881443312c1774da551459d3a48315acd0c694bcf87a0",
+    "filename": "4587e7d8e56a7694aa1881443312c1774da551459d3a48315acd0c694bcf87a0.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "45b8678f74d29c87e2d06410245ab6c2762b76190594cafc9543fb9db90f3d4f",
+    "filename": "45b8678f74d29c87e2d06410245ab6c2762b76190594cafc9543fb9db90f3d4f.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "45c9ec792bbb263ad7f58e1077dbee321115764abfbf9f26686fada2a17b6c4b",
+    "filename": "45c9ec792bbb263ad7f58e1077dbee321115764abfbf9f26686fada2a17b6c4b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "46daafc57c385a2d0b5516c058ead1ee9a49c7e5c0d411f546fb31985a61fe38",
+    "filename": "46daafc57c385a2d0b5516c058ead1ee9a49c7e5c0d411f546fb31985a61fe38.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/46daafc57c385a2d0b5516c058ead1ee9a49c7e5c0d411f546fb31985a61fe38/46daafc57c385a2d0b5516c058ead1ee9a49c7e5c0d411f546fb31985a61fe38.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4729c95c7b1da0c7176d100bb5fccea3b1c467f295e37677fab3b50d41ff1ff0",
+    "filename": "4729c95c7b1da0c7176d100bb5fccea3b1c467f295e37677fab3b50d41ff1ff0.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/4729c95c7b1da0c7176d100bb5fccea3b1c467f295e37677fab3b50d41ff1ff0/4729c95c7b1da0c7176d100bb5fccea3b1c467f295e37677fab3b50d41ff1ff0.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "47a734e624dac47b9043606c8833001dde8f341d71f77129da2eade4e02b3878",
+    "filename": "47a734e624dac47b9043606c8833001dde8f341d71f77129da2eade4e02b3878.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "47dbb2594cd5eb7015ef08b7fb803cd5adc1a1fbe4849dc847c0940f1ccace35",
+    "filename": "47dbb2594cd5eb7015ef08b7fb803cd5adc1a1fbe4849dc847c0940f1ccace35.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "482b160ee2e8d94fa6e4749f77e87da89c9658e7567459bc633d697430e3ad9a",
+    "filename": "482b160ee2e8d94fa6e4749f77e87da89c9658e7567459bc633d697430e3ad9a.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/482b160ee2e8d94fa6e4749f77e87da89c9658e7567459bc633d697430e3ad9a/482b160ee2e8d94fa6e4749f77e87da89c9658e7567459bc633d697430e3ad9a.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4bc60d512816e33bfa5c6a43ee4f9f60eae20c19ecb29c896d2664b0ed225c01",
+    "filename": "4bc60d512816e33bfa5c6a43ee4f9f60eae20c19ecb29c896d2664b0ed225c01.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4cae449450c07b7aa74314173c7b00d409eabfe22b86859f3b3acedd66010458",
+    "filename": "4cae449450c07b7aa74314173c7b00d409eabfe22b86859f3b3acedd66010458.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/4cae449450c07b7aa74314173c7b00d409eabfe22b86859f3b3acedd66010458/4cae449450c07b7aa74314173c7b00d409eabfe22b86859f3b3acedd66010458.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4d7e2b3eeb7958a60f9ac7a572cb2c560504f11dbd656bcfd068685b69214508",
+    "filename": "4d7e2b3eeb7958a60f9ac7a572cb2c560504f11dbd656bcfd068685b69214508.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4e339dcdc3e3a8bf5271f7f76a9c4f064d3e34cbb51f8770ff4cce910fbcbce5",
+    "filename": "4e339dcdc3e3a8bf5271f7f76a9c4f064d3e34cbb51f8770ff4cce910fbcbce5.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/4e339dcdc3e3a8bf5271f7f76a9c4f064d3e34cbb51f8770ff4cce910fbcbce5/4e339dcdc3e3a8bf5271f7f76a9c4f064d3e34cbb51f8770ff4cce910fbcbce5.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4f1628821c13cc27fd4134301cc93a1ad32b2a3f7066c3d90f7ba89e02180754",
+    "filename": "4f1628821c13cc27fd4134301cc93a1ad32b2a3f7066c3d90f7ba89e02180754.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4f8830dd18dd4c4414a876206b03d02b244a9b62caeb9f7642bd78affa438130",
+    "filename": "4f8830dd18dd4c4414a876206b03d02b244a9b62caeb9f7642bd78affa438130.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4fa28556557b228a0cabb6a51597217e09afdf58a140b1181f0bd8325e6e4d0f",
+    "filename": "4fa28556557b228a0cabb6a51597217e09afdf58a140b1181f0bd8325e6e4d0f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/4fa28556557b228a0cabb6a51597217e09afdf58a140b1181f0bd8325e6e4d0f/4fa28556557b228a0cabb6a51597217e09afdf58a140b1181f0bd8325e6e4d0f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4fea41b61b2bd700fc6613c18c05aeb4df37bcbe777868081b0ed1076ee7aacb",
+    "filename": "4fea41b61b2bd700fc6613c18c05aeb4df37bcbe777868081b0ed1076ee7aacb.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/4fea41b61b2bd700fc6613c18c05aeb4df37bcbe777868081b0ed1076ee7aacb/4fea41b61b2bd700fc6613c18c05aeb4df37bcbe777868081b0ed1076ee7aacb.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "4ffc33bdc8527a2e8cb87e49cdc16c3b1480dfc135e507d552f581a67d1850a9",
+    "filename": "4ffc33bdc8527a2e8cb87e49cdc16c3b1480dfc135e507d552f581a67d1850a9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 22,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "50ccb1b00bdd8fc3d8957bdf718c17887ed3cd59dfbeb247193a33041cf6e03b",
+    "filename": "50ccb1b00bdd8fc3d8957bdf718c17887ed3cd59dfbeb247193a33041cf6e03b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5121f08cf8614a65d7a86c2f462c0694c132e2877a7f54ab7fcefd7ee5235a42",
+    "filename": "5121f08cf8614a65d7a86c2f462c0694c132e2877a7f54ab7fcefd7ee5235a42.elf",
+    "format": "ELF",
+    "returncode": 1,
+    "error": "Error: unsupported architecture: I386",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5165cd61158a14ba2f90c275d29d8271b1f0c5669ebcdc620edd86ee90474dbc",
+    "filename": "5165cd61158a14ba2f90c275d29d8271b1f0c5669ebcdc620edd86ee90474dbc.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/5165cd61158a14ba2f90c275d29d8271b1f0c5669ebcdc620edd86ee90474dbc/5165cd61158a14ba2f90c275d29d8271b1f0c5669ebcdc620edd86ee90474dbc.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5255ea080acd85ad274c48d1c4254c285c24f5ea67787666005c9a47c62ceb70",
+    "filename": "5255ea080acd85ad274c48d1c4254c285c24f5ea67787666005c9a47c62ceb70.elf",
+    "format": "ELF",
+    "returncode": 1,
+    "error": "Error: unsupported architecture: Arm",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "53570d6534ecb6c826a2ae043a6d9ae6c026bbb35a48d8bb750a6b6f03525a03",
+    "filename": "53570d6534ecb6c826a2ae043a6d9ae6c026bbb35a48d8bb750a6b6f03525a03.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/53570d6534ecb6c826a2ae043a6d9ae6c026bbb35a48d8bb750a6b6f03525a03/53570d6534ecb6c826a2ae043a6d9ae6c026bbb35a48d8bb750a6b6f03525a03.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "545a22b900104571ca0718336c6dfe37574263f1670d55835859b30f9776b028",
+    "filename": "545a22b900104571ca0718336c6dfe37574263f1670d55835859b30f9776b028.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/545a22b900104571ca0718336c6dfe37574263f1670d55835859b30f9776b028/545a22b900104571ca0718336c6dfe37574263f1670d55835859b30f9776b028.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "567cb1d95c5b0701bc9a5b06842f9a675a592749cebcace5e7d62e626b2354d1",
+    "filename": "567cb1d95c5b0701bc9a5b06842f9a675a592749cebcace5e7d62e626b2354d1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5683ddca452350937ddd0bf5f02f9bb00c7034c2fc73e8f229d39a2f48aed20f",
+    "filename": "5683ddca452350937ddd0bf5f02f9bb00c7034c2fc73e8f229d39a2f48aed20f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5782a7d3cf791a0be9d8e994520618d4299a51ca032ff1a549646713193a1ecf",
+    "filename": "5782a7d3cf791a0be9d8e994520618d4299a51ca032ff1a549646713193a1ecf.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "595142ac0ecaf32e5cd9a477f440bac99b52dcc6c2fa083424d5007fdf0caeec",
+    "filename": "595142ac0ecaf32e5cd9a477f440bac99b52dcc6c2fa083424d5007fdf0caeec.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "597537addd7325e32b5da06c67f925daeeb8ed57e9bf46a9037781d636dac909",
+    "filename": "597537addd7325e32b5da06c67f925daeeb8ed57e9bf46a9037781d636dac909.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "59868f4b346bd401e067380cac69080709c86e06fae219bfb5bc17605a71ab3f",
+    "filename": "59868f4b346bd401e067380cac69080709c86e06fae219bfb5bc17605a71ab3f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/59868f4b346bd401e067380cac69080709c86e06fae219bfb5bc17605a71ab3f/59868f4b346bd401e067380cac69080709c86e06fae219bfb5bc17605a71ab3f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5a2a01a909f8ad20484259c2e305c24791ea8fff7adc3f63f927440e2d14928c",
+    "filename": "5a2a01a909f8ad20484259c2e305c24791ea8fff7adc3f63f927440e2d14928c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5a604a8f0e72f3bf7901b7b67f881031a402ab8072269c00233a554df548f54d",
+    "filename": "5a604a8f0e72f3bf7901b7b67f881031a402ab8072269c00233a554df548f54d.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/5a604a8f0e72f3bf7901b7b67f881031a402ab8072269c00233a554df548f54d/5a604a8f0e72f3bf7901b7b67f881031a402ab8072269c00233a554df548f54d.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5b6a9081d7742747a08d04a8f3dff31de71c4811b3b892e4b0f282780e60d741",
+    "filename": "5b6a9081d7742747a08d04a8f3dff31de71c4811b3b892e4b0f282780e60d741.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/5b6a9081d7742747a08d04a8f3dff31de71c4811b3b892e4b0f282780e60d741/5b6a9081d7742747a08d04a8f3dff31de71c4811b3b892e4b0f282780e60d741.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5cee6368c6a9922a81a03831979947db8e5365986b4ad725c552ab6018a083b3",
+    "filename": "5cee6368c6a9922a81a03831979947db8e5365986b4ad725c552ab6018a083b3.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5d6c176341db385db8e279629a038781c08e15e33e052ac4c26ad58457871e4e",
+    "filename": "5d6c176341db385db8e279629a038781c08e15e33e052ac4c26ad58457871e4e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "5e6c5a9fda2d20125f6f24e37e8a217a39ff0a5cfddc07ddfdb18049d9ea4597",
+    "filename": "5e6c5a9fda2d20125f6f24e37e8a217a39ff0a5cfddc07ddfdb18049d9ea4597.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "60bdfecd1de9cc674f4cd5dd42d8cb3ac478df058e1962f0f43885c14d69e816",
+    "filename": "60bdfecd1de9cc674f4cd5dd42d8cb3ac478df058e1962f0f43885c14d69e816.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6253659a160638bb4622dcf28a4f0e0474129794827de68bc276bc4b29e0addf",
+    "filename": "6253659a160638bb4622dcf28a4f0e0474129794827de68bc276bc4b29e0addf.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/6253659a160638bb4622dcf28a4f0e0474129794827de68bc276bc4b29e0addf/6253659a160638bb4622dcf28a4f0e0474129794827de68bc276bc4b29e0addf.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "62ae5ad22213d2adaf0e7cf1ce23ff47b996f60065244b63f361a22daed2bdda",
+    "filename": "62ae5ad22213d2adaf0e7cf1ce23ff47b996f60065244b63f361a22daed2bdda.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/62ae5ad22213d2adaf0e7cf1ce23ff47b996f60065244b63f361a22daed2bdda/62ae5ad22213d2adaf0e7cf1ce23ff47b996f60065244b63f361a22daed2bdda.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "62bdc536263d92e4fbb3a98cd2c7c554c0f15608566f6b190ccd3feef8907d45",
+    "filename": "62bdc536263d92e4fbb3a98cd2c7c554c0f15608566f6b190ccd3feef8907d45.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "655abd0b5067ec53b25ea387c9aebe0fbafd5209e53bc7447c7d7425cb76b175",
+    "filename": "655abd0b5067ec53b25ea387c9aebe0fbafd5209e53bc7447c7d7425cb76b175.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/655abd0b5067ec53b25ea387c9aebe0fbafd5209e53bc7447c7d7425cb76b175/655abd0b5067ec53b25ea387c9aebe0fbafd5209e53bc7447c7d7425cb76b175.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6660d0e87a142ab1bde4521d9c6f5e148490b05a57c71122e28280b35452e896",
+    "filename": "6660d0e87a142ab1bde4521d9c6f5e148490b05a57c71122e28280b35452e896.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/6660d0e87a142ab1bde4521d9c6f5e148490b05a57c71122e28280b35452e896/6660d0e87a142ab1bde4521d9c6f5e148490b05a57c71122e28280b35452e896.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "67ad959e8af25a48928c28ca9a38a6f2a61ea4935fe60dfed79061214e840b15",
+    "filename": "67ad959e8af25a48928c28ca9a38a6f2a61ea4935fe60dfed79061214e840b15.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 40,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "67d1f4077e929385cfd869bf279892bf10a2c8f0af4119e4bc15a2add9461fec",
+    "filename": "67d1f4077e929385cfd869bf279892bf10a2c8f0af4119e4bc15a2add9461fec.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/67d1f4077e929385cfd869bf279892bf10a2c8f0af4119e4bc15a2add9461fec/67d1f4077e929385cfd869bf279892bf10a2c8f0af4119e4bc15a2add9461fec.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "68cd56fd72e41b60adabd824fe91c0f171455ced32fb51c56f82f35b2658f60e",
+    "filename": "68cd56fd72e41b60adabd824fe91c0f171455ced32fb51c56f82f35b2658f60e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "68d860e3612d07a3976768c1365f797647ce95aa85ef42d7de7836cb071ee9c5",
+    "filename": "68d860e3612d07a3976768c1365f797647ce95aa85ef42d7de7836cb071ee9c5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "68e5fb92a7d7d182306a025010c77ae2cd89c39031cced13f9686a9f34671041",
+    "filename": "68e5fb92a7d7d182306a025010c77ae2cd89c39031cced13f9686a9f34671041.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/68e5fb92a7d7d182306a025010c77ae2cd89c39031cced13f9686a9f34671041/68e5fb92a7d7d182306a025010c77ae2cd89c39031cced13f9686a9f34671041.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "69417ec104c1dd07e5067110d6e7f3c643c534d14db65a704bc0c14c223c3001",
+    "filename": "69417ec104c1dd07e5067110d6e7f3c643c534d14db65a704bc0c14c223c3001.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6a4ebf513f996bd7198c711bef936a989fea148c235817ea56c1e2afafa927f5",
+    "filename": "6a4ebf513f996bd7198c711bef936a989fea148c235817ea56c1e2afafa927f5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6a751d5b42efe0e45f2939164eb910e742aaec8e95b70d7ae55173a34694ba35",
+    "filename": "6a751d5b42efe0e45f2939164eb910e742aaec8e95b70d7ae55173a34694ba35.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6abe61bfd96d5a52d4c03aa94a237bc300b440b15ffad0ffcf161c33de58be6a",
+    "filename": "6abe61bfd96d5a52d4c03aa94a237bc300b440b15ffad0ffcf161c33de58be6a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6b667bb7e4f3f2cb6c6f2d43290f32f41ae9f0d6ed34b818d78490050f7582a1",
+    "filename": "6b667bb7e4f3f2cb6c6f2d43290f32f41ae9f0d6ed34b818d78490050f7582a1.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6d337b95ca3361f5fc5733591095765beab6917555777f078eafea3064f735bd",
+    "filename": "6d337b95ca3361f5fc5733591095765beab6917555777f078eafea3064f735bd.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6d585ca9b0e2a491b53da4f83319544b95c858f07f906b108e2147e9ac55ed48",
+    "filename": "6d585ca9b0e2a491b53da4f83319544b95c858f07f906b108e2147e9ac55ed48.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6dd995d896a9a593b2c48d09da60bd83866d8577273f36d38788d83ad8173e68",
+    "filename": "6dd995d896a9a593b2c48d09da60bd83866d8577273f36d38788d83ad8173e68.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/6dd995d896a9a593b2c48d09da60bd83866d8577273f36d38788d83ad8173e68/6dd995d896a9a593b2c48d09da60bd83866d8577273f36d38788d83ad8173e68.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "6ebeb188f3cc3b647c4460c0b8e41b75d057747c662f4cd7912d77deaccfd2f2",
+    "filename": "6ebeb188f3cc3b647c4460c0b8e41b75d057747c662f4cd7912d77deaccfd2f2.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "70014630f792eaef394f6efd9d0908b48628e11aae3686be939ad6eabd3f81e3",
+    "filename": "70014630f792eaef394f6efd9d0908b48628e11aae3686be939ad6eabd3f81e3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "709e93ce10a89fb1195616827db305ecd3d3e7bb986e54167917c864bddaa6b5",
+    "filename": "709e93ce10a89fb1195616827db305ecd3d3e7bb986e54167917c864bddaa6b5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "713b699c04f21000fca981e698e1046d4595f423bd5741d712fd7e0bc358c771",
+    "filename": "713b699c04f21000fca981e698e1046d4595f423bd5741d712fd7e0bc358c771.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7210e765a1076443d68f12d79b3eea55f3dbabfcb410a6cbfb40d4ee546d9df9",
+    "filename": "7210e765a1076443d68f12d79b3eea55f3dbabfcb410a6cbfb40d4ee546d9df9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "72f0981f18b969db2781e874d249d8003c07f99786e217f84cf54a148de259cc",
+    "filename": "72f0981f18b969db2781e874d249d8003c07f99786e217f84cf54a148de259cc.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/72f0981f18b969db2781e874d249d8003c07f99786e217f84cf54a148de259cc/72f0981f18b969db2781e874d249d8003c07f99786e217f84cf54a148de259cc.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "731adcf2d7fb61a8335e23dbee2436249e5d5753977ec465754c6b699e9bf161",
+    "filename": "731adcf2d7fb61a8335e23dbee2436249e5d5753977ec465754c6b699e9bf161.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/731adcf2d7fb61a8335e23dbee2436249e5d5753977ec465754c6b699e9bf161/731adcf2d7fb61a8335e23dbee2436249e5d5753977ec465754c6b699e9bf161.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "738a31e7a0d96fe1b0ad6778db39425160835a80ac33ce8a84f26b71c00c26b9",
+    "filename": "738a31e7a0d96fe1b0ad6778db39425160835a80ac33ce8a84f26b71c00c26b9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 40,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "741546a4b3884dccf5435507da737f07ef62a6a6afb8905bb72854e1ace5e252",
+    "filename": "741546a4b3884dccf5435507da737f07ef62a6a6afb8905bb72854e1ace5e252.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "74abc075fc1d5c8985c952afc25a48ba874e76f96af4dc33414e84db9e10b9ee",
+    "filename": "74abc075fc1d5c8985c952afc25a48ba874e76f96af4dc33414e84db9e10b9ee.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/74abc075fc1d5c8985c952afc25a48ba874e76f96af4dc33414e84db9e10b9ee/74abc075fc1d5c8985c952afc25a48ba874e76f96af4dc33414e84db9e10b9ee.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "74b45abc573e70827acfea4bba7a4b0e16cac7756e542c9bcaf3b8fb81394579",
+    "filename": "74b45abc573e70827acfea4bba7a4b0e16cac7756e542c9bcaf3b8fb81394579.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "77a398c870ad4904d06d455c9249e7864ac92dda877e288e5718b3c8d9fc6618",
+    "filename": "77a398c870ad4904d06d455c9249e7864ac92dda877e288e5718b3c8d9fc6618.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/77a398c870ad4904d06d455c9249e7864ac92dda877e288e5718b3c8d9fc6618/77a398c870ad4904d06d455c9249e7864ac92dda877e288e5718b3c8d9fc6618.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7ab47b7b14f4d6848b9f4d410d1315ccc68e9a6714d94a2e870b6ba77d28e828",
+    "filename": "7ab47b7b14f4d6848b9f4d410d1315ccc68e9a6714d94a2e870b6ba77d28e828.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7bb383b31d1b415bc067e612203cc6bda53e914f7ca5291299e92f59d47cabf8",
+    "filename": "7bb383b31d1b415bc067e612203cc6bda53e914f7ca5291299e92f59d47cabf8.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/7bb383b31d1b415bc067e612203cc6bda53e914f7ca5291299e92f59d47cabf8/7bb383b31d1b415bc067e612203cc6bda53e914f7ca5291299e92f59d47cabf8.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7d8671c91a02bfbff8b89a76501b9be017a66a8bba624ed4fe2c7f81b9380ac9",
+    "filename": "7d8671c91a02bfbff8b89a76501b9be017a66a8bba624ed4fe2c7f81b9380ac9.ps1",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7de37b22b1b9829796290bd94951fcaeed28f84ee66915dd23821138c89ffe9c",
+    "filename": "7de37b22b1b9829796290bd94951fcaeed28f84ee66915dd23821138c89ffe9c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "7e363b5f1ba373782261713fa99e8bbc35ddda97e48799c4eb28f17989da8d8e",
+    "filename": "7e363b5f1ba373782261713fa99e8bbc35ddda97e48799c4eb28f17989da8d8e.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/7e363b5f1ba373782261713fa99e8bbc35ddda97e48799c4eb28f17989da8d8e/7e363b5f1ba373782261713fa99e8bbc35ddda97e48799c4eb28f17989da8d8e.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "80adf4f637351479d72866122d9e15765d36d212c4ef2542576603d686dfd838",
+    "filename": "80adf4f637351479d72866122d9e15765d36d212c4ef2542576603d686dfd838.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "81ae89d9796270678a807eb8a473439224a742ccae22dccc66c3d3464b05995a",
+    "filename": "81ae89d9796270678a807eb8a473439224a742ccae22dccc66c3d3464b05995a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "81b9fd825b7d6aa23c6bd641662d4dd2e1b0fbcf3a35efb61331f17e6fff1618",
+    "filename": "81b9fd825b7d6aa23c6bd641662d4dd2e1b0fbcf3a35efb61331f17e6fff1618.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "81cdc2455998d49d23ba4cc6df45c6ddd0dfea6e582e7703e9ec41cc3e1bbf74",
+    "filename": "81cdc2455998d49d23ba4cc6df45c6ddd0dfea6e582e7703e9ec41cc3e1bbf74.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/81cdc2455998d49d23ba4cc6df45c6ddd0dfea6e582e7703e9ec41cc3e1bbf74/81cdc2455998d49d23ba4cc6df45c6ddd0dfea6e582e7703e9ec41cc3e1bbf74.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "822d89e7917d41a90f5f65bee75cad31fe13995e43f47ea9ea536862884efc25",
+    "filename": "822d89e7917d41a90f5f65bee75cad31fe13995e43f47ea9ea536862884efc25.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "82479ba19531a5b3f108f21f939190de2073395a708bb4446d6acc398518b802",
+    "filename": "82479ba19531a5b3f108f21f939190de2073395a708bb4446d6acc398518b802.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/82479ba19531a5b3f108f21f939190de2073395a708bb4446d6acc398518b802/82479ba19531a5b3f108f21f939190de2073395a708bb4446d6acc398518b802.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "82c3e0dffa77510e2c6b53fefa34379912b986bf5666a34f018f77038cc5bea8",
+    "filename": "82c3e0dffa77510e2c6b53fefa34379912b986bf5666a34f018f77038cc5bea8.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/82c3e0dffa77510e2c6b53fefa34379912b986bf5666a34f018f77038cc5bea8/82c3e0dffa77510e2c6b53fefa34379912b986bf5666a34f018f77038cc5bea8.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "83a361e88cb033fb4e3067a00dc0e1458dc2dcc68b9e0d01f4ea16b50db9ee11",
+    "filename": "83a361e88cb033fb4e3067a00dc0e1458dc2dcc68b9e0d01f4ea16b50db9ee11.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "841e619a0e57780663987feaaac1e623160cd534aa263c563423edcb91cafcc6",
+    "filename": "841e619a0e57780663987feaaac1e623160cd534aa263c563423edcb91cafcc6.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "842c60b5f55e2e62638347c95e73f85d042492cc77dfe97df81f8850a14411c1",
+    "filename": "842c60b5f55e2e62638347c95e73f85d042492cc77dfe97df81f8850a14411c1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "847fb7609f53ed334d5affbb07256c21cb5e6f68b1cc14004f5502d714d2a456",
+    "filename": "847fb7609f53ed334d5affbb07256c21cb5e6f68b1cc14004f5502d714d2a456.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/847fb7609f53ed334d5affbb07256c21cb5e6f68b1cc14004f5502d714d2a456/847fb7609f53ed334d5affbb07256c21cb5e6f68b1cc14004f5502d714d2a456.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "855f411bd0667b650c4f2fd3c9fbb4fa9209cf40b0d655fa9304dcdd956e0808",
+    "filename": "855f411bd0667b650c4f2fd3c9fbb4fa9209cf40b0d655fa9304dcdd956e0808.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "869bff03d70693a10e63fc192311edc3740aa87ebe25adbe45518f4819b347ec",
+    "filename": "869bff03d70693a10e63fc192311edc3740aa87ebe25adbe45518f4819b347ec.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "86ccc74375405ef5a86bb26071ec345d3d800438d1e0caa4a6d0cb43bd8562df",
+    "filename": "86ccc74375405ef5a86bb26071ec345d3d800438d1e0caa4a6d0cb43bd8562df.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/86ccc74375405ef5a86bb26071ec345d3d800438d1e0caa4a6d0cb43bd8562df/86ccc74375405ef5a86bb26071ec345d3d800438d1e0caa4a6d0cb43bd8562df.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8756f0619caff132b0d4dfefad4387b8d5ea134b8706f345757b92658e6e50ff",
+    "filename": "8756f0619caff132b0d4dfefad4387b8d5ea134b8706f345757b92658e6e50ff.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "87967600b0f6026f97093416dcd7ec38f740adaf84757255c179180873b41177",
+    "filename": "87967600b0f6026f97093416dcd7ec38f740adaf84757255c179180873b41177.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "87a14583b72250a660b74f1e475a268f95285820d72fbd5115f1b8c6ec787a9a",
+    "filename": "87a14583b72250a660b74f1e475a268f95285820d72fbd5115f1b8c6ec787a9a.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/87a14583b72250a660b74f1e475a268f95285820d72fbd5115f1b8c6ec787a9a/87a14583b72250a660b74f1e475a268f95285820d72fbd5115f1b8c6ec787a9a.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "87e3af6eb3bd9f6966c598106e3febb59a5a0d1fd94238aa465fb0c31729e3c3",
+    "filename": "87e3af6eb3bd9f6966c598106e3febb59a5a0d1fd94238aa465fb0c31729e3c3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "896d53cc4311c63e985558dc4466c5c205b6556a14ecce4f4e45a120696293b0",
+    "filename": "896d53cc4311c63e985558dc4466c5c205b6556a14ecce4f4e45a120696293b0.iso",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "89a9279a31e78ceb036d8be5b2e3c7aeb1021a05cff7bbd5e5025250c911234b",
+    "filename": "89a9279a31e78ceb036d8be5b2e3c7aeb1021a05cff7bbd5e5025250c911234b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8a22a91c931ac80ca91cf91fef678c4bee00e3eb5ad24f209bc8595e012ba5b0",
+    "filename": "8a22a91c931ac80ca91cf91fef678c4bee00e3eb5ad24f209bc8595e012ba5b0.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/8a22a91c931ac80ca91cf91fef678c4bee00e3eb5ad24f209bc8595e012ba5b0/8a22a91c931ac80ca91cf91fef678c4bee00e3eb5ad24f209bc8595e012ba5b0.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8a99353662ccae117d2bb22efd8c43d7169060450be413af763e8ad7522d2451",
+    "filename": "8a99353662ccae117d2bb22efd8c43d7169060450be413af763e8ad7522d2451.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8abaa521a014cdbda2afe77042f21947b147197d274bf801de2df55b1e01c904",
+    "filename": "8abaa521a014cdbda2afe77042f21947b147197d274bf801de2df55b1e01c904.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8ac509a776a326180877dc44636081e21f58c89431477ef2a38db10ad6bd15d1",
+    "filename": "8ac509a776a326180877dc44636081e21f58c89431477ef2a38db10ad6bd15d1.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/8ac509a776a326180877dc44636081e21f58c89431477ef2a38db10ad6bd15d1/8ac509a776a326180877dc44636081e21f58c89431477ef2a38db10ad6bd15d1.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8b6d63b2b7829c89877231c11bbcb8984abab9a344e918780bea6d0cf4632bc5",
+    "filename": "8b6d63b2b7829c89877231c11bbcb8984abab9a344e918780bea6d0cf4632bc5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8b8814921dc2b2cb6ea3cfc7295803c72088092418527c09b680332c92c33f1f",
+    "filename": "8b8814921dc2b2cb6ea3cfc7295803c72088092418527c09b680332c92c33f1f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/8b8814921dc2b2cb6ea3cfc7295803c72088092418527c09b680332c92c33f1f/8b8814921dc2b2cb6ea3cfc7295803c72088092418527c09b680332c92c33f1f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8c4294e3154675cd926ab6b772dbbe0e7a49cae16f4a37d908e1ca6748251c43",
+    "filename": "8c4294e3154675cd926ab6b772dbbe0e7a49cae16f4a37d908e1ca6748251c43.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8c4d2db730c5f364de55c6b84367846f102bd8dc9f378fd3829be0f6af5046b0",
+    "filename": "8c4d2db730c5f364de55c6b84367846f102bd8dc9f378fd3829be0f6af5046b0.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8c5526650d48864f1584fcf74f9c29a77430eb1ffc58d215cb4d4e33c7b7c1f0",
+    "filename": "8c5526650d48864f1584fcf74f9c29a77430eb1ffc58d215cb4d4e33c7b7c1f0.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8dc43793450f2c7f5953e0eb912356113346b6afd48f9400a26c35cdf0ffdd07",
+    "filename": "8dc43793450f2c7f5953e0eb912356113346b6afd48f9400a26c35cdf0ffdd07.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/8dc43793450f2c7f5953e0eb912356113346b6afd48f9400a26c35cdf0ffdd07/8dc43793450f2c7f5953e0eb912356113346b6afd48f9400a26c35cdf0ffdd07.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8e77118d819681fdc49ce3362d8bfd8f51f8469353396be7113c5a8978a171f6",
+    "filename": "8e77118d819681fdc49ce3362d8bfd8f51f8469353396be7113c5a8978a171f6.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8ee191b51b853addc862307c8f641bd251a8b7dd88263d228453bb06882f2464",
+    "filename": "8ee191b51b853addc862307c8f641bd251a8b7dd88263d228453bb06882f2464.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/8ee191b51b853addc862307c8f641bd251a8b7dd88263d228453bb06882f2464/8ee191b51b853addc862307c8f641bd251a8b7dd88263d228453bb06882f2464.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8ee52992c73014f53b7efcdb77073db9f3df80be07bb9d91b974cd33936f0b13",
+    "filename": "8ee52992c73014f53b7efcdb77073db9f3df80be07bb9d91b974cd33936f0b13.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "8ffe7f2eeb0cbfbe158b77bbff3e0055d2ef7138f481b4fac8ade6bfb9b2b0a1",
+    "filename": "8ffe7f2eeb0cbfbe158b77bbff3e0055d2ef7138f481b4fac8ade6bfb9b2b0a1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "902c65435b6b44cfda1156b0e7c6a30b2785fa4f2cbb9b1944a66f5146ec7aa5",
+    "filename": "902c65435b6b44cfda1156b0e7c6a30b2785fa4f2cbb9b1944a66f5146ec7aa5.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "90bf2554202af77fef1c4dd6fbeec01373ffb3076b74ab2db29a149feaf63fd2",
+    "filename": "90bf2554202af77fef1c4dd6fbeec01373ffb3076b74ab2db29a149feaf63fd2.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "921ed2a30e17fc6d7e9da74d64485ae8a40c95caa40e5108da51ad3c40599978",
+    "filename": "921ed2a30e17fc6d7e9da74d64485ae8a40c95caa40e5108da51ad3c40599978.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "92525efefc8435884c325b6f39fb3f3ab50d4815658c0d7eb1c0b771209f24f6",
+    "filename": "92525efefc8435884c325b6f39fb3f3ab50d4815658c0d7eb1c0b771209f24f6.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 2,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "93439fe9b45d7b6e9fcdc5e68fd47677ea17025e4eabb6f1468cb9ae98ee8a5b",
+    "filename": "93439fe9b45d7b6e9fcdc5e68fd47677ea17025e4eabb6f1468cb9ae98ee8a5b.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/93439fe9b45d7b6e9fcdc5e68fd47677ea17025e4eabb6f1468cb9ae98ee8a5b/93439fe9b45d7b6e9fcdc5e68fd47677ea17025e4eabb6f1468cb9ae98ee8a5b.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "936119bc1811aeef01299a0150141787865a0dbe2667288f018ad24db5a7bc27",
+    "filename": "936119bc1811aeef01299a0150141787865a0dbe2667288f018ad24db5a7bc27.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/936119bc1811aeef01299a0150141787865a0dbe2667288f018ad24db5a7bc27/936119bc1811aeef01299a0150141787865a0dbe2667288f018ad24db5a7bc27.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "942946c6ae139b1f1efc91262f91034542eb75b80c3c66c10d69dda014d706d6",
+    "filename": "942946c6ae139b1f1efc91262f91034542eb75b80c3c66c10d69dda014d706d6.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/942946c6ae139b1f1efc91262f91034542eb75b80c3c66c10d69dda014d706d6/942946c6ae139b1f1efc91262f91034542eb75b80c3c66c10d69dda014d706d6.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "94e56379b7a31b01cf826076a74fc4ddb7f86f7991a6f58300f28712d484aa33",
+    "filename": "94e56379b7a31b01cf826076a74fc4ddb7f86f7991a6f58300f28712d484aa33.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/94e56379b7a31b01cf826076a74fc4ddb7f86f7991a6f58300f28712d484aa33/94e56379b7a31b01cf826076a74fc4ddb7f86f7991a6f58300f28712d484aa33.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "977403e8a424d1a029369b715867c3056a4d0d8a1c75dcf9d84d9c56f9bcf802",
+    "filename": "977403e8a424d1a029369b715867c3056a4d0d8a1c75dcf9d84d9c56f9bcf802.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "985c20ab57daa2d8135833f83bb48aebbaee96082dabed5e78329b9fe0b902d7",
+    "filename": "985c20ab57daa2d8135833f83bb48aebbaee96082dabed5e78329b9fe0b902d7.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9959b5fadafebdc8cd15a2a8f1efd7c976da5036d984179a04946d8b86fdd049",
+    "filename": "9959b5fadafebdc8cd15a2a8f1efd7c976da5036d984179a04946d8b86fdd049.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "99a2b79a4231806d4979aa017ff7e8b804d32bfe9dcc0958d403dfe06bdd0532",
+    "filename": "99a2b79a4231806d4979aa017ff7e8b804d32bfe9dcc0958d403dfe06bdd0532.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "99c71640bc985654db23b81ecb00e4d0cc160a25e1c58b6a90e379a559ea3440",
+    "filename": "99c71640bc985654db23b81ecb00e4d0cc160a25e1c58b6a90e379a559ea3440.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/99c71640bc985654db23b81ecb00e4d0cc160a25e1c58b6a90e379a559ea3440/99c71640bc985654db23b81ecb00e4d0cc160a25e1c58b6a90e379a559ea3440.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "99d09068ac1b9d6db4f8bcff698ffff8e112a506c0f01afff460c5a3b1393ef8",
+    "filename": "99d09068ac1b9d6db4f8bcff698ffff8e112a506c0f01afff460c5a3b1393ef8.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/99d09068ac1b9d6db4f8bcff698ffff8e112a506c0f01afff460c5a3b1393ef8/99d09068ac1b9d6db4f8bcff698ffff8e112a506c0f01afff460c5a3b1393ef8.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "99d32bfd135a2a1575b0f83a31a0ab817a6a4fe329f3e05bebdb73c26f988658",
+    "filename": "99d32bfd135a2a1575b0f83a31a0ab817a6a4fe329f3e05bebdb73c26f988658.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9b68f6082702082205344baf6812469cf2ef20345acb6b6a94022feebb087c43",
+    "filename": "9b68f6082702082205344baf6812469cf2ef20345acb6b6a94022feebb087c43.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9e9fa8b3b0a59762b429853a36674608df1fa7d7f7140c8fccd7c1946070995a",
+    "filename": "9e9fa8b3b0a59762b429853a36674608df1fa7d7f7140c8fccd7c1946070995a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9ec0d39cafaff2815558dfcfab82344b78b7b7bf67b5c95eb2faf69965843b12",
+    "filename": "9ec0d39cafaff2815558dfcfab82344b78b7b7bf67b5c95eb2faf69965843b12.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9f423f06bf449266ddea3e0a3673d1109ff5415f4bcc52303902c57aee9b0b5b",
+    "filename": "9f423f06bf449266ddea3e0a3673d1109ff5415f4bcc52303902c57aee9b0b5b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "9fb1067dd3edf3d517517e9c191f3f07067bf30aa034a36ebf6543d83cea5ec1",
+    "filename": "9fb1067dd3edf3d517517e9c191f3f07067bf30aa034a36ebf6543d83cea5ec1.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/9fb1067dd3edf3d517517e9c191f3f07067bf30aa034a36ebf6543d83cea5ec1/9fb1067dd3edf3d517517e9c191f3f07067bf30aa034a36ebf6543d83cea5ec1.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a0a87db436f4dd580f730d7cbe7df9aa7d94a243aab1e600f01cde573c8d10b8",
+    "filename": "a0a87db436f4dd580f730d7cbe7df9aa7d94a243aab1e600f01cde573c8d10b8.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a0fb861b99623e2d2a3c3f932142bfa0181562249abbae46fa2f3c2fa20376c2",
+    "filename": "a0fb861b99623e2d2a3c3f932142bfa0181562249abbae46fa2f3c2fa20376c2.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a0fb861b99623e2d2a3c3f932142bfa0181562249abbae46fa2f3c2fa20376c2/a0fb861b99623e2d2a3c3f932142bfa0181562249abbae46fa2f3c2fa20376c2.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a14c357821311e9c07a8c025e13f930294e3a2d0363e2f7bd7d37124fa7a5675",
+    "filename": "a14c357821311e9c07a8c025e13f930294e3a2d0363e2f7bd7d37124fa7a5675.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a15f278540238f0308608e76a76c01c60e04f5e5bbe9ffce5455f2e965574a12",
+    "filename": "a15f278540238f0308608e76a76c01c60e04f5e5bbe9ffce5455f2e965574a12.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a15f278540238f0308608e76a76c01c60e04f5e5bbe9ffce5455f2e965574a12/a15f278540238f0308608e76a76c01c60e04f5e5bbe9ffce5455f2e965574a12.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a2001892410e9f34ff0d02c8bc9e7c53b0bd10da58461e1e9eab26bdbf410c79",
+    "filename": "a2001892410e9f34ff0d02c8bc9e7c53b0bd10da58461e1e9eab26bdbf410c79.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 208,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a261a73cf75f1300ff5eb593c555591cc4b7cc440aa11bd12f3cc2b71952fd83",
+    "filename": "a261a73cf75f1300ff5eb593c555591cc4b7cc440aa11bd12f3cc2b71952fd83.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a3fcd7593ce1627b198f88c45336d5d796668b0d5bab0a8f0f6a582aa931ca81",
+    "filename": "a3fcd7593ce1627b198f88c45336d5d796668b0d5bab0a8f0f6a582aa931ca81.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a464ae4b0a75d8673cc95ea93c56f0ee11120f71726cc891f9c7e8d4bec53625",
+    "filename": "a464ae4b0a75d8673cc95ea93c56f0ee11120f71726cc891f9c7e8d4bec53625.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a464ae4b0a75d8673cc95ea93c56f0ee11120f71726cc891f9c7e8d4bec53625/a464ae4b0a75d8673cc95ea93c56f0ee11120f71726cc891f9c7e8d4bec53625.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a4e970733921eff303dbfbfb1067dde5b695248d280e700d04075520d7244a95",
+    "filename": "a4e970733921eff303dbfbfb1067dde5b695248d280e700d04075520d7244a95.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a500e5ab8ce265d1dc8af1c00ea54a75b57ede933f64cea794f87ef1daf287a1",
+    "filename": "a500e5ab8ce265d1dc8af1c00ea54a75b57ede933f64cea794f87ef1daf287a1.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a500e5ab8ce265d1dc8af1c00ea54a75b57ede933f64cea794f87ef1daf287a1/a500e5ab8ce265d1dc8af1c00ea54a75b57ede933f64cea794f87ef1daf287a1.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a738f6016086abdd2824b797ec67feee3bc39d52b0b0ae94bd1384c58ed3d5d6",
+    "filename": "a738f6016086abdd2824b797ec67feee3bc39d52b0b0ae94bd1384c58ed3d5d6.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a75eae0a77fec3c7bfdcca66649af39741e935efc3fa6252ca43da676c3de8a6",
+    "filename": "a75eae0a77fec3c7bfdcca66649af39741e935efc3fa6252ca43da676c3de8a6.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a75eae0a77fec3c7bfdcca66649af39741e935efc3fa6252ca43da676c3de8a6/a75eae0a77fec3c7bfdcca66649af39741e935efc3fa6252ca43da676c3de8a6.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a77afefb588db0b105f4c7dca156dce1abb413a3e5807f45b9bb61dd55215779",
+    "filename": "a77afefb588db0b105f4c7dca156dce1abb413a3e5807f45b9bb61dd55215779.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/a77afefb588db0b105f4c7dca156dce1abb413a3e5807f45b9bb61dd55215779/a77afefb588db0b105f4c7dca156dce1abb413a3e5807f45b9bb61dd55215779.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a945fd22e8f7272ce950721138fedb657dcfdd8447620a840c17688e3f9e0561",
+    "filename": "a945fd22e8f7272ce950721138fedb657dcfdd8447620a840c17688e3f9e0561.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "a9607174adb621fc8685edcacf513b7279697a6f9ceca1ea864f8c411a636b1d",
+    "filename": "a9607174adb621fc8685edcacf513b7279697a6f9ceca1ea864f8c411a636b1d.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "aa78798172e873d88f42bf8bb5853aecfb74a3bf8980540f6be66f800bf1f153",
+    "filename": "aa78798172e873d88f42bf8bb5853aecfb74a3bf8980540f6be66f800bf1f153.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/aa78798172e873d88f42bf8bb5853aecfb74a3bf8980540f6be66f800bf1f153/aa78798172e873d88f42bf8bb5853aecfb74a3bf8980540f6be66f800bf1f153.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "aafb0a46610064cd88ba99672e0f18456ed827cf46b2d3064487c45bac75637a",
+    "filename": "aafb0a46610064cd88ba99672e0f18456ed827cf46b2d3064487c45bac75637a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "aba1639c22467782c13a6dbe25c7b79e75b40ab440b7b54454ae9bc54dd6ae51",
+    "filename": "aba1639c22467782c13a6dbe25c7b79e75b40ab440b7b54454ae9bc54dd6ae51.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/aba1639c22467782c13a6dbe25c7b79e75b40ab440b7b54454ae9bc54dd6ae51/aba1639c22467782c13a6dbe25c7b79e75b40ab440b7b54454ae9bc54dd6ae51.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "abc5ad9fe2047299d9c174d100ab06c59cabc1bb05f2e2bf7e07568ee25b018d",
+    "filename": "abc5ad9fe2047299d9c174d100ab06c59cabc1bb05f2e2bf7e07568ee25b018d.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "aca731d34c3e99d07af79847db369409e92e387520e44285608f18877b3a1d79",
+    "filename": "aca731d34c3e99d07af79847db369409e92e387520e44285608f18877b3a1d79.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "acc31048e00d1a0f4cd5569d5d4db539da8f506cc7a6a171942d015ecc817d43",
+    "filename": "acc31048e00d1a0f4cd5569d5d4db539da8f506cc7a6a171942d015ecc817d43.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "acf8884a4bfb9ebfe99ed607c4f1cf625cd705ac4317c092ef6dcca3d47027aa",
+    "filename": "acf8884a4bfb9ebfe99ed607c4f1cf625cd705ac4317c092ef6dcca3d47027aa.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/acf8884a4bfb9ebfe99ed607c4f1cf625cd705ac4317c092ef6dcca3d47027aa/acf8884a4bfb9ebfe99ed607c4f1cf625cd705ac4317c092ef6dcca3d47027aa.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "af5e6a5e0d4c63665c642e7c6f82345c77e05c67ea7efb8fc881c46117248765",
+    "filename": "af5e6a5e0d4c63665c642e7c6f82345c77e05c67ea7efb8fc881c46117248765.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b1bfc90de9dcea999dedf285c3d3d7e1901847d84ec297224a0d82720d0ed501",
+    "filename": "b1bfc90de9dcea999dedf285c3d3d7e1901847d84ec297224a0d82720d0ed501.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b40db2ff2f7b61092ec9962bfefe8eca240d3a4238e9e96ebe48e840dcdc5965",
+    "filename": "b40db2ff2f7b61092ec9962bfefe8eca240d3a4238e9e96ebe48e840dcdc5965.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/b40db2ff2f7b61092ec9962bfefe8eca240d3a4238e9e96ebe48e840dcdc5965/b40db2ff2f7b61092ec9962bfefe8eca240d3a4238e9e96ebe48e840dcdc5965.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b4297174e47d9ed2808524165bb5c09d0cb85e342db72b955edd4d5a0c490f9e",
+    "filename": "b4297174e47d9ed2808524165bb5c09d0cb85e342db72b955edd4d5a0c490f9e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b6bad27a3180da1b25abbffa4a0395be46b6ef136c8a38b3978b8c26b2f0d1aa",
+    "filename": "b6bad27a3180da1b25abbffa4a0395be46b6ef136c8a38b3978b8c26b2f0d1aa.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/b6bad27a3180da1b25abbffa4a0395be46b6ef136c8a38b3978b8c26b2f0d1aa/b6bad27a3180da1b25abbffa4a0395be46b6ef136c8a38b3978b8c26b2f0d1aa.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b760fe7ca688381974be292fec2fd83882500103ba7795c4c41af860d14a2279",
+    "filename": "b760fe7ca688381974be292fec2fd83882500103ba7795c4c41af860d14a2279.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 5,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "b924bd60cc419ee92e7c55cb20eb5fe43e2a9c440b5d6ed8b78446bbd180795c",
+    "filename": "b924bd60cc419ee92e7c55cb20eb5fe43e2a9c440b5d6ed8b78446bbd180795c.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/b924bd60cc419ee92e7c55cb20eb5fe43e2a9c440b5d6ed8b78446bbd180795c/b924bd60cc419ee92e7c55cb20eb5fe43e2a9c440b5d6ed8b78446bbd180795c.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bacedbb23254934b736a9daf6de52620c9250a49686d519ceaf0a8d25da0a97f",
+    "filename": "bacedbb23254934b736a9daf6de52620c9250a49686d519ceaf0a8d25da0a97f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bacedbb23254934b736a9daf6de52620c9250a49686d519ceaf0a8d25da0a97f/bacedbb23254934b736a9daf6de52620c9250a49686d519ceaf0a8d25da0a97f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bb5ec56740f8e99fe4bf5b43e7fd7db75d678a7273dd418060b610e60185cc20",
+    "filename": "bb5ec56740f8e99fe4bf5b43e7fd7db75d678a7273dd418060b610e60185cc20.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bb6b249336cd7001b1c55d3724b5e35a150e752ed795c36e0d5dcba00eedb62a",
+    "filename": "bb6b249336cd7001b1c55d3724b5e35a150e752ed795c36e0d5dcba00eedb62a.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bb6b249336cd7001b1c55d3724b5e35a150e752ed795c36e0d5dcba00eedb62a/bb6b249336cd7001b1c55d3724b5e35a150e752ed795c36e0d5dcba00eedb62a.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bc8832f5a8911a1f6f979cbc37e33689f0066078d88bf5c14df534133175d75f",
+    "filename": "bc8832f5a8911a1f6f979cbc37e33689f0066078d88bf5c14df534133175d75f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bc8832f5a8911a1f6f979cbc37e33689f0066078d88bf5c14df534133175d75f/bc8832f5a8911a1f6f979cbc37e33689f0066078d88bf5c14df534133175d75f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bd4e603e953d8c7803f3c7d72cd7197d996ab80ce80b9da96a4df7d10969bb55",
+    "filename": "bd4e603e953d8c7803f3c7d72cd7197d996ab80ce80b9da96a4df7d10969bb55.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bd4e603e953d8c7803f3c7d72cd7197d996ab80ce80b9da96a4df7d10969bb55/bd4e603e953d8c7803f3c7d72cd7197d996ab80ce80b9da96a4df7d10969bb55.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bd769bcddca63924dc3ac02395a037bf1bd88ab3bcef62331cbfbd086b52813b",
+    "filename": "bd769bcddca63924dc3ac02395a037bf1bd88ab3bcef62331cbfbd086b52813b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bd7f4d6a3f224536879cca70b940b16251c56707124d52fb09ad828a889648cd",
+    "filename": "bd7f4d6a3f224536879cca70b940b16251c56707124d52fb09ad828a889648cd.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bd7f4d6a3f224536879cca70b940b16251c56707124d52fb09ad828a889648cd/bd7f4d6a3f224536879cca70b940b16251c56707124d52fb09ad828a889648cd.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "be0fc8cf424ed58ac41ae2cc5c24aead3d2cfe130ef81a540320f53fe8e19992",
+    "filename": "be0fc8cf424ed58ac41ae2cc5c24aead3d2cfe130ef81a540320f53fe8e19992.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "be69a27ea4cea45c49e75a0eb57cd503190d08eb97184c492c084a822e29374e",
+    "filename": "be69a27ea4cea45c49e75a0eb57cd503190d08eb97184c492c084a822e29374e.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/be69a27ea4cea45c49e75a0eb57cd503190d08eb97184c492c084a822e29374e/be69a27ea4cea45c49e75a0eb57cd503190d08eb97184c492c084a822e29374e.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "bea23a43516196082bad5c47784233b3ee0b4b0217384a74781616dadd84db50",
+    "filename": "bea23a43516196082bad5c47784233b3ee0b4b0217384a74781616dadd84db50.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/bea23a43516196082bad5c47784233b3ee0b4b0217384a74781616dadd84db50/bea23a43516196082bad5c47784233b3ee0b4b0217384a74781616dadd84db50.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c0e70e69d8f7432383fa37528cd42db764b73dd08eb75d72229c2a0d02e538cc",
+    "filename": "c0e70e69d8f7432383fa37528cd42db764b73dd08eb75d72229c2a0d02e538cc.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 1,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c0f07b493cc32ffcbb4ca1ca92f5752c4040b1d0be7b69981c22a27f69cfb890",
+    "filename": "c0f07b493cc32ffcbb4ca1ca92f5752c4040b1d0be7b69981c22a27f69cfb890.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/c0f07b493cc32ffcbb4ca1ca92f5752c4040b1d0be7b69981c22a27f69cfb890/c0f07b493cc32ffcbb4ca1ca92f5752c4040b1d0be7b69981c22a27f69cfb890.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c124dc2c4f82b3258f1538656de8cbd2c5133137cad2d6c7b874de8232763d95",
+    "filename": "c124dc2c4f82b3258f1538656de8cbd2c5133137cad2d6c7b874de8232763d95.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/c124dc2c4f82b3258f1538656de8cbd2c5133137cad2d6c7b874de8232763d95/c124dc2c4f82b3258f1538656de8cbd2c5133137cad2d6c7b874de8232763d95.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c18b24be70e5227a6b383c94034210b85c809fba8eca7a06b8b2136d510efee5",
+    "filename": "c18b24be70e5227a6b383c94034210b85c809fba8eca7a06b8b2136d510efee5.elf",
+    "format": "ELF",
+    "returncode": 1,
+    "error": "Error: unsupported architecture: Mips",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c275c00ed3831518a88e99ffae3737126da1dd4ef018028850e9b742263e98d9",
+    "filename": "c275c00ed3831518a88e99ffae3737126da1dd4ef018028850e9b742263e98d9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c2f351a42ecfd12aa3bc4562a05f2d54fefe977e2464bc2677823f5301d27afd",
+    "filename": "c2f351a42ecfd12aa3bc4562a05f2d54fefe977e2464bc2677823f5301d27afd.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c3a4fc8559ecb13d5d004629fb5a01c0101250c9a27bc151e570dbabdd6967b1",
+    "filename": "c3a4fc8559ecb13d5d004629fb5a01c0101250c9a27bc151e570dbabdd6967b1.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c482286a7fdfb64d308c197a4deabcd773b8b62d9e74d1d08fcfd02568d75d72",
+    "filename": "c482286a7fdfb64d308c197a4deabcd773b8b62d9e74d1d08fcfd02568d75d72.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c4c49d2da33892fc0fb8d961a5d504b9f458206e0366132c8a0d017d6e8767ff",
+    "filename": "c4c49d2da33892fc0fb8d961a5d504b9f458206e0366132c8a0d017d6e8767ff.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/c4c49d2da33892fc0fb8d961a5d504b9f458206e0366132c8a0d017d6e8767ff/c4c49d2da33892fc0fb8d961a5d504b9f458206e0366132c8a0d017d6e8767ff.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c4d54c9c913a87aee8f0408fd1bb613b6d89b926327b71b70cd09491bfac7eeb",
+    "filename": "c4d54c9c913a87aee8f0408fd1bb613b6d89b926327b71b70cd09491bfac7eeb.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c50bca08a8e80850ec18d258ff937b7b72a500d9027c730c86b05aa73c938b5d",
+    "filename": "c50bca08a8e80850ec18d258ff937b7b72a500d9027c730c86b05aa73c938b5d.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/c50bca08a8e80850ec18d258ff937b7b72a500d9027c730c86b05aa73c938b5d/c50bca08a8e80850ec18d258ff937b7b72a500d9027c730c86b05aa73c938b5d.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c6f0810b4ca4c2e70a07eddcbd14459e875deced05f5619dfd4df6f49a2130a9",
+    "filename": "c6f0810b4ca4c2e70a07eddcbd14459e875deced05f5619dfd4df6f49a2130a9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c72c3e4322467501ecdd4dd18e879e4ea65dca03d9dc9f7f0282e092af553e0e",
+    "filename": "c72c3e4322467501ecdd4dd18e879e4ea65dca03d9dc9f7f0282e092af553e0e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c7c04bcd56f282bc27f160cc80ccab73485dd3123f2efb35b9726a8528b7950f",
+    "filename": "c7c04bcd56f282bc27f160cc80ccab73485dd3123f2efb35b9726a8528b7950f.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c7e707e37ffd05bea41107d711bef3a3b6216cca69902fa790f3e96d68506a27",
+    "filename": "c7e707e37ffd05bea41107d711bef3a3b6216cca69902fa790f3e96d68506a27.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c83d8b36402639ea3f1ad5d48edc1a22005923aee1c1826afabe27cb3989baa3",
+    "filename": "c83d8b36402639ea3f1ad5d48edc1a22005923aee1c1826afabe27cb3989baa3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c922f7a03d5b660c4cfa152b5ce0b8d8b0588551223ef9c52ae0da506061fe1c",
+    "filename": "c922f7a03d5b660c4cfa152b5ce0b8d8b0588551223ef9c52ae0da506061fe1c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c931c14c4932cb7155bd9b6d5afc29a244f98a25f989ffd12db2850324606941",
+    "filename": "c931c14c4932cb7155bd9b6d5afc29a244f98a25f989ffd12db2850324606941.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/c931c14c4932cb7155bd9b6d5afc29a244f98a25f989ffd12db2850324606941/c931c14c4932cb7155bd9b6d5afc29a244f98a25f989ffd12db2850324606941.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "c9a5db61aa2314d2d71e54a33f36192468b8e1a761e1307f3aa4936fe0ecc502",
+    "filename": "c9a5db61aa2314d2d71e54a33f36192468b8e1a761e1307f3aa4936fe0ecc502.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 2,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ca4f64a4b97c079e3835b30d39b8d0ed3dec2994f98e11c3aeb6b3130a00903b",
+    "filename": "ca4f64a4b97c079e3835b30d39b8d0ed3dec2994f98e11c3aeb6b3130a00903b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "cbdfac8826b8d6eb2c5f01fd617d72a62c63fd4458f10cdd8ce5b16db530dfe7",
+    "filename": "cbdfac8826b8d6eb2c5f01fd617d72a62c63fd4458f10cdd8ce5b16db530dfe7.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ccf870c70de4cc412a00deb5f93ad56f4a7b6ad38b8574c31b121759b1745502",
+    "filename": "ccf870c70de4cc412a00deb5f93ad56f4a7b6ad38b8574c31b121759b1745502.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/ccf870c70de4cc412a00deb5f93ad56f4a7b6ad38b8574c31b121759b1745502/ccf870c70de4cc412a00deb5f93ad56f4a7b6ad38b8574c31b121759b1745502.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "cdc9f6db38735ea160b075611a5ff62fdfe572f543a59f5170856e067fbf5112",
+    "filename": "cdc9f6db38735ea160b075611a5ff62fdfe572f543a59f5170856e067fbf5112.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "cefea76dfdbb48cfe1a3db2c8df34e898e29bec9b2c13e79ef40655c637833ae",
+    "filename": "cefea76dfdbb48cfe1a3db2c8df34e898e29bec9b2c13e79ef40655c637833ae.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/cefea76dfdbb48cfe1a3db2c8df34e898e29bec9b2c13e79ef40655c637833ae/cefea76dfdbb48cfe1a3db2c8df34e898e29bec9b2c13e79ef40655c637833ae.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d0e0923cf7f97c86b6cde608bc7a0332d03881e598de7b8e41c114d1576e4534",
+    "filename": "d0e0923cf7f97c86b6cde608bc7a0332d03881e598de7b8e41c114d1576e4534.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/d0e0923cf7f97c86b6cde608bc7a0332d03881e598de7b8e41c114d1576e4534/d0e0923cf7f97c86b6cde608bc7a0332d03881e598de7b8e41c114d1576e4534.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d0f8a2be536ca434da7734bd318d2a88ea5005f47d518c30ff611185f42c3701",
+    "filename": "d0f8a2be536ca434da7734bd318d2a88ea5005f47d518c30ff611185f42c3701.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d2c48f4fa4b0285889ef6c7667e12a1c0eda1393632ef2eac67b32777bf096f7",
+    "filename": "d2c48f4fa4b0285889ef6c7667e12a1c0eda1393632ef2eac67b32777bf096f7.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d3074cf95eec9d07e6db415cf1ec236fbe9d7cc8857107bb96e0b86bb52ee298",
+    "filename": "d3074cf95eec9d07e6db415cf1ec236fbe9d7cc8857107bb96e0b86bb52ee298.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d32e87c4b81738b45db582db8293293096637f5d50af7dd5d9a0162a0747498a",
+    "filename": "d32e87c4b81738b45db582db8293293096637f5d50af7dd5d9a0162a0747498a.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/d32e87c4b81738b45db582db8293293096637f5d50af7dd5d9a0162a0747498a/d32e87c4b81738b45db582db8293293096637f5d50af7dd5d9a0162a0747498a.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d37eff5e61865aa3cae865e60c443db13027a1c2a01d24caa00da99b43042c6c",
+    "filename": "d37eff5e61865aa3cae865e60c443db13027a1c2a01d24caa00da99b43042c6c.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d3f847b27ee6cd4f85a3393131f85f28750761fd59dd2aac95d5a8fa235d46dd",
+    "filename": "d3f847b27ee6cd4f85a3393131f85f28750761fd59dd2aac95d5a8fa235d46dd.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d3fd49f8f42fa571209af568a65119433e114bb66da21eda12b96a16b5ebfe21",
+    "filename": "d3fd49f8f42fa571209af568a65119433e114bb66da21eda12b96a16b5ebfe21.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/d3fd49f8f42fa571209af568a65119433e114bb66da21eda12b96a16b5ebfe21/d3fd49f8f42fa571209af568a65119433e114bb66da21eda12b96a16b5ebfe21.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d42b4e9bd0c54df09c9c1925b7eb41f6a877963ededdd0dd463e3d16dfe6cd5d",
+    "filename": "d42b4e9bd0c54df09c9c1925b7eb41f6a877963ededdd0dd463e3d16dfe6cd5d.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 1,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d91efafa54ee1d2f6d2c5e296f38339d9bbd65949e077d307f20d9e29c614c94",
+    "filename": "d91efafa54ee1d2f6d2c5e296f38339d9bbd65949e077d307f20d9e29c614c94.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d96a90da14feb9764eac0b15ac16643b01126c556b8f5fad90fe974551e33aca",
+    "filename": "d96a90da14feb9764eac0b15ac16643b01126c556b8f5fad90fe974551e33aca.rar",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "d9cfc3b7544927a2d5d56f0d4767b88b83a91616aa3b0a4a1846fd7881a4e0f9",
+    "filename": "d9cfc3b7544927a2d5d56f0d4767b88b83a91616aa3b0a4a1846fd7881a4e0f9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "da653c075ddd322d4cf1e285a47cb91ddb0b6de06dfbc252eec57ea9bb50cb48",
+    "filename": "da653c075ddd322d4cf1e285a47cb91ddb0b6de06dfbc252eec57ea9bb50cb48.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "dbeda9027eb297f2ff6000263b31e89e75ca860b9ec630c29ee6bb115d9c38ae",
+    "filename": "dbeda9027eb297f2ff6000263b31e89e75ca860b9ec630c29ee6bb115d9c38ae.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "dcc2aee51a2d987b564865cf610282a6e8622c2b63f297905d5d22347d38f2ff",
+    "filename": "dcc2aee51a2d987b564865cf610282a6e8622c2b63f297905d5d22347d38f2ff.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 26,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "dd7a018d9ee987fd7027e438b2636e802d98c2dd7aceaf2ec6db711fb08c6dab",
+    "filename": "dd7a018d9ee987fd7027e438b2636e802d98c2dd7aceaf2ec6db711fb08c6dab.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "de81eacd045a88598f16680ce01bf99837b1d8170c7fc38a18747ef10e930776",
+    "filename": "de81eacd045a88598f16680ce01bf99837b1d8170c7fc38a18747ef10e930776.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "dea72cdd7c9dfc49f0a19581086c8e6e99b000dc33f461ece8b9f37c1bd7068d",
+    "filename": "dea72cdd7c9dfc49f0a19581086c8e6e99b000dc33f461ece8b9f37c1bd7068d.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "df8d000833243acc0004595b3a8d4b66fcd7b76d8685d5c2ff61ee2a40a0e92c",
+    "filename": "df8d000833243acc0004595b3a8d4b66fcd7b76d8685d5c2ff61ee2a40a0e92c.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/df8d000833243acc0004595b3a8d4b66fcd7b76d8685d5c2ff61ee2a40a0e92c/df8d000833243acc0004595b3a8d4b66fcd7b76d8685d5c2ff61ee2a40a0e92c.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "df94511c0c82d8f95689a4a9574081a9f727f027895a4a8fc14acdb4997866bd",
+    "filename": "df94511c0c82d8f95689a4a9574081a9f727f027895a4a8fc14acdb4997866bd.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e160b6348f6fbdc444125bb65dbd94606d99da48c8334c8e6b2ee4429f813293",
+    "filename": "e160b6348f6fbdc444125bb65dbd94606d99da48c8334c8e6b2ee4429f813293.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e160b6348f6fbdc444125bb65dbd94606d99da48c8334c8e6b2ee4429f813293/e160b6348f6fbdc444125bb65dbd94606d99da48c8334c8e6b2ee4429f813293.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e323c24b669727a7c4494d5bc6ab9a6a542453a303677afab3cf4f3ca08b7261",
+    "filename": "e323c24b669727a7c4494d5bc6ab9a6a542453a303677afab3cf4f3ca08b7261.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 60,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e3ab77bd18631ec47eeaed44753cd9d55db0db7e5961f486f5963013656dc3df",
+    "filename": "e3ab77bd18631ec47eeaed44753cd9d55db0db7e5961f486f5963013656dc3df.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e3ab77bd18631ec47eeaed44753cd9d55db0db7e5961f486f5963013656dc3df/e3ab77bd18631ec47eeaed44753cd9d55db0db7e5961f486f5963013656dc3df.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e434ec347a8ea1f0712561bccf0153468a943e16d2cd792fbc72720bd0a8002e",
+    "filename": "e434ec347a8ea1f0712561bccf0153468a943e16d2cd792fbc72720bd0a8002e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e55cc3426298f9f848849304d10b9222925eb19caebaebaa44dfb85ad2346062",
+    "filename": "e55cc3426298f9f848849304d10b9222925eb19caebaebaa44dfb85ad2346062.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e55cc3426298f9f848849304d10b9222925eb19caebaebaa44dfb85ad2346062/e55cc3426298f9f848849304d10b9222925eb19caebaebaa44dfb85ad2346062.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e5627c7b3e95c75c95e4532b3204209ed8c6786a159804702e0a3d03cdce7bed",
+    "filename": "e5627c7b3e95c75c95e4532b3204209ed8c6786a159804702e0a3d03cdce7bed.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e5627c7b3e95c75c95e4532b3204209ed8c6786a159804702e0a3d03cdce7bed/e5627c7b3e95c75c95e4532b3204209ed8c6786a159804702e0a3d03cdce7bed.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e56c0b10c1198db5233d0baedb716234d69d4dff2bbee327919a3aacfeb88f54",
+    "filename": "e56c0b10c1198db5233d0baedb716234d69d4dff2bbee327919a3aacfeb88f54.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e5834b7bdd70ec904470d541713e38fe933e96a4e49f80dbfb25148d9674f957",
+    "filename": "e5834b7bdd70ec904470d541713e38fe933e96a4e49f80dbfb25148d9674f957.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e69a13add1245bc1b7b6337e64eee9b53395b9574f2b85d32f891680c7165ff5",
+    "filename": "e69a13add1245bc1b7b6337e64eee9b53395b9574f2b85d32f891680c7165ff5.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e69a13add1245bc1b7b6337e64eee9b53395b9574f2b85d32f891680c7165ff5/e69a13add1245bc1b7b6337e64eee9b53395b9574f2b85d32f891680c7165ff5.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e6d6100cc97057cd00751ef5ac18261f7796868a420b4507144e9de0a7e80784",
+    "filename": "e6d6100cc97057cd00751ef5ac18261f7796868a420b4507144e9de0a7e80784.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e88795f5be1970400521e0041c4603c62ff681f24ac75f926d524d092eecb6ee",
+    "filename": "e88795f5be1970400521e0041c4603c62ff681f24ac75f926d524d092eecb6ee.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e88795f5be1970400521e0041c4603c62ff681f24ac75f926d524d092eecb6ee/e88795f5be1970400521e0041c4603c62ff681f24ac75f926d524d092eecb6ee.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e889461b4a93fa62b03d283369cee78d914089e1e1ea502a6ca3d8107ac084f7",
+    "filename": "e889461b4a93fa62b03d283369cee78d914089e1e1ea502a6ca3d8107ac084f7.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e889461b4a93fa62b03d283369cee78d914089e1e1ea502a6ca3d8107ac084f7/e889461b4a93fa62b03d283369cee78d914089e1e1ea502a6ca3d8107ac084f7.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e98756472404aeef70ba4d403339962989d9ed733fa0f6a23bdf4c2900d7e877",
+    "filename": "e98756472404aeef70ba4d403339962989d9ed733fa0f6a23bdf4c2900d7e877.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "e9cef52bf082c87766bbac0b3324c3d76e66e9d5b943e751a04583dc041a0273",
+    "filename": "e9cef52bf082c87766bbac0b3324c3d76e66e9d5b943e751a04583dc041a0273.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/e9cef52bf082c87766bbac0b3324c3d76e66e9d5b943e751a04583dc041a0273/e9cef52bf082c87766bbac0b3324c3d76e66e9d5b943e751a04583dc041a0273.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "eaf5e26c5e73f3db82cd07ea45e4d244ccb3ec3397ab5263a1a74add7bbcb6e2",
+    "filename": "eaf5e26c5e73f3db82cd07ea45e4d244ccb3ec3397ab5263a1a74add7bbcb6e2.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "eba2f0afd491ee595cd6908494e9e2a2115ed71c053c6d7b94970f1985830ada",
+    "filename": "eba2f0afd491ee595cd6908494e9e2a2115ed71c053c6d7b94970f1985830ada.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ed448b9c4e604c7c6531864ac023cdd8865affab409d581db66281179532fc69",
+    "filename": "ed448b9c4e604c7c6531864ac023cdd8865affab409d581db66281179532fc69.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ee4994c308f63a795abfbdd6a0fc10ed126737dc5025e73dc11ef07ada828330",
+    "filename": "ee4994c308f63a795abfbdd6a0fc10ed126737dc5025e73dc11ef07ada828330.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ef29e4b32e6de86c5892e2f6d9e1029a49aef283298c81859e95fdc2c049804e",
+    "filename": "ef29e4b32e6de86c5892e2f6d9e1029a49aef283298c81859e95fdc2c049804e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "efb1e519d5a9d527a474eb694ba20dc7589a0cd7347941185a6276d76d0c8f34",
+    "filename": "efb1e519d5a9d527a474eb694ba20dc7589a0cd7347941185a6276d76d0c8f34.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "efdbfcb717b109b816e2d2f99c0d923803c70dd08fb9feb747eb90774e86116e",
+    "filename": "efdbfcb717b109b816e2d2f99c0d923803c70dd08fb9feb747eb90774e86116e.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f0e8eeb7582943e3dbb78f3d39e265998e7c82f0ff368603e09382b8f2aa0f80",
+    "filename": "f0e8eeb7582943e3dbb78f3d39e265998e7c82f0ff368603e09382b8f2aa0f80.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f19a795a01ec22eb27174da923ca0721e22baa7f0982059b0e644c76b6154a3f",
+    "filename": "f19a795a01ec22eb27174da923ca0721e22baa7f0982059b0e644c76b6154a3f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/f19a795a01ec22eb27174da923ca0721e22baa7f0982059b0e644c76b6154a3f/f19a795a01ec22eb27174da923ca0721e22baa7f0982059b0e644c76b6154a3f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f25448a6665ed90d809f041c2b673fb8dd529f92b305f30713d3efc1ea915714",
+    "filename": "f25448a6665ed90d809f041c2b673fb8dd529f92b305f30713d3efc1ea915714.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 1,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f297e54ce1fe9328b946b7a065f6029204f9ca26d1f9aad68592fa471c85747b",
+    "filename": "f297e54ce1fe9328b946b7a065f6029204f9ca26d1f9aad68592fa471c85747b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f2a09b611b6fca3e82b8c3098abc35929779685a9e3f851a6acf4040be002f41",
+    "filename": "f2a09b611b6fca3e82b8c3098abc35929779685a9e3f851a6acf4040be002f41.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f2b3f1ed693021b20f456a058b86b08abfc4876c7a3ae18aea6e95567fd55b2e",
+    "filename": "f2b3f1ed693021b20f456a058b86b08abfc4876c7a3ae18aea6e95567fd55b2e.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/f2b3f1ed693021b20f456a058b86b08abfc4876c7a3ae18aea6e95567fd55b2e/f2b3f1ed693021b20f456a058b86b08abfc4876c7a3ae18aea6e95567fd55b2e.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f3e906f6f266737314886d829741d80a624d406ca22910fea45633a0dd7200c4",
+    "filename": "f3e906f6f266737314886d829741d80a624d406ca22910fea45633a0dd7200c4.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f45b4f4b6420b1a7282b0a91cadfa0e18cf532a3dcf416dea6b5ae004ca1a807",
+    "filename": "f45b4f4b6420b1a7282b0a91cadfa0e18cf532a3dcf416dea6b5ae004ca1a807.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f4a39820dbff47fa1b68f83f575bc98ed33858b02341c5c0464a49be4e6c76d3",
+    "filename": "f4a39820dbff47fa1b68f83f575bc98ed33858b02341c5c0464a49be4e6c76d3.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f4c41111960771e0d7558ec2453b76ba9c422fcb9408e09a8de1fd611c272846",
+    "filename": "f4c41111960771e0d7558ec2453b76ba9c422fcb9408e09a8de1fd611c272846.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f6238ae2550a457d7397da52826738981ed3486ac9df94fac77996cfa294eb09",
+    "filename": "f6238ae2550a457d7397da52826738981ed3486ac9df94fac77996cfa294eb09.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f78fdb894624b1388c1c3ec1600273d12d721da5171151d6606a625acf36ac30",
+    "filename": "f78fdb894624b1388c1c3ec1600273d12d721da5171151d6606a625acf36ac30.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f837f1cd60e9941aa60f7be50a8f2aaaac380f560db8ee001408f35c1b7a97cb",
+    "filename": "f837f1cd60e9941aa60f7be50a8f2aaaac380f560db8ee001408f35c1b7a97cb.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/f837f1cd60e9941aa60f7be50a8f2aaaac380f560db8ee001408f35c1b7a97cb/f837f1cd60e9941aa60f7be50a8f2aaaac380f560db8ee001408f35c1b7a97cb.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f8b14e9a56f8c8cc53f58be19a76c615bcb23bf7d0ffa32ed2eff58404310d6b",
+    "filename": "f8b14e9a56f8c8cc53f58be19a76c615bcb23bf7d0ffa32ed2eff58404310d6b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f8c08d00ff6e8c6adb1a93cd133b19302d0b651afd73ccb54e3b6ac6c60d99c6",
+    "filename": "f8c08d00ff6e8c6adb1a93cd133b19302d0b651afd73ccb54e3b6ac6c60d99c6.elf",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64"
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f8d1e3127dc6b74bcc1ff5c5c147c0f3f8870bae098f2455a89b6162cf2d9e0f",
+    "filename": "f8d1e3127dc6b74bcc1ff5c5c147c0f3f8870bae098f2455a89b6162cf2d9e0f.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/f8d1e3127dc6b74bcc1ff5c5c147c0f3f8870bae098f2455a89b6162cf2d9e0f/f8d1e3127dc6b74bcc1ff5c5c147c0f3f8870bae098f2455a89b6162cf2d9e0f.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "f8fc2445a9814ca8cf48a979bff7f182d6538f4d1ff438cf259268e8b4b76f86",
+    "filename": "f8fc2445a9814ca8cf48a979bff7f182d6538f4d1ff438cf259268e8b4b76f86.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fa28436aaf459d16215dd2d96ea5756c09198216c52d90a7a20abde4e826909b",
+    "filename": "fa28436aaf459d16215dd2d96ea5756c09198216c52d90a7a20abde4e826909b.exe",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/fa28436aaf459d16215dd2d96ea5756c09198216c52d90a7a20abde4e826909b/fa28436aaf459d16215dd2d96ea5756c09198216c52d90a7a20abde4e826909b.exe\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fafd35b8686b47ce520fdf66aad21ac0d151532af96a670314e27a333be8dcec",
+    "filename": "fafd35b8686b47ce520fdf66aad21ac0d151532af96a670314e27a333be8dcec.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 12,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fb07743d139f72fca4616b01308f1f705f02fda72988027bc68e9316655eadda",
+    "filename": "fb07743d139f72fca4616b01308f1f705f02fda72988027bc68e9316655eadda.macho",
+    "format": "unknown",
+    "n_functions": null,
+    "skipped": true
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fcd01c9fed690b2bad435c5bab5925cc1132c4c622f18af09d437f9e4957b84b",
+    "filename": "fcd01c9fed690b2bad435c5bab5925cc1132c4c622f18af09d437f9e4957b84b.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fdba5be3da2467e642bd8710f971e6b266b30ac15f5f413982fd719d7e0bffd9",
+    "filename": "fdba5be3da2467e642bd8710f971e6b266b30ac15f5f413982fd719d7e0bffd9.dll",
+    "format": "PE",
+    "returncode": 1,
+    "error": "Error: loading PE /home/user/arsenal_run_20260712_2324/corpus/malware/fdba5be3da2467e642bd8710f971e6b266b30ac15f5f413982fd719d7e0bffd9/fdba5be3da2467e642bd8710f971e6b266b30ac15f5f413982fd719d7e0bffd9.dll\n\nCaused by:\n    0: not a valid PE32+ binary\n    1: Invalid PE optional header magic",
+    "n_functions": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "fe2b438566adcafb6e8ddf5491875be83e981c062240c49f9160b8a3e0761c6a",
+    "filename": "fe2b438566adcafb6e8ddf5491875be83e981c062240c49f9160b8a3e0761c6a.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 5,
+    "arch": null
+  },
+  {
+    "category": "malware",
+    "hash_dir": "ffc8d344feea894671e41b1220888aee2bb58e040dc7460b706dcfa6547e67b9",
+    "filename": "ffc8d344feea894671e41b1220888aee2bb58e040dc7460b706dcfa6547e67b9.exe",
+    "format": "PE",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": null
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "bat",
+    "filename": "bat",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 15,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "deno",
+    "filename": "deno",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 2102,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "fd-find",
+    "filename": "fd",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 8,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "hyperfine",
+    "filename": "hyperfine",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 7,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "ripgrep",
+    "filename": "rg",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 80,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "ruff",
+    "filename": "ruff",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 573,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "starship",
+    "filename": "starship",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 20,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "uv",
+    "filename": "uv",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 699,
+    "arch": "x86-64"
+  },
+  {
+    "category": "benign_shipped",
+    "tool": "uv",
+    "filename": "uvx",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "411toppm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "[",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aa-enabled",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aa-exec",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aa-features-abi",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aconnect",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "acpi",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "acpi_listen",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "acyclic",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "addftinfo",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "addpart",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "afm2pl",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "afm2tfm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aha",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "airscan-discover",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aleph",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "alsabat",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "alsaloop",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "alsamixer",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "alsatplg",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "alsaucm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "amd-ppt",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "amidi",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "amixer",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "animate-im6.q16",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apgbfm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aplay",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aplaymidi",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "appres",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "appstreamcli",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-cache",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-cdrom",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-config",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-extracttemplates",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-ftparchive",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-get",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-mark",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "apt-sortpkgs",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arch",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arecordmidi",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arj",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arj-register",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arjdisp",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "arm2hpdl",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "asciitopgm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aseqdump",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aseqnet",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "aspell",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "atktopbm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "atobm",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "autosp",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "avahi-browse",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "avahi-publish",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "avahi-resolve",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "avahi-set-host-name",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "avinfo",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "axfer",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "axohelp",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "nonrust",
+    "filename": "b2sum",
+    "format": "ELF",
+    "returncode": 0,
+    "n_functions": 0,
+    "arch": "x86-64"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bandwhich__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "bandwhich",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 29,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bandwhich__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "bandwhich",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 28,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bandwhich__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "bandwhich",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 28,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bandwhich__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "bandwhich",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 28,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO2__ltofat__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 11,
+    "arch": "x86-64",
+    "july_n_functions": 142,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 10,
+    "arch": "x86-64",
+    "july_n_functions": 142,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO2__ltooff__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": "x86-64",
+    "july_n_functions": 144,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": "x86-64",
+    "july_n_functions": 144,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO3__ltofat__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 11,
+    "arch": "x86-64",
+    "july_n_functions": 141,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 10,
+    "arch": "x86-64",
+    "july_n_functions": 141,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO3__ltooff__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": "x86-64",
+    "july_n_functions": 143,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO3__ltooff__panicunwind__rustc1.95.0",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": "x86-64",
+    "july_n_functions": 143,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "1.95.0"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 9,
+    "arch": "x86-64",
+    "july_n_functions": 143,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optOz__ltofat__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 33,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optOz__ltofat__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 33,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optOz__ltooff__panicabort__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 35,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "bat__optOz__ltooff__panicunwind__rustcnightly",
+    "project": "bat",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 35,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "fd__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "fd",
+    "returncode": 0,
+    "n_functions": 7,
+    "arch": "x86-64",
+    "july_n_functions": 19,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "fd__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "fd",
+    "returncode": 0,
+    "n_functions": 5,
+    "arch": "x86-64",
+    "july_n_functions": 20,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "fd__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "fd",
+    "returncode": 0,
+    "n_functions": 7,
+    "arch": "x86-64",
+    "july_n_functions": 17,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "fd__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "fd",
+    "returncode": 0,
+    "n_functions": 7,
+    "arch": "x86-64",
+    "july_n_functions": 17,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO2__ltofat__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 12,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO2__ltooff__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 16,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO3__ltofat__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 12,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 16,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO3__ltooff__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 16,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO3__ltooff__panicunwind__rustc1.95.0",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 16,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "1.95.0"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 16,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optOz__ltofat__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optOz__ltofat__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optOz__ltooff__panicabort__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hexyl__optOz__ltooff__panicunwind__rustcnightly",
+    "project": "hexyl",
+    "returncode": 0,
+    "n_functions": 4,
+    "arch": "x86-64",
+    "july_n_functions": 18,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hyperfine__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "hyperfine",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": "x86-64",
+    "july_n_functions": 15,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hyperfine__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "hyperfine",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": "x86-64",
+    "july_n_functions": 14,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hyperfine__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "hyperfine",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": "x86-64",
+    "july_n_functions": 15,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "hyperfine__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "hyperfine",
+    "returncode": 0,
+    "n_functions": 6,
+    "arch": "x86-64",
+    "july_n_functions": 14,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO2__ltofat__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 159,
+    "arch": "x86-64",
+    "july_n_functions": 277,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 159,
+    "arch": "x86-64",
+    "july_n_functions": 277,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO2__ltooff__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 212,
+    "arch": "x86-64",
+    "july_n_functions": 351,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 206,
+    "arch": "x86-64",
+    "july_n_functions": 345,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO3__ltofat__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 158,
+    "arch": "x86-64",
+    "july_n_functions": 276,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 158,
+    "arch": "x86-64",
+    "july_n_functions": 279,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO3__ltooff__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 205,
+    "arch": "x86-64",
+    "july_n_functions": 347,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO3__ltooff__panicunwind__rustc1.95.0",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 207,
+    "arch": "x86-64",
+    "july_n_functions": 347,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "1.95.0"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 206,
+    "arch": "x86-64",
+    "july_n_functions": 346,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optOz__ltofat__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 108,
+    "arch": "x86-64",
+    "july_n_functions": 235,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optOz__ltofat__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 110,
+    "arch": "x86-64",
+    "july_n_functions": 236,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optOz__ltooff__panicabort__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 180,
+    "arch": "x86-64",
+    "july_n_functions": 343,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "abort",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "ripgrep__optOz__ltooff__panicunwind__rustcnightly",
+    "project": "ripgrep",
+    "returncode": 0,
+    "n_functions": 183,
+    "arch": "x86-64",
+    "july_n_functions": 344,
+    "july_status": "ok",
+    "opt": "Oz",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "tokei__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "tokei",
+    "returncode": 0,
+    "n_functions": 11,
+    "arch": "x86-64",
+    "july_n_functions": 32,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "tokei__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "tokei",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 42,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "tokei__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "tokei",
+    "returncode": 0,
+    "n_functions": 11,
+    "arch": "x86-64",
+    "july_n_functions": 32,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "tokei__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "tokei",
+    "returncode": 0,
+    "n_functions": 17,
+    "arch": "x86-64",
+    "july_n_functions": 42,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "xsv__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "xsv",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 32,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "xsv__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "xsv",
+    "returncode": 0,
+    "n_functions": 16,
+    "arch": "x86-64",
+    "july_n_functions": 49,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "xsv__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "xsv",
+    "returncode": 0,
+    "n_functions": 14,
+    "arch": "x86-64",
+    "july_n_functions": 32,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "xsv__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "xsv",
+    "returncode": 0,
+    "n_functions": 16,
+    "arch": "x86-64",
+    "july_n_functions": 49,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "zoxide__optO2__ltofat__panicunwind__rustcnightly",
+    "project": "zoxide",
+    "returncode": 0,
+    "n_functions": 2,
+    "arch": "x86-64",
+    "july_n_functions": 8,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "zoxide__optO2__ltooff__panicunwind__rustcnightly",
+    "project": "zoxide",
+    "returncode": 0,
+    "n_functions": 2,
+    "arch": "x86-64",
+    "july_n_functions": 8,
+    "july_status": "ok",
+    "opt": "O2",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "zoxide__optO3__ltofat__panicunwind__rustcnightly",
+    "project": "zoxide",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 8,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "fat",
+    "panic": "unwind",
+    "rustc": "nightly"
+  },
+  {
+    "category": "variant",
+    "variant_id": "zoxide__optO3__ltooff__panicunwind__rustcnightly",
+    "project": "zoxide",
+    "returncode": 0,
+    "n_functions": 3,
+    "arch": "x86-64",
+    "july_n_functions": 8,
+    "july_status": "ok",
+    "opt": "O3",
+    "lto": "off",
+    "panic": "unwind",
+    "rustc": "nightly"
+  }
+]

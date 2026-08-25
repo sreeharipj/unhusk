@@ -1,0 +1,74 @@
+[
+  {
+    "project": "bandwhich",
+    "returncode": 0,
+    "certain_precision_pct": 42.1,
+    "certain_recall_pct": 44.4,
+    "certain_recall_frac": "8/18",
+    "overall_recall_pct": 66.7
+  },
+  {
+    "project": "bat",
+    "returncode": 0,
+    "certain_precision_pct": 8.7,
+    "certain_recall_pct": 15.5,
+    "certain_recall_frac": "11/71",
+    "overall_recall_pct": 46.5
+  },
+  {
+    "project": "fd",
+    "returncode": 0,
+    "certain_precision_pct": 30.0,
+    "certain_recall_pct": 9.1,
+    "certain_recall_frac": "3/33",
+    "overall_recall_pct": 57.6
+  },
+  {
+    "project": "hexyl",
+    "returncode": 0,
+    "certain_precision_pct": 50.0,
+    "certain_recall_pct": 15.4,
+    "certain_recall_frac": "4/26",
+    "overall_recall_pct": 46.2
+  },
+  {
+    "project": "hyperfine",
+    "returncode": 0,
+    "certain_precision_pct": 90.9,
+    "certain_recall_pct": 31.2,
+    "certain_recall_frac": "10/32",
+    "overall_recall_pct": 56.2
+  },
+  {
+    "project": "ripgrep",
+    "returncode": 0,
+    "certain_precision_pct": 94.7,
+    "certain_recall_pct": 4.0,
+    "certain_recall_frac": "143/3533",
+    "overall_recall_pct": 5.5
+  },
+  {
+    "project": "tokei",
+    "returncode": 0,
+    "certain_precision_pct": 43.5,
+    "certain_recall_pct": 26.3,
+    "certain_recall_frac": "10/38",
+    "overall_recall_pct": 36.8
+  },
+  {
+    "project": "xsv",
+    "returncode": 0,
+    "certain_precision_pct": 86.7,
+    "certain_recall_pct": 40.6,
+    "certain_recall_frac": "26/64",
+    "overall_recall_pct": 85.9
+  },
+  {
+    "project": "zoxide",
+    "returncode": 0,
+    "certain_precision_pct": 100.0,
+    "certain_recall_pct": 16.7,
+    "certain_recall_frac": "3/18",
+    "overall_recall_pct": 77.8
+  }
+]

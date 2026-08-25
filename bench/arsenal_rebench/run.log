@@ -1,0 +1,13 @@
+=== malware corpus ===
+  malware: 50/352 dirs done
+  malware: 100/352 dirs done
+  malware: 150/352 dirs done
+  malware: 200/352 dirs done
+  malware: 250/352 dirs done
+  malware: 300/352 dirs done
+  malware: 350/352 dirs done
+=== benign_shipped ===
+=== nonrust ===
+=== variants/matrix ===
+=== DWARF validate pairs ===
+done: 473 rows, 9 validate rows, 9s
