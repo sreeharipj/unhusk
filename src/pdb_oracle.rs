@@ -360,7 +360,10 @@ pub fn compare(attributed: &[AttributedFn], gt: &PdbGroundTruth) -> Vec<Row> {
 
 /// The procedure whose `[start, end)` strictly contains `rva`, if any.
 /// `procs` must be sorted by `start`.
-fn containing_proc<'a>(procs: &[&'a OracleFn], rva: u64) -> Option<&'a OracleFn> {
+/// `pub(crate)`: also used by `pe_pipeline`'s `UNHUSK_DUMP_GT` diagnostic to
+/// resolve the same fragment addresses `compare` does, so a full-universe
+/// ground-truth dump agrees with `compare`'s own verdicts by construction.
+pub(crate) fn containing_proc<'a>(procs: &[&'a OracleFn], rva: u64) -> Option<&'a OracleFn> {
     let idx = procs.partition_point(|f| f.start <= rva);
     let cand = procs.get(idx.checked_sub(1)?)?;
     (rva < cand.end).then_some(*cand)

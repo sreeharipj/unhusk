@@ -473,6 +473,33 @@ pub fn run(args: &PeArgs) -> Result<()> {
             .with_context(|| format!("reading PDB {}", pdb.display()))?;
         let rows = pdb_oracle::compare(&s.attributed, &gt);
         print_validation(&rows, &tiers);
+
+        // DIAGNOSTIC (env-gated): dump every `.pdata` function range with its PDB
+        // ground-truth label, mirroring ELF's UNHUSK_DUMP_GT (main.rs). `s.attributed`
+        // only covers unhusk's own certain predictions, too narrow to score a
+        // subtractive tool (e.g. RIFT, whose author-code output is every function no
+        // FLIRT signature matched) -- that needs a label for the whole universe, not
+        // just what unhusk flagged. Uses the same fragment-containment resolution as
+        // `compare` so the dump agrees with its verdicts by construction.
+        // Format: GTDUMP\t0xSTART\t0xEND\tUSER|LIB|UNK\tpath
+        if std::env::var_os("UNHUSK_DUMP_GT").is_some() {
+            let mut procs: Vec<&pdb_oracle::OracleFn> = gt.values().collect();
+            procs.sort_by_key(|f| f.start);
+            let mut ranges = img.function_ranges();
+            ranges.sort_by_key(|r| r.start);
+            ranges.dedup();
+            for r in &ranges {
+                let oracle = gt
+                    .get(&r.start)
+                    .or_else(|| pdb_oracle::containing_proc(&procs, r.start));
+                let (label, path) = match oracle {
+                    Some(o) if o.origin == Origin::User => ("USER", o.decl_file.as_str()),
+                    Some(o) => ("LIB", o.decl_file.as_str()),
+                    None => ("UNK", ""),
+                };
+                println!("GTDUMP\t0x{:x}\t0x{:x}\t{}\t{}", r.start, r.end, label, path);
+            }
+        }
     }
 
     Ok(())
