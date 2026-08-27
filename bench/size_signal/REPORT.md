@@ -126,3 +126,131 @@ Both preserve existing behavior exactly when unset, and compose with `--min-anch
 ```
 python3 bench/size_signal/analyze.py
 ```
+
+## Addendum 2026-08-27: bucketed precision-by-size, true recall-by-size, R2-by-size
+
+The sections above measure precision only, as a cumulative `size>=T` threshold
+sweep. Three follow-up scripts turn that into disjoint buckets plus figures,
+add the metric the original investigation never measured (recall), and check
+how R2 (`bench/elf_corpus/REPORT.md`'s best single rule) interacts with size.
+
+**Shared bucket scheme (`size_buckets.py`).** First cut of this addendum gave
+`precision_by_size.py` and `recall_by_size.py` each their own independently
+computed quantile edges. That was wrong: the two populations have very
+different shapes (recall's is every GT-USER function, half of them under 67
+bytes; precision's is only the already-STRONG-tiered subset, essentially
+never under ~80 bytes), so the two scripts picked different bucket
+boundaries and a reader flipping between the two figures could not line up a
+size on one plot with a size on the other. Fixed, shared, round-number edges
+now live in one module and every figure below imports them: **0, 50, 150,
+500B, 1.5, 5, 15, 50, 250KB** (8 buckets). Every figure in this addendum now
+bins the same byte ranges.
+
+**`precision_by_size.py`, part 1 — size effect.** Same `bench/{elf,pe}_corpus`
++ `bench/corpus2_{elf,pe}` `rows.json` as above (no rebuild), STRONG tier,
+`anchor_count==2` held fixed (the same stratification that ruled out the
+anchor-count confound above). Figure: `precision_by_size.png`. Confirms the
+original finding as buckets instead of thresholds, though the fixed-bucket
+cut shows a dip the quantile cut smoothed over: `elf_corpus`/`pe_corpus` open
+around 70-94% at [50,150)B, actually **drop** at [150,500)B (58%/70%,
+n=59/113, wide CIs — plausibly noise, not a real reversal), then climb
+cleanly from [500B,1.5KB) onward to 95-99% by the top buckets.
+`corpus2_elf`/`corpus2_pe` stay noisier bucket-to-bucket throughout (already
+flagged above as the weaker-magnitude corpus), including one bucket
+([50,250)KB, n=1) at 100% with a CI down to 20.7% — not a real number, just
+what one function looks like.
+
+**`precision_by_size.py`, part 2 — R2 vs a2, by size.** New. `fires_r2`
+(`n_rel>=2 & caller_rel>=1`) vs the `a2` incumbent, over the **full** STRONG
+population this time (not restricted to `anchor_count==2` — R2 already
+implies `anchor_count>=2`), pooled per format (`elf_corpus`+`corpus2_elf`,
+`pe_corpus`+`corpus2_pe` — defensible here specifically because R2, unlike
+size, is architecture.md's own "most consistent single result across all
+four corpora"). Figure: `precision_by_size_r2.png`. Table: part 2 of
+`precision_by_size_table.md`.
+
+| format | bucket | a2 | r2 |
+|---|---|---:|---:|
+| ELF | [150,500)B | 70.1% (n=87) | 84.4% (n=32) |
+| ELF | [500B,1.5KB) | 79.6% (n=245) | 90.2% (n=122) |
+| ELF | [15,50)KB | 93.9% (n=197) | 93.6% (n=125) |
+| PE | [150,500)B | 82.8% (n=203) | 94.9% (n=118) |
+| PE | [500B,1.5KB) | 87.4% (n=412) | 94.7% (n=266) |
+| PE | [15,50)KB | 94.3% (n=244) | 93.0% (n=172) |
+
+**R2's improvement is concentrated exactly where size can't already tell you
+the answer.** At [150,500)B and [500B,1.5KB) — the size range where the a2
+baseline itself is weakest (58-88%) — R2 adds 10-14 points on both formats.
+By [15,50)KB, where a2 is already 94-96%, R2 adds nothing (and is a hair
+*below* a2 on both formats, within noise at these n). **R2 and size are
+substitutes at the top of the size range, not complements** — most of R2's
+value is recovering precision on the small/mid functions that size alone
+can't yet distinguish, not adding more on top of what size already gets
+right.
+
+**`recall_by_size.py`** — a genuinely different measurement, not in
+`rows.json` at all. `rows.json` only contains functions that already reached
+Certain attribution, so it cannot show functions unhusk never flagged in the
+first place — the real false-negative population. This runs the CLI's own
+`UNHUSK_DUMP_GT` (every function in the FDE map, DWARF label, exact
+start/end — so size and ground truth come from one source, no join needed)
+against the 32 already-built `realval/corpus_src` binaries (the same corpus
+behind architecture.md §9.1's existing symbol-oracle ~15-46% recall figure;
+this uses the DWARF oracle instead — see the script's docstring for why —
+so the two numbers are not comparable and neither should be quoted as
+reproducing the other, per the existing "state the oracle" rule this repo
+already applies to precision numbers).
+
+| size bucket | n (GT-USER) | STRONG recall | STRONG+SINGLE recall |
+|---|---:|---:|---:|
+| [0,50)B | 3542 | 0.0% | 0.1% |
+| [50,150)B | 431 | 7.2% [5.1,10.0] | 18.3% [15.0,22.3] |
+| [150,500)B | 1060 | 2.7% [1.9,3.9] | 13.5% [11.6,15.7] |
+| [500B,1.5KB) | 1021 | 9.0% [7.4,10.9] | 24.7% [22.1,27.4] |
+| [1.5,5)KB | 623 | 28.1% [24.7,31.7] | 50.7% [46.8,54.6] |
+| [5,15)KB | 417 | 38.4% [33.8,43.1] | 46.8% [42.0,51.6] |
+| [15,50)KB | 128 | 63.3% [54.7,71.1] | 69.5% [61.1,76.8] |
+| [50,250)KB | 29 | 34.5% [19.9,52.7] | 37.9% [22.7,56.0] |
+
+(Cluster CIs, by binary, are in `recall_by_size_table.md` — wide throughout,
+e.g. [47.0,76.3] on the [15,50)KB peak and overlapping-zero on [50,150)B
+([0.0,16.9]), because the corpus is 32 binaries of very different sizes and
+`ripgrep` alone contributes 3531 of the pool's 7251 GT-USER functions.
+Read the [50,150)B→[150,500)B dip (7.2%→2.7%) as noise, not a real
+reversal — its cluster CI straddles the neighboring bucket's point estimate.)
+
+**Recall is low everywhere and structural, not a bug** — architecture.md
+§9.1 already states this: a function with no reachable panic site has
+nothing to anchor on regardless of size. What's new here is that recall
+climbs with size overall (0%→63% STRONG, 0%→70% combined at the [15,50)KB
+peak) — the same direction as the precision effect, and mechanistically
+consistent with it: bigger functions are more likely to contain a
+`panic!`/`.unwrap()`/bounds-check site at all, on top of being less likely to
+be an absorbed-closure false positive when they do get flagged. **Precision
+and recall both improve with size through most of the range — there is no
+tradeoff to report there, size is unambiguously a "more trustworthy, more
+complete" signal**, not a precision/recall dial. The one exception is the
+very top bucket ([50,250)KB): recall *drops* back to 34.5%/37.9%, n=29,
+CI [19.9,52.7] — plausibly a handful of huge, panic-sparse functions (giant
+match/dispatch bodies) diluting the population rather than a reversal of the
+mechanism; not chased further here.
+
+The two smallest buckets (0-150B, 3973 of 7251 GT-USER functions combined,
+exactly the size range `#[track_caller]` wrapper stubs and single-statement
+getters/setters live in) show recall at or indistinguishable from zero below
+50B and still under 10%/20% at 50-150B. That's the same population the
+precision side already identifies as low-value when it IS flagged (58-94%
+precision at this size, the widest CIs in the whole table) — here the
+complementary fact is most of them are never flagged at all.
+
+Reproduce: `python3 bench/size_signal/precision_by_size.py` and
+`python3 bench/size_signal/recall_by_size.py`. Outputs: `precision_by_size.
+{json,png}`, `precision_by_size_r2.{json,png}`, `precision_by_size_table.md`,
+`recall_by_size.{json,png}`, `recall_by_size_table.md`,
+`recall_by_size_rows.json`, `size_buckets.py`.
+
+**Not done, scoped as follow-up, not blocking:** PE recall-by-size. Would
+need rebuilding `bench/pe_corpus` or `bench/corpus2_pe` (cross-compile,
+`out/` is gitignored and not currently built) plus `--validate` against a
+`.pdb` — mechanically the same approach, just PE's build cost instead of
+ELF's already-on-disk one.
