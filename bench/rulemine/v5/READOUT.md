@@ -71,3 +71,39 @@ disjunction **replicated on a second sealed corpus on both axes**. A
 certifiably-optimal small rule set / tree recovers ~1.3× R3's global recall
 (+23 pp tier recall) at held-out precision parity. D04's "the gap is rule form,
 and it needs disjunction" is now a confirmed positive result, not a conjecture.
+
+## What the disjunction is doing (o05, diagnostic — dev-side + v5 breakdown)
+
+**The three clauses are complementary, not redundant.** On dev tier A each
+RS90 clause alone recovers 53–58 % of tier positives at P 0.91–0.93; dropping
+any one drops the union to 75–82 % tier recall. Each covers a different
+~15–20 pp. Clause 0 (`G_loc_per_kb <= 4.27 AND N_win_rel >= 1`) carries the most.
+
+**RS90 and GOSDT_A fire on nearly the same functions** — Jaccard 0.85 on dev
+(15,112 both, ~1,300 unique each). An exhaustive rule-set search and GOSDT
+branch-and-bound, from different atoms, converge on the same firing set. GOSDT_A
+roots on `X_caller_all_rel >= 1` (R2/R4's idea); RS90 uses neighbourhood and
+Location-purity atoms — different route, same functions.
+
+**The +25 pp of tier recall over R3 is small, single-Location author functions
+with a sparse-but-pure neighbourhood.** The 5,956 true positives RS90 adds over
+R3 have median `N_win_rel` = 2 (shared TPs: 12), median `M_rel_structs` = 1
+(shared: 2), median `X_caller_rel` = 0 (shared: 2), and are smaller (629 vs
+1089 bytes). R3's `N_win_rel >= 5` and R1/R2/A@2's `>= 2` multiplicity
+structurally exclude these. RS90 reaches them safely by gating on neighbourhood
+*purity* (`N_win_rel_frac >= 0.6`), whole-function Location purity
+(`M_rel_frac >= 1`), or low Location density (`G_loc_per_kb <= 4.27`) instead of
+neighbourhood *size*.
+
+**The `tokio-console` precision outlier (v5, P 0.33) is monomorphised `core`
+code.** RS90 fires 355× there, 237 false positives — 224 are `STD` (`core`
+generics instantiated into tokio-console's `.text`), 13 `DEP`. A small,
+generic-heavy binary packs `core` monomorphisations among author functions, so
+the neighbourhood-purity clause misfires. This is the inline-absorption /
+monomorphisation-adjacency mode (parent architecture §9.2) that R3's
+conservative `N_win_rel >= 5` was guarding against — RS90 trades that guard for
+recall and wins on 37/38 crates, loses on this one.
+
+**Holds across build configs.** On dev's LTO-fat / opt-z configs (the harshest),
+RS90 still ~doubles R3's tier recall at comparable precision; same on both v5
+configs.

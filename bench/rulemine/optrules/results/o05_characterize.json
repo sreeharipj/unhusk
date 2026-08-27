@@ -1,0 +1,345 @@
+{
+ "A_rs90_clause_ablation_dev": {
+  "full_RS90": {
+   "P": 0.9029,
+   "Rg": 0.163,
+   "Rt": 0.901,
+   "n": 16315,
+   "tp": 14730,
+   "crates": 28
+  },
+  "drop[0] G_loc_per_kb <= 4.27 AND N_win_rel >= 1": {
+   "P": 0.9132,
+   "Rg": 0.1354,
+   "Rt": 0.7484,
+   "n": 13398,
+   "tp": 12235,
+   "crates": 28
+  },
+  "only[0] G_loc_per_kb <= 4.27 AND N_win_rel >= 1": {
+   "P": 0.9095,
+   "Rg": 0.1048,
+   "Rt": 0.5792,
+   "n": 10411,
+   "tp": 9469,
+   "crates": 28
+  },
+  "drop[1] N_win_rel >= 1 AND N_win_rel_frac >= 0.6": {
+   "P": 0.9085,
+   "Rg": 0.1485,
+   "Rt": 0.821,
+   "n": 14773,
+   "tp": 13421,
+   "crates": 28
+  },
+  "only[1] N_win_rel >= 1 AND N_win_rel_frac >= 0.6": {
+   "P": 0.9257,
+   "Rg": 0.099,
+   "Rt": 0.5472,
+   "n": 9663,
+   "tp": 8945,
+   "crates": 28
+  },
+  "drop[2] M_rel_frac >= 1 AND G_n_ref_rodata >= 1": {
+   "P": 0.9112,
+   "Rg": 0.1429,
+   "Rt": 0.7896,
+   "n": 14167,
+   "tp": 12909,
+   "crates": 28
+  },
+  "only[2] M_rel_frac >= 1 AND G_n_ref_rodata >= 1": {
+   "P": 0.921,
+   "Rg": 0.0967,
+   "Rt": 0.5344,
+   "n": 9485,
+   "tp": 8736,
+   "crates": 28
+  }
+ },
+ "B_gosdt_vs_rs90_dev": {
+  "gosdt_tree": "(X_caller_all_rel >= 1 AND N_win_rel >= 8) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND M_rel_line_span >= 1) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND NOT (M_rel_line_span >= 1) AND NOT (G_loc_per_kb >= 4.99)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND N_win_rel_frac <= 0.5 AND NOT (X_in_deg <= 1)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND NOT (N_win_rel_frac <= 0.5) AND NOT (G_n_uncond_br <= 1)) OR (NOT (X_caller_all_rel >= 1) AND NOT (P_nonrel >= 1))",
+  "fire_both": 15112,
+  "fire_gosdt_only": 1469,
+  "fire_rs90_only": 1203,
+  "jaccard": 0.85,
+  "gosdt_dev": {
+   "P": 0.9098,
+   "Rg": 0.167,
+   "Rt": 0.9228,
+   "n": 16581,
+   "tp": 15086,
+   "crates": 28
+  },
+  "rs90_dev": {
+   "P": 0.9029,
+   "Rg": 0.163,
+   "Rt": 0.901,
+   "n": 16315,
+   "tp": 14730,
+   "crates": 28
+  }
+ },
+ "C_rs90_gain_profile_dev": {
+  "n_gain_tp": 5956,
+  "n_shared_tp": 9051,
+  "feature_medians": {
+   "M_rel_structs": {
+    "rs90_gain_median": 1.0,
+    "shared_median": 2.0
+   },
+   "M_rel_lines": {
+    "rs90_gain_median": 1.0,
+    "shared_median": 2.0
+   },
+   "N_win_rel": {
+    "rs90_gain_median": 2.0,
+    "shared_median": 12.0
+   },
+   "N_win_rel_frac": {
+    "rs90_gain_median": 0.5,
+    "shared_median": 0.7894737124443054
+   },
+   "X_caller_rel": {
+    "rs90_gain_median": 0.0,
+    "shared_median": 2.0
+   },
+   "X_callee_rel": {
+    "rs90_gain_median": 0.0,
+    "shared_median": 0.0
+   },
+   "G_size": {
+    "rs90_gain_median": 629.0,
+    "shared_median": 1089.0
+   },
+   "G_n_insn": {
+    "rs90_gain_median": 151.0,
+    "shared_median": 247.0
+   },
+   "C_user": {
+    "rs90_gain_median": 1.0,
+    "shared_median": 2.0
+   },
+   "C_registry": {
+    "rs90_gain_median": 0.0,
+    "shared_median": 0.0
+   },
+   "P_nonrel": {
+    "rs90_gain_median": 0.0,
+    "shared_median": 0.0
+   },
+   "G_loc_per_kb": {
+    "rs90_gain_median": 2.7901906967163086,
+    "shared_median": 2.384564161300659
+   }
+  }
+ },
+ "D_per_config": {
+  "dev": {
+   "lto-fat_opt-3_panic-abort": {
+    "R3": {
+     "P": 0.8863,
+     "Rg": 0.011,
+     "Rt": 0.5098,
+     "n": 1117,
+     "tp": 990,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.8966,
+     "Rg": 0.0186,
+     "Rt": 0.8661,
+     "n": 1876,
+     "tp": 1682,
+     "crates": 28
+    }
+   },
+   "lto-fat_opt-3_panic-unwind": {
+    "R3": {
+     "P": 0.8974,
+     "Rg": 0.0109,
+     "Rt": 0.4945,
+     "n": 1101,
+     "tp": 988,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.8951,
+     "Rg": 0.0191,
+     "Rt": 0.8629,
+     "n": 1926,
+     "tp": 1724,
+     "crates": 28
+    }
+   },
+   "lto-fat_opt-z_panic-abort": {
+    "R3": {
+     "P": 0.9171,
+     "Rg": 0.0089,
+     "Rt": 0.455,
+     "n": 881,
+     "tp": 808,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.8952,
+     "Rg": 0.0167,
+     "Rt": 0.8514,
+     "n": 1689,
+     "tp": 1512,
+     "crates": 28
+    }
+   },
+   "lto-fat_opt-z_panic-unwind": {
+    "R3": {
+     "P": 0.9172,
+     "Rg": 0.0091,
+     "Rt": 0.4573,
+     "n": 894,
+     "tp": 820,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.9017,
+     "Rg": 0.0173,
+     "Rt": 0.8701,
+     "n": 1730,
+     "tp": 1560,
+     "crates": 28
+    }
+   },
+   "lto-thin_opt-3_panic-abort": {
+    "R3": {
+     "P": 0.8945,
+     "Rg": 0.0146,
+     "Rt": 0.6325,
+     "n": 1478,
+     "tp": 1322,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.8961,
+     "Rg": 0.021,
+     "Rt": 0.9077,
+     "n": 2117,
+     "tp": 1897,
+     "crates": 28
+    }
+   },
+   "lto-thin_opt-3_panic-unwind": {
+    "R3": {
+     "P": 0.9148,
+     "Rg": 0.0151,
+     "Rt": 0.6335,
+     "n": 1491,
+     "tp": 1364,
+     "crates": 27
+    },
+    "RS90": {
+     "P": 0.9033,
+     "Rg": 0.0219,
+     "Rt": 0.9201,
+     "n": 2193,
+     "tp": 1981,
+     "crates": 28
+    }
+   },
+   "lto-thin_opt-z_panic-abort": {
+    "R3": {
+     "P": 0.9121,
+     "Rg": 0.0152,
+     "Rt": 0.5983,
+     "n": 1502,
+     "tp": 1370,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.9169,
+     "Rg": 0.0241,
+     "Rt": 0.9489,
+     "n": 2370,
+     "tp": 2173,
+     "crates": 28
+    }
+   },
+   "lto-thin_opt-z_panic-unwind": {
+    "R3": {
+     "P": 0.915,
+     "Rg": 0.0154,
+     "Rt": 0.6023,
+     "n": 1518,
+     "tp": 1389,
+     "crates": 28
+    },
+    "RS90": {
+     "P": 0.9118,
+     "Rg": 0.0244,
+     "Rt": 0.9545,
+     "n": 2414,
+     "tp": 2201,
+     "crates": 28
+    }
+   }
+  },
+  "v5": {
+   "cgu-16_lto-false_opt-3_panic-unwind": {
+    "R3": {
+     "P": 0.8871,
+     "Rg": 0.0814,
+     "Rt": 0.699,
+     "n": 9265,
+     "tp": 8219,
+     "crates": 37
+    },
+    "RS90": {
+     "P": 0.8825,
+     "Rg": 0.1105,
+     "Rt": 0.9483,
+     "n": 12635,
+     "tp": 11150,
+     "crates": 38
+    }
+   },
+   "lto-thin_opt-3_panic-unwind": {
+    "R3": {
+     "P": 0.9157,
+     "Rg": 0.0727,
+     "Rt": 0.7384,
+     "n": 8016,
+     "tp": 7340,
+     "crates": 37
+    },
+    "RS90": {
+     "P": 0.9047,
+     "Rg": 0.0932,
+     "Rt": 0.9468,
+     "n": 10402,
+     "tp": 9411,
+     "crates": 38
+    }
+   }
+  }
+ },
+ "E_tokio_console_v5": {
+  "tierA_rows": 370,
+  "pos": 123,
+  "RS90_fires": 355,
+  "RS90_tp": 118,
+  "RS90_fp": 237,
+  "fp_label_breakdown": {
+   "STD": 224,
+   "DEP": 13
+  },
+  "fp_gt_crate_top": {
+   "core": 221,
+   "hashbrown": 4,
+   "once_cell": 4,
+   "alloc": 3,
+   "tracing": 2,
+   "clap_builder": 2,
+   "ratatui_core": 1
+  },
+  "fp_median_N_win_rel": 6.0,
+  "fp_median_M_rel_structs": 1.0
+ }
+}
