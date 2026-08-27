@@ -1,0 +1,232 @@
+tier A dev 19,291 rows, 40 atoms, N_global=90,349 (6s)
+  atoms: ['N_win_rel >= 3', 'N_win_rel >= 5', 'X_caller_rel >= 1', 'C_user >= 2', 'X_callee_rel >= 3', 'X_caller_all_rel >= 1', 'N_win_rel >= 8', 'M_rel_line_span >= 2', 'N_win_rel_frac <= 0.5', 'N_win_rel_frac >= 0.667', 'N_win_rel_frac <= 0.667', 'M_rel_frac <= 0.5', 'M_rel_line_span <= 1', 'N_next_reg >= 1', 'M_rel_line_span >= 1', 'X_caller_rel <= 5', 'X_caller_rel >= 6', 'M_rel_lines <= 1', 'M_rel_lines >= 2', 'G_relro_dens >= 1', 'G_n_ref_rodata >= 1', 'M_rel_file_frac <= 0.5', 'G_loc_per_kb >= 4.99', 'G_loc_per_kb <= 4.99', 'G_n_uncond_br <= 1', 'G_n_uncond_br >= 2', 'C_user <= 1', 'X_caller_with_rel <= 1', 'X_caller_with_rel >= 2', 'X_in_deg <= 1', 'X_in_deg >= 2', 'X_caller_max_rel >= 6', 'X_caller_max_rel <= 5', 'X_caller_max_rel <= 6', 'M_rel_frac >= 0.875', 'M_rel_file_frac <= 0.667', 'M_rel_file_frac >= 0.667', 'M_rel_frac <= 0.875', 'N_prev_reg >= 1', 'P_nonrel >= 1']
+R1 P=0.9429 Rg=0.0623 | R2 P=0.9567 Rg=0.0474 | R3 P=0.9067 Rg=0.1002
+  tree d2 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.02 K 4: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.02 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.02 K 8: P=0.9340 Rg=0.0865 n=8364 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.01 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.01 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.01 K 4: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.01 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.01 K 8: P=0.9511 Rg=0.0930 n=8836 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.005 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.005 K 3: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.005 K 4: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.005 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.005 K 8: P=0.9511 Rg=0.0930 n=8836 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.0025 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.0025 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.0025 K 3: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.0025 K 4: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.0025 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.0025 K 8: P=0.9511 Rg=0.0930 n=8836 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.001 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.001 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.001 K 3: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.0s
+  tree d2 reg0.001 K 4: P=0.9129 Rg=0.1440 n=14254 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.001 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.1s
+  tree d2 reg0.001 K 8: P=0.9511 Rg=0.0930 n=8836 opt=True Status.CONVERGED 0.1s
+  tree d3 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  tree d3 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.4s
+  tree d3 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.6s
+  tree d3 reg0.02 K 4: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 0.7s
+  tree d3 reg0.02 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 0.9s
+  tree d3 reg0.02 K 8: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 1.0s
+  tree d3 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.4s
+  tree d3 reg0.01 K 2: P=0.8903 Rg=0.1712 n=17377 opt=True Status.CONVERGED 0.6s
+  tree d3 reg0.01 K 3: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 0.8s
+  tree d3 reg0.01 K 4: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 1.0s
+  tree d3 reg0.01 K 6: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 1.2s
+  tree d3 reg0.01 K 8: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 1.4s
+  tree d3 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.5s
+  tree d3 reg0.005 K 2: P=0.8903 Rg=0.1712 n=17377 opt=True Status.CONVERGED 0.8s
+  tree d3 reg0.005 K 3: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 0.9s
+  tree d3 reg0.005 K 4: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 1.0s
+  tree d3 reg0.005 K 6: P=0.9520 Rg=0.1150 n=10914 opt=True Status.CONVERGED 1.2s
+  tree d3 reg0.005 K 8: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 1.4s
+  tree d3 reg0.0025 K 1: P=0.8675 Rg=0.1792 n=18668 opt=True Status.CONVERGED 0.7s
+  tree d3 reg0.0025 K 2: P=0.8903 Rg=0.1712 n=17377 opt=True Status.CONVERGED 0.9s
+  tree d3 reg0.0025 K 3: P=0.9190 Rg=0.1546 n=15201 opt=True Status.CONVERGED 0.9s
+  tree d3 reg0.0025 K 4: P=0.9243 Rg=0.1498 n=14645 opt=True Status.CONVERGED 1.0s
+  tree d3 reg0.0025 K 6: P=0.9544 Rg=0.1140 n=10788 opt=True Status.CONVERGED 1.2s
+  tree d3 reg0.0025 K 8: P=0.9592 Rg=0.1068 n=10055 opt=True Status.CONVERGED 1.4s
+  tree d3 reg0.001 K 1: P=0.8711 Rg=0.1791 n=18577 opt=True Status.CONVERGED 0.7s
+  tree d3 reg0.001 K 2: P=0.8995 Rg=0.1674 n=16814 opt=True Status.CONVERGED 0.8s
+  tree d3 reg0.001 K 3: P=0.9190 Rg=0.1546 n=15201 opt=True Status.CONVERGED 0.9s
+  tree d3 reg0.001 K 4: P=0.9243 Rg=0.1498 n=14645 opt=True Status.CONVERGED 1.0s
+  tree d3 reg0.001 K 6: P=0.9544 Rg=0.1140 n=10788 opt=True Status.CONVERGED 1.2s
+  tree d3 reg0.001 K 8: P=0.9592 Rg=0.1068 n=10055 opt=True Status.CONVERGED 1.4s
+  tree d4 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  tree d4 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 4.0s
+  tree d4 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 6.2s
+  tree d4 reg0.02 K 4: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 7.3s
+  tree d4 reg0.02 K 6: P=0.9377 Rg=0.1166 n=11236 opt=True Status.CONVERGED 9.5s
+  tree d4 reg0.02 K 8: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 10.7s
+  tree d4 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 3.3s
+  tree d4 reg0.01 K 2: P=0.8900 Rg=0.1723 n=17492 opt=True Status.CONVERGED 7.7s
+  tree d4 reg0.01 K 3: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 10.2s
+  tree d4 reg0.01 K 4: P=0.9191 Rg=0.1516 n=14901 opt=True Status.CONVERGED 12.2s
+  tree d4 reg0.01 K 6: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 15.7s
+  tree d4 reg0.01 K 8: P=0.9536 Rg=0.1069 n=10131 opt=True Status.CONVERGED 17.6s
+  tree d4 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 6.5s
+  tree d4 reg0.005 K 2: P=0.8905 Rg=0.1739 n=17645 opt=True Status.CONVERGED 11.0s
+  tree d4 reg0.005 K 3: P=0.9173 Rg=0.1595 n=15707 opt=True Status.CONVERGED 13.7s
+  tree d4 reg0.005 K 4: P=0.9215 Rg=0.1572 n=15409 opt=True Status.CONVERGED 15.3s
+  tree d4 reg0.005 K 6: P=0.9520 Rg=0.1167 n=11079 opt=True Status.CONVERGED 18.7s
+  tree d4 reg0.005 K 8: P=0.9536 Rg=0.1146 n=10857 opt=True Status.CONVERGED 21.4s
+  tree d4 reg0.0025 K 1: P=0.8837 Rg=0.1772 n=18114 opt=True Status.CONVERGED 9.6s
+  tree d4 reg0.0025 K 2: P=0.9098 Rg=0.1670 n=16581 opt=True Status.CONVERGED 13.2s
+  tree d4 reg0.0025 K 3: P=0.9221 Rg=0.1584 n=15520 opt=True Status.CONVERGED 15.1s
+  tree d4 reg0.0025 K 4: P=0.9268 Rg=0.1563 n=15237 opt=True Status.CONVERGED 16.9s
+  tree d4 reg0.0025 K 6: P=0.9471 Rg=0.1332 n=12704 opt=True Status.CONVERGED 20.5s
+  tree d4 reg0.0025 K 8: P=0.9622 Rg=0.1097 n=10302 opt=True Status.CONVERGED 23.4s
+  tree d4 reg0.001 K 1: P=0.8870 Rg=0.1778 n=18108 opt=True Status.CONVERGED 12.2s
+  tree d4 reg0.001 K 2: P=0.8999 Rg=0.1728 n=17345 opt=True Status.CONVERGED 14.7s
+  tree d4 reg0.001 K 3: P=0.9248 Rg=0.1588 n=15512 opt=True Status.CONVERGED 16.9s
+  tree d4 reg0.001 K 4: P=0.9323 Rg=0.1518 n=14707 opt=True Status.CONVERGED 18.1s
+  tree d4 reg0.001 K 6: P=0.9517 Rg=0.1312 n=12453 opt=True Status.CONVERGED 21.8s
+  tree d4 reg0.001 K 8: P=0.9666 Rg=0.1117 n=10437 opt=True Status.CONVERGED 25.5s
+  list d2 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.02 K 4: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.02 K 6: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.02 K 8: P=0.9340 Rg=0.0865 n=8364 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.01 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.01 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.01 K 4: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.01 K 6: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.01 K 8: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.005 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.005 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.005 K 4: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.005 K 6: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.005 K 8: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.0025 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.0025 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.0025 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.0025 K 4: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.0025 K 6: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.0025 K 8: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.001 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.001 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.001 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.0s
+  list d2 reg0.001 K 4: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.001 K 6: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d2 reg0.001 K 8: P=0.9310 Rg=0.1058 n=10266 opt=True Status.CONVERGED 0.1s
+  list d3 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  list d3 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.3s
+  list d3 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 0.5s
+  list d3 reg0.02 K 4: P=0.9272 Rg=0.1277 n=12439 opt=True Status.CONVERGED 0.5s
+  list d3 reg0.02 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 0.5s
+  list d3 reg0.02 K 8: P=0.9340 Rg=0.0865 n=8364 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.3s
+  list d3 reg0.01 K 2: P=0.8670 Rg=0.1781 n=18559 opt=True Status.CONVERGED 0.5s
+  list d3 reg0.01 K 3: P=0.8868 Rg=0.1683 n=17147 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.01 K 4: P=0.9272 Rg=0.1277 n=12439 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.01 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.01 K 8: P=0.9420 Rg=0.1060 n=10164 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 0.4s
+  list d3 reg0.005 K 2: P=0.8744 Rg=0.1762 n=18210 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.005 K 3: P=0.8868 Rg=0.1683 n=17147 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.005 K 4: P=0.9272 Rg=0.1277 n=12439 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.005 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.005 K 8: P=0.9420 Rg=0.1060 n=10164 opt=True Status.CONVERGED 0.8s
+  list d3 reg0.0025 K 1: P=0.8675 Rg=0.1792 n=18668 opt=True Status.CONVERGED 0.6s
+  list d3 reg0.0025 K 2: P=0.8744 Rg=0.1762 n=18210 opt=True Status.CONVERGED 0.8s
+  list d3 reg0.0025 K 3: P=0.8868 Rg=0.1683 n=17147 opt=True Status.CONVERGED 0.8s
+  list d3 reg0.0025 K 4: P=0.9272 Rg=0.1277 n=12439 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.0025 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.0025 K 8: P=0.9420 Rg=0.1060 n=10164 opt=True Status.CONVERGED 0.8s
+  list d3 reg0.001 K 1: P=0.8675 Rg=0.1792 n=18668 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.001 K 2: P=0.8744 Rg=0.1762 n=18210 opt=True Status.CONVERGED 0.8s
+  list d3 reg0.001 K 3: P=0.8868 Rg=0.1683 n=17147 opt=True Status.CONVERGED 0.9s
+  list d3 reg0.001 K 4: P=0.9272 Rg=0.1277 n=12439 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.001 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 0.7s
+  list d3 reg0.001 K 8: P=0.9420 Rg=0.1060 n=10164 opt=True Status.CONVERGED 0.8s
+  list d4 reg0.02 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.0s
+  list d4 reg0.02 K 2: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.7s
+  list d4 reg0.02 K 3: P=0.8896 Rg=0.1607 n=16319 opt=True Status.CONVERGED 3.7s
+  list d4 reg0.02 K 4: P=0.9194 Rg=0.1497 n=14709 opt=True Status.CONVERGED 4.1s
+  list d4 reg0.02 K 6: P=0.9333 Rg=0.1205 n=11668 opt=True Status.CONVERGED 3.6s
+  list d4 reg0.02 K 8: P=0.9340 Rg=0.0865 n=8364 opt=True Status.CONVERGED 3.5s
+  list d4 reg0.01 K 1: P=0.8474 Rg=0.1809 n=19291 opt=True Status.CONVERGED 0.5s
+  list d4 reg0.01 K 2: P=0.8900 Rg=0.1723 n=17492 opt=True Status.CONVERGED 4.8s
+  list d4 reg0.01 K 3: P=0.9182 Rg=0.1508 n=14840 opt=True Status.CONVERGED 7.1s
+  list d4 reg0.01 K 4: P=0.9194 Rg=0.1497 n=14709 opt=True Status.CONVERGED 7.1s
+  list d4 reg0.01 K 6: P=0.9402 Rg=0.1188 n=11414 opt=True Status.CONVERGED 7.0s
+  list d4 reg0.01 K 8: P=0.9518 Rg=0.1000 n=9493 opt=True Status.CONVERGED 8.3s
+  list d4 reg0.005 K 1: P=0.8605 Rg=0.1802 n=18925 opt=True Status.CONVERGED 4.0s
+  list d4 reg0.005 K 2: P=0.8900 Rg=0.1723 n=17492 opt=True Status.CONVERGED 8.1s
+  list d4 reg0.005 K 3: P=0.9182 Rg=0.1508 n=14840 opt=True Status.CONVERGED 9.5s
+  list d4 reg0.005 K 4: P=0.9194 Rg=0.1497 n=14709 opt=True Status.CONVERGED 9.1s
+  list d4 reg0.005 K 6: P=0.9402 Rg=0.1188 n=11414 opt=True Status.CONVERGED 9.2s
+  list d4 reg0.005 K 8: P=0.9518 Rg=0.1000 n=9493 opt=True Status.CONVERGED 11.3s
+  list d4 reg0.0025 K 1: P=0.8745 Rg=0.1781 n=18405 opt=True Status.CONVERGED 7.1s
+  list d4 reg0.0025 K 2: P=0.8900 Rg=0.1723 n=17492 opt=True Status.CONVERGED 11.6s
+  list d4 reg0.0025 K 3: P=0.9182 Rg=0.1508 n=14840 opt=True Status.CONVERGED 11.4s
+  list d4 reg0.0025 K 4: P=0.9194 Rg=0.1497 n=14709 opt=True Status.CONVERGED 10.4s
+  list d4 reg0.0025 K 6: P=0.9402 Rg=0.1188 n=11414 opt=True Status.CONVERGED 10.6s
+  list d4 reg0.0025 K 8: P=0.9518 Rg=0.1000 n=9493 opt=True Status.CONVERGED 13.1s
+  list d4 reg0.001 K 1: P=0.8745 Rg=0.1781 n=18405 opt=True Status.CONVERGED 10.9s
+  list d4 reg0.001 K 2: P=0.8900 Rg=0.1723 n=17492 opt=True Status.CONVERGED 13.9s
+  list d4 reg0.001 K 3: P=0.9182 Rg=0.1508 n=14840 opt=True Status.CONVERGED 13.0s
+  list d4 reg0.001 K 4: P=0.9194 Rg=0.1497 n=14709 opt=True Status.CONVERGED 11.2s
+  list d4 reg0.001 K 6: P=0.9402 Rg=0.1188 n=11414 opt=True Status.CONVERGED 11.2s
+  list d4 reg0.001 K 8: P=0.9518 Rg=0.1000 n=9493 opt=True Status.CONVERGED 14.2s
+
+best @P>=0.95: tree d4 reg0.001 K6  P=0.9517 Rg=0.1312  (R3 Rg=0.1002)
+   (X_caller_rel >= 1 AND G_relro_dens >= 1 AND G_loc_per_kb >= 4.99 AND N_win_rel >= 8) OR (X_caller_rel >= 1 AND G_relro_dens >= 1 AND NOT (G_loc_per_kb >= 4.99) AND NOT (X_caller_rel <= 5)) OR (X_caller_rel >= 1 AND NOT (G_relro_dens >= 1) AND C_user >= 2 AND M_rel_line_span >= 2) OR (X_caller_rel >= 1 AND NOT (G_relro_dens >= 1) AND NOT (C_user >= 2) AND N_win_rel >= 3) OR (NOT (X_caller_rel >= 1) AND G_n_ref_rodata >= 1 AND X_callee_rel >= 3 AND NOT (X_in_deg <= 1)) OR (NOT (X_caller_rel >= 1) AND G_n_ref_rodata >= 1 AND NOT (X_callee_rel >= 3) AND NOT (P_nonrel >= 1)) OR (NOT (X_caller_rel >= 1) AND NOT (G_n_ref_rodata >= 1) AND G_loc_per_kb >= 4.99 AND M_rel_line_span >= 1) OR (NOT (X_caller_rel >= 1) AND NOT (G_n_ref_rodata >= 1) AND NOT (G_loc_per_kb >= 4.99) AND NOT (N_win_rel_frac <= 0.5))
+
+best @P>=0.9067: tree d4 reg0.0025 K2  P=0.9098 Rg=0.1670  (R3 Rg=0.1002)
+   (X_caller_all_rel >= 1 AND N_win_rel >= 8) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND M_rel_line_span >= 1) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND NOT (M_rel_line_span >= 1) AND NOT (G_loc_per_kb >= 4.99)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND N_win_rel_frac <= 0.5 AND NOT (X_in_deg <= 1)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND NOT (N_win_rel_frac <= 0.5) AND NOT (G_n_uncond_br <= 1)) OR (NOT (X_caller_all_rel >= 1) AND NOT (P_nonrel >= 1))
+
+best @P>=0.9: tree d4 reg0.0025 K2  P=0.9098 Rg=0.1670  (R3 Rg=0.1002)
+   (X_caller_all_rel >= 1 AND N_win_rel >= 8) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND M_rel_line_span >= 1) OR (X_caller_all_rel >= 1 AND NOT (N_win_rel >= 8) AND NOT (M_rel_line_span >= 1) AND NOT (G_loc_per_kb >= 4.99)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND N_win_rel_frac <= 0.5 AND NOT (X_in_deg <= 1)) OR (NOT (X_caller_all_rel >= 1) AND P_nonrel >= 1 AND NOT (N_win_rel_frac <= 0.5) AND NOT (G_n_uncond_br <= 1)) OR (NOT (X_caller_all_rel >= 1) AND NOT (P_nonrel >= 1))
+
+=== nested LOCO: tree d4 reg0.0025 K2 ===
+  -bandwhich          held P=0.674 tp=124 fp=60
+  -bottom             held P=0.929 tp=339 fp=26
+  -dprint             held P=0.831 tp=1522 fp=309
+  -eza                held P=0.910 tp=262 fp=26
+  -fclones            held P=0.622 tp=389 fp=236
+  -fd                 held P=0.675 tp=79 fp=38
+  -ferium             held P=0.975 tp=232 fp=6
+  -grex               held P=0.724 tp=84 fp=32
+  -hexyl              held P=0.948 tp=73 fp=4
+  -just               held P=0.938 tp=882 fp=58
+  -netscanner         held P=0.729 tp=310 fp=115
+  -ouch               held P=0.945 tp=138 fp=8
+  -oxker              held P=0.981 tp=212 fp=4
+  -pastel             held P=1.000 tp=195 fp=0
+  -procs              held P=1.000 tp=160 fp=0
+  -pueue              held P=0.962 tp=201 fp=8
+  -rage               held P=0.892 tp=339 fp=41
+  -rathole            held P=0.939 tp=123 fp=8
+  -ripgrep            held P=0.953 tp=1890 fp=93
+  -rustscan           held P=1.000 tp=55 fp=0
+  -starship           held P=0.858 tp=837 fp=138
+  -typos              held P=0.901 tp=183 fp=20
+  -websocat           held P=0.855 tp=1196 fp=203
+  -wormhole-rs        held P=0.813 tp=573 fp=132
+  -xh                 held P=0.955 tp=253 fp=12
+  -xsv                held P=0.904 tp=132 fp=14
+  -zellij             held P=0.906 tp=4012 fp=414
+  -zoxide             held P=1.000 tp=60 fp=0
+  nested pooled: P=0.8811 Rg=0.1644
+
+=== stage B: invisible tier (M_rel_structs == 0), subsample ===
+  invisible subsample 70,000 rows, base_rate 0.0454
+  invis d3 reg0.01 K1: P=nan recall_in_sub=0.0000 n=0 Status.CONVERGED
+  invis d3 reg0.01 K4: P=nan recall_in_sub=0.0000 n=0 Status.CONVERGED
+  invis d3 reg0.005 K1: P=nan recall_in_sub=0.0000 n=0 Status.CONVERGED
+  invis d3 reg0.005 K4: P=nan recall_in_sub=0.0000 n=0 Status.CONVERGED
+
+wrote results/o02_gosdt.json (1045.4s)

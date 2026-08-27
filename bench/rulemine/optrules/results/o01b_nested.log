@@ -1,0 +1,3 @@
+conj: pooled P=0.9015 Rg=0.1303  jackknife P in [0.8938, 0.9145]  worst crate bandwhich=0.619
+set: pooled P=0.9029 Rg=0.1630  jackknife P in [0.8950, 0.9110]  worst crate bandwhich=0.671
+wrote results/o01b_nested.json

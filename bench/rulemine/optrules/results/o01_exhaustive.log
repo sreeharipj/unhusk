@@ -1,0 +1,63 @@
+tier A dev 19,291 rows, 710 atoms, N_global=90,349  (5s)
+R3 baseline: P=0.9067 recall_global=0.1002 n=9982
+
+=== tau 0.9 ===
+      [conj tau=0.9] atom 0/710 pairs=675 best_rg=0.1002 hi=0 0s
+      [conj tau=0.9] atom 100/710 pairs=64,785 best_rg=0.1002 hi=13,129 2s
+      [conj tau=0.9] atom 200/710 pairs=119,010 best_rg=0.1220 hi=22,262 4s
+      [conj tau=0.9] atom 300/710 pairs=164,361 best_rg=0.1220 hi=26,025 5s
+      [conj tau=0.9] atom 400/710 pairs=199,801 best_rg=0.1222 hi=29,617 6s
+      [conj tau=0.9] atom 500/710 pairs=225,350 best_rg=0.1222 hi=31,880 7s
+      [conj tau=0.9] atom 600/710 pairs=240,954 best_rg=0.1222 hi=33,277 7s
+      [conj tau=0.9] atom 700/710 pairs=246,574 best_rg=0.1222 hi=34,079 7s
+  conj<=3: G_insn_per_byte <= 0.307 AND G_n_rip_ref >= 3 AND N_win_rel_frac >= 0.143
+           P=0.9015 Rg=0.1303 n=13054 [pairs=246,604 triples=6,692,921 hi_pairs=27385 complete=True 207.7s]
+  set<=3 (clause floor 0.9): 3 clauses P=0.9029 Rg=0.1630 n=16315 [pool=250 combos=2,604,376 complete=True 123.2s]
+  set<=3 (clause floor 0.87): none [pool=250 complete=True]
+
+=== tau 0.925 ===
+      [conj tau=0.925] atom 0/710 pairs=675 best_rg=0.0990 hi=0 0s
+      [conj tau=0.925] atom 100/710 pairs=64,785 best_rg=0.0990 hi=13,308 2s
+      [conj tau=0.925] atom 200/710 pairs=119,010 best_rg=0.0990 hi=23,601 4s
+      [conj tau=0.925] atom 300/710 pairs=164,361 best_rg=0.0990 hi=30,368 5s
+      [conj tau=0.925] atom 400/710 pairs=199,801 best_rg=0.0990 hi=36,487 6s
+      [conj tau=0.925] atom 500/710 pairs=225,350 best_rg=0.0990 hi=40,624 7s
+      [conj tau=0.925] atom 600/710 pairs=240,954 best_rg=0.0990 hi=43,041 8s
+      [conj tau=0.925] atom 700/710 pairs=246,574 best_rg=0.0990 hi=44,430 8s
+  conj<=3: G_n_uncond_br >= 1 AND G_n_rip_ref >= 3 AND N_win_rel_frac >= 0.4
+           P=0.9287 Rg=0.0990 n=9633 [pairs=246,604 triples=10,544,233 hi_pairs=44436 complete=True 336.8s]
+  set<=3 (clause floor 0.925): 3 clauses P=0.9254 Rg=0.1434 n=14003 [pool=250 combos=2,604,376 complete=True 121.6s]
+  set<=3 (clause floor 0.895): 1 clauses P=0.9257 Rg=0.0990 n=9663 [pool=250 combos=2,604,376 complete=True 121.5s]
+
+=== tau 0.95 ===
+      [conj tau=0.95] atom 0/710 pairs=675 best_rg=0.0145 hi=527 0s
+      [conj tau=0.95] atom 100/710 pairs=64,785 best_rg=0.0474 hi=24,245 2s
+      [conj tau=0.95] atom 200/710 pairs=119,010 best_rg=0.0651 hi=42,697 4s
+      [conj tau=0.95] atom 300/710 pairs=164,361 best_rg=0.0651 hi=56,265 5s
+      [conj tau=0.95] atom 400/710 pairs=199,801 best_rg=0.0667 hi=66,551 6s
+      [conj tau=0.95] atom 500/710 pairs=225,350 best_rg=0.0667 hi=73,700 7s
+      [conj tau=0.95] atom 600/710 pairs=240,954 best_rg=0.0667 hi=78,148 7s
+      [conj tau=0.95] atom 700/710 pairs=246,574 best_rg=0.0667 hi=79,845 8s
+  conj<=3: M_rel_frac >= 1 AND G_n_rip_ref >= 4 AND N_win_rel >= 2
+           P=0.9503 Rg=0.0747 n=7102 [pairs=246,604 triples=15,702,442 hi_pairs=72049 complete=False 480.0s]
+  set<=3 (clause floor 0.95): 3 clauses P=0.9521 Rg=0.1049 n=9951 [pool=250 combos=2,598,811 complete=True 119.2s]
+  set<=3 (clause floor 0.92): none [pool=250 complete=True]
+
+=== nested LOCO (conj<=3, tau=0.95) ===
+      [conj tau=0.95] atom 0/710 pairs=675 best_rg=0.0225 hi=482 0s
+      [conj tau=0.95] atom 100/710 pairs=64,785 best_rg=0.0576 hi=22,970 2s
+      [conj tau=0.95] atom 200/710 pairs=119,010 best_rg=0.0645 hi=41,107 4s
+      [conj tau=0.95] atom 300/710 pairs=164,361 best_rg=0.0645 hi=54,689 5s
+      [conj tau=0.95] atom 400/710 pairs=199,801 best_rg=0.0666 hi=64,940 6s
+      [conj tau=0.95] atom 500/710 pairs=225,350 best_rg=0.0666 hi=72,032 7s
+      [conj tau=0.95] atom 600/710 pairs=240,954 best_rg=0.0666 hi=76,440 8s
+      [conj tau=0.95] atom 700/710 pairs=246,574 best_rg=0.0666 hi=78,130 8s
+  −bandwhich          -> G_n_rip_ref >= 6 AND N_win_rel_frac >= 0.6                    held P=0.479 tp=23
+      [conj tau=0.95] atom 0/710 pairs=675 best_rg=0.0143 hi=527 0s
+      [conj tau=0.95] atom 100/710 pairs=64,774 best_rg=0.0464 hi=24,245 2s
+      [conj tau=0.95] atom 200/710 pairs=118,963 best_rg=0.0641 hi=43,255 4s
+      [conj tau=0.95] atom 300/710 pairs=164,314 best_rg=0.0641 hi=56,679 5s
+      [conj tau=0.95] atom 400/710 pairs=199,754 best_rg=0.0655 hi=66,908 6s
+      [conj tau=0.95] atom 500/710 pairs=225,303 best_rg=0.0655 hi=74,017 7s
+      [conj tau=0.95] atom 600/710 pairs=240,907 best_rg=0.0655 hi=78,438 7s
+      [conj tau=0.95] atom 700/710 pairs=246,527 best_rg=0.0655 hi=80,136 7s
