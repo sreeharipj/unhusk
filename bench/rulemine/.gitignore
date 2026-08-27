@@ -15,6 +15,10 @@ v4/raw/
 v4/fde/
 v4/build/
 v4/src/
+v5/raw/
+v5/fde/
+v5/build/
+v5/src/
 extractor/target/
 __pycache__/
 *.pyc
@@ -24,6 +28,7 @@ __pycache__/
 #   data/split.json         the sealed split and its hash
 #   data/builds.csv         per-build row and label counts
 #   v2/builds.csv v3/builds.csv v4/builds.csv v4/corpus.tsv
+#   v5/builds.csv v5/corpus.tsv v5/corpus_candidates.tsv v5/split.json
 #   results/*.json *.log    every experiment's output
 #   figs/*.png              the figure
 #   wild/*.json             the wild-sample yield report
