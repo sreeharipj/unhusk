@@ -102,11 +102,16 @@ if [ "${1:-}" != "--build-only" ]; then
       echo "!! free space below ${MIN_FREE_GB}G, stopping clone phase"; break
     fi
     echo "clone $name"
-    if ! git clone --quiet "$url" "$SRC/$name" 2>/dev/null; then
+    # shallow single-branch: pinned_sha is HEAD, so the branch tip IS the target
+    # and full history is pure cost (difftastic alone is ~650 MB of .git).
+    if ! git clone --quiet --depth 1 --single-branch "$url" "$SRC/$name" 2>/dev/null; then
       printf '%s\t-\tclone\tgit clone failed\n' "$name" >> "$FAILURES"; continue
     fi
-    (cd "$SRC/$name" && git checkout --quiet "$sha" 2>/dev/null) \
-      || printf '%s\t-\tcheckout\tpinned sha %s not found\n' "$name" "$sha" >> "$FAILURES"
+    if [ "$sha" != "HEAD" ]; then
+      (cd "$SRC/$name" && git fetch --quiet --depth 1 origin "$sha" \
+        && git checkout --quiet "$sha" 2>/dev/null) \
+        || printf '%s\t-\tcheckout\tpinned sha %s not fetchable\n' "$name" "$sha" >> "$FAILURES"
+    fi
   done
   echo "=== clone phase done $(date -Is)"
 fi

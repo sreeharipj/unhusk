@@ -40,3 +40,4 @@ __pycache__/
 results/*.npz
 
 _crates_block.txt
+v5/build_v5.run.log
