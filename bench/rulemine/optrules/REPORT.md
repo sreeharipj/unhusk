@@ -246,5 +246,6 @@ python3 exp/o07_ebm.py
 # v5 read is one-shot and already done; o04 re-runs it from ../v5/fde
 ```
 
-`manifest/INDEX.md` maps every file to the claim it backs. `verify.py` (58
+`apply_rs90.py BINARY [--also-r3]` runs RS90 on any stripped ELF (same code path
+as the measurements). `manifest/INDEX.md` maps every file to the claim it backs. `verify.py` (58
 checks) re-derives the dev numbers and the study's invariants.
