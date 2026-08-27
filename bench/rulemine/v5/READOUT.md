@@ -107,3 +107,21 @@ recall and wins on 37/38 crates, loses on this one.
 **Holds across build configs.** On dev's LTO-fat / opt-z configs (the harshest),
 RS90 still ~doubles R3's tier recall at comparable precision; same on both v5
 configs.
+
+## Is RS90 near the limit? (o06, dev-only headroom)
+
+Gradient boosting, out-of-fold over crates (GroupKFold-7, parent e05 protocol),
+on dev tier A:
+
+| feature set | GBM avg precision | GBM tier recall @ P 0.903 | vs RS90 (Rt 0.901) |
+|---|---|---|---|
+| the 40 GOSDT atoms (binary) | 0.947 | 0.923 | **+2.2 pp** |
+| 80 raw numeric features (C/M/N/X/G/P) | 0.960 | 0.958 | +5.7 pp |
+
+**Within the interpretable-atom representation, RS90 is ~2 pp of tier recall
+from an unconstrained model** — the certified disjunction captures nearly all
+the signal those atoms carry. Another ~5–6 pp is available *only* by moving to
+continuous-feature boosting, i.e. giving up the transcribable rule form. So the
+disjunction is close to the white-box ceiling for this feature representation,
+and D04's "the gap is rule form" was right: closing it gets within 2 pp of the
+black box on the same atoms.

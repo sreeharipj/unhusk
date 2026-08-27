@@ -1,0 +1,32 @@
+{
+ "seed": 20260819,
+ "n_rows": 19291,
+ "npos_global": 90349,
+ "base_rate_tierA": 0.8474418122440517,
+ "R3": {
+  "P": 0.9067,
+  "Rt": 0.5536,
+  "Rg": 0.1002
+ },
+ "RS90": {
+  "P": 0.9029,
+  "Rt": 0.901,
+  "Rg": 0.163
+ },
+ "gbm": {
+  "gosdt_atoms_40": {
+   "average_precision": 0.9468,
+   "gbm_tier_recall_at_P0.90": 0.9284,
+   "gbm_tier_recall_at_P0.903": 0.9226,
+   "gbm_tier_recall_at_P0.95": 0.4424
+  },
+  "numeric_80feat": {
+   "average_precision": 0.9602,
+   "gbm_tier_recall_at_P0.90": 0.9631,
+   "gbm_tier_recall_at_P0.903": 0.9576,
+   "gbm_tier_recall_at_P0.95": 0.7092
+  }
+ },
+ "elapsed_s": 7.8,
+ "headroom_over_RS90_at_matched_precision_tier_recall_pp": 2.2
+}
