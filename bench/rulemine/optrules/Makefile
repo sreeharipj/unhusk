@@ -10,13 +10,25 @@
 # (GOSDT sweep + nested LOCO + invisible-tier check), o03 ~3min.
 #
 # Requires: python3 with numpy/pandas/scikit-learn/scipy/pyarrow, and
-#   pip install gosdt        (1.0.4 manylinux wheel; `corels` is NOT needed --
-#                             o01 is a self-contained exhaustive search)
+#   pip install gosdt interpret-core   (gosdt 1.0.4 manylinux wheel;
+#   interpret-core for o07's EBM; `corels` is NOT needed -- o01 is a
+#   self-contained exhaustive search)
+#
+# o04 is the v5 held-out read -- one-shot, already run; it re-derives from
+# ../v5/fde. o05/o06/o07 are diagnostics of the committed result.
 
 PY := python3 -u
 
-.PHONY: all setup search gosdt nested compare fig verify clean
+.PHONY: all setup search gosdt nested compare fig verify diag v5read clean
 all: setup search gosdt nested compare fig verify
+
+diag: compare
+	$(PY) exp/o05_characterize.py
+	$(PY) exp/o06_headroom.py
+	$(PY) exp/o07_ebm.py
+
+v5read:
+	$(PY) exp/o04_v5_read.py    | tee results/o04_v5_read.log
 
 setup:
 	$(PY) exp/o00_setup.py      | tee results/o00_setup.log

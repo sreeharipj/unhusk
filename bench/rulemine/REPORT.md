@@ -1196,6 +1196,28 @@ ELF-only throughout — and shipped there too (`bench/corpus2_pe/REPORT.md`),
 reversed sign between two independent PE corpora; that finding is corpus-
 dependent, not a property of this study's mined rules themselves.
 
+**Addendum, 2026-08-28 — D04's open thread closed, positively, held-out confirmed.**
+D04 above concluded the incumbent Boolean family is near-optimal and the gap is
+one of rule *form* ("needs disjunction or arithmetic"), but its search was
+greedy. `bench/rulemine/optrules/` re-ran the search with an optimality
+certificate — an exhaustive / branch-and-bound search over readable rule sets,
+and GOSDT branch-and-bound over sparse trees (every model provably optimal). A
+small **disjunction** (three OR-ed 2-atom clauses, `RS90`; or a provably-optimal
+depth-4 tree, `GOSDT_A`, which fires on the same functions) reaches ~1.6× R3's
+global recall at development-set precision parity — where a single conjunction
+tops out at ~1.3×. It was then pre-registered and read **once** on a fresh
+sealed 38-crate corpus (`bench/rulemine/v5/`, `split.json` sha256 `c49efbba…`,
+no code overlap with the 43-crate corpus, v2, v3 or v4). Both pre-registered
+hypotheses held: the recall gain replicated (RS90 wins per-crate recall in
+37/38), and — unlike §5.3 — the **precision parity held on the held-out corpus**
+(0.893 / 0.899 vs R3's 0.900, inside its cluster-bootstrap interval; the ~3 pp
+erosion seen under *development* leave-one-crate-out did not recur). A gradient
+booster over the same atoms beats the disjunction by only ~2 pp, so the rule is
+close to the white-box ceiling for this feature representation. This is the
+first result in this line of work to survive a fresh held-out read on both
+axes; the deliverable is a three-clause rule an analyst can read. See
+`bench/rulemine/optrules/REPORT.md` and `bench/rulemine/v5/READOUT.md`.
+
 ---
 
 ## Appendix: reproducing
