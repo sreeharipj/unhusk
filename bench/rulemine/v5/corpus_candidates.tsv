@@ -1,56 +1,46 @@
-name	bin_name	git_url	pinned_sha	actual_sha	cargo_lock_sha256	strong_functions_winnow	tier
-bacon	bacon	https://github.com/Canop/bacon	e0cde1d	PENDING	PENDING	10	core
-difftastic	difft	https://github.com/Wilfred/difftastic	324aba4	PENDING	PENDING	46	core
-hurl	hurl	https://github.com/Orange-OpenSource/hurl	a5b4d42	PENDING	PENDING	27	core
-monolith	monolith	https://github.com/Y2Z/monolith	a6fc8d0	PENDING	PENDING	20	core
-ripgrep-all	rga	https://github.com/phiresky/ripgrep-all	0f10fb9	PENDING	PENDING	15	core
-rink	rink	https://github.com/tiffany352/rink-rs	abf3042	PENDING	PENDING	42	core
-genact	genact	https://github.com/svenstaro/genact	9e79fa7	PENDING	PENDING	32	core
-gitui	gitui	https://github.com/extrawurst/gitui	685cca9	PENDING	PENDING	84	core
-television	tv	https://github.com/alexpasmantier/television	b9ff691	PENDING	PENDING	33	core
-fnm	fnm	https://github.com/Schniz/fnm	a53186d	PENDING	PENDING	17	core
-lolcrab	lolcrab	https://github.com/mazznoer/lolcrab	abd629e	PENDING	PENDING	1	core
-macchina	macchina	https://github.com/Macchina-CLI/macchina	c049088	PENDING	PENDING	1	core
-rustic	rustic	https://github.com/rustic-rs/rustic	3d6ae64	PENDING	PENDING	29	core
-bkt	bkt	https://github.com/dimo414/bkt	76c4d24	PENDING	PENDING	4	core
-ripsecrets	ripsecrets	https://github.com/sirwart/ripsecrets	34c9e03	PENDING	PENDING	2	core
-committed	committed	https://github.com/crate-ci/committed	345a42a	PENDING	PENDING	6	core
-static-web-server	static-web-server	https://github.com/static-web-server/static-web-server	3a7a0db	PENDING	PENDING	9	core
-code2prompt	code2prompt	https://github.com/mufeedvh/code2prompt	ab4fa06	PENDING	PENDING	5	core
-amp	amp	https://github.com/jmacdonald/amp	df97a3c	PENDING	PENDING	38	core
-mdq	mdq	https://github.com/yshavit/mdq	a55d1f5	PENDING	PENDING	9	core
-tuc	tuc	https://github.com/riquito/tuc	00bf526	PENDING	PENDING	22	core
-dtool	dtool	https://github.com/guoxbin/dtool	53f2f2e	PENDING	PENDING	11	core
-amber	ambr	https://github.com/dalance/amber	fa845c5	PENDING	PENDING	8	core
-ruplacer	ruplacer	https://github.com/your-tools/ruplacer	43b6119	PENDING	PENDING	3	core
-counts	counts	https://github.com/nnethercote/counts	244ea71	PENDING	PENDING	1	core
-repgrep	rgr	https://github.com/acheronfail/repgrep	e69d670	PENDING	PENDING	6	core
-httm	httm	https://github.com/kimono-koans/httm	6321df7	PENDING	PENDING	14	core
-jql	jql	https://github.com/yamafaktory/jql	36ff57b	PENDING	PENDING	6	core
-jnv	jnv	https://github.com/ynqa/jnv	871a828	PENDING	PENDING	14	core
-fw	fw	https://github.com/brocode/fw	0f12fcd	PENDING	PENDING	2	core
-wiki-tui	wiki-tui	https://github.com/Builditluc/wiki-tui	c938050	PENDING	PENDING	47	core
-taskwarrior-tui	taskwarrior-tui	https://github.com/kdheepak/taskwarrior-tui	f7cf7d1	PENDING	PENDING	38	core
-atac	atac	https://github.com/Julien-cpsn/ATAC	48c94c0	PENDING	PENDING	47	core
-systemctl-tui	systemctl-tui	https://github.com/rgwood/systemctl-tui	2e20c9a	PENDING	PENDING	27	core
-serpl	serpl	https://github.com/yassinebridi/serpl	aff9a23	PENDING	PENDING	45	core
-gitu	gitu	https://github.com/altsem/gitu	c9bfd6e	PENDING	PENDING	80	core
-pik	pik	https://github.com/jacek-kurlit/pik	b8c1acd	PENDING	PENDING	13	core
-toipe	toipe	https://github.com/Samyak2/toipe	93a0fb6	PENDING	PENDING	9	core
-scooter	scooter	https://github.com/thomasschafer/scooter	3641eb5	PENDING	PENDING	43	core
-russ	russ	https://github.com/ckampfe/russ	e92fb5e	PENDING	PENDING	5	core
-otree	otree	https://github.com/fioncat/otree	440aa95	PENDING	PENDING	19	core
-rnr	rnr	https://github.com/ismaelgv/rnr	111c425	PENDING	PENDING	4	core
-kmon	kmon	https://github.com/orhun/kmon	4342dde	PENDING	PENDING	7	core
-rainfrog	rainfrog	https://github.com/achristmascarl/rainfrog	d9d0bb4	PENDING	PENDING	83	core
-pipes-rs	pipes-rs	https://github.com/lhvy/pipes-rs	0183e47	PENDING	PENDING	1	core
-hwatch	hwatch	https://github.com/blacknon/hwatch	aeed51e	PENDING	PENDING	24	core
-hck	hck	https://github.com/sstadick/hck	e343425	PENDING	PENDING	3	core
-atuin	atuin	https://github.com/atuinsh/atuin	bccdc1c	PENDING	PENDING	591	mega-optional
-slumber	slumber	https://github.com/LucasPickering/slumber	0d1ee9b	PENDING	PENDING	133	mega-optional
-gitoxide	gix	https://github.com/GitoxideLabs/gitoxide	6d95da6	PENDING	PENDING	702	mega-optional
-mise	mise	https://github.com/jdx/mise	20888f4	PENDING	PENDING	1680	mega-optional
-ruff	ruff	https://github.com/astral-sh/ruff	2e2d738	PENDING	PENDING	584	mega-optional
-sccache	sccache	https://github.com/mozilla/sccache	4fcb161	PENDING	PENDING	134	mega-optional
-yazi	yazi	https://github.com/sxyazi/yazi	dbb0cc0	PENDING	PENDING	352	mega-optional
-nushell	nu	https://github.com/nushell/nushell	e8424fe	PENDING	PENDING	463	mega-optional
+name	bin_name	git_url	pinned_sha	actual_sha	cargo_lock_sha256	tier
+difftastic	difft	https://github.com/Wilfred/difftastic	HEAD	PENDING	PENDING	core
+bacon	bacon	https://github.com/Canop/bacon	HEAD	PENDING	PENDING	core
+gitui	gitui	https://github.com/gitui-org/gitui	HEAD	PENDING	PENDING	core
+gitu	gitu	https://github.com/altsem/gitu	HEAD	PENDING	PENDING	core
+jless	jless	https://github.com/PaulJuliusMartinez/jless	HEAD	PENDING	PENDING	core
+mprocs	mprocs	https://github.com/pvolok/mprocs	HEAD	PENDING	PENDING	core
+silicon	silicon	https://github.com/Aloxaf/silicon	HEAD	PENDING	PENDING	core
+monolith	monolith	https://github.com/Y2Z/monolith	HEAD	PENDING	PENDING	core
+rink	rink	https://github.com/tiffany352/rink-rs	HEAD	PENDING	PENDING	core
+genact	genact	https://github.com/svenstaro/genact	HEAD	PENDING	PENDING	core
+rustic	rustic	https://github.com/rustic-rs/rustic	HEAD	PENDING	PENDING	core
+tuc	tuc	https://github.com/riquito/tuc	HEAD	PENDING	PENDING	core
+jnv	jnv	https://github.com/ynqa/jnv	HEAD	PENDING	PENDING	core
+wiki-tui	wiki-tui	https://github.com/Builditluc/wiki-tui	HEAD	PENDING	PENDING	core
+taskwarrior-tui	taskwarrior-tui	https://github.com/kdheepak/taskwarrior-tui	HEAD	PENDING	PENDING	core
+hwatch	hwatch	https://github.com/blacknon/hwatch	HEAD	PENDING	PENDING	core
+grass	grass	https://github.com/connorskees/grass	HEAD	PENDING	PENDING	core
+spider_cli	spider	https://github.com/spider-rs/spider	HEAD	PENDING	PENDING	core
+dicom-dump	dicom-dump	https://github.com/Enet4/dicom-rs	HEAD	PENDING	PENDING	core
+rust-script	rust-script	https://github.com/fornwall/rust-script	HEAD	PENDING	PENDING	core
+espflash	espflash	https://github.com/esp-rs/espflash	HEAD	PENDING	PENDING	core
+dify	dify	https://github.com/jihchi/dify	HEAD	PENDING	PENDING	core
+protofetch	protofetch	https://github.com/coralogix/protofetch	HEAD	PENDING	PENDING	core
+rmesg	rmesg	https://github.com/polyverse/rmesg	HEAD	PENDING	PENDING	core
+bob-nvim	bob	https://github.com/MordechaiHadad/bob	HEAD	PENDING	PENDING	core
+gifski	gifski	https://github.com/ImageOptim/gifski	HEAD	PENDING	PENDING	core
+json_diff_ng	json_diff	https://github.com/ku1ik/json_diff	HEAD	PENDING	PENDING	core
+lowcharts	lowcharts	https://github.com/juan-leon/lowcharts	HEAD	PENDING	PENDING	core
+tokio-console	tokio-console	https://github.com/tokio-rs/console	HEAD	PENDING	PENDING	core
+komac	komac	https://github.com/russellbanks/Komac	HEAD	PENDING	PENDING	core
+flip-link	flip-link	https://github.com/knurling-rs/flip-link	HEAD	PENDING	PENDING	core
+grcov	grcov	https://github.com/mozilla/grcov	HEAD	PENDING	PENDING	core
+blondie	blondie	https://github.com/nico-abram/blondie	HEAD	PENDING	PENDING	core
+hurl	hurl	https://github.com/Orange-OpenSource/hurl	HEAD	PENDING	PENDING	core
+mise	mise	https://github.com/jdx/mise	HEAD	PENDING	PENDING	heavy-optional
+nushell	nu	https://github.com/nushell/nushell	HEAD	PENDING	PENDING	heavy-optional
+gitoxide	gix	https://github.com/GitoxideLabs/gitoxide	HEAD	PENDING	PENDING	heavy-optional
+atuin	atuin	https://github.com/atuinsh/atuin	HEAD	PENDING	PENDING	heavy-optional
+yazi-fm	yazi	https://github.com/sxyazi/yazi	HEAD	PENDING	PENDING	heavy-optional
+television	tv	https://github.com/alexpasmantier/television	HEAD	PENDING	PENDING	heavy-optional
+sccache	sccache	https://github.com/mozilla/sccache	HEAD	PENDING	PENDING	heavy-optional
+maturin	maturin	https://github.com/PyO3/maturin	HEAD	PENDING	PENDING	heavy-optional
+ast-grep	ast-grep	https://github.com/ast-grep/ast-grep	HEAD	PENDING	PENDING	heavy-optional
+trunk	trunk	https://github.com/trunk-rs/trunk	HEAD	PENDING	PENDING	heavy-optional
+tree-sitter-cli	tree-sitter	https://github.com/tree-sitter/tree-sitter	HEAD	PENDING	PENDING	heavy-optional

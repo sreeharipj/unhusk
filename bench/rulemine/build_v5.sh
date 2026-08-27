@@ -6,12 +6,17 @@
 # frozen picks.json rules, and is spent. Any rule or model chosen AFTER that
 # read (optrules/, gam/, scorecard/) has no clean held-out set. V5 is that set.
 #
-# Provenance, identical in spirit to v4: every crate is taken from winnow's
-# pinned benign-corpus manifest (../winnow/corpus/manifest.csv), restricted to
-# repositories in NO earlier corpus — not the 43-crate main set, not v2/v3, not
-# v4's 40. Candidate pool is the 47 "core" rows of v5/corpus_candidates.tsv
-# (eh_frame present, not a _noeh variant); the 8 "mega-optional" rows are large
-# builds kept out of the default set for build time and disk.
+# Provenance: crates.io's command-line-utilities download ranking, filtered to
+# standalone applications that ship their own binary and appear in NO earlier
+# bench/rulemine corpus (main 43, v2, v3, v4), then hand-curated
+# (v5/select_v5.py + v5/corpus_candidates.tsv). 34 "core" rows build in
+# reasonable time; 11 "heavy-optional" rows (mise, nushell, gitoxide, atuin,
+# yazi, tv, sccache, maturin, ast-grep, trunk, tree-sitter) are large builds
+# left in the CRATES array but easy to comment out.
+#
+# pinned_sha is "HEAD": the build checks out each repo's default branch and
+# records the resolved SHA in v5/corpus.tsv (the `actual_sha` column), as v4's
+# actual_sha does. Pin to those SHAs before sealing.
 #
 # IMPORTANT: building V5 is NOT sealing it. Sealing = writing v5/split.json with
 # a SHA and committing a pre-registration BEFORE any optrules/gam/scorecard model
@@ -39,61 +44,51 @@ mkdir -p "$SRC" "$OUT" "$HERE/v5/raw"
 
 # name bin_name git_url pinned_sha   (core pool first, then mega-optional)
 CRATES=(
-  "bacon|bacon|https://github.com/Canop/bacon|e0cde1d"
-  "difftastic|difft|https://github.com/Wilfred/difftastic|324aba4"
-  "hurl|hurl|https://github.com/Orange-OpenSource/hurl|a5b4d42"
-  "monolith|monolith|https://github.com/Y2Z/monolith|a6fc8d0"
-  "ripgrep-all|rga|https://github.com/phiresky/ripgrep-all|0f10fb9"
-  "rink|rink|https://github.com/tiffany352/rink-rs|abf3042"
-  "genact|genact|https://github.com/svenstaro/genact|9e79fa7"
-  "gitui|gitui|https://github.com/extrawurst/gitui|685cca9"
-  "television|tv|https://github.com/alexpasmantier/television|b9ff691"
-  "fnm|fnm|https://github.com/Schniz/fnm|a53186d"
-  "lolcrab|lolcrab|https://github.com/mazznoer/lolcrab|abd629e"
-  "macchina|macchina|https://github.com/Macchina-CLI/macchina|c049088"
-  "rustic|rustic|https://github.com/rustic-rs/rustic|3d6ae64"
-  "bkt|bkt|https://github.com/dimo414/bkt|76c4d24"
-  "ripsecrets|ripsecrets|https://github.com/sirwart/ripsecrets|34c9e03"
-  "committed|committed|https://github.com/crate-ci/committed|345a42a"
-  "static-web-server|static-web-server|https://github.com/static-web-server/static-web-server|3a7a0db"
-  "code2prompt|code2prompt|https://github.com/mufeedvh/code2prompt|ab4fa06"
-  "amp|amp|https://github.com/jmacdonald/amp|df97a3c"
-  "mdq|mdq|https://github.com/yshavit/mdq|a55d1f5"
-  "tuc|tuc|https://github.com/riquito/tuc|00bf526"
-  "dtool|dtool|https://github.com/guoxbin/dtool|53f2f2e"
-  "amber|ambr|https://github.com/dalance/amber|fa845c5"
-  "ruplacer|ruplacer|https://github.com/your-tools/ruplacer|43b6119"
-  "counts|counts|https://github.com/nnethercote/counts|244ea71"
-  "repgrep|rgr|https://github.com/acheronfail/repgrep|e69d670"
-  "httm|httm|https://github.com/kimono-koans/httm|6321df7"
-  "jql|jql|https://github.com/yamafaktory/jql|36ff57b"
-  "jnv|jnv|https://github.com/ynqa/jnv|871a828"
-  "fw|fw|https://github.com/brocode/fw|0f12fcd"
-  "wiki-tui|wiki-tui|https://github.com/Builditluc/wiki-tui|c938050"
-  "taskwarrior-tui|taskwarrior-tui|https://github.com/kdheepak/taskwarrior-tui|f7cf7d1"
-  "atac|atac|https://github.com/Julien-cpsn/ATAC|48c94c0"
-  "systemctl-tui|systemctl-tui|https://github.com/rgwood/systemctl-tui|2e20c9a"
-  "serpl|serpl|https://github.com/yassinebridi/serpl|aff9a23"
-  "gitu|gitu|https://github.com/altsem/gitu|c9bfd6e"
-  "pik|pik|https://github.com/jacek-kurlit/pik|b8c1acd"
-  "toipe|toipe|https://github.com/Samyak2/toipe|93a0fb6"
-  "scooter|scooter|https://github.com/thomasschafer/scooter|3641eb5"
-  "russ|russ|https://github.com/ckampfe/russ|e92fb5e"
-  "otree|otree|https://github.com/fioncat/otree|440aa95"
-  "rnr|rnr|https://github.com/ismaelgv/rnr|111c425"
-  "kmon|kmon|https://github.com/orhun/kmon|4342dde"
-  "rainfrog|rainfrog|https://github.com/achristmascarl/rainfrog|d9d0bb4"
-  "pipes-rs|pipes-rs|https://github.com/lhvy/pipes-rs|0183e47"
-  "hwatch|hwatch|https://github.com/blacknon/hwatch|aeed51e"
-  "hck|hck|https://github.com/sstadick/hck|e343425"
-  "atuin|atuin|https://github.com/atuinsh/atuin|bccdc1c"
-  "slumber|slumber|https://github.com/LucasPickering/slumber|0d1ee9b"
-  "gitoxide|gix|https://github.com/GitoxideLabs/gitoxide|6d95da6"
-  "mise|mise|https://github.com/jdx/mise|20888f4"
-  "ruff|ruff|https://github.com/astral-sh/ruff|2e2d738"
-  "sccache|sccache|https://github.com/mozilla/sccache|4fcb161"
-  "yazi|yazi|https://github.com/sxyazi/yazi|dbb0cc0"
-  "nushell|nu|https://github.com/nushell/nushell|e8424fe"
+  "difftastic|difft|https://github.com/Wilfred/difftastic|HEAD"
+  "bacon|bacon|https://github.com/Canop/bacon|HEAD"
+  "gitui|gitui|https://github.com/gitui-org/gitui|HEAD"
+  "gitu|gitu|https://github.com/altsem/gitu|HEAD"
+  "jless|jless|https://github.com/PaulJuliusMartinez/jless|HEAD"
+  "mprocs|mprocs|https://github.com/pvolok/mprocs|HEAD"
+  "silicon|silicon|https://github.com/Aloxaf/silicon|HEAD"
+  "monolith|monolith|https://github.com/Y2Z/monolith|HEAD"
+  "rink|rink|https://github.com/tiffany352/rink-rs|HEAD"
+  "genact|genact|https://github.com/svenstaro/genact|HEAD"
+  "rustic|rustic|https://github.com/rustic-rs/rustic|HEAD"
+  "tuc|tuc|https://github.com/riquito/tuc|HEAD"
+  "jnv|jnv|https://github.com/ynqa/jnv|HEAD"
+  "wiki-tui|wiki-tui|https://github.com/Builditluc/wiki-tui|HEAD"
+  "taskwarrior-tui|taskwarrior-tui|https://github.com/kdheepak/taskwarrior-tui|HEAD"
+  "hwatch|hwatch|https://github.com/blacknon/hwatch|HEAD"
+  "grass|grass|https://github.com/connorskees/grass|HEAD"
+  "spider_cli|spider|https://github.com/spider-rs/spider|HEAD"
+  "dicom-dump|dicom-dump|https://github.com/Enet4/dicom-rs|HEAD"
+  "rust-script|rust-script|https://github.com/fornwall/rust-script|HEAD"
+  "espflash|espflash|https://github.com/esp-rs/espflash|HEAD"
+  "dify|dify|https://github.com/jihchi/dify|HEAD"
+  "protofetch|protofetch|https://github.com/coralogix/protofetch|HEAD"
+  "rmesg|rmesg|https://github.com/polyverse/rmesg|HEAD"
+  "bob-nvim|bob|https://github.com/MordechaiHadad/bob|HEAD"
+  "gifski|gifski|https://github.com/ImageOptim/gifski|HEAD"
+  "json_diff_ng|json_diff|https://github.com/ku1ik/json_diff|HEAD"
+  "lowcharts|lowcharts|https://github.com/juan-leon/lowcharts|HEAD"
+  "tokio-console|tokio-console|https://github.com/tokio-rs/console|HEAD"
+  "komac|komac|https://github.com/russellbanks/Komac|HEAD"
+  "flip-link|flip-link|https://github.com/knurling-rs/flip-link|HEAD"
+  "grcov|grcov|https://github.com/mozilla/grcov|HEAD"
+  "blondie|blondie|https://github.com/nico-abram/blondie|HEAD"
+  "hurl|hurl|https://github.com/Orange-OpenSource/hurl|HEAD"
+  "mise|mise|https://github.com/jdx/mise|HEAD"
+  "nushell|nu|https://github.com/nushell/nushell|HEAD"
+  "gitoxide|gix|https://github.com/GitoxideLabs/gitoxide|HEAD"
+  "atuin|atuin|https://github.com/atuinsh/atuin|HEAD"
+  "yazi-fm|yazi|https://github.com/sxyazi/yazi|HEAD"
+  "television|tv|https://github.com/alexpasmantier/television|HEAD"
+  "sccache|sccache|https://github.com/mozilla/sccache|HEAD"
+  "maturin|maturin|https://github.com/PyO3/maturin|HEAD"
+  "ast-grep|ast-grep|https://github.com/ast-grep/ast-grep|HEAD"
+  "trunk|trunk|https://github.com/trunk-rs/trunk|HEAD"
+  "tree-sitter-cli|tree-sitter|https://github.com/tree-sitter/tree-sitter|HEAD"
 )
 
 free_gb() { df -PBG "$HERE" | awk 'NR==2{gsub("G","",$4); print $4}'; }
