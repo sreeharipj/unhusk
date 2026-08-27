@@ -117,3 +117,26 @@ axes. Shippable = RS90 (transcribable). Unlike parent §5.3, replicated.
 Caveats kept in READOUT: RS90 loses small per-crate precision in 25/38 crates,
 one outlier (tokio-console 0.33); GOSDT_B did not generalise; the finding is
 within the anchor-bearing regime only.
+
+## 2026-08-28 — diagnostics of the confirmed result (o05/o06/o07)
+
+o05 characterisation: RS90's 3 clauses are complementary (each alone 53-58% tier
+recall); RS90 vs GOSDT_A Jaccard 0.85 on dev; the +25pp gain is small
+single-Location author functions with a sparse-but-pure neighbourhood that R3's
+N_win_rel>=5 excluded; the one v5 precision outlier (tokio-console P 0.33) is
+monomorphised `core` packed among author functions.
+
+o06 headroom: GBM out-of-fold over the same 40 atoms beats RS90 by only +2.2pp
+tier recall at matched precision; over 80 raw numeric features by +5.7pp (but
+that abandons the readable form). RS90 is near the white-box ceiling for the
+atom representation.
+
+o07 EBM: GA2M (interactions>=6) on the full feature set does not finish in
+budget -- killed twice. A pure additive EBM (GAM) over the compact R3/RS90
+feature set reaches tier recall 0.843 @ P 0.903 -- BELOW RS90 (0.901). Additive
+form is wrong; the signal is in RS90's AND-clauses. Evidence for the disjunction,
+against "just fit an EBM". Shapes strongly monotone in the author-signal
+direction (N_win_rel_frac 0.99, X_caller_rel 0.93 monotone-up fraction).
+
+Wrote optrules/REPORT.md (the consolidated write-up) and a 2026-08-28 addendum
+in the parent bench/rulemine/REPORT.md. Memory: project_optrules_v5.md.

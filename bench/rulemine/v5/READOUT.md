@@ -125,3 +125,18 @@ continuous-feature boosting, i.e. giving up the transcribable rule form. So the
 disjunction is close to the white-box ceiling for this feature representation,
 and D04's "the gap is rule form" was right: closing it gets within 2 pp of the
 black box on the same atoms.
+
+## Provenance note — GOSDT_A frozen model
+
+`o04` re-fits GOSDT_A (`rule_list=False, depth=4, reg=0.0025, allow_small_reg,
+K=2`) on dev tier A over the frozen 40-atom set. `o05`'s independent re-fit of
+the same config reproduces `o02`'s recorded dev metrics bit-for-bit
+(P 0.9098, n 16,581) — GOSDT is deterministic here, so the v5 read used exactly
+the pre-registered model.
+
+## Additive-model check (o07)
+
+A pure additive EBM (GAM) over the compact R3/RS90 feature set reaches tier
+recall 0.843 at P 0.903 on dev — **below** RS90 (0.901). Additivity is the wrong
+form; RS90's advantage is its AND-clauses. Evidence for the disjunctive rule,
+against "just fit an EBM".

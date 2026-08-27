@@ -190,9 +190,27 @@ form. D04's diagnosis (rule *form*, not the feature set, was the binding
 constraint) is confirmed: closing the form gap lands within 2 pp of the black
 box on the same atoms.
 
-## 8. Legible additive model (`o07`)
+## 8. A legible *additive* model does not recover the headroom (`o07`)
 
-*(EBM / GA2M diagnostic — see `results/o07_ebm.json`.)*
+An Explainable Boosting Machine restricted to pure additive terms (a GAM, no
+interactions), out-of-fold over crates on the compact feature set R3 / RS90 use:
+
+| model | avg precision | tier recall @ P 0.903 |
+|---|---|---|
+| EBM additive | 0.932 | **0.843** |
+| EBM additive + monotone constraints | 0.934 | 0.822 |
+| — RS90 (certified disjunction) | — | **0.901** |
+| — GBM over the 40 atoms (o06) | 0.947 | 0.923 |
+
+The additive model lands **below** RS90 at matched precision. Additivity alone
+does not capture the signal: RS90's value is in its clauses being **ANDs**
+(`low G_loc_per_kb AND N_win_rel >= 1`), OR'd together — an interaction
+structure a sum of 1-D shape functions cannot represent without loss. The
+learned shapes are strongly monotone in the author-signal direction
+(`N_win_rel_frac` 0.99, `X_caller_rel` 0.93, `M_rel_structs` 0.91 monotone-up
+fraction; `G_loc_per_kb` non-monotone, consistent with RS90 using it as `<=`),
+but the additive form is the wrong one. **This is evidence for the disjunctive
+rule, and against "just fit an EBM".**
 
 ## 9. Limitations
 
