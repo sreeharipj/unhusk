@@ -87,13 +87,28 @@ LOCO above is for.
 An independent reconfirmation of D04: on functions with no author `Location`, no
 sparse tree finds a rule worth firing.
 
-## What this is not
+## Held-out confirmation — v5
 
-Development-set evidence. The lockbox (`../data/split.json`, `sha256 5bdc01f3…`)
-was spent on `picks.json` and is untouched here; a tree or rule set chosen on
-these 28 crates has had its one clean test and lost it. `bench/rulemine/v5` is
-staged to become a fresh sealed corpus for confirming — or falsifying — anything
-found here.
+The frozen candidates were pre-registered (`../v5/PREREGISTER.md`, committed
+before the read) and run once on the sealed 38-crate v5 corpus
+(`../v5/split.json`, no overlap with any earlier corpus). Full result:
+`../v5/READOUT.md`, numbers in `results/o04_v5_read.json`.
+
+| rule | v5 precision | v5 CI | v5 global recall | Δ tier recall vs R3 (Holm p) |
+|---|---|---|---|---|
+| R3 | 0.900 | [0.828, 0.932] | 0.154 | — |
+| RS90 (o01 rule set) | 0.893 | [0.826, 0.933] | **0.204** | **+23.0 pp (p<0.001)** |
+| GOSDT_A (o02 optimal tree) | 0.899 | [0.837, 0.936] | **0.204** | **+23.1 pp (p<0.001)** |
+
+**Both pre-registered hypotheses hold on v5.** The recall gain replicated
+(RS90 wins recall in 37/38 crates); the precision parity **held** — 0.893 / 0.899
+sit inside R3's precision interval, and the ~3 pp erosion seen under *dev* LOCO
+did **not** recur on the fresh corpus. Unlike parent §5.3, this disjunction
+replicated on a second sealed corpus on both axes.
+
+Caveats (see READOUT): RS90 loses small amounts of per-crate precision in 25/38
+crates with one outlier (`tokio-console`, 0.33) — pooled parity is an aggregate
+statement. GOSDT_B (the P ≥ 0.95 tree) did not carry its recall edge to v5.
 
 ## Reproduce
 

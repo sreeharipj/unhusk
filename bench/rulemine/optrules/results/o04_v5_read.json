@@ -1,0 +1,2908 @@
+{
+ "v5_crates": [
+  "ast-grep",
+  "atuin",
+  "bacon",
+  "bob-nvim",
+  "dicom-dump",
+  "difftastic",
+  "dify",
+  "espflash",
+  "flip-link",
+  "genact",
+  "gifski",
+  "gitoxide",
+  "gitu",
+  "gitui",
+  "grass",
+  "grcov",
+  "hurl",
+  "hwatch",
+  "jnv",
+  "komac",
+  "maturin",
+  "mise",
+  "monolith",
+  "nushell",
+  "protofetch",
+  "rink",
+  "rust-script",
+  "rustic",
+  "sccache",
+  "spider_cli",
+  "taskwarrior-tui",
+  "television",
+  "tokio-console",
+  "tree-sitter-cli",
+  "trunk",
+  "tuc",
+  "wiki-tui",
+  "yazi-fm"
+ ],
+ "n_crates": 38,
+ "n_labelled": 1263212,
+ "n_tierA": 24996,
+ "npos_global_ws": 100935,
+ "tierA_recall_ceiling": 0.2149700302174667,
+ "split_sha256_dev": "5bdc01f364f1eef786ccecda705383fef1828be78c4536c34dbbf93bd045ea88",
+ "rows": {
+  "A@2": {
+   "name": "A@2",
+   "precision": 0.9419031719532555,
+   "precision_wilson": [
+    0.9356911001163308,
+    0.9475488114447619
+   ],
+   "precision_cluster_boot": [
+    0.9170271333071176,
+    0.9593267882187938
+   ],
+   "recall_global": 0.05589735968692723,
+   "recall_tier": 0.2600239653424279,
+   "predicted": 5990,
+   "tp": 5642,
+   "fp": 348,
+   "n_crates_firing": 38,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.775,
+     "recall": 0.12350597609561753,
+     "coverage": 0.12698412698412698,
+     "predicted": 40,
+     "tp": 31,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9340425531914893,
+     "recall": 0.3254262416604892,
+     "coverage": 0.3096179183135705,
+     "predicted": 470,
+     "tp": 439,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.038869257950530034,
+     "coverage": 0.03859649122807018,
+     "predicted": 11,
+     "tp": 11,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.7142857142857143,
+     "recall": 0.047619047619047616,
+     "coverage": 0.058823529411764705,
+     "predicted": 7,
+     "tp": 5,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.3516483516483517,
+     "coverage": 0.34408602150537637,
+     "predicted": 32,
+     "tp": 32,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9117647058823529,
+     "recall": 0.2627118644067797,
+     "coverage": 0.2222222222222222,
+     "predicted": 34,
+     "tp": 31,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.5,
+     "coverage": 0.5,
+     "predicted": 4,
+     "tp": 4,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 1.0,
+     "recall": 0.2073170731707317,
+     "coverage": 0.19101123595505617,
+     "predicted": 17,
+     "tp": 17,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 1.0,
+     "recall": 0.4,
+     "coverage": 0.3333333333333333,
+     "predicted": 4,
+     "tp": 4,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.42857142857142855,
+     "coverage": 0.4153846153846154,
+     "predicted": 54,
+     "tp": 54,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.8571428571428571,
+     "recall": 0.23076923076923078,
+     "coverage": 0.1891891891891892,
+     "predicted": 7,
+     "tp": 6,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.9220430107526881,
+     "recall": 0.3381531383503122,
+     "coverage": 0.3156108597285068,
+     "predicted": 1116,
+     "tp": 1029,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9457364341085271,
+     "recall": 0.4295774647887324,
+     "coverage": 0.4271523178807947,
+     "predicted": 129,
+     "tp": 122,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9465648854961832,
+     "recall": 0.3492957746478873,
+     "coverage": 0.33762886597938147,
+     "predicted": 131,
+     "tp": 124,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9869281045751634,
+     "recall": 0.26444833625218916,
+     "coverage": 0.2541528239202658,
+     "predicted": 153,
+     "tp": 151,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 0.95,
+     "recall": 0.2733812949640288,
+     "coverage": 0.2684563758389262,
+     "predicted": 40,
+     "tp": 38,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 1.0,
+     "recall": 0.14450867052023122,
+     "coverage": 0.1388888888888889,
+     "predicted": 25,
+     "tp": 25,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.9642857142857143,
+     "recall": 0.20930232558139536,
+     "coverage": 0.2074074074074074,
+     "predicted": 28,
+     "tp": 27,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.1568627450980392,
+     "coverage": 0.1568627450980392,
+     "predicted": 8,
+     "tp": 8,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.7567567567567568,
+     "recall": 0.14507772020725387,
+     "coverage": 0.15352697095435686,
+     "predicted": 37,
+     "tp": 28,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 0.9333333333333333,
+     "recall": 0.14583333333333334,
+     "coverage": 0.1507537688442211,
+     "predicted": 30,
+     "tp": 28,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9691394658753709,
+     "recall": 0.2061868686868687,
+     "coverage": 0.19696084161309177,
+     "predicted": 1685,
+     "tp": 1633,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.18181818181818182,
+     "coverage": 0.18181818181818182,
+     "predicted": 12,
+     "tp": 12,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.9700176366843033,
+     "recall": 0.28365136668385765,
+     "coverage": 0.25843208751139474,
+     "predicted": 567,
+     "tp": 550,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 1.0,
+     "recall": 0.25925925925925924,
+     "coverage": 0.21212121212121213,
+     "predicted": 7,
+     "tp": 7,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.9210526315789473,
+     "recall": 0.2229299363057325,
+     "coverage": 0.2159090909090909,
+     "predicted": 38,
+     "tp": 35,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 1.0,
+     "recall": 0.21428571428571427,
+     "coverage": 0.2,
+     "predicted": 3,
+     "tp": 3,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.8421052631578947,
+     "recall": 0.1797752808988764,
+     "coverage": 0.1890547263681592,
+     "predicted": 38,
+     "tp": 32,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9651162790697675,
+     "recall": 0.27899159663865547,
+     "coverage": 0.2525697503671072,
+     "predicted": 172,
+     "tp": 166,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.9646017699115044,
+     "recall": 0.25707547169811323,
+     "coverage": 0.1584852734922861,
+     "predicted": 113,
+     "tp": 109,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.8596491228070176,
+     "recall": 0.44954128440366975,
+     "coverage": 0.41304347826086957,
+     "predicted": 57,
+     "tp": 49,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 1.0,
+     "recall": 0.26785714285714285,
+     "coverage": 0.24324324324324326,
+     "predicted": 45,
+     "tp": 45,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.9230769230769231,
+     "recall": 0.1951219512195122,
+     "coverage": 0.07027027027027027,
+     "predicted": 26,
+     "tp": 24,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.823045267489712,
+     "recall": 0.4434589800443459,
+     "coverage": 0.375,
+     "predicted": 243,
+     "tp": 200,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8260869565217391,
+     "recall": 0.1417910447761194,
+     "coverage": 0.1377245508982036,
+     "predicted": 46,
+     "tp": 38,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 0.9354838709677419,
+     "recall": 0.4461538461538462,
+     "coverage": 0.4626865671641791,
+     "predicted": 31,
+     "tp": 29,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 1.0,
+     "recall": 0.3656716417910448,
+     "coverage": 0.32450331125827814,
+     "predicted": 49,
+     "tp": 49,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.9293139293139293,
+     "recall": 0.30182309250506417,
+     "coverage": 0.24961079398028022,
+     "predicted": 481,
+     "tp": 447,
+     "n_pos": 1481
+    }
+   }
+  },
+  "R1": {
+   "name": "R1",
+   "precision": 0.9393362925385753,
+   "precision_wilson": [
+    0.9343458204369535,
+    0.9439701788504256
+   ],
+   "precision_cluster_boot": [
+    0.8888208269525267,
+    0.9633797320150904
+   ],
+   "recall_global": 0.08805667013424481,
+   "recall_tier": 0.40962300672873075,
+   "predicted": 9462,
+   "tp": 8888,
+   "fp": 574,
+   "n_crates_firing": 37,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.8823529411764706,
+     "recall": 0.17928286852589642,
+     "coverage": 0.1619047619047619,
+     "predicted": 51,
+     "tp": 45,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.944516129032258,
+     "recall": 0.5426241660489252,
+     "coverage": 0.5105401844532279,
+     "predicted": 775,
+     "tp": 732,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.028268551236749116,
+     "coverage": 0.028070175438596492,
+     "predicted": 8,
+     "tp": 8,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 1.0,
+     "recall": 0.5238095238095238,
+     "coverage": 0.46218487394957986,
+     "predicted": 55,
+     "tp": 55,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.3626373626373626,
+     "coverage": 0.3548387096774194,
+     "predicted": 33,
+     "tp": 33,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9634146341463414,
+     "recall": 0.6694915254237288,
+     "coverage": 0.5359477124183006,
+     "predicted": 82,
+     "tp": 79,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": NaN,
+     "recall": 0.0,
+     "coverage": 0.0,
+     "predicted": 0,
+     "tp": 0,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 1.0,
+     "recall": 0.2926829268292683,
+     "coverage": 0.2696629213483146,
+     "predicted": 24,
+     "tp": 24,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 1.0,
+     "recall": 0.3,
+     "coverage": 0.25,
+     "predicted": 3,
+     "tp": 3,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.8571428571428571,
+     "coverage": 0.8307692307692308,
+     "predicted": 108,
+     "tp": 108,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.9090909090909091,
+     "recall": 0.38461538461538464,
+     "coverage": 0.2972972972972973,
+     "predicted": 11,
+     "tp": 10,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.9383617193836172,
+     "recall": 0.3802168912257641,
+     "coverage": 0.3486990950226244,
+     "predicted": 1233,
+     "tp": 1157,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 1.0,
+     "recall": 0.4612676056338028,
+     "coverage": 0.4337748344370861,
+     "predicted": 131,
+     "tp": 131,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.875,
+     "recall": 0.29577464788732394,
+     "coverage": 0.30927835051546393,
+     "predicted": 120,
+     "tp": 105,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 1.0,
+     "recall": 0.26970227670753066,
+     "coverage": 0.2558139534883721,
+     "predicted": 154,
+     "tp": 154,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 1.0,
+     "recall": 0.4460431654676259,
+     "coverage": 0.4161073825503356,
+     "predicted": 62,
+     "tp": 62,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.967741935483871,
+     "recall": 0.17341040462427745,
+     "coverage": 0.17222222222222222,
+     "predicted": 31,
+     "tp": 30,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 1.0,
+     "recall": 0.21705426356589147,
+     "coverage": 0.2074074074074074,
+     "predicted": 28,
+     "tp": 28,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.37254901960784315,
+     "coverage": 0.37254901960784315,
+     "predicted": 19,
+     "tp": 19,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.9242424242424242,
+     "recall": 0.3160621761658031,
+     "coverage": 0.27385892116182575,
+     "predicted": 66,
+     "tp": 61,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 1.0,
+     "recall": 0.16145833333333334,
+     "coverage": 0.15577889447236182,
+     "predicted": 31,
+     "tp": 31,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.972117962466488,
+     "recall": 0.4578282828282828,
+     "coverage": 0.43600233781414377,
+     "predicted": 3730,
+     "tp": 3626,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.5,
+     "coverage": 0.5,
+     "predicted": 33,
+     "tp": 33,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.9639468690702088,
+     "recall": 0.2619907168643631,
+     "coverage": 0.24020054694621695,
+     "predicted": 527,
+     "tp": 508,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 1.0,
+     "recall": 0.2222222222222222,
+     "coverage": 0.18181818181818182,
+     "predicted": 6,
+     "tp": 6,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.8571428571428571,
+     "recall": 0.267515923566879,
+     "coverage": 0.2784090909090909,
+     "predicted": 49,
+     "tp": 42,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 1.0,
+     "recall": 0.21428571428571427,
+     "coverage": 0.2,
+     "predicted": 3,
+     "tp": 3,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.96875,
+     "recall": 0.17415730337078653,
+     "coverage": 0.15920398009950248,
+     "predicted": 32,
+     "tp": 31,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9037037037037037,
+     "recall": 0.41008403361344536,
+     "coverage": 0.3964757709251101,
+     "predicted": 270,
+     "tp": 244,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.8631178707224335,
+     "recall": 0.535377358490566,
+     "coverage": 0.3688639551192146,
+     "predicted": 263,
+     "tp": 227,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.9066666666666666,
+     "recall": 0.6238532110091743,
+     "coverage": 0.5434782608695652,
+     "predicted": 75,
+     "tp": 68,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9367088607594937,
+     "recall": 0.44047619047619047,
+     "coverage": 0.42702702702702705,
+     "predicted": 79,
+     "tp": 74,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.9069767441860465,
+     "recall": 0.3170731707317073,
+     "coverage": 0.11621621621621622,
+     "predicted": 43,
+     "tp": 39,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.8507462686567164,
+     "recall": 0.5055432372505543,
+     "coverage": 0.41358024691358025,
+     "predicted": 268,
+     "tp": 228,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.9186991869918699,
+     "recall": 0.4216417910447761,
+     "coverage": 0.36826347305389223,
+     "predicted": 123,
+     "tp": 113,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 1.0,
+     "recall": 0.5076923076923077,
+     "coverage": 0.4925373134328358,
+     "predicted": 33,
+     "tp": 33,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 1.0,
+     "recall": 0.6119402985074627,
+     "coverage": 0.543046357615894,
+     "predicted": 82,
+     "tp": 82,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.7990255785627284,
+     "recall": 0.44294395678595544,
+     "coverage": 0.4260508562532434,
+     "predicted": 821,
+     "tp": 656,
+     "n_pos": 1481
+    }
+   }
+  },
+  "R2": {
+   "name": "R2",
+   "precision": 0.9535502033156084,
+   "precision_wilson": [
+    0.9481137173842644,
+    0.9584420385423769
+   ],
+   "precision_cluster_boot": [
+    0.923764311644792,
+    0.9666248673676088
+   ],
+   "recall_global": 0.060405211274582656,
+   "recall_tier": 0.2809936399668172,
+   "predicted": 6394,
+   "tp": 6097,
+   "fp": 297,
+   "n_crates_firing": 37,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.9642857142857143,
+     "recall": 0.10756972111553785,
+     "coverage": 0.08888888888888889,
+     "predicted": 28,
+     "tp": 27,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9349206349206349,
+     "recall": 0.43661971830985913,
+     "coverage": 0.4150197628458498,
+     "predicted": 630,
+     "tp": 589,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.0035335689045936395,
+     "coverage": 0.0035087719298245615,
+     "predicted": 1,
+     "tp": 1,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.9444444444444444,
+     "recall": 0.4857142857142857,
+     "coverage": 0.453781512605042,
+     "predicted": 54,
+     "tp": 51,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.10989010989010989,
+     "coverage": 0.10752688172043011,
+     "predicted": 10,
+     "tp": 10,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9861111111111112,
+     "recall": 0.6016949152542372,
+     "coverage": 0.47058823529411764,
+     "predicted": 72,
+     "tp": 71,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.25,
+     "coverage": 0.25,
+     "predicted": 2,
+     "tp": 2,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 1.0,
+     "recall": 0.15853658536585366,
+     "coverage": 0.14606741573033707,
+     "predicted": 13,
+     "tp": 13,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 1.0,
+     "recall": 0.5,
+     "coverage": 0.4166666666666667,
+     "predicted": 5,
+     "tp": 5,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.5317460317460317,
+     "coverage": 0.5153846153846153,
+     "predicted": 67,
+     "tp": 67,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.75,
+     "recall": 0.23076923076923078,
+     "coverage": 0.21621621621621623,
+     "predicted": 8,
+     "tp": 6,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.9564660691421255,
+     "recall": 0.24548143279658233,
+     "coverage": 0.2208710407239819,
+     "predicted": 781,
+     "tp": 747,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9672131147540983,
+     "recall": 0.20774647887323944,
+     "coverage": 0.20198675496688742,
+     "predicted": 61,
+     "tp": 59,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 1.0,
+     "recall": 0.24507042253521127,
+     "coverage": 0.22422680412371135,
+     "predicted": 87,
+     "tp": 87,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9935064935064936,
+     "recall": 0.2679509632224168,
+     "coverage": 0.2558139534883721,
+     "predicted": 154,
+     "tp": 153,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 1.0,
+     "recall": 0.17985611510791366,
+     "coverage": 0.16778523489932887,
+     "predicted": 25,
+     "tp": 25,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.9,
+     "recall": 0.05202312138728324,
+     "coverage": 0.05555555555555555,
+     "predicted": 10,
+     "tp": 9,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.9230769230769231,
+     "recall": 0.18604651162790697,
+     "coverage": 0.1925925925925926,
+     "predicted": 26,
+     "tp": 24,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.058823529411764705,
+     "coverage": 0.058823529411764705,
+     "predicted": 3,
+     "tp": 3,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.9090909090909091,
+     "recall": 0.3626943005181347,
+     "coverage": 0.31950207468879666,
+     "predicted": 77,
+     "tp": 70,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 1.0,
+     "recall": 0.140625,
+     "coverage": 0.135678391959799,
+     "predicted": 27,
+     "tp": 27,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9731467473524962,
+     "recall": 0.32487373737373737,
+     "coverage": 0.30905902980713035,
+     "predicted": 2644,
+     "tp": 2573,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": NaN,
+     "recall": 0.0,
+     "coverage": 0.0,
+     "predicted": 0,
+     "tp": 0,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.9650793650793651,
+     "recall": 0.15678184631253222,
+     "coverage": 0.14357338195077485,
+     "predicted": 315,
+     "tp": 304,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 1.0,
+     "recall": 0.2222222222222222,
+     "coverage": 0.18181818181818182,
+     "predicted": 6,
+     "tp": 6,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.9473684210526315,
+     "recall": 0.11464968152866242,
+     "coverage": 0.10795454545454546,
+     "predicted": 19,
+     "tp": 18,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 1.0,
+     "recall": 0.2857142857142857,
+     "coverage": 0.26666666666666666,
+     "predicted": 4,
+     "tp": 4,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.75,
+     "recall": 0.05056179775280899,
+     "coverage": 0.05970149253731343,
+     "predicted": 12,
+     "tp": 9,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9444444444444444,
+     "recall": 0.17142857142857143,
+     "coverage": 0.15859030837004406,
+     "predicted": 108,
+     "tp": 102,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.8481012658227848,
+     "recall": 0.4740566037735849,
+     "coverage": 0.332398316970547,
+     "predicted": 237,
+     "tp": 201,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.9264705882352942,
+     "recall": 0.5779816513761468,
+     "coverage": 0.4927536231884058,
+     "predicted": 68,
+     "tp": 63,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 1.0,
+     "recall": 0.08928571428571429,
+     "coverage": 0.08108108108108109,
+     "predicted": 15,
+     "tp": 15,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.8936170212765957,
+     "recall": 0.34146341463414637,
+     "coverage": 0.12702702702702703,
+     "predicted": 47,
+     "tp": 42,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.842391304347826,
+     "recall": 0.3436807095343681,
+     "coverage": 0.2839506172839506,
+     "predicted": 184,
+     "tp": 155,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.908256880733945,
+     "recall": 0.3694029850746269,
+     "coverage": 0.3263473053892216,
+     "predicted": 109,
+     "tp": 99,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 1.0,
+     "recall": 0.015384615384615385,
+     "coverage": 0.014925373134328358,
+     "predicted": 1,
+     "tp": 1,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 0.9705882352941176,
+     "recall": 0.2462686567164179,
+     "coverage": 0.2251655629139073,
+     "predicted": 34,
+     "tp": 33,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.9466666666666667,
+     "recall": 0.28764348413234303,
+     "coverage": 0.233523611831863,
+     "predicted": 450,
+     "tp": 426,
+     "n_pos": 1481
+    }
+   }
+  },
+  "R3": {
+   "name": "R3",
+   "precision": 0.9003529888316648,
+   "precision_wilson": [
+    0.8957977923978965,
+    0.9047302328643073
+   ],
+   "precision_cluster_boot": [
+    0.8284945633897546,
+    0.9317959742036349
+   ],
+   "recall_global": 0.154148709565562,
+   "recall_tier": 0.7170706977601622,
+   "predicted": 17281,
+   "tp": 15559,
+   "fp": 1722,
+   "n_crates_firing": 37,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.926605504587156,
+     "recall": 0.40239043824701193,
+     "coverage": 0.346031746031746,
+     "predicted": 109,
+     "tp": 101,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9426086956521739,
+     "recall": 0.8035581912527798,
+     "coverage": 0.7575757575757576,
+     "predicted": 1150,
+     "tp": 1084,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.784452296819788,
+     "coverage": 0.7789473684210526,
+     "predicted": 222,
+     "tp": 222,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 1.0,
+     "recall": 0.7904761904761904,
+     "coverage": 0.6974789915966386,
+     "predicted": 83,
+     "tp": 83,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.4175824175824176,
+     "coverage": 0.40860215053763443,
+     "predicted": 38,
+     "tp": 38,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.954954954954955,
+     "recall": 0.8983050847457628,
+     "coverage": 0.7254901960784313,
+     "predicted": 111,
+     "tp": 106,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": NaN,
+     "recall": 0.0,
+     "coverage": 0.0,
+     "predicted": 0,
+     "tp": 0,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 1.0,
+     "recall": 0.35365853658536583,
+     "coverage": 0.3258426966292135,
+     "predicted": 29,
+     "tp": 29,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 1.0,
+     "recall": 0.3,
+     "coverage": 0.25,
+     "predicted": 3,
+     "tp": 3,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.9285714285714286,
+     "coverage": 0.9,
+     "predicted": 117,
+     "tp": 117,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.85,
+     "recall": 0.6538461538461539,
+     "coverage": 0.5405405405405406,
+     "predicted": 20,
+     "tp": 17,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.8982706002034588,
+     "recall": 0.5803483404534998,
+     "coverage": 0.5559954751131222,
+     "predicted": 1966,
+     "tp": 1766,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9950980392156863,
+     "recall": 0.7147887323943662,
+     "coverage": 0.6754966887417219,
+     "predicted": 204,
+     "tp": 203,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9149797570850202,
+     "recall": 0.6366197183098592,
+     "coverage": 0.6365979381443299,
+     "predicted": 247,
+     "tp": 226,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9752650176678446,
+     "recall": 0.48336252189141854,
+     "coverage": 0.4700996677740864,
+     "predicted": 283,
+     "tp": 276,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 1.0,
+     "recall": 0.7769784172661871,
+     "coverage": 0.7248322147651006,
+     "predicted": 108,
+     "tp": 108,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.9777777777777777,
+     "recall": 0.2543352601156069,
+     "coverage": 0.25,
+     "predicted": 45,
+     "tp": 44,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 1.0,
+     "recall": 0.7286821705426356,
+     "coverage": 0.6962962962962963,
+     "predicted": 94,
+     "tp": 94,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.6862745098039216,
+     "coverage": 0.6862745098039216,
+     "predicted": 35,
+     "tp": 35,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.9230769230769231,
+     "recall": 0.6217616580310881,
+     "coverage": 0.5394190871369294,
+     "predicted": 130,
+     "tp": 120,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 1.0,
+     "recall": 0.4895833333333333,
+     "coverage": 0.4723618090452261,
+     "predicted": 94,
+     "tp": 94,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9426151113540101,
+     "recall": 0.8710858585858586,
+     "coverage": 0.8555230859146697,
+     "predicted": 7319,
+     "tp": 6899,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.803030303030303,
+     "coverage": 0.803030303030303,
+     "predicted": 53,
+     "tp": 53,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.8838383838383839,
+     "recall": 0.45126353790613716,
+     "coverage": 0.4512306289881495,
+     "predicted": 990,
+     "tp": 875,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 1.0,
+     "recall": 0.37037037037037035,
+     "coverage": 0.30303030303030304,
+     "predicted": 10,
+     "tp": 10,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.9278350515463918,
+     "recall": 0.5732484076433121,
+     "coverage": 0.5511363636363636,
+     "predicted": 97,
+     "tp": 90,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 0.8,
+     "recall": 0.2857142857142857,
+     "coverage": 0.3333333333333333,
+     "predicted": 5,
+     "tp": 4,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.9864864864864865,
+     "recall": 0.4101123595505618,
+     "coverage": 0.3681592039800995,
+     "predicted": 74,
+     "tp": 73,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.8812260536398467,
+     "recall": 0.773109243697479,
+     "coverage": 0.7665198237885462,
+     "predicted": 522,
+     "tp": 460,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.5921052631578947,
+     "recall": 0.7429245283018868,
+     "coverage": 0.7461430575035063,
+     "predicted": 532,
+     "tp": 315,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.9191919191919192,
+     "recall": 0.8348623853211009,
+     "coverage": 0.717391304347826,
+     "predicted": 99,
+     "tp": 91,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9565217391304348,
+     "recall": 0.6547619047619048,
+     "coverage": 0.6216216216216216,
+     "predicted": 115,
+     "tp": 110,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.376865671641791,
+     "recall": 0.8211382113821138,
+     "coverage": 0.7243243243243244,
+     "predicted": 268,
+     "tp": 101,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.7649667405764967,
+     "recall": 0.7649667405764967,
+     "coverage": 0.6959876543209876,
+     "predicted": 451,
+     "tp": 345,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8405172413793104,
+     "recall": 0.7276119402985075,
+     "coverage": 0.6946107784431138,
+     "predicted": 232,
+     "tp": 195,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 1.0,
+     "recall": 0.6307692307692307,
+     "coverage": 0.6119402985074627,
+     "predicted": 41,
+     "tp": 41,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 1.0,
+     "recall": 0.8283582089552238,
+     "coverage": 0.7350993377483444,
+     "predicted": 111,
+     "tp": 111,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.8006279434850864,
+     "recall": 0.6887238352464551,
+     "coverage": 0.6611312921639855,
+     "predicted": 1274,
+     "tp": 1020,
+     "n_pos": 1481
+    }
+   }
+  },
+  "RS90": {
+   "name": "RS90",
+   "precision": 0.8925207275252854,
+   "precision_wilson": [
+    0.8884555742599717,
+    0.8964549956218648
+   ],
+   "precision_cluster_boot": [
+    0.8259486607142857,
+    0.9329688711190894
+   ],
+   "recall_global": 0.2037053549313915,
+   "recall_tier": 0.947598857037515,
+   "predicted": 23037,
+   "tp": 20561,
+   "fp": 2476,
+   "n_crates_firing": 38,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.8254545454545454,
+     "recall": 0.9043824701195219,
+     "coverage": 0.873015873015873,
+     "predicted": 275,
+     "tp": 227,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9025928521373511,
+     "recall": 0.9547813194959229,
+     "coverage": 0.9400527009222661,
+     "predicted": 1427,
+     "tp": 1288,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.9575971731448764,
+     "coverage": 0.9508771929824561,
+     "predicted": 271,
+     "tp": 271,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.9716981132075472,
+     "recall": 0.9809523809523809,
+     "coverage": 0.8907563025210085,
+     "predicted": 106,
+     "tp": 103,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.8901098901098901,
+     "coverage": 0.8709677419354839,
+     "predicted": 81,
+     "tp": 81,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.92,
+     "recall": 0.9745762711864406,
+     "coverage": 0.8169934640522876,
+     "predicted": 125,
+     "tp": 115,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.625,
+     "coverage": 0.625,
+     "predicted": 5,
+     "tp": 5,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 0.9315068493150684,
+     "recall": 0.8292682926829268,
+     "coverage": 0.8202247191011236,
+     "predicted": 73,
+     "tp": 68,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 0.8,
+     "recall": 0.8,
+     "coverage": 0.8333333333333334,
+     "predicted": 10,
+     "tp": 8,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.9444444444444444,
+     "coverage": 0.9153846153846154,
+     "predicted": 119,
+     "tp": 119,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.6538461538461539,
+     "recall": 0.6538461538461539,
+     "coverage": 0.7027027027027027,
+     "predicted": 26,
+     "tp": 17,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.8655995167623075,
+     "recall": 0.9418337167269142,
+     "coverage": 0.936368778280543,
+     "predicted": 3311,
+     "tp": 2866,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9577464788732394,
+     "recall": 0.9577464788732394,
+     "coverage": 0.9403973509933775,
+     "predicted": 284,
+     "tp": 272,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9137466307277629,
+     "recall": 0.9549295774647887,
+     "coverage": 0.9561855670103093,
+     "predicted": 371,
+     "tp": 339,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9559633027522936,
+     "recall": 0.9124343257443083,
+     "coverage": 0.9053156146179402,
+     "predicted": 545,
+     "tp": 521,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 0.9647887323943662,
+     "recall": 0.9856115107913669,
+     "coverage": 0.9530201342281879,
+     "predicted": 142,
+     "tp": 137,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.9866666666666667,
+     "recall": 0.8554913294797688,
+     "coverage": 0.8333333333333334,
+     "predicted": 150,
+     "tp": 148,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.9831932773109243,
+     "recall": 0.9069767441860465,
+     "coverage": 0.8814814814814815,
+     "predicted": 119,
+     "tp": 117,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.8431372549019608,
+     "coverage": 0.8431372549019608,
+     "predicted": 43,
+     "tp": 43,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.848780487804878,
+     "recall": 0.9015544041450777,
+     "coverage": 0.8506224066390041,
+     "predicted": 205,
+     "tp": 174,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 0.9834254143646409,
+     "recall": 0.9270833333333334,
+     "coverage": 0.9095477386934674,
+     "predicted": 181,
+     "tp": 178,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9589515331355094,
+     "recall": 0.9792929292929293,
+     "coverage": 0.9454120397428405,
+     "predicted": 8088,
+     "tp": 7756,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.9242424242424242,
+     "coverage": 0.9242424242424242,
+     "predicted": 61,
+     "tp": 61,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.8976814516129032,
+     "recall": 0.9185146982980918,
+     "coverage": 0.9042844120328167,
+     "predicted": 1984,
+     "tp": 1781,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 0.782608695652174,
+     "recall": 0.6666666666666666,
+     "coverage": 0.696969696969697,
+     "predicted": 23,
+     "tp": 18,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.9078947368421053,
+     "recall": 0.8789808917197452,
+     "coverage": 0.8636363636363636,
+     "predicted": 152,
+     "tp": 138,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 0.9090909090909091,
+     "recall": 0.7142857142857143,
+     "coverage": 0.7333333333333333,
+     "predicted": 11,
+     "tp": 10,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.9176470588235294,
+     "recall": 0.8764044943820225,
+     "coverage": 0.845771144278607,
+     "predicted": 170,
+     "tp": 156,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.8825347758887172,
+     "recall": 0.9596638655462185,
+     "coverage": 0.9500734214390602,
+     "predicted": 647,
+     "tp": 571,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.7043010752688172,
+     "recall": 0.9268867924528302,
+     "coverage": 0.782608695652174,
+     "predicted": 558,
+     "tp": 393,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.8629032258064516,
+     "recall": 0.981651376146789,
+     "coverage": 0.8985507246376812,
+     "predicted": 124,
+     "tp": 107,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9157303370786517,
+     "recall": 0.9702380952380952,
+     "coverage": 0.9621621621621622,
+     "predicted": 178,
+     "tp": 163,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.3323943661971831,
+     "recall": 0.959349593495935,
+     "coverage": 0.9594594594594594,
+     "predicted": 355,
+     "tp": 118,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.7036423841059603,
+     "recall": 0.9423503325942351,
+     "coverage": 0.9320987654320988,
+     "predicted": 604,
+     "tp": 425,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8300653594771242,
+     "recall": 0.9477611940298507,
+     "coverage": 0.9161676646706587,
+     "predicted": 306,
+     "tp": 254,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 1.0,
+     "recall": 0.9692307692307692,
+     "coverage": 0.9402985074626866,
+     "predicted": 63,
+     "tp": 63,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 0.9166666666666666,
+     "recall": 0.9029850746268657,
+     "coverage": 0.8741721854304636,
+     "predicted": 132,
+     "tp": 121,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.7762850467289719,
+     "recall": 0.8973666441593517,
+     "coverage": 0.8884276076803321,
+     "predicted": 1712,
+     "tp": 1329,
+     "n_pos": 1481
+    }
+   }
+  },
+  "RS925": {
+   "name": "RS925",
+   "precision": 0.916237918930615,
+   "precision_wilson": [
+    0.9123955197971249,
+    0.9199265780504285
+   ],
+   "precision_cluster_boot": [
+    0.8719610153154117,
+    0.9442753699233917
+   ],
+   "recall_global": 0.18878486154455837,
+   "recall_tier": 0.8781915383906351,
+   "predicted": 20797,
+   "tp": 19055,
+   "fp": 1742,
+   "n_crates_firing": 38,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.908695652173913,
+     "recall": 0.8326693227091634,
+     "coverage": 0.7301587301587301,
+     "predicted": 230,
+     "tp": 209,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9071322436849926,
+     "recall": 0.905114899925871,
+     "coverage": 0.8866930171277997,
+     "predicted": 1346,
+     "tp": 1221,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.950530035335689,
+     "coverage": 0.9438596491228071,
+     "predicted": 269,
+     "tp": 269,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.9339622641509434,
+     "recall": 0.9428571428571428,
+     "coverage": 0.8907563025210085,
+     "predicted": 106,
+     "tp": 99,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.6373626373626373,
+     "coverage": 0.6236559139784946,
+     "predicted": 58,
+     "tp": 58,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9375,
+     "recall": 0.8898305084745762,
+     "coverage": 0.7320261437908496,
+     "predicted": 112,
+     "tp": 105,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.625,
+     "coverage": 0.625,
+     "predicted": 5,
+     "tp": 5,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 0.9242424242424242,
+     "recall": 0.7439024390243902,
+     "coverage": 0.7415730337078652,
+     "predicted": 66,
+     "tp": 61,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 0.8333333333333334,
+     "recall": 1.0,
+     "coverage": 1.0,
+     "predicted": 12,
+     "tp": 10,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.8253968253968254,
+     "coverage": 0.8,
+     "predicted": 104,
+     "tp": 104,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.7777777777777778,
+     "recall": 0.5384615384615384,
+     "coverage": 0.4864864864864865,
+     "predicted": 18,
+     "tp": 14,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.8875968992248062,
+     "recall": 0.8278015116661189,
+     "coverage": 0.8026018099547512,
+     "predicted": 2838,
+     "tp": 2519,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9496124031007752,
+     "recall": 0.8626760563380281,
+     "coverage": 0.8543046357615894,
+     "predicted": 258,
+     "tp": 245,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9400630914826499,
+     "recall": 0.8394366197183099,
+     "coverage": 0.8170103092783505,
+     "predicted": 317,
+     "tp": 298,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9444444444444444,
+     "recall": 0.8038528896672504,
+     "coverage": 0.8073089700996677,
+     "predicted": 486,
+     "tp": 459,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 0.9461538461538461,
+     "recall": 0.8848920863309353,
+     "coverage": 0.87248322147651,
+     "predicted": 130,
+     "tp": 123,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.9830508474576272,
+     "recall": 0.6705202312138728,
+     "coverage": 0.6555555555555556,
+     "predicted": 118,
+     "tp": 116,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.948051948051948,
+     "recall": 0.5658914728682171,
+     "coverage": 0.5703703703703704,
+     "predicted": 77,
+     "tp": 73,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.7450980392156863,
+     "coverage": 0.7450980392156863,
+     "predicted": 38,
+     "tp": 38,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.8258706467661692,
+     "recall": 0.8601036269430051,
+     "coverage": 0.8340248962655602,
+     "predicted": 201,
+     "tp": 166,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 0.9700598802395209,
+     "recall": 0.84375,
+     "coverage": 0.8391959798994975,
+     "predicted": 167,
+     "tp": 162,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9628868627199179,
+     "recall": 0.9467171717171717,
+     "coverage": 0.9102279368790182,
+     "predicted": 7787,
+     "tp": 7498,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.6515151515151515,
+     "coverage": 0.6515151515151515,
+     "predicted": 43,
+     "tp": 43,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.8992725237828764,
+     "recall": 0.8287777204744714,
+     "coverage": 0.8144940747493163,
+     "predicted": 1787,
+     "tp": 1607,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 0.85,
+     "recall": 0.6296296296296297,
+     "coverage": 0.6060606060606061,
+     "predicted": 20,
+     "tp": 17,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.928,
+     "recall": 0.7388535031847133,
+     "coverage": 0.7102272727272727,
+     "predicted": 125,
+     "tp": 116,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 0.9333333333333333,
+     "recall": 1.0,
+     "coverage": 1.0,
+     "predicted": 15,
+     "tp": 14,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.9,
+     "recall": 0.7584269662921348,
+     "coverage": 0.746268656716418,
+     "predicted": 150,
+     "tp": 135,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9283088235294118,
+     "recall": 0.8487394957983193,
+     "coverage": 0.7988252569750367,
+     "predicted": 544,
+     "tp": 505,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.7267326732673267,
+     "recall": 0.8655660377358491,
+     "coverage": 0.7082748948106592,
+     "predicted": 505,
+     "tp": 367,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.8632478632478633,
+     "recall": 0.926605504587156,
+     "coverage": 0.8478260869565217,
+     "predicted": 117,
+     "tp": 101,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9171974522292994,
+     "recall": 0.8571428571428571,
+     "coverage": 0.8486486486486486,
+     "predicted": 157,
+     "tp": 144,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.5058139534883721,
+     "recall": 0.7073170731707317,
+     "coverage": 0.4648648648648649,
+     "predicted": 172,
+     "tp": 87,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.8224719101123595,
+     "recall": 0.811529933481153,
+     "coverage": 0.6867283950617284,
+     "predicted": 445,
+     "tp": 366,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8251748251748252,
+     "recall": 0.8805970149253731,
+     "coverage": 0.8562874251497006,
+     "predicted": 286,
+     "tp": 236,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 0.9642857142857143,
+     "recall": 0.8307692307692308,
+     "coverage": 0.835820895522388,
+     "predicted": 56,
+     "tp": 54,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 0.9357798165137615,
+     "recall": 0.7611940298507462,
+     "coverage": 0.7218543046357616,
+     "predicted": 109,
+     "tp": 102,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.8594878529218647,
+     "recall": 0.8838622552329507,
+     "coverage": 0.7903476907109497,
+     "predicted": 1523,
+     "tp": 1309,
+     "n_pos": 1481
+    }
+   }
+  },
+  "GOSDT_A": {
+   "name": "GOSDT_A",
+   "precision": 0.8987762237762238,
+   "precision_wilson": [
+    0.8948007436749154,
+    0.9026178205481039
+   ],
+   "precision_cluster_boot": [
+    0.8367077464788732,
+    0.9364277272912507
+   ],
+   "recall_global": 0.20373507702977164,
+   "recall_tier": 0.947737118628445,
+   "predicted": 22880,
+   "tp": 20564,
+   "fp": 2316,
+   "n_crates_firing": 38,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.8790322580645161,
+     "recall": 0.8685258964143426,
+     "coverage": 0.7873015873015873,
+     "predicted": 248,
+     "tp": 218,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9056737588652483,
+     "recall": 0.9466271312083024,
+     "coverage": 0.9288537549407114,
+     "predicted": 1410,
+     "tp": 1277,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.9646643109540636,
+     "coverage": 0.9578947368421052,
+     "predicted": 273,
+     "tp": 273,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.9339622641509434,
+     "recall": 0.9428571428571428,
+     "coverage": 0.8907563025210085,
+     "predicted": 106,
+     "tp": 99,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 0.9880952380952381,
+     "recall": 0.9120879120879121,
+     "coverage": 0.9032258064516129,
+     "predicted": 84,
+     "tp": 83,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9140625,
+     "recall": 0.9915254237288136,
+     "coverage": 0.8366013071895425,
+     "predicted": 128,
+     "tp": 117,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.625,
+     "coverage": 0.625,
+     "predicted": 5,
+     "tp": 5,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 0.9577464788732394,
+     "recall": 0.8292682926829268,
+     "coverage": 0.797752808988764,
+     "predicted": 71,
+     "tp": 68,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 0.8333333333333334,
+     "recall": 1.0,
+     "coverage": 1.0,
+     "predicted": 12,
+     "tp": 10,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 0.991304347826087,
+     "recall": 0.9047619047619048,
+     "coverage": 0.8846153846153846,
+     "predicted": 115,
+     "tp": 114,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.7241379310344828,
+     "recall": 0.8076923076923077,
+     "coverage": 0.7837837837837838,
+     "predicted": 29,
+     "tp": 21,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.8701062215477997,
+     "recall": 0.9421623397962537,
+     "coverage": 0.931843891402715,
+     "predicted": 3295,
+     "tp": 2867,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9494949494949495,
+     "recall": 0.9929577464788732,
+     "coverage": 0.9834437086092715,
+     "predicted": 297,
+     "tp": 282,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9326145552560647,
+     "recall": 0.9746478873239437,
+     "coverage": 0.9561855670103093,
+     "predicted": 371,
+     "tp": 346,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9484902309058615,
+     "recall": 0.9352014010507881,
+     "coverage": 0.9352159468438538,
+     "predicted": 563,
+     "tp": 534,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 0.943089430894309,
+     "recall": 0.8345323741007195,
+     "coverage": 0.825503355704698,
+     "predicted": 123,
+     "tp": 116,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.9862068965517241,
+     "recall": 0.8265895953757225,
+     "coverage": 0.8055555555555556,
+     "predicted": 145,
+     "tp": 143,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.9666666666666667,
+     "recall": 0.8992248062015504,
+     "coverage": 0.8888888888888888,
+     "predicted": 120,
+     "tp": 116,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.8627450980392157,
+     "coverage": 0.8627450980392157,
+     "predicted": 44,
+     "tp": 44,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.8401826484018264,
+     "recall": 0.9533678756476683,
+     "coverage": 0.9087136929460581,
+     "predicted": 219,
+     "tp": 184,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 0.9709302325581395,
+     "recall": 0.8697916666666666,
+     "coverage": 0.864321608040201,
+     "predicted": 172,
+     "tp": 167,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.9613334985747924,
+     "recall": 0.9794191919191919,
+     "coverage": 0.9431911163062536,
+     "predicted": 8069,
+     "tp": 7757,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.7878787878787878,
+     "coverage": 0.7878787878787878,
+     "predicted": 52,
+     "tp": 52,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.884863523573201,
+     "recall": 0.9195461578133058,
+     "coverage": 0.9184138559708296,
+     "predicted": 2015,
+     "tp": 1783,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 0.8148148148148148,
+     "recall": 0.8148148148148148,
+     "coverage": 0.8181818181818182,
+     "predicted": 27,
+     "tp": 22,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.9465648854961832,
+     "recall": 0.7898089171974523,
+     "coverage": 0.7443181818181818,
+     "predicted": 131,
+     "tp": 124,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 0.9285714285714286,
+     "recall": 0.9285714285714286,
+     "coverage": 0.9333333333333333,
+     "predicted": 14,
+     "tp": 13,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.8988095238095238,
+     "recall": 0.848314606741573,
+     "coverage": 0.835820895522388,
+     "predicted": 168,
+     "tp": 151,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9163879598662207,
+     "recall": 0.9210084033613445,
+     "coverage": 0.8781204111600588,
+     "predicted": 598,
+     "tp": 548,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.7169459962756052,
+     "recall": 0.9080188679245284,
+     "coverage": 0.7531556802244039,
+     "predicted": 537,
+     "tp": 385,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.84375,
+     "recall": 0.9908256880733946,
+     "coverage": 0.927536231884058,
+     "predicted": 128,
+     "tp": 108,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9181286549707602,
+     "recall": 0.9345238095238095,
+     "coverage": 0.9243243243243243,
+     "predicted": 171,
+     "tp": 157,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.3305785123966942,
+     "recall": 0.975609756097561,
+     "coverage": 0.981081081081081,
+     "predicted": 363,
+     "tp": 120,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.7019230769230769,
+     "recall": 0.9711751662971175,
+     "coverage": 0.9629629629629629,
+     "predicted": 624,
+     "tp": 438,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8288590604026845,
+     "recall": 0.9216417910447762,
+     "coverage": 0.8922155688622755,
+     "predicted": 298,
+     "tp": 247,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 0.9666666666666667,
+     "recall": 0.8923076923076924,
+     "coverage": 0.8955223880597015,
+     "predicted": 60,
+     "tp": 58,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 0.9516129032258065,
+     "recall": 0.8805970149253731,
+     "coverage": 0.8211920529801324,
+     "predicted": 124,
+     "tp": 118,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.8372232196289647,
+     "recall": 0.9446320054017556,
+     "coverage": 0.8671510119356513,
+     "predicted": 1671,
+     "tp": 1399,
+     "n_pos": 1481
+    }
+   }
+  },
+  "GOSDT_B": {
+   "name": "GOSDT_B",
+   "precision": 0.9104085091461633,
+   "precision_wilson": [
+    0.9060366873928504,
+    0.9145960969535946
+   ],
+   "precision_cluster_boot": [
+    0.8529275451877028,
+    0.9428184065714968
+   ],
+   "recall_global": 0.15433694952196958,
+   "recall_tier": 0.7179463545027192,
+   "predicted": 17111,
+   "tp": 15578,
+   "fp": 1533,
+   "n_crates_firing": 38,
+   "per_crate": {
+    "ast-grep": {
+     "precision": 0.9058823529411765,
+     "recall": 0.6135458167330677,
+     "coverage": 0.5396825396825397,
+     "predicted": 170,
+     "tp": 154,
+     "n_pos": 251
+    },
+    "atuin": {
+     "precision": 0.9264328485885372,
+     "recall": 0.8028169014084507,
+     "coverage": 0.7700922266139657,
+     "predicted": 1169,
+     "tp": 1083,
+     "n_pos": 1349
+    },
+    "bacon": {
+     "precision": 1.0,
+     "recall": 0.9222614840989399,
+     "coverage": 0.9157894736842105,
+     "predicted": 261,
+     "tp": 261,
+     "n_pos": 283
+    },
+    "bob-nvim": {
+     "precision": 0.968421052631579,
+     "recall": 0.8761904761904762,
+     "coverage": 0.7983193277310925,
+     "predicted": 95,
+     "tp": 92,
+     "n_pos": 105
+    },
+    "dicom-dump": {
+     "precision": 1.0,
+     "recall": 0.7802197802197802,
+     "coverage": 0.7634408602150538,
+     "predicted": 71,
+     "tp": 71,
+     "n_pos": 91
+    },
+    "difftastic": {
+     "precision": 0.9196428571428571,
+     "recall": 0.8728813559322034,
+     "coverage": 0.7320261437908496,
+     "predicted": 112,
+     "tp": 103,
+     "n_pos": 118
+    },
+    "dify": {
+     "precision": 1.0,
+     "recall": 0.625,
+     "coverage": 0.625,
+     "predicted": 5,
+     "tp": 5,
+     "n_pos": 8
+    },
+    "espflash": {
+     "precision": 1.0,
+     "recall": 0.5609756097560976,
+     "coverage": 0.5168539325842697,
+     "predicted": 46,
+     "tp": 46,
+     "n_pos": 82
+    },
+    "flip-link": {
+     "precision": 0.8333333333333334,
+     "recall": 0.5,
+     "coverage": 0.5,
+     "predicted": 6,
+     "tp": 5,
+     "n_pos": 10
+    },
+    "genact": {
+     "precision": 1.0,
+     "recall": 0.6428571428571429,
+     "coverage": 0.6230769230769231,
+     "predicted": 81,
+     "tp": 81,
+     "n_pos": 126
+    },
+    "gifski": {
+     "precision": 0.7368421052631579,
+     "recall": 0.5384615384615384,
+     "coverage": 0.5135135135135135,
+     "predicted": 19,
+     "tp": 14,
+     "n_pos": 26
+    },
+    "gitoxide": {
+     "precision": 0.8907807308970099,
+     "recall": 0.704896483733158,
+     "coverage": 0.6809954751131222,
+     "predicted": 2408,
+     "tp": 2145,
+     "n_pos": 3043
+    },
+    "gitu": {
+     "precision": 0.9395348837209302,
+     "recall": 0.7112676056338029,
+     "coverage": 0.7119205298013245,
+     "predicted": 215,
+     "tp": 202,
+     "n_pos": 284
+    },
+    "gitui": {
+     "precision": 0.9314079422382672,
+     "recall": 0.7267605633802817,
+     "coverage": 0.7139175257731959,
+     "predicted": 277,
+     "tp": 258,
+     "n_pos": 355
+    },
+    "grass": {
+     "precision": 0.9547738693467337,
+     "recall": 0.6654991243432574,
+     "coverage": 0.6611295681063123,
+     "predicted": 398,
+     "tp": 380,
+     "n_pos": 571
+    },
+    "grcov": {
+     "precision": 0.9382716049382716,
+     "recall": 0.5467625899280576,
+     "coverage": 0.5436241610738255,
+     "predicted": 81,
+     "tp": 76,
+     "n_pos": 139
+    },
+    "hurl": {
+     "precision": 0.979381443298969,
+     "recall": 0.5491329479768786,
+     "coverage": 0.5388888888888889,
+     "predicted": 97,
+     "tp": 95,
+     "n_pos": 173
+    },
+    "hwatch": {
+     "precision": 0.96,
+     "recall": 0.5581395348837209,
+     "coverage": 0.5555555555555556,
+     "predicted": 75,
+     "tp": 72,
+     "n_pos": 129
+    },
+    "jnv": {
+     "precision": 1.0,
+     "recall": 0.5098039215686274,
+     "coverage": 0.5098039215686274,
+     "predicted": 26,
+     "tp": 26,
+     "n_pos": 51
+    },
+    "komac": {
+     "precision": 0.8695652173913043,
+     "recall": 0.8290155440414507,
+     "coverage": 0.7634854771784232,
+     "predicted": 184,
+     "tp": 160,
+     "n_pos": 193
+    },
+    "maturin": {
+     "precision": 1.0,
+     "recall": 0.7135416666666666,
+     "coverage": 0.6884422110552764,
+     "predicted": 137,
+     "tp": 137,
+     "n_pos": 192
+    },
+    "mise": {
+     "precision": 0.963801652892562,
+     "recall": 0.7362373737373737,
+     "coverage": 0.7071887784921099,
+     "predicted": 6050,
+     "tp": 5831,
+     "n_pos": 7920
+    },
+    "monolith": {
+     "precision": 1.0,
+     "recall": 0.4090909090909091,
+     "coverage": 0.4090909090909091,
+     "predicted": 27,
+     "tp": 27,
+     "n_pos": 66
+    },
+    "nushell": {
+     "precision": 0.8939288206559665,
+     "recall": 0.6606498194945848,
+     "coverage": 0.6531449407474932,
+     "predicted": 1433,
+     "tp": 1281,
+     "n_pos": 1939
+    },
+    "protofetch": {
+     "precision": 0.8125,
+     "recall": 0.48148148148148145,
+     "coverage": 0.48484848484848486,
+     "predicted": 16,
+     "tp": 13,
+     "n_pos": 27
+    },
+    "rink": {
+     "precision": 0.945054945054945,
+     "recall": 0.5477707006369427,
+     "coverage": 0.5170454545454546,
+     "predicted": 91,
+     "tp": 86,
+     "n_pos": 157
+    },
+    "rust-script": {
+     "precision": 0.875,
+     "recall": 0.5,
+     "coverage": 0.5333333333333333,
+     "predicted": 8,
+     "tp": 7,
+     "n_pos": 14
+    },
+    "rustic": {
+     "precision": 0.9043478260869565,
+     "recall": 0.5842696629213483,
+     "coverage": 0.572139303482587,
+     "predicted": 115,
+     "tp": 104,
+     "n_pos": 178
+    },
+    "sccache": {
+     "precision": 0.9287469287469288,
+     "recall": 0.6352941176470588,
+     "coverage": 0.5976505139500734,
+     "predicted": 407,
+     "tp": 378,
+     "n_pos": 595
+    },
+    "spider_cli": {
+     "precision": 0.7100213219616205,
+     "recall": 0.785377358490566,
+     "coverage": 0.6577840112201964,
+     "predicted": 469,
+     "tp": 333,
+     "n_pos": 424
+    },
+    "taskwarrior-tui": {
+     "precision": 0.9166666666666666,
+     "recall": 0.908256880733945,
+     "coverage": 0.782608695652174,
+     "predicted": 108,
+     "tp": 99,
+     "n_pos": 109
+    },
+    "television": {
+     "precision": 0.9369369369369369,
+     "recall": 0.6190476190476191,
+     "coverage": 0.6,
+     "predicted": 111,
+     "tp": 104,
+     "n_pos": 168
+    },
+    "tokio-console": {
+     "precision": 0.3371647509578544,
+     "recall": 0.7154471544715447,
+     "coverage": 0.7054054054054054,
+     "predicted": 261,
+     "tp": 88,
+     "n_pos": 123
+    },
+    "tree-sitter-cli": {
+     "precision": 0.728310502283105,
+     "recall": 0.7073170731707317,
+     "coverage": 0.6759259259259259,
+     "predicted": 438,
+     "tp": 319,
+     "n_pos": 451
+    },
+    "trunk": {
+     "precision": 0.8359375,
+     "recall": 0.7985074626865671,
+     "coverage": 0.7664670658682635,
+     "predicted": 256,
+     "tp": 214,
+     "n_pos": 268
+    },
+    "tuc": {
+     "precision": 1.0,
+     "recall": 0.6923076923076923,
+     "coverage": 0.6716417910447762,
+     "predicted": 45,
+     "tp": 45,
+     "n_pos": 65
+    },
+    "wiki-tui": {
+     "precision": 0.9629629629629629,
+     "recall": 0.582089552238806,
+     "coverage": 0.5364238410596026,
+     "predicted": 81,
+     "tp": 78,
+     "n_pos": 134
+    },
+    "yazi-fm": {
+     "precision": 0.875594294770206,
+     "recall": 0.7461174881836596,
+     "coverage": 0.6549039958484691,
+     "predicted": 1262,
+     "tp": 1105,
+     "n_pos": 1481
+    }
+   }
+  }
+ },
+ "gosdt_frozen_trees": {
+  "GOSDT_A": [
+   {
+    "false": {
+     "false": {
+      "complexity": 0.0024999999441206455,
+      "loss": 0.07834847271442413,
+      "prediction": 1
+     },
+     "feature": 39,
+     "true": {
+      "false": {
+       "false": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.010974183678627014,
+        "prediction": 1
+       },
+       "feature": 24,
+       "true": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.0009444993920624256,
+        "prediction": 0
+       }
+      },
+      "feature": 8,
+      "true": {
+       "false": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.009444993920624256,
+        "prediction": 1
+       },
+       "feature": 29,
+       "true": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.041333090513944626,
+        "prediction": 0
+       }
+      }
+     }
+    },
+    "feature": 5,
+    "true": {
+     "false": {
+      "false": {
+       "false": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.022578032687306404,
+        "prediction": 1
+       },
+       "feature": 22,
+       "true": {
+        "complexity": 0.0024999999441206455,
+        "loss": 0.01448232401162386,
+        "prediction": 0
+       }
+      },
+      "feature": 14,
+      "true": {
+       "complexity": 0.0024999999441206455,
+       "loss": 0.005127282347530127,
+       "prediction": 1
+      }
+     },
+     "feature": 6,
+     "true": {
+      "complexity": 0.0024999999441206455,
+      "loss": 0.008005756884813309,
+      "prediction": 1
+     }
+    }
+   }
+  ],
+  "GOSDT_B": [
+   {
+    "false": {
+     "false": {
+      "false": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.0037052284460514784,
+        "prediction": 1
+       },
+       "feature": 8,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.0058813150972127914,
+        "prediction": 0
+       }
+      },
+      "feature": 22,
+      "true": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.012791860848665237,
+        "prediction": 0
+       },
+       "feature": 14,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.001058636698871851,
+        "prediction": 1
+       }
+      }
+     },
+     "feature": 20,
+     "true": {
+      "false": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.05804857984185219,
+        "prediction": 1
+       },
+       "feature": 39,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.04143386706709862,
+        "prediction": 0
+       }
+      },
+      "feature": 4,
+      "true": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.0026465917471796274,
+        "prediction": 1
+       },
+       "feature": 29,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.023348821327090263,
+        "prediction": 0
+       }
+      }
+     }
+    },
+    "feature": 2,
+    "true": {
+     "false": {
+      "false": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.02408398501574993,
+        "prediction": 0
+       },
+       "feature": 0,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.01976121962070465,
+        "prediction": 1
+       }
+      },
+      "feature": 3,
+      "true": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.006028348114341497,
+        "prediction": 0
+       },
+       "feature": 7,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.01376227755099535,
+        "prediction": 1
+       }
+      }
+     },
+     "feature": 19,
+     "true": {
+      "false": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.005116743966937065,
+        "prediction": 1
+       },
+       "feature": 15,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.007028171792626381,
+        "prediction": 0
+       }
+      },
+      "feature": 22,
+      "true": {
+       "false": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.011615597642958164,
+        "prediction": 0
+       },
+       "feature": 6,
+       "true": {
+        "complexity": 0.0010000000474974513,
+        "loss": 0.001940833986736834,
+        "prediction": 1
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "paired_vs_R3": {
+  "RS90": {
+   "d_recall_pp": 23.05281592773528,
+   "recall_ci_pp": [
+    15.338577291381672,
+    34.84169170325862
+   ],
+   "p_recall": 0.00012498437695288088,
+   "d_precision_pp": -0.7832261306379373,
+   "precision_ci_pp": [
+    -2.884898055838925,
+    1.0791513252914053
+   ],
+   "p_precision": 0.42125,
+   "p_recall_holm": 0.0004999375078115235,
+   "p_precision_holm": 0.8425
+  },
+  "RS925": {
+   "d_recall_pp": 16.112084063047295,
+   "recall_ci_pp": [
+    10.281178859287522,
+    25.18347661983644
+   ],
+   "p_recall": 0.00012498437695288088,
+   "d_precision_pp": 1.58849300989502,
+   "precision_ci_pp": [
+    -0.541690699313857,
+    4.466730558598031
+   ],
+   "p_precision": 0.1565,
+   "p_recall_holm": 0.0004999375078115235,
+   "p_precision_holm": 0.626
+  },
+  "GOSDT_A": {
+   "d_recall_pp": 23.06664208682828,
+   "recall_ci_pp": [
+    15.228676798759722,
+    34.727418492784615
+   ],
+   "p_recall": 0.00012498437695288088,
+   "d_precision_pp": -0.15767650554410206,
+   "precision_ci_pp": [
+    -2.347971328481069,
+    1.8413369387752065
+   ],
+   "p_precision": 0.869625,
+   "p_recall_holm": 0.0004999375078115235,
+   "p_precision_holm": 0.869625
+  },
+  "GOSDT_B": {
+   "d_recall_pp": 0.08756567425569628,
+   "recall_ci_pp": [
+    -8.087221420554746,
+    11.46236559139785
+   ],
+   "p_recall": 0.98875,
+   "d_precision_pp": 1.0055520314498523,
+   "precision_ci_pp": [
+    -0.689372283178169,
+    3.1231328581001416
+   ],
+   "p_precision": 0.229,
+   "p_recall_holm": 0.98875,
+   "p_precision_holm": 0.687
+  }
+ }
+}

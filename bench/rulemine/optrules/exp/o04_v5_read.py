@@ -35,6 +35,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OPTRULES = os.path.dirname(HERE)
 STUDY = os.path.dirname(OPTRULES)
 sys.path.insert(0, os.path.join(STUDY, "lib"))
+sys.path.insert(0, os.path.join(OPTRULES, "lib"))
 sys.path.insert(0, HERE)
 import common as C  # noqa: E402
 import mining  # noqa: E402

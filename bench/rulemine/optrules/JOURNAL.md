@@ -90,3 +90,30 @@ Bottom line: **a certified small disjunction recovers ~1.6× R3's recall at
 dev-set precision parity; under LOCO the precision parity slips ~3 pp while the
 recall gain holds.** D04 was right about the form. Confirmation needs a fresh
 sealed corpus — `bench/rulemine/v5`, staged the same night.
+
+## 2026-08-28 — v5 held-out read (o04)
+
+v5 built: 45 crates attempted, 38 built both configs, 7 failed (blondie is
+Windows-only; jless/silicon/mprocs/rmesg/lowcharts hit dep-compile errors vs the
+2026-06-16 nightly; json_diff_ng dead URL). Sealed the 38 that built both
+configs -- mechanical inclusion rule, fixed before any label seen. PREREGISTER.md
++ split.json committed (7e14cd4) before o04 ran.
+
+o04, one run, v5 tier A (24,996 rows, 21,698 ws-pos, ceiling 21.5%):
+  R3       P 0.900 [0.828,0.932]  Rg 0.154  Rt 0.717
+  RS90     P 0.893 [0.826,0.933]  Rg 0.204  Rt 0.948   +23.0pp tier recall vs R3, Holm p<0.001
+  RS925    P 0.916 [0.872,0.944]  Rg 0.189  Rt 0.878   +16.1pp, Holm p<0.001
+  GOSDT_A  P 0.899 [0.837,0.936]  Rg 0.204  Rt 0.948   +23.1pp, Holm p<0.001
+  GOSDT_B  P 0.910                Rg 0.154            +0.1pp (n.s.) -- collapsed to R3
+
+H1 (recall gain replicates): HOLDS. RS90 wins recall in 37/38 crates.
+H2 (precision parity holds): HOLDS. RS90/GOSDT_A precision inside R3's interval;
+the ~3pp erosion seen under dev LOCO (held 0.881) did NOT recur on v5 -- the dev
+LOCO was pessimistic (small-crate folds).
+
+Verdict: the certified disjunction beats shipped R3, confirmed held-out, both
+axes. Shippable = RS90 (transcribable). Unlike parent §5.3, replicated.
+
+Caveats kept in READOUT: RS90 loses small per-crate precision in 25/38 crates,
+one outlier (tokio-console 0.33); GOSDT_B did not generalise; the finding is
+within the anchor-bearing regime only.
