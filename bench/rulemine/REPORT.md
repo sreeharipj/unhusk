@@ -1203,20 +1203,27 @@ greedy. `bench/rulemine/optrules/` re-ran the search with an optimality
 certificate — an exhaustive / branch-and-bound search over readable rule sets,
 and GOSDT branch-and-bound over sparse trees (every model provably optimal). A
 small **disjunction** (three OR-ed 2-atom clauses, `RS90`; or a provably-optimal
-depth-4 tree, `GOSDT_A`, which fires on the same functions) reaches ~1.6× R3's
-global recall at development-set precision parity — where a single conjunction
+depth-4 tree, `GOSDT_A`, which fires on the same functions, Jaccard 0.85)
+reaches ~1.6× R3's *development-set* global recall where a single conjunction
 tops out at ~1.3×. It was then pre-registered and read **once** on a fresh
 sealed 38-crate corpus (`bench/rulemine/v5/`, `split.json` sha256 `c49efbba…`,
-no code overlap with the 43-crate corpus, v2, v3 or v4). Both pre-registered
-hypotheses held: the recall gain replicated (RS90 wins per-crate recall in
-37/38), and — unlike §5.3 — the **precision parity held on the held-out corpus**
-(0.893 / 0.899 vs R3's 0.900, inside its cluster-bootstrap interval; the ~3 pp
-erosion seen under *development* leave-one-crate-out did not recur). A gradient
-booster over the same atoms beats the disjunction by only ~2 pp, so the rule is
-close to the white-box ceiling for this feature representation. This is the
-first result in this line of work to survive a fresh held-out read on both
-axes; the deliverable is a three-clause rule an analyst can read. See
-`bench/rulemine/optrules/REPORT.md` and `bench/rulemine/v5/READOUT.md`.
+no code overlap with the 43-crate corpus, v2, v3 or v4). On v5, versus R3:
+**global recall 0.154 → 0.204 (+5.0 pp, +33 % relative); tier recall
+0.717 → 0.948 (+23 pp, Holm p < 0.001)** — "tier" being the ~20 % of author
+functions that carry a recoverable panic `Location`, the only ones any rule of
+this family can fire on. **Pooled precision held inside R3's cluster-bootstrap
+interval** (0.893 / 0.899 vs 0.900; the ~3 pp erosion seen under *development*
+leave-one-crate-out did not recur), though **per-crate RS90 is worse than R3 in
+25 of 37 shared crates** (mean −3.4 pp, one −22 pp outlier) — uniform,
+near-ceiling recall for a small systematic per-crate precision tax. A gradient
+booster over the same atoms beats the disjunction by only ~2 pp of tier recall,
+and a pure additive model underperforms it — the rule is close to the white-box
+ceiling for this representation, and since the search was certified optimal over
+the atom set, the residual ~80 % of author code is now demonstrably *structural*
+(functions with no author `Location`), not a rule-quality gap. First result in
+this line to survive a fresh held-out read; the deliverable is a three-clause
+rule an analyst can read. See `bench/rulemine/optrules/REPORT.md` and
+`bench/rulemine/v5/READOUT.md`.
 
 ---
 

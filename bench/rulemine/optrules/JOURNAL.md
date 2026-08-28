@@ -140,3 +140,39 @@ direction (N_win_rel_frac 0.99, X_caller_rel 0.93 monotone-up fraction).
 
 Wrote optrules/REPORT.md (the consolidated write-up) and a 2026-08-28 addendum
 in the parent bench/rulemine/REPORT.md. Memory: project_optrules_v5.md.
+
+## 2026-08-28 — external review pass, and the corrections it forced
+
+An independent agent reviewed REPORT.md + READOUT.md. Verdict: the
+pre-registration (PREREGISTER.md + split.json content hash committed *before*
+o04 ran) is "the best methodology in the project" and "genuinely rare in
+security papers — most authors just claim a held-out set, you can prove yours";
+the GOSDT optimality certificates let the write-up say "provably optimal over
+this atom set" rather than "best we found"; Jaccard 0.85 between the two
+independent searches is corroboration on top.
+
+Three corrections it forced, now applied:
+
+1. **tier vs global recall was under-labelled.** The +23 pp / 0.948 figures are
+   *tier* recall (denominator = the ~20% of author functions with a recoverable
+   Location). Global recall is 0.154 -> 0.204 = +5.0 pp / +33% relative. Every
+   large recall number now carries the qualifier; §3/§5 tables split the two
+   columns explicitly; a "Reading the recall numbers" note added to both docs
+   and the parent addendum.
+2. **"precision parity" overstated.** Pooled precision is indistinguishable, but
+   per-crate RS90 is worse than R3 in 25/37 crates (mean -3.4 pp, worst -22 pp,
+   tokio-console). New §6.1 gives the full per-crate distribution (precision +
+   recall: mean/sd/median/IQR/quantiles/tail crates). The claim is now "uniform
+   near-ceiling recall for a small systematic per-crate precision tax", not
+   "at no cost". H2 restated as "pooled: holds; per-crate: not quite".
+3. **the ceiling claim is the real headline and was buried in Limitations.**
+   Promoted to §9 "The residual is now structural, not rule quality": RS90
+   recovers ~95% of tier A, the search was certified optimal over the atom set,
+   a GBM is only ~2 pp ahead -> the gap to 100% is functions with no author
+   Location by construction, not weak rules. "The compiler sets the recall
+   limit" moves from argument to bounded measurement.
+
+Per-crate distribution (v5, from o04 per_crate): recall sd 0.213 (R3) ->
+0.093 (RS90), IQR 0.323 -> 0.076, every crate >= 0.5 (R3: 26/38); RS90 recall
+higher in 37/38. Precision both left-skewed (median >> mean, p75 ~1.0, tail to
+0.33), same tail crates for R3 and RS90.

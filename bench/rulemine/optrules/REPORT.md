@@ -9,15 +9,38 @@ characterised only as "needs disjunction or arithmetic over features".
 
 This sub-study closed the thread. An **exhaustive / branch-and-bound** search
 over readable rules, and **GOSDT** branch-and-bound over sparse trees (every
-model provably optimal), both find a small **disjunction** that recovers
-**~1.6× R3's global recall at dev-set precision parity**. It was then
-**pre-registered and read once on a fresh sealed 38-crate corpus (v5)** that
-shares no code with any earlier corpus. Both pre-registered hypotheses held:
-the recall gain replicated (RS90 wins per-crate recall in 37/38 crates), and —
-unlike parent §5.3 — the **precision parity held on the held-out corpus**
-(0.893 / 0.899 vs R3's 0.900, inside its interval). A gradient booster over the
-same atoms beats the disjunction by only ~2 pp, so RS90 is close to the
-white-box ceiling for this feature representation.
+model provably optimal), both find a small **disjunction** (`RS90`, or the
+optimal tree `GOSDT_A`) that beats `R3`. It was then **pre-registered and read
+once on a fresh sealed 38-crate corpus (v5)** that shares no code with any
+earlier corpus.
+
+On v5, versus R3:
+
+| axis | R3 | RS90 | change |
+|---|---|---|---|
+| **global recall** (tp / *all* v5 author functions) | 0.154 | **0.204** | **+5.0 pp, +33 % relative** |
+| **tier recall** (tp / author functions that carry a recoverable panic `Location` — the only ones any rule of this family can fire on, ~20 % of the total) | 0.717 | **0.948** | **+23 pp** (Holm `p < 0.001`) |
+| pooled precision | 0.900 | 0.893 | −0.7 pp, cluster-boot CIs overlap almost entirely |
+
+Both pre-registered hypotheses held: the recall gain replicated (RS90 wins
+per-crate recall in 37/38 crates), and the pooled precision stayed inside R3's
+interval — the ~3 pp precision slip seen under *development* leave-one-crate-out
+did **not** recur on the held-out corpus. **Precision is not quite parity
+per-crate** (§6.1): RS90 is worse in 25 of 37 crates, mean −3.4 pp, with one
+−22 pp outlier — pooled hides it because the losses are small in absolute
+false-positive count. The honest statement is **uniform, near-ceiling recall
+bought with a small systematic per-crate precision tax**.
+
+A gradient booster over the same atoms beats RS90 by only ~2 pp of tier recall,
+and a pure additive model *underperforms* it — RS90 is close to the white-box
+ceiling for this feature representation.
+
+**Reading the recall numbers.** "Recall" in this study has two denominators.
+*Tier recall* (the large numbers, ≥ 0.9) is over the ~20 % of author functions
+that reference a recoverable author `Location`; *global recall* (~0.2) is over
+all author functions. The remaining ~80 % have no author `Location` by
+construction and no rule of this family can reach them (§9). Any tier-recall
+figure quoted without that qualifier reads as overclaiming.
 
 **Shippable artifact: `RS90`** — three OR-ed 2-atom clauses, transcribable:
 
@@ -78,7 +101,9 @@ exactly on the tier-A dev frame.
 
 ## 3. Development-set results
 
-R3 (the incumbent best on this axis): **P 0.907, global recall 0.100**.
+All recall figures here are **global** (tp / all dev author functions) unless
+marked *tier*. R3 (the incumbent best on this axis): **P 0.907, global recall
+0.100, tier recall 0.554**.
 
 | candidate | precision | precision CI | global recall | complete? |
 |---|---|---|---|---|
@@ -89,14 +114,15 @@ R3 (the incumbent best on this axis): **P 0.907, global recall 0.100**.
 | best **GOSDT tree**, P ≥ R3's (**GOSDT_A**) | 0.910 | [0.875, 0.933] | **0.167** | CONVERGED |
 | best **GOSDT tree**, P ≥ 0.95 (GOSDT_B) | 0.952 | [0.929, 0.967] | 0.131 | CONVERGED |
 
-- A single **conjunction** tops out at ~×1.3 R3 (exhaustively proven at τ0.90 and
-  τ0.925; τ0.95 timed out at 15.7 M triples and is a lower bound).
-- A small **disjunction** reaches **×1.6**, from two independent certified
-  searches that converge on the same operating point.
+- A single **conjunction** reaches ~×1.3 R3's global recall (exhaustively proven
+  at τ0.90 and τ0.925; τ0.95 timed out at 15.7 M triples and is a lower bound).
+- A small **disjunction** reaches **~×1.6** dev global recall (0.100 → 0.163),
+  from two independent certified searches that converge on the same operating
+  point.
 - Unconditional bound: the highest global recall of *any* atom pair, regardless
-  of precision, is 0.178 ≈ the tier ceiling.
+  of precision, is 0.178 ≈ the dev tier ceiling.
 - Paired crate bootstrap vs R3, Holm-corrected: RS90 and GOSDT_A each **+35 pp
-  tier recall** (`p < 0.001`); precision difference from R3 not significant.
+  *tier* recall** (`p < 0.001`); precision difference from R3 not significant.
 - Tier B: GOSDT on a 70 k subsample of `M_rel_structs == 0` returns **"never
   predicts AUTHOR"** for every config — an independent reconfirmation of D04's
   finding that nothing readable works there.
@@ -120,9 +146,11 @@ Sealed 38-crate corpus (`../v5/split.json`, sha256 `c49efbba…`; no overlap wit
 the 43-crate main corpus, v2, v3, v4). Candidates frozen on the 28 dev crates
 and pre-registered (`../v5/PREREGISTER.md`) **before** the read.
 
-v5 tier A: 24,996 rows, 21,698 ws-positives, global-recall ceiling 21.5 %.
+v5 tier A: 24,996 rows, 21,698 ws-positives. **Tier A is 21.5 % of all v5
+author functions** — the other 78.5 % carry no recoverable author `Location` and
+no rule of this family can fire on them (§9).
 
-| rule | precision | precision CI | global recall | tier recall |
+| rule | precision | precision CI | **global** recall | *tier* recall |
 |---|---|---|---|---|
 | **R3** | 0.900 | [0.828, 0.932] | 0.154 | 0.717 |
 | **RS90** | 0.893 | [0.826, 0.933] | **0.204** | 0.948 |
@@ -130,9 +158,13 @@ v5 tier A: 24,996 rows, 21,698 ws-positives, global-recall ceiling 21.5 %.
 | **GOSDT_A** | 0.899 | [0.837, 0.936] | **0.204** | 0.948 |
 | GOSDT_B | 0.910 | [0.853, 0.943] | 0.154 | 0.718 |
 
-Paired vs R3, Holm across {RS90, RS925, GOSDT_A, GOSDT_B}:
+RS90 vs R3: **global recall +5.0 pp (0.154 → 0.204, +33 % relative)**; **tier
+recall +23.0 pp (0.717 → 0.948)**.
 
-| | Δ tier recall | Holm p | Δ precision | Holm p |
+Paired crate bootstrap vs R3, Holm across {RS90, RS925, GOSDT_A, GOSDT_B} — on
+the *tier* recall axis and on precision:
+
+| | Δ *tier* recall | Holm p | Δ precision (pooled) | Holm p |
 |---|---|---|---|---|
 | RS90 | **+23.0 pp** | **< 0.001** | −0.8 pp | 0.84 |
 | RS925 | **+16.1 pp** | **< 0.001** | +1.6 pp | 0.63 |
@@ -142,16 +174,23 @@ Paired vs R3, Holm across {RS90, RS925, GOSDT_A, GOSDT_B}:
 **H1 (recall gain replicates): holds.** RS90 wins per-crate recall in **37 of
 38 crates** (1 tie, 0 losses); GOSDT_A in 36 of 38.
 
-**H2 (precision parity holds): holds.** RS90 0.893 and GOSDT_A 0.899 are inside
-R3's precision cluster-bootstrap interval [0.828, 0.932]; the paired differences
-are not significant. **The ~3 pp erosion seen under dev LOCO did not recur** —
-the dev LOCO was pessimistic, dragged down by small-crate folds (`bandwhich`
-0.67 held precision in that pass).
+**H2 (precision parity holds — pooled): holds; per-crate, with a caveat.** RS90
+0.893 and GOSDT_A 0.899 sit inside R3's precision cluster-bootstrap interval
+[0.828, 0.932], and the ~3 pp erosion seen under *dev* leave-one-crate-out (held
+0.881) did **not** recur — the dev LOCO was pessimistic, dragged down by
+small-crate folds. But **per-crate it is not parity** (§6.1): RS90 is worse than
+R3 in 25 of 37 shared crates, mean −3.4 pp, with one −22 pp outlier
+(`tokio-console`). Pooled precision hides this because the losses are few
+false positives in absolute terms and the large crates behave.
 
-→ Verdict: the certified small disjunction beats shipped R3, **confirmed
-held-out, on both axes**. Unlike parent §5.3, this replicated on a second sealed
-corpus. GOSDT_B did *not* carry its recall edge to v5 (collapsed to R3's
-operating point); only the P ≈ 0.90 disjunction generalised.
+→ **Verdict.** The certified small disjunction recovers **~1.3× R3's global
+recall (+5 pp) / +23 pp tier recall on v5, at pooled precision inside R3's
+interval, for a small systematic per-crate precision tax.** The recall gain and
+its replication are unambiguous; the precision story is "uniform, near-ceiling
+recall at a modest per-program precision cost", not "free". Unlike parent §5.3,
+the gain replicated on a second sealed corpus. GOSDT_B (the P ≥ 0.95 tree) did
+*not* carry its recall edge to v5 — it collapsed to R3's operating point; only
+the P ≈ 0.90 disjunction generalised.
 
 ## 6. What the disjunction does (`o05`)
 
@@ -173,6 +212,56 @@ operating point); only the P ≈ 0.90 disjunction generalised.
   §9.2) that R3's conservative threshold was guarding against. RS90 trades the
   guard for recall, wins 37/38, loses this one.
 - Advantage holds on the harsh dev configs (LTO-fat, opt-z) and both v5 configs.
+
+## 6.1 Per-crate distribution on v5 (`o04` per-crate table)
+
+**Recall — RS90 does not just raise the average, it makes recall uniform.**
+
+| per-crate *tier* recall | R3 | RS90 | GOSDT_A |
+|---|---|---|---|
+| pooled | 0.717 | 0.948 | 0.948 |
+| unweighted mean ± sd | 0.619 ± **0.213** | 0.898 ± **0.093** | 0.902 ± 0.076 |
+| median | 0.671 | 0.926 | 0.920 |
+| min / p25 / p75 | 0.000 / 0.459 / 0.783 | 0.625 / 0.882 / 0.958 | 0.625 / 0.864 / 0.952 |
+| IQR | **0.323** | **0.076** | 0.088 |
+| crates ≥ 0.90 recall | 1 / 38 | 26 / 38 | 23 / 38 |
+| crates ≥ 0.50 recall | 26 / 38 | **38 / 38** | 38 / 38 |
+
+R3's per-crate recall is erratic (sd 0.21, spans 0.0 in `dify` to 0.93);
+RS90's is tight (sd 0.09, floor 0.625, every crate ≥ 0.5). Paired Δ (RS90 − R3):
+mean **+0.278**, median +0.232, higher in 37/38, never lower.
+
+**Precision — left-skewed with a shared hard tail; RS90 pays a small
+per-crate tax.**
+
+| per-crate precision | R3¹ | RS90 | GOSDT_A |
+|---|---|---|---|
+| pooled | 0.900 | 0.893 | 0.899 |
+| unweighted mean ± sd | 0.920 ± 0.127 | 0.889 ± 0.130 | 0.894 ± 0.123 |
+| median | 0.957 | 0.916 | 0.931 |
+| min / p25 / p75 | 0.377 / 0.898 / 1.000 | 0.332 / 0.852 / 0.980 | 0.331 / 0.850 / 0.965 |
+| IQR | 0.102 | 0.128 | 0.115 |
+| crates below 0.90 | 10 / 37 | 14 / 38 | 14 / 38 |
+| crates below 0.80 | **3** / 37 | **6** / 38 | 4 / 38 |
+
+¹ R3 fires 0 predictions in `dify` → precision undefined there; R3 stats over 37.
+
+All three distributions are heavily left-skewed — median ≫ mean, p75 at
+0.98–1.00 (many crates at perfect precision), a thin tail to ~0.33. The tail
+crates are **the same for R3 and RS90** (`tokio-console`, `spider_cli`,
+`tree-sitter-cli`, `gifski`) — generic-heavy binaries where monomorphised `core`
+sits among author code.
+
+Paired Δ precision (RS90 − R3), 37 crates: mean **−0.034**, median −0.024,
+sd 0.067; RS90 **worse in 25, better in 6, tied in 6**. Among the 25 losses:
+mean −0.061, worst **−0.217** (`tokio-console`). Δ quantiles: p10 −0.090,
+p25 −0.056, p75 0.000, p90 +0.011.
+
+**Read:** RS90 trades ~3 pp of unweighted-mean per-crate precision, concentrated
+as ≤ 6 pp losses in two-thirds of crates plus one −22 pp outlier, for
+per-program recall that is both higher and far more uniform. Pooled precision is
+statistically indistinguishable from R3's because those losses are small in
+absolute false-positive count.
 
 ## 7. Is RS90 near the limit? (`o06`)
 
@@ -212,28 +301,61 @@ fraction; `G_loc_per_kb` non-monotone, consistent with RS90 using it as `<=`),
 but the additive form is the wrong one. **This is evidence for the disjunctive
 rule, and against "just fit an EBM".**
 
-## 9. Limitations
+## 9. The residual is now structural, not rule quality
 
-- **Anchor-bearing regime only.** RS90 / GOSDT_A recover ~95 % of tier-A
-  positives; the finding is "R3 left ~25 pp of tier recall on the table". It
-  says nothing about the invisible 82 % (o02 stage B: nothing there).
-- **Pooled parity is an aggregate statement.** RS90 loses small amounts of
-  per-crate precision in 25/38 v5 crates, with one real outlier. Deployment
-  should monitor per-program precision.
-- The τ=0.95 conjunction search did not complete; GOSDT `cost_matrix`
-  segfaults, so the precision lever is oversampling; the o01 28-fold nested
-  re-search did not finish (o02's did).
-- v5's build used a rustc nightly ~2 months older than several crates' latest
-  deps; 7 of 45 crates failed to build (recorded in `../v5/build_failures.tsv`).
+This is the sharpened claim. Before this study, "the compiler sets the recall
+limit" was an argument; it is now close to a measurement:
 
-## 10. What this means for the preprint
+- **Tier A — functions with a recoverable author `Location` — is ~20 % of all
+  author functions** (18.1 % dev, 21.5 % v5; 15.7–30.6 % across the eight build
+  configs). That fraction is a property of the toolchain, not the tool: the
+  other ~80 % never panic, had their panic inlined into a caller, or are
+  `#[track_caller]` helpers whose `Location` belongs to the caller.
+- **Within tier A, RS90 recovers ~95 %** of the positives on v5 (tier recall
+  0.948), from a search **certified optimal over the atom set** (`o02`,
+  `lower_bound == upper_bound`), with a gradient booster over the same atoms
+  only ~2 pp ahead (`o06`).
+- So the gap between RS90's ~20 % global recall and 100 % is **not** attributable
+  to weak rules or an unsearched feature space — both are now bounded. It is
+  functions that leave no author `Location` trace (`o02` stage B: GOSDT predicts
+  nothing there at any precision-first point).
+
+Past ~20 % global recall needs a **different observable channel** (string /
+format-arg literals, `debug_assert!` residue, proper `#[track_caller]`
+propagation, rodata adjacent to author symbols, call-graph closure), not a
+better rule over panic `Location`s. D01/D02 already found the feature space over
+*this* channel saturated.
+
+## 10. Other limitations
+
+- **Precision is not per-crate parity** (§6.1). RS90 is worse than R3 in 25/37
+  v5 crates (mean −3.4 pp, worst −22 pp, `tokio-console`). Pooled precision is
+  indistinguishable, but the honest one-line claim is "uniform near-ceiling
+  recall for a small systematic per-crate precision tax", not "at no precision
+  cost"; deployment should monitor per-program precision.
+- **ELF-only, Rust-only, one internal baseline** (RS90 vs `unhusk`'s own R3).
+- **Quotable-number hygiene.** Every recall figure ≥ ~0.7 here is *tier* recall
+  (denominator ≈ 20 % of author code); global recall is ~0.2. A tier-recall
+  number quoted without "of functions with a recoverable panic `Location`"
+  reads as overclaiming.
+- The τ=0.95 conjunction search did not complete; GOSDT `cost_matrix` segfaults
+  (precision lever is negative-row oversampling); the `o01` 28-fold nested
+  re-search did not finish (`o02`'s did).
+- v5's build used a rustc nightly ~2 months older than several crates' deps;
+  7 of 45 crates failed to build (`../v5/build_failures.tsv`).
+
+## 11. What this means for the preprint
 
 D04's "the incumbent Boolean family is near-optimal, and the gap is rule form"
 is now a **confirmed positive result**: a certifiably-optimal small disjunction
-recovers ~1.3× R3's global recall (+23 pp tier recall) at held-out precision
-parity, replicated on a second sealed corpus — the first result in this line of
-work to survive a fresh held-out read on both axes. The shippable artifact is a
-three-clause rule an analyst can read and re-implement.
+recovers **~1.3× R3's global recall (+5 pp; +23 pp tier recall)** at held-out
+pooled precision inside R3's interval, for a small per-crate precision tax,
+replicated on a second sealed corpus. First result in this line to survive a
+fresh held-out read; the shippable artifact is a three-clause rule an analyst
+can read and re-implement; and §9 turns "the compiler limits recall" from
+rhetoric into a bounded measurement. The spine of the results section: a
+hand-designed rule → greedy search says near-optimal → certified search says
+otherwise → pre-registered replication on a sealed corpus.
 
 ## Reproduce
 
