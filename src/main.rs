@@ -52,11 +52,6 @@ struct Args {
     #[arg(long, value_name = "N", default_value = "0")]
     backtrace_depth: usize,
 
-    /// Recover struct/field names from #[derive(Debug)] artifacts in .rodata/.data.rel.ro.
-    /// Outputs three tiers: user (cross-ref confirms), non-std, std.
-    #[arg(long)]
-    types: bool,
-
     /// Precision-first mode for malware/YARA-seed extraction.
     ///
     /// Restricts the user-authored output to the STRONG tier — functions anchored
@@ -358,12 +353,6 @@ fn main() -> Result<()> {
         args.precision,
         args.min_anchors,
     );
-
-    // Optional type-name recovery from #[derive(Debug)] artifacts.
-    if args.types {
-        let types = unhusk::types::find_type_names(&elf, &fn_map, &attributed);
-        unhusk::report::print_types_report(&types);
-    }
 
     // Optional DWARF validation.
     let ground_truth = if let Some(ref unstripped_path) = args.validate {

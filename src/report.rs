@@ -9,7 +9,6 @@ use crate::dwarf::ValidationReport;
 use crate::elf::ParsedElf;
 use crate::locate::PanicLocation;
 use crate::strings::{Origin, SourceString};
-use crate::types::{RecoveredType, TypeTier};
 
 pub fn print_report(elf: &ParsedElf, strings: &[SourceString], locations: &[PanicLocation]) {
     println!("=== unhusk — phase 1: panic-site attribution ===");
@@ -796,56 +795,6 @@ pub fn print_validation_report(report: &ValidationReport) {
 
     println!();
     println!("validation complete.");
-}
-
-/// Print recovered struct/field names from `#[derive(Debug)]` artifacts.
-pub fn print_types_report(types: &[RecoveredType]) {
-    println!();
-    println!("=== unhusk — type-name recovery (#[derive(Debug)]) ===");
-    println!();
-    let n_user = types.iter().filter(|t| t.tier == TypeTier::User).count();
-    let n_nonstd = types.iter().filter(|t| t.tier == TypeTier::NonStd).count();
-    let n_std = types.iter().filter(|t| t.tier == TypeTier::Std).count();
-    println!(
-        "recovered: {} total  (user={}, non-std={}, std={})",
-        types.len(),
-        n_user,
-        n_nonstd,
-        n_std
-    );
-
-    if n_user > 0 {
-        println!();
-        println!("user-tier structs ({n_user}):");
-        for t in types.iter().filter(|t| t.tier == TypeTier::User) {
-            println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
-            if !t.fields.is_empty() {
-                println!("    fields: {}", t.fields.join(", "));
-            }
-        }
-    }
-
-    if n_nonstd > 0 {
-        println!();
-        println!("non-std structs ({n_nonstd}):");
-        for t in types.iter().filter(|t| t.tier == TypeTier::NonStd) {
-            println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
-            if !t.fields.is_empty() {
-                println!("    fields: {}", t.fields.join(", "));
-            }
-        }
-    }
-
-    if n_std > 0 {
-        println!();
-        println!("std structs ({n_std}) — expected noise from core/alloc/std:");
-        for t in types.iter().filter(|t| t.tier == TypeTier::Std) {
-            println!("  {}  [fn 0x{:x}]", t.struct_name, t.fn_start);
-        }
-    }
-
-    println!();
-    println!("type recovery complete.");
 }
 
 fn pct(n: usize, total: usize) -> f64 {

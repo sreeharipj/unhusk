@@ -43,8 +43,9 @@ The following are **not goals** and are not implemented:
 
 - Recall completeness. Functions containing no reachable panic site are
   structurally invisible (§9.1). Recall is partial by design.
-- Symbol or type recovery as a product surface. `--types` exists and is
-  specified in §10.3 as an ineffective diagnostic, not a feature.
+- Symbol or type recovery as a product surface. A `--types` diagnostic
+  (`#[derive(Debug)]` struct-name recovery) was built, measured ineffective
+  on a 13-binary sweep, and removed (§10.3).
 - Unpacking, deobfuscation, or emulation. Packed input is detected and
   reported (`src/elf.rs:143-149`), never unpacked.
 - Any dynamic analysis. `unhusk` never executes the target.
@@ -339,7 +340,6 @@ Numbered for reference. Each is enforced at the cited site.
 | `--infer-depth N` | unlimited | Cap inference hops from certain |
 | `--backtrace-depth N` | 0 (off) | Reverse-BFS bucket (§10.5) |
 | `--show-call-closure` | off | Print full inferred/indeterminate list |
-| `--types` | off | `#[derive(Debug)]` type-name recovery (§10.3) |
 
 ### 6.2 JSON contract — normative
 
@@ -735,16 +735,14 @@ changes runtime behaviour.
 
 | Module | Lines | Unit tests | Status |
 |---|---:|---:|---|
-| `report.rs` | 1138 | 7 | Shipped — human + JSON reporters, tiering (R2's `print_r2_json_report` added 2026-08-25, no new in-file test — reuses already-tested `user_anchor_count`/`anchor_files`, validated against real ELF binaries instead) |
+| `report.rs` | 1087 | 7 | Shipped — human + JSON reporters, tiering (R2's `print_r2_json_report` added 2026-08-25, no new in-file test — reuses already-tested `user_anchor_count`/`anchor_files`, validated against real ELF binaries instead) |
 | `dwarf.rs` | 738 | 7 | Shipped, validation only (§8.4) |
 | `origin.rs` | 726 | 33 | Library — origin-composition classifier (§10.4) |
 | `strings.rs` | 603 | 22 | Shipped — Phase 1 classification |
 | `container/pe.rs` | 682 | 12 | Shipped — CLI-reachable via `pe_pipeline.rs` (§10.2) |
 | `pe_pipeline.rs` | 479 | 0² | Shipped — CLI entry point for PE (§10.2) |
-| `bin/anchor_headroom.rs` | 589 | 0 | **Dead** (§10.3) |
 | `pdb_oracle.rs` | 562 | 12 | Library, validation only |
-| `types.rs` | 440 | 0 | **Diagnostic, ineffective** (§10.3) |
-| `main.rs` | 479 | 0 | Shipped — CLI |
+| `main.rs` | 468 | 0 | Shipped — CLI |
 | `classify.rs` | 374 | 6 | Shipped — bucket propagation |
 | `elf.rs` | 346 | 0¹ | Shipped — load, section index, relocations |
 | `xref.rs` | 325 | 2 | Shipped — decode + certain set (`caller_rel`, R2's term, tested since 2026-08-25; the rest of the module is still 0¹) |
@@ -824,16 +822,22 @@ corpora) rather than an unmeasured caveat.
 
 ### 10.3 Inert surfaces
 
-- **`bin/anchor_headroom.rs` (589 lines) — dead.** Referenced by nothing
-  outside `src/bin/`; verified by search. Builds its own binary on every
-  `cargo build`. Its research conclusion (recall headroom 0.16-0.47% by two
+Two components previously lived here as inert-but-retained code and were
+removed outright on 2026-08-28, once the ideas they carried were already
+recorded in this document — nothing about the decision they informed
+depended on the code still compiling.
+
+- **`bin/anchor_headroom.rs` (589 lines) — removed, was dead.** Referenced by
+  nothing outside `src/bin/`; built its own binary on every `cargo build` for
+  no consumer. Its research conclusion (recall headroom 0.16-0.47% by two
   ground truths, a structural ceiling) correctly informed the decision not to
-  pursue that direction. Inert as shipped code.
-- **`--types` / `types.rs` (440 lines) — reachable, empirically ineffective.**
+  pursue that direction; that conclusion is preserved here, the code wasn't
+  needed to preserve it.
+- **`--types` / `types.rs` (440 lines) — removed, was empirically ineffective.**
   A 13-binary sweep produced 3 user-tier hits, all false at the type-name
   level; a further check produced a single nonsensical amalgamated struct.
-  14 binaries, zero real signal. Retained for the idea; no decision should be
-  routed through it.
+  14 binaries, zero real signal. The negative result stands; the flag is gone
+  from the CLI.
 - **`container/elf_image.rs:26-27`** — a `strings` field stored at construction
   and never read, carrying an explicit `#[allow(dead_code)]`.
 

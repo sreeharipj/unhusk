@@ -9,5 +9,4 @@ pub mod pdb_oracle;
 pub mod pe_pipeline;
 pub mod report;
 pub mod strings;
-pub mod types;
 pub mod xref;
