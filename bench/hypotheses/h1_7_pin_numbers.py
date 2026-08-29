@@ -2,6 +2,10 @@
 """
 h1_7_pin_numbers.py — Phase 1 / hypothesis 1.7.
 
+SUPERSEDED by h1_8_repin_numbers.py. DO NOT RE-RUN: it would overwrite
+results/pinned_numbers.json with cgu=1-only numbers that predate V5 and the
+Phase 2/3 ceiling work. Kept as the historical record of the 2026-08-20 pin.
+
 Single source of truth for the ceiling and base-rate numbers that otherwise
 circulate as three slightly different hand-quoted figures across REPORT.md,
 JOURNAL.md and the preprint. One committed JSON, every row carrying its own

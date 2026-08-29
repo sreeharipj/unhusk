@@ -1,13 +1,21 @@
 {
   "_meta": {
-    "generated_by": "bench/hypotheses/h1_7_pin_numbers.py",
-    "source": "bench/rulemine/data/fde (corpus 2 = main), v2/fde, v3/fde, v4/fde",
+    "generated_by": "bench/hypotheses/h1_8_repin_numbers.py",
+    "supersedes": "bench/hypotheses/h1_7_pin_numbers.py (commit 2196133, 2026-08-20)",
+    "source": "bench/rulemine/{data,v2,v3,v4,v5}/fde",
     "definitions": {
       "base_rate": "n_author_fns / n_labeled_fdes (label not in {NONE,UNKNOWN})",
       "ceiling": "n_anchored_author_fns / n_author_fns, anchored = M_rel_structs>=1",
       "ws": "positives = label in {AUTHOR, WORKSPACE}",
-      "strict": "positives = label == AUTHOR only"
-    }
+      "strict": "positives = label == AUTHOR only",
+      "cgu": "codegen-units; main's 8 configs are cgu=1, v2-release is cargo's default release profile (cgu=16/lto=false)"
+    },
+    "reading_rules": [
+      "The ceiling is not one number: it moves with codegen-units. Quote it with its cgu, or quote the matched contrast.",
+      "cgu=16/lto=false is what `cargo build --release` does (build_v5.sh), so it is the figure that describes shipped binaries.",
+      "Only matched_cgu compares cgu levels on an identical crate set. Do not compare a cgu=1 row in one corpus against a cgu=16 row in another.",
+      "V5 is the sealed held-out corpus (7e14cd4); it is the strongest single source for a headline."
+    ]
   },
   "corpora": {
     "main/development": {
@@ -140,33 +148,33 @@
     },
     "V3": {
       "ws": {
-        "n_labeled_fdes": 421663,
-        "n_author_fns": 14189,
-        "n_anchored_author_fns": 4281,
+        "n_labeled_fdes": 1123234,
+        "n_author_fns": 56837,
+        "n_anchored_author_fns": 10984,
         "base_rate": {
-          "numerator": 14189,
-          "denominator": 421663,
-          "pct": 3.365
+          "numerator": 56837,
+          "denominator": 1123234,
+          "pct": 5.0601
         },
         "ceiling": {
-          "numerator": 4281,
-          "denominator": 14189,
-          "pct": 30.1713
+          "numerator": 10984,
+          "denominator": 56837,
+          "pct": 19.3254
         }
       },
       "strict": {
-        "n_labeled_fdes": 421663,
-        "n_author_fns": 11028,
-        "n_anchored_author_fns": 3510,
+        "n_labeled_fdes": 1123234,
+        "n_author_fns": 40985,
+        "n_anchored_author_fns": 7554,
         "base_rate": {
-          "numerator": 11028,
-          "denominator": 421663,
-          "pct": 2.6154
+          "numerator": 40985,
+          "denominator": 1123234,
+          "pct": 3.6488
         },
         "ceiling": {
-          "numerator": 3510,
-          "denominator": 11028,
-          "pct": 31.8281
+          "numerator": 7554,
+          "denominator": 40985,
+          "pct": 18.4311
         }
       }
     },
@@ -200,6 +208,746 @@
           "denominator": 13559,
           "pct": 20.7242
         }
+      }
+    },
+    "V5": {
+      "ws": {
+        "n_labeled_fdes": 1263212,
+        "n_author_fns": 100935,
+        "n_anchored_author_fns": 21698,
+        "base_rate": {
+          "numerator": 100935,
+          "denominator": 1263212,
+          "pct": 7.9903
+        },
+        "ceiling": {
+          "numerator": 21698,
+          "denominator": 100935,
+          "pct": 21.497
+        }
+      },
+      "strict": {
+        "n_labeled_fdes": 1263212,
+        "n_author_fns": 46162,
+        "n_anchored_author_fns": 13236,
+        "base_rate": {
+          "numerator": 46162,
+          "denominator": 1263212,
+          "pct": 3.6543
+        },
+        "ceiling": {
+          "numerator": 13236,
+          "denominator": 46162,
+          "pct": 28.6729
+        }
+      }
+    }
+  },
+  "by_config": {
+    "main": {
+      "lto-fat_opt-3_panic-abort": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 184157,
+          "n_author_fns": 12301,
+          "n_anchored_author_fns": 2860,
+          "base_rate": {
+            "numerator": 12301,
+            "denominator": 184157,
+            "pct": 6.6796
+          },
+          "ceiling": {
+            "numerator": 2860,
+            "denominator": 12301,
+            "pct": 23.2501
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 184157,
+          "n_author_fns": 8313,
+          "n_anchored_author_fns": 1840,
+          "base_rate": {
+            "numerator": 8313,
+            "denominator": 184157,
+            "pct": 4.5141
+          },
+          "ceiling": {
+            "numerator": 1840,
+            "denominator": 8313,
+            "pct": 22.134
+          }
+        }
+      },
+      "lto-fat_opt-3_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 215989,
+          "n_author_fns": 12728,
+          "n_anchored_author_fns": 2938,
+          "base_rate": {
+            "numerator": 12728,
+            "denominator": 215989,
+            "pct": 5.8929
+          },
+          "ceiling": {
+            "numerator": 2938,
+            "denominator": 12728,
+            "pct": 23.083
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 215989,
+          "n_author_fns": 8512,
+          "n_anchored_author_fns": 1893,
+          "base_rate": {
+            "numerator": 8512,
+            "denominator": 215989,
+            "pct": 3.9409
+          },
+          "ceiling": {
+            "numerator": 1893,
+            "denominator": 8512,
+            "pct": 22.2392
+          }
+        }
+      },
+      "lto-fat_opt-z_panic-abort": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 273489,
+          "n_author_fns": 13366,
+          "n_anchored_author_fns": 2361,
+          "base_rate": {
+            "numerator": 13366,
+            "denominator": 273489,
+            "pct": 4.8872
+          },
+          "ceiling": {
+            "numerator": 2361,
+            "denominator": 13366,
+            "pct": 17.6642
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 273489,
+          "n_author_fns": 9002,
+          "n_anchored_author_fns": 1398,
+          "base_rate": {
+            "numerator": 9002,
+            "denominator": 273489,
+            "pct": 3.2915
+          },
+          "ceiling": {
+            "numerator": 1398,
+            "denominator": 9002,
+            "pct": 15.5299
+          }
+        }
+      },
+      "lto-fat_opt-z_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 296461,
+          "n_author_fns": 13427,
+          "n_anchored_author_fns": 2391,
+          "base_rate": {
+            "numerator": 13427,
+            "denominator": 296461,
+            "pct": 4.5291
+          },
+          "ceiling": {
+            "numerator": 2391,
+            "denominator": 13427,
+            "pct": 17.8074
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 296461,
+          "n_author_fns": 9063,
+          "n_anchored_author_fns": 1428,
+          "base_rate": {
+            "numerator": 9063,
+            "denominator": 296461,
+            "pct": 3.0571
+          },
+          "ceiling": {
+            "numerator": 1428,
+            "denominator": 9063,
+            "pct": 15.7564
+          }
+        }
+      },
+      "lto-thin_opt-3_panic-abort": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 218186,
+          "n_author_fns": 13414,
+          "n_anchored_author_fns": 3050,
+          "base_rate": {
+            "numerator": 13414,
+            "denominator": 218186,
+            "pct": 6.148
+          },
+          "ceiling": {
+            "numerator": 3050,
+            "denominator": 13414,
+            "pct": 22.7374
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 218186,
+          "n_author_fns": 8832,
+          "n_anchored_author_fns": 1919,
+          "base_rate": {
+            "numerator": 8832,
+            "denominator": 218186,
+            "pct": 4.0479
+          },
+          "ceiling": {
+            "numerator": 1919,
+            "denominator": 8832,
+            "pct": 21.7278
+          }
+        }
+      },
+      "lto-thin_opt-3_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 256838,
+          "n_author_fns": 13849,
+          "n_anchored_author_fns": 3128,
+          "base_rate": {
+            "numerator": 13849,
+            "denominator": 256838,
+            "pct": 5.3921
+          },
+          "ceiling": {
+            "numerator": 3128,
+            "denominator": 13849,
+            "pct": 22.5865
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 256838,
+          "n_author_fns": 9047,
+          "n_anchored_author_fns": 1970,
+          "base_rate": {
+            "numerator": 9047,
+            "denominator": 256838,
+            "pct": 3.5225
+          },
+          "ceiling": {
+            "numerator": 1970,
+            "denominator": 9047,
+            "pct": 21.7752
+          }
+        }
+      },
+      "lto-thin_opt-z_panic-abort": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 488382,
+          "n_author_fns": 18971,
+          "n_anchored_author_fns": 2970,
+          "base_rate": {
+            "numerator": 18971,
+            "denominator": 488382,
+            "pct": 3.8845
+          },
+          "ceiling": {
+            "numerator": 2970,
+            "denominator": 18971,
+            "pct": 15.6555
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 488382,
+          "n_author_fns": 12083,
+          "n_anchored_author_fns": 1802,
+          "base_rate": {
+            "numerator": 12083,
+            "denominator": 488382,
+            "pct": 2.4741
+          },
+          "ceiling": {
+            "numerator": 1802,
+            "denominator": 12083,
+            "pct": 14.9135
+          }
+        }
+      },
+      "lto-thin_opt-z_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 518402,
+          "n_author_fns": 19020,
+          "n_anchored_author_fns": 2994,
+          "base_rate": {
+            "numerator": 19020,
+            "denominator": 518402,
+            "pct": 3.669
+          },
+          "ceiling": {
+            "numerator": 2994,
+            "denominator": 19020,
+            "pct": 15.7413
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 518402,
+          "n_author_fns": 12108,
+          "n_anchored_author_fns": 1822,
+          "base_rate": {
+            "numerator": 12108,
+            "denominator": 518402,
+            "pct": 2.3356
+          },
+          "ceiling": {
+            "numerator": 1822,
+            "denominator": 12108,
+            "pct": 15.0479
+          }
+        }
+      }
+    },
+    "V2": {
+      "v2-release": {
+        "cgu": 16,
+        "n_crates": 32,
+        "ws": {
+          "n_labeled_fdes": 184986,
+          "n_author_fns": 10679,
+          "n_anchored_author_fns": 1916,
+          "base_rate": {
+            "numerator": 10679,
+            "denominator": 184986,
+            "pct": 5.7729
+          },
+          "ceiling": {
+            "numerator": 1916,
+            "denominator": 10679,
+            "pct": 17.9418
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 184986,
+          "n_author_fns": 9109,
+          "n_anchored_author_fns": 1417,
+          "base_rate": {
+            "numerator": 9109,
+            "denominator": 184986,
+            "pct": 4.9242
+          },
+          "ceiling": {
+            "numerator": 1417,
+            "denominator": 9109,
+            "pct": 15.556
+          }
+        }
+      }
+    },
+    "V3": {
+      "cgu-16_lto-false_opt-3_panic-unwind": {
+        "cgu": 16,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 408449,
+          "n_author_fns": 21501,
+          "n_anchored_author_fns": 3975,
+          "base_rate": {
+            "numerator": 21501,
+            "denominator": 408449,
+            "pct": 5.2641
+          },
+          "ceiling": {
+            "numerator": 3975,
+            "denominator": 21501,
+            "pct": 18.4875
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 408449,
+          "n_author_fns": 14833,
+          "n_anchored_author_fns": 2567,
+          "base_rate": {
+            "numerator": 14833,
+            "denominator": 408449,
+            "pct": 3.6315
+          },
+          "ceiling": {
+            "numerator": 2567,
+            "denominator": 14833,
+            "pct": 17.306
+          }
+        }
+      },
+      "cgu-16_lto-thin_opt-3_panic-unwind": {
+        "cgu": 16,
+        "n_crates": 43,
+        "ws": {
+          "n_labeled_fdes": 383886,
+          "n_author_fns": 20929,
+          "n_anchored_author_fns": 3892,
+          "base_rate": {
+            "numerator": 20929,
+            "denominator": 383886,
+            "pct": 5.4519
+          },
+          "ceiling": {
+            "numerator": 3892,
+            "denominator": 20929,
+            "pct": 18.5962
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 383886,
+          "n_author_fns": 14639,
+          "n_anchored_author_fns": 2536,
+          "base_rate": {
+            "numerator": 14639,
+            "denominator": 383886,
+            "pct": 3.8134
+          },
+          "ceiling": {
+            "numerator": 2536,
+            "denominator": 14639,
+            "pct": 17.3236
+          }
+        }
+      },
+      "cgu-4_lto-false_opt-3_panic-unwind": {
+        "cgu": 4,
+        "n_crates": 42,
+        "ws": {
+          "n_labeled_fdes": 330899,
+          "n_author_fns": 14407,
+          "n_anchored_author_fns": 3117,
+          "base_rate": {
+            "numerator": 14407,
+            "denominator": 330899,
+            "pct": 4.3539
+          },
+          "ceiling": {
+            "numerator": 3117,
+            "denominator": 14407,
+            "pct": 21.6353
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 330899,
+          "n_author_fns": 11513,
+          "n_anchored_author_fns": 2451,
+          "base_rate": {
+            "numerator": 11513,
+            "denominator": 330899,
+            "pct": 3.4793
+          },
+          "ceiling": {
+            "numerator": 2451,
+            "denominator": 11513,
+            "pct": 21.289
+          }
+        }
+      }
+    },
+    "V4": {
+      "cgu-16_lto-false_opt-3_panic-unwind": {
+        "cgu": 16,
+        "n_crates": 40,
+        "ws": {
+          "n_labeled_fdes": 284895,
+          "n_author_fns": 11165,
+          "n_anchored_author_fns": 1886,
+          "base_rate": {
+            "numerator": 11165,
+            "denominator": 284895,
+            "pct": 3.919
+          },
+          "ceiling": {
+            "numerator": 1886,
+            "denominator": 11165,
+            "pct": 16.8921
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 284895,
+          "n_author_fns": 8112,
+          "n_anchored_author_fns": 1539,
+          "base_rate": {
+            "numerator": 8112,
+            "denominator": 284895,
+            "pct": 2.8474
+          },
+          "ceiling": {
+            "numerator": 1539,
+            "denominator": 8112,
+            "pct": 18.9719
+          }
+        }
+      },
+      "lto-thin_opt-3_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 40,
+        "ws": {
+          "n_labeled_fdes": 180858,
+          "n_author_fns": 7667,
+          "n_anchored_author_fns": 1577,
+          "base_rate": {
+            "numerator": 7667,
+            "denominator": 180858,
+            "pct": 4.2392
+          },
+          "ceiling": {
+            "numerator": 1577,
+            "denominator": 7667,
+            "pct": 20.5687
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 180858,
+          "n_author_fns": 5447,
+          "n_anchored_author_fns": 1271,
+          "base_rate": {
+            "numerator": 5447,
+            "denominator": 180858,
+            "pct": 3.0118
+          },
+          "ceiling": {
+            "numerator": 1271,
+            "denominator": 5447,
+            "pct": 23.3339
+          }
+        }
+      }
+    },
+    "V5": {
+      "cgu-16_lto-false_opt-3_panic-unwind": {
+        "cgu": 16,
+        "n_crates": 38,
+        "ws": {
+          "n_labeled_fdes": 784919,
+          "n_author_fns": 58782,
+          "n_anchored_author_fns": 11758,
+          "base_rate": {
+            "numerator": 58782,
+            "denominator": 784919,
+            "pct": 7.4889
+          },
+          "ceiling": {
+            "numerator": 11758,
+            "denominator": 58782,
+            "pct": 20.0027
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 784919,
+          "n_author_fns": 26404,
+          "n_anchored_author_fns": 7419,
+          "base_rate": {
+            "numerator": 26404,
+            "denominator": 784919,
+            "pct": 3.3639
+          },
+          "ceiling": {
+            "numerator": 7419,
+            "denominator": 26404,
+            "pct": 28.098
+          }
+        }
+      },
+      "lto-thin_opt-3_panic-unwind": {
+        "cgu": 1,
+        "n_crates": 38,
+        "ws": {
+          "n_labeled_fdes": 478293,
+          "n_author_fns": 42153,
+          "n_anchored_author_fns": 9940,
+          "base_rate": {
+            "numerator": 42153,
+            "denominator": 478293,
+            "pct": 8.8132
+          },
+          "ceiling": {
+            "numerator": 9940,
+            "denominator": 42153,
+            "pct": 23.5808
+          }
+        },
+        "strict": {
+          "n_labeled_fdes": 478293,
+          "n_author_fns": 19758,
+          "n_anchored_author_fns": 5817,
+          "base_rate": {
+            "numerator": 19758,
+            "denominator": 478293,
+            "pct": 4.1309
+          },
+          "ceiling": {
+            "numerator": 5817,
+            "denominator": 19758,
+            "pct": 29.4412
+          }
+        }
+      }
+    }
+  },
+  "matched_cgu": {
+    "V4": {
+      "n_crates_matched": 40,
+      "config_cgu1": [
+        "lto-thin_opt-3_panic-unwind"
+      ],
+      "config_cgu16": [
+        "cgu-16_lto-false_opt-3_panic-unwind"
+      ],
+      "ws": {
+        "cgu1": {
+          "n_labeled_fdes": 180858,
+          "n_author_fns": 7667,
+          "n_anchored_author_fns": 1577,
+          "base_rate": {
+            "numerator": 7667,
+            "denominator": 180858,
+            "pct": 4.2392
+          },
+          "ceiling": {
+            "numerator": 1577,
+            "denominator": 7667,
+            "pct": 20.5687
+          }
+        },
+        "cgu16": {
+          "n_labeled_fdes": 284895,
+          "n_author_fns": 11165,
+          "n_anchored_author_fns": 1886,
+          "base_rate": {
+            "numerator": 11165,
+            "denominator": 284895,
+            "pct": 3.919
+          },
+          "ceiling": {
+            "numerator": 1886,
+            "denominator": 11165,
+            "pct": 16.8921
+          }
+        },
+        "ceiling_delta_pp": -3.6766
+      },
+      "strict": {
+        "cgu1": {
+          "n_labeled_fdes": 180858,
+          "n_author_fns": 5447,
+          "n_anchored_author_fns": 1271,
+          "base_rate": {
+            "numerator": 5447,
+            "denominator": 180858,
+            "pct": 3.0118
+          },
+          "ceiling": {
+            "numerator": 1271,
+            "denominator": 5447,
+            "pct": 23.3339
+          }
+        },
+        "cgu16": {
+          "n_labeled_fdes": 284895,
+          "n_author_fns": 8112,
+          "n_anchored_author_fns": 1539,
+          "base_rate": {
+            "numerator": 8112,
+            "denominator": 284895,
+            "pct": 2.8474
+          },
+          "ceiling": {
+            "numerator": 1539,
+            "denominator": 8112,
+            "pct": 18.9719
+          }
+        },
+        "ceiling_delta_pp": -4.362
+      }
+    },
+    "V5": {
+      "n_crates_matched": 38,
+      "config_cgu1": [
+        "lto-thin_opt-3_panic-unwind"
+      ],
+      "config_cgu16": [
+        "cgu-16_lto-false_opt-3_panic-unwind"
+      ],
+      "ws": {
+        "cgu1": {
+          "n_labeled_fdes": 478293,
+          "n_author_fns": 42153,
+          "n_anchored_author_fns": 9940,
+          "base_rate": {
+            "numerator": 42153,
+            "denominator": 478293,
+            "pct": 8.8132
+          },
+          "ceiling": {
+            "numerator": 9940,
+            "denominator": 42153,
+            "pct": 23.5808
+          }
+        },
+        "cgu16": {
+          "n_labeled_fdes": 784919,
+          "n_author_fns": 58782,
+          "n_anchored_author_fns": 11758,
+          "base_rate": {
+            "numerator": 58782,
+            "denominator": 784919,
+            "pct": 7.4889
+          },
+          "ceiling": {
+            "numerator": 11758,
+            "denominator": 58782,
+            "pct": 20.0027
+          }
+        },
+        "ceiling_delta_pp": -3.5781
+      },
+      "strict": {
+        "cgu1": {
+          "n_labeled_fdes": 478293,
+          "n_author_fns": 19758,
+          "n_anchored_author_fns": 5817,
+          "base_rate": {
+            "numerator": 19758,
+            "denominator": 478293,
+            "pct": 4.1309
+          },
+          "ceiling": {
+            "numerator": 5817,
+            "denominator": 19758,
+            "pct": 29.4412
+          }
+        },
+        "cgu16": {
+          "n_labeled_fdes": 784919,
+          "n_author_fns": 26404,
+          "n_anchored_author_fns": 7419,
+          "base_rate": {
+            "numerator": 26404,
+            "denominator": 784919,
+            "pct": 3.3639
+          },
+          "ceiling": {
+            "numerator": 7419,
+            "denominator": 26404,
+            "pct": 28.098
+          }
+        },
+        "ceiling_delta_pp": -1.3432
       }
     }
   }
