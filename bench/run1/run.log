@@ -1,0 +1,1905 @@
+═══════ run_all start 2026-08-31T21:39:08+05:30  build deadline 2026-09-01T06:39:08+05:30 ═══════
+### config c1  tc=1.98.0 cgu=16 lto=false opt=3 panic=unwind rustflags=''  2026-08-31T21:39:08+05:30
+>>> bandwhich/c1  21:39:08
+    OK 3740880B  21:39:32
+>>> bat/c1  21:39:32
+    OK 9991152B  21:40:02
+>>> bore/c1  21:40:02
+    OK 1974160B  21:40:14
+>>> bottom/c1  21:40:15
+    OK 6039192B  21:40:38
+>>> dog/c1  21:40:38
+>>> dprint/c1  21:40:40
+    OK 24195072B  21:41:57
+>>> dufs/c1  21:41:57
+    OK 8551312B  21:42:30
+>>> dust/c1  21:42:30
+    OK 3533432B  21:42:41
+>>> eza/c1  21:42:41
+    OK 3051816B  21:43:04
+>>> fclones/c1  21:43:04
+    OK 6200880B  21:43:19
+>>> fd/c1  21:43:19
+    OK 4296880B  21:43:28
+>>> ferium/c1  21:43:28
+    OK 16557544B  21:44:36
+>>> feroxbuster/c1  21:44:36
+    OK 15799152B  21:45:28
+>>> gping/c1  21:45:29
+    OK 3668816B  21:45:39
+>>> grex/c1  21:45:39
+    OK 2977640B  21:45:46
+>>> hexyl/c1  21:45:46
+    OK 1305640B  21:45:50
+>>> hyperfine/c1  21:45:50
+    OK 1521784B  21:45:57
+>>> just/c1  21:45:57
+    OK 6446688B  21:46:14
+>>> miniserve/c1  21:46:14
+    OK 13468056B  21:47:05
+>>> mprocs/c1  21:47:05
+    OK 6290576B  21:47:36
+>>> mqttui/c1  21:47:36
+    OK 6985968B  21:48:12
+>>> netscanner/c1  21:48:12
+    OK 18221560B  21:48:36
+>>> oha/c1  21:48:37
+    OK 16532792B  21:49:31
+>>> ouch/c1  21:49:31
+    OK 7034632B  21:49:56
+>>> oxker/c1  21:49:56
+    OK 6196800B  21:50:24
+>>> pastel/c1  21:50:24
+    OK 1253040B  21:50:30
+>>> procs/c1  21:50:30
+    OK 7309280B  21:50:56
+>>> pueue/c1  21:50:56
+    OK 7461232B  21:51:34
+>>> rage/c1  21:51:34
+    OK 4132552B  21:51:52
+>>> rathole/c1  21:51:52
+    OK 6686456B  21:52:21
+>>> ripgrep/c1  21:52:21
+    OK 5325160B  21:52:32
+>>> rustscan/c1  21:52:32
+    OK 5857328B  21:52:57
+>>> sd/c1  21:52:57
+    OK 2782392B  21:53:04
+>>> sniffnet/c1  21:53:05
+>>> spotify-tui/c1  21:55:00
+>>> starship/c1  21:55:05
+    OK 15410872B  21:56:10
+>>> taplo/c1  21:56:10
+    OK 14294912B  21:56:52
+>>> tealdeer/c1  21:56:52
+    OK 4231088B  21:57:08
+>>> tokei/c1  21:57:08
+    OK 4798632B  21:57:25
+>>> topgrade/c1  21:57:26
+    OK 10953144B  21:58:09
+>>> trippy/c1  21:58:09
+    OK 3286448B  21:58:32
+>>> typos/c1  21:58:34
+    OK 18404768B  21:59:07
+>>> websocat/c1  21:59:07
+    OK 3815048B  21:59:23
+>>> wormhole-rs/c1  21:59:23
+    OK 9863560B  22:00:05
+>>> xh/c1  22:00:05
+    OK 12102536B  22:00:45
+>>> xsv/c1  22:00:45
+    OK 2392280B  22:00:53
+>>> zellij/c1  22:00:53
+    OK 56775552B  22:03:12
+>>> zoxide/c1  22:03:12
+    OK 1312792B  22:03:18
+>>> broot/c1  22:03:18
+    OK 15010032B  22:04:11
+>>> choose/c1  22:04:11
+    OK 2630432B  22:04:16
+>>> cotp/c1  22:04:18
+    OK 4369072B  22:04:48
+>>> csvlens/c1  22:04:48
+    OK 8842624B  22:05:31
+>>> delta/c1  22:05:31
+    OK 7067832B  22:06:05
+>>> diffr/c1  22:06:05
+    OK 536944B  22:06:07
+>>> diskonaut/c1  22:06:07
+    OK 1555704B  22:06:14
+>>> diskus/c1  22:06:14
+    OK 1070112B  22:06:17
+>>> dua-cli/c1  22:06:17
+    OK 5156360B  22:06:43
+>>> fend/c1  22:06:43
+    OK 9596944B  22:07:12
+>>> git-cliff/c1  22:07:12
+    OK 16456152B  22:08:04
+>>> git-graph/c1  22:08:04
+    OK 2868272B  22:08:18
+>>> hgrep/c1  22:08:18
+    OK 7949296B  22:08:36
+>>> htmlq/c1  22:08:36
+    OK 2208088B  22:08:48
+>>> jaq/c1  22:08:50
+    OK 5026360B  22:09:03
+>>> joshuto/c1  22:09:03
+    OK 9029104B  22:09:51
+>>> kalker/c1  22:09:51
+    OK 3961768B  22:10:00
+>>> kibi/c1  22:10:00
+    OK 543120B  22:10:01
+>>> kondo/c1  22:10:01
+    OK 2617056B  22:10:07
+>>> lsd/c1  22:10:07
+    OK 4286280B  22:10:30
+>>> mdbook/c1  22:10:30
+    OK 12615272B  22:10:52
+>>> navi/c1  22:10:52
+    OK 4621752B  22:11:06
+>>> numbat/c1  22:11:06
+    OK 7479512B  22:11:38
+>>> onefetch/c1  22:11:38
+    OK 14152336B  22:12:20
+>>> oxipng/c1  22:12:20
+    OK 1741208B  22:12:26
+>>> presenterm/c1  22:12:26
+    OK 8177456B  22:12:58
+>>> rip/c1  22:12:58
+    OK 1344624B  22:13:02
+>>> rust-parallel/c1  22:13:02
+    OK 3920936B  22:13:12
+>>> rustypaste/c1  22:13:12
+    OK 12744480B  22:13:47
+>>> sad/c1  22:13:47
+    OK 3388176B  22:13:55
+>>> serie/c1  22:13:55
+    OK 4028056B  22:14:17
+>>> skim/c1  22:14:17
+    OK 15469552B  22:15:42
+>>> so/c1  22:15:42
+    OK 8981472B  22:16:06
+>>> stylua/c1  22:16:06
+    OK 6378280B  22:16:28
+>>> tre-command/c1  22:16:28
+    OK 2084536B  22:16:35
+>>> viu/c1  22:16:35
+    OK 3680744B  22:16:57
+>>> vivid/c1  22:16:57
+    OK 1176984B  22:17:01
+>>> watchexec/c1  22:17:01
+    OK 11606736B  22:17:48
+>>> xcp/c1  22:17:48
+    OK 3584080B  22:17:58
+>>> xplr/c1  22:17:58
+    OK 8529872B  22:18:33
+>>> ast-grep/c1  22:18:33
+    OK 51615408B  22:19:21
+>>> atuin/c1  22:19:21
+    OK 42201872B  22:23:17
+>>> bacon/c1  22:23:17
+    OK 8111968B  22:23:40
+>>> blondie/c1  22:23:40
+>>> bob-nvim/c1  22:23:50
+    OK 8960160B  22:24:16
+>>> dicom-dump/c1  22:24:16
+    OK 5936792B  22:24:59
+>>> difftastic/c1  22:24:59
+    OK 116434576B  22:25:57
+>>> dify/c1  22:25:57
+    OK 5683264B  22:26:16
+>>> espflash/c1  22:26:16
+    OK 17309608B  22:26:49
+>>> flip-link/c1  22:26:49
+    OK 781480B  22:26:50
+>>> genact/c1  22:26:50
+    OK 7962512B  22:27:17
+>>> gifski/c1  22:27:17
+    OK 1964856B  22:27:29
+>>> gitoxide/c1  22:27:29
+    OK 27408088B  22:28:39
+>>> gitu/c1  22:28:39
+    OK 46068472B  22:29:20
+>>> gitui/c1  22:29:20
+    OK 20444504B  22:30:24
+>>> grass/c1  22:30:24
+    OK 3816432B  22:30:35
+>>> grcov/c1  22:30:35
+    OK 9609576B  22:30:56
+>>> hurl/c1  22:30:56
+    OK 7003872B  22:31:29
+>>> hwatch/c1  22:31:29
+    OK 5133648B  22:31:42
+>>> jless/c1  22:31:42
+>>> jnv/c1  22:31:49
+    OK 5009488B  22:32:12
+>>> komac/c1  22:32:12
+    OK 20713864B  22:33:34
+>>> lowcharts/c1  22:33:34
+    OK 2873688B  22:33:41
+>>> maturin/c1  22:33:41
+    OK 25825864B  22:34:43
+>>> mise/c1  22:34:43
+    OK 135187728B  22:41:11
+>>> monolith/c1  22:41:12
+    OK 11113816B  22:41:51
+>>> nushell/c1  22:41:52
+    OK 74681672B  22:47:59
+>>> protofetch/c1  22:48:00
+    OK 3815288B  22:48:18
+>>> rink/c1  22:48:18
+    OK 4609392B  22:48:34
+>>> rmesg/c1  22:48:34
+>>> rustic/c1  22:48:37
+    OK 41112104B  22:50:23
+>>> rust-script/c1  22:50:23
+    OK 3554824B  22:50:30
+>>> sccache/c1  22:50:31
+    OK 27774416B  22:51:54
+>>> silicon/c1  22:51:54
+>>> spider_cli/c1  22:52:25
+    OK 33375584B  22:54:33
+>>> taskwarrior-tui/c1  22:54:33
+    OK 4978520B  22:55:01
+>>> television/c1  22:55:02
+    OK 15912408B  22:57:25
+>>> tokio-console/c1  22:57:25
+    OK 7702576B  22:57:53
+>>> tree-sitter-cli/c1  22:57:53
+    OK 9841720B  22:58:32
+>>> trunk/c1  22:58:32
+    OK 51217432B  23:00:21
+>>> tuc/c1  23:00:21
+    OK 2401040B  23:00:26
+>>> wiki-tui/c1  23:00:26
+    OK 9158112B  23:00:53
+>>> yazi-fm/c1  23:00:53
+    OK 44208600B  23:02:39
+### config c2  tc=1.98.0 cgu=16 lto=false opt=z panic=unwind rustflags=''  2026-08-31T23:02:39+05:30
+>>> bandwhich/c2  23:02:39
+    OK 3246416B  23:02:59
+>>> bat/c2  23:02:59
+    OK 9258384B  23:03:27
+>>> bore/c2  23:03:28
+    OK 1823536B  23:03:38
+>>> bottom/c2  23:03:38
+    OK 5424040B  23:03:57
+>>> dog/c2  23:03:58
+    OK 1559696B  23:04:03
+>>> dprint/c2  23:04:03
+    OK 19369024B  23:05:06
+>>> dufs/c2  23:05:06
+    OK 7559928B  23:05:35
+>>> dust/c2  23:05:35
+    OK 3130464B  23:05:43
+>>> eza/c2  23:05:43
+    OK 2556176B  23:06:00
+>>> fclones/c2  23:06:00
+    OK 5357248B  23:06:12
+>>> fd/c2  23:06:12
+    OK 3760824B  23:06:19
+>>> ferium/c2  23:06:19
+    OK 14259960B  23:07:15
+>>> feroxbuster/c2  23:07:15
+    OK 14516880B  23:07:59
+>>> gping/c2  23:08:00
+    OK 3343416B  23:08:12
+>>> grex/c2  23:08:12
+    OK 2711984B  23:08:17
+>>> hexyl/c2  23:08:17
+    OK 1135640B  23:08:21
+>>> hyperfine/c2  23:08:21
+    OK 1370032B  23:08:27
+>>> just/c2  23:08:27
+    OK 5621248B  23:08:40
+>>> miniserve/c2  23:08:40
+    OK 11423688B  23:09:25
+>>> mprocs/c2  23:09:25
+    OK 5178560B  23:09:49
+>>> mqttui/c2  23:09:49
+    OK 6231464B  23:10:23
+>>> netscanner/c2  23:10:23
+    OK 17530320B  23:10:44
+>>> oha/c2  23:10:44
+    OK 12225184B  23:11:37
+>>> ouch/c2  23:11:37
+    OK 6208808B  23:11:57
+>>> oxker/c2  23:11:57
+    OK 5266600B  23:12:21
+>>> pastel/c2  23:12:21
+    OK 1111752B  23:12:26
+>>> procs/c2  23:12:26
+    OK 6513152B  23:12:46
+>>> pueue/c2  23:12:46
+    OK 6401768B  23:13:11
+>>> rage/c2  23:13:11
+    OK 3448544B  23:13:29
+>>> rathole/c2  23:13:29
+    OK 6010200B  23:13:49
+>>> ripgrep/c2  23:13:49
+    OK 4763120B  23:13:57
+>>> rustscan/c2  23:13:57
+    OK 5300600B  23:14:23
+>>> sd/c2  23:14:24
+    OK 2529608B  23:14:28
+>>> sniffnet/c2  23:14:28
+>>> spotify-tui/c2  23:15:50
+>>> starship/c2  23:15:55
+    OK 13054776B  23:16:45
+>>> taplo/c2  23:16:45
+    OK 12023056B  23:17:16
+>>> tealdeer/c2  23:17:16
+    OK 3807360B  23:17:29
+>>> tokei/c2  23:17:29
+    OK 4312272B  23:17:45
+>>> topgrade/c2  23:17:45
+    OK 8925880B  23:18:19
+>>> trippy/c2  23:18:19
+    OK 2636808B  23:18:43
+>>> typos/c2  23:18:43
+    OK 17768752B  23:19:09
+>>> websocat/c2  23:19:09
+    OK 3426208B  23:19:20
+>>> wormhole-rs/c2  23:19:21
+    OK 8902152B  23:19:55
+>>> xh/c2  23:19:55
+    OK 10792616B  23:20:27
+>>> xsv/c2  23:20:27
+    OK 2090416B  23:20:36
+>>> zellij/c2  23:20:36
+    OK 51548096B  23:22:09
+>>> zoxide/c2  23:22:09
+    OK 1172272B  23:22:15
+>>> broot/c2  23:22:15
+    OK 13385848B  23:22:55
+>>> choose/c2  23:22:56
+    OK 2401920B  23:23:00
+>>> cotp/c2  23:23:00
+    OK 4038768B  23:23:22
+>>> csvlens/c2  23:23:22
+    OK 7487416B  23:23:50
+>>> delta/c2  23:23:51
+    OK 6450968B  23:24:19
+>>> diffr/c2  23:24:20
+    OK 536880B  23:24:21
+>>> diskonaut/c2  23:24:21
+    OK 1420120B  23:24:26
+>>> diskus/c2  23:24:26
+    OK 971016B  23:24:29
+>>> dua-cli/c2  23:24:29
+    OK 4728184B  23:24:51
+>>> fend/c2  23:24:51
+    OK 8041504B  23:25:16
+>>> git-cliff/c2  23:25:16
+    OK 14002496B  23:25:51
+>>> git-graph/c2  23:25:51
+    OK 2505016B  23:26:03
+>>> hgrep/c2  23:26:03
+    OK 7234160B  23:26:19
+>>> htmlq/c2  23:26:19
+    OK 2028512B  23:26:30
+>>> jaq/c2  23:26:30
+    OK 3642104B  23:26:42
+>>> joshuto/c2  23:26:42
+    OK 7768120B  23:27:24
+>>> kalker/c2  23:27:24
+    OK 3556072B  23:27:33
+>>> kibi/c2  23:27:34
+    OK 539560B  23:27:35
+>>> kondo/c2  23:27:35
+    OK 2250232B  23:27:40
+>>> lsd/c2  23:27:40
+    OK 3766960B  23:27:58
+>>> mdbook/c2  23:27:59
+    OK 11425808B  23:28:16
+>>> navi/c2  23:28:16
+    OK 4218168B  23:28:27
+>>> numbat/c2  23:28:27
+    OK 6278880B  23:28:51
+>>> onefetch/c2  23:28:52
+    OK 12545392B  23:29:28
+>>> oxipng/c2  23:29:28
+    OK 1493448B  23:29:33
+>>> presenterm/c2  23:29:33
+    OK 7340432B  23:30:01
+>>> rip/c2  23:30:01
+    OK 1205448B  23:30:05
+>>> rust-parallel/c2  23:30:05
+    OK 3534272B  23:30:13
+>>> rustypaste/c2  23:30:13
+    OK 11374944B  23:30:46
+>>> sad/c2  23:30:46
+    OK 3027848B  23:30:52
+>>> serie/c2  23:30:52
+    OK 3939352B  23:31:10
+>>> skim/c2  23:31:10
+    OK 12373360B  23:32:00
+>>> so/c2  23:32:01
+    OK 8067896B  23:32:21
+>>> stylua/c2  23:32:21
+    OK 5177096B  23:32:38
+>>> tre-command/c2  23:32:38
+    OK 1910248B  23:32:44
+>>> viu/c2  23:32:44
+    OK 3271232B  23:33:03
+>>> vivid/c2  23:33:03
+    OK 1052944B  23:33:06
+>>> watchexec/c2  23:33:06
+    OK 9597008B  23:33:43
+>>> xcp/c2  23:33:43
+    OK 3166256B  23:33:49
+>>> xplr/c2  23:33:50
+    OK 7709608B  23:34:21
+>>> ast-grep/c2  23:34:22
+    OK 50128400B  23:34:58
+>>> atuin/c2  23:34:58
+    OK 33583368B  23:37:16
+>>> bacon/c2  23:37:16
+    OK 7215936B  23:37:39
+>>> blondie/c2  23:37:39
+>>> bob-nvim/c2  23:37:51
+    OK 7855504B  23:38:14
+>>> dicom-dump/c2  23:38:15
+    OK 4878664B  23:38:45
+>>> difftastic/c2  23:38:45
+    OK 115432400B  23:39:30
+>>> dify/c2  23:39:30
+    OK 4075288B  23:39:43
+>>> espflash/c2  23:39:45
+    OK 16619128B  23:40:13
+>>> flip-link/c2  23:40:13
+    OK 730544B  23:40:15
+>>> genact/c2  23:40:15
+    OK 7165328B  23:40:37
+>>> gifski/c2  23:40:37
+    OK 1784256B  23:40:47
+>>> gitoxide/c2  23:40:47
+    OK 20766424B  23:41:38
+>>> gitu/c2  23:41:38
+    OK 45299360B  23:42:10
+>>> gitui/c2  23:42:10
+    OK 18286584B  23:43:03
+>>> grass/c2  23:43:04
+    OK 2664856B  23:43:14
+>>> grcov/c2  23:43:14
+    OK 8487920B  23:43:35
+>>> hurl/c2  23:43:35
+    OK 6249384B  23:43:59
+>>> hwatch/c2  23:43:59
+    OK 4631520B  23:44:10
+>>> jless/c2  23:44:10
+>>> jnv/c2  23:44:16
+    OK 4457728B  23:44:37
+>>> komac/c2  23:44:37
+    OK 18631080B  23:45:49
+>>> lowcharts/c2  23:45:49
+    OK 2609928B  23:45:54
+>>> maturin/c2  23:45:54
+    OK 21359384B  23:46:41
+>>> mise/c2  23:46:41
+    OK 107748144B  23:51:49
+>>> monolith/c2  23:51:50
+    OK 10547800B  23:52:25
+>>> nushell/c2  23:52:25
+    OK 55141784B  23:55:40
+>>> protofetch/c2  23:55:40
+    OK 3305880B  23:55:57
+>>> rink/c2  23:55:57
+    OK 4071472B  23:56:13
+>>> rmesg/c2  23:56:13
+>>> rustic/c2  23:56:18
+    OK 31667624B  23:57:43
+>>> rust-script/c2  23:57:43
+    OK 3247872B  23:57:50
+>>> sccache/c2  23:57:50
+    OK 23387248B  23:58:56
+>>> silicon/c2  23:58:57
+>>> spider_cli/c2  23:59:18
+    OK 27221824B  00:01:03
+>>> taskwarrior-tui/c2  00:01:03
+    OK 4560048B  00:01:25
+>>> television/c2  00:01:25
+    OK 14548784B  00:02:42
+>>> tokio-console/c2  00:02:42
+    OK 6782464B  00:03:06
+>>> tree-sitter-cli/c2  00:03:06
+    OK 7913800B  00:03:40
+>>> trunk/c2  00:03:40
+    OK 40837304B  00:05:14
+>>> tuc/c2  00:05:14
+    OK 2201752B  00:05:18
+>>> wiki-tui/c2  00:05:18
+    OK 8450704B  00:05:48
+>>> yazi-fm/c2  00:05:49
+    OK 31881400B  00:07:08
+### config c3  tc=1.98.0 cgu=1 lto=false opt=3 panic=unwind rustflags=''  2026-09-01T00:07:08+05:30
+>>> bandwhich/c3  00:07:08
+    OK 3146656B  00:07:36
+>>> bat/c3  00:07:36
+    OK 7954192B  00:08:04
+>>> bore/c3  00:08:04
+    OK 1699816B  00:08:15
+>>> bottom/c3  00:08:15
+    OK 5287360B  00:08:53
+>>> dog/c3  00:08:53
+    OK 1574496B  00:08:59
+>>> dprint/c3  00:08:59
+    OK 20288960B  00:11:15
+>>> dufs/c3  00:11:16
+    OK 7443576B  00:11:54
+>>> dust/c3  00:11:54
+    OK 3027648B  00:12:06
+>>> eza/c3  00:12:06
+    OK 2861928B  00:12:37
+>>> fclones/c3  00:12:38
+    OK 5404744B  00:13:04
+>>> fd/c3  00:13:04
+    OK 3656264B  00:13:15
+>>> ferium/c3  00:13:15
+    OK 13823552B  00:15:06
+>>> feroxbuster/c3  00:15:06
+    OK 13972720B  00:16:07
+>>> gping/c3  00:16:08
+    OK 3202896B  00:16:19
+>>> grex/c3  00:16:20
+    OK 2563648B  00:16:30
+>>> hexyl/c3  00:16:30
+    OK 1163688B  00:16:37
+>>> hyperfine/c3  00:16:37
+    OK 1374632B  00:16:50
+>>> just/c3  00:16:50
+    OK 5585808B  00:17:23
+>>> miniserve/c3  00:17:24
+    OK 11954504B  00:18:23
+>>> mprocs/c3  00:18:23
+    OK 5255440B  00:19:11
+>>> mqttui/c3  00:19:11
+    OK 6327152B  00:19:50
+>>> netscanner/c3  00:19:50
+    OK 17169872B  00:20:19
+>>> oha/c3  00:20:19
+    OK 13230864B  00:21:36
+>>> ouch/c3  00:21:36
+    OK 6400072B  00:22:08
+>>> oxker/c3  00:22:08
+    OK 5253168B  00:22:57
+>>> pastel/c3  00:22:57
+    OK 1161984B  00:23:05
+>>> procs/c3  00:23:05
+    OK 6246624B  00:23:41
+>>> pueue/c3  00:23:41
+    OK 6171024B  00:24:25
+>>> rage/c3  00:24:25
+    OK 3692296B  00:24:48
+>>> rathole/c3  00:24:48
+    OK 5441456B  00:25:21
+>>> ripgrep/c3  00:25:21
+    OK 4118440B  00:25:39
+>>> rustscan/c3  00:25:40
+    OK 5129408B  00:26:03
+>>> sd/c3  00:26:03
+    OK 2400896B  00:26:10
+>>> sniffnet/c3  00:26:10
+>>> spotify-tui/c3  00:28:08
+>>> starship/c3  00:28:13
+    OK 13192376B  00:29:38
+>>> taplo/c3  00:29:38
+    OK 11648816B  00:30:31
+>>> tealdeer/c3  00:30:31
+    OK 3751728B  00:30:52
+>>> tokei/c3  00:30:52
+    OK 4026104B  00:31:11
+>>> topgrade/c3  00:31:11
+    OK 9314232B  00:32:11
+>>> trippy/c3  00:32:11
+    OK 2751424B  00:32:43
+>>> typos/c3  00:32:44
+    OK 17689296B  00:33:20
+>>> websocat/c3  00:33:21
+    OK 3403120B  00:33:41
+>>> wormhole-rs/c3  00:33:41
+    OK 8406664B  00:34:25
+>>> xh/c3  00:34:25
+    OK 10889168B  00:35:18
+>>> xsv/c3  00:35:18
+    OK 2266008B  00:35:33
+>>> zellij/c3  00:35:33
+    OK 53448800B  00:38:17
+>>> zoxide/c3  00:38:17
+    OK 1200808B  00:38:26
+>>> broot/c3  00:38:26
+    OK 13479408B  00:39:33
+>>> choose/c3  00:39:33
+    OK 2239200B  00:39:40
+>>> cotp/c3  00:39:40
+    OK 3910624B  00:40:11
+>>> csvlens/c3  00:40:11
+    OK 7365952B  00:41:08
+>>> delta/c3  00:41:08
+    OK 6474264B  00:41:43
+>>> diffr/c3  00:41:43
+    OK 533824B  00:41:45
+>>> diskonaut/c3  00:41:45
+    OK 1392808B  00:41:55
+>>> diskus/c3  00:41:55
+    OK 940152B  00:42:01
+>>> dua-cli/c3  00:42:01
+    OK 4431640B  00:42:33
+>>> fend/c3  00:42:33
+    OK 8493384B  00:43:19
+>>> git-cliff/c3  00:43:19
+    OK 14453976B  00:44:11
+>>> git-graph/c3  00:44:11
+    OK 2617584B  00:44:29
+>>> hgrep/c3  00:44:29
+    OK 7225968B  00:44:47
+>>> htmlq/c3  00:44:47
+    OK 2047088B  00:44:56
+>>> jaq/c3  00:44:57
+    OK 4328248B  00:45:20
+>>> joshuto/c3  00:45:20
+    OK 7918256B  00:46:23
+>>> kalker/c3  00:46:24
+    OK 3498280B  00:46:34
+>>> kibi/c3  00:46:34
+    OK 532064B  00:46:36
+>>> kondo/c3  00:46:36
+    OK 2244120B  00:46:44
+>>> lsd/c3  00:46:44
+    OK 3947464B  00:47:06
+>>> mdbook/c3  00:47:06
+    OK 11335296B  00:47:35
+>>> navi/c3  00:47:35
+    OK 4035208B  00:47:51
+>>> numbat/c3  00:47:52
+    OK 6380240B  00:48:27
+>>> onefetch/c3  00:48:27
+    OK 12189584B  00:49:14
+>>> oxipng/c3  00:49:14
+    OK 1546200B  00:49:22
+>>> presenterm/c3  00:49:22
+    OK 7479184B  00:50:08
+>>> rip/c3  00:50:08
+    OK 1185088B  00:50:14
+>>> rust-parallel/c3  00:50:14
+    OK 3209736B  00:50:28
+>>> rustypaste/c3  00:50:28
+    OK 11423240B  00:51:14
+>>> sad/c3  00:51:14
+    OK 2802792B  00:51:24
+>>> serie/c3  00:51:25
+    OK 3595080B  00:51:48
+>>> skim/c3  00:51:49
+    OK 10399648B  00:53:17
+>>> so/c3  00:53:17
+    OK 7825328B  00:53:50
+>>> stylua/c3  00:53:50
+    OK 5271056B  00:54:21
+>>> tre-command/c3  00:54:21
+    OK 1933080B  00:54:30
+>>> viu/c3  00:54:30
+    OK 3389360B  00:55:02
+>>> vivid/c3  00:55:02
+    OK 1062784B  00:55:09
+>>> watchexec/c3  00:55:09
+    OK 9287224B  00:56:03
+>>> xcp/c3  00:56:04
+    OK 3063864B  00:56:12
+>>> xplr/c3  00:56:12
+    OK 7511248B  00:57:07
+>>> ast-grep/c3  00:57:07
+    OK 50123728B  00:58:37
+>>> atuin/c3  00:58:37
+    OK 33850760B  01:02:49
+>>> bacon/c3  01:02:49
+    OK 6821520B  01:03:21
+>>> blondie/c3  01:03:21
+>>> bob-nvim/c3  01:03:31
+    OK 7096056B  01:04:04
+>>> dicom-dump/c3  01:04:06
+    OK 4902008B  01:04:53
+>>> difftastic/c3  01:04:53
+    OK 115845840B  01:05:46
+>>> dify/c3  01:05:47
+    OK 4897088B  01:06:20
+>>> espflash/c3  01:06:22
+    OK 16156608B  01:06:57
+>>> flip-link/c3  01:06:57
+    OK 709088B  01:06:59
+>>> genact/c3  01:06:59
+    OK 6914320B  01:07:34
+>>> gifski/c3  01:07:34
+    OK 1749624B  01:07:48
+>>> gitoxide/c3  01:07:48
+    OK 23663320B  01:09:24
+>>> gitu/c3  01:09:24
+    OK 44954424B  01:10:12
+>>> gitui/c3  01:10:12
+    OK 18389656B  01:11:25
+>>> grass/c3  01:11:25
+    OK 3146296B  01:11:50
+>>> grcov/c3  01:11:50
+    OK 8673784B  01:12:15
+>>> hurl/c3  01:12:16
+    OK 6175104B  01:12:57
+>>> hwatch/c3  01:12:57
+    OK 4566744B  01:13:16
+>>> jless/c3  01:13:16
+>>> jnv/c3  01:13:27
+    OK 4226208B  01:13:57
+>>> komac/c3  01:13:57
+    OK 18851816B  01:16:14
+>>> lowcharts/c3  01:16:15
+    OK 2482912B  01:16:23
+>>> maturin/c3  01:16:23
+    OK 21294000B  01:17:48
+>>> mise/c3  01:17:48
+    OK 111554496B  01:29:24
+>>> monolith/c3  01:29:24
+    OK 10549560B  01:29:59
+>>> nushell/c3  01:30:00
+    OK 62962184B  01:36:23
+>>> protofetch/c3  01:36:23
+    OK 3531672B  01:36:45
+>>> rink/c3  01:36:45
+    OK 4176144B  01:37:06
+>>> rmesg/c3  01:37:06
+>>> rustic/c3  01:37:12
+    OK 33489952B  01:39:35
+>>> rust-script/c3  01:39:35
+    OK 3113896B  01:39:44
+>>> sccache/c3  01:39:44
+    OK 23100040B  01:41:39
+>>> silicon/c3  01:41:39
+>>> spider_cli/c3  01:42:09
+    OK 26432800B  01:44:59
+>>> taskwarrior-tui/c3  01:44:59
+    OK 4207480B  01:45:24
+>>> television/c3  01:45:24
+    OK 15342288B  01:47:58
+>>> tokio-console/c3  01:47:58
+    OK 6488448B  01:48:34
+>>> tree-sitter-cli/c3  01:48:34
+    OK 8699656B  01:49:32
+>>> trunk/c3  01:49:32
+    OK 42749664B  01:51:58
+>>> tuc/c3  01:51:58
+    OK 2061064B  01:52:05
+>>> wiki-tui/c3  01:52:05
+    OK 8078568B  01:52:46
+>>> yazi-fm/c3  01:52:46
+    OK 34236664B  01:54:40
+### config c4  tc=nightly-2026-04-22 cgu=1 lto=thin opt=z panic=unwind rustflags='-Z inline-llvm=no'  2026-09-01T01:54:40+05:30
+>>> bandwhich/c4  01:54:40
+    OK 3904536B  01:55:03
+>>> bat/c4  01:55:03
+    OK 9285216B  01:55:32
+>>> bore/c4  01:55:33
+    OK 2207408B  01:55:43
+>>> bottom/c4  01:55:43
+    OK 5962152B  01:56:11
+>>> dog/c4  01:56:11
+    OK 1661504B  01:56:18
+>>> dprint/c4  01:56:18
+    OK 21631824B  01:57:40
+>>> dufs/c4  01:57:40
+    OK 8159456B  01:58:07
+>>> dust/c4  01:58:08
+    OK 3444448B  01:58:16
+>>> eza/c4  01:58:16
+    OK 2964608B  01:58:35
+>>> fclones/c4  01:58:35
+    OK 6207336B  01:58:55
+>>> fd/c4  01:58:55
+    OK 4158096B  01:59:04
+>>> ferium/c4  01:59:04
+    OK 15165688B  01:59:58
+>>> feroxbuster/c4  01:59:58
+    OK 15254032B  02:01:00
+>>> gping/c4  02:01:01
+    OK 3770976B  02:01:10
+>>> grex/c4  02:01:11
+    OK 2908208B  02:01:20
+>>> hexyl/c4  02:01:20
+    OK 1265672B  02:01:25
+>>> hyperfine/c4  02:01:25
+    OK 1618384B  02:01:35
+>>> just/c4  02:01:35
+    OK 6119280B  02:01:56
+>>> miniserve/c4  02:01:56
+    OK 12949296B  02:02:35
+>>> mprocs/c4  02:02:36
+    OK 5563720B  02:03:11
+>>> mqttui/c4  02:03:12
+    OK 6888760B  02:03:38
+>>> netscanner/c4  02:03:38
+    OK 18684096B  02:04:08
+>>> oha/c4  02:04:08
+    OK 12286448B  02:04:59
+>>> ouch/c4  02:04:59
+    OK 7056688B  02:05:24
+>>> oxker/c4  02:05:24
+    OK 6429968B  02:05:55
+>>> pastel/c4  02:05:55
+    OK 1265112B  02:06:01
+>>> procs/c4  02:06:01
+    OK 7069328B  02:06:30
+>>> pueue/c4  02:06:30
+    OK 7066760B  02:07:00
+>>> rage/c4  02:07:00
+    OK 4387152B  02:07:22
+>>> rathole/c4  02:07:22
+    OK 6736648B  02:07:50
+>>> ripgrep/c4  02:07:50
+    OK 4359904B  02:08:01
+>>> rustscan/c4  02:08:01
+    OK 6078496B  02:08:24
+>>> sd/c4  02:08:25
+    OK 2713712B  02:08:32
+>>> sniffnet/c4  02:08:32
+>>> spotify-tui/c4  02:10:02
+>>> starship/c4  02:10:05
+    OK 15328840B  02:11:04
+>>> taplo/c4  02:11:05
+    OK 13016200B  02:11:43
+>>> tealdeer/c4  02:11:43
+    OK 4408656B  02:12:02
+>>> tokei/c4  02:12:02
+    OK 4752352B  02:12:20
+>>> topgrade/c4  02:12:20
+    OK 10048192B  02:13:02
+>>> trippy/c4  02:13:02
+    OK 9251848B  02:13:34
+>>> typos/c4  02:13:34
+    OK 18469216B  02:14:03
+>>> websocat/c4  02:14:03
+    OK 3882800B  02:14:18
+>>> wormhole-rs/c4  02:14:18
+    OK 10139232B  02:14:51
+>>> xh/c4  02:14:51
+    OK 12137256B  02:15:30
+>>> xsv/c4  02:15:30
+    OK 2228496B  02:15:38
+>>> zellij/c4  02:15:38
+    OK 53778280B  02:17:31
+>>> zoxide/c4  02:17:31
+    OK 1339648B  02:17:39
+>>> broot/c4  02:17:39
+    OK 15421448B  02:18:30
+>>> choose/c4  02:18:30
+    OK 2490480B  02:18:37
+>>> cotp/c4  02:18:37
+    OK 4914576B  02:18:55
+>>> csvlens/c4  02:18:55
+    OK 8212536B  02:19:29
+>>> delta/c4  02:19:29
+    OK 6738720B  02:19:57
+>>> diffr/c4  02:19:57
+    OK 572480B  02:19:59
+>>> diskonaut/c4  02:19:59
+    OK 1636792B  02:20:06
+>>> diskus/c4  02:20:06
+    OK 1093632B  02:20:10
+>>> dua-cli/c4  02:20:10
+    OK 5792008B  02:20:33
+>>> fend/c4  02:20:33
+    OK 8488600B  02:21:05
+>>> git-cliff/c4  02:21:06
+    OK 15356864B  02:21:43
+>>> git-graph/c4  02:21:43
+    OK 2900960B  02:21:59
+>>> hgrep/c4  02:21:59
+    OK 7794168B  02:22:13
+>>> htmlq/c4  02:22:13
+    OK 2285184B  02:22:22
+>>> jaq/c4  02:22:22
+    OK 4387048B  02:22:36
+>>> joshuto/c4  02:22:36
+    OK 8969328B  02:23:24
+>>> kalker/c4  02:23:24
+    OK 3578320B  02:23:34
+>>> kibi/c4  02:23:34
+    OK 541112B  02:23:37
+>>> kondo/c4  02:23:37
+    OK 2562720B  02:23:43
+>>> lsd/c4  02:23:43
+    OK 4314464B  02:24:03
+>>> mdbook/c4  02:24:03
+    OK 12521704B  02:24:32
+>>> navi/c4  02:24:32
+    OK 4553744B  02:24:43
+>>> numbat/c4  02:24:43
+    OK 7240040B  02:25:10
+>>> onefetch/c4  02:25:10
+    OK 14302392B  02:25:41
+>>> oxipng/c4  02:25:41
+    OK 1795000B  02:25:47
+>>> presenterm/c4  02:25:47
+    OK 8292672B  02:26:20
+>>> rip/c4  02:26:20
+    OK 1353104B  02:26:26
+>>> rust-parallel/c4  02:26:26
+    OK 3843536B  02:26:37
+>>> rustypaste/c4  02:26:37
+    OK 12645912B  02:27:05
+>>> sad/c4  02:27:05
+    OK 3230024B  02:27:13
+>>> serie/c4  02:27:13
+    OK 4885080B  02:27:33
+>>> skim/c4  02:27:33
+    OK 12950328B  02:28:18
+>>> so/c4  02:28:18
+    OK 9243768B  02:28:48
+>>> stylua/c4  02:28:48
+    OK 5724624B  02:29:09
+>>> tre-command/c4  02:29:09
+    OK 2165008B  02:29:16
+>>> viu/c4  02:29:16
+    OK 3919816B  02:29:36
+>>> vivid/c4  02:29:36
+    OK 1162368B  02:29:41
+>>> watchexec/c4  02:29:41
+    OK 10806264B  02:30:21
+>>> xcp/c4  02:30:21
+    OK 3482056B  02:30:28
+>>> xplr/c4  02:30:28
+    OK 8033880B  02:31:13
+>>> ast-grep/c4  02:31:13
+    OK 51255216B  02:32:06
+>>> atuin/c4  02:32:06
+>>> bacon/c4  02:32:07
+    OK 8085104B  02:32:30
+>>> blondie/c4  02:32:30
+>>> bob-nvim/c4  02:32:40
+    OK 8384560B  02:33:10
+>>> dicom-dump/c4  02:33:10
+    OK 5671688B  02:33:52
+>>> difftastic/c4  02:33:52
+    OK 115855032B  02:34:55
+>>> dify/c4  02:34:55
+    OK 4954992B  02:35:14
+>>> espflash/c4  02:35:14
+    OK 17829216B  02:35:47
+>>> flip-link/c4  02:35:47
+    OK 760288B  02:35:51
+>>> genact/c4  02:35:51
+    OK 7443776B  02:36:18
+>>> gifski/c4  02:36:18
+    OK 2244496B  02:36:31
+>>> gitoxide/c4  02:36:31
+    OK 23226408B  02:37:42
+>>> gitu/c4  02:37:42
+    OK 45698688B  02:38:20
+>>> gitui/c4  02:38:20
+    OK 20156352B  02:39:26
+>>> grass/c4  02:39:26
+    OK 2878608B  02:39:46
+>>> grcov/c4  02:39:46
+    OK 9255152B  02:40:04
+>>> hurl/c4  02:40:05
+>>> hwatch/c4  02:40:05
+    OK 5324168B  02:40:18
+>>> jless/c4  02:40:18
+>>> jnv/c4  02:40:26
+    OK 5190136B  02:40:51
+>>> komac/c4  02:40:51
+    OK 21374688B  02:42:30
+>>> lowcharts/c4  02:42:30
+>>> maturin/c4  02:42:32
+    OK 23132400B  02:43:30
+>>> mise/c4  02:43:30
+    OK 110396944B  02:51:11
+>>> monolith/c4  02:51:11
+    OK 11272624B  02:51:55
+>>> nushell/c4  02:51:55
+    OK 53734024B  02:54:44
+>>> protofetch/c4  02:54:44
+    OK 3801864B  02:55:03
+>>> rink/c4  02:55:03
+    OK 4559368B  02:55:23
+>>> rmesg/c4  02:55:23
+>>> rustic/c4  02:55:28
+    OK 33589256B  02:57:16
+>>> rust-script/c4  02:57:16
+    OK 3557712B  02:57:23
+>>> sccache/c4  02:57:23
+    OK 24144352B  02:58:38
+>>> silicon/c4  02:58:38
+>>> spider_cli/c4  02:58:59
+    OK 27367488B  03:01:07
+>>> taskwarrior-tui/c4  03:01:07
+    OK 5101304B  03:01:26
+>>> television/c4  03:01:26
+    OK 11306880B  03:02:11
+>>> tokio-console/c4  03:02:11
+    OK 7772624B  03:02:42
+>>> tree-sitter-cli/c4  03:02:42
+    OK 8845816B  03:03:18
+>>> trunk/c4  03:03:18
+    OK 44019440B  03:05:13
+>>> tuc/c4  03:05:13
+    OK 2262840B  03:05:20
+>>> wiki-tui/c4  03:05:20
+    OK 9932288B  03:05:49
+>>> yazi-fm/c4  03:05:49
+    OK 33274440B  03:07:26
+== build.sh: all configs walked 2026-09-01T03:07:26+05:30 ==
+─── features 2026-09-01T03:07:26+05:30 ───
+builds 496  rows 12,044,998  labeled 10,796,501  author 280,312  workspace 249,872
+─── seal 2026-09-01T03:09:25+05:30 ───
+sealed bcb9d72d3b993c8fffa4822b605965311a0fe3cd5b70277820c5ea4b4ca47eb9
+─── analyze (all rules) 2026-09-01T03:09:25+05:30 ───
+wrote REPORT.md + results/rules_all.json  (10,796,501 fns, 496 builds)
+─── malware (full) 2026-09-01T03:11:08+05:30 ───
+malware: 8 ELF samples seen, 8 with rule output -> /home/user/Videos/unhusk/bench/run1/malware/
+═══════ run_all done 2026-09-01T03:11:11+05:30 ═══════
+═══════ run_all start 2026-09-01T03:29:07+05:30  build deadline 2026-09-01T06:40:00+05:30 ═══════
+### config c1  tc=1.98.0 cgu=16 lto=false opt=3 panic=unwind rustflags=''  2026-09-01T03:29:07+05:30
+  skip bandwhich/c1 (done)
+  skip bat/c1 (done)
+  skip bore/c1 (done)
+  skip bottom/c1 (done)
+  skip dog/c1 (done)
+  skip dprint/c1 (done)
+  skip dufs/c1 (done)
+  skip dust/c1 (done)
+  skip eza/c1 (done)
+  skip fclones/c1 (done)
+  skip fd/c1 (done)
+  skip ferium/c1 (done)
+  skip feroxbuster/c1 (done)
+  skip gping/c1 (done)
+  skip grex/c1 (done)
+  skip hexyl/c1 (done)
+  skip hyperfine/c1 (done)
+  skip just/c1 (done)
+  skip miniserve/c1 (done)
+  skip mprocs/c1 (done)
+  skip mqttui/c1 (done)
+  skip netscanner/c1 (done)
+  skip oha/c1 (done)
+  skip ouch/c1 (done)
+  skip oxker/c1 (done)
+  skip pastel/c1 (done)
+  skip procs/c1 (done)
+  skip pueue/c1 (done)
+  skip rage/c1 (done)
+  skip rathole/c1 (done)
+  skip ripgrep/c1 (done)
+  skip rustscan/c1 (done)
+  skip sd/c1 (done)
+  skip sniffnet/c1 (done)
+  skip spotify-tui/c1 (prior fail)
+  skip starship/c1 (done)
+  skip taplo/c1 (done)
+  skip tealdeer/c1 (done)
+  skip tokei/c1 (done)
+  skip topgrade/c1 (done)
+  skip trippy/c1 (done)
+  skip typos/c1 (done)
+  skip websocat/c1 (done)
+  skip wormhole-rs/c1 (done)
+  skip xh/c1 (done)
+  skip xsv/c1 (done)
+  skip zellij/c1 (done)
+  skip zoxide/c1 (done)
+  skip broot/c1 (done)
+  skip choose/c1 (done)
+  skip cotp/c1 (done)
+  skip csvlens/c1 (done)
+  skip delta/c1 (done)
+  skip diffr/c1 (done)
+  skip diskonaut/c1 (done)
+  skip diskus/c1 (done)
+  skip dua-cli/c1 (done)
+  skip fend/c1 (done)
+  skip git-cliff/c1 (done)
+  skip git-graph/c1 (done)
+  skip hgrep/c1 (done)
+  skip htmlq/c1 (done)
+  skip jaq/c1 (done)
+  skip joshuto/c1 (done)
+  skip kalker/c1 (done)
+  skip kibi/c1 (done)
+  skip kondo/c1 (done)
+  skip lsd/c1 (done)
+  skip mdbook/c1 (done)
+  skip navi/c1 (done)
+  skip numbat/c1 (done)
+  skip onefetch/c1 (done)
+  skip oxipng/c1 (done)
+  skip presenterm/c1 (done)
+  skip rip/c1 (done)
+  skip rust-parallel/c1 (done)
+  skip rustypaste/c1 (done)
+  skip sad/c1 (done)
+  skip serie/c1 (done)
+  skip skim/c1 (done)
+  skip so/c1 (done)
+  skip stylua/c1 (done)
+  skip tre-command/c1 (done)
+  skip viu/c1 (done)
+  skip vivid/c1 (done)
+  skip watchexec/c1 (done)
+  skip xcp/c1 (done)
+  skip xplr/c1 (done)
+  skip ast-grep/c1 (done)
+  skip atuin/c1 (done)
+  skip bacon/c1 (done)
+  skip blondie/c1 (prior fail)
+  skip bob-nvim/c1 (done)
+  skip dicom-dump/c1 (done)
+  skip difftastic/c1 (done)
+  skip dify/c1 (done)
+  skip espflash/c1 (done)
+  skip flip-link/c1 (done)
+  skip genact/c1 (done)
+  skip gifski/c1 (done)
+  skip gitoxide/c1 (done)
+  skip gitu/c1 (done)
+  skip gitui/c1 (done)
+  skip grass/c1 (done)
+  skip grcov/c1 (done)
+  skip hurl/c1 (done)
+  skip hwatch/c1 (done)
+  skip jless/c1 (prior fail)
+  skip jnv/c1 (done)
+  skip komac/c1 (done)
+  skip lowcharts/c1 (done)
+  skip maturin/c1 (done)
+  skip mise/c1 (done)
+  skip monolith/c1 (done)
+  skip nushell/c1 (done)
+  skip protofetch/c1 (done)
+  skip rink/c1 (done)
+  skip rmesg/c1 (done)
+  skip rustic/c1 (done)
+  skip rust-script/c1 (done)
+  skip sccache/c1 (done)
+  skip silicon/c1 (prior fail)
+  skip spider_cli/c1 (done)
+  skip taskwarrior-tui/c1 (done)
+  skip television/c1 (done)
+  skip tokio-console/c1 (done)
+  skip tree-sitter-cli/c1 (done)
+  skip trunk/c1 (done)
+  skip tuc/c1 (done)
+  skip wiki-tui/c1 (done)
+  skip yazi-fm/c1 (done)
+>>> helix/c1  03:29:07
+    OK 23692360B  03:32:01
+>>> jj/c1  03:32:01
+    OK 32979984B  03:33:53
+>>> alacritty/c1  03:33:53
+    OK 9480112B  03:34:35
+>>> qsv/c1  03:34:35
+>>> fnm/c1  03:35:26
+    OK 7177008B  03:35:55
+>>> mcfly/c1  03:35:55
+    OK 5056208B  03:36:26
+>>> zenith/c1  03:36:26
+    OK 2194520B  03:36:59
+>>> kmon/c1  03:36:59
+    OK 2058456B  03:37:11
+>>> systeroid/c1  03:37:12
+    OK 3195880B  03:37:32
+>>> git-absorb/c1  03:37:32
+    OK 2292752B  03:37:49
+>>> cargo-edit/c1  03:37:49
+    OK 7668608B  03:38:12
+>>> cargo-nextest/c1  03:38:12
+    OK 23092416B  03:39:42
+>>> cargo-binstall/c1  03:39:42
+    OK 26964584B  03:41:08
+>>> cargo-generate/c1  03:41:09
+    OK 24303600B  03:42:21
+>>> cargo-deny/c1  03:42:21
+    OK 10151472B  03:42:46
+>>> cargo-outdated/c1  03:42:46
+    OK 21264200B  03:44:10
+>>> cargo-watch/c1  03:44:10
+    OK 6116856B  03:44:30
+>>> cargo-expand/c1  03:44:30
+    OK 9439360B  03:44:48
+>>> cargo-msrv/c1  03:44:48
+    OK 20719792B  03:46:05
+>>> cargo-hack/c1  03:46:06
+    OK 2187168B  03:46:18
+>>> frawk/c1  03:46:18
+>>> huniq/c1  03:47:02
+    OK 856984B  03:47:05
+>>> csview/c1  03:47:05
+    OK 1050040B  03:47:09
+>>> macchina/c1  03:47:09
+    OK 5194176B  03:47:38
+>>> ncspot/c1  03:47:38
+    OK 23652392B  03:49:36
+>>> tere/c1  03:49:36
+    OK 3162136B  03:49:46
+>>> felix/c1  03:49:46
+    OK 2995144B  03:50:05
+>>> nomino/c1  03:50:05
+    OK 3025464B  03:50:11
+>>> rustcat/c1  03:50:11
+    OK 1447944B  03:50:15
+>>> httm/c1  03:50:15
+    OK 6308400B  03:50:54
+>>> thokr/c1  03:50:55
+    OK 2410232B  03:51:10
+>>> ttyper/c1  03:51:10
+    OK 2393040B  03:51:20
+>>> aichat/c1  03:51:20
+    OK 19263528B  03:52:20
+>>> mask/c1  03:52:20
+    OK 1318392B  03:52:27
+>>> amber/c1  03:52:27
+    OK 3493488B  03:52:35
+>>> bingrep/c1  03:52:35
+    OK 3223144B  03:52:43
+>>> hexpatch/c1  03:52:43
+>>> rnr/c1  03:53:44
+    OK 3676880B  03:53:52
+>>> atac/c1  03:53:52
+    OK 35025176B  03:55:29
+>>> russ/c1  03:55:29
+    OK 8408968B  03:56:13
+>>> serpl/c1  03:56:13
+    OK 5950504B  03:56:42
+>>> toipe/c1  03:56:42
+    OK 1311144B  03:56:47
+>>> tenere/c1  03:56:47
+    OK 8998064B  03:57:29
+### config c2  tc=1.98.0 cgu=16 lto=false opt=z panic=unwind rustflags=''  2026-09-01T03:57:29+05:30
+  skip bandwhich/c2 (done)
+  skip bat/c2 (done)
+  skip bore/c2 (done)
+  skip bottom/c2 (done)
+  skip dog/c2 (done)
+  skip dprint/c2 (done)
+  skip dufs/c2 (done)
+  skip dust/c2 (done)
+  skip eza/c2 (done)
+  skip fclones/c2 (done)
+  skip fd/c2 (done)
+  skip ferium/c2 (done)
+  skip feroxbuster/c2 (done)
+  skip gping/c2 (done)
+  skip grex/c2 (done)
+  skip hexyl/c2 (done)
+  skip hyperfine/c2 (done)
+  skip just/c2 (done)
+  skip miniserve/c2 (done)
+  skip mprocs/c2 (done)
+  skip mqttui/c2 (done)
+  skip netscanner/c2 (done)
+  skip oha/c2 (done)
+  skip ouch/c2 (done)
+  skip oxker/c2 (done)
+  skip pastel/c2 (done)
+  skip procs/c2 (done)
+  skip pueue/c2 (done)
+  skip rage/c2 (done)
+  skip rathole/c2 (done)
+  skip ripgrep/c2 (done)
+  skip rustscan/c2 (done)
+  skip sd/c2 (done)
+  skip sniffnet/c2 (done)
+  skip spotify-tui/c2 (prior fail)
+  skip starship/c2 (done)
+  skip taplo/c2 (done)
+  skip tealdeer/c2 (done)
+  skip tokei/c2 (done)
+  skip topgrade/c2 (done)
+  skip trippy/c2 (done)
+  skip typos/c2 (done)
+  skip websocat/c2 (done)
+  skip wormhole-rs/c2 (done)
+  skip xh/c2 (done)
+  skip xsv/c2 (done)
+  skip zellij/c2 (done)
+  skip zoxide/c2 (done)
+  skip broot/c2 (done)
+  skip choose/c2 (done)
+  skip cotp/c2 (done)
+  skip csvlens/c2 (done)
+  skip delta/c2 (done)
+  skip diffr/c2 (done)
+  skip diskonaut/c2 (done)
+  skip diskus/c2 (done)
+  skip dua-cli/c2 (done)
+  skip fend/c2 (done)
+  skip git-cliff/c2 (done)
+  skip git-graph/c2 (done)
+  skip hgrep/c2 (done)
+  skip htmlq/c2 (done)
+  skip jaq/c2 (done)
+  skip joshuto/c2 (done)
+  skip kalker/c2 (done)
+  skip kibi/c2 (done)
+  skip kondo/c2 (done)
+  skip lsd/c2 (done)
+  skip mdbook/c2 (done)
+  skip navi/c2 (done)
+  skip numbat/c2 (done)
+  skip onefetch/c2 (done)
+  skip oxipng/c2 (done)
+  skip presenterm/c2 (done)
+  skip rip/c2 (done)
+  skip rust-parallel/c2 (done)
+  skip rustypaste/c2 (done)
+  skip sad/c2 (done)
+  skip serie/c2 (done)
+  skip skim/c2 (done)
+  skip so/c2 (done)
+  skip stylua/c2 (done)
+  skip tre-command/c2 (done)
+  skip viu/c2 (done)
+  skip vivid/c2 (done)
+  skip watchexec/c2 (done)
+  skip xcp/c2 (done)
+  skip xplr/c2 (done)
+  skip ast-grep/c2 (done)
+  skip atuin/c2 (done)
+  skip bacon/c2 (done)
+  skip blondie/c2 (prior fail)
+  skip bob-nvim/c2 (done)
+  skip dicom-dump/c2 (done)
+  skip difftastic/c2 (done)
+  skip dify/c2 (done)
+  skip espflash/c2 (done)
+  skip flip-link/c2 (done)
+  skip genact/c2 (done)
+  skip gifski/c2 (done)
+  skip gitoxide/c2 (done)
+  skip gitu/c2 (done)
+  skip gitui/c2 (done)
+  skip grass/c2 (done)
+  skip grcov/c2 (done)
+  skip hurl/c2 (done)
+  skip hwatch/c2 (done)
+  skip jless/c2 (prior fail)
+  skip jnv/c2 (done)
+  skip komac/c2 (done)
+  skip lowcharts/c2 (done)
+  skip maturin/c2 (done)
+  skip mise/c2 (done)
+  skip monolith/c2 (done)
+  skip nushell/c2 (done)
+  skip protofetch/c2 (done)
+  skip rink/c2 (done)
+  skip rmesg/c2 (done)
+  skip rustic/c2 (done)
+  skip rust-script/c2 (done)
+  skip sccache/c2 (done)
+  skip silicon/c2 (prior fail)
+  skip spider_cli/c2 (done)
+  skip taskwarrior-tui/c2 (done)
+  skip television/c2 (done)
+  skip tokio-console/c2 (done)
+  skip tree-sitter-cli/c2 (done)
+  skip trunk/c2 (done)
+  skip tuc/c2 (done)
+  skip wiki-tui/c2 (done)
+  skip yazi-fm/c2 (done)
+>>> helix/c2  03:57:29
+    OK 19067528B  03:58:19
+>>> jj/c2  03:58:19
+    OK 25937040B  03:59:33
+>>> alacritty/c2  03:59:33
+    OK 8184232B  04:00:03
+>>> qsv/c2  04:00:03
+>>> fnm/c2  04:00:03
+    OK 6266448B  04:00:37
+>>> mcfly/c2  04:00:37
+    OK 3885232B  04:00:55
+>>> zenith/c2  04:00:56
+    OK 2044904B  04:01:15
+>>> kmon/c2  04:01:17
+    OK 1878224B  04:01:29
+>>> systeroid/c2  04:01:30
+    OK 2921376B  04:01:44
+>>> git-absorb/c2  04:01:44
+    OK 1964824B  04:01:53
+>>> cargo-edit/c2  04:01:53
+    OK 6649792B  04:02:10
+>>> cargo-nextest/c2  04:02:10
+    OK 19867584B  04:03:10
+>>> cargo-binstall/c2  04:03:11
+    OK 21592488B  04:04:11
+>>> cargo-generate/c2  04:04:12
+    OK 19431024B  04:05:05
+>>> cargo-deny/c2  04:05:05
+    OK 8923384B  04:05:23
+>>> cargo-outdated/c2  04:05:23
+    OK 17603976B  04:06:24
+>>> cargo-watch/c2  04:06:24
+    OK 4875072B  04:06:41
+>>> cargo-expand/c2  04:06:41
+    OK 7297216B  04:06:55
+>>> cargo-msrv/c2  04:06:55
+    OK 17224656B  04:08:00
+>>> cargo-hack/c2  04:08:01
+    OK 2093560B  04:08:06
+>>> frawk/c2  04:08:06
+>>> huniq/c2  04:08:37
+    OK 814936B  04:08:39
+>>> csview/c2  04:08:39
+    OK 942672B  04:08:43
+>>> macchina/c2  04:08:43
+    OK 4338112B  04:09:04
+>>> ncspot/c2  04:09:05
+    OK 18163416B  04:10:27
+>>> tere/c2  04:10:27
+    OK 2859152B  04:10:34
+>>> felix/c2  04:10:34
+    OK 2502504B  04:10:50
+>>> nomino/c2  04:10:50
+    OK 2753976B  04:10:54
+>>> rustcat/c2  04:10:54
+    OK 1293808B  04:10:58
+>>> httm/c2  04:10:58
+    OK 5470712B  04:11:16
+>>> thokr/c2  04:11:16
+    OK 2257416B  04:11:26
+>>> ttyper/c2  04:11:28
+    OK 2225688B  04:11:37
+>>> aichat/c2  04:11:37
+    OK 17181000B  04:12:29
+>>> mask/c2  04:12:29
+    OK 1224416B  04:12:34
+>>> amber/c2  04:12:34
+    OK 3115992B  04:12:41
+>>> bingrep/c2  04:12:41
+    OK 2827944B  04:12:48
+>>> hexpatch/c2  04:12:48
+>>> rnr/c2  04:13:23
+    OK 3376224B  04:13:30
+>>> atac/c2  04:13:30
+    OK 27179288B  04:14:48
+>>> russ/c2  04:14:48
+    OK 6956712B  04:15:14
+>>> serpl/c2  04:15:14
+    OK 5344560B  04:15:41
+>>> toipe/c2  04:15:41
+    OK 1231176B  04:15:46
+>>> tenere/c2  04:15:46
+    OK 8206480B  04:16:19
+### config c3  tc=1.98.0 cgu=1 lto=false opt=3 panic=unwind rustflags=''  2026-09-01T04:16:19+05:30
+  skip bandwhich/c3 (done)
+  skip bat/c3 (done)
+  skip bore/c3 (done)
+  skip bottom/c3 (done)
+  skip dog/c3 (done)
+  skip dprint/c3 (done)
+  skip dufs/c3 (done)
+  skip dust/c3 (done)
+  skip eza/c3 (done)
+  skip fclones/c3 (done)
+  skip fd/c3 (done)
+  skip ferium/c3 (done)
+  skip feroxbuster/c3 (done)
+  skip gping/c3 (done)
+  skip grex/c3 (done)
+  skip hexyl/c3 (done)
+  skip hyperfine/c3 (done)
+  skip just/c3 (done)
+  skip miniserve/c3 (done)
+  skip mprocs/c3 (done)
+  skip mqttui/c3 (done)
+  skip netscanner/c3 (done)
+  skip oha/c3 (done)
+  skip ouch/c3 (done)
+  skip oxker/c3 (done)
+  skip pastel/c3 (done)
+  skip procs/c3 (done)
+  skip pueue/c3 (done)
+  skip rage/c3 (done)
+  skip rathole/c3 (done)
+  skip ripgrep/c3 (done)
+  skip rustscan/c3 (done)
+  skip sd/c3 (done)
+  skip sniffnet/c3 (done)
+  skip spotify-tui/c3 (prior fail)
+  skip starship/c3 (done)
+  skip taplo/c3 (done)
+  skip tealdeer/c3 (done)
+  skip tokei/c3 (done)
+  skip topgrade/c3 (done)
+  skip trippy/c3 (done)
+  skip typos/c3 (done)
+  skip websocat/c3 (done)
+  skip wormhole-rs/c3 (done)
+  skip xh/c3 (done)
+  skip xsv/c3 (done)
+  skip zellij/c3 (done)
+  skip zoxide/c3 (done)
+  skip broot/c3 (done)
+  skip choose/c3 (done)
+  skip cotp/c3 (done)
+  skip csvlens/c3 (done)
+  skip delta/c3 (done)
+  skip diffr/c3 (done)
+  skip diskonaut/c3 (done)
+  skip diskus/c3 (done)
+  skip dua-cli/c3 (done)
+  skip fend/c3 (done)
+  skip git-cliff/c3 (done)
+  skip git-graph/c3 (done)
+  skip hgrep/c3 (done)
+  skip htmlq/c3 (done)
+  skip jaq/c3 (done)
+  skip joshuto/c3 (done)
+  skip kalker/c3 (done)
+  skip kibi/c3 (done)
+  skip kondo/c3 (done)
+  skip lsd/c3 (done)
+  skip mdbook/c3 (done)
+  skip navi/c3 (done)
+  skip numbat/c3 (done)
+  skip onefetch/c3 (done)
+  skip oxipng/c3 (done)
+  skip presenterm/c3 (done)
+  skip rip/c3 (done)
+  skip rust-parallel/c3 (done)
+  skip rustypaste/c3 (done)
+  skip sad/c3 (done)
+  skip serie/c3 (done)
+  skip skim/c3 (done)
+  skip so/c3 (done)
+  skip stylua/c3 (done)
+  skip tre-command/c3 (done)
+  skip viu/c3 (done)
+  skip vivid/c3 (done)
+  skip watchexec/c3 (done)
+  skip xcp/c3 (done)
+  skip xplr/c3 (done)
+  skip ast-grep/c3 (done)
+  skip atuin/c3 (done)
+  skip bacon/c3 (done)
+  skip blondie/c3 (prior fail)
+  skip bob-nvim/c3 (done)
+  skip dicom-dump/c3 (done)
+  skip difftastic/c3 (done)
+  skip dify/c3 (done)
+  skip espflash/c3 (done)
+  skip flip-link/c3 (done)
+  skip genact/c3 (done)
+  skip gifski/c3 (done)
+  skip gitoxide/c3 (done)
+  skip gitu/c3 (done)
+  skip gitui/c3 (done)
+  skip grass/c3 (done)
+  skip grcov/c3 (done)
+  skip hurl/c3 (done)
+  skip hwatch/c3 (done)
+  skip jless/c3 (prior fail)
+  skip jnv/c3 (done)
+  skip komac/c3 (done)
+  skip lowcharts/c3 (done)
+  skip maturin/c3 (done)
+  skip mise/c3 (done)
+  skip monolith/c3 (done)
+  skip nushell/c3 (done)
+  skip protofetch/c3 (done)
+  skip rink/c3 (done)
+  skip rmesg/c3 (done)
+  skip rustic/c3 (done)
+  skip rust-script/c3 (done)
+  skip sccache/c3 (done)
+  skip silicon/c3 (prior fail)
+  skip spider_cli/c3 (done)
+  skip taskwarrior-tui/c3 (done)
+  skip television/c3 (done)
+  skip tokio-console/c3 (done)
+  skip tree-sitter-cli/c3 (done)
+  skip trunk/c3 (done)
+  skip tuc/c3 (done)
+  skip wiki-tui/c3 (done)
+  skip yazi-fm/c3 (done)
+>>> helix/c3  04:16:19
+    OK 19560248B  04:18:13
+>>> jj/c3  04:18:13
+    OK 25021392B  04:20:46
+>>> alacritty/c3  04:20:46
+    OK 8504224B  04:21:41
+>>> qsv/c3  04:21:41
+>>> fnm/c3  04:21:41
+    OK 6235768B  04:22:10
+>>> mcfly/c3  04:22:10
+    OK 4673168B  04:22:44
+>>> zenith/c3  04:22:44
+    OK 1975936B  04:23:09
+>>> kmon/c3  04:23:09
+    OK 1794480B  04:23:23
+>>> systeroid/c3  04:23:23
+    OK 2752872B  04:23:39
+>>> git-absorb/c3  04:23:39
+    OK 2150960B  04:23:53
+>>> cargo-edit/c3  04:23:53
+    OK 6608920B  04:24:19
+>>> cargo-nextest/c3  04:24:19
+    OK 20404184B  04:26:14
+>>> cargo-binstall/c3  04:26:14
+    OK 22374272B  04:27:22
+>>> cargo-generate/c3  04:27:23
+    OK 20507288B  04:28:37
+>>> cargo-deny/c3  04:28:37
+    OK 9022472B  04:29:21
+>>> cargo-outdated/c3  04:29:21
+    OK 18770536B  04:32:04
+>>> cargo-watch/c3  04:32:04
+    OK 5253192B  04:32:39
+>>> cargo-expand/c3  04:32:39
+    OK 7113976B  04:32:59
+>>> cargo-msrv/c3  04:32:59
+    OK 17431000B  04:34:33
+>>> cargo-hack/c3  04:34:34
+    OK 1952600B  04:34:48
+>>> frawk/c3  04:34:48
+>>> huniq/c3  04:35:17
+    OK 802648B  04:35:23
+>>> csview/c3  04:35:23
+    OK 926680B  04:35:31
+>>> macchina/c3  04:35:31
+    OK 4707680B  04:36:03
+>>> ncspot/c3  04:36:03
+    OK 19414544B  04:37:49
+>>> tere/c3  04:37:50
+    OK 2721136B  04:38:00
+>>> felix/c3  04:38:00
+    OK 2904072B  04:38:25
+>>> nomino/c3  04:38:25
+    OK 2601224B  04:38:32
+>>> rustcat/c3  04:38:35
+    OK 1305792B  04:38:42
+>>> httm/c3  04:38:42
+    OK 5410096B  04:39:17
+>>> thokr/c3  04:39:17
+    OK 2239096B  04:39:27
+>>> ttyper/c3  04:39:27
+    OK 2224824B  04:39:40
+>>> aichat/c3  04:39:40
+    OK 16379592B  04:41:05
+>>> mask/c3  04:41:06
+    OK 1206240B  04:41:12
+>>> amber/c3  04:41:12
+    OK 3107184B  04:41:21
+>>> bingrep/c3  04:41:21
+    OK 2800928B  04:41:32
+>>> hexpatch/c3  04:41:32
+>>> rnr/c3  04:42:21
+    OK 3244728B  04:42:31
+>>> atac/c3  04:42:31
+    OK 26518928B  04:44:56
+>>> russ/c3  04:44:56
+    OK 7804968B  04:45:37
+>>> serpl/c3  04:45:37
+    OK 5039176B  04:46:08
+>>> toipe/c3  04:46:08
+    OK 1213144B  04:46:16
+>>> tenere/c3  04:46:16
+    OK 7940336B  04:46:52
+### config c4  tc=nightly-2026-04-22 cgu=1 lto=thin opt=z panic=unwind rustflags='-Z inline-llvm=no'  2026-09-01T04:46:52+05:30
+  skip bandwhich/c4 (done)
+  skip bat/c4 (done)
+  skip bore/c4 (done)
+  skip bottom/c4 (done)
+  skip dog/c4 (done)
+  skip dprint/c4 (done)
+  skip dufs/c4 (done)
+  skip dust/c4 (done)
+  skip eza/c4 (done)
+  skip fclones/c4 (done)
+  skip fd/c4 (done)
+  skip ferium/c4 (done)
+  skip feroxbuster/c4 (done)
+  skip gping/c4 (done)
+  skip grex/c4 (done)
+  skip hexyl/c4 (done)
+  skip hyperfine/c4 (done)
+  skip just/c4 (done)
+  skip miniserve/c4 (done)
+  skip mprocs/c4 (done)
+  skip mqttui/c4 (done)
+  skip netscanner/c4 (done)
+  skip oha/c4 (done)
+  skip ouch/c4 (done)
+  skip oxker/c4 (done)
+  skip pastel/c4 (done)
+  skip procs/c4 (done)
+  skip pueue/c4 (done)
+  skip rage/c4 (done)
+  skip rathole/c4 (done)
+  skip ripgrep/c4 (done)
+  skip rustscan/c4 (done)
+  skip sd/c4 (done)
+  skip sniffnet/c4 (done)
+  skip spotify-tui/c4 (prior fail)
+  skip starship/c4 (done)
+  skip taplo/c4 (done)
+  skip tealdeer/c4 (done)
+  skip tokei/c4 (done)
+  skip topgrade/c4 (done)
+  skip trippy/c4 (done)
+  skip typos/c4 (done)
+  skip websocat/c4 (done)
+  skip wormhole-rs/c4 (done)
+  skip xh/c4 (done)
+  skip xsv/c4 (done)
+  skip zellij/c4 (done)
+  skip zoxide/c4 (done)
+  skip broot/c4 (done)
+  skip choose/c4 (done)
+  skip cotp/c4 (done)
+  skip csvlens/c4 (done)
+  skip delta/c4 (done)
+  skip diffr/c4 (done)
+  skip diskonaut/c4 (done)
+  skip diskus/c4 (done)
+  skip dua-cli/c4 (done)
+  skip fend/c4 (done)
+  skip git-cliff/c4 (done)
+  skip git-graph/c4 (done)
+  skip hgrep/c4 (done)
+  skip htmlq/c4 (done)
+  skip jaq/c4 (done)
+  skip joshuto/c4 (done)
+  skip kalker/c4 (done)
+  skip kibi/c4 (done)
+  skip kondo/c4 (done)
+  skip lsd/c4 (done)
+  skip mdbook/c4 (done)
+  skip navi/c4 (done)
+  skip numbat/c4 (done)
+  skip onefetch/c4 (done)
+  skip oxipng/c4 (done)
+  skip presenterm/c4 (done)
+  skip rip/c4 (done)
+  skip rust-parallel/c4 (done)
+  skip rustypaste/c4 (done)
+  skip sad/c4 (done)
+  skip serie/c4 (done)
+  skip skim/c4 (done)
+  skip so/c4 (done)
+  skip stylua/c4 (done)
+  skip tre-command/c4 (done)
+  skip viu/c4 (done)
+  skip vivid/c4 (done)
+  skip watchexec/c4 (done)
+  skip xcp/c4 (done)
+  skip xplr/c4 (done)
+  skip ast-grep/c4 (done)
+  skip atuin/c4 (prior fail)
+  skip bacon/c4 (done)
+  skip blondie/c4 (prior fail)
+  skip bob-nvim/c4 (done)
+  skip dicom-dump/c4 (done)
+  skip difftastic/c4 (done)
+  skip dify/c4 (done)
+  skip espflash/c4 (done)
+  skip flip-link/c4 (done)
+  skip genact/c4 (done)
+  skip gifski/c4 (done)
+  skip gitoxide/c4 (done)
+  skip gitu/c4 (done)
+  skip gitui/c4 (done)
+  skip grass/c4 (done)
+  skip grcov/c4 (done)
+  skip hurl/c4 (prior fail)
+  skip hwatch/c4 (done)
+  skip jless/c4 (prior fail)
+  skip jnv/c4 (done)
+  skip komac/c4 (done)
+  skip lowcharts/c4 (done)
+  skip maturin/c4 (done)
+  skip mise/c4 (done)
+  skip monolith/c4 (done)
+  skip nushell/c4 (done)
+  skip protofetch/c4 (done)
+  skip rink/c4 (done)
+  skip rmesg/c4 (done)
+  skip rustic/c4 (done)
+  skip rust-script/c4 (done)
+  skip sccache/c4 (done)
+  skip silicon/c4 (prior fail)
+  skip spider_cli/c4 (done)
+  skip taskwarrior-tui/c4 (done)
+  skip television/c4 (done)
+  skip tokio-console/c4 (done)
+  skip tree-sitter-cli/c4 (done)
+  skip trunk/c4 (done)
+  skip tuc/c4 (done)
+  skip wiki-tui/c4 (done)
+  skip yazi-fm/c4 (done)
+>>> helix/c4  04:46:52
+    OK 21083856B  04:48:10
+>>> jj/c4  04:48:11
+    OK 25504528B  04:49:45
+>>> alacritty/c4  04:49:45
+    OK 9033808B  04:50:27
+>>> qsv/c4  04:50:27
+>>> fnm/c4  04:50:28
+    OK 7215856B  04:50:52
+>>> mcfly/c4  04:50:52
+    OK 4408024B  04:51:11
+>>> zenith/c4  04:51:11
+    OK 2437792B  04:51:40
+>>> kmon/c4  04:51:40
+    OK 2034088B  04:51:51
+>>> systeroid/c4  04:51:51
+    OK 3216968B  04:52:05
+>>> git-absorb/c4  04:52:05
+    OK 2124544B  04:52:15
+>>> cargo-edit/c4  04:52:15
+    OK 7757160B  04:52:43
+>>> cargo-nextest/c4  04:52:43
+    OK 21778192B  04:53:57
+>>> cargo-binstall/c4  04:53:58
+    OK 24090232B  04:54:56
+>>> cargo-generate/c4  04:54:56
+    OK 21847104B  04:55:59
+>>> cargo-deny/c4  04:55:59
+    OK 9729584B  04:56:31
+>>> cargo-outdated/c4  04:56:31
+    OK 19848112B  04:58:07
+>>> cargo-watch/c4  04:58:07
+    OK 5459824B  04:58:34
+>>> cargo-expand/c4  04:58:34
+    OK 7441584B  04:58:51
+>>> cargo-msrv/c4  04:58:51
+    OK 18504080B  05:00:01
+>>> cargo-hack/c4  05:00:01
+    OK 2225688B  05:00:10
+>>> frawk/c4  05:00:10
+>>> huniq/c4  05:00:13
+>>> csview/c4  05:00:15
+    OK 1067768B  05:00:20
+>>> macchina/c4  05:00:20
+    OK 4823768B  05:00:44
+>>> ncspot/c4  05:00:44
+    OK 19691544B  05:02:01
+>>> tere/c4  05:02:01
+    OK 3092736B  05:02:09
+>>> felix/c4  05:02:10
+    OK 2850848B  05:02:26
+>>> nomino/c4  05:02:26
+    OK 2947072B  05:02:33
+>>> rustcat/c4  05:02:33
+    OK 1507648B  05:02:38
+>>> httm/c4  05:02:38
+    OK 6362432B  05:03:08
+>>> thokr/c4  05:03:08
+    OK 2667728B  05:03:23
+>>> ttyper/c4  05:03:23
+    OK 2567816B  05:03:33
+>>> aichat/c4  05:03:33
+    OK 18191072B  05:04:31
+>>> mask/c4  05:04:32
+    OK 1345360B  05:04:38
+>>> amber/c4  05:04:38
+    OK 3488680B  05:04:46
+>>> bingrep/c4  05:04:46
+    OK 3250632B  05:04:55
+>>> hexpatch/c4  05:04:55
+>>> rnr/c4  05:05:35
+    OK 3646800B  05:05:43
+>>> atac/c4  05:05:43
+    OK 30586768B  05:07:13
+>>> russ/c4  05:07:13
+    OK 7591672B  05:07:43
+>>> serpl/c4  05:07:43
+    OK 6121384B  05:08:06
+>>> toipe/c4  05:08:06
+    OK 1394712B  05:08:13
+>>> tenere/c4  05:08:13
+    OK 9069184B  05:08:49
+== build.sh: all configs walked 2026-09-01T05:08:49+05:30 ==
+─── features 2026-09-01T05:08:49+05:30 ───
+builds 665  rows 16,224,874  labeled 14,581,559  author 353,948  workspace 313,195
+─── seal 2026-09-01T05:11:12+05:30 ───
+split.json exists — keeping
+─── analyze (all rules) 2026-09-01T05:11:12+05:30 ───
+wrote REPORT.md + results/rules_all.json  (14,581,559 fns, 665 builds)
+─── malware (full) 2026-09-01T05:13:24+05:30 ───
+malware: 8 ELF samples seen, 8 with rule output -> /home/user/Videos/unhusk/bench/run1/malware/
+═══════ run_all done 2026-09-01T05:13:25+05:30 ═══════

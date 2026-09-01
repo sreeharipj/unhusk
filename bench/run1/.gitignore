@@ -1,0 +1,14 @@
+# run1 heavy artifacts — regenerate from corpus_manifest.tsv + toolchains, or
+# pull from the Zenodo drop. Not in git.
+build/
+raw/
+src/
+fde/
+malware/
+__pycache__/
+
+# transient orchestration state
+*.lock
+.retry.done
+.expanded.done
+.healthcheck.lock

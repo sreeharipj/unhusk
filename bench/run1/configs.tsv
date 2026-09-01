@@ -1,0 +1,5 @@
+id	toolchain	cgu	lto	opt	panic	rustflags
+c1	1.98.0	16	false	3	unwind	-
+c2	1.98.0	16	false	z	unwind	-
+c3	1.98.0	1	false	3	unwind	-
+c4	nightly-2026-04-22	1	thin	z	unwind	-Z inline-llvm=no
