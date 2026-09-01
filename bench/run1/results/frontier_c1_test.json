@@ -1,0 +1,101 @@
+{
+ "config": "c1",
+ "target": "ws",
+ "slice": "test_crates",
+ "seed": 20260901,
+ "boot_iters": 5000,
+ "split_sha": "bcb9d72d3b993c8fffa4822b605965311a0fe3cd5b70277820c5ea4b4ca47eb9",
+ "n_test_crates_present": 36,
+ "author_fns": 27033,
+ "author_MB": 29.671,
+ "rules": {
+  "B@1": {
+   "precision": 0.8486,
+   "ci": [
+    0.7801,
+    0.897
+   ],
+   "recall_fn": 0.1487,
+   "recall_byte": 0.3256,
+   "crates_firing": 36,
+   "fires": 4736
+  },
+  "B@2": {
+   "precision": 0.9161,
+   "ci": [
+    0.8801,
+    0.9487
+   ],
+   "recall_fn": 0.0674,
+   "recall_byte": 0.2195,
+   "crates_firing": 35,
+   "fires": 1990
+  },
+  "B@3": {
+   "precision": 0.9323,
+   "ci": [
+    0.9037,
+    0.9827
+   ],
+   "recall_fn": 0.0331,
+   "recall_byte": 0.1548,
+   "crates_firing": 35,
+   "fires": 960
+  },
+  "A@2": {
+   "precision": 0.9262,
+   "ci": [
+    0.9075,
+    0.9655
+   ],
+   "recall_fn": 0.0566,
+   "recall_byte": 0.1527,
+   "crates_firing": 35,
+   "fires": 1652
+  },
+  "C@0.70": {
+   "precision": 0.8706,
+   "ci": [
+    0.837,
+    0.9088
+   ],
+   "recall_fn": 0.1446,
+   "recall_byte": 0.3773,
+   "crates_firing": 36,
+   "fires": 4489
+  },
+  "C@0.80": {
+   "precision": 0.8723,
+   "ci": [
+    0.8386,
+    0.9126
+   ],
+   "recall_fn": 0.1398,
+   "recall_byte": 0.3365,
+   "crates_firing": 36,
+   "fires": 4332
+  },
+  "R3": {
+   "precision": 0.8496,
+   "ci": [
+    0.7565,
+    0.9112
+   ],
+   "recall_fn": 0.1086,
+   "recall_byte": 0.3907,
+   "crates_firing": 35,
+   "fires": 3457
+  },
+  "any_anchor": {
+   "precision": 0.829,
+   "ci": [
+    0.7594,
+    0.8746
+   ],
+   "recall_fn": 0.1759,
+   "recall_byte": 0.5514,
+   "crates_firing": 36,
+   "fires": 5736
+  }
+ }
+}

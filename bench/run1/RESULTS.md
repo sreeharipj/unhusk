@@ -10,7 +10,13 @@ in the confirmatory negative control after the verdict was already decided, so
 there is no `results/mine_gpu.json` yet — the funnel numbers below are from the
 log and `frontier_c1.json`),
 `results/size_analysis.json` (recall in bytes, size-controlled precision, the
-frontier — `pr_curve.py`), `reconcile.log` (ceiling levers, RS90 decomposition,
+OOF-logistic frontier — `pr_curve.py`),
+`results/frontier_c1.json` (**canonical** discrete-rule c1 ws Pareto table —
+count/purity/composite, precision + byte-recall + both CIs — `frontier.py`;
+supersedes every hand-run frontier number),
+`results/frontier_c1_test.json` (the c1 × 36-sealed-test held-out cell —
+`frontier_test.py`),
+`reconcile.log` (ceiling levers, RS90 decomposition,
 R3-vs-A@2 paired), `builds.csv`, `split.json` (sha `bcb9d72d…`), `STATUS.md`
 (build log / failures).
 
@@ -64,18 +70,20 @@ lto-thin / opt-z / cgu-1 — **a mechanism probe, not something anyone ships**.
 ### headline — c1 (`cargo build --release`), 167 crates, cluster-boot CIs
 | rule | P | 95% CI | recall (fn) | note |
 |---|---:|---|---:|---|
-| A@1 | 89.2% | [86.2, 91.7] | 13.4% | |
+| A@1 | 89.2% | [86.2, 91.7] | 13.4% | dominated by C@0.70 — §2b |
 | A@2 | 93.0% | [90.9, 94.7] | 5.4% | **dominated by B@2 — see §2b** |
 | A@3 | 94.9% | [92.9, 96.6] | 2.9% | dominated by B@3 |
-| **B@2** | **92.8%** | **[90.2, 94.8]** | 6.8% | **the headline rule (§2b)** |
+| **B@2** | **92.8%** | **[90.2, 94.8]** | 6.8% | **headline rule (§2b); held out 91.6% [88.0, 94.9]** |
 | R1 | 91.7% | [88.5, 94.0] | 7.0% | |
 | R2 | 93.1% | [90.1, 95.2] | 4.8% | |
-| R3 | 89.6% | [85.2, 92.2] | 12.1% | recall row (37% bytes) |
+| **C@0.70** | 89.2% | [86.2, 91.7] | 14.9% | **recall row — replaces R3 (§2b)** |
+| R3 | 89.6% | [85.2, 92.2] | 12.1% | off the frontier — dominated by C@0.70 |
 | RS90 (as written) | ~55% | [wide] | 40% | fires 74% off-tier — see §5 |
 
 The named rule was picked before c4 was dropped; re-derived on the c1 ws Pareto
-frontier (§2b) the headline is **B@2**, not A@2. The **4-config pool** gives A@2
-95.6% — c4-inflated, never a headline (§2a).
+frontier (§2b) the headline is **B@2**, not A@2, and the recall row is **C@0.70**
+(a purity rule), not R3. The **4-config pool** gives A@2 95.6% — c4-inflated,
+never a headline (§2a).
 
 ### the k-sweep — "why two anchors"
 A@1 → A@2 is **+3.8 pp** at c1 (89.2 → 93.0; CIs *touch*: 91.7 vs 90.9), **+3.2
@@ -116,7 +124,10 @@ bar is the top-level crate alone."*
 ## 2a. Is c4 leaking? No — but keep it out of the headline
 
 c4 (`-Z inline-llvm=no`) shows A@2 / A@3 / R1 / R2 at 99.8–100.0% ws precision
-vs ~93% at c1. Checked directly:
+vs ~93% at c1. Some of the cross-config spread is prevalence, not rule
+behaviour — the ws base rate is **c1 6.09%, c2 4.58%, c3 6.46%, c4 3.86%** (a
+1.7× range), so any raw-precision comparison across configs should be read as
+lift over base rate. That does not explain c4, though — checked directly:
 
 - **c4 A@2 fires 9,373×, with exactly 7 false positives** (5 STD, 2 DEP), spread
   over 6 unrelated crates. At c1 the same rule has 491 DEP/STD FPs (7%). The
@@ -135,53 +146,133 @@ vs ~93% at c1. Checked directly:
 but it is a pinned-nightly probe config and 53% of all rows, so it never enters a
 pooled headline. It lives in §3 only.
 
+### the same probe explains why B@n beats A@n
+
+`A@n` and `B@n` differ only in what non-user path-classes they forbid (A: any;
+B: registry/git only). If that difference is *created by inlining*, then with
+inlining off the two rules should be identical:
+
+| config | A@2 fires | B@2 fires | B-only | A@3 fires | B@3 fires | divergence @2 |
+|---|---:|---:|---:|---:|---:|---:|
+| c1 shipped | 7,046 | 8,972 | 1,926 | 3,689 | 4,808 | **+27.3%** |
+| c3 cgu-1 | 4,939 | 6,729 | 1,790 | 2,585 | 3,625 | **+36.2%** |
+| c2 opt-z | 9,271 | 9,617 | 346 | 5,323 | 5,559 | +3.7% |
+| **c4 inline-suppressed** | **9,373** | **9,373** | **0** | **4,912** | **4,912** | **+0.0%** |
+
+At c4, A@k = B@k **exactly** for k ≥ 2 (and to 15 fires at k = 1). At c1 they
+diverge 27%; at c3 (more cross-module inlining) 36%; at c2 (opt-z suppresses
+inlining hard) only 3.7%. **The A/B gap is inlining.** When a function inlines
+`std` / generated / workspace code it picks up those path-classes; `A@n`
+discards the function, `B@n` keeps it if it still carries ≥ n user anchors and
+no registry/git. Those 1,926 B-only firings at c1 run at **92.8% precision** —
+the same as the A-only population — so B@2 is not a looser rule trading
+precision for recall, it is the rule that does not throw away inlined author
+functions. That, not "it is on the frontier," is the reason to lead with B@2.
+
 ---
 
 ## 2b. The c1 ws Pareto frontier — pick the rule here, not from the c4-era pool
 
 The rule choice was made when c4 was still pooled in. Re-derived at **c1, ws**,
-with byte-recall and crate coverage alongside precision (`pr_curve.py` extended):
+canonical artifact `results/frontier_c1.json` (`frontier.py`, seed 20260901,
+5000-iter crate cluster bootstrap — this file supersedes every earlier
+hand-run number; the third-digit CI wobble between old copies is that). Three
+rule *families*, not a flat list:
 
-| rule | precision | cluster-boot CI | rec (fn) | **rec (byte)** | crates firing | mean TP |
-|---|---:|---|---:|---:|---:|---:|
-| any_anchor | 86.2% | [82.7, 88.8] | 18.2% | 52.5% | 167 | 3248 B |
-| **B@1** | 88.0% | [84.7, 90.3] | 15.9% | **35.9%** | **167** | 2551 B |
-| A@1 | 89.2% | [86.2, 91.6] | 13.5% | 22.5% | 163 | 1890 B |
-| R3 | 89.6% | [85.4, 92.2] | 12.2% | **37.3%** | 144 | 3463 B |
-| R1 | 91.7% | [88.5, 94.0] | 7.0% | 33.1% | 140 | 5332 B |
-| **B@2** | 92.8% | [90.2, 94.8] | 6.8% | **25.6%** | **164** | 4237 B |
-| ~~A@2~~ | 93.0% | [90.8, 94.9] | 5.4% | 15.1% | 158 | 3179 B |
-| R2 | 93.1% | [90.0, 95.1] | 4.8% | 26.6% | 146 | 6269 B |
-| B@3 | 94.8% | [92.7, 96.5] | 3.7% | 20.3% | 153 | 6139 B |
-| ~~A@3~~ | 94.9% | [92.9, 96.7] | 2.9% | 11.5% | 148 | 4515 B |
+- **count** — `A@n` = `n` author anchors **and no non-user path-class at all**
+  (rustc / std / generated / workspace forbidden); `B@n` = `n` author anchors
+  **and no registry/git anchor** (the rest allowed). The A/B gap is created by
+  inlining (§2a).
+- **purity** — `C@r` = **fraction of a function's anchors that are user-path
+  ≥ r**. No count threshold; a function with one user anchor and no others
+  passes `C@1.0`.
+- **composite** — `R1`/`R2`/`R3`, multiplicity × a context feature (window,
+  caller).
 
-**A@2 and A@3 are off the frontier — dominated by B@2 / B@3.** `A@n` bans author
-functions that also carry *any* non-user path-class (rustc, std, generated,
-workspace); `B@n` only bans registry/git. At c1 that extra strictness costs A@2
-**−10.5 pp of byte-recall and −6 crates for +0.2 pp of precision** vs B@2 (CIs
-[90.8, 94.9] vs [90.2, 94.8] — indistinguishable). A@2 led earlier because the
-4-config pool (c4 at ~100%) made the strict condition look free; at a real
-config it is not.
+| family | rule | precision | cluster-boot CI | rec (fn) | **rec (byte)** | byte-rec CI | crates | mean TP |
+|---|---|---:|---|---:|---:|---|---:|---:|
+| ref | any_anchor | 86.2% | [82.7, 88.8] | 18.2% | 52.5% | [44.3, 59.2] | 167 | 3248 B |
+| purity | C@0.50 | 87.0% | [83.4, 89.5] | 17.4% | **47.7%** | [39.6, 54.6] | 166 | 3094 B |
+| count | B@1 | 88.0% | [84.6, 90.3] | 15.9% | 35.9% | [29.6, 41.1] | **167** | 2551 B |
+| purity | C@0.60 | 88.8% | [85.5, 91.4] | 15.8% | 42.1% | [34.6, 48.6] | 166 | 3005 B |
+| ~~count~~ | ~~A@1~~ | 89.2% | [86.1, 91.7] | 13.5% | 22.5% | [19.2, 26.5] | 163 | 1890 B |
+| purity | **C@0.70** | 89.2% | [86.2, 91.7] | **14.9%** | **38.4%** | [31.6, 44.1] | **165** | 2910 B |
+| purity | C@0.80 | 89.3% | [86.2, 91.8] | 14.4% | 34.7% | [28.7, 39.5] | 164 | 2722 B |
+| purity | C@0.90 | 89.3% | [86.2, 91.8] | 13.7% | 28.0% | [23.9, 32.4] | 163 | 2312 B |
+| ~~composite~~ | ~~R3~~ | 89.6% | [85.4, 92.1] | 12.2% | 37.3% | [27.2, 46.5] | 144 | 3463 B |
+| composite | R1 | 91.7% | [88.5, 94.0] | 7.0% | 33.1% | [24.3, 41.2] | 140 | 5332 B |
+| count | **B@2** | 92.8% | [90.1, 94.9] | 6.8% | **25.6%** | [20.0, 30.3] | **164** | 4237 B |
+| ~~count~~ | ~~A@2~~ | 93.0% | [90.8, 94.9] | 5.4% | 15.1% | [12.3, 18.8] | 158 | 3179 B |
+| composite | R2 | 93.1% | [90.1, 95.1] | 4.8% | 26.6% | [18.8, 33.3] | 146 | 6269 B |
+| count | B@3 | 94.8% | [92.6, 96.5] | 3.7% | 20.3% | [15.2, 24.7] | 153 | 6139 B |
+| ~~count~~ | ~~A@3~~ | 94.9% | [92.9, 96.7] | 2.9% | 11.5% | [9.0, 15.0] | 148 | 4515 B |
 
-**Live headline candidates (c1 ws):**
+**Two rules commonly quoted are off the frontier — both dominated by the purity
+family:**
 
-- **B@2** — 92.8% [90.2, 94.8], recovers **6.8% of author functions / 25.6% of
-  author bytes**, fires in **164 / 167** crates. "≥ 2 author anchors and no
-  registry/git anchor." The high-precision claim, near-universal coverage.
-- **R3** — 89.6% [85.4, 92.2], **12.2% fn / 37.3% bytes**, but **only 144 / 167**
-  crates. Recovers the most author *code by volume* at ≥ 89%, at the cost of
-  ~3 pp precision and silence on 14% of binaries.
-- **B@1** — 88.0% [84.7, 90.3], 15.9% fn / 35.9% bytes, **all 167** crates. Most
-  reach, but the lower CI bound dips under 85%.
+- **A@1, A@2, A@3 → dominated by B / C.** `A@n`'s extra strictness (no *any*
+  non-user class) buys +0.2 pp precision for −10 pp byte-recall and −6 crates
+  vs `B@n` — indistinguishable CIs. A@1 is beaten outright by **C@0.70**: same
+  89.2% precision, but **+1.4 pp fn-recall, +15.9 pp byte-recall, +2 crates.**
+  A@2 led earlier only because the 4-config pool (c4 at ~100%) made the strict
+  condition look free.
+- **R3 → dominated by C@0.70.** This is the change from the last frontier.
+  R3 was kept as "the recall row" purely on its 37.3% byte-recall. **C@0.70
+  matches it on every axis and beats it on most:** precision 89.2% vs 89.6%
+  (CIs [86.2, 91.7] vs [85.4, 92.1] — C@0.70's is *tighter* and its lower bound
+  is higher), fn-recall **+2.7 pp**, byte-recall **+1.1 pp** (38.4% vs 37.3%,
+  and C@0.70's byte-recall CI is half the width), crate coverage **+21**
+  (165 vs 144). R3's one-time justification is gone.
 
-**Recommendation: lead with B@2.** It dominates the old A@2 headline outright,
-holds ≥ 90% on the CI lower bound, and "a quarter of author code recovered at
-93%, against a 52% ceiling" is the coherent high-precision story the paper is
-for. Keep **R3 as the recall-oriented row** — its byte-recall genuinely exceeds
-the function-count rules (it is finding larger author functions the anchor-count
-rules miss), but its 14%-of-binaries blind spot keeps it out of the lead. The
-final pick is a call for whoever writes the abstract; this is the frontier it
-must be made on.
+**Live frontier (c1 ws), high-precision end first:**
+
+| pick | precision | fn / byte recall | crates | one-liner |
+|---|---:|---|---:|---|
+| **B@2** | 92.8% [90.1, 94.9] | 6.8% / 25.6% | 164 | ≥2 author anchors, no registry/git |
+| **C@0.70** | 89.2% [86.2, 91.7] | 14.9% / 38.4% | 165 | ≥70% of anchors user-path |
+| C@0.50 | 87.0% [83.4, 89.5] | 17.4% / 47.7% | 166 | majority of anchors user-path |
+| B@1 | 88.0% [84.6, 90.3] | 15.9% / 35.9% | 167 | ≥1 author anchor, no registry/git |
+
+`R1` (91.7%, 7.0% fn / 33.1% byte) is the one composite still on the frontier —
+highest precision above 30% byte-recall — but it fires in only 140 crates, the
+fewest of any rule, and its byte-recall CI [24.3, 41.2] is wide. Include it
+only if a >90%-precision / high-byte-recall point is specifically wanted; C@0.70
+covers 25 more crates for 2.5 pp less precision.
+
+**Recommendation:**
+
+- **Headline = B@2** (unchanged). ≥ 90 on the CI lower bound, near-universal
+  crate coverage, "a quarter of author code recovered at ~93%, against a 52%
+  ceiling."
+- **Recall row = C@0.70, not R3.** Same 89% precision, more of both recalls,
+  21 more crates of coverage, a tighter interval, and a *cleaner* rule to
+  state — "at least 70% of a function's panic anchors point into author paths"
+  is one clause, no window/neighbourhood feature, so nothing to overfit (§6).
+- Drop R3 and the A-family from the paper's frontier table. Keep R2 only as the
+  high-precision / low-recall extreme if a third point is wanted.
+
+### held out — c1 × the 36 sealed test crates (`results/frontier_c1_test.json`)
+
+`REPORT.md` has no c1-only test-only cell (its config sections pool all crates;
+its split sections pool all configs). Computed here so the abstract's number can
+be called held out. Split sha `bcb9d72d…`; 36 of 37 test crates built at c1.
+
+| rule | precision | cluster-boot CI | rec (fn) | rec (byte) | crates |
+|---|---:|---|---:|---:|---:|
+| **B@2** | **91.6%** | **[88.0, 94.9]** | 6.7% | 22.0% | 35 / 36 |
+| A@2 | 92.6% | [90.7, 96.5] | 5.7% | 15.3% | 35 / 36 |
+| **C@0.70** | **87.1%** | **[83.7, 90.9]** | 14.5% | 37.7% | **36 / 36** |
+| C@0.80 | 87.2% | [83.9, 91.3] | 14.0% | 33.7% | 36 / 36 |
+| R3 | 85.0% | [75.6, 91.1] | 10.9% | 39.1% | 35 / 36 |
+| B@1 | 84.9% | [78.0, 89.7] | 14.9% | 32.6% | 36 / 36 |
+
+Held out, **B@2 is 91.6% [88.0, 94.9]** — 1.2 pp under the descriptive c1
+number, CI ~1.5× wider (±3.5 vs ±2.3 pp), as expected at 36 crates. The
+abstract should quote this, not the all-crate 92.8%. **C@0.70 still dominates
+R3 held out**: precision 87.1% vs 85.0% with a far tighter interval (R3's lower
+bound is 75.6%), byte-recall a tie inside R3's ±8 pp CI, and C@0.70 fires in
+all 36 test crates against R3's 35. R3's descriptive-set edge does not survive
+the seal.
 
 ---
 
@@ -260,17 +351,23 @@ and 54% of the largest.
 
 ### 4.3 Functions vs bytes
 
-| | fn-recall | **byte-recall** | mean recovered fn |
+| | fn-recall | **byte-recall** (95% CI) | mean recovered fn |
 |---|---:|---:|---:|
-| anchored ceiling | 18.2% | **52.5%** | — |
-| R3 | 12.1% | **37.3%** | 3463 B |
-| A@2 | 5.4% | 15.1% | 3179 B |
+| anchored ceiling | 18.2% | **52.5%** [44.3, 59.2] | — |
+| C@0.70 | 14.9% | **38.4%** [31.6, 44.1] | 2910 B |
+| R3 | 12.1% | **37.3%** [27.2, 46.5] | 3463 B |
+| B@2 | 6.8% | 25.6% [20.0, 30.3] | 4237 B |
+| A@2 | 5.4% | 15.1% [12.3, 18.8] | 3179 B |
 
-"One author function in five is reachable" and "half of author code by volume is
-reachable" are the same fact. Byte-recall is ~3× function-recall for every rule
-because the recovered functions average ~3.2–3.5 KB against an author median of
-262 B. **Byte-recall rewards exactly the size bias of §4.1–4.2, so it is quoted
-as a secondary framing ("of author code by volume"), never as the headline.**
+(byte-recall CIs = crate cluster bootstrap, 5000 iter, in `frontier_c1.json` for
+every rule.) "One author function in five is reachable" and "half of author code
+by volume is reachable" are the same fact. Byte-recall runs ~2–3× function-recall
+for every rule because the recovered functions average 2.9–4.2 KB against an
+author median of 262 B. **Byte-recall rewards exactly the size bias of §4.1–4.2,
+so it is quoted as a secondary framing ("of author code by volume"), never as the
+headline.** Note C@0.70 reaches R3's byte-recall with a much tighter interval —
+it is not finding *larger* functions than R3, it is finding *more* of them
+(2910 B mean vs 3463 B, but +2.7 pp fn-recall).
 
 ### 4.4 The precision / recall frontier
 
@@ -356,6 +453,12 @@ that requires in-function author density is the one that holds.
 
 ## 6. The search — does anything beat R3 held out?
 
+R3 was the search's benchmark-to-beat. Note up front that **the fixed rule
+C@0.70 already dominates R3** (§2b) with no search at all — so "nothing beats
+R3" is really "the search adds nothing the fixed rule set didn't already have."
+The search question below is still worth asking: is there a *stable* rule better
+than the whole frontier (B@2 / C@0.70)? Answer: no.
+
 ### 6.1 mine1 (CPU, exhaustive 2-atom)
 
 Exhaustive over 877 interpretable atoms (91 features), anchored tier, 131 search
@@ -433,12 +536,13 @@ Against **A@2** (the pre-run1 incumbent), ws test:
 **The old "R3 gets more recall at precision parity" claim does NOT hold on 168
 crates.** R3 pays ~6 pp precision for its ~5 pp function-recall.
 
-**But A@2 is not the right incumbent any more (§2b) — B@2 is.** vs **B@2** at c1
-ws: B@2 92.8% [90.2, 94.8] / 6.8% fn / **25.6% bytes** / 164 crates; R3 89.6%
-[85.4, 92.2] / 12.2% fn / **37.3% bytes** / 144 crates. R3 trades ~3 pp precision
-and 20 crates of coverage for +12 pp byte-recall. That byte-recall gap is the
-only axis on which R3 wins, and it is real (R3 finds larger author functions the
-anchor-count rules skip). **Net: B@2 leads, R3 is the recall row.**
+**But neither A@2 nor R3 is on the c1 frontier any more (§2b).** The incumbent
+is **B@2** and the recall row is **C@0.70** (a purity rule). vs **B@2** at c1
+ws: B@2 92.8% [90.1, 94.9] / 6.8% fn / **25.6% bytes** / 164 crates;
+**C@0.70** 89.2% [86.2, 91.7] / **14.9% fn / 38.4% bytes** / 165 crates. C@0.70
+trades ~3.6 pp precision for +8 pp fn-recall and +13 pp byte-recall at equal
+crate coverage. R3 is dominated by C@0.70 on every axis (§2b) and drops out.
+**Net: B@2 leads, C@0.70 is the recall row, R3 is retired.**
 
 This comparison is **ws-only**. On strict every candidate is indistinguishable —
 c1 strict A@2 [38.3, 68.4], R1 [40.5, 73.3], R2 [40.0, 76.6], R3 [41.4, 75.5] —
@@ -451,8 +555,9 @@ CIs overlap by ~30 pp. Any strict ordering is noise (§0).
 | outline claim | old | run1 | action |
 |---|---|---|---|
 | headline rule | A@2 | **B@2** — A@2 is dominated at c1 (§2b): B@2 same precision, +10 pp byte-recall, +6 crates | **swap the headline rule** |
-| headline precision | 94.4% | **92.8%** [90.2, 94.8] — B@2, **c1**, ws, 164 crates (A@2 is 93.0% [90.8, 94.9] but off the frontier; the 4-config pool's 95.6% is c4-inflated, §2a) | **update — lower, name the slice and rule** |
-| headline recall | (fn only) | B@2 **6.8% of functions / 25.6% of author bytes**; R3 12.2% fn / 37.3% bytes | give both, lead with bytes for "share of code" |
+| headline precision | 94.4% | **92.8%** [90.2, 94.8] descriptive (B@2, **c1**, ws, 164 crates); **91.6%** [88.0, 94.9] held out on the 36 sealed test crates. A@2 is 93.0% but off the frontier; the 4-config pool's 95.6% is c4-inflated (§2a) | **update — lower, name the slice and rule; abstract uses the held-out interval** |
+| headline recall | (fn only) | B@2 **6.8% of functions / 25.6% of author bytes**; recall row **C@0.70 14.9% fn / 38.4% bytes** (replaces R3) | give both, lead with bytes for "share of code" |
+| held-out headline | (not computed) | **B@2 91.6% [88.0, 94.9]** on the 36 sealed test crates, c1 ws (`frontier_c1_test.json`) — descriptive c1 all-crate number is 92.8% | **abstract quotes the held-out number** |
 | target definition | (unstated) | **`ws` = author-or-workspace**; 47% of positives are workspace; strict B@2 ≈ 53% (c1), CIs span 30 pp — floor only | **state §0 explicitly in the paper** |
 | anchored ceiling, shipped default | 16.9–20.0% | **18.2%** (c1). Per-config 14–20%; 4-config pool 13.6% | update; **always name the config** |
 | cgu 1→16 lever | −3.6 to −4.0pp | **−1.8pp** (n=167) | **materially smaller — update** |
@@ -461,10 +566,11 @@ CIs overlap by ~30 pp. Any strict ordering is noise (§0).
 | held-out A@2 | ~94% | 93.1% (test, 36 crates, ws) | replicates |
 | RS90 "beats R3, held-out confirmed" | tier recall .717→.948 | **in-tier RS90 replicates (0.893 → 0.900 [0.871, 0.923])**; *as written* it is under-specified — 2 of 3 clauses carry no anchor and fire 74% off-tier at ~60%, dragging whole-pop P to 0.58 (§5) | **reframe outline §4: scope error, not overfit** |
 | R3 "more recall at precision parity vs A@2" | parity | **−6.35pp P, p=0.053** (ws); indistinguishable on strict | **update — not parity** |
-| readable rule beats R3 | RS90 (v5) | **none** — mine1 + GPU gauntlet (≤3 atoms, 1328-atom grid, stability + permutation): nothing stable is Pareto-better than R3 | new pin |
-| recall framing | "~1 author fn in 5" (fn count) | also **52% of author code by bytes** (ceiling); R3 = 12% fn / **37% bytes** | add byte framing as secondary |
+| readable rule beats R3 | RS90 (v5) | **none searched** — mine1 + GPU gauntlet (≤3 atoms, 1328-atom grid, stability + permutation) finds nothing stable Pareto-better than R3. But **the fixed rule C@0.70 already dominates R3** at c1 ws (§2b): = precision, +2.7 pp fn / +1.1 pp byte recall, +21 crates, tighter CI, held out too | new pin — R3 was never the frontier |
+| recall framing | "~1 author fn in 5" (fn count) | also **52% of author code by bytes** (ceiling); C@0.70 = 15% fn / **38% bytes**; R3 = 12% fn / 37% bytes | add byte framing as secondary |
+| count vs purity | not stated | organise the rules as **count (A/B)** vs **purity (C@r)** vs **composite (R)**. Purity wins the recall end: C@0.70 dominates A@1 and R3; count wins the precision end: B@2/B@3 | new framing pin |
 | is the rule a size proxy? | not stated | **no** — R3 precision beats the base rate 3.5×–18× at fixed size, in every band | new pin |
-| the frontier | not stated | precision ≈ 0.99 − 0.91·(fn-recall) over 3–25%; R3 sits at the knee | new pin |
+| the frontier | not stated | precision ≈ 0.99 − 0.91·(fn-recall) over 3–25%; B@2 and C@0.70 sit at the knee | new pin |
 | k-sweep "two anchors" | (implicit) | +3–4 pp for the 2nd anchor (CIs touch at c1); +3 pp total for anchors 3–6 → **diminishing returns, a trend not a significance claim** | soften |
 | crate accounting | (unstated) | 91 dev + 36 test + 41 unsealed expansion = 168; **no val split**, inner = 5-fold CV | state in §1 |
 | async precision | 87.3% | (pull from REPORT — async not separately cut in run1; add if needed) | TODO |
@@ -475,37 +581,53 @@ CIs overlap by ~30 pp. Any strict ordering is noise (§0).
 
 Cut the RS90 victory lap. §4 becomes, honestly:
 
-1. **The incumbent rule is exhausted.** Exhaustive 2-atom search over 91 features
-   on 131 crates, held out on 36, finds nothing that beats R3 at ≥90% precision;
+1. **Two knobs, one axis: count vs purity.** Present the rules as families, not a
+   list. **Count** (`B@n`: n author anchors, no registry/git) climbs precision —
+   B@2 92.8%, B@3 94.8%. **Purity** (`C@r`: fraction of a function's anchors that
+   are user-path ≥ r) climbs recall at ~89% — C@0.70 reaches 14.9% fn / 38.4%
+   byte. **Composite** (R1/R2/R3, multiplicity × context) sits between and adds
+   nothing on the frontier: R3 is dominated by C@0.70 outright (§2b), R1 survives
+   only as a high-precision/low-coverage point. The old headline A@2 and the old
+   recall row R3 are both off the c1 frontier.
+2. **The incumbent rule is exhausted.** Exhaustive 2-atom search over 91 features
+   on 131 crates, held out on 36, finds nothing *stable* that beats the frontier;
    the deeper GPU search (≤3 atoms, 1,328-atom grid) plus a stability +
-   permutation gauntlet does not turn up a single *stable* candidate either.
-   Much stronger than the old 43-crate incumbent-optimality claim.
-2. **Context without an anchor does not generalise.** Every high-recall
+   permutation gauntlet does not turn up a single stable candidate either. The
+   frontier is already spanned by two one-clause rules (B@2, C@0.70) that need no
+   search. Much stronger than the old 43-crate incumbent-optimality claim.
+3. **Context without an anchor does not generalise.** Every high-recall
    candidate that fires off the anchored tier — including two of RS90's three
    clauses — runs at 50–65% precision on the whole population. RS90 *in-tier*
    replicates its v5 number (0.893 → 0.900); the whole-population 0.58 is the
    two unanchored clauses. The honest framing is a **scope error**: a rule must
    carry its own population restriction, and a disjunction where only some
-   clauses imply the anchor is under-specified (§5). RS90's anchored clause 2,
-   R3, and B@2 do not have this failure mode — clause 2 holds at **89.8% [87.3,
-   92.6]** on the 36 sealed test crates (report the interval, not the point —
-   ws test bootstraps run ±5–6 pp at this n). This *is* the §4 thesis, shown by
-   a mis-specified rule rather than asserted.
-3. **The rule is not a size threshold in disguise.** R3's precision beats the
+   clauses imply the anchor is under-specified (§5). The frontier rules —
+   RS90's anchored clause 2, B@2, C@0.70 — do not have this failure mode;
+   clause 2 holds at **89.8% [87.3, 92.6]** on the 36 sealed test crates
+   (report the interval, not the point — ws test bootstraps run ±5–6 pp at this
+   n). This *is* the §4 thesis, shown by a mis-specified rule rather than
+   asserted.
+4. **The rule is not a size threshold in disguise.** R3's precision beats the
    author base rate by 3.5×–18× at *fixed* function size, in every size band
-   (§4.2). What scales with size is recall, not the precision advantage.
-4. **What is recovered, stated two ways.** R3 reaches 12% of author functions —
-   which is **37% of author code by bytes** (§4.3); the anchored ceiling is 18%
-   of functions / **52% of bytes**. R3 sits at the knee of the achievable
-   precision/recall frontier (§4.4).
-5. **A cleaner rule, if wanted:** `M_rel_frac ≥ 1 AND N_win_rel ≥ 6`, held out at
-   91.1% / 7.1%.
+   (§4.2). What scales with size is recall, not the precision advantage. (Run
+   the same check for C@0.70 before the paper — expected to hold; purity is even
+   less size-coupled than multiplicity.)
+5. **What is recovered, stated two ways.** C@0.70 reaches 15% of author
+   functions — **38% of author code by bytes** (§4.3); B@2 reaches 6.8% fn /
+   26% bytes; the anchored ceiling is 18% of functions / **52% of bytes**. B@2
+   and C@0.70 sit at the knee of the achievable precision/recall frontier
+   (§4.4).
+6. **Held out.** The B@2 headline on the 36 sealed test crates is **91.6%
+   [88.0, 94.9]** (c1, ws); C@0.70 is 87.1% [83.7, 90.9] and still dominates R3
+   there. Quote the held-out interval in the abstract, the descriptive c1
+   number (92.8%) in the frontier table with the slice named.
 
-If §4 needs a *positive* result beyond "R3 is near-optimal in the readable
-class," that requires a deeper search — ≥4-atom conjunctions, an even finer atom
-grid, or a differentiable proposal generator feeding the exact verifier. That is
-the lab-workstation phase-2 job, gated (per the plan) on shipping this v1. The
-RTX 4060 run above already rules out the ≤3-atom readable class.
+If §4 needs a *positive* search result beyond "the frontier is already spanned
+by one-clause rules and nothing stable beats them," that requires a deeper
+search — ≥4-atom conjunctions, an even finer atom grid, or a differentiable
+proposal generator feeding the exact verifier. That is the lab-workstation
+phase-2 job, gated (per the plan) on shipping this v1. The RTX 4060 run above
+already rules out the ≤3-atom readable class.
 
 ---
 
@@ -517,8 +639,8 @@ RTX 4060 run above already rules out the ≤3-atom readable class.
 - `split.json` + `PREREGISTER.md`  (`MINE_GPU_PREREG.md` only once mine_gpu.py is
   re-run to completion — no candidates survived, so it will pre-register none)
 - `configs.tsv`, all scripts (`build.sh` … `mine1.py`, `mine_gpu.py`,
-  `pr_curve.py`, `reconcile.py`), `env.json` (toolchains / CPU / kernel / lib
-  versions)
+  `pr_curve.py`, `frontier.py`, `frontier_test.py`, `reconcile.py`), `env.json`
+  (toolchains / CPU / kernel / lib versions)
 - `REPORT.md`, `RESULTS.md`, `MINE_GPU.md`, `results/*.json`, `builds.csv`,
   `build_failures.tsv`
 - Zenodo drop ≈ 40–60 GB; binaries regenerate from `corpus_manifest.tsv` +

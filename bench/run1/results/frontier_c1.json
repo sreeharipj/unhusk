@@ -1,18 +1,25 @@
 {
  "config": "c1",
  "target": "ws",
+ "seed": 20260901,
+ "boot_iters": 5000,
  "author_fns": 122241,
  "author_MB": 137.897,
  "n_crates": 167,
+ "note": "canonical; supersedes the ad-hoc frontier_c1.json. count(A/B) vs purity(C) vs composite(R).",
  "rules": {
   "A@1": {
    "precision": 0.8921,
    "ci": [
-    0.862,
-    0.9165
+    0.8608,
+    0.9173
    ],
    "recall_fn": 0.1345,
    "recall_byte": 0.2253,
+   "recall_byte_ci": [
+    0.1918,
+    0.265
+   ],
    "crates_firing": 163,
    "fires": 18426,
    "mean_tp_bytes": 1890.0
@@ -20,11 +27,15 @@
   "A@2": {
    "precision": 0.9303,
    "ci": [
-    0.9081,
-    0.9493
+    0.908,
+    0.949
    ],
    "recall_fn": 0.0536,
    "recall_byte": 0.1511,
+   "recall_byte_ci": [
+    0.123,
+    0.188
+   ],
    "crates_firing": 158,
    "fires": 7046,
    "mean_tp_bytes": 3179.0
@@ -32,11 +43,15 @@
   "A@3": {
    "precision": 0.9493,
    "ci": [
-    0.9291,
-    0.967
+    0.9292,
+    0.9671
    ],
    "recall_fn": 0.0286,
    "recall_byte": 0.1147,
+   "recall_byte_ci": [
+    0.0895,
+    0.1502
+   ],
    "crates_firing": 148,
    "fires": 3689,
    "mean_tp_bytes": 4515.0
@@ -44,11 +59,15 @@
   "B@1": {
    "precision": 0.8795,
    "ci": [
-    0.8473,
-    0.9032
+    0.8459,
+    0.9025
    ],
    "recall_fn": 0.1587,
    "recall_byte": 0.3588,
+   "recall_byte_ci": [
+    0.2962,
+    0.411
+   ],
    "crates_firing": 167,
    "fires": 22058,
    "mean_tp_bytes": 2551.0
@@ -56,11 +75,15 @@
   "B@2": {
    "precision": 0.9277,
    "ci": [
-    0.9017,
-    0.948
+    0.9013,
+    0.9487
    ],
    "recall_fn": 0.0681,
    "recall_byte": 0.2558,
+   "recall_byte_ci": [
+    0.2002,
+    0.303
+   ],
    "crates_firing": 164,
    "fires": 8972,
    "mean_tp_bytes": 4237.0
@@ -68,23 +91,111 @@
   "B@3": {
    "precision": 0.9476,
    "ci": [
-    0.9268,
-    0.9646
+    0.9263,
+    0.9647
    ],
    "recall_fn": 0.0373,
    "recall_byte": 0.2028,
+   "recall_byte_ci": [
+    0.1519,
+    0.2465
+   ],
    "crates_firing": 153,
    "fires": 4808,
    "mean_tp_bytes": 6139.0
   },
+  "C@0.50": {
+   "precision": 0.8695,
+   "ci": [
+    0.8337,
+    0.8949
+   ],
+   "recall_fn": 0.1738,
+   "recall_byte": 0.4766,
+   "recall_byte_ci": [
+    0.3957,
+    0.5464
+   ],
+   "crates_firing": 166,
+   "fires": 24427,
+   "mean_tp_bytes": 3094.0
+  },
+  "C@0.60": {
+   "precision": 0.8881,
+   "ci": [
+    0.8546,
+    0.9143
+   ],
+   "recall_fn": 0.158,
+   "recall_byte": 0.4209,
+   "recall_byte_ci": [
+    0.3458,
+    0.4863
+   ],
+   "crates_firing": 166,
+   "fires": 21747,
+   "mean_tp_bytes": 3005.0
+  },
+  "C@0.70": {
+   "precision": 0.8921,
+   "ci": [
+    0.8619,
+    0.9168
+   ],
+   "recall_fn": 0.1488,
+   "recall_byte": 0.3839,
+   "recall_byte_ci": [
+    0.3161,
+    0.4406
+   ],
+   "crates_firing": 165,
+   "fires": 20390,
+   "mean_tp_bytes": 2910.0
+  },
+  "C@0.80": {
+   "precision": 0.8926,
+   "ci": [
+    0.862,
+    0.9179
+   ],
+   "recall_fn": 0.1436,
+   "recall_byte": 0.3465,
+   "recall_byte_ci": [
+    0.2874,
+    0.3949
+   ],
+   "crates_firing": 164,
+   "fires": 19670,
+   "mean_tp_bytes": 2722.0
+  },
+  "C@0.90": {
+   "precision": 0.8929,
+   "ci": [
+    0.8618,
+    0.9182
+   ],
+   "recall_fn": 0.1368,
+   "recall_byte": 0.2803,
+   "recall_byte_ci": [
+    0.2385,
+    0.3237
+   ],
+   "crates_firing": 163,
+   "fires": 18723,
+   "mean_tp_bytes": 2312.0
+  },
   "R1": {
    "precision": 0.9169,
    "ci": [
-    0.8848,
-    0.9402
+    0.885,
+    0.94
    ],
    "recall_fn": 0.0701,
    "recall_byte": 0.3311,
+   "recall_byte_ci": [
+    0.2432,
+    0.4115
+   ],
    "crates_firing": 140,
    "fires": 9339,
    "mean_tp_bytes": 5332.0
@@ -92,11 +203,15 @@
   "R2": {
    "precision": 0.931,
    "ci": [
-    0.9001,
-    0.9511
+    0.9008,
+    0.951
    ],
    "recall_fn": 0.0479,
    "recall_byte": 0.266,
+   "recall_byte_ci": [
+    0.1882,
+    0.3332
+   ],
    "crates_firing": 146,
    "fires": 6286,
    "mean_tp_bytes": 6269.0
@@ -105,10 +220,14 @@
    "precision": 0.8956,
    "ci": [
     0.8543,
-    0.9219
+    0.9212
    ],
    "recall_fn": 0.1215,
    "recall_byte": 0.3728,
+   "recall_byte_ci": [
+    0.2718,
+    0.4652
+   ],
    "crates_firing": 144,
    "fires": 16579,
    "mean_tp_bytes": 3463.0
@@ -116,11 +235,15 @@
   "any_anchor": {
    "precision": 0.8617,
    "ci": [
-    0.827,
-    0.8881
+    0.8266,
+    0.888
    ],
    "recall_fn": 0.1822,
    "recall_byte": 0.5247,
+   "recall_byte_ci": [
+    0.4425,
+    0.5917
+   ],
    "crates_firing": 167,
    "fires": 25849,
    "mean_tp_bytes": 3248.0
