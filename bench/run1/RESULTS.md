@@ -16,6 +16,8 @@ count/purity/composite, precision + byte-recall + both CIs — `frontier.py`;
 supersedes every hand-run frontier number),
 `results/frontier_c1_test.json` (the c1 × 36-sealed-test held-out cell —
 `frontier_test.py`),
+`results/token_budget.json` (whole-binary vs author-slice LLM token counts on
+wild Rust malware — `token_budget.py`, §4.5),
 `reconcile.log` (ceiling levers, RS90 decomposition,
 R3-vs-A@2 paired), `builds.csv`, `split.json` (sha `bcb9d72d…`), `STATUS.md`
 (build log / failures).
@@ -395,6 +397,56 @@ the same verdict §6 (mine1 + the GPU search) reaches from the rule side.
 No functional-form (power-law) fit is claimed — there is no mechanism to justify
 one; the linear slope over the deployable region is the honest summary.
 
+### 4.5 Recall in tokens — the LLM triage budget (`token_budget.py`, wild Rust malware)
+
+The Rust-decompilation literature keeps proposing "hand the disassembly to an
+LLM" (Wang et al. Direction 3; the LLM4Decompile line of work). A release Rust
+binary statically links `libstd` and every dependency, so "the binary" is tens
+of thousands of functions. This measures the token bill directly, on wild Rust
+malware: disassemble every function (`capstone` x86-64, one `addr: mnemonic
+operands` line per instruction — no raw opcode bytes), tokenise with
+`tiktoken` `o200k_base` (GPT-4o), cross-checked against `token-count` v0.4.0
+(`shaunburdick/token-count`) `--model gpt-4o` (agrees to 0.07%), `cl100k_base`
+within 1%.
+
+Corpus: 5 wild ELF Rust samples from `~/malware-samples` (01flip, krusty,
+akira_v2, blackcat_sphynx, p2pinfect) + `tokei` as a benign control.
+**p2pinfect is dropped** — statically linked with section headers stripped and a
+sparse `.eh_frame`, the extractor recovers only 41 FDEs, so no slice is
+meaningful. The other four malware + control:
+
+| slice | functions | **tokens (o200k)** | vs whole | fits |
+|---|---:|---:|---:|---:|
+| **whole binary** (4 malware) | 8,562 | **12,608,165** | 1× | **> 2M — no window** |
+| any_anchor (the ceiling) | 17 | 280,021 | 45× smaller | 512K / 1M |
+| **C@0.70** (recall rule) | 12 | **76,224** | **165× smaller** | **128K** |
+| B@2 (precision rule) | 6 | 73,973 | 170× smaller | 128K |
+| R3 | 6 | 235,482 | 54× smaller | 256K / 1M |
+| whole binary (4 malware + tokei) | 12,981 | **21,832,180** | 1× | > 2M |
+| C@0.70 (4 malware + tokei) | 40 | **161,145** | 135× smaller | **200K** |
+
+Per binary the whole-disassembly count runs **1.9 M (krusty) → 4.5 M
+(blackcat_sphynx) → 9.2 M (tokei) tokens** — every one over a 1 M window, the
+control over 2 M. **The C@0.70 slice for all five binaries together is
+161 K tokens — one 200 K context, with room for a prompt.** For the four malware
+alone it is 76 K, a 128 K context, **165× smaller** than dumping them whole.
+Even the anchored ceiling (recover *every* author function that carries an
+anchor) is 280 K–478 K — still a single large-context load.
+
+Caveats, stated: (1) this is the token win **only where the tool fires** — it is
+**silent on 01flip** (0 anchors) and near-silent on blackcat_sphynx (1
+function); on this small wild set it produces a useful slice on 2 of 4 malware,
+consistent with the structural-ceiling story (§3, §4.1). (2) Disassembly text;
+decompiler pseudocode (Ghidra / IDA / an LLM decompiler) runs 2–4× larger, so
+the ratio widens. (3) Claude's estimator in `token-count` reads ~0.5× the o200k
+count and Gemini's SentencePiece ~1.25×; the "fits a 128 K–200 K window vs does
+not fit 2 M" conclusion holds under all three.
+
+**The framing for the paper:** attribution is the precondition for
+LLM-assisted Rust RE, not an optional pre-filter. Without it the input is
+~10⁷ tokens per binary; with the shipped rule it is ~10⁵, and the analyst is
+reading ~10 functions instead of ~10⁴.
+
 ---
 
 ## 5. RS90 — scope error, not a generalisation failure
@@ -570,6 +622,7 @@ CIs overlap by ~30 pp. Any strict ordering is noise (§0).
 | recall framing | "~1 author fn in 5" (fn count) | also **52% of author code by bytes** (ceiling); C@0.70 = 15% fn / **38% bytes**; R3 = 12% fn / 37% bytes | add byte framing as secondary |
 | count vs purity | not stated | organise the rules as **count (A/B)** vs **purity (C@r)** vs **composite (R)**. Purity wins the recall end: C@0.70 dominates A@1 and R3; count wins the precision end: B@2/B@3 | new framing pin |
 | is the rule a size proxy? | not stated | **no** — R3 precision beats the base rate 3.5×–18× at fixed size, in every band | new pin |
+| LLM token budget | not stated | whole-binary disassembly of wild Rust malware = **1.9–9.2 M tokens each** (o200k), > any context window; the **C@0.70 slice = 76 K for 4 malware / 161 K with the tokei control**, a single 128 K–200 K window, **135–170× smaller** (§4.5). Attribution is the precondition for LLM-assisted Rust RE, not a pre-filter | new pin — the LLM-RE angle |
 | the frontier | not stated | precision ≈ 0.99 − 0.91·(fn-recall) over 3–25%; B@2 and C@0.70 sit at the knee | new pin |
 | k-sweep "two anchors" | (implicit) | +3–4 pp for the 2nd anchor (CIs touch at c1); +3 pp total for anchors 3–6 → **diminishing returns, a trend not a significance claim** | soften |
 | crate accounting | (unstated) | 91 dev + 36 test + 41 unsealed expansion = 168; **no val split**, inner = 5-fold CV | state in §1 |
@@ -621,6 +674,16 @@ Cut the RS90 victory lap. §4 becomes, honestly:
    [88.0, 94.9]** (c1, ws); C@0.70 is 87.1% [83.7, 90.9] and still dominates R3
    there. Quote the held-out interval in the abstract, the descriptive c1
    number (92.8%) in the frontier table with the slice named.
+7. **Why the precision matters: the LLM token budget** (§4.5). Whole-binary
+   disassembly of wild Rust malware is 1.9–9.2 M tokens each — past every
+   context window. The C@0.70 slice is ~76 K tokens for four samples together
+   (128 K window), ~161 K with the benign control (200 K window), 135–170×
+   smaller. Attribution is the precondition for the LLM-assisted RE these
+   papers propose, not an optional pre-filter — and a rule feeding ~10
+   functions into that context had better be ~90% precise, which is the whole
+   point of leading with a high-precision rule. Caveat in the paper: the tool
+   is silent on 2 of the 4 measured malware (0 / 1 anchored functions), so the
+   token win is real only where recovery fires — the §3 ceiling, again.
 
 If §4 needs a *positive* search result beyond "the frontier is already spanned
 by one-clause rules and nothing stable beats them," that requires a deeper
@@ -639,8 +702,8 @@ already rules out the ≤3-atom readable class.
 - `split.json` + `PREREGISTER.md`  (`MINE_GPU_PREREG.md` only once mine_gpu.py is
   re-run to completion — no candidates survived, so it will pre-register none)
 - `configs.tsv`, all scripts (`build.sh` … `mine1.py`, `mine_gpu.py`,
-  `pr_curve.py`, `frontier.py`, `frontier_test.py`, `reconcile.py`), `env.json`
-  (toolchains / CPU / kernel / lib versions)
+  `pr_curve.py`, `frontier.py`, `frontier_test.py`, `token_budget.py`,
+  `reconcile.py`), `env.json` (toolchains / CPU / kernel / lib versions)
 - `REPORT.md`, `RESULTS.md`, `MINE_GPU.md`, `results/*.json`, `builds.csv`,
   `build_failures.tsv`
 - Zenodo drop ≈ 40–60 GB; binaries regenerate from `corpus_manifest.tsv` +

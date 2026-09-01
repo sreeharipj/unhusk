@@ -1,0 +1,433 @@
+{
+ "samples": [
+  {
+   "sample": "01flip",
+   "kind": "malware",
+   "file_KB": 926,
+   "n_functions": 1492,
+   "rules": {
+    "whole binary": {
+     "n_fns": 1492,
+     "code_bytes": 640373,
+     "insns": 154759,
+     "tok_o200k": 2239756,
+     "tok_cl100k": 2221406,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "C@0.70": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "B@2": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "R3": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 2241212,
+    "C@0.70/gpt-4o": 0,
+    "C@0.70/claude-sonnet-4-6": 0,
+    "C@0.70/gemini-2.5-pro": 0
+   }
+  },
+  {
+   "sample": "krusty",
+   "kind": "malware",
+   "file_KB": 858,
+   "n_functions": 1875,
+   "rules": {
+    "whole binary": {
+     "n_fns": 1875,
+     "code_bytes": 561758,
+     "insns": 135417,
+     "tok_o200k": 1921400,
+     "tok_cl100k": 1905570,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 6,
+     "code_bytes": 27612,
+     "insns": 5888,
+     "tok_o200k": 90570,
+     "tok_cl100k": 89963,
+     "frac_of_whole": 0.0471
+    },
+    "C@0.70": {
+     "n_fns": 4,
+     "code_bytes": 265,
+     "insns": 75,
+     "tok_o200k": 1051,
+     "tok_cl100k": 1046,
+     "frac_of_whole": 0.0005
+    },
+    "B@2": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "R3": {
+     "n_fns": 1,
+     "code_bytes": 16068,
+     "insns": 3413,
+     "tok_o200k": 53232,
+     "tok_cl100k": 52920,
+     "frac_of_whole": 0.0277
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 1923213,
+    "C@0.70/gpt-4o": 1054,
+    "C@0.70/claude-sonnet-4-6": 539,
+    "C@0.70/gemini-2.5-pro": 1373
+   }
+  },
+  {
+   "sample": "akira_v2",
+   "kind": "malware",
+   "file_KB": 4517,
+   "n_functions": 2999,
+   "rules": {
+    "whole binary": {
+     "n_fns": 2999,
+     "code_bytes": 1113591,
+     "insns": 268121,
+     "tok_o200k": 3957532,
+     "tok_cl100k": 3919059,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 10,
+     "code_bytes": 56222,
+     "insns": 12319,
+     "tok_o200k": 185699,
+     "tok_cl100k": 182522,
+     "frac_of_whole": 0.0469
+    },
+    "C@0.70": {
+     "n_fns": 7,
+     "code_bytes": 22520,
+     "insns": 4861,
+     "tok_o200k": 71421,
+     "tok_cl100k": 70940,
+     "frac_of_whole": 0.018
+    },
+    "B@2": {
+     "n_fns": 5,
+     "code_bytes": 22193,
+     "insns": 4778,
+     "tok_o200k": 70221,
+     "tok_cl100k": 69754,
+     "frac_of_whole": 0.0177
+    },
+    "R3": {
+     "n_fns": 5,
+     "code_bytes": 55303,
+     "insns": 12053,
+     "tok_o200k": 182250,
+     "tok_cl100k": 179098,
+     "frac_of_whole": 0.0461
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 3960494,
+    "C@0.70/gpt-4o": 71427,
+    "C@0.70/claude-sonnet-4-6": 35083,
+    "C@0.70/gemini-2.5-pro": 89023
+   }
+  },
+  {
+   "sample": "p2pinfect",
+   "kind": "degenerate",
+   "file_KB": 2329,
+   "n_functions": 41,
+   "rules": {
+    "whole binary": {
+     "n_fns": 41,
+     "code_bytes": 2384542,
+     "insns": 838901,
+     "tok_o200k": 6032,
+     "tok_cl100k": 5916,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "C@0.70": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "B@2": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    },
+    "R3": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 6058,
+    "C@0.70/gpt-4o": 0,
+    "C@0.70/claude-sonnet-4-6": 0,
+    "C@0.70/gemini-2.5-pro": 0
+   }
+  },
+  {
+   "sample": "blackcat_sphynx",
+   "kind": "malware",
+   "file_KB": 5594,
+   "n_functions": 2196,
+   "rules": {
+    "whole binary": {
+     "n_fns": 2196,
+     "code_bytes": 1305583,
+     "insns": 303697,
+     "tok_o200k": 4489477,
+     "tok_cl100k": 4450145,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 1,
+     "code_bytes": 1124,
+     "insns": 232,
+     "tok_o200k": 3752,
+     "tok_cl100k": 3726,
+     "frac_of_whole": 0.0008
+    },
+    "C@0.70": {
+     "n_fns": 1,
+     "code_bytes": 1124,
+     "insns": 232,
+     "tok_o200k": 3752,
+     "tok_cl100k": 3726,
+     "frac_of_whole": 0.0008
+    },
+    "B@2": {
+     "n_fns": 1,
+     "code_bytes": 1124,
+     "insns": 232,
+     "tok_o200k": 3752,
+     "tok_cl100k": 3726,
+     "frac_of_whole": 0.0008
+    },
+    "R3": {
+     "n_fns": 0,
+     "code_bytes": 0,
+     "insns": 0,
+     "tok_o200k": 0,
+     "tok_cl100k": 0,
+     "frac_of_whole": 0.0
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 4491586,
+    "C@0.70/gpt-4o": 3752,
+    "C@0.70/claude-sonnet-4-6": 1814,
+    "C@0.70/gemini-2.5-pro": 4523
+   }
+  },
+  {
+   "sample": "tokei[benign]",
+   "kind": "control",
+   "file_KB": 4195,
+   "n_functions": 4419,
+   "rules": {
+    "whole binary": {
+     "n_fns": 4419,
+     "code_bytes": 2569298,
+     "insns": 599073,
+     "tok_o200k": 9224015,
+     "tok_cl100k": 9151487,
+     "frac_of_whole": 1.0
+    },
+    "any_anchor": {
+     "n_fns": 39,
+     "code_bytes": 62635,
+     "insns": 12586,
+     "tok_o200k": 197709,
+     "tok_cl100k": 196487,
+     "frac_of_whole": 0.0214
+    },
+    "C@0.70": {
+     "n_fns": 28,
+     "code_bytes": 26442,
+     "insns": 5418,
+     "tok_o200k": 84921,
+     "tok_cl100k": 84408,
+     "frac_of_whole": 0.0092
+    },
+    "B@2": {
+     "n_fns": 8,
+     "code_bytes": 16878,
+     "insns": 3369,
+     "tok_o200k": 51836,
+     "tok_cl100k": 51569,
+     "frac_of_whole": 0.0056
+    },
+    "R3": {
+     "n_fns": 21,
+     "code_bytes": 27305,
+     "insns": 5531,
+     "tok_o200k": 87340,
+     "tok_cl100k": 86797,
+     "frac_of_whole": 0.0095
+    }
+   },
+   "toolcheck": {
+    "whole/gpt-4o": 9226658,
+    "C@0.70/gpt-4o": 84924,
+    "C@0.70/claude-sonnet-4-6": 42667,
+    "C@0.70/gemini-2.5-pro": 111946
+   }
+  }
+ ],
+ "aggregate": {
+  "malware": {
+   "whole binary": {
+    "n_fns": 8562,
+    "code_bytes": 3621305,
+    "tok_o200k": 12608165,
+    "tok_cl100k": 12496180,
+    "frac_of_whole": 1.0,
+    "reduction_x": 1.0
+   },
+   "any_anchor": {
+    "n_fns": 17,
+    "code_bytes": 84958,
+    "tok_o200k": 280021,
+    "tok_cl100k": 276211,
+    "frac_of_whole": 0.02221,
+    "reduction_x": 45.0
+   },
+   "C@0.70": {
+    "n_fns": 12,
+    "code_bytes": 23909,
+    "tok_o200k": 76224,
+    "tok_cl100k": 75712,
+    "frac_of_whole": 0.00605,
+    "reduction_x": 165.4
+   },
+   "B@2": {
+    "n_fns": 6,
+    "code_bytes": 23317,
+    "tok_o200k": 73973,
+    "tok_cl100k": 73480,
+    "frac_of_whole": 0.00587,
+    "reduction_x": 170.4
+   },
+   "R3": {
+    "n_fns": 6,
+    "code_bytes": 71371,
+    "tok_o200k": 235482,
+    "tok_cl100k": 232018,
+    "frac_of_whole": 0.01868,
+    "reduction_x": 53.5
+   },
+   "_samples": [
+    "01flip",
+    "krusty",
+    "akira_v2",
+    "blackcat_sphynx"
+   ]
+  },
+  "malware+control": {
+   "whole binary": {
+    "n_fns": 12981,
+    "code_bytes": 6190603,
+    "tok_o200k": 21832180,
+    "tok_cl100k": 21647667,
+    "frac_of_whole": 1.0,
+    "reduction_x": 1.0
+   },
+   "any_anchor": {
+    "n_fns": 56,
+    "code_bytes": 147593,
+    "tok_o200k": 477730,
+    "tok_cl100k": 472698,
+    "frac_of_whole": 0.02188,
+    "reduction_x": 45.7
+   },
+   "C@0.70": {
+    "n_fns": 40,
+    "code_bytes": 50351,
+    "tok_o200k": 161145,
+    "tok_cl100k": 160120,
+    "frac_of_whole": 0.00738,
+    "reduction_x": 135.5
+   },
+   "B@2": {
+    "n_fns": 14,
+    "code_bytes": 40195,
+    "tok_o200k": 125809,
+    "tok_cl100k": 125049,
+    "frac_of_whole": 0.00576,
+    "reduction_x": 173.5
+   },
+   "R3": {
+    "n_fns": 27,
+    "code_bytes": 98676,
+    "tok_o200k": 322822,
+    "tok_cl100k": 318815,
+    "frac_of_whole": 0.01479,
+    "reduction_x": 67.6
+   },
+   "_samples": [
+    "01flip",
+    "krusty",
+    "akira_v2",
+    "blackcat_sphynx",
+    "tokei[benign]"
+   ]
+  }
+ },
+ "tokenisers": [
+  "tiktoken o200k_base (GPT-4o)",
+  "tiktoken cl100k_base (GPT-4)",
+  "cross-check: token-count v0.4.0 --model gpt-4o / claude-sonnet-4-5"
+ ],
+ "disasm": "capstone x86-64 linear sweep per FDE range, 'addr:\\tmn\\top' lines"
+}
