@@ -5,7 +5,7 @@ h3_2_analyze.py — Phase 3 / hypothesis 3.2, analysis half.
 Prerequisite: bench/hypotheses/h3_2_build_pe_targets.sh (rebuilds dufs/procs
 for x86_64-pc-windows-msvc) and then running the new
 target/release/pe_rulemine_probe binary (built from src/bin/
-pe_rulemine_probe.rs, see work/PHASE_3.md for what that file adds and why)
+pe_rulemine_probe.rs, see work/PHASE_3.md (local run notes, not committed) for what that file adds and why)
 against each, e.g.:
 
   cargo build --release --bin pe_rulemine_probe

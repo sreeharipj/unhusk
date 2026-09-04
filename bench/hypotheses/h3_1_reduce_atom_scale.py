@@ -12,7 +12,7 @@ corpus. The harness now streams one JSON line per completed function
 minutes) keeps everything computed even when killed. The completed subset's
 size distribution matches the full population's (mean/median within ~1% of
 each other), so this is not obviously biased toward easy/small functions.
-Full account, including the diagnostic trail, in work/PHASE_3.md section 3.1.
+Full account, including the diagnostic trail, in work/PHASE_3.md (local run notes, not committed) section 3.1.
 
 The preprint's central "seeds not solutions" caveat (sec:seeds,
 "author-written is not author-unique") rests on 24 functions from 7 wild
@@ -28,14 +28,14 @@ to avoid inflating n with near-duplicate rows for the same source function
 across 8 configs of the same crate) and runs winnow's REAL reduce_atom
 procedure (mask.rs + rarity.rs, MIN_EXACT=16, REDUCED_LEN=64, completely
 unmodified) against the full 158-binary benign corpus at
-/home/user/Videos/winnow/corpus/bin -- the same corpus and the same code
+$WINNOW_ROOT/corpus/bin -- the same corpus and the same code
 path the preprint's own 24-function measurement used, just at scale.
 
 RUST HARNESS ADDED (not present before this task, no existing winnow file's
-LOGIC touched -- see work/PHASE_3.md's top note for the full list including
-the one real dependency addition, `rayon`): /home/user/Videos/winnow/src/lib.rs
+LOGIC touched -- see work/PHASE_3.md (local run notes, not committed)'s top note for the full list including
+the one real dependency addition, `rayon`): $WINNOW_ROOT/src/lib.rs
 (exposes elfview/mask/rarity as a lib target),
-/home/user/Videos/winnow/src/bin/reduce_atom_bench.rs (calls mask_function +
+$WINNOW_ROOT/src/bin/reduce_atom_bench.rs (calls mask_function +
 Corpus::reduce_atom over a function list in parallel, streaming one JSON
 line per result), and reduce_atom_diag.rs (single-function diagnostic used
 to find the memory-bandwidth bottleneck). winnow/ is a SEPARATE repository
@@ -76,7 +76,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 STUDY = os.path.join(ROOT, "bench", "rulemine")
 FDE_DIR = os.path.join(STUDY, "data", "fde")
 BUILD_ROOT = os.path.join(ROOT, "bench", "origin", "build")
-WINNOW_ROOT = "/home/user/Videos/winnow"
+# winnow is a separate repository; point WINNOW_ROOT at your checkout.
+WINNOW_ROOT = os.environ.get("WINNOW_ROOT", os.path.join(os.path.dirname(ROOT), "winnow"))
 WINNOW_CORPUS = os.path.join(WINNOW_ROOT, "corpus", "bin")
 HARNESS_BIN = os.path.join(WINNOW_ROOT, "target", "release", "reduce_atom_bench")
 CONFIG = "lto-thin_opt-3_panic-unwind"
@@ -149,7 +150,7 @@ def main():
     print(f"wrote {n_written} AUTHOR functions from {len(crates_used)} crates "
           f"({n_missing_binary} builds skipped, missing .stripped)", file=sys.stderr)
 
-    # STREAMED, TIME-BUDGETED RUN. Diagnosed (work/PHASE_3.md sec 3.1) that
+    # STREAMED, TIME-BUDGETED RUN. Diagnosed (work/PHASE_3.md (local run notes, not committed) sec 3.1) that
     # this workload is memory-bandwidth-bound, not CPU-bound: 16-way rayon
     # parallelism does not come close to a 16x speedup, because every thread
     # scans the same ~1.5GB corpus. A single-threaded run does not finish in
