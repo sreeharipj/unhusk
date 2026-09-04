@@ -45,10 +45,18 @@ unhusk <stripped.exe>                          # PE works too, auto-detected (se
 unhusk <stripped-elf> --precision              # only the high-confidence tier
 unhusk <stripped-elf> --min-anchors 3          # stricter: more precision, less recall
 unhusk <stripped-elf> --precision --json       # machine-readable, for downstream tools
-unhusk <stripped-elf> --rule-r2 --json         # alternate rule, higher precision (see In progress)
 unhusk <stripped-elf> --validate <unstripped>  # score against debug-info ground truth
 unhusk <stripped-elf> --crate ripgrep          # name the root crate (usually auto-detected)
 ```
+
+### A readable reference implementation
+
+[`unhusk_pe_poc.py`](unhusk_pe_poc.py) is the whole PE method in one dependency-light
+file (`pip install pefile iced-x86`): read the `Location` structs out of `.rdata`,
+classify each embedded path, disassemble the functions `.pdata` names, record which
+ones load an author `Location` through a RIP-relative address, and rank by
+multiplicity. It reproduces the shipped tool's output exactly on the PE samples
+in this repository. Read it if you want the mechanism without the hardening.
 
 ## Example
 
@@ -89,46 +97,67 @@ different targets and recovered from both with no symbols, no PDB, no debug info
 
 ## How well it works
 
-Precision is workload-dependent, and that dependency is the main thing to understand before trusting a result: it is strongest on synchronous command-line and systems code, and clearly weaker on async and heavily generic code — which is the harder case, because real Rust malware skews async.
+**Measured 2026-09-04 on [`bench/run1/`](bench/run1/)**: 168 crates, 667 builds,
+14,625,936 labelled functions, ground truth from debug info. The corpus was split
+by crate before the search ran and sealed — 91 crates for development, 36 held
+out and read once.
 
-Rather than restate figures that drift as the corpus grows, the measurements live with the data that produced them. **As of 2026-08-19:**
+Figures below are for a default `cargo build --release`, which is what a
+real-world binary is built with. Intervals are 95%, bootstrapped over crates
+rather than functions, because functions within a crate are not independent.
 
-- [`realval/`](realval/) — the precision harness, its build scripts, and [`results_body.md`](realval/results_body.md), which carries the per-binary inventory and the precision tables with confidence intervals.
-- [`bench/origin/`](bench/origin/) — a second, independent measurement on a different corpus, with a different methodology. It is *not* comparable to the harness numbers and the two are deliberately not pooled; [`REPORT.md`](bench/origin/REPORT.md) explains why.
-- [`bench/origin/INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md) — how often the main false-positive mode actually fires, with real instances rather than constructed ones.
-- [`bench/malwarebazaar_survey/`](bench/malwarebazaar_survey/) — how much Rust malware is actually out there, measured rather than assumed.
+| | Precision | Recall |
+|---|---|---|
+| default (`--min-anchors 2`) | **90.5%** [87.5, 92.8] | 8.5% |
+| the same rule on held-out crates only | **89.4%** [86.2, 91.7] | — |
+| single-anchor functions (reported separately, lower tier) | 82.7% [78.4, 85.9] | 9.7% |
 
-**As of 2026-08-25:** PE is measured at the same corpus scale as ELF, on the identical
-39 crates — [`bench/pe_corpus/REPORT.md`](bench/pe_corpus/REPORT.md) and
-[`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md). The two formats' STRONG-tier
-precision is statistically indistinguishable, confirming the inline-absorption false
-positive below is one shared classifier bug, not a PE-specific defect. A second, fully
-independent 40-crate corpus ([`bench/corpus2_elf/REPORT.md`](bench/corpus2_elf/REPORT.md),
-[`bench/corpus2_pe/REPORT.md`](bench/corpus2_pe/REPORT.md)) confirmed this and R2, but
-**retracted** an earlier finding that R1/R3 hurt precision on PE — that result reversed sign
-on the second corpus and was corpus-composition-dependent, not a real PE limitation. Kept
-visible in the original reports with dated correction notes rather than silently edited away.
+Against a 6.1% base rate: naming a function author-written at random would be
+right 6% of the time.
 
-The validation is built to attack its own conclusions: two independent ground-truth rulers that disagree for a diagnosed reason, hypotheses registered before the data, a headline precision figure corrected downward once harder binaries were added, and one confidence tier shipped and then withdrawn when a cleaner measurement showed it was an artifact of the harness.
+Two things to read before trusting a number:
+
+- **Precision is workload-dependent.** It is strongest on synchronous
+  command-line and systems code and clearly weaker on async and heavily generic
+  code — which is the harder case, because real Rust malware skews async.
+- **Recall is partial by design**, and low by construction: the method can only
+  find functions that contain a crash-site. For signature generation that is
+  acceptable, since a few good seeds are enough.
+
+Build configuration matters too — optimisation level and codegen-unit count change
+what gets inlined, and so change what a function references. `bench/run1/REPORT.md`
+carries every rule against every configuration.
+
+The rule names in that report (`A@2`, `R1`, `C@0.70` and so on) grew during the
+search and are not self-describing. [`docs/rule-taxonomy.md`](docs/rule-taxonomy.md)
+is the index: what each one means, which feature family it draws on, and which
+predicate the shipped tool actually implements.
+
+The validation is built to attack its own conclusions: two independent ground-truth
+rulers that disagree for a diagnosed reason, hypotheses registered before the data,
+a headline precision figure corrected downward once harder binaries were added, and
+one confidence tier shipped and then withdrawn when a cleaner measurement showed it
+was an artifact of the harness. Superseded measurements are kept in `bench/` with
+dated correction notes rather than silently edited away.
 
 ## Limitations
 
-- **Functions that can't crash can't be found.** Pure computation and simple accessors have no crash-site to anchor on, so recall is partial by design. That's acceptable for signature generation, which needs a few good seeds rather than every function.
+- **Functions that can't crash can't be found.** Pure computation and simple accessors have no crash-site to anchor on, so recall is partial by design.
 - **Async and generic-heavy code is measurably weaker**, and that is irreducible in a stripped binary.
-- **A library function can absorb an author's inlined closure** and get misattributed as author code (`sort_by`, `rayon`, futures combinators). This is a property of the classifier, not of the file format — confirmed by measuring it independently on ELF and PE at matched corpus scale, same rate on both ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md) / [`bench/pe_corpus/REPORT.md`](bench/pe_corpus/REPORT.md)) — and it has no general fix yet. Also measured in [`INLINE_LEAK_INCIDENCE.md`](bench/origin/INLINE_LEAK_INCIDENCE.md).
+- **A library function can absorb an author's inlined closure** and get misattributed as author code (`sort_by`, `rayon`, futures combinators). This is a property of the classifier, not of the file format — it occurs at the same rate on ELF and PE — and it has no general fix yet.
 - **Code reached only indirectly** — through trait objects or function pointers — reads as library code, because the scan follows static call edges only.
 - **Defeated by packing and by `--remap-path-prefix`**, both of which real malware uses. Both are detected and reported rather than silently returning nothing. Nightly's `panic_immediate_abort` removes the metadata outright, but changes how the program behaves.
-- **x86-64 only — ELF and Windows PE**, auto-detected. PE is STRONG/SINGLE tier only: CALL-edge extraction exists now, but inferred/indeterminate tiering doesn't (needs a dep_boundary set and BFS propagation too, neither wired for PE yet), so every PE run still prints a disclosure banner. No Mach-O, no aarch64.
+- **x86-64 only — ELF and Windows PE**, auto-detected. PE is high-confidence/single tier only; the inferred and indeterminate buckets aren't wired for PE yet, so every PE run prints a disclosure banner. No Mach-O, no aarch64.
 - Most validation is on benign open-source programs. Malware testing has started, but the corpus is small.
 
-## In progress
-
-- **PE inferred/indeterminate tiering** — CALL-edge extraction landed (`PeImage::call_targets_in`), enough to compute R2 (caller-corroborated) for PE for the first time, but the BFS propagation and dep_boundary machinery `classify::attribute` uses for ELF's inferred/indeterminate buckets isn't wired for PE yet — STRONG/SINGLE only stays the shipped ceiling until it is.
-- **Mining the attribution rule from first principles** — deriving the classifier from the data instead of hand-tuning it, and checking candidate rules against held-out crates. Method, results, and the negative findings: [`bench/rulemine/REPORT.md`](bench/rulemine/REPORT.md). One result already shipped as an opt-in, on both ELF and PE: `--rule-r2` (`--json` required) measured at 92.95% STRONG precision vs the default rule's 86.76% on a matched ELF corpus ([`bench/elf_corpus/REPORT.md`](bench/elf_corpus/REPORT.md)), and 95.27% vs 90.01% pooled across two independent PE corpora ([`bench/corpus2_pe/REPORT.md`](bench/corpus2_pe/REPORT.md)) — off by default so the standard rule stays the reproducible one. Whether it becomes the default is still open. Two more candidate rules, `--min-size`/`--max-density`, are held-out validated on both formats too ([`bench/size_signal/REPORT.md`](bench/size_signal/REPORT.md)), though their effect size looks more corpus-dependent than R2's.
+An opt-in alternate rule (`--rule-r2`, `--json` required) trades recall for
+precision by requiring corroboration from a function's callers. It is off by
+default so the standard rule stays the reproducible one; see the taxonomy for what
+it computes.
 
 ## Prior work
 
-The core insight — that Rust embeds panic source-location metadata that survives `strip` and can be mined for authorship and dependencies — is not original to unhusk. SentinelLabs' Project 0xA11C ("Deoxidizing the Rust Hive," RECON 2024) demonstrated it as an IDAPython workflow. Cindy Xiao's ["Using panic metadata to recover source code information from Rust binaries"](https://cxiao.net/posts/2023-12-08-rust-reversing-panic-metadata/) is the write-up this tool's extraction is built on. unhusk automates the idea for x86-64 ELF without IDA, and adds what those don't have: a precision-ranked authorship classifier with a measured false-positive story and a stable JSON contract for downstream tooling.
+The core insight — that Rust embeds panic source-location metadata that survives `strip` and can be mined for authorship and dependencies — is not original to unhusk. SentinelLabs' Project 0xA11C ("Deoxidizing the Rust Hive," RECON 2024) demonstrated it as an IDAPython workflow. Cindy Xiao's ["Using panic metadata to recover source code information from Rust binaries"](https://cxiao.net/posts/2023-12-08-rust-reversing-panic-metadata/) is the write-up this tool's extraction is built on. unhusk automates the idea for x86-64 ELF and PE without IDA, and adds what those don't have: a precision-ranked authorship classifier with a measured false-positive story and a stable JSON contract for downstream tooling.
 
 Microsoft's RIFT solves the same separation from the opposite direction — it recognizes *library* code by recompiling the exact dependencies and matching them, leaving the author's code as the unlabeled remainder. unhusk is additive rather than subtractive: it marks the author directly, needs only the binary (no recompilation, no network, no signature corpus), and treats author bytes as a positive signal — a better fit for extracting signature seeds.
 

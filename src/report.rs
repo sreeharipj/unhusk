@@ -179,12 +179,13 @@ fn user_anchor_count(certain_locs: &crate::xref::CertainLocs, fn_start: u64) -> 
 /// Confidence tier of a certain (user-Location-anchored) function.
 ///
 /// The tiers are split purely by user-Location multiplicity (see `--min-anchors`).
-/// Pooled symbol-GT precision on the 34-binary corpus: Strong ~94%, Single ~80%.
+/// Precision on the run1 corpus (168 crates, default `cargo build --release`,
+/// measured 2026-09-04): Strong 90.5%, Single 82.7%. See `bench/run1/REPORT.md`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Tier {
-    /// ≥ min_anchors distinct user Locations (~94% pooled precision).
+    /// ≥ min_anchors distinct user Locations (90.5% precision).
     Strong,
-    /// 1 user Location (~80% pooled precision).
+    /// 1 user Location (82.7% precision).
     Single,
 }
 

@@ -5,10 +5,10 @@ matrix, one sealed split. Not paper prose; the numbers and what they mean for th
 outline.
 
 Sources: `REPORT.md` (all rules × slices), `results/mine1.json` (the search),
-`mine_gpu.log` (the deep GPU search + overfitting gauntlet; the run was killed
-in the confirmatory negative control after the verdict was already decided, so
-there is no `results/mine_gpu.json` yet — the funnel numbers below are from the
-log and `frontier_c1.json`),
+`mine_gpu.log` (local only, see the note below — the deep GPU search + overfitting
+gauntlet; the run was killed in the confirmatory negative control after the verdict
+was already decided, so there is no `results/mine_gpu.json` yet — the funnel numbers
+below are from the log and `frontier_c1.json`),
 `results/size_analysis.json` (recall in bytes, size-controlled precision, the
 OOF-logistic frontier — `pr_curve.py`),
 `results/frontier_c1.json` (**canonical** discrete-rule c1 ws Pareto table —
@@ -18,9 +18,13 @@ supersedes every hand-run frontier number),
 `frontier_test.py`),
 `results/token_budget.json` (whole-binary vs author-slice LLM token counts on
 wild Rust malware — `token_budget.py`, §4.5),
-`reconcile.log` (ceiling levers, RS90 decomposition,
+`reconcile.log` (local only; ceiling levers, RS90 decomposition,
 R3-vs-A@2 paired), `builds.csv`, `split.json` (sha `bcb9d72d…`), `STATUS.md`
-(build log / failures).
+(local only; build log / failures).
+
+Run logs, periodic healthchecks and `STATUS.md` are kept out of the repository as
+process noise (see `.gitignore`); every number they produced is quoted here or in
+`REPORT.md`, and `build_failures.tsv` carries the build-failure record.
 
 ---
 
@@ -29,7 +33,7 @@ R3-vs-A@2 paired), `builds.csv`, `split.json` (sha `bcb9d72d…`), `STATUS.md`
 | | |
 |---|---|
 | builds | 667 (c1 167 · c2 167 · c3 167 · c4 166) |
-| crates with data | 168 of 174 (~4% environmental attrition — see STATUS.md) |
+| crates with data | 168 of 174 (~4% environmental attrition — see `build_failures.tsv`) |
 | labelled functions | 14,625,936 |
 | author functions | 357,784 |
 

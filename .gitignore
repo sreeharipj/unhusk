@@ -4,6 +4,21 @@ realval/out/*.debug
 realval/out/*.stripped
 claude_run.log
 
+# Lab-notebook artifacts. The committed REPORTs and the CSV/JSON summaries are
+# the record; run logs, periodic healthchecks and the cron wrappers that drove
+# an overnight run are process noise and are kept local only.
+*.log
+**/HEALTHCHECK*
+**/healthcheck.sh
+**/wake_*.sh
+work/
+bench/run1/STATUS.md
+
+# Per-run raw JSON, one file per (crate, config, rule) cell. Fully superseded by
+# bench/origin/results.csv, which carries one row per file with the same fields;
+# regenerate with evaluate.py if they are ever needed again.
+bench/origin/results/
+
 __pycache__/
 *.pyc
 

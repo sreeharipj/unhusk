@@ -1,9 +1,0 @@
-tier A dev: 19,291 rows, 28 crates, 16,348 ws-pos in tier (global-recall ceiling 18.094%)
-atoms: 813 over 80 columns (5s)
-trust anchor 1: 813/813 atom columns match raw predicate
-  A@2                  here P=0.9228 R=0.2822 n= 4999   picks P=0.9228 n=4999
-  R1                   here P=0.9429 R=0.3444 n= 5972   picks P=0.9429 n=5972
-  R2                   here P=0.9567 R=0.2619 n= 4476   picks P=0.9567 n=4476
-  R3                   here P=0.9067 R=0.5536 n= 9982   picks P=0.9067 n=9982
-
-wrote /home/user/Videos/unhusk/bench/rulemine/optrules/results/o00_setup.json  (5.2s)

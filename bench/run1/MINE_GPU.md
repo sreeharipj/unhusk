@@ -5,7 +5,8 @@
 (1,328 atoms vs 877), and 175 resampled re-searches — and wraps the whole thing
 in an anti-overfitting gauntlet that RS90 fails at the first gate.
 
-Sources: `mine_gpu.log` (every stage — the run was killed in the confirmatory
+Sources: `mine_gpu.log` (kept local, not committed — run logs are process noise;
+every stage — the run was killed in the confirmatory
 negative control after the verdict was decided, so `results/mine_gpu.json` is
 not written yet; re-run `mine_gpu.py` with the memory-safe negative control to
 regenerate it). No candidates survived S1–S6, so there is nothing to
@@ -72,7 +73,7 @@ rules escape the anchored tier and fail CV.
 
 ---
 
-## Results  (from `mine_gpu.log`, 2026-09-01)
+## Results  (from `mine_gpu.log`, local, 2026-09-01)
 
 ### Baselines (this evaluator, search set = 131 crates c1–c3, ws)
 
