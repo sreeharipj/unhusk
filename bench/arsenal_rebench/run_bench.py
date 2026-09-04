@@ -10,14 +10,17 @@ Does not touch or copy the malware samples into the repo. Only adds owner-read
 same no-execute safety invariant the July run already enforced.
 """
 import json
+import os
 import re
 import subprocess
 import time
 from pathlib import Path
 
-ARSENAL = Path("/home/user/arsenal_run_20260712_2324")
-UNHUSK = Path("/home/user/Videos/unhusk/target/release/unhusk")
 HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+# The arsenal corpus lives outside the repository; point ARSENAL_DIR at it.
+ARSENAL = Path(os.environ.get("ARSENAL_DIR", Path.home() / "arsenal_run_20260712_2324"))
+UNHUSK = Path(os.environ.get("UNHUSK_BIN", REPO / "target" / "release" / "unhusk"))
 TIMEOUT = 60
 
 HEADLINE_RE = re.compile(

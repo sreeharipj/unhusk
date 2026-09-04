@@ -2,7 +2,7 @@
 # When the second V4 batch finishes: rebuild the V4 dataset and re-run every
 # analysis that reads it, then regenerate the report and the figure. The rules
 # are frozen in results/picks.json, so this adds binaries, not choices.
-cd /home/user/Videos/unhusk
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)" || exit 1
 while pgrep -f "build_v4.sh" >/dev/null; do sleep 30; done
 echo "=== V4 batch B done $(date -Is)"
 python3 bench/rulemine/build_dataset_aux.py --raw bench/rulemine/v4/raw \

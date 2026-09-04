@@ -30,7 +30,7 @@ import time
 import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-UA = "unhusk-bench corpus-selection (github.com/this-is-SPJ; sreehari.nitt@gmail.com)"
+UA = "unhusk-bench corpus-selection (github.com/sreeharipj/unhusk)"
 TARGET = 46
 PAGES = 14
 

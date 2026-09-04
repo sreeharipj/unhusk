@@ -12,7 +12,8 @@
 # left in $OUT/src/<name> so Cargo.lock can be read next to the binary it produced.
 set -u
 
-OUT="${1:-/home/user/Videos/unhusk/realval/corpus_src}"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+OUT="${1:-$REPO/realval/corpus_src}"
 WORK="$OUT/src"
 mkdir -p "$OUT" "$WORK"
 

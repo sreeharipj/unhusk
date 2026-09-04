@@ -8,7 +8,7 @@
 # Idempotent: safe to re-run. Re-running only redoes work whose inputs changed.
 set -u
 
-cd /home/user/Videos/unhusk || exit 1
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 1
 R=realval
 LOG="$R/run_all.log"
 exec > >(tee -a "$LOG") 2>&1
